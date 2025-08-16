@@ -8,7 +8,7 @@ public class Piper {
     public static void main(String[] args) {
         final String CHATBOT_NAME = "Piper";
         Ui ui = new Ui(CHATBOT_NAME);
-        TaskList taskList = new TaskList();
+        TaskList tasks = new TaskList();
         boolean exit = false;
 
         ui.greetUser();
@@ -20,8 +20,12 @@ public class Piper {
                 exit = true;
             } else if (userInput.equals("list")) {
                 // list tasks
+                ui.displayTasks(tasks);
             } else {
                 // add new task
+                Task task = new Task(userInput);
+                tasks.addTask(task);
+                ui.showAddedTask(task);
             }
         }
         ui.close();

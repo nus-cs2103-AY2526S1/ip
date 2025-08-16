@@ -1,6 +1,9 @@
 package piper.ui;
 
 import java.util.Scanner;
+import java.util.ArrayList;
+import piper.task.TaskList;
+import piper.task.Task;
 
 public class Ui {
     private final String chatbotName;
@@ -64,6 +67,16 @@ public class Ui {
         System.out.println(
                 "Til next time!\n" + ascii_Exit
         );
+    }
+
+    public void showAddedTask(Task task) {
+        System.out.println("added: " + task);
+    }
+
+    public void displayTasks(TaskList tasks) {
+        for (int i = 0; i < tasks.getSize(); i++) {
+            System.out.println((i + 1) + ". " + tasks.getTask(i));
+        }
     }
 
 }

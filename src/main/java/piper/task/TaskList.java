@@ -9,11 +9,20 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    public int getSize() {
+        return tasks.size();
+    }
+
     public void addTask(Task task) {
         tasks.add(task);
+    }
+
+    public Task getTask(int index) {
+        return tasks.get(index);
     }
 
     public ArrayList<Task> getTasks() {
         return tasks;
     }
+
 }
