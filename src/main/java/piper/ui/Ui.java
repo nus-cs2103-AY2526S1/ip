@@ -78,7 +78,7 @@ public class Ui {
                 ((task.getStatusIcon()).equals("X")
                         ? "Nice! I've marked this task as done:\n"
                         : "OK, I've marked this task as not done yet:\n") +
-                        "   [" + task.getStatusIcon() + "] " + task
+                        task
         );
     }
 
@@ -86,9 +86,7 @@ public class Ui {
         for (int i = 0; i < tasks.getSize(); i++) {
             Task task = tasks.getTask(i);
             System.out.println(
-                    (i + 1) + "." +
-                            "[" + task.getStatusIcon() + "] " +
-                            task
+                    (i + 1) + "." + task
             );
         }
     }
