@@ -13,8 +13,12 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public void markDone(){
+    public void markDone() {
         this.isDone = true;
+    }
+
+    public void markUndone() {
+        this.isDone = false;
     }
 
     @Override

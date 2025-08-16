@@ -21,14 +21,22 @@ public class Piper {
             } else if (userInput.equals("list")) {
                 // list all tasks
                 ui.displayTasks(tasks);
-            } else if (userInput.startsWith("mark ")) {
-                // mark task as done
-                String numberSubstring = userInput.substring(5); // get index of task to mark as done
+            } else if (userInput.startsWith("mark ") || userInput.startsWith("unmark ")) {
+                // mark task as done or undone
+
+                String[] substrings = userInput.split(" ", 2); // split user input into action substring nd task index substring
+                String actionSubstring = substrings[0];
+                String numberSubstring = substrings[1];
                 int taskNumber = Integer.parseInt(numberSubstring);
                 int index = taskNumber - 1; // task list starts from index 1 but array list starts from index 0
 
                 Task task = tasks.getTask(index);
-                task.markDone();
+                if (actionSubstring.equals("mark")) {
+                    task.markDone();
+                } else if (actionSubstring.equals("unmark")) {
+                    task.markUndone();
+                }
+
                 ui.showTaskStatus(task);
             } else {
                 // add new task
