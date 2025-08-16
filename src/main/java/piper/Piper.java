@@ -1,11 +1,14 @@
 package piper;
 
 import piper.ui.Ui;
+import piper.task.TaskList;
+import piper.task.Task;
 
 public class Piper {
     public static void main(String[] args) {
         final String CHATBOT_NAME = "Piper";
         Ui ui = new Ui(CHATBOT_NAME);
+        TaskList taskList = new TaskList();
         boolean exit = false;
 
         ui.greetUser();
@@ -15,9 +18,12 @@ public class Piper {
             if (userInput.equals("bye")) { // user is inactive
                 ui.farewellUser();
                 exit = true;
+            } else if (userInput.equals("list")) {
+                // list tasks
             } else {
-                ui.echoUser(userInput);
+                // add new task
             }
         }
+        ui.close();
     }
 }
