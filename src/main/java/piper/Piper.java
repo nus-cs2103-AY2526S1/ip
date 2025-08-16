@@ -19,8 +19,17 @@ public class Piper {
                 ui.farewellUser();
                 exit = true;
             } else if (userInput.equals("list")) {
-                // list tasks
+                // list all tasks
                 ui.displayTasks(tasks);
+            } else if (userInput.startsWith("mark ")) {
+                // mark task as done
+                String numberSubstring = userInput.substring(5); // get index of task to mark as done
+                int taskNumber = Integer.parseInt(numberSubstring);
+                int index = taskNumber - 1; // task list starts from index 1 but array list starts from index 0
+
+                Task task = tasks.getTask(index);
+                task.markDone();
+                ui.showTaskStatus(task);
             } else {
                 // add new task
                 Task task = new Task(userInput);
