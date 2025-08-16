@@ -76,9 +76,15 @@ public class Ui {
     public void showTaskStatus(Task task) {
         System.out.println(
                 ((task.getStatusIcon()).equals("X")
-                        ? "Nice! I've marked this task as done:\n"
+                        ? "Got it. I've added this task:\n"
                         : "OK, I've marked this task as not done yet:\n") +
                         task
+        );
+    }
+
+    public void getTasksSize(TaskList tasks) {
+        System.out.println(
+                "Now you have " + tasks.getSize() + " tasks in the list."
         );
     }
 
