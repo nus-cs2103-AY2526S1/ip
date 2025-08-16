@@ -1,10 +1,12 @@
 public class Zell {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String greetingMessage =
+                "____________________________________________________________\n" +
+                " Hello! My name is Zell\n" +
+                " How can I help you?\n" +
+                "____________________________________________________________\n" +
+                " Goodbye. Hope to see you again soon!\n" +
+                "____________________________________________________________";
+        System.out.println(greetingMessage);
     }
 }
