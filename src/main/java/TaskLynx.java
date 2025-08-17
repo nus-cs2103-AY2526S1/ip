@@ -25,6 +25,26 @@ public class TaskLynx {
         System.out.println(LINE);
     }
 
+    public static void scanForCommands() {
+        Scanner scanner = new Scanner(System.in);
+        String input;
+        System.out.println("Tasklynx is ready. Type your command:");
+
+        while (true) {
+            input = scanner.nextLine().trim();
+            printBox(input);
+
+            if (input.equalsIgnoreCase("bye")) {
+                break;
+            }
+        }
+        scanner.close();
+    }
+
+    private static void printBox(String message) {
+        System.out.println(LINE);
+        System.out.println("     " + message);
+        System.out.println(LINE);
     }
 
 }
