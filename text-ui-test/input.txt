@@ -1,0 +1,19 @@
+list
+task1
+todo task1
+deadline task2
+deadline task2 /by deadline
+event task3
+event task3 /from start
+event task3 /to end
+event task3 /from start /to end
+list
+mark 1
+list
+unmark 1
+list
+mark 0
+mark id:0
+mark id:1
+list
+bye

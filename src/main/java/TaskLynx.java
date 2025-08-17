@@ -22,7 +22,7 @@ public class TaskLynx {
     }
 
     public static void bye() {
-        printBox("Goodbye. I’ll be here whenever you need to stay on track.");
+        printBox("Goodbye. I'll be here whenever you need to stay on track.");
     }
 
     public static void scanForCommands() {
@@ -76,7 +76,7 @@ public class TaskLynx {
                 COMMANDS.add(task);
                 printBox("Added:\n     " + task + "\nNow you have " + COMMANDS.size() + " tasks in the list.");
             } else if (!input.isEmpty()) {
-                printBox("Sorry, I didn’t understand that command. Please try again or type 'list' to see available tasks.");
+                printBox("Sorry, I didn't understand that command. Please try again or type 'list' to see available tasks.");
             }
         }
 

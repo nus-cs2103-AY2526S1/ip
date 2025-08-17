@@ -16,6 +16,7 @@ bin/
 # Extra Stuff
 **/Extras
 ReadAsciiArt.java
+output.txt
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
