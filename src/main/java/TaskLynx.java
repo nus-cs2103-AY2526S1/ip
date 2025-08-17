@@ -40,6 +40,10 @@ public class TaskLynx {
                 break;
             } else if (input.equalsIgnoreCase("list")) {
                 printListBox(COMMANDS);
+            } else if (input.startsWith("mark ")) {
+                handleMarkUnmark(input.substring(5), true);
+            } else if (input.startsWith("unmark ")) {
+                handleMarkUnmark(input.substring(7), false);
             } else if (!input.isEmpty()) {
                 Task newTask = new Task(input, "");
                 COMMANDS.add(newTask);
@@ -50,6 +54,53 @@ public class TaskLynx {
         scanner.close();
     }
 
+    private static void handleMarkUnmark(String arg, boolean mark) {
+        Task task = null;
+
+        arg = arg.trim();
+        if (arg.startsWith("id:")) {
+            // Mark by unique ID
+            try {
+                int id = Integer.parseInt(arg.substring(3).trim());
+                for (Task t : COMMANDS) {
+                    if (t.getId() == id) {
+                        task = t;
+                        break;
+                    }
+                }
+            } catch (NumberFormatException e) {
+                printBox("Sorry, that isn't a valid ID.");
+                return;
+            }
+        } else {
+            // Mark by position in list
+            try {
+                int pos = Integer.parseInt(arg);
+                if (pos < 1 || pos > COMMANDS.size()) {
+                    printBox("Sorry, no task at that position.");
+                    return;
+                }
+                task = COMMANDS.get(pos - 1);
+            } catch (NumberFormatException e) {
+                printBox("Please provide a valid position number.");
+                return;
+            }
+        }
+
+        if (task == null) {
+            printBox("Task not found.");
+            return;
+        }
+
+        if (mark) {
+            task.setCompleted();
+            printBox("Excellent! Marked as done:\n     " + task.toString());
+        } else {
+            task.resetCompleted();
+            printBox("Alright, marked as not done:\n     " + task.toString());
+        }
+    }
+
     private static void printBox(String message) {
         System.out.println(LINE);
         System.out.println("     " + message);
@@ -58,7 +109,7 @@ public class TaskLynx {
 
     private static void printListBox(ArrayList<Task> commands) {
         System.out.println(LINE);
-        System.out.println("List: ");
+        System.out.println("Here are the tasks in your list:");
         if (commands.isEmpty()) {
             System.out.println("     (No tasks yet)");
         }
