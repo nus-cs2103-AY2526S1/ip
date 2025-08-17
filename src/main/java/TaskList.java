@@ -21,6 +21,10 @@ public class TaskList {
         this.tasks.get(index - 1).setNotDone();
     }
 
+    public Task getTask(int index) {
+        return this.tasks.get(index - 1);
+    }
+
     public String listAllTasks() {
         StringBuilder stringBuilder = new StringBuilder();
 
