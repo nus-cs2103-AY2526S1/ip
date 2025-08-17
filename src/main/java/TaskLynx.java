@@ -5,7 +5,7 @@ public class TaskLynx {
 
     private static final String NAME = "TaskLynx";
     private static final String LINE = "____________________________________________________________";
-    private static final ArrayList<String> COMMANDS = new ArrayList<>(100);
+    private static final ArrayList<Task> COMMANDS = new ArrayList<>(100);
 
     public static void main(String[] args) {
         hello();
@@ -41,8 +41,9 @@ public class TaskLynx {
             } else if (input.equalsIgnoreCase("list")) {
                 printListBox(COMMANDS);
             } else if (!input.isEmpty()) {
-                COMMANDS.add(input);
-                printBox("added: " + input);
+                Task newTask = new Task(input, "");
+                COMMANDS.add(newTask);
+                printBox("added: " + newTask.toString());
             }
         }
 
@@ -55,14 +56,14 @@ public class TaskLynx {
         System.out.println(LINE);
     }
 
-    private static void printListBox(ArrayList<String> commands) {
+    private static void printListBox(ArrayList<Task> commands) {
         System.out.println(LINE);
         System.out.println("List: ");
         if (commands.isEmpty()) {
             System.out.println("     (No tasks yet)");
         }
         for (int i = 0; i < commands.size(); i++) {
-            System.out.println("     " + (i+1) + ". " + commands.get(i));
+            System.out.println("     " + (i+1) + "." + commands.get(i));
         }
         System.out.println(LINE);
     }
