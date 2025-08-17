@@ -1,6 +1,12 @@
 public class TaskLynx {
+
+    private static final String chatbotName = "TaskLynx";
+
     public static void main(String[] args) {
-        String chatbotName = "TaskLynx";
+        greeting();
+    }
+
+    public static void greeting() {
         String line = "____________________________________________________________";
         System.out.println(line);
         System.out.println("Hello! I'm " + chatbotName + ".");
@@ -11,5 +17,6 @@ public class TaskLynx {
         System.out.println("Goodbye. I’ll be here whenever you need to stay on track.");
         System.out.println(line);
     }
+
 }
 
