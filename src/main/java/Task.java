@@ -10,6 +10,11 @@ public class Task {
     public void toggleIsDone() {
         this.isDone = !this.isDone;
     }
+
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
     @Override
     public String toString() {
         return this.name;
