@@ -30,7 +30,6 @@ public class TaskList {
 
         for (int i = 0; i < this.tasks.size(); i++) {
             Task currentTask = this.tasks.get(i);
-            String checked = currentTask.getIsDone() ? "X" : " ";
             String taskFormatted = String.format(" %d. %s\n", i + 1, currentTask);
             stringBuilder.append(taskFormatted);
         }
