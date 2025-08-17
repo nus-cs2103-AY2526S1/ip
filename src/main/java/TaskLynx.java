@@ -1,9 +1,11 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class TaskLynx {
 
     private static final String NAME = "TaskLynx";
     private static final String LINE = "____________________________________________________________";
+    private static final ArrayList<String> COMMANDS = new ArrayList<>(100);
 
     public static void main(String[] args) {
         hello();
@@ -32,18 +34,36 @@ public class TaskLynx {
 
         while (true) {
             input = scanner.nextLine().trim();
-            printBox(input);
 
             if (input.equalsIgnoreCase("bye")) {
+                printBox("Bye. Hope to see you again soon!");
                 break;
+            } else if (input.equalsIgnoreCase("list")) {
+                printListBox(COMMANDS);
+            } else if (!input.isEmpty()) {
+                COMMANDS.add(input);
+                printBox("added: " + input);
             }
         }
+
         scanner.close();
     }
 
     private static void printBox(String message) {
         System.out.println(LINE);
         System.out.println("     " + message);
+        System.out.println(LINE);
+    }
+
+    private static void printListBox(ArrayList<String> commands) {
+        System.out.println(LINE);
+        System.out.println("List: ");
+        if (commands.isEmpty()) {
+            System.out.println("     (No tasks yet)");
+        }
+        for (int i = 0; i < commands.size(); i++) {
+            System.out.println("     " + (i+1) + ". " + commands.get(i));
+        }
         System.out.println(LINE);
     }
 
