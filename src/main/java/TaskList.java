@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.lang.StringBuilder;
 
 public class TaskList {
     private List<Task> tasks;
@@ -12,9 +13,13 @@ public class TaskList {
         this.tasks.add(new Task(name));
     }
 
-    public void listAllTasks () {
+    public String listAllTasks () {
+        StringBuilder stringBuilder = new StringBuilder();
+
         for (int i = 0; i < this.tasks.size(); i++) {
-            System.out.printf("%d. %s", i + 1, this.tasks.get(i));
+            stringBuilder.append(String.format(" %d. %s", i + 1, this.tasks.get(i)));
         }
+
+        return stringBuilder.toString();
     }
 }
