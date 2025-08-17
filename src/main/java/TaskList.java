@@ -13,6 +13,14 @@ public class TaskList {
         this.tasks.add(new Task(name));
     }
 
+    public void markTaskAsDone(int index) {
+        this.tasks.get(index - 1).setDone();
+    }
+
+    public void markTaskAsNotDone(int index) {
+        this.tasks.get(index - 1).setNotDone();
+    }
+
     public String listAllTasks () {
         StringBuilder stringBuilder = new StringBuilder();
 
