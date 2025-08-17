@@ -7,8 +7,12 @@ public class Task {
         this.isDone = false;
     }
 
-    public void toggleIsDone() {
-        this.isDone = !this.isDone;
+    public void setDone() {
+        this.isDone = true;
+    }
+
+    public void setNotDone() {
+        this.isDone = false;
     }
 
     public boolean getIsDone() {
