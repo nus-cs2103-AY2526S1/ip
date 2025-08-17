@@ -10,7 +10,6 @@ public class TaskLynx {
     public static void main(String[] args) {
         hello();
         scanForCommands();
-        bye();
     }
 
     public static void hello() {
@@ -23,8 +22,7 @@ public class TaskLynx {
     }
 
     public static void bye() {
-        System.out.println("Goodbye. I’ll be here whenever you need to stay on track.");
-        System.out.println(LINE);
+        printBox("Goodbye. I’ll be here whenever you need to stay on track.");
     }
 
     public static void scanForCommands() {
@@ -36,7 +34,7 @@ public class TaskLynx {
             input = scanner.nextLine().trim();
 
             if (input.equalsIgnoreCase("bye")) {
-                printBox("Bye. Hope to see you again soon!");
+                bye();
                 break;
             } else if (input.equalsIgnoreCase("list")) {
                 printListBox(COMMANDS);
@@ -44,10 +42,41 @@ public class TaskLynx {
                 handleMarkUnmark(input.substring(5), true);
             } else if (input.startsWith("unmark ")) {
                 handleMarkUnmark(input.substring(7), false);
+            } else if (input.startsWith("todo ")) {
+                String name = input.substring(5).trim();
+                Task task = new TodoTask(name);
+                COMMANDS.add(task);
+                printBox("Added:\n     " + task + "\nNow you have " + COMMANDS.size() + " tasks in the list.");
+            } else if (input.startsWith("deadline ")) {
+                String[] parts = input.substring(9).split("/by", 2);
+                if (parts.length < 2) {
+                    printBox("Please specify a deadline using '/by'.");
+                    continue;
+                }
+                String name = parts[0].trim();
+                String by = parts[1].trim();
+                Task task = new DeadlineTask(name, by);
+                COMMANDS.add(task);
+                printBox("Added:\n     " + task + "\nNow you have " + COMMANDS.size() + " tasks in the list.");
+            } else if (input.startsWith("event ")) {
+                String[] nameSplit = input.substring(6).split("/from", 2);
+                if (nameSplit.length < 2) {
+                    printBox("Please specify a start time using '/from'.");
+                    continue;
+                }
+                String name = nameSplit[0].trim();
+                String[] timeSplit = nameSplit[1].split("/to", 2);
+                if (timeSplit.length < 2) {
+                    printBox("Please specify an end time using '/to'.");
+                    continue;
+                }
+                String from = timeSplit[0].trim();
+                String to = timeSplit[1].trim();
+                Task task = new EventTask(name, from, to);
+                COMMANDS.add(task);
+                printBox("Added:\n     " + task + "\nNow you have " + COMMANDS.size() + " tasks in the list.");
             } else if (!input.isEmpty()) {
-                Task newTask = new Task(input, "");
-                COMMANDS.add(newTask);
-                printBox("added: " + newTask.toString());
+                printBox("Sorry, I didn’t understand that command. Please try again or type 'list' to see available tasks.");
             }
         }
 
@@ -103,7 +132,7 @@ public class TaskLynx {
 
     private static void printBox(String message) {
         System.out.println(LINE);
-        System.out.println("     " + message);
+        System.out.println(message);
         System.out.println(LINE);
     }
 
