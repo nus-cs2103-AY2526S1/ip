@@ -9,7 +9,7 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public void addTask (String name) {
+    public void addTask(String name) {
         this.tasks.add(new Task(name));
     }
 
@@ -21,7 +21,7 @@ public class TaskList {
         this.tasks.get(index - 1).setNotDone();
     }
 
-    public String listAllTasks () {
+    public String listAllTasks() {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = 0; i < this.tasks.size(); i++) {
