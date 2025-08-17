@@ -21,6 +21,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", this.isDone, this.name);
+        String checked = this.isDone ? "X" : " ";
+        return String.format("[%s] %s", checked, this.name);
     }
 }
