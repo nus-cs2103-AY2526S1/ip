@@ -1,8 +1,10 @@
 import java.util.Scanner;
 
 public class ChatLoop {
-    public ChatLoop() {
+    private TaskList taskList;
 
+    public ChatLoop() {
+        this.taskList = new TaskList();
     }
 
     public void run() {
@@ -18,8 +20,12 @@ public class ChatLoop {
                 printFormattedMessage("Goodbye. Hope to see you again soon!");
                 isFinished = true;
                 break;
+            case "list":
+                printFormattedMessage(this.taskList.listAllTasks());
+                break;
             default:
-                printFormattedMessage(userInput);
+                this.taskList.addTask(userInput);
+                printFormattedMessage("added: " + userInput);
                 break;
             }
         }
@@ -27,7 +33,7 @@ public class ChatLoop {
 
     public void printFormattedMessage(String message) {
         String formattedMessage =
-                "____________________________________________________________\n " +
+                "____________________________________________________________\n" +
                         message +
                 "\n____________________________________________________________\n\n";
 
