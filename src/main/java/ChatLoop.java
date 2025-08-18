@@ -2,12 +2,10 @@ import java.util.Scanner;
 
 public class ChatLoop {
     private TaskList taskList;
-    private String userInput;
     private boolean isFinished;
 
     public ChatLoop() {
         this.taskList = new TaskList();
-        this.userInput = "";
         this.isFinished = false;
     }
 
@@ -16,9 +14,9 @@ public class ChatLoop {
 
         printFormattedMessage("Hello! My name is Zell\n How can I help you?");
 
-        while (!isFinished) {
-            this.userInput = scanner.nextLine();
-            handleCommand();
+        while (!this.isFinished) {
+            String userInput = scanner.nextLine();
+            handleUserInput(userInput);
         }
     }
 
@@ -31,11 +29,10 @@ public class ChatLoop {
         System.out.println(formattedMessage);
     }
 
-    public void handleCommand() {
-        String[] userInputSplit =this.userInput.split(" ");
+    public void handleUserInput(String userInput) {
+        int firstSpaceIndex = userInput.indexOf(" ");
 
-        // Handle invalid command
-        String command = userInputSplit[0];
+        String command = firstSpaceIndex != -1 ? userInput.substring(0, firstSpaceIndex) : userInput;
 
         switch (command) {
         case "bye":
@@ -48,17 +45,13 @@ public class ChatLoop {
         case "mark":
             // Fallthrough
         case "unmark":
-            // Handle if index is missing
-            if (userInputSplit.length < 2) {
-
-            }
-
             int index = 0;
 
+            // Handle exception if it is not an int
             try {
-                index = Integer.parseInt(userInputSplit[1]);
+                index = Integer.parseInt(userInput.substring(firstSpaceIndex + 1));
             } catch (NumberFormatException e) {
-                // Handle exception
+
             }
 
             Task currentTask = this.taskList.getTask(index);
@@ -72,8 +65,8 @@ public class ChatLoop {
 
             break;
         default:
-            this.taskList.addTask(this.userInput);
-            printFormattedMessage("added: " + this.userInput);
+            this.taskList.addTask(userInput);
+            printFormattedMessage("added: " + userInput);
             break;
         }
     }
