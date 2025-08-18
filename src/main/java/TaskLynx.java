@@ -11,9 +11,6 @@ public class TaskLynx {
         LynxUI.line();
         System.out.println("Hello! I'm Tasklynx.");
         System.out.println("Your dependable assistant for tracking tasks, managing deadlines, and keeping your work organized.");
-        LynxUI.line();
-        System.out.println("How can I assist you with your tasks today?");
-        LynxUI.line();
     }
 
     public static void bye() {
@@ -23,7 +20,7 @@ public class TaskLynx {
     public static void scanForCommands() {
         Scanner scanner = new Scanner(System.in);
         String input;
-        System.out.println("Tasklynx is ready. Type your command:");
+        LynxUI.printBox("How can I assist you with your tasks today? \nTasklynx is ready. Type your command:");
 
         while (true) {
             input = scanner.nextLine().trim();
@@ -35,15 +32,9 @@ public class TaskLynx {
                 } else if (input.equalsIgnoreCase("list")) {
                     TaskManager.printListBox();
                 } else if (input.startsWith("mark")) {
-                    if (input.length() <= 4) {
-                        throw new MissingArgumentException("mark");
-                    }
-                    TaskManager.handleMarkUnmark(input.substring(5), true);
+                    TaskManager.markTask(input);
                 } else if (input.startsWith("unmark")) {
-                    if (input.length() <= 6) {
-                        throw new MissingArgumentException("unmark");
-                    }
-                    TaskManager.handleMarkUnmark(input.substring(7), false);
+                    TaskManager.unmarkTask(input);
                 } else if (input.startsWith("todo")) {
                     TaskManager.addTodo(input);
                 } else if (input.startsWith("deadline")) {
@@ -54,7 +45,7 @@ public class TaskLynx {
                     throw new LynxException("Sorry, I didn't understand that command. Please try again or type 'list' to see available tasks.");
                 }
             } catch (LynxException e) {
-                System.out.println(e.getMessage());
+                LynxUI.printBox(e.getMessage());
             }
         }
 

@@ -48,18 +48,34 @@ public class TaskManager {
         LynxUI.printBox("Added:\n     " + task + "\nNow you have " + COMMANDS.size() + " tasks in the list.");
     }
 
-    public static void handleMarkUnmark(String arg, boolean mark) throws LynxException {
-        Task task = null;
+    public static void markTask(String input) throws LynxException {
+        if (input.length() <= 4) {
+            throw new MissingArgumentException("mark");
+        }
+        input = input.substring(5).trim();
+        Task task = findTask(input);
+        task.setCompleted();
+        LynxUI.printBox("Excellent! Marked as done:\n     " + task.toString());
+    }
 
-        arg = arg.trim();
-        if (arg.startsWith("id:")) {
+    public static void unmarkTask(String input) throws LynxException {
+        if (input.length() <= 6) {
+            throw new MissingArgumentException("unmark");
+        }
+        input = input.substring(7).trim();
+        Task task = findTask(input);
+        task.resetCompleted();
+        LynxUI.printBox("Alright, marked as not done:\n     " + task.toString());
+    }
+
+    private static Task findTask(String input) throws LynxException {
+        if (input.startsWith("id:")) {
             // Mark by unique ID
             try {
-                int id = Integer.parseInt(arg.substring(3).trim());
+                int id = Integer.parseInt(input.substring(3).trim());
                 for (Task t : COMMANDS) {
                     if (t.getId() == id) {
-                        task = t;
-                        break;
+                        return t;
                     }
                 }
             } catch (NumberFormatException e) {
@@ -68,27 +84,16 @@ public class TaskManager {
         } else {
             // Mark by position in list
             try {
-                int pos = Integer.parseInt(arg);
+                int pos = Integer.parseInt(input);
                 if (pos < 1 || pos > COMMANDS.size()) {
                     throw new LynxException("Sorry, no task at that position.");
                 }
-                task = COMMANDS.get(pos - 1);
+                return COMMANDS.get(pos - 1);
             } catch (NumberFormatException e) {
                 throw new LynxException("Please provide a valid position number.");
             }
         }
-
-        if (task == null) {
-            throw new LynxException("Task not found.");
-        }
-
-        if (mark) {
-            task.setCompleted();
-            LynxUI.printBox("Excellent! Marked as done:\n     " + task.toString());
-        } else {
-            task.resetCompleted();
-            LynxUI.printBox("Alright, marked as not done:\n     " + task.toString());
-        }
+        throw new LynxException("Task not found.");
     }
 
     public static void printListBox() {
