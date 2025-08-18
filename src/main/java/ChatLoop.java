@@ -33,14 +33,16 @@ public class ChatLoop {
         int firstSpaceIndex = userInput.indexOf(" ");
 
         String command = firstSpaceIndex != -1 ? userInput.substring(0, firstSpaceIndex) : userInput;
+        StringBuilder stringBuilder = new StringBuilder();
 
         switch (command) {
         case "bye":
-            printFormattedMessage("Goodbye. Hope to see you again soon!");
+            stringBuilder.append("Goodbye. Hope to see you again soon!");
             this.isFinished = true;
             break;
         case "list":
-            printFormattedMessage(this.taskList.listAllTasks());
+            stringBuilder.append("Currently you have added this tasks to your list:\n");
+            stringBuilder.append(this.taskList.listAllTasks());
             break;
         case "mark":
             // Fallthrough
@@ -57,17 +59,17 @@ public class ChatLoop {
             Task currentTask = this.taskList.getTask(index);
             if (command.equals("mark")) {
                 this.taskList.markTaskAsDone(index);
-                printFormattedMessage("Nice! I've marked this task as done:\n " + currentTask);
+                stringBuilder.append("Nice! I've marked this task as done:\n ");
             } else {
                 this.taskList.markTaskAsNotDone(index);
-                printFormattedMessage("OK, I've marked this task as not done yet:\n " + currentTask);
+                stringBuilder.append("OK, I've marked this task as not done yet:\n ");
             }
-
+            stringBuilder.append(currentTask);
             break;
         default:
-            this.taskList.addTask(userInput);
-            printFormattedMessage("added: " + userInput);
             break;
         }
+
+        printFormattedMessage(stringBuilder.toString());
     }
 }
