@@ -84,6 +84,14 @@ public class ChatLoop {
 
             if (command.equals("todo")) {
                 task = new ToDo(userInputSecondHalf);
+            } else if (command.equals("deadline")) {
+                String splitBy = " /by ";
+                int firstByIndex = userInputSecondHalf.indexOf(splitBy); // Handle exception if missing; -1
+
+                String name = userInputSecondHalf.substring(0, firstByIndex);
+                String dueBy = userInputSecondHalf.substring(firstByIndex + splitBy.length());
+
+                task = new Deadline(name, dueBy);
             }
 
             this.taskList.addTask(task);
