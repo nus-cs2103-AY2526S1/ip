@@ -1,25 +1,44 @@
 public abstract class Task {
+
+    public enum TaskType {
+        TODO("[T]"),
+        DEADLINE("[D]"),
+        EVENT("[E]");
+        private final String symbol;
+        TaskType(String symbol) { this.symbol = symbol; }
+        public String getSymbol() { return symbol; }
+    }
+
+    public enum Status {
+        COMPLETE("[X]"),
+        INCOMPLETE("[ ]");
+        private final String symbol;
+        Status(String symbol) { this.symbol = symbol; }
+        public String getSymbol() { return symbol; }
+    }
+
     protected static int currId = 0;
     protected final int id;
     protected String name;
-    protected boolean completed = false;
+    protected Status status = Status.INCOMPLETE;
+    protected TaskType type;
 
-    public Task(String name) {
+    public Task(String name, TaskType type) {
         currId += 1;
         this.id = currId;
         this.name = name;
+        this.type = type;
     }
 
     public int getId() { return id; }
     public String getName() { return name; }
-    public boolean isCompleted() { return completed; }
-    public void setCompleted() { this.completed = true; }
-    public void resetCompleted() { this.completed = false; }
-
-    // Markers for subclasses to override
-    public abstract String getTypeSymbol();
+    public TaskType getType() {return type; }
+    public Status getStatus() {return status; }
+    public void setCompleted() { this.status = Status.COMPLETE; }
+    public void resetCompleted() { this.status = Status.INCOMPLETE; }
 
     // Each subclass has its own toString
     @Override
     public abstract String toString();
+
 }
