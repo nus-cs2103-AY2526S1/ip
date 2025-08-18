@@ -5,6 +5,7 @@ public class TaskLynx {
     public static void main(String[] args) {
         hello();
         scanForCommands();
+        bye();
     }
 
     public static void hello() {
@@ -27,7 +28,6 @@ public class TaskLynx {
 
             try {
                 if (input.equalsIgnoreCase("bye")) {
-                    bye();
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
                     TaskManager.printListBox();

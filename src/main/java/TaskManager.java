@@ -103,10 +103,9 @@ public class TaskManager {
         input = input.substring(7).trim();
         Task task = findTask(input);
         COMMANDS.remove(task);
-        LynxUI.printBox("Noted. I've removed this task:\n     " + task +
+        LynxUI.printBox("Removed:\n     " + task +
                 "\nNow you have " + COMMANDS.size() + " tasks in the list.");
     }
-
 
     public static void printListBox() {
         LynxUI.line();
