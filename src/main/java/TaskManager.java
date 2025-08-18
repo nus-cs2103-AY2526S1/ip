@@ -96,6 +96,18 @@ public class TaskManager {
         throw new LynxException("Task not found.");
     }
 
+    public static void deleteTask(String input) throws LynxException {
+        if (input.length() <= 6) {
+            throw new MissingArgumentException("delete");
+        }
+        input = input.substring(7).trim();
+        Task task = findTask(input);
+        COMMANDS.remove(task);
+        LynxUI.printBox("Noted. I've removed this task:\n     " + task +
+                "\nNow you have " + COMMANDS.size() + " tasks in the list.");
+    }
+
+
     public static void printListBox() {
         LynxUI.line();
         System.out.println("Here are the tasks in your list:");

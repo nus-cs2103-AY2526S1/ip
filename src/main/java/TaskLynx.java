@@ -35,6 +35,8 @@ public class TaskLynx {
                     TaskManager.markTask(input);
                 } else if (input.startsWith("unmark")) {
                     TaskManager.unmarkTask(input);
+                } else if (input.startsWith("delete")) {
+                    TaskManager.deleteTask(input);
                 } else if (input.startsWith("todo")) {
                     TaskManager.addTodo(input);
                 } else if (input.startsWith("deadline")) {
