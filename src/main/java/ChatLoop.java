@@ -12,21 +12,12 @@ public class ChatLoop {
     public void run() {
         Scanner scanner = new Scanner(System.in);
 
-        printFormattedMessage("Hello! My name is Zell\n How can I help you?");
+        FormatMessage.print("Hello! My name is Zell\n How can I help you?");
 
         while (!this.isFinished) {
             String userInput = scanner.nextLine();
             handleUserInput(userInput);
         }
-    }
-
-    public void printFormattedMessage(String message) {
-        String formattedMessage =
-                "____________________________________________________________\n" +
-                        message +
-                "\n____________________________________________________________\n\n";
-
-        System.out.println(formattedMessage);
     }
 
     public void handleUserInput(String userInput) {
@@ -123,6 +114,6 @@ public class ChatLoop {
             break;
         }
 
-        printFormattedMessage(stringBuilder.toString());
+        FormatMessage.print(stringBuilder.toString());
     }
 }
