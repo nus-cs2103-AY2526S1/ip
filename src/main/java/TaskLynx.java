@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class TaskLynx {
 
-    private static final String NAME = "TaskLynx";
+    private static final String NAME = "Tasklynx";
     private static final String LINE = "____________________________________________________________";
     private static final ArrayList<Task> COMMANDS = new ArrayList<>(100);
 
@@ -14,7 +14,7 @@ public class TaskLynx {
 
     public static void hello() {
         System.out.println(LINE);
-        System.out.println("Hello! I'm TaskLynx.");
+        System.out.println("Hello! I'm Tasklynx.");
         System.out.println("Your dependable assistant for tracking tasks, managing deadlines, and keeping your work organized.");
         System.out.println(LINE);
         System.out.println("How can I assist you with your tasks today?");
