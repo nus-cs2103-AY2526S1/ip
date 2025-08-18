@@ -1,0 +1,5 @@
+event NUS Year 2 Semester 1 /from August 2025 /to December 2025
+list
+event Study /from 20 August 2025 2pm /to /from
+list
+bye

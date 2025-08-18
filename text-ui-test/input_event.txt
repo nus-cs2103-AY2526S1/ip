@@ -1,0 +1,7 @@
+event meet team for project meeting /from 20th August 2025 2pm /to 20th August 2025 4pm
+list
+event play game /from 20th August 2025 6pm /to 20 August 2025 10pm
+list
+event travel to school /from 20th August 2025 1pm /to 20 August 2025 2pm
+list
+bye
