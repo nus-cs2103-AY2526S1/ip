@@ -83,6 +83,41 @@ public class TaskLynx {
         scanner.close();
     }
 
+    private static void addTodo(String input) {
+        String name = input.substring(5).trim();
+        addTask(new TodoTask(name));
+    }
+
+    private static void addDeadline(String input) throws LynxException {
+        String[] parts = input.substring(9).split("/by", 2);
+        if (parts.length < 2) {
+            throw new LynxException("Please specify a deadline using '/by'.");
+        }
+        String name = parts[0].trim();
+        String by = parts[1].trim();
+        addTask(new DeadlineTask(name, by));
+    }
+
+    private static void addEvent(String input) throws LynxException {
+        String[] nameSplit = input.substring(6).split("/from", 2);
+        if (nameSplit.length < 2) {
+            throw new LynxException("Please specify a start time using '/from'.");
+        }
+        String name = nameSplit[0].trim();
+        String[] timeSplit = nameSplit[1].split("/to", 2);
+        if (timeSplit.length < 2) {
+            throw new LynxException("Please specify an end time using '/to'.");
+        }
+        String from = timeSplit[0].trim();
+        String to = timeSplit[1].trim();
+        addTask(new EventTask(name, from, to));
+    }
+
+    private static void addTask(Task task) {
+        COMMANDS.add(task);
+        printBox("Added:\n     " + task + "\nNow you have " + COMMANDS.size() + " tasks in the list.");
+    }
+
     private static void handleMarkUnmark(String arg, boolean mark) {
         Task task = null;
 
