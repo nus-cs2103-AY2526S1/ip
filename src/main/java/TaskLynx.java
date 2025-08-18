@@ -1,11 +1,6 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class TaskLynx {
-
-    private static final String NAME = "Tasklynx";
-    private static final String LINE = "____________________________________________________________";
-    private static final ArrayList<Task> COMMANDS = new ArrayList<>(100);
 
     public static void main(String[] args) {
         hello();
@@ -13,16 +8,16 @@ public class TaskLynx {
     }
 
     public static void hello() {
-        System.out.println(LINE);
+        LynxUI.line();
         System.out.println("Hello! I'm Tasklynx.");
         System.out.println("Your dependable assistant for tracking tasks, managing deadlines, and keeping your work organized.");
-        System.out.println(LINE);
+        LynxUI.line();
         System.out.println("How can I assist you with your tasks today?");
-        System.out.println(LINE);
+        LynxUI.line();
     }
 
     public static void bye() {
-        printBox("Goodbye. I'll be here whenever you need to stay on track.");
+        LynxUI.printBox("Goodbye. I'll be here whenever you need to stay on track.");
     }
 
     public static void scanForCommands() {
@@ -38,23 +33,23 @@ public class TaskLynx {
                     bye();
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
-                    printListBox(COMMANDS);
+                    TaskManager.printListBox();
                 } else if (input.startsWith("mark")) {
                     if (input.length() <= 4) {
                         throw new MissingArgumentException("mark");
                     }
-                    handleMarkUnmark(input.substring(5), true);
+                    TaskManager.handleMarkUnmark(input.substring(5), true);
                 } else if (input.startsWith("unmark")) {
                     if (input.length() <= 6) {
                         throw new MissingArgumentException("unmark");
                     }
-                    handleMarkUnmark(input.substring(7), false);
+                    TaskManager.handleMarkUnmark(input.substring(7), false);
                 } else if (input.startsWith("todo")) {
-                    addTodo(input);
+                    TaskManager.addTodo(input);
                 } else if (input.startsWith("deadline")) {
-                    addDeadline(input);
+                    TaskManager.addDeadline(input);
                 } else if (input.startsWith("event")) {
-                    addEvent(input);
+                    TaskManager.addEvent(input);
                 } else if (!input.isEmpty()) {
                     throw new LynxException("Sorry, I didn't understand that command. Please try again or type 'list' to see available tasks.");
                 }
@@ -64,111 +59,6 @@ public class TaskLynx {
         }
 
         scanner.close();
-    }
-
-    private static void addTodo(String input) throws LynxException {
-        if (input.length() <= 4) {
-            throw new MissingArgumentException("todo");
-        }
-        String name = input.substring(5).trim();
-        addTask(new TodoTask(name));
-    }
-
-    private static void addDeadline(String input) throws LynxException {
-        if (input.length() <= 8) {
-            throw new MissingArgumentException("deadline");
-        }
-        String[] parts = input.substring(9).split("/by", 2);
-        if (parts.length < 2) {
-            throw new LynxException("Please specify a deadline using '/by'.");
-        }
-        String name = parts[0].trim();
-        String by = parts[1].trim();
-        addTask(new DeadlineTask(name, by));
-    }
-
-    private static void addEvent(String input) throws LynxException {
-        if (input.length() <= 5) {
-            throw new MissingArgumentException("event");
-        }
-        String[] nameSplit = input.substring(6).split("/from", 2);
-        if (nameSplit.length < 2) {
-            throw new LynxException("Please specify a start time using '/from'.");
-        }
-        String name = nameSplit[0].trim();
-        String[] timeSplit = nameSplit[1].split("/to", 2);
-        if (timeSplit.length < 2) {
-            throw new LynxException("Please specify an end time using '/to'.");
-        }
-        String from = timeSplit[0].trim();
-        String to = timeSplit[1].trim();
-        addTask(new EventTask(name, from, to));
-    }
-
-    private static void addTask(Task task) {
-        COMMANDS.add(task);
-        printBox("Added:\n     " + task + "\nNow you have " + COMMANDS.size() + " tasks in the list.");
-    }
-
-    private static void handleMarkUnmark(String arg, boolean mark) throws LynxException {
-        Task task = null;
-
-        arg = arg.trim();
-        if (arg.startsWith("id:")) {
-            // Mark by unique ID
-            try {
-                int id = Integer.parseInt(arg.substring(3).trim());
-                for (Task t : COMMANDS) {
-                    if (t.getId() == id) {
-                        task = t;
-                        break;
-                    }
-                }
-            } catch (NumberFormatException e) {
-                throw new LynxException("Sorry, that isn't a valid ID.");
-            }
-        } else {
-            // Mark by position in list
-            try {
-                int pos = Integer.parseInt(arg);
-                if (pos < 1 || pos > COMMANDS.size()) {
-                    throw new LynxException("Sorry, no task at that position.");
-                }
-                task = COMMANDS.get(pos - 1);
-            } catch (NumberFormatException e) {
-                throw new LynxException("Please provide a valid position number.");
-            }
-        }
-
-        if (task == null) {
-            throw new LynxException("Task not found.");
-        }
-
-        if (mark) {
-            task.setCompleted();
-            printBox("Excellent! Marked as done:\n     " + task.toString());
-        } else {
-            task.resetCompleted();
-            printBox("Alright, marked as not done:\n     " + task.toString());
-        }
-    }
-
-    private static void printBox(String message) {
-        System.out.println(LINE);
-        System.out.println(message);
-        System.out.println(LINE);
-    }
-
-    private static void printListBox(ArrayList<Task> commands) {
-        System.out.println(LINE);
-        System.out.println("Here are the tasks in your list:");
-        if (commands.isEmpty()) {
-            System.out.println("     (No tasks yet)");
-        }
-        for (int i = 0; i < commands.size(); i++) {
-            System.out.println("     " + (i+1) + "." + commands.get(i));
-        }
-        System.out.println(LINE);
     }
 
 }
