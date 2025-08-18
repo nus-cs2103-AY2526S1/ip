@@ -39,15 +39,21 @@ public class TaskLynx {
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
                     printListBox(COMMANDS);
-                } else if (input.startsWith("mark ")) {
+                } else if (input.startsWith("mark")) {
+                    if (input.length() <= 4) {
+                        throw new MissingArgumentException("mark");
+                    }
                     handleMarkUnmark(input.substring(5), true);
-                } else if (input.startsWith("unmark ")) {
+                } else if (input.startsWith("unmark")) {
+                    if (input.length() <= 6) {
+                        throw new MissingArgumentException("unmark");
+                    }
                     handleMarkUnmark(input.substring(7), false);
-                } else if (input.startsWith("todo ")) {
+                } else if (input.startsWith("todo")) {
                     addTodo(input);
-                } else if (input.startsWith("deadline ")) {
+                } else if (input.startsWith("deadline")) {
                     addDeadline(input);
-                } else if (input.startsWith("event ")) {
+                } else if (input.startsWith("event")) {
                     addEvent(input);
                 } else if (!input.isEmpty()) {
                     throw new LynxException("Sorry, I didn't understand that command. Please try again or type 'list' to see available tasks.");
@@ -60,12 +66,18 @@ public class TaskLynx {
         scanner.close();
     }
 
-    private static void addTodo(String input) {
+    private static void addTodo(String input) throws LynxException {
+        if (input.length() <= 4) {
+            throw new MissingArgumentException("todo");
+        }
         String name = input.substring(5).trim();
         addTask(new TodoTask(name));
     }
 
     private static void addDeadline(String input) throws LynxException {
+        if (input.length() <= 8) {
+            throw new MissingArgumentException("deadline");
+        }
         String[] parts = input.substring(9).split("/by", 2);
         if (parts.length < 2) {
             throw new LynxException("Please specify a deadline using '/by'.");
@@ -76,6 +88,9 @@ public class TaskLynx {
     }
 
     private static void addEvent(String input) throws LynxException {
+        if (input.length() <= 5) {
+            throw new MissingArgumentException("event");
+        }
         String[] nameSplit = input.substring(6).split("/from", 2);
         if (nameSplit.length < 2) {
             throw new LynxException("Please specify a start time using '/from'.");
@@ -95,7 +110,7 @@ public class TaskLynx {
         printBox("Added:\n     " + task + "\nNow you have " + COMMANDS.size() + " tasks in the list.");
     }
 
-    private static void handleMarkUnmark(String arg, boolean mark) {
+    private static void handleMarkUnmark(String arg, boolean mark) throws LynxException {
         Task task = null;
 
         arg = arg.trim();
@@ -110,27 +125,23 @@ public class TaskLynx {
                     }
                 }
             } catch (NumberFormatException e) {
-                printBox("Sorry, that isn't a valid ID.");
-                return;
+                throw new LynxException("Sorry, that isn't a valid ID.");
             }
         } else {
             // Mark by position in list
             try {
                 int pos = Integer.parseInt(arg);
                 if (pos < 1 || pos > COMMANDS.size()) {
-                    printBox("Sorry, no task at that position.");
-                    return;
+                    throw new LynxException("Sorry, no task at that position.");
                 }
                 task = COMMANDS.get(pos - 1);
             } catch (NumberFormatException e) {
-                printBox("Please provide a valid position number.");
-                return;
+                throw new LynxException("Please provide a valid position number.");
             }
         }
 
         if (task == null) {
-            printBox("Task not found.");
-            return;
+            throw new LynxException("Task not found.");
         }
 
         if (mark) {
