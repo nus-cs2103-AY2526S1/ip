@@ -31,20 +31,22 @@ public class ChatLoop {
 
     public void handleUserInput(String userInput) {
         int firstSpaceIndex = userInput.indexOf(" ");
-
         String command = firstSpaceIndex != -1 ? userInput.substring(0, firstSpaceIndex) : userInput;
+
         StringBuilder stringBuilder = new StringBuilder();
 
         switch (command) {
-        case "bye":
+        case "bye": // Handle if invalid (have spaces)
             stringBuilder.append("Goodbye. Hope to see you again soon!");
             this.isFinished = true;
+
             break;
         case "list":
             stringBuilder.append("Currently you have added this tasks to your list:\n");
             stringBuilder.append(this.taskList.listAllTasks());
+
             break;
-        case "mark":
+        case "mark": // Handle if invalid (no spaces)
             // Fallthrough
         case "unmark":
             int index = 0;
@@ -56,6 +58,7 @@ public class ChatLoop {
 
             }
 
+            // Handle if IndexOutOfBoundsException
             Task currentTask = this.taskList.getTask(index);
             if (command.equals("mark")) {
                 this.taskList.markTaskAsDone(index);
@@ -64,7 +67,32 @@ public class ChatLoop {
                 this.taskList.markTaskAsNotDone(index);
                 stringBuilder.append("OK, I've marked this task as not done yet:\n ");
             }
+
             stringBuilder.append(currentTask);
+
+            break;
+        case "todo":
+            // Fallthrough
+        case "deadline":
+            // Fallthrough
+        case "event": // Handle if invalid (no spaces)
+            stringBuilder.append("Noted. The following task has been added:\n ");
+
+            String userInputSecondHalf = userInput.substring(firstSpaceIndex + 1);
+            Task task = null;
+
+
+            if (command.equals("todo")) {
+                task = new ToDo(userInputSecondHalf);
+            }
+
+            this.taskList.addTask(task);
+
+            stringBuilder.append(task);
+
+            String numberOfTaskMessage = String.format("\nThere are currently %d task in the list.", this.taskList.numberOfTask());
+            stringBuilder.append(numberOfTaskMessage);
+
             break;
         default:
             break;
