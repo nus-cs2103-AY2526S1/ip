@@ -92,6 +92,23 @@ public class ChatLoop {
                 String dueBy = userInputSecondHalf.substring(firstByIndex + splitBy.length());
 
                 task = new Deadline(name, dueBy);
+            } else { // Event
+                String splitFrom = " /from ";
+                String splitTo = " /to ";
+
+                int firstFromIndex = userInputSecondHalf.indexOf(splitFrom);
+                int firstToIndex = userInputSecondHalf.indexOf(splitTo);
+
+                // Handle exception if wrongly formatted
+                if (firstFromIndex > firstToIndex) {
+
+                }
+
+                String name = userInputSecondHalf.substring(0, firstFromIndex);
+                String start = userInputSecondHalf.substring(firstFromIndex + splitFrom.length(), firstToIndex);
+                String end = userInputSecondHalf.substring(firstToIndex + splitTo.length());
+
+                task = new Event(name, start, end);
             }
 
             this.taskList.addTask(task);
