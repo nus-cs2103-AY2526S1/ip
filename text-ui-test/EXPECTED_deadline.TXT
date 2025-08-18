@@ -1,0 +1,73 @@
+____________________________________________________________
+Hello! My name is Zell
+ How can I help you?
+____________________________________________________________
+
+
+____________________________________________________________
+Noted. The following task has been added:
+ [D][ ] return book (by: Sunday)
+There are currently 1 task in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Currently you have added this tasks to your list:
+ 1. [D][ ] return book (by: Sunday)
+
+____________________________________________________________
+
+
+____________________________________________________________
+Noted. The following task has been added:
+ [D][ ] read book (by: 31st August 2025)
+There are currently 2 task in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Currently you have added this tasks to your list:
+ 1. [D][ ] return book (by: Sunday)
+ 2. [D][ ] read book (by: 31st August 2025)
+
+____________________________________________________________
+
+
+____________________________________________________________
+Noted. The following task has been added:
+ [D][ ] buy book (by: Monday)
+There are currently 3 task in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Currently you have added this tasks to your list:
+ 1. [D][ ] return book (by: Sunday)
+ 2. [D][ ] read book (by: 31st August 2025)
+ 3. [D][ ] buy book (by: Monday)
+
+____________________________________________________________
+
+
+____________________________________________________________
+Noted. The following task has been added:
+ [D][ ] throw book (by: 2nd September 2025)
+There are currently 4 task in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Currently you have added this tasks to your list:
+ 1. [D][ ] return book (by: Sunday)
+ 2. [D][ ] read book (by: 31st August 2025)
+ 3. [D][ ] buy book (by: Monday)
+ 4. [D][ ] throw book (by: 2nd September 2025)
+
+____________________________________________________________
+
+
+____________________________________________________________
+Goodbye. Hope to see you again soon!
+____________________________________________________________
+
+

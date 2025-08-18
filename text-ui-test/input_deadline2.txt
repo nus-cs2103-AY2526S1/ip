@@ -1,0 +1,9 @@
+deadline play game /by Monday
+list
+deadline read game manual /by 19th August 2025
+list
+deadline buy game /by next Sunday
+list
+deadline test game /by next Sunday /by Monday
+list
+bye

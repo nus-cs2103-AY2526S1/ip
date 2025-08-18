@@ -1,0 +1,9 @@
+deadline return book /by Sunday
+list
+deadline read book /by 31st August 2025
+list
+deadline buy book /by Monday
+list
+deadline throw book /by 2nd September 2025
+list
+bye
