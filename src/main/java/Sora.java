@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class Sora {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        String[] task = new String[100];
+        int count =0;
 
         String logo = "  ____                 \n"
                 + " / ___|  ____ ______ __ \n"
@@ -19,8 +21,15 @@ public class Sora {
             if(input.equals("bye")){
                 break;
             }
+            else if (input.equals("list")){
+                for (int i=0;i<count;i++){
+                    System.out.println((i+1) + ". " + task[i]);
+                }
+            }
             else{
-                System.out.println(input);
+                System.out.println("added: " + input);
+                task[count]=input;
+                count++;
             }
         }
 
