@@ -148,7 +148,7 @@ public class UserInputHandler {
 
     public int parseIndexForMarkOrUnMark(String command, String userInput, int firstSpaceIndex, TaskList taskList)
     throws ZellException {
-        handleNoSpacesForMarkOrUnMark(command, firstSpaceIndex);
+        handleNoSpacesForCommand(command, firstSpaceIndex);
 
         String indexInStringForm = userInput.substring(firstSpaceIndex + 1);
 
