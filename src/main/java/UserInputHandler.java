@@ -73,9 +73,9 @@ public class UserInputHandler {
     public String handleDelete(String userInput, String command, int firstSpaceIndex, TaskList taskList)
             throws ZellException {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Noted. The following task has been removed:\n ");
+        stringBuilder.append(ZellMessage.TASK_REMOVED.message());
 
-        handleNoSpacesForCommand(command, firstSpaceIndex);
+        checkNoSpacesInCommand(command, firstSpaceIndex);
 
         int index = parseIndex(command, userInput, firstSpaceIndex, taskList);
 
@@ -89,7 +89,7 @@ public class UserInputHandler {
     }
 
     public Task createTask(String userInput, String command, int firstSpaceIndex) throws ZellException {
-        handleNoSpacesForCommand(command, firstSpaceIndex);
+        checkNoSpacesInCommand(command, firstSpaceIndex);
 
         String userInputSecondHalf = userInput.substring(firstSpaceIndex + 1);
         Task task;
@@ -167,7 +167,7 @@ public class UserInputHandler {
 
     public int parseIndex(String command, String userInput, int firstSpaceIndex, TaskList taskList)
     throws ZellException {
-        handleNoSpacesForCommand(command, firstSpaceIndex);
+        checkNoSpacesInCommand(command, firstSpaceIndex);
 
         String indexInStringForm = userInput.substring(firstSpaceIndex + 1);
 
@@ -182,7 +182,7 @@ public class UserInputHandler {
             throw new ZellException(formatMessage);
         }
 
-        handleInvalidTaskNumber(index, taskList);
+        checkForInvalidTaskNumber(index, taskList);
 
         return index;
     }
@@ -194,7 +194,7 @@ public class UserInputHandler {
         }
     }
 
-    public void handleNoSpacesForCommand(String command, int firstSpaceIndex) throws ZellException {
+    public void checkNoSpacesInCommand(String command, int firstSpaceIndex) throws ZellException {
         if (firstSpaceIndex == -1) {
             String formatMessage;
             switch (command) {
@@ -216,7 +216,7 @@ public class UserInputHandler {
         }
     }
 
-    public void handleInvalidTaskNumber(int index, TaskList taskList) throws ZellException {
+    public void checkForInvalidTaskNumber(int index, TaskList taskList) throws ZellException {
         if (!taskList.checkIfTaskExists(index)) {
             String formatMessage = String.format("Task %d does not exist, please indicate a task number from 1 to %d", index, taskList.getNumberOfTask());
             throw new ZellException(formatMessage);
