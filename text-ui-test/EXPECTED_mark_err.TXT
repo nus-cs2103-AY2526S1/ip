@@ -54,7 +54,8 @@ ____________________________________________________________
 
 ____________________________________________________________
 An error occurred: a is not a number, you should indicate a number from the list to mark.
- For example: mark 2
+For example:
+mark 2
 ____________________________________________________________
 
 
