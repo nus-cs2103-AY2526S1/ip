@@ -1,0 +1,11 @@
+todo study
+deadline do homework /by Friday
+event go school /from Today 2pm /to Today 5pm
+list
+mark 1
+mark
+marks
+mark a
+mark 100
+mark 0
+bye
