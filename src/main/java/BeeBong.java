@@ -72,6 +72,11 @@ public class BeeBong {
     }
 
     private void addTask(String type, String details) {
+        // Check if details is empty
+        if (details == null || details.isEmpty()) {
+            botErrorMessage("Missing Task Details!");
+            return;
+        }
         // Check for valid Task type
         if (!type.equals("todo") && !type.equals("event") && !type.equals("deadline")) {
             botErrorMessage("That task type doesn’t exist. Try a real one!");
@@ -83,7 +88,7 @@ public class BeeBong {
             try {
                 String[] taskInfo = convertDetailsToEventTaskInfo(details);
                 newTask = new EventTask(taskInfo[0], taskInfo[1], taskInfo[2]);
-            } catch (IllegalArgumentException e) {
+            } catch (BBongException e) {
                 botErrorMessage("Invalid Task Details for Event Task!");
                 return;
             }
@@ -91,7 +96,7 @@ public class BeeBong {
             try {
                 String[] taskInfo = convertDetailsToDeadlineTaskInfo(details);
                 newTask = new DeadlineTask(taskInfo[0], taskInfo[1]);
-            } catch (IllegalArgumentException e) {
+            } catch (BBongException e) {
                 botErrorMessage("Invalid Task Details for Deadline Task!");
                 return;
             }
@@ -104,26 +109,26 @@ public class BeeBong {
         botMessage("Bing! Task added to my list:\n"+newTask+"\nYou now have "+this.currTask+" task(s) buzzing around in the list.");
     }
 
-    private String[] convertDetailsToDeadlineTaskInfo(String details) throws IllegalArgumentException {
+    private String[] convertDetailsToDeadlineTaskInfo(String details) throws BBongException {
         // e.g. "return book /by Sunday
         String[] taskInfo = details.split(" /by ");
         // If after the split we have more than 2 elements, means the input is invalid
-        if (taskInfo.length != 2) throw new IllegalArgumentException("Invalid Task Details for Deadline Task");
+        if (taskInfo.length != 2) throw new BBongException("Invalid Task Details for Deadline Task");
         return taskInfo;
     }
 
-    private String[] convertDetailsToEventTaskInfo(String details) throws IllegalArgumentException {
+    private String[] convertDetailsToEventTaskInfo(String details) throws BBongException {
         // e.g. "project meeting /from Mon 2pm /to 4pm"
         String[] result = new String[] {"", "", ""}; // name, from, to
         // Split string based on /from
         String[] temp = details.split(" /from ");
         // If after the split we have more than 2 elements, means the input is invalid
-        if (temp.length != 2) throw new IllegalArgumentException("Invalid Task Details for Event Task");
+        if (temp.length != 2) throw new BBongException("Invalid Task Details for Event Task");
         result[0] = temp[0];
         // Split string based on /to
         temp = temp[1].split(" /to ");
         // If after the split we have more than 2 elements, means the input is invalid
-        if (temp.length != 2) throw new IllegalArgumentException("Invalid Task Details for Event Task");
+        if (temp.length != 2) throw new BBongException("Invalid Task Details for Event Task");
         result[1] = temp[0];
         result[2] = temp[1];
         return result;
@@ -135,10 +140,17 @@ public class BeeBong {
         Scanner s = new Scanner(System.in);
 
         boolean running = true;
-        while (running && s.hasNextLine()) {
+        while (running) {
             // Ask for user input
             System.out.print(">>> ");
-            String input = s.nextLine();
+            System.out.flush();
+
+            // For EOF error when doing testing
+            if (!s.hasNextLine()) {
+                break;
+            }
+
+            String input = s.nextLine().trim();
 
             // Check for Commands
             String[] commandParts = input.split(" ", 2);
