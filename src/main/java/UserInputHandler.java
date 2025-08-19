@@ -62,7 +62,7 @@ public class UserInputHandler {
 
         stringBuilder.append(task);
 
-        String numberOfTaskMessage = String.format("\nThere are currently %d task in the list.", taskList.numberOfTask());
+        String numberOfTaskMessage = String.format("\nThere are currently %d task in the list.", taskList.getNumberOfTask());
 
         stringBuilder.append(numberOfTaskMessage);
 
@@ -183,8 +183,8 @@ public class UserInputHandler {
     }
 
     public void handleInvalidTaskNumber(int index, TaskList taskList) throws ZellException {
-        if (index <= 0 || index > taskList.numberOfTask()) {
-            String formatMessage = String.format("Task %d does not exist, please indicate a task number from 1 to %d", index, taskList.numberOfTask());
+        if (index <= 0 || index > taskList.getNumberOfTask()) {
+            String formatMessage = String.format("Task %d does not exist, please indicate a task number from 1 to %d", index, taskList.getNumberOfTask());
             throw new ZellException(formatMessage);
         }
     }
