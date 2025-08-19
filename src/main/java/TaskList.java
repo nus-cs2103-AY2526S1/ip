@@ -48,4 +48,8 @@ public class TaskList {
     public int getNumberOfTask() {
         return this.tasks.size();
     }
+
+    public String toString() {
+        return String.format("\nThere are currently %d task in the list.", getNumberOfTask());
+    }
 }
