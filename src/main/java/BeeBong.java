@@ -205,9 +205,11 @@ public class BeeBong {
                 case "event":
                     addTask(command, params);
                     break;
+                // Delete Tasks
                 case "delete":
                     deleteTask(params);
                     break;
+                // Unknown Commands
                 default:
                     botErrorMessage("Unknown Command! Something went boom in B. Bong’s circuits.");
             }
