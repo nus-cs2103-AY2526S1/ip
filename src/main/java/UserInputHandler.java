@@ -128,7 +128,7 @@ public class UserInputHandler {
 
     public String handleMarkOrUnMark(String command, String userInput, int firstSpaceIndex, TaskList taskList)
     throws ZellException{
-        int index = parseIndexForMarkOrUnMark(command, userInput, firstSpaceIndex, taskList);
+        int index = parseIndex(command, userInput, firstSpaceIndex, taskList);
 
         Task currentTask = taskList.getTask(index);
         StringBuilder stringBuilder = new StringBuilder();
