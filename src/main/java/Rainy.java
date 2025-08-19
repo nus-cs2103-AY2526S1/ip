@@ -1,11 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Rainy {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String line = "____________________________________________________________\n";
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println(line
                 + "Hello! I'm Rainy\n"
@@ -22,8 +22,8 @@ public class Rainy {
 
                 } else if (input.equals("list")) {
                     System.out.println(line + "Here are the tasks in your list:");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + ". " + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + ". " + tasks.get(i));
                     }
                     System.out.println(line);
 
@@ -33,13 +33,13 @@ public class Rainy {
                     }
 
                     int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-                    if (taskNumber < 0 || taskNumber >= taskCount) {
+                    if (taskNumber < 0 || taskNumber >= tasks.size()) {
                         throw new RainyException("OOPS!!! That task number doesn’t exist :-(");
                     }
-                    tasks[taskNumber].markAsDone();
+                    tasks.get(taskNumber).markAsDone();
                     System.out.println(line
                             + "Nice! I've marked this task as done:\n  "
-                            + tasks[taskNumber]
+                            + tasks.get(taskNumber)
                             + "\n"
                             + line);
 
@@ -48,13 +48,13 @@ public class Rainy {
                         throw new RainyException("OOPS!!! Please specify which task number to unmark.");
                     }
                     int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-                    if (taskNumber < 0 || taskNumber >= taskCount) {
+                    if (taskNumber < 0 || taskNumber >= tasks.size()) {
                         throw new RainyException("OOPS!!! That task number doesn’t exist :-(");
                     }
-                    tasks[taskNumber].unmark();
+                    tasks.get(taskNumber).unmark();
                     System.out.println(line
                             + "OK, I've marked this task as not done yet:\n  "
-                            + tasks[taskNumber]
+                            + tasks.get(taskNumber)
                             + "\n"
                             +line);
 
@@ -63,13 +63,12 @@ public class Rainy {
                         throw new RainyException("OOPS!!! The description of a todo cannot be empty.");
                     }
                     String desc = input.substring(4);
-                    tasks[taskCount] = new Todo(desc);
-                    taskCount++;
+                    tasks.add(new Todo(desc));
                     System.out.println(line
                             + "Got it. I've added this task:\n  "
-                            + tasks[taskCount-1]
+                            + tasks.getLast()
                             + "\nNow you have "
-                            + taskCount
+                            + tasks.size()
                             + " tasks in the list.\n"
                             + line);
 
@@ -78,12 +77,12 @@ public class Rainy {
                     if (parts.length < 2) {
                         throw new RainyException("OOPS!!! Please specify task and deadline.");
                     }
-                    tasks[taskCount] = new Deadline(parts[0], parts[1]);
-                    taskCount++;
+                    tasks.add(new Deadline(parts[0], parts[1]));
                     System.out.println(line
                             + "Got it. I've added this task:\n  "
-                            + tasks[taskCount-1] + "\nNow you have "
-                            + taskCount
+                            + tasks.getLast()
+                            + "\nNow you have "
+                            + tasks.size()
                             + " tasks in the list.\n"
                             + line);
 
@@ -92,13 +91,29 @@ public class Rainy {
                     if (parts.length < 3) {
                         throw new RainyException("OOPS!!! Please specify task from when to when.");
                     }
-                    tasks[taskCount] = new Event(parts[0], parts[1], parts[2]);
-                    taskCount++;
+                    tasks.add(new Event(parts[0], parts[1], parts[2]));
                     System.out.println(line
                             + "Got it. I've added this task:\n  "
-                            + tasks[taskCount - 1]
+                            + tasks.getLast()
                             + "\nNow you have "
-                            + taskCount
+                            + tasks.size()
+                            + " tasks in the list.\n"
+                            + line);
+
+                } else if (input.startsWith("delete")) {
+                    if (input.split(" ").length < 2) {
+                        throw new RainyException("OOPS!!! Please specify which task number to delete.");
+                    }
+                    int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                    if (taskNumber < 0 || taskNumber >= tasks.size()) {
+                        throw new RainyException("OOPS!!! That task number doesn’t exist.");
+                    }
+                    Task removedTask = tasks.remove(taskNumber);
+                    System.out.println(line
+                            + "Noted. I've removed this task:\n  "
+                            + removedTask
+                            + "\nNow you have "
+                            + tasks.size()
                             + " tasks in the list.\n"
                             + line);
                 } else {
