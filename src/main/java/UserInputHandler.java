@@ -48,7 +48,7 @@ public class UserInputHandler {
             output = handleDelete(userInput, command, firstSpaceIndex, taskList);
             break;
         default:
-            throw new ZellException(command + " is an unknown command. Please try again with a valid command");
+            throw new ZellException(command + ZellMessage.UNKNOWN_COMMAND.message());
         }
 
         return output;
@@ -57,7 +57,7 @@ public class UserInputHandler {
     public String handleTaskCommands(String userInput, String command, int firstSpaceIndex, TaskList taskList)
             throws ZellException {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Noted. The following task has been added:\n ");
+        stringBuilder.append(ZellMessage.TASK_ADDED.message());
 
         Task task = createTask(userInput, command, firstSpaceIndex);
 
@@ -132,14 +132,14 @@ public class UserInputHandler {
     public String handleBye(int firstSpaceIndex, String command) throws ZellException {
         checkIfCommandHasSpaces(command, firstSpaceIndex);
         this.endProgram = true;
-        return "Goodbye. Hope to see you again soon!";
+        return ZellMessage.GOODBYE.message();
     }
 
     public String handleList(int firstSpaceIndex, String command, TaskList taskList) throws ZellException {
         checkIfCommandHasSpaces(command, firstSpaceIndex);
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Currently you have added this tasks to your list:\n");
+        stringBuilder.append(ZellMessage.LIST.message());
         stringBuilder.append(taskList.listAllTasks());
 
         return stringBuilder.toString();
@@ -154,10 +154,10 @@ public class UserInputHandler {
 
         if (command.equals("mark")) {
             taskList.markTaskAsDone(index);
-            stringBuilder.append("Nice! I've marked this task as done:\n ");
+            stringBuilder.append(ZellMessage.TASK_MARKED.message());
         } else {
             taskList.markTaskAsNotDone(index);
-            stringBuilder.append("OK, I've marked this task as not done yet:\n ");
+            stringBuilder.append(ZellMessage.TASK_UNMARKED.message());
         }
 
         stringBuilder.append(currentTask);
