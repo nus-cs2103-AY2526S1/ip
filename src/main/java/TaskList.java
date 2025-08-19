@@ -37,7 +37,7 @@ public class TaskList {
         return stringBuilder.toString();
     }
 
-    public int numberOfTask() {
+    public int getNumberOfTask() {
         return this.tasks.size();
     }
 }
