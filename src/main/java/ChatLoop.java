@@ -13,7 +13,7 @@ public class ChatLoop {
         boolean endProgram = false;
         Scanner scanner = new Scanner(System.in);
 
-        printFormattedMessage("Hello! My name is Zell\n How can I help you?");
+        printFormattedMessage(ZellMessage.WELCOME_MESSAGE.message());
 
         while (!endProgram) {
             String userInput = scanner.nextLine();
