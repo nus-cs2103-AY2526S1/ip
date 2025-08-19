@@ -70,7 +70,7 @@ public class UserInputHandler {
     }
 
     public Task createTask(String userInput, String command, int firstSpaceIndex) throws ZellException {
-        handleNoSpacesForTask(command, firstSpaceIndex);
+        handleNoSpacesForCommand(command, firstSpaceIndex);
 
         String userInputSecondHalf = userInput.substring(firstSpaceIndex + 1);
         Task task;
