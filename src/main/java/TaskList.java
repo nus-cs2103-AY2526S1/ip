@@ -25,6 +25,10 @@ public class TaskList {
         return this.tasks.get(index - 1);
     }
 
+    public void removeTask (int index) {
+        this.tasks.remove(index - 1);
+    }
+
     public String listAllTasks() {
         StringBuilder stringBuilder = new StringBuilder();
 
