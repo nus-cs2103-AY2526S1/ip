@@ -183,7 +183,7 @@ public class UserInputHandler {
     }
 
     public void handleInvalidTaskNumber(int index, TaskList taskList) throws ZellException {
-        if (index > taskList.numberOfTask()) {
+        if (index <= 0 || index > taskList.numberOfTask()) {
             String formatMessage = String.format("Task %d does not exist, please indicate a task number from 1 to %d", index, taskList.numberOfTask());
             throw new ZellException(formatMessage);
         }
