@@ -132,12 +132,12 @@ public class BeeBong {
     public void Start() {
         greetingMessage();
         showCommands();
+        Scanner s = new Scanner(System.in);
 
         boolean running = true;
-        while (running) {
+        while (running && s.hasNextLine()) {
             // Ask for user input
             System.out.print(">>> ");
-            Scanner s = new Scanner(System.in);
             String input = s.nextLine();
 
             // Check for Commands
@@ -148,6 +148,7 @@ public class BeeBong {
                 // Exit
                 case "bye":
                 case "q":
+                    exitMessage();
                     running = false;
                     break;
                 // Help
@@ -179,7 +180,5 @@ public class BeeBong {
 //                    this.currTask += 1;
             }
         }
-
-        exitMessage();
     }
 }
