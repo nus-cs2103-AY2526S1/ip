@@ -205,6 +205,13 @@ public class UserInputHandler {
         }
     }
 
+    public void handleInvalidTaskNumber(int index, TaskList taskList) throws ZellException {
+        if (!taskList.checkIfTaskExists(index)) {
+            String formatMessage = String.format("Task %d does not exist, please indicate a task number from 1 to %d", index, taskList.getNumberOfTask());
+            throw new ZellException(formatMessage);
+        }
+    }
+
     public void checkForDeadlineExceptions(String command, String userInput, String splitBy, int firstByIndex) throws ZellException {
         // Handle missing deadline name
         if (userInput.contains(splitBy) && firstByIndex == - 1) {
