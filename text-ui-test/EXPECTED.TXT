@@ -3,9 +3,10 @@ Ding Dong! Guess who? It’s B. Bong!
 How can I bong your day brighter?
 ____________________________________________________________
 ____________________________________________________________
-List - lists out previous inputs
+List - lists out all tasks
 Mark [task no.] - mark the task with the given number as completed
 Unmark [task no.] - mark the task with the given number as incomplete
+Delete - removes a task from the list
 Help - shows full command list
 Bye / Q - exit
 Enter a new Task name or Command

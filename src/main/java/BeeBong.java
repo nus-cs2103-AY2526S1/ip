@@ -1,10 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class BeeBong {
     private final String newLine = "____________________________________________________________";
-//    private final String genericErrorMsg = "Bong! Something went boom in B. Bong’s circuits. Try again!";
-    private int currTask = 0;
-    private final Task[] tasklist = new Task[100];
+    private final List<Task> tasklist = new ArrayList<>();
 
     private void botMessage(String message) {
         System.out.println(this.newLine);
@@ -26,9 +26,10 @@ public class BeeBong {
 
     private void showCommands() {
         String commandList = """
-                    List - lists out previous inputs
+                    List - lists out all tasks
                     Mark [task no.] - mark the task with the given number as completed
                     Unmark [task no.] - mark the task with the given number as incomplete
+                    Delete - removes a task from the list
                     Help - shows full command list
                     Bye / Q - exit
                     Enter a new Task name or Command""";
@@ -37,14 +38,14 @@ public class BeeBong {
 
     private void listTasks() {
         // If there are no Tasks to list
-        if (this.currTask == 0) {
+        if (this.tasklist.isEmpty()) {
             botMessage("Bong! I searched high and low… still nothing to show right now.");
             return;
         }
         System.out.println(this.newLine);
         System.out.println("Bing! Here’s what’s buzzing in your list, courtesy of B. Bong:");
-        for (int i = 0; i < this.currTask; i++) {
-            System.out.println((i + 1) + ". " + this.tasklist[i]);
+        for (int i = 0; i < this.tasklist.size(); i++) {
+            System.out.println((i + 1) + ". " + this.tasklist.get(i));
         }
         System.out.println(this.newLine);
     }
@@ -58,13 +59,13 @@ public class BeeBong {
         try {
             int taskNum = Integer.parseInt(params) - 1;
             //Check for valid task number
-            if (taskNum < 0 || taskNum >= this.currTask) {
+            if (taskNum < 0 || taskNum >= this.tasklist.size()) {
                 botErrorMessage("That task number doesn’t exist. Try a real one!");
                 return;
             }
             //Mark Task as Completed/Incomplete
-            if (status) this.tasklist[taskNum].markCompleted();
-            else this.tasklist[taskNum].markIncomplete();
+            if (status) this.tasklist.get(taskNum).markCompleted();
+            else this.tasklist.get(taskNum).markIncomplete();
             botMessage("Bing! Task #" + (taskNum + 1) + " marked as " + (status ? "complete" : "incomplete") + "!");
         } catch (NumberFormatException e) {
             botErrorMessage("That task number doesn’t exist. Try a real one!");
@@ -104,9 +105,8 @@ public class BeeBong {
             newTask = new ToDoTask(details);
         }
         // Add Task to taskList
-        this.tasklist[currTask] = newTask;
-        this.currTask++;
-        botMessage("Bing! Task added to my list:\n"+newTask+"\nYou now have "+this.currTask+" task(s) buzzing around in the list.");
+        this.tasklist.add(newTask);
+        botMessage("Bing! Task added to my list:\n"+newTask+"\nYou now have "+this.tasklist.size()+" task(s) buzzing around in the list.");
     }
 
     private String[] convertDetailsToDeadlineTaskInfo(String details) throws BBongException {
@@ -134,7 +134,28 @@ public class BeeBong {
         return result;
     }
 
-    public void Start() {
+    private void deleteTask(String params) {
+        // Check if params were provided
+        if (params == null) {
+            botErrorMessage("You forgot the task number!");
+            return;
+        }
+        try {
+            int taskNum = Integer.parseInt(params) - 1;
+            //Check for valid task number
+            if (taskNum < 0 || taskNum >= this.tasklist.size()) {
+                botErrorMessage("That task number doesn’t exist. Try a real one!");
+                return;
+            }
+            //Delete Task
+            Task removedTask = this.tasklist.remove(taskNum);
+            botMessage("Bing! This task has been removed:\n"+removedTask+"\nYou now have "+this.tasklist.size()+" task(s) buzzing around in the list.");
+        } catch (NumberFormatException e) {
+            botErrorMessage("That task number doesn’t exist. Try a real one!");
+        }
+    }
+
+    public void start() {
         greetingMessage();
         showCommands();
         Scanner s = new Scanner(System.in);
@@ -184,12 +205,11 @@ public class BeeBong {
                 case "event":
                     addTask(command, params);
                     break;
+                case "delete":
+                    deleteTask(params);
+                    break;
                 default:
                     botErrorMessage("Unknown Command! Something went boom in B. Bong’s circuits.");
-//                    // Add the input as a new Task to Task List
-//                    this.tasklist[currTask] = new Task(input);
-//                    botMessage("Added New Task: "+input);
-//                    this.currTask += 1;
             }
         }
     }
