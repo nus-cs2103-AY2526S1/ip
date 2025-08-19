@@ -41,6 +41,10 @@ public class TaskList {
         return stringBuilder.toString();
     }
 
+    public boolean checkIfTaskExists(int index) {
+        return index > 0 && index <= getNumberOfTask();
+    }
+
     public int getNumberOfTask() {
         return this.tasks.size();
     }
