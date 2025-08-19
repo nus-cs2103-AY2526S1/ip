@@ -159,7 +159,7 @@ public class UserInputHandler {
             index = Integer.parseInt(indexInStringForm);
         } catch (NumberFormatException e) {
             String formatMessage = String.format("%s is not a number, you should indicate a number from the list to %s." +
-                    "\n For example: mark 2", indexInStringForm, command);
+                    "\nFor example:\n%s 2", indexInStringForm, command, command);
             throw new ZellException(formatMessage);
         }
 
