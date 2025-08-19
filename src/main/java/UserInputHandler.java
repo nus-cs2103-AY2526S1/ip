@@ -194,30 +194,22 @@ public class UserInputHandler {
         }
     }
 
-    public void handleNoSpacesForMarkOrUnMark(String command, int firstSpaceIndex) throws ZellException {
-        if (firstSpaceIndex == -1) {
-            String formatMessage = String.format("%s should have a number to indicate which one to %s.\nFor example:\nmark 2", command, command);
-            throw new ZellException(formatMessage);
-        }
-    }
-
-    public void handleInvalidTaskNumber(int index, TaskList taskList) throws ZellException {
-        if (index <= 0 || index > taskList.getNumberOfTask()) {
-            String formatMessage = String.format("Task %d does not exist, please indicate a task number from 1 to %d", index, taskList.getNumberOfTask());
-            throw new ZellException(formatMessage);
-        }
-    }
-
-    public void handleNoSpacesForTask(String command, int firstSpaceIndex) throws ZellException {
+    public void handleNoSpacesForCommand(String command, int firstSpaceIndex) throws ZellException {
         if (firstSpaceIndex == -1) {
             String formatMessage;
-
-            if (command.equals("todo")) {
+            switch (command) {
+            case "todo":
                 formatMessage = String.format("%s should include a thing to do.\nFor example:\n%s read books", command, command);
-            } else if (command.equals("deadline")) {
+                break;
+            case "deadline":
                 formatMessage = String.format("%s should include a thing to do.\nFor example:\n%s books /by  Sunday", command, command);
-            } else {
+                break;
+            case "event":
                 formatMessage = String.format("%s should include a thing to do.\nFor example:\n%s books /from Mon 2pm /to 4pm", command, command);
+                break;
+            default:
+                formatMessage = String.format("%s should have a number to indicate which one to %s.\nFor example:\n%s 2", command, command, command);
+                break;
             }
 
             throw new ZellException(formatMessage);
