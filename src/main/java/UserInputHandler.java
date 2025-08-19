@@ -44,6 +44,9 @@ public class UserInputHandler {
         case "event":
             output = handleTaskCommands(userInput, command, firstSpaceIndex, taskList);
             break;
+        case "delete":
+            output = handleDelete(userInput, command, firstSpaceIndex, taskList);
+            break;
         default:
             throw new ZellException(command + " is an unknown command. Please try again with a valid command");
         }
@@ -62,9 +65,25 @@ public class UserInputHandler {
 
         stringBuilder.append(task);
 
-        String numberOfTaskMessage = String.format("\nThere are currently %d task in the list.", taskList.getNumberOfTask());
+        stringBuilder.append(taskList);
 
-        stringBuilder.append(numberOfTaskMessage);
+        return stringBuilder.toString();
+    }
+
+    public String handleDelete(String userInput, String command, int firstSpaceIndex, TaskList taskList)
+            throws ZellException {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Noted. The following task has been removed:\n ");
+
+        handleNoSpacesForCommand(command, firstSpaceIndex);
+
+        int index = parseIndex(command, userInput, firstSpaceIndex, taskList);
+
+        stringBuilder.append(taskList.getTask(index));
+
+        taskList.removeTask(index);
+
+        stringBuilder.append(taskList);
 
         return stringBuilder.toString();
     }
