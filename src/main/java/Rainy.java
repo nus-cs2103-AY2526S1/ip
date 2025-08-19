@@ -29,12 +29,20 @@ public class Rainy {
             } else if (input.startsWith("mark")) {
                 int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
                 tasks[taskNumber].markAsDone();
-                System.out.println(line + "Nice! I've marked this task as done:" + tasks[taskNumber]);
+                System.out.println(line
+                        + "Nice! I've marked this task as done:\n  "
+                        + tasks[taskNumber]
+                        + "\n"
+                        + line);
 
             } else if (input.startsWith("unmark")) {
                 int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
                 tasks[taskNumber].unmark();
-                System.out.println(line + "OK, I've marked this task as not done yet:" + tasks[taskNumber]);
+                System.out.println(line
+                        + "OK, I've marked this task as not done yet:\n  "
+                        + tasks[taskNumber]
+                        + "\n"
+                        +line);
 
             } else if (input.startsWith("todo ")) {
                 String desc = input.substring(5);
