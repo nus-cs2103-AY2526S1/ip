@@ -146,7 +146,7 @@ public class UserInputHandler {
         return stringBuilder.toString();
     }
 
-    public int parseIndexForMarkOrUnMark(String command, String userInput, int firstSpaceIndex, TaskList taskList)
+    public int parseIndex(String command, String userInput, int firstSpaceIndex, TaskList taskList)
     throws ZellException {
         handleNoSpacesForCommand(command, firstSpaceIndex);
 
