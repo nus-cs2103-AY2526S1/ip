@@ -1,0 +1,72 @@
+____________________________________________________________
+Hello! My name is Zell
+ How can I help you?
+____________________________________________________________
+
+
+____________________________________________________________
+Noted. The following task has been added:
+ [E][ ] do stuff (from: Mon 25th to: Mon 27th)
+There are currently 1 task in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Currently you have added this tasks to your list:
+ 1. [E][ ] do stuff (from: Mon 25th to: Mon 27th)
+
+____________________________________________________________
+
+
+____________________________________________________________
+An error occurred: event should include a thing to do.
+For example:
+event books /from Mon 2pm /to 4pm
+____________________________________________________________
+
+
+____________________________________________________________
+An error occurred: events is an unknown command. Please try again with a valid command
+____________________________________________________________
+
+
+____________________________________________________________
+An error occurred: event should include a start by using /from.
+For example:
+event project meeting /from Mon 2pm /to 4pm
+____________________________________________________________
+
+
+____________________________________________________________
+An error occurred: event should include a end by using /to.
+For example:
+event project meeting /from Mon 2pm /to 4pm
+____________________________________________________________
+
+
+____________________________________________________________
+An error occurred: event should include a start by using /from.
+For example:
+event project meeting /from Mon 2pm /to 4pm
+____________________________________________________________
+
+
+____________________________________________________________
+An error occurred: For event /from should come before /to.
+For example:
+event project meeting /from Mon 2pm /to 4pm
+____________________________________________________________
+
+
+____________________________________________________________
+An error occurred: event should include a name.
+For example:
+event project meeting /from Mon 2pm /to 4pm
+____________________________________________________________
+
+
+____________________________________________________________
+Goodbye. Hope to see you again soon!
+____________________________________________________________
+
+
