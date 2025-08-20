@@ -23,7 +23,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getString() {
+    public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
 }
