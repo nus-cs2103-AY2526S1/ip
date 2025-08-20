@@ -59,7 +59,7 @@ public class MinhGPT {
         list.get(index).markAsUndone();
         System.out.println(list.get(index));
       } else {
-        list.add(new Task(input));
+        list.add(Task.parseTask(input));
         System.out.println(String.format("Added: %s", list.get(list.size() - 1)));
       }
       printDivider();
