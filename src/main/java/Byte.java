@@ -19,7 +19,11 @@ public class Byte {
         String command = "";
         while (!command.equals("bye")) {
             command = scanner.nextLine();
-            System.out.println(reply(command, line));
+            try {
+                System.out.println(reply(command, line));
+            } catch (ByteException e) {
+                System.out.println("\t" + line + "\t" + e.getMessage() + "\n" + "\t" + line);
+            }
         }
         scanner.close();
     }
@@ -76,7 +80,7 @@ public class Byte {
      * @param line Line (for format)
      * @return Formatted reply
      */
-    public static String reply(String command, String line) {
+    public static String reply(String command, String line) throws ByteException {
         String[] parts = command.split(" ", 2);
         String keyword = parts[0];
         switch (keyword) {
@@ -93,16 +97,34 @@ public class Byte {
             case "todo": {
                 String[] options = command.split(" ");
                 String[] segs = parseSegments(options);
+                if (segs[0] == null || segs[0].trim().equals("todo")) {
+                    throw new ByteException("Note that the description of a todo cannot be empty");
+                }
                 Task task = new Todo(segs[0]);
                 return addTaskAndReply(task, line);
             }
             case "deadline": {
                 String[] segs = parseSegments(command.split(" "));
+                if (segs[0] == null || segs[0].trim().equals("deadline")) {
+                    throw new ByteException("The description of a deadline cant be empty");
+                }
+                if (segs[1] == null || segs[1].trim().isEmpty()) {
+                    throw new ByteException("The /by time of a deadline cant be empty");
+                }
                 Task task = new Deadline(segs[0], segs[1]);
                 return addTaskAndReply(task, line);
             }
             case "event": {
                 String[] segs = parseSegments(command.split(" "));
+                if (segs[0] == null || segs[0].trim().equals("event")) {
+                    throw new ByteException("The description of an event cant be empty");
+                }
+                if (segs[1] == null || segs[1].trim().isEmpty()) {
+                    throw new ByteException("The /from time of an event cant be empty");
+                }
+                if (segs[2] == null || segs[2].trim().isEmpty()) {
+                    throw new ByteException("The /to time of an event cant be empty");
+                }
                 Task task = new Event(segs[0], segs[1], segs[2]);
                 return addTaskAndReply(task, line);
             }
@@ -119,8 +141,7 @@ public class Byte {
                 return "\t" + line + "\t" + "OK, I've marked this task as not done yet:\n\t  " + task.toString() + "\n" + "\t" + line;
             }
             default:
-                storage.add(new Task(command));
-                return "\t" + line + "\t" + "added: " + command + "\n" + "\t" + line;
+                throw new ByteException("I dont know what that means!");
         }
     }
 
