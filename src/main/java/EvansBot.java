@@ -3,11 +3,15 @@ import java.util.Scanner;
 public class EvansBot {
 
     private static int parseIndex(String input, int taskCount) throws InvalidTaskIndexException {
-        int index = Integer.parseInt(input);
-        if (index <= 0 || index > taskCount) {
+        try {
+            int index = Integer.parseInt(input.trim());
+            if (index <= 0 || index > taskCount) {
+                throw new InvalidTaskIndexException(taskCount);
+            }
+            return index;
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException(taskCount);
         }
-        return index;
     }
 
     public static void main(String[] args) {
@@ -26,13 +30,21 @@ public class EvansBot {
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
                     tasks.listTasks();
-                } else if (input.startsWith("mark ")) {
+                } else if (input.startsWith("mark")) {
+                    String[] inputs = input.trim().split(" ");
+                    if (inputs.length < 2) {
+                        throw new InvalidTaskIndexException(tasks.getCount());
+                    }
                     //if int after mark is not within the number of tasks, throws InvalidTaskIndexException
-                    int index = parseIndex(input.split(" ")[1], tasks.getCount());
+                    int index = parseIndex(inputs[1], tasks.getCount());
                     tasks.markTask(index);
-                } else if (input.startsWith("unmark ")) {
+                } else if (input.startsWith("unmark")) {
+                    String[] inputs = input.trim().split(" ");
+                    if (inputs.length < 2) {
+                        throw new InvalidTaskIndexException(tasks.getCount());
+                    }
                     //if int after unmark is not within the number of tasks, throws InvalidTaskIndexException
-                    int index = parseIndex(input.split(" ")[1], tasks.getCount());
+                    int index = parseIndex(inputs[1], tasks.getCount());
                     tasks.unmarkTask(index);
                 } else if (input.startsWith("todo ")) {
                     String description = input.substring(5);
@@ -59,7 +71,15 @@ public class EvansBot {
                     String from = information[1];
                     String to = information[2];
                     tasks.addTask(new Event(description, from, to));
-                } else {
+                } else if (input.startsWith("delete")) {
+                    String[] inputs = input.trim().split(" ");
+                    if (inputs.length < 2) {
+                        throw new InvalidTaskIndexException(tasks.getCount());
+                    }
+                    int index = parseIndex(inputs[1], tasks.getCount());
+                    tasks.deleteTask(index);
+                }
+                else {
                     System.out.println("Sorry! I don't know what this comment is supposed to be...");
                     System.out.println("Available commands: todo (description) , event (description) (from) (to), deadline (description) (by)");
                     System.out.println("Type 'bye' to cancel the chat!");
