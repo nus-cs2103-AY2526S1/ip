@@ -140,6 +140,21 @@ public class Byte {
                 task.unmark();
                 return "\t" + line + "\t" + "OK, I've marked this task as not done yet:\n\t  " + task.toString() + "\n" + "\t" + line;
             }
+            case "delete": {
+                if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                    throw new ByteException("Specify the task number to delete");
+                }
+
+                int index = Integer.parseInt(parts[1].trim());
+
+                if (index < 1 || index > storage.size()) {
+                    throw new ByteException("The number to delete is invalid");
+                }
+                Task removed = storage.remove(index - 1);
+                StringBuilder output = new StringBuilder();
+                output.append("I have removed this task:\n\t  " + removed.toString() + "\n\tNow you have " + storage.size() + " tasks in the list.");
+                return "\t" + line + "\t" + output.toString() + "\n" + "\t" + line;
+            }
             default:
                 throw new ByteException("I dont know what that means!");
         }
