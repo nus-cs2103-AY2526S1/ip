@@ -11,4 +11,8 @@ public class Task {
     public String toString() {
         return isDone ? "[X] " + description : "[ ] " + description;
     }
+
+    public void complete() {
+        isDone = true;
+    }
 }
