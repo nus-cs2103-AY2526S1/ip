@@ -6,10 +6,21 @@ then
     mkdir ../bin
 fi
 
-# delete output from previous run
-if [ -e "./ACTUAL.TXT" ]
+INPUT_DIR="./inputs"
+OUTPUT_DIR="./outputs"
+RESULT_DIR="./results"
+
+# create results directory if it doesn't exist
+if [ ! -d "$RESULT_DIR" ]
 then
-    rm ACTUAL.TXT
+    mkdir "$RESULT_DIR"
+fi
+
+# remove all past contents of results directory
+if [ -d "$RESULT_DIR" ]; then
+  if [ -n "$(ls -A "$RESULT_DIR")" ]; then
+    rm -rf "$RESULT_DIR"/* "$RESULT_DIR"/.[!.]* "$RESULT_DIR"/..?*
+  fi
 fi
 
 # compile the code into the bin folder, terminates if error occurred
@@ -19,20 +30,18 @@ then
     exit 1
 fi
 
-# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin MinhGPT < input.txt > ACTUAL.TXT
 
-# convert to UNIX format
-cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
+for infile in "$INPUT_DIR"/*; do
+    fname=$(basename "$infile")
+    outfile="$OUTPUT_DIR/$fname"
+    resultfile="$RESULT_DIR/$fname"
 
-# compare the output to the expected output
-diff ACTUAL.TXT EXPECTED-UNIX.TXT
-if [ $? -eq 0 ]
-then
-    echo "Test result: PASSED"
-    exit 0
-else
-    echo "Test result: FAILED"
-    exit 1
-fi
+    # Run your program (replace ./program with your command)
+    java -classpath ../bin MinhGPT < "$infile" > "$resultfile"
+
+    if diff -q "$resultfile" "$outfile" > /dev/null; then
+        echo "$fname: PASS"
+    else
+        echo "$fname: FAIL"
+    fi
+done
