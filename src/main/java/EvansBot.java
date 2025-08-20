@@ -27,8 +27,27 @@ public class EvansBot {
                 int index = Integer.parseInt(input.split(" ")[1]);
                 tasks.unmarkTask(index);
             }
+            else if (input.startsWith("todo ")) {
+                String description = input.substring(5);
+                tasks.addTask(new ToDo(description));
+            }
+            else if (input.startsWith("deadline ")) {
+                //split by /by
+                String[] information = input.substring(9).split(" /by", 2);
+                String description = information[0];
+                String by = information[1];
+                tasks.addTask(new Deadline(description, by));
+            }
+            else if (input.startsWith("event ")) {
+                //split by /from and /to
+                String[] information = input.substring(6).split(" /from | /to ", 3);
+                String description = information[0];
+                String from = information[1];
+                String to = information[2];
+                tasks.addTask(new Event(description, from, to));
+            }
             else {
-                tasks.addTask(input);
+                System.out.println(input);
             }
         }
         scanner.close();

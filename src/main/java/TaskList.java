@@ -8,12 +8,13 @@ public class TaskList {
     }
 
     //addition of tasks
-    public void addTask(String description) {
-        Task newTask = new Task(description);
-        tasks[count] = newTask;
+    public void addTask(Task task) {
+        tasks[count] = task;
         count++;
         System.out.println("############################################################");
-        System.out.println("added: " + description);
+        System.out.println("Got it. I have added this task: ");
+        System.out.println("    " + task);
+        System.out.println("Now you have " + count + " tasks in the list");
         System.out.println("############################################################");
     }
 
