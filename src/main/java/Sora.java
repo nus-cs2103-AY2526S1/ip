@@ -6,20 +6,20 @@ public class Sora {
         Task[] task = new Task[100];
         int count =0;
 
-        String logo = "  ____                 \n"
-                + " / ___|  ____ ______ __ \n"
+        String logo = "  ____\n"
+                + " / ___|  ____ ______ __\n"
                 + " \\___ \\ / __ \\| '__/ _  \\\n"
                 + "  ___\\ | |__| | | | |_| |\n"
                 + " |____/ \\____/|_|  \\___/|\n";
-        System.out.println("Hello from\n" + logo);
-
+        System.out.println("Hello from");
+        System.out.println(logo);
         System.out.println("Hello! I'm Sora");
         System.out.println("What can I do for you?");
 
         while(true){
             String input = scanner.nextLine();
             String[] part = input.split(" ");
-            if(part.length==1 && part[0].equals("bye")){
+            if(input.equals("bye")){
                 break;
             }
             else if (part.length==1 && part[0].equals("list")){

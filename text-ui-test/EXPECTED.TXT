@@ -1,7 +1,31 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+  ____
+ / ___|  ____ ______ __
+ \___ \ / __ \| '__/ _  \
+  ___\ | |__| | | | |_| |
+ |____/ \____/|_|  \___/|
 
+Hello! I'm Sora
+What can I do for you?
+Got it. I've added this task:
+[T][ ] borrow book
+Now you have 1 tasks in the list.
+Here are the task in your list:
+1.[T][ ] borrow book
+Got it. I've added this task:
+[D][ ] return book (by: Sunday)
+Now you have 2 tasks in the list.
+Got it. I've added this task:
+[D][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 3 tasks in the list.
+Nice! I've marked this task as done:
+[T][X] borrow book
+Nice! I've marked this task as done:
+[D][X] return book (by: Sunday)
+OK, I've marked this task as not done yet:
+[T][ ] borrow book
+Here are the task in your list:
+1.[T][ ] borrow book
+2.[D][X] return book (by: Sunday)
+3.[D][ ] project meeting (from: Mon 2pm to: 4pm)
+Bye. Hope to see you again soon!
