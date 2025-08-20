@@ -25,7 +25,7 @@ public class Sora {
             else if (part.length==1 && part[0].equals("list")){
                 System.out.println("Here are the task in your list:");
                 for (int i=0;i<count;i++){
-                    System.out.println((i+1) + ". " + task[i].toString());
+                    System.out.println((i+1) + "." + task[i].toString());
                 }
             }
             else if (part.length==2 && part[0].equals("mark")) {
@@ -41,9 +41,30 @@ public class Sora {
                 System.out.println(task[x-1].toString());
             }
             else{
-                System.out.println("added: " + input);
-                task[count]=new Task(input);
-                count++;
+                if (part.length>1 && part[0].equals("todo")){
+                    task[count]=new Todo(input.substring(5));
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(task[count].toString());
+                    count++;
+                    System.out.println("Now you have " + count + " tasks in the list.");
+                }
+                else if (part.length>1 && part[0].equals("deadline")){
+                    String[] check = input.substring(9).split(" /by ");
+                    task[count]=new Deadline(check[0],check[1]);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(task[count].toString());
+                    count ++;
+                    System.out.println("Now you have " + count + " tasks in the list.");
+                }
+                else if (part.length>1 && part[0].equals("event")){
+                    String[] check = input.substring(6).split(" /from ");
+                    String[] time = check[1].split(" /to ");
+                    task[count] = new Event(check[0],time[0],time[1]);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(task[count].toString());
+                    count ++;
+                    System.out.println("Now you have " + count + " tasks in the list.");
+                }
             }
         }
 
