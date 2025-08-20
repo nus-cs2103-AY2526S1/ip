@@ -1,0 +1,6 @@
+task1
+deadline task2 by Sunday
+event task3 /from Monday to Friday
+event task3 from Monday /to Friday
+event task5 /from /to
+bye
