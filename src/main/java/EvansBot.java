@@ -21,11 +21,19 @@ public class EvansBot {
             }
             else if (input.startsWith("mark ")) {
                 int index = Integer.parseInt(input.split(" ")[1]);
-                tasks.markTask(index);
+                if (index > tasks.getCount()) {
+                    System.out.println("There are less than " + index + " tasks in the list.");
+                } else {
+                    tasks.markTask(index);
+                }
             }
             else if (input.startsWith("unmark ")) {
                 int index = Integer.parseInt(input.split(" ")[1]);
-                tasks.unmarkTask(index);
+                if (index > tasks.getCount()) {
+                    System.out.println("There are less than " + index + " tasks in the list.");
+                } else {
+                    tasks.unmarkTask(index);
+                }
             }
             else if (input.startsWith("todo ")) {
                 String description = input.substring(5);

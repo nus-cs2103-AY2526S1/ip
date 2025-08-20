@@ -48,4 +48,7 @@ public class TaskList {
         System.out.println("############################################################");
     }
 
+    public int getCount() {
+        return this.count;
+    }
 }
