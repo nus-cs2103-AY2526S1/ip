@@ -7,7 +7,7 @@ public class Greet {
     public void greet() {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm " + botName);
-        System.out.println("What can I do for you? ");
+        System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
     }
 }

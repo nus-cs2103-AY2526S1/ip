@@ -12,7 +12,7 @@ public class TaskList {
         tasks[count] = task;
         count++;
         System.out.println("############################################################");
-        System.out.println("Got it. I have added this task: ");
+        System.out.println("Got it. I have added this task:");
         System.out.println("    " + task);
         System.out.println("Now you have " + count + " tasks in the list");
         System.out.println("############################################################");
@@ -33,7 +33,7 @@ public class TaskList {
         Task task = tasks[index - 1];
         task.markAsDone();
         System.out.println("############################################################");
-        System.out.println("Good Job! I have marked this task as done: ");
+        System.out.println("Good Job! I have marked this task as done:");
         System.out.println(" " + task.toString());
         System.out.println("############################################################");
     }
@@ -43,7 +43,7 @@ public class TaskList {
         Task task = tasks[index - 1];
         task.unmarkDone();
         System.out.println("############################################################");
-        System.out.println("Oh no! I have unmarked this task for now: ");
+        System.out.println("Oh no! I have unmarked this task for now:");
         System.out.println(" " + task.toString());
         System.out.println("############################################################");
     }

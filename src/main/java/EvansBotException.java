@@ -1,4 +1,5 @@
-package PACKAGE_NAME;
-
-public class EvansBotException {
+public class EvansBotException extends Exception{
+    public EvansBotException(String message) {
+        super(message);
+    }
 }
