@@ -66,7 +66,7 @@ public class Rainy {
                     tasks.add(new Todo(desc));
                     System.out.println(line
                             + "Got it. I've added this task:\n  "
-                            + tasks.getLast()
+                            + tasks.get(tasks.size() - 1)
                             + "\nNow you have "
                             + tasks.size()
                             + " tasks in the list.\n"
@@ -80,7 +80,7 @@ public class Rainy {
                     tasks.add(new Deadline(parts[0], parts[1]));
                     System.out.println(line
                             + "Got it. I've added this task:\n  "
-                            + tasks.getLast()
+                            + tasks.get(tasks.size() - 1)
                             + "\nNow you have "
                             + tasks.size()
                             + " tasks in the list.\n"
@@ -94,7 +94,7 @@ public class Rainy {
                     tasks.add(new Event(parts[0], parts[1], parts[2]));
                     System.out.println(line
                             + "Got it. I've added this task:\n  "
-                            + tasks.getLast()
+                            + tasks.get(tasks.size() - 1)
                             + "\nNow you have "
                             + tasks.size()
                             + " tasks in the list.\n"
