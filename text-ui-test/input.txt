@@ -1,0 +1,14 @@
+list
+deadline homework /by tonight
+list
+todo cs2103
+list
+event carnival /from today /to tomorrow
+event birthday /from Aug 20 /to Aug 21
+mark 2
+list
+mark 1
+list
+unmark 1
+list
+bye

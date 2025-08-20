@@ -34,7 +34,7 @@ public class Byte {
     private static String addTaskAndReply(Task task, String line) {
         storage.add(task);
         StringBuilder output = new StringBuilder();
-        output.append("Got it, I've added this task:\n\t  " + task + "\nNow you have " + storage.size() + " tasks in the list.");
+        output.append("Got it, I've added this task:\n\t  " + task + "\n\tNow you have " + storage.size() + " tasks in the list.");
         return "\t" + line + "\t" + output.toString() + "\n" + "\t" + line;
     }
 
@@ -45,19 +45,28 @@ public class Byte {
      * @return Array of 3 strings
      */
     private static String[] parseSegments(String[] options) {
-        String[] result = new String[]{"", "", ""};
-        int current = 0;
+        String[] segments = new String[3];
+        StringBuilder currentSegment = new StringBuilder();
+        int segmentIndex = 0;
+        
         for (String option : options) {
-            if (option.charAt(0) == '/') {
-                current++;
-                continue;
+            if (option.startsWith("/")) {
+                segments[segmentIndex] = currentSegment.toString().trim();
+                segmentIndex++;
+                currentSegment.setLength(0); 
+            } else {
+                if (currentSegment.length() > 0) {
+                    currentSegment.append(" ");
+                }
+                currentSegment.append(option);
             }
-            result[current] += option + " ";
         }
-        for (int i = 0; i < result.length; i++) {
-            result[i] = result[i].trim();
+        
+        if (segmentIndex < segments.length) {
+            segments[segmentIndex] = currentSegment.toString().trim();
         }
-        return result;
+        
+        return segments;
     }
 
     /**
