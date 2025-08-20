@@ -17,7 +17,15 @@ public class EvansBot {
                 break;
             }
             else if (input.equalsIgnoreCase("list")){
-                tasks.listTask();
+                tasks.listTasks();
+            }
+            else if (input.startsWith("mark ")) {
+                int index = Integer.parseInt(input.split(" ")[1]);
+                tasks.markTask(index);
+            }
+            else if (input.startsWith("unmark ")) {
+                int index = Integer.parseInt(input.split(" ")[1]);
+                tasks.unmarkTask(index);
             }
             else {
                 tasks.addTask(input);
