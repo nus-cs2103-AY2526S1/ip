@@ -35,27 +35,32 @@ public class MinhGPT {
   }
 
   private static void program() {
-    String cmd = "";
     Scanner scanner = new Scanner(System.in);
-    ArrayList<String> list = new ArrayList<>();
+    ArrayList<Task> list = new ArrayList<>();
 
     while (true) {
       System.out.print("Your input: ");
-      cmd = scanner.nextLine();
+      String input = scanner.nextLine().trim();
       printPadding(1);
-      switch (cmd) {
-        case "bye":
-          scanner.close();
-          return;
-        case "list":
-          for (int i = 0; i < list.size(); i++) {
-            System.out.println(String.format("%d. %s", i + 1, list.get(i)));
-          }
-          break;
-        default:
-          list.add(cmd);
-          System.out.println("Added: " + cmd);
-          break;
+
+      if (input.matches("^bye$")) {
+        scanner.close();
+        break;
+      } else if (input.matches("^list$")) {
+        for (int i = 0; i < list.size(); i++) {
+          System.out.println(String.format("%d.%s", i + 1, list.get(i)));
+        }
+      } else if (input.matches("^mark \\d+$")) {
+        int index = Integer.parseInt(input.split("\\s+", 2)[1]) - 1;
+        list.get(index).markAsDone();
+        System.out.println(list.get(index));
+      } else if (input.matches("^unmark \\d+$")) {
+        int index = Integer.parseInt(input.split("\\s+", 2)[1]) - 1;
+        list.get(index).markAsUndone();
+        System.out.println(list.get(index));
+      } else {
+        list.add(new Task(input));
+        System.out.println(String.format("Added: %s", list.get(list.size() - 1)));
       }
       printDivider();
     }
