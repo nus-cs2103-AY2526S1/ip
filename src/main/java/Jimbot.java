@@ -1,6 +1,4 @@
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Jimbot {
     public static void main(String[] args) {
@@ -11,8 +9,8 @@ public class Jimbot {
         System.out.println(greet);
         Scanner scanner = new Scanner(System.in);
         String userInput;
-        List<String> userList = new ArrayList<>();
-
+        Task[] userList = new Task[100];
+        int count = 0;
 
         while (true) {
             userInput = scanner.nextLine().trim();
@@ -22,19 +20,44 @@ public class Jimbot {
                         "   ____________________________________________________________");
                 break;
             } else if (userInput.equalsIgnoreCase("list")) {
-                int count = userList.size();
-                String list = "";
+                String list = "    Here are the tasks in your list:\n";
                 for (int i = 0; i < count; i++) {
-                    list += "    " + (i + 1) + ". " + userList.get(i) + "\n";
+                    list += "    " + (i + 1) + ". " + userList[i] + "\n";
                 }
                 System.out.println("   ____________________________________________________________\n" +
                         list +
                         "   ____________________________________________________________");
+            } else if (userInput.startsWith("mark")) {
+                int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                if (index >= 0 && index < count) {
+                    userList[index].markAsDone();
+                    System.out.println("   ____________________________________________________________\n" +
+                            "    Nice! I've marked this task as done: \n" +
+                            "       " + userList[index] + "\n" +
+                            "   ____________________________________________________________");
+                } else {
+                    System.out.println("Invalid task number.");
+                }
+            } else if (userInput.startsWith("unmark")) {
+                int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                if (index >= 0 && index < count) {
+                    userList[index].markAsUndone();
+                    System.out.println("   ____________________________________________________________\n" +
+                            "    OK, I've marked this task as not done yet: \n" +
+                            "       " + userList[index] + "\n" +
+                            "   ____________________________________________________________");
+                } else {
+                    System.out.println("Invalid task number.");
+                }
             } else {
-                userList.add(userInput);
-                System.out.println("   ____________________________________________________________\n" +
-                "    added: " + userInput + "\n" +
-                "   ____________________________________________________________");
+                if (count >= 100) {
+                    System.out.println("Too many tasks!");
+                } else {
+                    userList[count++] = new Task(userInput);
+                    System.out.println("   ____________________________________________________________\n" +
+                            "    added: " + userInput + "\n" +
+                            "   ____________________________________________________________");
+                }
             }
         }
         scanner.close();
