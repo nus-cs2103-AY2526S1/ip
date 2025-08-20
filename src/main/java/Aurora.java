@@ -1,20 +1,29 @@
 import java.util.Scanner;
 
 public class Aurora {
+
+    public static final String INTRO = "Hello! I'm Aurora. What can I do for you?";
+    public static final String OUTRO = "Bye. Hope to see you again soon!";
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String intro = "Aurora: Hello! I'm Aurora.\nAurora: What can I do for you?";
-        String outro = "Aurora: Bye. Hope to see you again soon!";
 
-        System.out.println(intro);
+        String[] list = new String[100];
+
+        speak(INTRO);
 
         String input = scanner.nextLine();
 
         while (!input.equals("bye")) {
-            System.out.println("Aurora: " + input);
+            speak(input);
             input = scanner.nextLine();
         }
 
-        System.out.println(outro);
+        speak(OUTRO);
+        scanner.close();
+    }
+
+    public static void speak(String content) {
+        System.out.println("Aurora: " + content);
     }
 }
