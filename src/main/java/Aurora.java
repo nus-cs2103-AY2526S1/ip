@@ -9,7 +9,7 @@ public class Aurora {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<String> list = new ArrayList<String>();
+        List<Task> list = new ArrayList<Task>();
 
         speak(INTRO);
         loop(scanner, list);
@@ -21,7 +21,7 @@ public class Aurora {
         System.out.println("Aurora: " + content);
     }
 
-    public static void loop(Scanner s, List<String> list) {
+    public static void loop(Scanner s, List<Task> list) {
         String input = s.nextLine();
 
         while (!input.equals("bye")) {
@@ -34,12 +34,12 @@ public class Aurora {
         }
     }
 
-    public static void add(String content, List<String> list) {
-        list.add(content);
+    public static void add(String content, List<Task> list) {
+        list.add(new Task(content));
         System.out.println("Added: " + content);
     }
 
-    public static void list(List<String> list) {
+    public static void list(List<Task> list) {
         if (list.isEmpty()) {
             speak("Your list is empty.");
             return;
