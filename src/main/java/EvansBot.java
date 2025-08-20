@@ -5,6 +5,7 @@ public class EvansBot {
     public static void main(String[] args) {
         Greet greeter = new Greet("EvansBot");
         Exit exiter = new Exit();
+        TaskList tasks = new TaskList(100); //size 100 array
         Scanner scanner = new Scanner(System.in);
         String input;
 
@@ -15,10 +16,11 @@ public class EvansBot {
                 exiter.sayBye();
                 break;
             }
+            else if (input.equalsIgnoreCase("list")){
+                tasks.listTask();
+            }
             else {
-                System.out.println("############################################################");
-                System.out.println(input);
-                System.out.println("############################################################");
+                tasks.addTask(input);
             }
         }
         scanner.close();
