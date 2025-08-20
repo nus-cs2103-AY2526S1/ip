@@ -2,6 +2,9 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Entry point for the Byte chatbot
+ */
 public class Byte {
     private static final List<Task> storage = new ArrayList<>();
 
@@ -21,7 +24,49 @@ public class Byte {
         scanner.close();
     }
 
+    /**
+     * Adds the given task to storage and returns a reply.
+     *
+     * @param task Task to add
+     * @param line Horizontal rule string used for formatting
+     * @return Reply after adding the task
+     */
+    private static String addTaskAndReply(Task task, String line) {
+        storage.add(task);
+        StringBuilder output = new StringBuilder();
+        output.append("Got it, I've added this task:\n\t  " + task + "\nNow you have " + storage.size() + " tasks in the list.");
+        return "\t" + line + "\t" + output.toString() + "\n" + "\t" + line;
+    }
 
+    /**
+     * Parses commands into three segments 
+     *
+     * @param options Command split by spaces
+     * @return Array of 3 strings
+     */
+    private static String[] parseSegments(String[] options) {
+        String[] result = new String[]{"", "", ""};
+        int current = 0;
+        for (String option : options) {
+            if (option.charAt(0) == '/') {
+                current++;
+                continue;
+            }
+            result[current] += option + " ";
+        }
+        for (int i = 0; i < result.length; i++) {
+            result[i] = result[i].trim();
+        }
+        return result;
+    }
+
+    /**
+     * Processes a raw command and returns the formatted reply string.
+     *
+     * @param command Command entered 
+     * @param line Line (for format)
+     * @return Formatted reply
+     */
     public static String reply(String command, String line) {
         String[] parts = command.split(" ", 2);
         String keyword = parts[0];
@@ -36,6 +81,22 @@ public class Byte {
                 }
                 return "\t" + line + "\t" + output.toString() + "\n" + "\t" + line;
             }
+            case "todo": {
+                String[] options = command.split(" ");
+                String[] segs = parseSegments(options);
+                Task task = new Todo(segs[0]);
+                return addTaskAndReply(task, line);
+            }
+            case "deadline": {
+                String[] segs = parseSegments(command.split(" "));
+                Task task = new Deadline(segs[0], segs[1]);
+                return addTaskAndReply(task, line);
+            }
+            case "event": {
+                String[] segs = parseSegments(command.split(" "));
+                Task task = new Event(segs[0], segs[1], segs[2]);
+                return addTaskAndReply(task, line);
+            }
             case "mark": {
                 int index = Integer.parseInt(parts[1]);
                 Task task = storage.get(index - 1);
@@ -49,9 +110,6 @@ public class Byte {
                 return "\t" + line + "\t" + "OK, I've marked this task as not done yet:\n\t  " + task.toString() + "\n" + "\t" + line;
             }
             default:
-                if (command.trim().isEmpty()) {
-                    return "\t" + line + "\t" + "\n" + "\t" + line;
-                }
                 storage.add(new Task(command));
                 return "\t" + line + "\t" + "added: " + command + "\n" + "\t" + line;
         }
