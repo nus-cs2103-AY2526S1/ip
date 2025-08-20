@@ -12,19 +12,28 @@ What can I do for you?
 
 ------------------------------------------
 Your input: 
-( ˶°ㅁ°) That is not a valid way to input a task!
+(˶ᵔ ᵕ ᵔ˶) Added: [T][ ] task1
 ------------------------------------------
 Your input: 
-( ˶°ㅁ°) That is not a valid way to input a task!
+(˶ᵔ ᵕ ᵔ˶) Added: [T][ ] task2
 ------------------------------------------
 Your input: 
-( ˶°ㅁ°) That is not a valid way to input a task!
+(˶ᵔ ᵕ ᵔ˶) Added: [T][ ] task3
 ------------------------------------------
 Your input: 
-( ˶°ㅁ°) That is not a valid way to input a task!
+(˶ᵔ ᵕ ᵔ˶) Removed: [T][ ] task2
 ------------------------------------------
 Your input: 
-( ˶°ㅁ°) That is not a valid way to input a task!
+(˶˃ ᵕ ˂˶) Here are the list of tasks. You have 2 in total.
+1.[T][ ] task1
+2.[T][ ] task3
+------------------------------------------
+Your input: 
+(˶ᵔ ᵕ ᵔ˶) Removed: [T][ ] task1
+------------------------------------------
+Your input: 
+(˶˃ ᵕ ˂˶) Here are the list of tasks. You have 1 in total.
+1.[T][ ] task3
 ------------------------------------------
 Your input: 
 (╥﹏╥) Bye. Hope to see you again soon!

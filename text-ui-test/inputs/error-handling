@@ -3,4 +3,8 @@ deadline task2 by Sunday
 event task3 /from Monday to Friday
 event task3 from Monday /to Friday
 event task5 /from /to
+mark 1
+unmark 1
+todo task1
+delete 1
 bye
