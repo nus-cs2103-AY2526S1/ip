@@ -49,15 +49,74 @@ public class Jimbot {
                 } else {
                     System.out.println("Invalid task number.");
                 }
-            } else {
+            } else if (userInput.startsWith("deadline")) {
+
+
+                if (!userInput.contains("/by")) {
+                    System.out.println("Invalid deadline format.");
+                } else {
+                    String[] deadline = userInput.substring(9)
+                            .trim()
+                            .split("/by", 2);
+                    String description =  deadline[0].trim();
+                    String by = deadline[1].trim();
+
+                    if (count >= 100) {
+                        System.out.println("Too many tasks!");
+                    } else {
+                        userList[count] = new Deadline(description, by);
+                        System.out.println("   ____________________________________________________________\n" +
+                                "    Got it. I've added this task: \n" +
+                                "       " + userList[count++] + "\n" +
+                                "    Now you have " + count + " tasks in the list.\n" +
+                                "   ____________________________________________________________");
+                    }
+                }
+            } else if (userInput.startsWith("event")) {
+
+                if (!userInput.contains("/from") || !userInput.contains("/to")) {
+                    System.out.println("Invalid event format.");
+                } else {
+                    String[] event = userInput.substring(6)
+                            .trim()
+                            .split("/from", 2);
+
+                    String description =  event[0].trim();
+                    String[] timings = event[1]
+                            .trim()
+                            .split("/to", 2);
+
+                    String from = timings[0].trim();
+                    String to = timings[1].trim();
+
+                    if (count >= 100) {
+                        System.out.println("Too many tasks!");
+                    } else {
+                        userList[count] = new Event(description, from, to);
+                        System.out.println("   ____________________________________________________________\n" +
+                                "    Got it. I've added this task: \n" +
+                                "       " + userList[count++] + "\n" +
+                                "    Now you have " + count + " tasks in the list.\n" +
+                                "   ____________________________________________________________");
+                    }
+                }
+            } else if (userInput.startsWith("todo")) {
+                String description = userInput.substring(5).trim();
+
                 if (count >= 100) {
                     System.out.println("Too many tasks!");
                 } else {
-                    userList[count++] = new Task(userInput);
+                    userList[count] = new ToDo(description);
                     System.out.println("   ____________________________________________________________\n" +
-                            "    added: " + userInput + "\n" +
+                            "    Got it. I've added this task: \n" +
+                            "       " + userList[count++] + "\n" +
+                            "    Now you have " + count + " tasks in the list.\n" +
                             "   ____________________________________________________________");
                 }
+            } else {
+                System.out.println("   ____________________________________________________________\n" +
+                        "    " + userInput + "\n" +
+                        "   ____________________________________________________________");
             }
         }
         scanner.close();
