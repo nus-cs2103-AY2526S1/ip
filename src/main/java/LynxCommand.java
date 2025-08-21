@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class TaskManager {
+public class LynxCommand {
 
     private static final ArrayList<Task> COMMANDS = new ArrayList<>(100);
 

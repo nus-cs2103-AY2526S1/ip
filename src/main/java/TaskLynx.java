@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.Scanner;
 
 public class TaskLynx {
@@ -34,19 +33,19 @@ public class TaskLynx {
                 } else if (input.equalsIgnoreCase("reload")) {
                     LynxFileManager.createFile();
                 } else if (input.equalsIgnoreCase("list")) {
-                    TaskManager.printListBox();
+                    LynxCommand.printListBox();
                 } else if (input.startsWith("mark")) {
-                    TaskManager.markTask(input);
+                    LynxCommand.markTask(input);
                 } else if (input.startsWith("unmark")) {
-                    TaskManager.unmarkTask(input);
+                    LynxCommand.unmarkTask(input);
                 } else if (input.startsWith("delete")) {
-                    TaskManager.deleteTask(input);
+                    LynxCommand.deleteTask(input);
                 } else if (input.startsWith("todo")) {
-                    TaskManager.addTodo(input);
+                    LynxCommand.addTodo(input);
                 } else if (input.startsWith("deadline")) {
-                    TaskManager.addDeadline(input);
+                    LynxCommand.addDeadline(input);
                 } else if (input.startsWith("event")) {
-                    TaskManager.addEvent(input);
+                    LynxCommand.addEvent(input);
                 } else if (!input.isEmpty()) {
                     throw new LynxException("Sorry, I didn't understand that command. Please try again or type 'list' to see available tasks.");
                 }
