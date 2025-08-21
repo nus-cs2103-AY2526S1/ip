@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.regex.*;
 
+/**
+ * Aurora is a chatbot that manages tasks.
+ */
 public class Aurora {
 
     private static final String INTRO = "Hello! I'm Aurora. What can I do for you?";
