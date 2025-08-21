@@ -2,12 +2,6 @@ import java.util.Scanner;
 
 public class Rafayel {
 
-    // public String getDescriptionFromInput(String input, Integer taskLength) {
-
-    // String[] temp = input.split(" ");
-    // if ()
-    // return ;
-    // }
     public static void main(String[] args) {
         String LINE = "____________________________________________________________";
         String START_MSG = LINE + "\n"
@@ -24,91 +18,110 @@ public class Rafayel {
 
         System.out.println(START_MSG);
 
+        // FOR CREATING TASKS
+        String TASK_START = "Got it. I've added this task:";
+
         while (true) {
             String input = sc.nextLine();
             System.out.println(LINE);
 
-            if (input.equals("bye")) {
-                System.out.println(END_MSG);
-                break;
+            try {
+                if (input.equals("bye")) {
+                    System.out.println(END_MSG);
+                    break;
 
-            } else if (input.equals("list")) {
+                } else if (input.equals("list")) {
 
-                for (int i = 0; i < counter; i++) {
-                    System.out.println(i + 1 + "." + tasks[i].toString());
-                    // System.out.println(String.format("%d. %s", i + 1, data[i]));
-                }
-            } else if (input.length() >= 4 && input.substring(0, 4).equals("mark")) {
-                if (input.length() <= 5) {
-                    System.out.println("Please state what task to be marked as complete.");
-                } else {
-                    String[] temp = input.split(" ");
-                    int taskNumber = Integer.parseInt(temp[1]);
-
-                    if (taskNumber <= 0 && taskNumber >= counter) {
-                        System.out.println("Invalid task number.");
+                    for (int i = 0; i < counter; i++) {
+                        System.out.println(i + 1 + "." + tasks[i].toString());
+                        // System.out.println(String.format("%d. %s", i + 1, data[i]));
                     }
-                    taskNumber--;
+                } else if (input.startsWith("mark")) {
+                    if (input.length() <= 5) {
+                        throw new RafayelException("Please state what task to be marked as complete.");
+                    } else {
+                        String[] temp = input.split(" ");
+                        int taskNumber = Integer.parseInt(temp[1]);
 
-                    tasks[taskNumber].markAsDone();
-                    System.out.println("Nice! I've marked this task as done:\n  " + tasks[taskNumber].toString());
-                }
+                        if (taskNumber <= 0 || taskNumber >= counter) {
+                            throw new RafayelException("Invalid task number.");
+                        }
+                        taskNumber--;
 
-            } else if (input.length() >= 6 && input.substring(0, 6).equals("unmark")) {
-                if (input.length() <= 7) {
-                    System.out.println("Please state what task to be marked as complete.");
-                } else {
-                    String[] temp = input.split(" ");
-                    int taskNumber = Integer.parseInt(temp[1]);
-                    if (taskNumber <= 0 && taskNumber >= counter) {
-                        System.out.println("Invalid task number.");
+                        tasks[taskNumber].markAsDone();
+                        System.out.println("Nice! I've marked this task as done:\n  " + tasks[taskNumber].toString());
                     }
-                    taskNumber--;
 
-                    tasks[taskNumber].markAsUndone();
-                    System.out
-                            .println("OK, I've marked this task as not done yet:\n  " + tasks[taskNumber].toString());
-                }
-            } else {
-                // CREATE TASKS
-                String TASK_START = "Got it. I've added this task:";
-                String[] temp = input.split(" ");
+                } else if (input.startsWith("unmark")) {
+                    if (input.length() <= 7) {
+                        throw new RafayelException("Please state what task to be marked as complete.");
+                    } else {
+                        String[] temp = input.split(" ");
+                        int taskNumber = Integer.parseInt(temp[1]);
+                        if (taskNumber <= 0 || taskNumber >= counter) {
+                            throw new RafayelException("Invalid task number.");
+                        }
+                        taskNumber--;
 
-                boolean taskCreated = true;
-                if (temp[0].equals("todo")) {
+                        tasks[taskNumber].markAsUndone();
+                        System.out
+                                .println("OK, I've marked this task as not done yet:\n  "
+                                        + tasks[taskNumber].toString());
+                    }
+                } else if (input.startsWith("todo")) {
+                    if (input.length() <= 5) {
+                        throw new RafayelException("Please add in the description of the Todo task.");
+                    }
+
                     System.out.println(TASK_START);
-                    Todo newTask = new Todo(input.substring(5));
+                    Todo newTask = new Todo(input.substring(5).trim());
                     System.out.println("  " + newTask.toString());
                     tasks[counter] = newTask;
-                    counter++;
+                    System.out.println("Now you have " + ++counter + " tasks in the list.");
 
-                } else if (temp[0].equals("deadline")) {
+                } else if (input.startsWith("deadline")) {
+                    if (input.length() <= 10) {
+                        throw new RafayelException("Please add in the description of the Deadline task.");
+                    }
+                    if (!input.contains("/by")) {
+                        throw new RafayelException("Deadline format is wrong. Example: deadline [desc] /by [time]");
+                    }
+
                     System.out.println(TASK_START);
                     String[] taskDate = input.substring(9).split("/by ");
                     Deadline newTask = new Deadline(taskDate[0], taskDate[1]);
                     System.out.println("  " + newTask.toString());
                     tasks[counter] = newTask;
-                    counter++;
+                    System.out.println("Now you have " + ++counter + " tasks in the list.");
 
-                } else if (temp[0].equals("event")) {
+                } else if (input.startsWith("event")) {
+                    if (input.length() <= 6) {
+                        throw new RafayelException("Please add in the description of the Event task.");
+                    }
+                    if (!input.contains("/from")) {
+                        throw new RafayelException(
+                                "Event format is wrong. Example: event [desc] /from [time] /to [time]");
+                    }
+                    if (!input.contains("/to")) {
+                        throw new RafayelException(
+                                "Event format is wrong. Example: event [desc] /from [time] /to [time]");
+                    }
+
                     System.out.println(TASK_START);
                     String[] taskDate = input.substring(6).split("/");
                     Event newTask = new Event(taskDate[0], taskDate[1].substring(5), taskDate[2].substring(3));
                     System.out.println("  " + newTask.toString());
                     tasks[counter] = newTask;
-                    counter++;
+                    System.out.println("Now you have " + ++counter + " tasks in the list.");
 
                 } else {
-                    taskCreated = false;
-                    System.out.println("Please enter a valid kind of task type!");
+                    throw new RafayelException("Please enter a valid prompt! (i.e. todo/deadline/event)");
                 }
-
-                if (taskCreated) {
-                    System.out.println("Now you have " + counter + " tasks in the list.\n");
-                }
+            } catch (RafayelException e) {
+                System.out.println(e.getMessage());
             }
 
-            System.out.println(LINE);
+            System.out.println(LINE + "\n");
         }
 
         sc.close();
