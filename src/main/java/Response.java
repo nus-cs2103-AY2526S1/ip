@@ -1,3 +1,6 @@
+import taskTypes.Task;
+import taskTypes.taskList;
+
 public class Response {
 
     public void markRes(taskList userList, int index) {
