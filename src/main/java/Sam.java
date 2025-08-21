@@ -17,6 +17,14 @@ public class Sam {
         System.out.println("____________________________________________________________");
     }
 
+    private static int parseIndex(String arg, int size) throws SamException {
+        if (arg == null || arg.isBlank()) throw new SamException("OOPS!!! Usage: <command> <number>");
+        int n = Integer.parseInt(arg);
+        int idx = n - 1;
+        if (idx < 0 || idx >= size) throw new SamException("OOPS!!! Invalid task number.");
+        return idx;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -29,94 +37,102 @@ public class Sam {
 
         while (true) {
             String input = sc.nextLine().trim();
+
+            // split once: parts[0] = verb, parts[1] = rest (args)
+            String[] parts = input.split("\\s+", 2);
+            String verb = parts[0].toLowerCase();
+            String rest = (parts.length > 1) ? parts[1].trim() : "";
+
             try {
-                if (input.equals("bye")) {
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" Bye. Hope to see you again soon!");
-                    System.out.println("____________________________________________________________");
-                    break;
+                switch (Command.of(verb)) {
+                    case BYE:
+                        System.out.println("____________________________________________________________");
+                        System.out.println(" Bye. Hope to see you again soon!");
+                        System.out.println("____________________________________________________________");
+                        sc.close();
+                        return;
 
-                } else if (input.equals("list")) {
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" Here are the tasks in your list:");
-                    for (int i = 0; i < tasks.size(); i++) {
-                        System.out.println((i + 1) + ". " + tasks.get(i));
+                    case LIST:
+                        System.out.println("____________________________________________________________");
+                        System.out.println(" Here are the tasks in your list:");
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println((i + 1) + ". " + tasks.get(i));
+                        }
+                        System.out.println("____________________________________________________________");
+                        break;
+
+                    case MARK: {
+                        int idx = parseIndex(rest, tasks.size());
+                        tasks.get(idx).markDone();
+                        System.out.println("____________________________________________________________");
+                        System.out.println(" Nice! I've marked this task as done:");
+                        System.out.println(" " + tasks.get(idx));
+                        System.out.println("____________________________________________________________");
+                        break;
                     }
-                    System.out.println("____________________________________________________________");
 
-                } else if (input.startsWith("mark")) {
-                    String[] tok = input.split("\\s+");
-                    int idx = Integer.parseInt(tok[1]) - 1;
-                    if (idx < 0 || idx >= tasks.size()) throw new SamException("OOPS!!! Invalid task number.");
-                    tasks.get(idx).markDone();
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" Nice! I've marked this task as done:");
-                    System.out.println(" " + tasks.get(idx));
-                    System.out.println("____________________________________________________________");
+                    case UNMARK: {
+                        int idx = parseIndex(rest, tasks.size());
+                        tasks.get(idx).unmark();
+                        System.out.println("____________________________________________________________");
+                        System.out.println(" OK, I've marked this task as not done yet:");
+                        System.out.println(" " + tasks.get(idx));
+                        System.out.println("____________________________________________________________");
+                        break;
+                    }
 
-                } else if (input.startsWith("unmark")) {
-                    String[] tok = input.split("\\s+");
-                    int idx = Integer.parseInt(tok[1]) - 1;
-                    if (idx < 0 || idx >= tasks.size()) throw new SamException("OOPS!!! Invalid task number.");
-                    tasks.get(idx).unmark();
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" OK, I've marked this task as not done yet:");
-                    System.out.println(" " + tasks.get(idx));
-                    System.out.println("____________________________________________________________");
+                    case DELETE: {
+                        int idx = parseIndex(rest, tasks.size());
+                        Task removed = tasks.remove(idx);
+                        System.out.println("____________________________________________________________");
+                        System.out.println(" Noted. I've removed this task:");
+                        System.out.println(" " + removed);
+                        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.println("____________________________________________________________");
+                        break;
+                    }
 
-                } else if (input.startsWith("delete")) {               // Level 6
-                    String[] tok = input.split("\\s+");
-                    int idx = Integer.parseInt(tok[1]) - 1;
-                    if (idx < 0 || idx >= tasks.size()) throw new SamException("OOPS!!! Invalid task number.");
-                    Task removed = tasks.remove(idx);                  // ArrayList shifts for you
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" Noted. I've removed this task:");
-                    System.out.println(" " + removed);
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
+                    case TODO: {
+                        if (rest.isEmpty()) throw new EmptyDescriptionException("todo");
+                        tasks.add(new Todo(rest));
+                        printAdded(tasks.get(tasks.size() - 1), tasks.size());
+                        break;
+                    }
 
-                } else if (input.startsWith("todo")) {
-                    String descr = input.substring(4).trim();
-                    if (descr.isEmpty()) throw new EmptyDescriptionException("todo");
-                    tasks.add(new Todo(descr));
-                    printAdded(tasks.get(tasks.size() - 1), tasks.size());
+                    case DEADLINE: {
+                        if (rest.isEmpty() || !rest.contains("/by"))
+                            throw new SamException("OOPS!!! Use: deadline <description> /by <time>");
+                        String[] a = rest.split("/by", 2);
+                        String descr = a[0].trim(), by = a[1].trim();
+                        if (descr.isEmpty() || by.isEmpty())
+                            throw new SamException("OOPS!!! Use: deadline <description> /by <time>");
+                        tasks.add(new Deadline(descr, by));
+                        printAdded(tasks.get(tasks.size() - 1), tasks.size());
+                        break;
+                    }
 
-                } else if (input.startsWith("deadline")) {
-                    String body = input.substring(8).trim();
-                    if (body.isEmpty() || !body.contains("/by"))
-                        throw new SamException("OOPS!!! Use: deadline <description> /by <time>");
-                    String[] parts = body.split("/by", 2);
-                    String descr = parts[0].trim();
-                    String by = parts[1].trim();
-                    if (descr.isEmpty() || by.isEmpty())
-                        throw new SamException("OOPS!!! Use: deadline <description> /by <time>");
-                    tasks.add(new Deadline(descr, by));
-                    printAdded(tasks.get(tasks.size() - 1), tasks.size());
+                    case EVENT: {
+                        if (rest.isEmpty() || !rest.contains("/from") || !rest.contains("/to"))
+                            throw new SamException("OOPS!!! Use: event <description> /from <start> /to <end>");
+                        String[] p1 = rest.split("/from", 2);
+                        String[] p2 = p1[1].split("/to", 2);
+                        String descr = p1[0].trim(), from = p2[0].trim(), to = p2[1].trim();
+                        if (descr.isEmpty() || from.isEmpty() || to.isEmpty())
+                            throw new SamException("OOPS!!! Use: event <description> /from <start> /to <end>");
+                        tasks.add(new Event(descr, from, to));
+                        printAdded(tasks.get(tasks.size() - 1), tasks.size());
+                        break;
+                    }
 
-                } else if (input.startsWith("event")) {
-                    String body = input.substring(5).trim();
-                    if (body.isEmpty() || !body.contains("/from") || !body.contains("/to"))
-                        throw new SamException("OOPS!!! Use: event <description> /from <start> /to <end>");
-                    String[] p1 = body.split("/from", 2);
-                    String[] p2 = p1[1].split("/to", 2);
-                    String descr = p1[0].trim();
-                    String from = p2[0].trim();
-                    String to = p2[1].trim();
-                    if (descr.isEmpty() || from.isEmpty() || to.isEmpty())
-                        throw new SamException("OOPS!!! Use: event <description> /from <start> /to <end>");
-                    tasks.add(new Event(descr, from, to));
-                    printAdded(tasks.get(tasks.size() - 1), tasks.size());
-
-                } else {
-                    throw new UnknownCommandException();
+                    case UNKNOWN:
+                        throw new UnknownCommandException();
                 }
+
             } catch (SamException e) {
                 printError(e.getMessage());
             } catch (NumberFormatException e) {
                 printError("OOPS!!! Task number must be an integer.");
             }
         }
-
-        sc.close();
     }
 }
