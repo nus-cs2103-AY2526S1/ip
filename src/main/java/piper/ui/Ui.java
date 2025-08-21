@@ -30,26 +30,26 @@ public class Ui {
 
     // ascii art
     final String ascii_Greet =
-            " _______                                   \n" +
-                    "|_   __ \\ ( ) .\\                         \n" +
-                    "  | |__) |__  | ''\\   .---.  _ .--.       \n" +
-                    "  |  ___/[  | | /'\\\\ / /__\\\\[  /''\\|  \n" +
-                    " _| |_    | | | \\_/ || \\__.'| |          \n" +
-                    "|_____|  [___]| |\\_/  \\___/[___]         \n" +
-                    "           / /| | \\                       \n" +
-                    "           [ \\] |  ]                      \n" +
-                    "            \\__ __/      (l_              \n" +
-                    "              | |        <'  }             \n" +
-                    "            [___/        (  (_\\.&         \n" +
+            " _______\n" +
+                    "|_   __ \\ ( ) .\\\n" +
+                    "  | |__) |__  | ''\\   .---.  _ .--.\n" +
+                    "  |  ___/[  | | /'\\\\ / /__\\\\[  /''\\|\n" +
+                    " _| |_    | | | \\_/ || \\__.'| |\n" +
+                    "|_____|  [___]| |\\_/  \\___/[___]\n" +
+                    "           / /| | \\\n" +
+                    "           [ \\] |  ]\n" +
+                    "            \\__ __/      (l_\n" +
+                    "              | |        <'  }\n" +
+                    "            [___/        (  (_\\.&\n" +
                     "--------------------<>----''--\\\\---------\n" +
-                    "                                \\         \n";
+                    "                                \\\n";
     final String ascii_Exit =
-            "             ______         ___,           \n" +
-                    "              `--- \\   _))/.--`           \n" +
-                    "            ,__`--. \\/  '>--`             \n" +
+            "             ______         ___,\n" +
+                    "              `--- \\   _))/.--`\n" +
+                    "            ,__`--. \\/  '>--`\n" +
                     "----------- `._.-.      /``----------------\n" +
-                    "                  '.__.'                   \n" +
-                    "                   ' '                     \n";
+                    "                  '.__.'\n" +
+                    "                   ' '\n";
 
     public void greetUser() {
         System.out.println(
@@ -70,13 +70,14 @@ public class Ui {
     }
 
     public void showAddedTask(Task task) {
-        System.out.println("added: " + task);
+        System.out.println(
+                "Got it. I've added this task:\n" + task);
     }
 
     public void showTaskStatus(Task task) {
         System.out.println(
                 ((task.getStatusIcon()).equals("X")
-                        ? "Got it. I've added this task:\n"
+                        ? "Nice! I've marked this task as done:\n"
                         : "OK, I've marked this task as not done yet:\n") +
                         task
         );
@@ -95,6 +96,10 @@ public class Ui {
                     (i + 1) + "." + task
             );
         }
+    }
+
+    public void showError(String message) {
+        System.out.println(message);
     }
 
 }
