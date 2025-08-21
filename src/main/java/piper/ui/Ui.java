@@ -107,4 +107,7 @@ public class Ui {
         System.out.println(message);
     }
 
+    public void showDeletedTask(Task task) {
+        System.out.println("TWEET! I've removed this task:\n" + task);
+    }
 }

@@ -41,7 +41,7 @@ public class Piper {
                     } else if (cmd.equals("todo") || cmd.equals("deadline") || cmd.equals("event")) {
                         // missing task description
                         throw new PiperException("TWEET TWEET! What are we supposed to do? Please specify the description!");
-                    } else if (cmd.equals("mark") || cmd.equals("unmark")) {
+                    } else if (cmd.equals("mark") || cmd.equals("unmark") || cmd.equals("delete")) {
                         // missing task index
                         throw new PiperException("CHIRRUP! Which task should I peck at? Please give me the task index!");
                     } else {
@@ -73,8 +73,23 @@ public class Piper {
                             // task index is outside of array range
                             throw new PiperException("PEEP! That task flew out of the nest. Please check using 'list' to see which tasks are home!");
                         }
+                    } else if (cmd.equals("delete")) {
+                        // delete task
+
+                        try {
+                            int taskNumber = Integer.parseInt(remainingSubstring);
+                            int index = taskNumber - 1;
+                            Task task = tasks.getTask(index);
+
+                            tasks.deleteTask(index);
+                            ui.showDeletedTask(task);
+                            ui.getTasksSize(tasks);
+                        } catch (Exception e) {
+                            throw new PiperException("PEEP! Bad egg. Please check using 'list' to see which tasks are home!");
+                        }
                     } else if (cmd.equals("todo") || cmd.equals("deadline") || cmd.equals("event")) {
                         // add new task
+
                         Task task = null;
 
                         switch (cmd) {

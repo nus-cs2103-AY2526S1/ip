@@ -25,4 +25,8 @@ public class TaskList {
         tasks.add(task);
     }
 
+    public Task deleteTask(int index) {
+        return tasks.remove(index);
+    }
+
 }
