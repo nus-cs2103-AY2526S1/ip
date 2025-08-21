@@ -4,8 +4,10 @@ public class TaskLynx {
 
     public static void main(String[] args) {
         LynxFileManager.createFile();
+        LynxStorage.loadTasks(LynxFileManager.readFromFile());
         hello();
         scanForCommands();
+        LynxFileManager.writeToFile(LynxStorage.unloadTasks());
         bye();
     }
 
