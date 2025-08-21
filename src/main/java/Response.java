@@ -1,6 +1,8 @@
 import taskTypes.Task;
 import taskTypes.taskList;
 
+import java.util.List;
+
 public class Response {
 
     public void markRes(taskList userList, int index) {
@@ -96,39 +98,38 @@ public class Response {
 
     }
 
-    public void printList(Task[] list) {
-        int maxLength = 0;
-        int taskCount = list.length;
+    public void printList(List<Task> list) {
+        int maxLength = 32;
+        int taskCount = list.size();
         String box = "─";
         for (Task task : list) {
-            if (task != null && task.toString().length() > maxLength) {
+            if (task.toString().length() > maxLength) {
                 maxLength = task.toString().length();
             }
         }
-        if (maxLength < 32) maxLength = 32;
 
         String listContent = "";
         for (int i = 0; i < taskCount; i++) {
-            Task task = list[i];
-            if (task != null) {
-                int padding = maxLength - task.toString().length();
-                String spaces = "";
-                for (int j = 0; j < padding + 3; j++) spaces += " ";
-                listContent += "\n │ " + i + ". " + task + spaces + "│";
+            Task task = list.get(i);
+            int padding = maxLength - task.toString().length();
+            String spaces = "";
+            for (int j = 0; j < padding + 3; j++) spaces += " ";
+            if (i <= 8) {
+                listContent += "\n │ " + (i + 1) + ". " + task + spaces + " │";
+            } else {
+                listContent += "\n │ " + (i + 1) + ". " + task + spaces + "│";
             }
         }
 
-        for (int i = 0; i < maxLength + 6; i++) {
-            box += "─";
-        }
+        for (int i = 0; i < maxLength + 7; i++) box += "─";
 
         String header = " │ Here are the tasks in your list:";
-        int headerPadding = maxLength - 32 + 6;
+        int headerPadding = maxLength - 26;
         for (int i = 0; i < headerPadding; i++) header += " ";
-        header += "│";
 
         String topBorder = " ┌" + box + "┐\n";
         String bottomBorder = " └" + box + "┴ ノ( ゜-゜ノ)";
+        header += " │";
         System.out.println(topBorder +
                 header + listContent + "\n" +
                 bottomBorder);
