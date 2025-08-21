@@ -65,7 +65,7 @@ public class LynxCommand {
             // Mark by unique ID
             try {
                 int id = Integer.parseInt(input.substring(3).trim());
-                LynxStorage.findTaskById(id);
+                return LynxStorage.findTaskById(id);
             } catch (NumberFormatException e) {
                 throw new LynxException("Sorry, that isn't a valid ID.");
             }
@@ -73,12 +73,11 @@ public class LynxCommand {
             // Mark by position in list
             try {
                 int pos = Integer.parseInt(input);
-                LynxStorage.findTaskByPosition(pos);
+                return LynxStorage.findTaskByPosition(pos);
             } catch (NumberFormatException e) {
                 throw new LynxException("Please provide a valid position number.");
             }
         }
-        throw new LynxException("Task not found.");
     }
 
     public static void deleteTask(String input) throws LynxException {

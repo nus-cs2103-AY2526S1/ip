@@ -6,6 +6,8 @@ public class DeadlineTask extends Task {
         this.deadline = deadline;
     }
 
+    public String getDeadline() { return deadline; }
+
     @Override
     public String toString() {
         return String.format("%s%s %s (by: %s) (id:%d)", type.getSymbol(), status.getSymbol(), name, deadline, id);

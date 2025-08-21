@@ -8,6 +8,9 @@ public class EventTask extends Task {
         this.end = end;
     }
 
+    public String getStart() { return start; }
+    public String getEnd() { return end; }
+
     @Override
     public String toString() {
         return String.format("%s%s %s (from: %s to: %s) (id:%d)", type.getSymbol(), status.getSymbol(), name, start, end, id);
