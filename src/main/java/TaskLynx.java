@@ -33,7 +33,7 @@ public class TaskLynx {
                 } else if (input.equalsIgnoreCase("reload")) {
                     LynxFileManager.createFile();
                 } else if (input.equalsIgnoreCase("list")) {
-                    LynxCommand.printListBox();
+                    LynxStorage.printTasks();
                 } else if (input.startsWith("mark")) {
                     LynxCommand.markTask(input);
                 } else if (input.startsWith("unmark")) {
