@@ -19,12 +19,21 @@ public class InputProcessor {
         Task newTask;
         if (taskType.equals("todo")) {
             newTask = new Task(taskName);
-        } else {
+        } else if (taskType.equals("deadline")) {
             int firstSlashIndex = taskName.indexOf("/");
             String actualName = taskName.substring(0, firstSlashIndex - 1);
             String deadline = taskName.substring(firstSlashIndex + 4);
             newTask = new DeadlineTask(actualName, deadline);
+        } else {
+            int firstSlashIndex = taskName.indexOf("/");
+            String actualName = taskName.substring(0, firstSlashIndex - 1);
+            String fromPlusTo = taskName.substring(firstSlashIndex + 1);
+            firstSlashIndex = fromPlusTo.indexOf("/");
+            String from = fromPlusTo.substring(5, firstSlashIndex - 1);
+            String to = fromPlusTo.substring(firstSlashIndex + 4);
+            newTask = new EventTask(actualName, from, to);
         }
+
         listOfTasks.add(newTask);
         System.out.println("    ____________________________________________________________");
         System.out.println("    Aights. I have added this task:");

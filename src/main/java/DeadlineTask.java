@@ -17,5 +17,4 @@ public class DeadlineTask extends Task{
     public String toString() {
         return "[D][" + getCompletionStatus() + "] " + getNameOfTask() + " (by: " + deadline + ")";
     }
-
 }
