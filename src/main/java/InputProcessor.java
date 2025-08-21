@@ -42,6 +42,17 @@ public class InputProcessor {
         System.out.println("    ____________________________________________________________");
     }
 
+    // Function to delete task
+    public void deleteTask(int taskNumber) {
+        Task task = listOfTasks.get(taskNumber);
+        listOfTasks.remove(taskNumber);
+        System.out.println("    ____________________________________________________________");
+        System.out.println("    Aights. I have deleted this task:");
+        System.out.println("        " + task);
+        System.out.println("    Now you have " + listOfTasks.size() + " tasks in the list.");
+        System.out.println("    ____________________________________________________________");
+    }
+
     // Function to display items in list
     public void displayList() {
         int len = listOfTasks.size();
@@ -70,6 +81,9 @@ public class InputProcessor {
                 int index = Integer.parseInt(words[1]);
                 Task task = listOfTasks.get(index - 1);
                 task.unmarkTask();
+            } else if (words[0].equals("delete")) {
+                int index = Integer.parseInt(words[1]);
+                deleteTask(index - 1);
             } else if (words[0].equals("todo") || words[0].equals("deadline") || words[0].equals("event")){
                 if (words[0].equals("todo") && words.length == 1) {
                     throw new TodoException("      YIKES!!! You need to enter a description for a task!!!");
