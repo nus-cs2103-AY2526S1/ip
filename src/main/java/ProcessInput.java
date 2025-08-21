@@ -19,6 +19,14 @@ public class ProcessInput {
         String arg = words.length > 1 ? words[1] : "";
 
         switch (command) {
+            case "delete":
+                if (arg.isEmpty() || Integer.parseInt(arg) <= 0 || Integer.parseInt(arg) > Ui.numTasks()) {
+                    throw new PhucException("Please enter a number between 1 and " + (Ui.numTasks() - 1) +  " (T_T)");
+                }
+
+                Ui.delete(arg);
+                break;
+
             case "event":
                 if (arg.isEmpty()) {
                     throw new PhucException("Hold on — an event needs a description. Please type something after 'todo'（>﹏<）");

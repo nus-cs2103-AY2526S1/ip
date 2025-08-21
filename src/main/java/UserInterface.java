@@ -1,10 +1,12 @@
+import java.util.ArrayList;
+
 public class UserInterface {
     private static final String line = "____________________________________________________________";
-    private final Task task[];
+    private final ArrayList<Task> task;
     private Integer count = 0;
 
     public UserInterface() {
-        task = new Task[100];
+        task = new ArrayList<>(100);
     }
 
     public int numTasks() {
@@ -30,7 +32,7 @@ public class UserInterface {
         String temp = "Here are the tasks in your list:\n";
         for(int i=0; i<count; i++) {
             temp += Integer.toString(i+1) + ". ";
-            temp += task[i].printTask() + "\n";
+            temp += task.get(i).printTask() + "\n";
         }
 
         System.out.println(line);
@@ -38,22 +40,16 @@ public class UserInterface {
         System.out.println(line);
     }
 
-    public void add(String newtask) {
-        task[count] = new Task(newtask);
-        print("Added: " + newtask);
-        count++;
-    }
-
     public void mark(String num) {
         int id = Integer.parseInt(num)-1;
-        task[id].setDone();
-        print("Nice! I've marked this task as done:\n" + task[id].printTask());
+        task.get(id).setDone();
+        print("Nice! I've marked this task as done:\n" + task.get(id).printTask());
     }
 
     public void unMark(String num) {
         int id = Integer.parseInt(num)-1;
-        task[id].setNotDone();
-        print("OK, I've marked this task as not done yet:\n" + task[id].printTask());
+        task.get(id).setNotDone();
+        print("OK, I've marked this task as not done yet:\n" + task.get(id).printTask());
     }
 
     public String notiNumOfTasks() {
@@ -65,22 +61,32 @@ public class UserInterface {
     }
 
     public void toDo(String newtask) {
-        task[count] = new ToDoTask(newtask);
-        String temp = notiAddTasks() + task[count].printTask() + "\n" + this.notiNumOfTasks();
+        task.add(new ToDoTask(newtask));
+        String temp = notiAddTasks() + task.get(count).printTask() + "\n" + this.notiNumOfTasks();
         print(temp);
         count++;
     }
 
     public void deadline(String newtask, String deadline) {
-        task[count] = new DeadlineTask(newtask, deadline);
-        String temp = notiAddTasks() + task[count].printTask() + "\n" + this.notiNumOfTasks();
+        task.add(new DeadlineTask(newtask, deadline));
+        String temp = notiAddTasks() + task.get(count).printTask() + "\n" + this.notiNumOfTasks();
         print(temp);
         count++;
     }
 
     public void event(String newtask, String from, String to) {
-        task[count] = new EventTask(newtask, from, to);
-        String temp = notiAddTasks() + task[count].printTask() + "\n" + this.notiNumOfTasks();
+        task.add(new EventTask(newtask, from, to));
+        String temp = notiAddTasks() + task.get(count).printTask() + "\n" + this.notiNumOfTasks();
+        print(temp);
+        count++;
+    }
+
+    public void delete(String num) {
+        count-=2;
+        String temp = "Noted. I've removed this task:\n" +
+                    task.get(Integer.parseInt(num)-1).printTask() + "\n" +
+                    this.notiNumOfTasks();
+        task.remove(Integer.parseInt(num)-1);
         print(temp);
         count++;
     }
