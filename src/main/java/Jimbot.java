@@ -3,12 +3,11 @@ import java.util.Scanner;
 public class Jimbot {
     public static void main(String[] args) {
         String greet = """
-                   ____________________________________________________________
-                    Hello! I'm Jimbot!
-                     (^з^)-☆
-                    What can I do for you?
-                   ____________________________________________________________
-                """;
+                        ┌──────────────────────────┐
+                        │ Hello! I'm Jimbot!       │
+                        │ What can I do for you?   │
+               (^з^)-☆ ╱└──────────────────────────┘
+               """;
         System.out.println(greet);
         Scanner scanner = new Scanner(System.in);
         String userInput;
@@ -17,31 +16,81 @@ public class Jimbot {
 
         while (true) {
             userInput = scanner.nextLine().trim();
+            String box = "─";
+            int maxLength = 0;
+
             if (userInput.toLowerCase().contains("bye")) {
                 System.out.println("""
-                           ____________________________________________________________
-                            Bye! Hope to see you again soon!
-                            (^O^)／
-                           ____________________________________________________________
-                        """);
+                             ┌────────────────────────────────────┐
+                             │ Bye! Hope to see you again soon!   │
+                    \\(^O^)  ╱└────────────────────────────────────┘
+                    """);
                 break;
+
             } else if (userInput.equalsIgnoreCase("list")) {
-                String list = "    Here are the tasks in your list:";
-                for (int i = 0; i < count; i++) {
-                    list += "\n    " + (i + 1) + ". " + userList[i];
+                for (Task task : userList) {
+                    if (task != null && task.toString().length() > maxLength) {
+                        maxLength = task.toString().length();
+                    }
                 }
-                System.out.println("   ____________________________________________________________\n" +
-                        list + "    ノ( ゜-゜ノ)\n" +
-                        "   ____________________________________________________________");
+                if (maxLength < 32) maxLength = 32;
+
+                String listContent = "";
+                for (int i = 0; i < count; i++) {
+                    Task task = userList[i];
+                    if (task != null) {
+                        int padding = maxLength - task.toString().length();
+                        String spaces = "";
+                        for (int j = 0; j < padding + 3; j++) spaces += " ";
+                        listContent += "\n │ " + (i + 1) + ". " + task + spaces + "│";
+                    }
+                }
+
+                for (int i = 0; i < maxLength + 6 ; i++) {
+                    box += "─";
+                }
+
+                String header = " │ Here are the tasks in your list:";
+                int headerPadding = maxLength - 32 + 6;
+                for (int i = 0; i < headerPadding; i++) header += " ";
+                header += "│";
+
+                String topBorder = " ┌" + box + "┐\n";
+                String bottomBorder = " └" + box + "┘ ノ( ゜-゜ノ)";
+                System.out.println(topBorder +
+                        header + listContent + "\n" +
+                        bottomBorder);
+
             } else if (userInput.startsWith("mark")) {
+                String padding = "  ";
                 int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                if (index >= 0 && index < count) {
+                int inputLength = userList[index].toString().length();
+
+                if (inputLength < 37) {
+                    maxLength = 37;
+                } else {
+                    maxLength = inputLength;
+                }
+
+                for (int i = 0; i < maxLength + 6 ; i++) box += "─";
+                int spaceCount = maxLength - userList[index].toString().length();
+                String topBorder = "            ┌" + box + "┐\n";
+                String bottomBorder = "            └" + box + "┘\n";
+                String header = "            │ Nice! I've marked this task as done:";
+
+                if (index < count) {
+                    for (int i = 0; i < spaceCount; i++) padding += " ";
+
+                    int headerPadding = maxLength - 37 + 6;
+                    for (int i = 0; i < headerPadding; i++) header += " ";
+                    header += " │\n";
+
                     userList[index].markAsDone();
-                    System.out.println("   ____________________________________________________________\n" +
-                            "    Nice! I've marked this task as done:\n" +
-                            "       " + userList[index] + "\n" +
-                            "     ♪ ｖ（＾＿＾ｖ）♪ ♪（ｖ＾＿＾）ｖ ♪\n" +
-                            "   ____________________________________________________________");
+                    System.out.println(topBorder +
+                            header +
+                            "            │     " + userList[index] + padding + "│\n" +
+                            bottomBorder +
+                            "♪ ｖ（＾＿＾ｖ）♪ ~~ ♪（ｖ＾＿＾）ｖ ノ");
                 } else {
                     System.out.println("Invalid task number!\n (╥﹏╥)");
                 }
@@ -120,9 +169,13 @@ public class Jimbot {
                             "   ____________________________________________________________");
                 }
             } else {
-                System.out.println("   ____________________________________________________________\n" +
-                        "    " + userInput + "\n    ʕ •ᴥ•ʔ     ʕ•ᴥ• ʔ\n" +
-                        "   ____________________________________________________________");
+                String textBox =  "─";
+                for (int i = 0; i < userInput.length() + 6; i++) {
+                    textBox += "─";
+                }
+                System.out.println("                   ┌" + textBox + "┐\n" +
+                        "                   │ " + userInput + "      │\n" +
+                        "ʕ •ᴥ•ʔ     ʕ•ᴥ• ʔ ╱└" + textBox + "┘");
             }
         }
         scanner.close();
