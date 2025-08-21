@@ -17,7 +17,7 @@ public class Response {
         int spaceCount = maxLength - inputLength;
         String topBorder = "            ┌" + box + "┐\n";
         String bottomBorder = "            └" + box + "┘\n";
-        String header = "            │ Nice! I've marked this task as done:";
+        String header = "            │ Nice♪ I've marked this task as done:";
 
         for (int i = 0; i < spaceCount; i++) padding += " ";
 
@@ -29,7 +29,7 @@ public class Response {
                 header +
                 "            │     " + userList.getTask(index) + padding + "│\n" +
                 bottomBorder +
-                "♪ ｖ（＾＿＾ｖ）♪ ~~ ♪（ｖ＾＿＾）ｖ ノ");
+                "♪ ｖ(＾＿＾ｖ)♪ ~~ ♪(ｖ＾＿＾)ｖ ╯");
     }
 
     public void unmarkRes(taskList userList, int index) {
@@ -61,33 +61,37 @@ public class Response {
         );
     }
 
-    public void addTaskRes(Task task, int taskCount) {
+    public void addTask(Task task, int taskCount) {
         int taskLength = task.toString().length();
-        int maxLength = 35;
+        int maxLength = 36;
         String box = "─";
 
-        if (taskLength > 35) {
+        if (taskLength > 36) {
             maxLength = taskLength;
         }
 
         for (int i = 0; i < maxLength + 6 ; i++) box += "─";
-        String topBorder = "     ┌" + box + "┐\n";
-        String bottomBorder = "     └" + box + "┘\n";
-        String header = "     │ Got it. I've added this task:";
-        String closer = "     │ Now you have " + taskCount + " tasks in the list.";
+        String topBorder = "           ┌" + box + "┐\n";
+        String bottomBorder = " ─┴" + box + "┘\n";
+        String header = "           │ Got it. I've added this task:";
+        String closer = "           │ Now you have " + taskCount + " tasks in the list.";
 
         String padding1 = "  ";
         for (int i = 0; i < maxLength - 25; i++) padding1 += " ";
         String padding2 = "  ";
         for (int i = 0; i < maxLength - taskLength; i++) padding2 += " ";
         String padding3 = "  ";
-        for (int i = 0; i < maxLength - 29; i++) padding3 += " ";
+        if (taskCount >= 10) {
+            for (int i = 0; i < maxLength - 30; i++) padding3 += " ";
+        } else {
+            for (int i = 0; i < maxLength - 29; i++) padding3 += " ";
+        }
 
         System.out.println(topBorder +
                 header + padding1 + "│\n" +
-                "     │     " + task + padding2 + "│\n" +
+                "           │     " + task + padding2 + "│\n" +
                 closer + padding3 + "│\n" +
-                bottomBorder
+                " (￣^￣)ゞ" + bottomBorder
         );
 
     }
@@ -124,7 +128,7 @@ public class Response {
         header += "│";
 
         String topBorder = " ┌" + box + "┐\n";
-        String bottomBorder = " └" + box + "┘ ノ( ゜-゜ノ)";
+        String bottomBorder = " └" + box + "┴ ノ( ゜-゜ノ)";
         System.out.println(topBorder +
                 header + listContent + "\n" +
                 bottomBorder);
@@ -147,14 +151,14 @@ public class Response {
                 "          ┌" + textBox + "┐\n" +
                         "          │ Hello! I'm " + name +"!" + padding1 + "│\n" +
                         "          │ What can I do for you?"  + padding2 + "│\n" +
-                        " (^з^)-☆ ╱└" + textBox + "┘");
+                        " (^з^)-☆ ─┴" + textBox + "┘");
     }
 
     public void goodBye() {
         System.out.println("""
-                             ┌────────────────────────────────────┐
-                             │ Bye! Hope to see you again soon!   │
-                    \\(^O^)  ╱└────────────────────────────────────┘
+                            ┌────────────────────────────────────┐
+                            │ Bye! Hope to see you again soon!   │
+                    \\(^O^) ─┴────────────────────────────────────┘
                     """);
     }
 
@@ -165,6 +169,6 @@ public class Response {
         }
         System.out.println("                   ┌" + textBox + "┐\n" +
                 "                   │ " + userInput + "      │\n" +
-                "ʕ •ᴥ•ʔ     ʕ•ᴥ• ʔ ╱└" + textBox + "┘");
+                "ʕ •ᴥ•ʔ     ʕ•ᴥ• ʔ ─┴" + textBox + "┘");
     }
 }

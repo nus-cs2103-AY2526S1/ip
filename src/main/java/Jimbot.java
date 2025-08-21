@@ -1,18 +1,16 @@
+import exceptions.*;
 import taskTypes.Deadline;
 import taskTypes.Event;
 import taskTypes.ToDo;
 import taskTypes.taskList;
-import exceptions.InvalidDeadlineException;
-import exceptions.InvalidEventException;
-import exceptions.InvalidToDoException;
 
 import java.util.Scanner;
 
 public class Jimbot {
     public static void main(String[] args) {
         String userInput;
-        Response user = new Response();
         Scanner scanner = new Scanner(System.in);
+        Response user = new Response();
         taskList userList = new taskList();
 
         user.hello("Jimbot");
@@ -22,30 +20,27 @@ public class Jimbot {
 
             try {
                 int taskCount = userList.getTaskCount();
-
                 if (userInput.toLowerCase().contains("bye")) {
                     user.goodBye();
                     break;
 
                 } else if (userInput.equalsIgnoreCase("list")) {
                     user.printList(userList.getTaskList());
+
                 } else if (userInput.startsWith("mark")) {
                     int index = Integer.parseInt(userInput.split(" ")[1]);
 
                     if (index < taskCount) {
                         userList.getTask(index).markAsDone();
                         user.markRes(userList, index);
-                    } else {
-                        System.out.println("Invalid task number!\n (╥﹏╥)");
-                    }
+                    } else throw new InvalidIndexException();
+
                 } else if (userInput.startsWith("unmark")) {
                     int index = Integer.parseInt(userInput.split(" ")[1]);
                     if (index < taskCount) {
                         userList.getTask(index).markAsUndone();
                         user.unmarkRes(userList, index);
-                    } else {
-                        System.out.println("Invalid task number!\n (╥﹏╥)");
-                    }
+                    } else throw new InvalidIndexException();
                 } else if (userInput.startsWith("deadline")) {
 
                     if (!userInput.contains("/by")) throw new InvalidDeadlineException();
@@ -55,14 +50,12 @@ public class Jimbot {
                                 .split("/by", 2);
                         String description = deadline[0].trim();
                         String by = deadline[1].trim();
-
-                        if (taskCount >= 100) {
-                            System.out.println("Too many tasks!\n ＞_＜");
-                        } else if (by.isEmpty()) throw new InvalidDeadlineException();
+                        if (taskCount >= 100) throw new TaskLimitException();
+                        else if (by.isEmpty()) throw new InvalidDeadlineException();
                         else {
                             Deadline userDeadline = new Deadline(description, by);
                             userList.addToList(userDeadline);
-                            user.addTaskRes(userDeadline, taskCount);
+                            user.addTask(userDeadline, taskCount);
                         }
                     }
                 } else if (userInput.startsWith("event")) {
@@ -81,31 +74,29 @@ public class Jimbot {
 
                         String from = timings[0].trim();
                         String to = timings[1].trim();
-
-                        if (taskCount >= 100) {
-                            System.out.println("Too many tasks!\n ＞_＜");
-                        } else if (from.isEmpty() || to.isEmpty()) throw new InvalidEventException();
+                        if (taskCount >= 100) throw new TaskLimitException();
+                        else if (from.isEmpty() || to.isEmpty()) throw new InvalidEventException();
                         else {
                             Event userEvent = new Event(description, from, to);
                             userList.addToList(userEvent);
-                            user.addTaskRes(userEvent, taskCount);
+                            user.addTask(userEvent, taskCount);
                         }
                     }
                 } else if (userInput.startsWith("todo")) {
                     String description = userInput.substring(4).trim();
 
-                    if (taskCount >= 100) {
-                        System.out.println("Too many tasks!\n ＞_＜");
-                    } else if (description.isEmpty()) throw new InvalidToDoException();
+                    if (taskCount >= 100) throw new TaskLimitException();
+                    else if (description.isEmpty()) throw new InvalidToDoException();
                     else {
                         ToDo userToDo = new ToDo(description);
                         userList.addToList(userToDo);
-                        user.addTaskRes(userToDo, taskCount);
+                        user.addTask(userToDo, taskCount);
                     }
                 } else {
                     user.echo(userInput);
                 }
-            } catch (InvalidDeadlineException | InvalidEventException | InvalidToDoException e) {
+            } catch (InvalidDeadlineException | InvalidEventException |
+                     InvalidIndexException | InvalidToDoException | TaskLimitException e) {
                 System.out.println(e.getMessage());
             }
         }
