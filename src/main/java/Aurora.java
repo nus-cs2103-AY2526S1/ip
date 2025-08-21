@@ -10,7 +10,7 @@ public class Aurora {
 
     private static final String INTRO = "Hello! I'm Aurora. What can I do for you?";
     private static final String OUTRO = "Bye. Hope to see you again soon!";
-    private static final Pattern MARK = Pattern.compile("^mark\\s+(\\d+)$");
+    private static final Pattern MARK = Pattern.compile("^mark\\s+(\\d+)$", Pattern.CASE_INSENSITIVE);
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);

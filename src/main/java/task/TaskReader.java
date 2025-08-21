@@ -19,12 +19,12 @@ public class TaskReader {
 
         m = DEADLINE.matcher(input);
         if (m.matches()) {
-            return new Deadline(m.group(1));
+            return new Deadline(m.group(1), m.group(2));
         }
 
         m = EVENT.matcher(input);
         if (m.matches()) {
-            return new Event(m.group(1));
+            return new Event(m.group(1), m.group(2), m.group(3));
         }
 
         return null;

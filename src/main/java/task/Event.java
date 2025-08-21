@@ -1,8 +1,13 @@
 package task;
 
 public class Event extends Task {
-    public Event(String description) {
+    protected String from;
+    protected String to;
+
+    public Event(String description, String from, String to) {
         super(description);
+        this.from = from;
+        this.to = to;
     }
 
     @Override
@@ -12,6 +17,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString();
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to +  ")";
     }
 }
