@@ -71,14 +71,14 @@ public class Ui {
 
     public void showAddedTask(Task task) {
         System.out.println(
-                "Got it. I've added this task:\n" + task);
+                "TWEET! I've tucked this task into the nest:\n" + task);
     }
 
     public void showTaskStatus(Task task) {
         System.out.println(
                 ((task.getStatusIcon()).equals("X")
-                        ? "Nice! I've marked this task as done:\n"
-                        : "OK, I've marked this task as not done yet:\n") +
+                        ? "SWEET! I've marked this task as done:\n"
+                        : "ALRIGHTY, I've marked this task as not done yet:\n") +
                         task
         );
     }
@@ -90,6 +90,11 @@ public class Ui {
     }
 
     public void displayTasks(TaskList tasks) {
+        if (tasks.getSize() == 0) {
+            System.out.println("CHIRRUP! The task list is empty.");
+        } else {
+            System.out.println("CHIRP CHIRP! Let's get to work!");
+        }
         for (int i = 0; i < tasks.getSize(); i++) {
             Task task = tasks.getTask(i);
             System.out.println(
