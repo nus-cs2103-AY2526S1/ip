@@ -1,3 +1,6 @@
+import task.Task;
+import task.Todo;
+
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -5,13 +8,13 @@ import java.util.regex.*;
 
 public class Aurora {
 
-    public static final String INTRO = "Hello! I'm Aurora. What can I do for you?";
-    public static final String OUTRO = "Bye. Hope to see you again soon!";
-    public static final Pattern MARK = Pattern.compile("^mark\\s+(\\d+)$");
+    private static final String INTRO = "Hello! I'm Aurora. What can I do for you?";
+    private static final String OUTRO = "Bye. Hope to see you again soon!";
+    private static final Pattern MARK = Pattern.compile("^mark\\s+(\\d+)$");
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<Task> list = new ArrayList<Task>();
+        List<Task> list = new ArrayList<>();
 
         speak(INTRO);
         loop(scanner, list);
@@ -19,11 +22,11 @@ public class Aurora {
         scanner.close();
     }
 
-    public static void speak(String content) {
+    private static void speak(String content) {
         System.out.println("Aurora: " + content);
     }
 
-    public static void loop(Scanner s, List<Task> list) {
+    private static void loop(Scanner s, List<Task> list) {
         String input = s.nextLine();
 
         while (!input.equals("bye")) {
@@ -40,12 +43,12 @@ public class Aurora {
         }
     }
 
-    public static void add(String content, List<Task> list) {
-        list.add(new Task(content));
+    private static void add(String content, List<Task> list) {
+        list.add(new Todo(content));
         speak("Added " + content + " as a task into your list.");
     }
 
-    public static void list(List<Task> list) {
+    private static void list(List<Task> list) {
         if (list.isEmpty()) {
             speak("Your list is empty.");
             return;
@@ -57,7 +60,7 @@ public class Aurora {
         }
     }
 
-    public static void mark(List<Task> list, int x) {
+    private static void mark(List<Task> list, int x) {
         if (x == 0 || x > list.size()) {
             speak("There is no task numbered " + x + ".");
             return;
