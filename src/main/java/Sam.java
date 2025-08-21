@@ -4,7 +4,7 @@ public class Sam {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        String[] tasks = new String[100];  
+        Task[] tasks = new Task[100];  
         int taskCount = 0;                 
 
         String intro = "____________________________________________________________\n"
@@ -22,23 +22,40 @@ public class Sam {
                 System.out.println(" Bye. Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
                 break; // exit the loop
+
             } else if (input.equals("list")) {
                 // Print stored tasks
                 System.out.println("____________________________________________________________");
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
                     System.out.println((i + 1) + ". " + tasks[i]);
                 }
                 System.out.println("____________________________________________________________");
+            
+            } else if (input.startsWith("mark ")){
+                int idx = Integer.parseInt(input.split(" ")[1]) - 1;
+                tasks[idx].markDone();
+                System.out.println("____________________________________________________________");
+                System.out.println(" Nice! I've marked this task as done:");
+                System.out.println(" " + tasks[idx]);
+                System.out.println("____________________________________________________________");
+
+            } else if (input.startsWith("unmark ")) {
+                int idx = Integer.parseInt(input.split(" ")[1]) - 1;
+                tasks[idx].unmark();
+                System.out.println("____________________________________________________________");
+                System.out.println(" OK, I've marked this task as not done yet:");
+                System.out.println(" " + tasks[idx]);
+                System.out.println("____________________________________________________________");
             } else {
                 // user inputs anything else
-                tasks[taskCount] = input;
+                tasks[taskCount] = new Task(input);
                 taskCount++;
                 System.out.println("____________________________________________________________");
                 System.out.println(" " + input);
                 System.out.println("____________________________________________________________");
             }
         }
-
         sc.close();
     }
 }
