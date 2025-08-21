@@ -54,23 +54,38 @@ public class InputProcessor {
         System.out.println("    ____________________________________________________________");
     }
 
-    public void processInput(String input) {
+    public void processInput(String input) throws InvalidPromptException, TodoException {
         String[] words = input.split(" ");
         int firstSpaceIndex = input.indexOf(" ");
         String restOfinput = input.substring(firstSpaceIndex + 1);
 
-        if (input.equals("list")) {
-            displayList();
-        } else if (words[0].equals("mark")) {
-            int index = Integer.parseInt(words[1]);
-            Task task = listOfTasks.get(index - 1);
-            task.markAsDone();
-        } else if (words[0].equals("unmark")) {
-            int index = Integer.parseInt(words[1]);
-            Task task = listOfTasks.get(index - 1);
-            task.unmarkTask();
-        } else {
-            addInput(restOfinput, words[0]);
+        try {
+            if (input.equals("list")) {
+                displayList();
+            } else if (words[0].equals("mark")) {
+                int index = Integer.parseInt(words[1]);
+                Task task = listOfTasks.get(index - 1);
+                task.markAsDone();
+            } else if (words[0].equals("unmark")) {
+                int index = Integer.parseInt(words[1]);
+                Task task = listOfTasks.get(index - 1);
+                task.unmarkTask();
+            } else if (words[0].equals("todo") || words[0].equals("deadline") || words[0].equals("event")){
+                if (words[0].equals("todo") && words.length == 1) {
+                    throw new TodoException("      YIKES!!! You need to enter a description for a task!!!");
+                }
+                addInput(restOfinput, words[0]);
+            } else {
+                throw new InvalidPromptException("     YIKES!!! I do not quite understand what you just said :(");
+            }
+        } catch (TodoException e) {
+            System.out.println("    ____________________________________________________________");
+            System.out.println(e.getMessage());
+            System.out.println("    ____________________________________________________________");
+        } catch (InvalidPromptException e) {
+            System.out.println("    ____________________________________________________________");
+            System.out.println(e.getMessage());
+            System.out.println("    ____________________________________________________________");
         }
     }
 }
