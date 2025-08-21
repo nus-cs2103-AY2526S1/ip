@@ -1,11 +1,11 @@
 import java.util.Scanner;
-
+import java.util.ArrayList;
 public class Stella {
     public static void main(String[] args) {
 
             Scanner scan = new Scanner(System.in);
-            Task[] lists = new Task[100];
-            int counter = 0;
+            ArrayList<Task> lists = new ArrayList<>();
+
 
             System.out.println(" > Hello! I am Stella");
             System.out.println(" > What can I do for you?");
@@ -15,41 +15,54 @@ public class Stella {
             while (!user_input.equals("bye")) {
                 try {
                     if (user_input.equals(("list"))) {
-                        if (counter == 0) {
+                        if (lists.isEmpty()) {
                             System.out.println("Task list is empty. Add one now: ");
                         }
-                        for (int i = 1; i - 1 < counter; i = i + 1) {
-                            System.out.println(" > " + i + ". " + lists[i - 1]);
+                        for (int i = 1; i <= lists.size(); i = i + 1) {
+                            System.out.println(" > " + i + ". " + lists.get(i-1));
                         }
-                    } else if (user_input.contains("unmark")) {
+                    } else if (user_input.contains("delete")) {
+                        if (user_input.length() <= 7) {
+                            throw new IncompleteInstructionException(user_input);
+                        }
+                        int index = Integer.valueOf(user_input.substring(7)) - 1;
+                        System.out.println("I have removed the following: ");
+                        System.out.println("" + lists.remove(index));
+
+
+                        System.out.println(" > Now you have " + lists.size() + " task(s) in the list");
+
+                    }
+
+                    else if (user_input.contains("unmark")) {
                         if (user_input.length() <= 7) {
                             throw new IncompleteInstructionException(user_input);
                         }
                         Integer index = Integer.valueOf(user_input.substring(7)) - 1;
 
 
-                        lists[index].markUndone();
+                        lists.get(index).markUndone();
                         System.out.println(" > OK, I've marked this task as not done yet: ");
-                        System.out.println(" > " + lists[index]);
+                        System.out.println(" > " + lists.get(index));
 
                     } else if (user_input.contains("mark")) {
                         if (user_input.length() <= 5) {
                             throw new IncompleteInstructionException(user_input);
                         }
                         Integer index = Integer.valueOf(user_input.substring(5)) - 1;
-                        lists[index].markDone();
+                        lists.get(index).markDone();
                         System.out.println(" > Nice! I've marked this task as done: ");
-                        System.out.println(" > " + lists[index]);
+                        System.out.println(" > " + lists.get(index));
 
                     } else if (user_input.contains("todo")) {
                         if (user_input.length() <= 5) {
                             throw new IncompleteInstructionException(user_input);
                         }
                         String description = user_input.substring(5);
-                        lists[counter] = new ToDo(description);
-                        System.out.println(" > added: " + lists[counter]);
-                        counter = counter + 1;
-                        System.out.println(" > Now you have " + counter + " task(s) in the list");
+                        lists.add(new ToDo(description));
+                        System.out.println(" > added: " + lists.get(lists.size() - 1));
+
+                        System.out.println(" > Now you have " + lists.size() + " task(s) in the list");
 
                     } else if (user_input.contains("deadline")) {
                         if (user_input.length() <= 9) {
@@ -58,10 +71,10 @@ public class Stella {
                         String description = user_input.substring(9, user_input.indexOf('/'));
                         String deadline = user_input.substring(user_input.indexOf('/') + 1);
 
-                        lists[counter] = new Deadline(description, deadline);
-                        System.out.println(" > added: " + lists[counter]);
-                        counter = counter + 1;
-                        System.out.println(" > Now you have " + counter + " task(s) in the list");
+                        lists.add(new Deadline(description, deadline));
+                        System.out.println(" > added: " + lists.get(lists.size() - 1));
+
+                        System.out.println(" > Now you have " + lists.size() + " task(s) in the list");
 
                     } else if (user_input.contains("event")) {
                         if (user_input.length() <= 6) {
@@ -71,10 +84,11 @@ public class Stella {
                         String start = user_input.substring(user_input.indexOf('/') + 1, user_input.lastIndexOf('/'));
                         String end = user_input.substring(user_input.lastIndexOf('/') + 1);
 
-                        lists[counter] = new Event(description, start, end);
-                        System.out.println(" > added: " + lists[counter]);
-                        counter = counter + 1;
-                        System.out.println(" > Now you have " + counter + " task(s) in the list");
+                        lists.add(new Event(description, start, end));
+                        System.out.println(" > added: " + lists.get(lists.size() - 1));
+
+                        System.out.println(" > Now you have " + lists.size() + " task(s) in the list");
+
 
                     } else {
                         throw new UnknownInstructionException(user_input);
