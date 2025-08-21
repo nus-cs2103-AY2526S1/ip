@@ -1,8 +1,10 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class TaskLynx {
 
     public static void main(String[] args) {
+        LynxFileManager.createFile();
         hello();
         scanForCommands();
         bye();
@@ -29,6 +31,8 @@ public class TaskLynx {
             try {
                 if (input.equalsIgnoreCase("bye")) {
                     break;
+                } else if (input.equalsIgnoreCase("reload")) {
+                    LynxFileManager.createFile();
                 } else if (input.equalsIgnoreCase("list")) {
                     TaskManager.printListBox();
                 } else if (input.startsWith("mark")) {
@@ -55,4 +59,6 @@ public class TaskLynx {
     }
 
 }
+
+
 
