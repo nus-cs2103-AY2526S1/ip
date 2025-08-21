@@ -2,8 +2,9 @@ import exceptions.*;
 import taskTypes.Deadline;
 import taskTypes.Event;
 import taskTypes.ToDo;
+import taskTypes.Task;
 import taskTypes.taskList;
-
+import util.Helper;
 import java.util.Scanner;
 
 public class Jimbot {
@@ -28,19 +29,16 @@ public class Jimbot {
                     user.printList(userList.getTaskList());
 
                 } else if (userInput.startsWith("mark")) {
-                    int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-
-                    if (index >= 0 && index < taskCount) {
-                        userList.getTask(index).markAsDone();
-                        user.markRes(userList, index);
-                    } else throw new InvalidIndexException();
+                    int index = Helper.parseIndex(userInput, "mark", taskCount);
+                    Task task = userList.getTask(index);
+                    task.markAsDone();
+                    user.markRes(userList, index);
 
                 } else if (userInput.startsWith("unmark")) {
-                    int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    if (index >= 0 && index < taskCount) {
-                        userList.getTask(index).markAsUndone();
-                        user.unmarkRes(userList, index);
-                    } else throw new InvalidIndexException();
+                    int index = Helper.parseIndex(userInput, "unmark", taskCount);
+                    Task task = userList.getTask(index);
+                    task.markAsUndone();
+                    user.unmarkRes(userList, index);
 
                 } else if (userInput.startsWith("deadline")) {
 
@@ -91,6 +89,11 @@ public class Jimbot {
                         userList.addToList(userToDo);
                         user.addTask(userToDo, taskCount + 1);
                     }
+                } else if (userInput.startsWith("delete")) {
+                    int index = Helper.parseIndex(userInput, "delete", taskCount);
+                    Task task = userList.getTask(index);
+                    userList.deleteFromList(userList.getTask(index));
+                    user.deleteTask(task, taskCount - 1);
 
                 } else {
                     user.echo(userInput);

@@ -76,7 +76,7 @@ public class Response {
         String topBorder = "           ┌" + box + "┐\n";
         String bottomBorder = " ─┴" + box + "┘\n";
         String header = "           │ Got it. I've added this task:";
-        String closer = "           │ Now you have " + taskCount + " tasks in the list.";
+        String closer = "           │ Now you have " + taskCount + " tasks in the list!";
 
         String padding1 = "  ";
         for (int i = 0; i < maxLength - 25; i++) padding1 += " ";
@@ -133,6 +133,40 @@ public class Response {
         System.out.println(topBorder +
                 header + listContent + "\n" +
                 bottomBorder);
+    }
+
+    public void deleteTask(Task task, int taskCount) {
+        int taskLength = task.toString().length();
+        int maxLength = 36;
+        String box = "─";
+
+        if (taskLength > 36) {
+            maxLength = taskLength;
+        }
+
+        for (int i = 0; i < maxLength + 6 ; i++) box += "─";
+        String topBorder = "           ┌" + box + "┐\n";
+        String bottomBorder = " ─┴" + box + "┘\n";
+        String header = "           │ Noted. I've removed this task:";
+        String closer = "           │ Now you have " + taskCount + " tasks in the list!";
+
+        String padding1 = "  ";
+        for (int i = 0; i < maxLength - 26; i++) padding1 += " ";
+        String padding2 = "  ";
+        for (int i = 0; i < maxLength - taskLength; i++) padding2 += " ";
+        String padding3 = "  ";
+        if (taskCount >= 10) {
+            for (int i = 0; i < maxLength - 30; i++) padding3 += " ";
+        } else {
+            for (int i = 0; i < maxLength - 29; i++) padding3 += " ";
+        }
+
+        System.out.println(topBorder +
+                header + padding1 + "│\n" +
+                "           │     " + task + padding2 + "│\n" +
+                closer + padding3 + "│\n" +
+                " (￣^￣)ゞ" + bottomBorder
+        );
     }
 
     public void hello(String name) {

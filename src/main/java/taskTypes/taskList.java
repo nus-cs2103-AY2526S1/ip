@@ -28,6 +28,10 @@ public class taskList {
         return listOfTasks.get(index);
     }
 
+    public void deleteFromList(Task task) {
+        listOfTasks.remove(task);
+    }
+
     public int getTaskCount() {
         return listOfTasks.size();
     }
