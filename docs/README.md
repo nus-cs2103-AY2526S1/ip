@@ -8,9 +8,10 @@
 
 1. Clone the repo
 2. Navigate to the root of the project
-3. Run `javac -cp ./src/main/java -Xlint:none -d ./bin ./src/main/java/*.java` to compile the program
-4. Navigate to `PROJECT_ROOT/bin` folder
-5. Run `java MinhGPT` to run the program
+3. Run `mkdir bin`, this folder will store our executables
+4. Run `javac -cp ./src/main/java -Xlint:none -d ./bin ./src/main/java/*.java` to compile the program
+5. Navigate to `PROJECT_ROOT/bin` folder
+6. Run `java MinhGPT` to run the program
 
 ## Testing
 
