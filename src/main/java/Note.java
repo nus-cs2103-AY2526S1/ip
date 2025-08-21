@@ -52,11 +52,39 @@ public class Note {
                     } else {
                         System.out.println(" Invalid task number!");
                     }
-            } else {
-                Task t = new Task(input);
+            } else if (input.startsWith("todo ")) {
+                String desc = input.substring(5); // remove "todo "
+                Task t = new Todo(desc);
                 tasks.add(t);
-                System.out.println(" added: " + t);
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + t);
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+            } else if (input.startsWith("deadline ")) {
+                String[] parts = input.substring(9).split(" /by ", 2);
+                if (parts.length < 2) {
+                    System.out.println(" Invalid deadline format!");
+                } else {
+                    Task t = new Deadline(parts[0], parts[1]);
+                    tasks.add(t);
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println("   " + t);
+                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                }
+            } else if (input.startsWith("event ")) {
+                String[] parts = input.substring(6).split(" /from | /to ", 3);
+                if (parts.length < 3) {
+                    System.out.println(" Invalid event format!");
+                } else {
+                    Task t = new Event(parts[0], parts[1], parts[2]);
+                    tasks.add(t);
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println("   " + t);
+                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                }
+            } else {
+                System.out.println(" OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
+
             System.out.println("____________________________________________________________");
         }
     }
