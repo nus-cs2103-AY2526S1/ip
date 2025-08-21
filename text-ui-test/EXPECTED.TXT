@@ -20,6 +20,9 @@ Here are the tasks in your list
 1. [T][ ] borrow book
 2. [D][ ] return book (by:  Friday)
 ############################################################
+Sorry! I don't know what this comment is supposed to be...
+Available commands: todo (description) , event (description) (from) (to), deadline (description) (by)
+Type 'bye' to cancel the chat!
 ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
