@@ -1,8 +1,10 @@
-import java.util.Scanner;
+ import java.util.Scanner;
 public class PoopieMeow {
     public static void main(String[] args) {
         String input;
         Scanner sc = new Scanner(System.in);
+        String[] tasks = new String[100];
+        int taskCount = 0;
         
         System.out.println("____________________________________________________________");
         System.out.println(" Hello! I'm PoopieMeow");
@@ -17,9 +19,17 @@ public class PoopieMeow {
                 System.out.println("   Bye. Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
                 break;
-            } else {
+            } else if (input.equals("list")) {
                 System.out.println("____________________________________________________________");
-                System.out.println("     " + input);
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println(" " + (i + 1) + ". " + tasks[i]);
+                }
+                System.out.println("____________________________________________________________");
+            } else {
+                tasks[taskCount] = input;
+                taskCount++;
+                System.out.println("____________________________________________________________");
+                System.out.println(" added: " + input);
                 System.out.println("____________________________________________________________");
             }
         }
