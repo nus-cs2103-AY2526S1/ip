@@ -52,6 +52,19 @@ public class Note {
                     tasks.get(index).markAsNotDone();
                     System.out.println(" OK, I've marked this task as not done yet:");
                     System.out.println("   " + tasks.get(index));
+                } else if (input.startsWith("delete ")) {
+                    try {
+                        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                        if (index < 0 || index >= tasks.size()) {
+                            throw new NoteException("Invalid task number to delete!");
+                        }
+                        Task removedTask = tasks.remove(index);
+                        System.out.println(" Noted. I've removed this task:");
+                        System.out.println("   " + removedTask);
+                        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                    } catch (NumberFormatException e) {
+                        throw new NoteException("Please specify a valid task number to delete.");
+                    }
                 } else if (input.startsWith("todo ")) {
                     String desc = input.substring(5);
                     if (desc.isEmpty()) {
