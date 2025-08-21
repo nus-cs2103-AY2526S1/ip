@@ -1,5 +1,5 @@
 import task.Task;
-import task.Todo;
+import task.TaskReader;
 
 import java.util.Scanner;
 import java.util.List;
@@ -43,9 +43,14 @@ public class Aurora {
         }
     }
 
-    private static void add(String content, List<Task> list) {
-        list.add(new Todo(content));
-        speak("Added " + content + " as a task into your list.");
+    private static void add(String input, List<Task> list) {
+        Task task = TaskReader.read(input);
+        if (task == null) {
+            speak("Invalid command.");
+            return;
+        }
+        list.add(task);
+        speak("Added " + task.getDescription() + " as a task into your list.");
     }
 
     private static void list(List<Task> list) {
