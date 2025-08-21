@@ -1,7 +1,10 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Aurora: Hello! I'm Aurora. What can I do for you?
+Aurora: Added Go to gym as a task into your list.
+Aurora: Added CourseReg as a task into your list.
+Aurora: Nice! I've marked this task as completed.
+[T][X] Go to gym
+Aurora: Invalid command.
+Aurora: Added Date night as a task into your list.
+Aurora: Invalid command.
+Aurora: There is no task numbered 7.
+Aurora: Bye. Hope to see you again soon!

@@ -1,0 +1,8 @@
+Todo Go to gym
+Deadline CourseReg /by: 18 Aug 2025
+mark 1
+test
+Event Date night /from: tomorrow /to: bingo night
+Event lollipop
+mark 7
+bye
