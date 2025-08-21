@@ -31,7 +31,7 @@ public class BeeBong {
                     Unmark [task no.] - mark the task with the given number as incomplete
                     Delete - removes a task from the list
                     Help - shows full command list
-                    Bye / Q - exit
+                    Bye - exit
                     Enter a new Task name or Command""";
         botMessage(commandList);
     }
@@ -175,43 +175,49 @@ public class BeeBong {
 
             // Check for Commands
             String[] commandParts = input.split(" ", 2);
-            String command = commandParts[0].toLowerCase();
+            Command command = Command.NONE;
+            // Convert command into Command enum
+            try {
+                command = Command.stringToCommand(commandParts[0].toLowerCase());
+            } catch (BBongException e) {
+                botErrorMessage("Unknown Command! B. Bong doesn't know what to do...");
+            }
             String params = commandParts.length > 1 ? commandParts[1] : null;
+
             switch (command) {
                 // Exit
-                case "bye":
-                case "q":
+                case BYE:
                     exitMessage();
                     running = false;
                     break;
                 // Help
-                case "help":
+                case HELP:
                     showCommands();
                     break;
                 // List Tasks
-                case "list":
+                case LIST:
                     // List all Tasks
                     listTasks();
                     break;
                 // Mark Tasks
-                case "mark":
-                case "unmark":
+                case MARK:
+                case UNMARK:
                     // Mark the task as complete or incomplete
-                    markTaskAs(params, command.equals("mark"));
+                    markTaskAs(params, command == Command.MARK);
                     break;
                 // Add Tasks
-                case "deadline":
-                case "todo":
-                case "event":
-                    addTask(command, params);
+                case DEADLINE:
+                case TODO:
+                case EVENT:
+                    addTask(command.getCommandWord(), params);
                     break;
                 // Delete Tasks
-                case "delete":
+                case DELETE:
                     deleteTask(params);
                     break;
                 // Unknown Commands
                 default:
-                    botErrorMessage("Unknown Command! Something went boom in B. Bong’s circuits.");
+                    botErrorMessage("Something went boom in B. Bong’s circuits.");
             }
         }
     }

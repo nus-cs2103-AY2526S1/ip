@@ -8,7 +8,7 @@ Mark [task no.] - mark the task with the given number as completed
 Unmark [task no.] - mark the task with the given number as incomplete
 Delete - removes a task from the list
 Help - shows full command list
-Bye / Q - exit
+Bye - exit
 Enter a new Task name or Command
 ____________________________________________________________
 >>> ____________________________________________________________
@@ -31,6 +31,34 @@ Bing! Here’s what’s buzzing in your list, courtesy of B. Bong:
 1. [T][ ] borrow book
 2. [D][ ] return book (by: Sunday)
 3. [E][ ] project meeting (from: Mon 2pm to 4pm)
+____________________________________________________________
+>>> ____________________________________________________________
+Bing! Task #2 marked as complete!
+____________________________________________________________
+>>> ____________________________________________________________
+Bing! Here’s what’s buzzing in your list, courtesy of B. Bong:
+1. [T][ ] borrow book
+2. [D][X] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to 4pm)
+____________________________________________________________
+>>> ____________________________________________________________
+Bing! Task #2 marked as incomplete!
+____________________________________________________________
+>>> ____________________________________________________________
+Bing! Here’s what’s buzzing in your list, courtesy of B. Bong:
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to 4pm)
+____________________________________________________________
+>>> ____________________________________________________________
+Bing! This task has been removed:
+[T][ ] borrow book
+You now have 2 task(s) buzzing around in the list.
+____________________________________________________________
+>>> ____________________________________________________________
+Bing! Here’s what’s buzzing in your list, courtesy of B. Bong:
+1. [D][ ] return book (by: Sunday)
+2. [E][ ] project meeting (from: Mon 2pm to 4pm)
 ____________________________________________________________
 >>> ____________________________________________________________
 Ding ding! Time to go. See you soon!
