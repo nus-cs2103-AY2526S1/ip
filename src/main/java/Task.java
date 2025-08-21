@@ -23,7 +23,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public String printtask() {
+    public String printTask() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 }
