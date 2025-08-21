@@ -35,10 +35,39 @@ public class Penguin {
                 } else {
                     System.out.println("invalid task");
                 }
+            } else if (line.startsWith("event ")) {
+                String body = line.substring(6).trim();
+                int fromPos = body.indexOf("/from");
+                int toPos = body.indexOf("/to");
+                if (fromPos != -1 && toPos != -1 && toPos > fromPos) {
+                    String desc = body.substring(0, fromPos).trim();
+                    String from = body.substring(fromPos + 5, toPos).trim();
+                    String to = body.substring(toPos + 3).trim();
+                    Task t = new Event(desc, from, to);
+                    tasks[taskCount++] = t;
+                    System.out.println("Got it. I've added this task:\n  " + t + "\nNow you have " + taskCount + " tasks in the list.");
+                } else {
+                    System.out.println("invalid task");
+                }
+            } else if (line.startsWith("deadline ")) {
+                String body = line.substring(9).trim();
+                int byPos = body.indexOf("/by");
+                if (byPos != -1) {
+                    String desc = body.substring(0, byPos).trim();
+                    String by = body.substring(byPos + 3).trim();
+                    Task t = new Deadline(desc, by);
+                    tasks[taskCount++] = t;
+                    System.out.println("Got it. I've added this task:\n  " + t + "\nNow you have " + taskCount + " tasks in the list.");
+                } else {
+                    System.out.println("invalid task");
+                }
+            } else if (line.startsWith("todo ")) {
+                String desc = line.substring(5).trim();
+                Task t = new Todo(desc);
+                tasks[taskCount++] = t;
+                System.out.println("Got it. I've added this task:\n  " + t + "\nNow you have " + taskCount + " tasks in the list.");
             } else {
-                tasks[taskCount] = new Task(line);
-                taskCount++;
-                System.out.println(line);
+                System.out.println("invalid input, please try again");
             }
         }
     }
