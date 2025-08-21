@@ -1,7 +1,19 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Penguin manages a list of user tasks and supports basic task management:
+ * adding new tasks, marking tasks as completed or not done, deleting tasks,
+ * and listing all current tasks. It reads user commands, processes them,
+ * and prints corresponding responses. The program runs in a loop until the
+ * user enters the exit command "bye".
+ */
 public class Penguin {
+    /**
+     * Entry point of the Penguin chatbot application.
+     * Initializes the chatbot and begins reading user commands from standard input.
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
