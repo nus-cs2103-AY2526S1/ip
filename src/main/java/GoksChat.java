@@ -5,6 +5,8 @@
 import java.util.Scanner;
 
 public class GoksChat {
+    private static InputProcessor inputProcessor = new InputProcessor();
+
     public static void printWelcomeMessage() {
         System.out.println("    ____________________________________________________________");
         System.out.println("    What's up, what's up! I'm GoksChat");
@@ -15,12 +17,6 @@ public class GoksChat {
     public static void printGoodbyeMessage() {
         System.out.println("    ____________________________________________________________");
         System.out.println("    Good Day! Hope to see you again");
-        System.out.println("    ____________________________________________________________");
-    }
-
-    public static void printUserInput(String userInput) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("    " + userInput);
         System.out.println("    ____________________________________________________________");
     }
 
@@ -43,7 +39,7 @@ public class GoksChat {
 
         // Print according to what the user input is
         while (!userInput.equals("bye")) {
-            printUserInput(userInput);
+            inputProcessor.processInput(userInput);
 
             // Get user input again
             userInput = getUserInput();
