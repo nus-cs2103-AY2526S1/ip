@@ -1,10 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Penguin {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
         System.out.println("Hello! I'm Penguin\nWhat can I do for you?\n");
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
@@ -13,14 +13,14 @@ public class Penguin {
                     System.out.println("Bye. Hope to see you again soon!");
                     break;
                 } else if (line.equals("list")) {
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + ". " + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + ". " + tasks.get(i));
                     }
                 } else if (line.startsWith("mark ")) {
                     String num = line.substring(5).trim();
                     int idx = Integer.parseInt(num) - 1;
-                    if (idx >= 0 && idx < taskCount) {
-                        Task task = tasks[idx];
+                    if (idx >= 0 && idx < tasks.size()) {
+                        Task task = tasks.get(idx);
                         task.setDone(true);
                         System.out.println("Nice! I've marked this task as done:\n" + task);
                     } else {
@@ -29,8 +29,8 @@ public class Penguin {
                 } else if (line.startsWith("unmark ")) {
                     String num = line.substring(7).trim();
                     int idx = Integer.parseInt(num) - 1;
-                    if (idx >= 0 && idx < taskCount) {
-                        Task task = tasks[idx];
+                    if (idx >= 0 && idx < tasks.size()) {
+                        Task task = tasks.get(idx);
                         task.setDone(false);
                         System.out.println("Nice! I've marked this task as not done yet:\n" + task);
                     } else {
@@ -48,8 +48,8 @@ public class Penguin {
                         String from = body.substring(fromPos + 5, toPos).trim();
                         String to = body.substring(toPos + 3).trim();
                         Task t = new Event(desc, from, to);
-                        tasks[taskCount++] = t;
-                        System.out.println("Got it. I've added this task:\n  " + t + "\nNow you have " + taskCount + " tasks in the list.");
+                        tasks.add(t);
+                        System.out.println("Got it. I've added this task:\n  " + t + "\nNow you have " + tasks.size() + " tasks in the list.");
                     } else {
                         System.out.println("invalid task");
                     }
@@ -63,8 +63,8 @@ public class Penguin {
                         String desc = body.substring(0, byPos).trim();
                         String by = body.substring(byPos + 3).trim();
                         Task t = new Deadline(desc, by);
-                        tasks[taskCount++] = t;
-                        System.out.println("Got it. I've added this task:\n  " + t + "\nNow you have " + taskCount + " tasks in the list.");
+                        tasks.add(t);
+                        System.out.println("Got it. I've added this task:\n  " + t + "\nNow you have " + tasks.size() + " tasks in the list.");
                     } else {
                         System.out.println("invalid task");
                     }
@@ -74,8 +74,8 @@ public class Penguin {
                         throw new PenguinException("The description of a todo cannot be empty.");
                     }
                     Task t = new Todo(desc);
-                    tasks[taskCount++] = t;
-                    System.out.println("Got it. I've added this task:\n  " + t + "\nNow you have " + taskCount + " tasks in the list.");
+                    tasks.add(t);
+                    System.out.println("Got it. I've added this task:\n  " + t + "\nNow you have " + tasks.size() + " tasks in the list.");
                 } else {
                     throw new PenguinException("I'm sorry, but I don't know what that means :-(");
                 }
