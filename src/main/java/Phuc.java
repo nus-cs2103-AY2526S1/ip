@@ -7,18 +7,22 @@ public class Phuc {
         this.pi = new ProcessInput();
     }
 
-    public void run() {
+    public void run() throws PhucException {
         pi.start();
 
         Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
 
-        while (!input.equals("bye")) {
-            pi.process(input);
-            input = sc.nextLine();
+        while (true) {
+            try {
+                String input = sc.nextLine();
+                if (input.equals("bye")) {
+                    pi.end();
+                    break;
+                }
+                pi.process(input);
+            } catch (PhucException e) {
+                UserInterface.showError(e.getMessage());
+            }
         }
-
-        pi.end();
-        sc.close();
     }
 }

@@ -1,10 +1,14 @@
 public class UserInterface {
-    private final String line = "____________________________________________________________";
+    private static final String line = "____________________________________________________________";
     private final Task task[];
     private Integer count = 0;
 
     public UserInterface() {
         task = new Task[100];
+    }
+
+    public int numTasks() {
+        return count+1;
     }
 
     public void print(String input) {
@@ -14,12 +18,12 @@ public class UserInterface {
     }
 
     public void sayHello() {
-        print(" Hello! I'm Phuc\n" +
+        print(" Hello! I'm Phuc \uD83D\uDE03\uD83D\uDD90\uFE0F\n" +
                 " What can I do for you?");
     }
 
     public void sayGoodbye() {
-        print(" Bye. Hope to see you again soon!");
+        print(" Bye. Hope to see you again soon! \uD83E\uDD27");
     }
 
     public void list() {
@@ -79,5 +83,11 @@ public class UserInterface {
         String temp = notiAddTasks() + task[count].printTask() + "\n" + this.notiNumOfTasks();
         print(temp);
         count++;
+    }
+
+    public static void showError(String error) {
+        System.out.println(line);
+        System.out.println(error);
+        System.out.println(line);
     }
 }
