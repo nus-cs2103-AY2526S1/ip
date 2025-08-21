@@ -22,15 +22,11 @@ public class UserInterface {
         print(" Bye. Hope to see you again soon!");
     }
 
-    public void echo(String input) {
-        print(input);
-    }
-
     public void list() {
-        String temp = "";
+        String temp = "Here are the tasks in your list:\n";
         for(int i=0; i<count; i++) {
             temp += Integer.toString(i+1) + ". ";
-            temp += task[i].printtask() + "\n";
+            temp += task[i].printTask() + "\n";
         }
 
         System.out.println(line);
@@ -47,12 +43,41 @@ public class UserInterface {
     public void mark(String num) {
         int id = Integer.parseInt(num)-1;
         task[id].setDone();
-        print("Nice! I've marked this task as done:\n" + task[id].printtask());
+        print("Nice! I've marked this task as done:\n" + task[id].printTask());
     }
 
     public void unMark(String num) {
         int id = Integer.parseInt(num)-1;
         task[id].setNotDone();
-        print("OK, I've marked this task as not done yet:\n" + task[id].printtask());
+        print("OK, I've marked this task as not done yet:\n" + task[id].printTask());
+    }
+
+    public String notiNumOfTasks() {
+        return "Now you have " + Integer.toString(count+1) + " tasks in the list.";
+    }
+
+    public String notiAddTasks() {
+        return "Got it. I've added this task:\n";
+    }
+
+    public void toDo(String newtask) {
+        task[count] = new ToDoTask(newtask);
+        String temp = notiAddTasks() + task[count].printTask() + "\n" + this.notiNumOfTasks();
+        print(temp);
+        count++;
+    }
+
+    public void deadline(String newtask, String deadline) {
+        task[count] = new DeadlineTask(newtask, deadline);
+        String temp = notiAddTasks() + task[count].printTask() + "\n" + this.notiNumOfTasks();
+        print(temp);
+        count++;
+    }
+
+    public void event(String newtask, String from, String to) {
+        task[count] = new EventTask(newtask, from, to);
+        String temp = notiAddTasks() + task[count].printTask() + "\n" + this.notiNumOfTasks();
+        print(temp);
+        count++;
     }
 }
