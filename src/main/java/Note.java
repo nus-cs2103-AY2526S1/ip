@@ -1,8 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Note {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        ArrayList<String> tasks = new ArrayList<>();
 
         String logo =
                 " _   _       _        \n"
@@ -24,11 +26,20 @@ public class Note {
                 System.out.println(" Bye. Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
                 break;
+            } else if (input.equals("list")) {
+                if (tasks.isEmpty()) {
+                    System.out.println(" No tasks yet.");
+                } else {
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println(" " + (i + 1) + ". " + tasks.get(i));
+                    }
+                }
             } else {
-                // Echo whatever the user typed
-                System.out.println(" " + input);
-                System.out.println("____________________________________________________________");
+                // Add input to tasks
+                tasks.add(input);
+                System.out.println(" added: " + input);
             }
+            System.out.println("____________________________________________________________");
         }
     }
 }
