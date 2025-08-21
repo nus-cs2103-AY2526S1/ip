@@ -14,12 +14,22 @@ public class InputProcessor {
         this.listOfTasks = new ArrayList<>();
     }
 
-    // Function to add input to list
-    public void addInput(String input) {
-        Task newTask = new Task(input);
+    // Function to add To-Do Task to list
+    public void addInput(String taskName, String taskType) {
+        Task newTask;
+        if (taskType.equals("todo")) {
+            newTask = new Task(taskName);
+        } else {
+            int firstSlashIndex = taskName.indexOf("/");
+            String actualName = taskName.substring(0, firstSlashIndex - 1);
+            String deadline = taskName.substring(firstSlashIndex + 4);
+            newTask = new DeadlineTask(actualName, deadline);
+        }
         listOfTasks.add(newTask);
         System.out.println("    ____________________________________________________________");
-        System.out.println("    added: " + input);
+        System.out.println("    Aights. I have added this task:");
+        System.out.println("        " + newTask);
+        System.out.println("    Now you have " + listOfTasks.size() + " tasks in the list.");
         System.out.println("    ____________________________________________________________");
     }
 
@@ -37,6 +47,9 @@ public class InputProcessor {
 
     public void processInput(String input) {
         String[] words = input.split(" ");
+        int firstSpaceIndex = input.indexOf(" ");
+        String restOfinput = input.substring(firstSpaceIndex + 1);
+
         if (input.equals("list")) {
             displayList();
         } else if (words[0].equals("mark")) {
@@ -48,7 +61,7 @@ public class InputProcessor {
             Task task = listOfTasks.get(index - 1);
             task.unmarkTask();
         } else {
-            addInput(input);
+            addInput(restOfinput, words[0]);
         }
     }
 }
