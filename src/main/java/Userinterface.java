@@ -1,10 +1,10 @@
 public class Userinterface {
     private final String line = "____________________________________________________________";
-    private final String userinfo[];
+    private final Task task[];
     private Integer count = 0;
 
     public Userinterface() {
-        userinfo = new String[100];
+        task = new Task[100];
     }
 
     public void print(String input) {
@@ -26,25 +26,33 @@ public class Userinterface {
         print(input);
     }
 
-    public void addlist(String input) {
-        if (input.equals("list")) {
-            printlist();
+    public void list() {
+        String temp = "";
+        for(int i=0; i<count; i++) {
+            temp += Integer.toString(i+1) + ". ";
+            temp += task[i].printtask() + "\n";
         }
-        else {
-            userinfo[count] = input;
-            print("added: " + input);
-            count++;
-        }
+
+        System.out.println(line);
+        System.out.print(temp);
+        System.out.println(line);
     }
 
-    public void printlist() {
-        String output = "";
-        for (int i = 0; i < count; i++) {
-            String num = Integer.toString(i+1);
-            output += num + ". " + userinfo[i] + "\n";
-        }
-        System.out.println(line);
-        System.out.print(output);
-        System.out.println(line);
+    public void add(String newtask) {
+        task[count] = new Task(newtask);
+        print("Added: " + newtask);
+        count++;
+    }
+
+    public void mark(String num) {
+        int id = Integer.parseInt(num)-1;
+        task[id].setDone();
+        print("Nice! I've marked this task as done:\n" + task[id].printtask());
+    }
+
+    public void unmark(String num) {
+        int id = Integer.parseInt(num)-1;
+        task[id].setNotDone();
+        print("OK, I've marked this task as not done yet:\n" + task[id].printtask());
     }
 }
