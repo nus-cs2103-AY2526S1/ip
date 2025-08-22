@@ -1,9 +1,11 @@
 package command;
 
 import task.Task;
-
 import java.util.List;
 
+/**
+ * Command to display all existing commands.
+ */
 public class HelpCommand implements Command {
     @Override
     public String execute(List<Task> list) {

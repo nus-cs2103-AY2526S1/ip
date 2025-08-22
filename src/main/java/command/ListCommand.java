@@ -2,6 +2,9 @@ package command;
 import task.Task;
 import java.util.List;
 
+/**
+ * A command to display all tasks in the list.
+ */
 public class ListCommand implements Command {
     @Override
     public String execute(List<Task> list) {

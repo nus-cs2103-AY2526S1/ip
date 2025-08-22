@@ -1,14 +1,25 @@
 package command;
 
 import java.util.regex.*;
-import task.InvalidTaskException;
-import task.Task;
-import task.TaskReader;
 
+import task.*;
+
+/**
+ * Utility class for reading user input into {@link Command} objects.
+ * Creates {@link AddCommand}, {@link HelpCommand}, {@link InvalidCommand},
+ * {@link ListCommand} and {@link MarkCommand} commands based on input.
+ */
 public class CommandReader {
 
     private static final Pattern MARK = Pattern.compile("^mark\\s+(\\d+)$", Pattern.CASE_INSENSITIVE);
 
+    /**
+     * Reads user input and returns a {@link Command} object.
+     *
+     * @param input input string from the user
+     * @return the corresponding {@link Command} command, or {@link InvalidCommand}
+     *         if the input does not match any known command format
+     */
     public static Command read(String input) {
         if (input.toLowerCase().startsWith("list")) {
             if (input.equalsIgnoreCase("list")) {
