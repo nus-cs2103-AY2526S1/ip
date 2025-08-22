@@ -2,5 +2,9 @@
 2
 3
 list
+mark 1
+mark 3
+list
+unmark 1
 list
 bye
