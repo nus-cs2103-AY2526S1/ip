@@ -11,4 +11,6 @@ help
 Event Date night /from: tomorrow /to: bingo night
 Event lollipop
 test
+delete 5
+delete 1
 bye
