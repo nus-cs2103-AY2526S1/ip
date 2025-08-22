@@ -19,6 +19,11 @@ public class TaskList {
         this.list.get(i - 1).unmarkTask();
     }
 
+    public Task get(int i) {
+        // Get the ith Task in the list
+        return this.list.get(i - 1);
+    }
+
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder();

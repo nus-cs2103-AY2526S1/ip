@@ -9,7 +9,27 @@ public class Paul {
                 |  __/ ___ \\ |_| | |___
                 |_| /_/   \\_\\___/|_____|
                 """;
-    private static TaskList list = new TaskList();
+    private static final TaskList list = new TaskList();
+
+    private static void markTask(String input) {
+        int index = Integer.parseInt(input.split(" ")[1]);
+        list.mark(index);
+
+        System.out.println(LINE);
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(list.get(index));
+        System.out.println(LINE);
+    }
+
+    private static void unmarkTask(String input) {
+        int index = Integer.parseInt(input.split(" ")[1]);
+        list.unmark(index);
+
+        System.out.println(LINE);
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(list.get(index));
+        System.out.println(LINE);
+    }
 
     public static void main(String[] args) {
         System.out.println(LINE);
@@ -31,8 +51,17 @@ public class Paul {
 
             if (input.equalsIgnoreCase("list")){
                 System.out.println(LINE);
+                System.out.println("Here are the tasks in your list:");
                 System.out.println(list);
                 System.out.println(LINE);
+                continue;
+            }
+
+            if (input.startsWith("mark ")) {
+                markTask(input);
+                continue;
+            } else if (input.startsWith("unmark ")) {
+                unmarkTask(input);
                 continue;
             }
 
