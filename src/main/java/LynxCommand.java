@@ -1,6 +1,6 @@
 import java.time.LocalDateTime;
 
-public class LynxCommand {
+public abstract class LynxCommand {
 
     public static void addTodo(String input) throws LynxException {
         if (input.length() <= 4) {
