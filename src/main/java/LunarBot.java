@@ -119,6 +119,23 @@ public class LunarBot {
                 tasks.add(new Event(input.substring(input.indexOf(" ") + 1, input.indexOf("/") - 1),
                         false, tmp2[0], tmp2[1]));
             }
+            // Delete
+            else if (tmp[0].equals("delete") && tmp.length > 1){
+                if (!tmp[1].matches("[-+]?\\d+")) {
+                    System.out.println("Operation not possible! Index has to be an integer!");
+                    System.out.println(LINE);
+                    continue;
+                }
+                int index = Integer.valueOf(tmp[1]) - 1;
+                if (index < 0 || index > tasks.size()) {
+                    System.out.println("Operation not possible! Need to specify a valid index to delete!");
+                    System.out.println(LINE);
+                    continue;
+                }
+                System.out.println("Okay, I'll delete this one from your list!");
+                System.out.println(tasks.get(index).print());
+                tasks.remove(tasks.get(index));
+            }
             // Catch
             else {
                 System.out.println("added: " + input);

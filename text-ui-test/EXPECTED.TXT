@@ -52,6 +52,18 @@ Input: Printing history!
 2: [D] [ ] testD-2 (by: TIME)
 3: [E] [X] testE-3 (from: TIME2 to: TIME3)
 __________________________________________
+Input: Okay, I'll delete this one from your list!
+[D] [ ] testD-2 (by: TIME)
+__________________________________________
+Input: Okay, I'll mark that one off your list!
+[T] [X] testT
+__________________________________________
+Input: Okay, I'll delete this one from your list!
+[T] [X] testT
+__________________________________________
+Input: Printing history!
+1: [E] [X] testE-3 (from: TIME2 to: TIME3)
+__________________________________________
 Input: __________________________________________
 Hope to see you soon!
 
