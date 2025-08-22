@@ -48,9 +48,11 @@ public class Storage {
 
     /**
      * This function reads from the data file BobbyWasabiTasks.txt
-     * It updates the current task array by adding all the tasks in the data file
+     * It creates a task array by adding all the tasks in the data file
      *
      *
+     * @return ArrayList of tasks loaded from the datafile
+     * @throws BobbyWasabiException
      */
     public ArrayList<Task> load() throws BobbyWasabiException {
         try {
