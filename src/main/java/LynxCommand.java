@@ -97,4 +97,17 @@ public class LynxCommand {
         LynxStorage.removeTask(task);
     }
 
+    public static void listTasks(String input) throws LynxException {
+        if (input.equals("list")) {
+            LynxStorage.printTasks();
+            return;
+        }
+        input = input.substring(5).trim();
+        try {
+            LocalDateTime dateTime = LynxDateManager.parseDateTime(input);
+            LynxStorage.printTasksOnDate(dateTime);
+        } catch (LynxException e) {
+            LynxUI.printBox(e.getMessage());
+        }
+    }
 }

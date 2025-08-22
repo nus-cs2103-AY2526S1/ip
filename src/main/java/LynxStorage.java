@@ -124,4 +124,33 @@ public class LynxStorage {
         LynxUI.line();
     }
 
+    public static void printTasksOnDate(LocalDateTime target) {
+        LynxUI.line();
+        System.out.println("Tasks occurring on " + LynxDateManager.textDateTime(target) + ":");
+        boolean found = false;
+        for (int i = 0; i < COMMANDS.size(); i++) {
+            Task t = COMMANDS.get(i);
+            if (t instanceof DeadlineTask dt) {
+                // compare only date part if input has no time
+                if (isSameDay(dt.getDeadline(), target)) {
+                    System.out.println("     " + (i+1) + "." + t);
+                    found = true;
+                }
+            } else if (t instanceof EventTask et) {
+                // target date within event range
+                if (!target.isBefore(et.getStart()) && !target.isAfter(et.getEnd())) {
+                    System.out.println("     " + (i+1) + "." + t);
+                    found = true;
+                }
+            }
+        }
+        if (!found) System.out.println("     (No tasks for this date)");
+        LynxUI.line();
+    }
+
+    // Helper: checks if two LocalDateTimes are on the same day
+    private static boolean isSameDay(LocalDateTime a, LocalDateTime b) {
+        return a.toLocalDate().equals(b.toLocalDate());
+    }
+
 }
