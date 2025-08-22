@@ -6,6 +6,12 @@ public class LynxStorage {
 
     private static final ArrayList<Task> COMMANDS = new ArrayList<>(100);
 
+    public static void clearTasks() {
+        COMMANDS.clear();
+        LynxUI.printBox("Removed all tasks." +
+                "\nNow you have 0 tasks in the list.");
+    }
+
     public static void loadTasks(List<String> tasks) {
         COMMANDS.clear();
         int errorCount = 0;

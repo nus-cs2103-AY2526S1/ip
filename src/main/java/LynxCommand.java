@@ -89,6 +89,10 @@ public class LynxCommand {
             throw new MissingArgumentException("delete");
         }
         input = input.substring(7).trim();
+        if (input.equals("/all")) {
+            LynxStorage.clearTasks();
+            return;
+        }
         Task task = findTask(input);
         LynxStorage.removeTask(task);
     }
