@@ -27,7 +27,10 @@ public abstract class LynxCommand {
         if (input.length() <= 4) {
             throw new MissingArgumentException("todo");
         }
-        String name = input.substring(5).trim();
+        String name = input.substring(4).trim();
+        if (name.isEmpty()) {
+            throw new LynxException("Please specify a task name.");
+        }
         LynxTaskList.addTask(new TodoTask(name), true);
     }
 
@@ -35,11 +38,14 @@ public abstract class LynxCommand {
         if (input.length() <= 8) {
             throw new MissingArgumentException("deadline");
         }
-        String[] parts = input.substring(9).split("/by", 2);
+        String[] parts = input.substring(8).split(" /by ", 2);
         if (parts.length < 2) {
-            throw new LynxException("Please specify a deadline using '/by'.");
+            throw new LynxException("Please specify a deadline using ' /by '.");
         }
         String name = parts[0].trim();
+        if (name.isEmpty()) {
+            throw new LynxException("Please specify a task name.");
+        }
         LocalDateTime by = LynxDateManager.parseDateTime(parts[1].trim());
         LynxTaskList.addTask(new DeadlineTask(name, by), true);
     }
@@ -48,14 +54,17 @@ public abstract class LynxCommand {
         if (input.length() <= 5) {
             throw new MissingArgumentException("event");
         }
-        String[] nameSplit = input.substring(6).split("/from", 2);
+        String[] nameSplit = input.substring(5).split(" /from ", 2);
         if (nameSplit.length < 2) {
-            throw new LynxException("Please specify a start time using '/from'.");
+            throw new LynxException("Please specify a start time using ' /from '.");
         }
         String name = nameSplit[0].trim();
-        String[] timeSplit = nameSplit[1].split("/to", 2);
+        if (name.isEmpty()) {
+            throw new LynxException("Please specify a task name.");
+        }
+        String[] timeSplit = nameSplit[1].split(" /to ", 2);
         if (timeSplit.length < 2) {
-            throw new LynxException("Please specify an end time using '/to'.");
+            throw new LynxException("Please specify an end time using ' /to '.");
         }
         LocalDateTime from = LynxDateManager.parseDateTime(timeSplit[0].trim());
         LocalDateTime to = LynxDateManager.parseDateTime(timeSplit[1].trim());
@@ -69,7 +78,7 @@ public abstract class LynxCommand {
         if (input.length() <= 4) {
             throw new MissingArgumentException("mark");
         }
-        input = input.substring(5).trim();
+        input = input.substring(4).trim();
         Task task = findTask(input);
         task.setCompleted();
         LynxUI.printBox("Excellent! Marked as done:\n     " + task.toString());
@@ -79,7 +88,7 @@ public abstract class LynxCommand {
         if (input.length() <= 6) {
             throw new MissingArgumentException("unmark");
         }
-        input = input.substring(7).trim();
+        input = input.substring(6).trim();
         Task task = findTask(input);
         task.resetCompleted();
         LynxUI.printBox("Alright, marked as not done:\n     " + task.toString());
@@ -109,7 +118,7 @@ public abstract class LynxCommand {
         if (input.length() <= 6) {
             throw new MissingArgumentException("delete");
         }
-        input = input.substring(7).trim();
+        input = input.substring(6).trim();
         if (input.equals("/all")) {
             LynxTaskList.clearTasks(true);
             return;
@@ -119,16 +128,18 @@ public abstract class LynxCommand {
     }
 
     public static void listTasks(String input) throws LynxException {
-        if (input.equals("list")) {
+        if (input.startsWith("list ")) {
+            input = input.substring(5).trim();
+            try {
+                LocalDateTime dateTime = LynxDateManager.parseDateTime(input);
+                LynxTaskList.printTasksOnDate(dateTime);
+            } catch (LynxException e) {
+                LynxUI.printBox(e.getMessage());
+            }
+        } else if (input.trim().equals("list")) {
             LynxTaskList.printTasks();
-            return;
-        }
-        input = input.substring(5).trim();
-        try {
-            LocalDateTime dateTime = LynxDateManager.parseDateTime(input);
-            LynxTaskList.printTasksOnDate(dateTime);
-        } catch (LynxException e) {
-            LynxUI.printBox(e.getMessage());
+        } else {
+            throw new LynxException("Unrecognized 'list' command format.");
         }
     }
 }
