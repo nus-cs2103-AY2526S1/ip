@@ -1,6 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Dobby {
+    private static ArrayList<String> userTexts = new ArrayList<>();
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -11,12 +14,30 @@ public class Dobby {
         while (flag) {
             System.out.print("> "); // prompt
             String input = sc.nextLine(); // read user input
-            System.out.print("I hear that you have said: " + input + "\n");
 
             if (input.equalsIgnoreCase("bye")) {
                 System.out.println("Bye! Hope to see you again soon!");
                 flag = false;
             }
+            if (input.equalsIgnoreCase("list")) {
+                Dobby.listTexts();
+            }
+            else {
+                Dobby.storeTexts(input);
+            }
+        }
+    }
+
+    public static void storeTexts(String userInput) {
+        userTexts.add(userInput);
+        System.out.print("added: " + userInput + "\n");
+    }
+
+    public static void listTexts() {
+        int counter = 0;
+        for (String t : userTexts) {
+            counter++;
+            System.out.println(counter + ". " + t);
         }
     }
 }
