@@ -9,56 +9,68 @@ public class Dobby {
 
         System.out.println("Hello! I'm Dobby \n");
         System.out.println("What can I do for you? \n");
+
         boolean flag = true;
 
         while (flag) {
-            System.out.print("> "); // prompt
-            String input = sc.nextLine(); // read user input
+            System.out.print("> ");
+            String input = sc.nextLine().trim();
 
             if (input.equalsIgnoreCase("bye")) {
                 System.out.println("Bye! Hope to see you again soon!");
                 flag = false;
             } else if (input.equalsIgnoreCase("list")) {
-                Dobby.listTexts();
+                listTasks();
             } else if (input.startsWith("mark")) {
-                String[] parts = input.split(" "); // ["mark", "2"]
-                int taskNum = Integer.parseInt(parts[1]) - 1; //the number is in index 1
-                Dobby.markTask(taskNum);
-                System.out.println("Nice! I've marked this task as done.");
+                handleMark(input, true);
             } else if (input.startsWith("unmark")) {
-                String[] parts = input.split(" "); // ["mark", "2"]
-                int taskNum = Integer.parseInt(parts[1]) - 1; //the number is in index 1
-                Dobby.unmarkTask(taskNum);
-                System.out.println("Nice! I've marked this task as undone.");
-            }
-            else {
-                Dobby.storeTasks(input);
+                handleMark(input, false);
+            } else if (input.startsWith("todo")) {
+                storeTask(new ToDo(input.substring(5).trim()));
+            } else if (input.startsWith("deadline")) {
+                String[] parts = input.substring(9).split("/by");
+                if (parts.length == 2) {
+                    storeTask(new Deadline(parts[0].trim(), parts[1].trim()));
+                }
+            } else if (input.startsWith("event")) {
+                String[] parts = input.substring(5).split("/from|/to");
+                if (parts.length == 3) {
+                    storeTask(new Event(parts[0].trim(), parts[1].trim(), parts[2].trim()));
+                } else {
+                    System.out.println("Invalid event format. Use: event <task> /from <start> /to <end>");
+                }
             }
         }
     }
 
-    public static void storeTasks(String userInput) {
-        Task t = new Task(userInput);
-        userTasks.add(t);
-        System.out.print("added to task list:" + userInput + "\n");
+    private static void storeTask(Task task) {
+        userTasks.add(task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + userTasks.size() + " tasks in the list.\n");
     }
 
-    public static void listTexts() {
-        System.out.println("Here are the tasks in your list: \n");
-        int counter = 0;
-        for (Task t : userTasks) {
-            counter++;
-            System.out.println(counter + ". " + "[" + t.getStatus() + "] " + t.getDescription());
+    private static void listTasks() {
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < userTasks.size(); i++) {
+            System.out.println((i + 1) + "." + userTasks.get(i));
         }
+        System.out.println();
     }
 
-    public static void markTask(int taskNum) {
-        Task toMark = userTasks.get(taskNum);
-        toMark.markAsDone();
-    }
-
-    public static void unmarkTask(int taskNum) {
-        Task toMark = userTasks.get(taskNum);
-        toMark.markUndone();
+    private static void handleMark(String input, boolean mark) {
+        try {
+            int taskNum = Integer.parseInt(input.split(" ")[1]) - 1;
+            Task task = userTasks.get(taskNum);
+            if (mark) {
+                task.markAsDone();
+                System.out.println("Nice! I've marked this task as done.\n");
+            } else {
+                task.markUndone();
+                System.out.println("Nice! I've marked this task as undone.\n");
+            }
+        } catch (Exception e) {
+            System.out.println("Invalid task number.");
+        }
     }
 }
