@@ -33,9 +33,9 @@ public class LunarBot {
             }
             else {
                 System.out.println("added: " + input);
+                history.add(input);
             }
             // add to history
-            history.add(input);
             System.out.println(LINE);
         }
     }
