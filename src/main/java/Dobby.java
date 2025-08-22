@@ -25,6 +25,8 @@ public class Dobby {
                 handleMark(input, true);
             } else if (input.startsWith("unmark")) {
                 handleMark(input, false);
+            } else if (input.startsWith("delete")) {
+                deleteTask(input);
             } else if (input.startsWith("todo")) {
                 try {
                     storeTask(new ToDo(input.substring(5).trim()));
@@ -78,6 +80,18 @@ public class Dobby {
             }
         } catch (Exception e) {
             System.out.println("Invalid task number.");
+        }
+    }
+
+    private static void deleteTask(String input) {
+        try {
+            int taskNum = Integer.parseInt(input.split(" ")[1]) - 1;
+            Task task = userTasks.get(taskNum);
+            userTasks.remove(taskNum);
+            System.out.println("Noted. I've removed this task: ");
+            System.out.println(task.toString());
+            } catch (Exception e) {
+                System.out.println("Invalid task number.");
         }
     }
 }
