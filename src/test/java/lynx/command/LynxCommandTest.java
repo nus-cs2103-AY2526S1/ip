@@ -3,7 +3,6 @@ package lynx.command;
 import lynx.exception.LynxException;
 import lynx.task.DeadlineTask;
 import lynx.task.EventTask;
-import lynx.task.Task;
 import lynx.task.TodoTask;
 
 import java.time.LocalDateTime;
