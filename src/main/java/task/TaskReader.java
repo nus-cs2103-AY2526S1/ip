@@ -39,6 +39,6 @@ public class TaskReader {
             return new Event(m.group(1).trim(), m.group(2).trim(), m.group(3).trim());
         }
 
-        return null;
+        throw new InvalidTaskException("Invalid task input. enter \"help\" to see command format.");
     }
 }

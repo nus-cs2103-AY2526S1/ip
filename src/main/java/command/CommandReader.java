@@ -1,6 +1,8 @@
 package command;
 
 import java.util.regex.*;
+
+import task.InvalidTaskException;
 import task.Task;
 import task.TaskReader;
 
@@ -13,16 +15,21 @@ public class CommandReader {
             return new ListCommand();
         }
 
+        if (input.equalsIgnoreCase("help")) {
+            return new HelpCommand();
+        }
+
         Matcher matcher = MARK.matcher(input);
         if (matcher.matches()) {
             int index = Integer.parseInt(matcher.group(1));
             return new MarkCommand(index);
         }
 
-        Task task = TaskReader.read(input);
-        if (task != null) {
+        try {
+            Task task = TaskReader.read(input);
             return new AddCommand(task);
+        } catch (InvalidTaskException e) {
+            return new InvalidCommand(e.getMessage());
         }
-        return new InvalidCommand();
     }
 }

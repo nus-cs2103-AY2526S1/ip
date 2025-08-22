@@ -1,7 +1,7 @@
 package task;
 
-public class InvalidClassException extends RuntimeException {
-    public InvalidClassException(String message) {
+public class InvalidTaskException extends RuntimeException {
+    public InvalidTaskException(String message) {
         super(message);
     }
 }
