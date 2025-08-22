@@ -2,69 +2,6 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Romidas {
-    public abstract static class Task {
-        protected String description;
-        protected boolean isDone;
-
-        public Task(String description) {
-            this.description = description;
-            this.isDone = false;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public void setIsDone(boolean isDone) {
-            this.isDone = isDone;
-        }
-
-        public String getStatusIcon() {
-            return isDone ? "[X]": "[ ]";
-        }
-
-        public abstract String getStatus();
-
-        @Override
-        public String toString() {
-            return this.getStatus() + this.getStatusIcon() + " " + this.getDescription();
-        }
-    }
-
-    public static class TodoTask extends Task {
-        public TodoTask(String description) {
-            super(description);
-        }
-
-        @Override
-        public String getStatus() {
-            return "[T]";
-        }
-
-    }
-
-    public static class DeadlineTask extends Task {
-        public DeadlineTask(String description) {
-            super(description);
-        }
-
-        @Override
-        public String getStatus() {
-            return "[D]";
-        }
-    }
-
-    public static class Event extends Task {
-        public Event(String description) {
-            super(description);
-        }
-
-        @Override
-        public String getStatus() {
-            return "[E]";
-        }
-    }
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> store = new ArrayList<>();
