@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class LynxStorage {
         }
     }
 
-    private static void loadTodo(String[] parts) {
+    private static void loadTodo(String[] parts) throws IllegalArgumentException {
         if (parts.length < 4) throw new IllegalArgumentException();
         String status = parts[1], name = parts[3];
         Task t = new TodoTask(name);
@@ -37,19 +38,20 @@ public class LynxStorage {
         COMMANDS.add(t);
     }
 
-    private static void loadDeadline(String[] parts) {
+    private static void loadDeadline(String[] parts) throws IllegalArgumentException, LynxException {
         if (parts.length < 5) throw new IllegalArgumentException();
-        String status = parts[1], name = parts[3], by = parts[4].replace("by:", "");
+        String status = parts[1], name = parts[3];
+        LocalDateTime by = LynxDateManager.parseDateTime(parts[4].replace("by:", ""));
         Task t = new DeadlineTask(name, by);
         if (status.equals("COMPLETE")) t.setCompleted();
         COMMANDS.add(t);
     }
 
-    private static void loadEvent(String[] parts) {
+    private static void loadEvent(String[] parts) throws IllegalArgumentException, LynxException {
         if (parts.length < 6) throw new IllegalArgumentException();
         String status = parts[1], name = parts[3];
-        String from = parts[4].replace("from:", ""),
-                to = parts[5].replace("to:", "");
+        LocalDateTime from = LynxDateManager.parseDateTime(parts[4].replace("from:", "")),
+                to = LynxDateManager.parseDateTime(parts[5].replace("to:", ""));
         Task t = new EventTask(name, from, to);
         if (status.equals("COMPLETE")) t.setCompleted();
         COMMANDS.add(t);
@@ -66,10 +68,10 @@ public class LynxStorage {
             sb.append("|").append(task.getName());
 
             if (task instanceof DeadlineTask dt) {
-                sb.append("|by:").append(dt.getDeadline());
+                sb.append("|by:").append(LynxDateManager.defaultDateTime(dt.getDeadline()));
             } else if (task instanceof EventTask et) {
-                sb.append("|from:").append(et.getStart());
-                sb.append("|to:").append(et.getEnd());
+                sb.append("|from:").append(LynxDateManager.defaultDateTime(et.getStart()));
+                sb.append("|to:").append(LynxDateManager.defaultDateTime(et.getEnd()));
             }
 
             tasks.add(sb.toString());
