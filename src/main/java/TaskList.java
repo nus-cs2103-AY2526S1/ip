@@ -1,14 +1,22 @@
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<String> list;
+    private final ArrayList<Task> list;
 
     public TaskList() {
         this.list = new ArrayList<>();
     }
 
-    public void add(String s) {
-        this.list.add(s);
+    public void add(String description) {
+        this.list.add(new Task(description));
+    }
+
+    public void mark(int i) {
+        this.list.get(i - 1).markTask();
+    }
+
+    public void unmark(int i) {
+        this.list.get(i - 1).unmarkTask();
     }
 
     @Override
