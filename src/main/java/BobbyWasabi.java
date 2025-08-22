@@ -46,7 +46,6 @@ public class BobbyWasabi {
      * @return Boolean on whether the integer is true or not
      * @throws BobbyWasabiException
      */
-
     public static boolean isValidInteger(String s, int arrLen) throws BobbyWasabiException {
         String[] wordList = s.split(" ");
 
@@ -173,114 +172,87 @@ public class BobbyWasabi {
 
             case MARK:
                 try {
-                    if (BobbyWasabi.isValidInteger(userInput, list.size())) {
-                        String[] wordList = userInput.split(" ");
-                        int indx = Integer.parseInt(wordList[1]);
-                        Task targetTask = list.get(indx - 1);
 
-                        targetTask.setIsMarked(true);
-                        String curTask = String.format(
-                                "%d. %s\n",
-                                indx,
-                                targetTask);
+                    int indx = Parser.parseCommandIndex(userInput, list.size());
+                    Task targetTask = list.get(indx - 1);
+                    targetTask.setIsMarked(true);
 
-                        String markOutput = String.format("""
-                                    Nice! I've marked this task as done:
-                                       %s""",
-                                curTask);
+                    String curTask = String.format(
+                            "%d. %s\n",
+                            indx,
+                            targetTask);
 
-                        System.out.println(decoLine + "\n" + markOutput + decoLine);
-                        storage.updateDataFileFromTasks(list);
-                        continue;
-                    }
+                    String markOutput = String.format("""
+                                Nice! I've marked this task as done:
+                                   %s""",
+                            curTask);
+
+                    System.out.println(decoLine + "\n" + markOutput + decoLine);
+                    storage.updateDataFileFromTasks(list);
+                    continue;
+
                 } catch (BobbyWasabiException e) {
                     System.out.println(BobbyWasabi.generateErrorMsg(e.getMessage()));
                     continue;
                 }
             case UNMARK:
                 try {
-                    if (BobbyWasabi.isValidInteger(userInput, list.size())) {
-                        String[] wordList = userInput.split(" ");
-                        int indx = Integer.parseInt(wordList[1]);
-                        Task targetTask = list.get(indx - 1);
 
+                    int indx = Parser.parseCommandIndex(userInput, list.size());
+                    Task targetTask = list.get(indx - 1);
+                    targetTask.setIsMarked(false);
 
-                        targetTask.setIsMarked(false);
-                        String curTask = String.format(
-                                "%d. %s\n",
-                                indx,
-                                targetTask);
+                    String curTask = String.format(
+                            "%d. %s\n",
+                            indx,
+                            targetTask);
 
-                        String output = String.format("""
-                                    Nice! I've marked this task as not done yet:
-                                       %s""",
-                                curTask);
+                    String output = String.format("""
+                                Nice! I've marked this task as not done yet:
+                                   %s""",
+                            curTask);
 
-                        System.out.println(decoLine + "\n" + output + decoLine);
-                        storage.updateDataFileFromTasks(list);
-                        continue;
-                    }
+                    System.out.println(decoLine + "\n" + output + decoLine);
+                    storage.updateDataFileFromTasks(list);
+                    continue;
+
                 } catch (BobbyWasabiException e) {
                     System.out.println(BobbyWasabi.generateErrorMsg(e.getMessage()));
                     continue;
                 }
             case TODO:
                 try {
-                    String[] descriptions = userInput.split("todo ");
 
-                    if (descriptions.length <= 1) {
-                        throw new BobbyWasabiException("Plase provide a description for todo");
-                    }
-
-                    String description = descriptions[1];
-
-                    if (description.trim().isEmpty()) {
-                        throw new BobbyWasabiException("Plase provide a description for todo");
-                    }
+                    String description = Parser.parseTodo(userInput);
 
                     Task todo = new ToDo(description, false);
-
                     list.add(todo);
 
                     System.out.println(BobbyWasabi.addTaskOutput(todo, list.size()));
                     storage.fileWrite(todo.getData());
                     continue;
+
                 } catch (BobbyWasabiException e) {
+
                     System.out.println(BobbyWasabi.generateErrorMsg(e.getMessage()));
                     continue;
+
                 }
             case DEADLINE:
                 try {
-                    String[] bySplit = userInput.split("/by", 2);
-
-                    if (bySplit.length < 2) {
-                        throw new BobbyWasabiException("You did not provide the deadline!");
-                    }
-
-                    String[] descriptions = bySplit[0].split("deadline ");
-
-                    if (descriptions.length < 2) {
-                        throw new BobbyWasabiException("The deadline task description cannot be blank!");
-                    }
-
-                    if (descriptions[1].trim().isEmpty()) {
-                        throw new BobbyWasabiException("The deadline task description cannot be blank!");
-                    }
-
-                    String deadline = bySplit[1];
-
-                    if (deadline.trim().isEmpty()) {
-                        throw new BobbyWasabiException("The deadline cannot be blank!");
-                    }
+                    String[] details = Parser.parseDeadline(userInput);
+                    String description = details[0];
+                    String deadline = details[1];
 
                     LocalDateTime dateTime = parseDateString(deadline);
 
-                    Task deadlineTask = new Deadline(descriptions[1], false, dateTime);
+                    Task deadlineTask = new Deadline(description, false, dateTime);
                     list.add(deadlineTask);
 
                     System.out.println(BobbyWasabi.addTaskOutput(deadlineTask, list.size()));
                     storage.fileWrite(deadlineTask.getData());
                     continue;
+
                 } catch (BobbyWasabiException | DateTimeParseException e) {
                     System.out.println(BobbyWasabi.generateErrorMsg(e.getMessage()));
                     continue;
@@ -288,41 +260,12 @@ public class BobbyWasabi {
 
             case EVENT:
                 try {
-                    String[] fromSplit = userInput.split("/from", 2);
+                    String[] details = Parser.parseEvent(userInput);
+                    String description = details[0];
+                    String start = details[1];
+                    String end = details[2];
 
-                    // there was no /from command
-                    if (fromSplit.length < 2) {
-                        throw new BobbyWasabiException("You did not provide the start duration!");
-                    }
-
-
-                    String[] toSplit = fromSplit[1].split("/to", 2);
-
-                    // there was no /to command
-                    if (toSplit.length < 2) {
-                        throw new BobbyWasabiException("You did not provide the end duration!");
-                    }
-
-                    // starting description is empty
-                    if (toSplit[0].trim().isEmpty()) {
-                        throw new BobbyWasabiException("Your starting duration is blank!");
-                    } else if (toSplit[1].trim().isEmpty()) {
-                        throw new BobbyWasabiException("Your ending duration is blank!");
-                    }
-
-
-                    String[] descriptions = fromSplit[0].split("event ");
-
-                    if (descriptions.length < 2) {
-                        throw new BobbyWasabiException("The event description cannot be blank!");
-                    }
-
-
-                    if (descriptions[1].trim().isEmpty()) {
-                        throw new BobbyWasabiException("You did not provide a description of your event!");
-                    }
-
-                    Task eventTask = new Event(descriptions[1], false, toSplit[0], toSplit[1]);
+                    Task eventTask = new Event(description, false, start, end);
                     list.add(eventTask);
 
                     System.out.println(BobbyWasabi.addTaskOutput(eventTask, list.size()));
@@ -335,25 +278,22 @@ public class BobbyWasabi {
                 }
             case DELETE:
                 try {
-                    if (BobbyWasabi.isValidInteger(userInput, list.size())) {
-                        String[] wordList = userInput.split(" ");
-                        int indx = Integer.parseInt(wordList[1]);
-                        Task targetTask = list.get(indx - 1);
-                        list.remove(indx - 1);
+                    int indx = Parser.parseCommandIndex(userInput, list.size());
+                    Task targetTask = list.get(indx - 1);
+                    list.remove(indx - 1);
 
-                        String output = String.format("""
-                            ____________________________________________________________
-                            Noted. I've removed this task:
-                                %s
-                            Now you have %d tasks in the list
-                            ____________________________________________________________
-                            """,
-                                targetTask, list.size());
+                    String output = String.format("""
+                        ____________________________________________________________
+                        Noted. I've removed this task:
+                            %s
+                        Now you have %d tasks in the list
+                        ____________________________________________________________
+                        """,
+                            targetTask, list.size());
 
-                        System.out.println(output);
-                        storage.updateDataFileFromTasks(list);
-                        continue;
-                    }
+                    System.out.println(output);
+                    storage.updateDataFileFromTasks(list);
+                    continue;
 
                 } catch (BobbyWasabiException e) {
                     System.out.println(BobbyWasabi.generateErrorMsg(e.getMessage()));
