@@ -12,4 +12,13 @@ public class LynxUI {
         System.out.println(LINE);
     }
 
+    public static void hello() {
+        LynxUI.printBox("Hello! I'm Tasklynx. \n" +
+                "Your dependable assistant for tracking tasks, managing deadlines, and keeping your work organized.");
+    }
+
+    public static void bye() {
+        LynxUI.printBox("Goodbye. I'll be here whenever you need to stay on track.");
+    }
+
 }

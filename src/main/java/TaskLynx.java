@@ -8,23 +8,14 @@ public class TaskLynx {
         return scanner;
     }
 
-    public static void main(String[] args) {
+    public static void run() {
         LynxFileManager.createFile();
         LynxStorage.loadTasks(LynxFileManager.readFromFile());
-        hello();
+        LynxUI.hello();
         scanForCommands();
         LynxFileManager.writeToFile(LynxStorage.unloadTasks());
-        bye();
-    }
-
-    public static void hello() {
-        LynxUI.printBox("Hello! I'm Tasklynx. \n" +
-                "Your dependable assistant for tracking tasks, managing deadlines, and keeping your work organized.");
-    }
-
-    public static void bye() {
         scanner.close();
-        LynxUI.printBox("Goodbye. I'll be here whenever you need to stay on track.");
+        LynxUI.bye();
     }
 
     public static void scanForCommands() {
@@ -63,6 +54,10 @@ public class TaskLynx {
             }
         }
 
+    }
+
+    public static void main(String[] args) {
+        run();
     }
 
 }
