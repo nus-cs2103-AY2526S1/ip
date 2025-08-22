@@ -1,6 +1,6 @@
-1
-2
-3
+todo testT
+deadline testD /by 12pm
+event testE /from 2pm /to 4pm
 list
 mark 1
 mark 3
