@@ -1,15 +1,11 @@
-import java.util.ArrayList;
-
-public class TaskManager {
-
-    private static final ArrayList<Task> COMMANDS = new ArrayList<>(100);
+public class LynxCommand {
 
     public static void addTodo(String input) throws LynxException {
         if (input.length() <= 4) {
             throw new MissingArgumentException("todo");
         }
         String name = input.substring(5).trim();
-        addTask(new TodoTask(name));
+        LynxStorage.addTask(new TodoTask(name));
     }
 
     public static void addDeadline(String input) throws LynxException {
@@ -22,7 +18,7 @@ public class TaskManager {
         }
         String name = parts[0].trim();
         String by = parts[1].trim();
-        addTask(new DeadlineTask(name, by));
+        LynxStorage.addTask(new DeadlineTask(name, by));
     }
 
     public static void addEvent(String input) throws LynxException {
@@ -40,12 +36,7 @@ public class TaskManager {
         }
         String from = timeSplit[0].trim();
         String to = timeSplit[1].trim();
-        addTask(new EventTask(name, from, to));
-    }
-
-    private static void addTask(Task task) {
-        COMMANDS.add(task);
-        LynxUI.printBox("Added:\n     " + task + "\nNow you have " + COMMANDS.size() + " tasks in the list.");
+        LynxStorage.addTask(new EventTask(name, from, to));
     }
 
     public static void markTask(String input) throws LynxException {
@@ -73,11 +64,7 @@ public class TaskManager {
             // Mark by unique ID
             try {
                 int id = Integer.parseInt(input.substring(3).trim());
-                for (Task t : COMMANDS) {
-                    if (t.getId() == id) {
-                        return t;
-                    }
-                }
+                return LynxStorage.findTaskById(id);
             } catch (NumberFormatException e) {
                 throw new LynxException("Sorry, that isn't a valid ID.");
             }
@@ -85,15 +72,11 @@ public class TaskManager {
             // Mark by position in list
             try {
                 int pos = Integer.parseInt(input);
-                if (pos < 1 || pos > COMMANDS.size()) {
-                    throw new LynxException("Sorry, no task at that position.");
-                }
-                return COMMANDS.get(pos - 1);
+                return LynxStorage.findTaskByPosition(pos);
             } catch (NumberFormatException e) {
                 throw new LynxException("Please provide a valid position number.");
             }
         }
-        throw new LynxException("Task not found.");
     }
 
     public static void deleteTask(String input) throws LynxException {
@@ -102,21 +85,7 @@ public class TaskManager {
         }
         input = input.substring(7).trim();
         Task task = findTask(input);
-        COMMANDS.remove(task);
-        LynxUI.printBox("Removed:\n     " + task +
-                "\nNow you have " + COMMANDS.size() + " tasks in the list.");
-    }
-
-    public static void printListBox() {
-        LynxUI.line();
-        System.out.println("Here are the tasks in your list:");
-        if (COMMANDS.isEmpty()) {
-            System.out.println("     (No tasks yet)");
-        }
-        for (int i = 0; i < COMMANDS.size(); i++) {
-            System.out.println("     " + (i+1) + "." + COMMANDS.get(i));
-        }
-        LynxUI.line();
+        LynxStorage.removeTask(task);
     }
 
 }
