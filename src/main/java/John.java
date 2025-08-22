@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class John {
+    private static String[] list = new String[100];
+    private static int counter = 0;
     public static void main(String[] args) {
         command("start");
         Scanner listen = new Scanner(System.in);
@@ -22,8 +24,15 @@ public class John {
             case "bye":
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
+            case "list":
+                for (int i = 0; i < counter; i++) {
+                    System.out.println(String.valueOf(i + 1) + ". " + list[i]);
+                }
+                break;
             default:
-                System.out.println(cmd);
+                list[counter] = cmd;
+                counter++;
+                System.out.println("added: " + cmd);
         }
     }
 }
