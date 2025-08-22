@@ -44,10 +44,15 @@ public class LynxFileManager {
         try {
             Files.write(filePath, text);
         } catch (IOException e) {
-            LynxUI.line();
-            System.out.println("⚠️ Oops! Lynx couldn't save your tasks.\n"
+            LynxUI.printBox("⚠️ Oops! Lynx couldn't save your tasks.\n"
                     + "Details: " + e.getMessage() + "\n"
                     + "Any changes made during this session may not be saved.");
+
+            System.out.println("Would you like to try saving again? (yes/no)");
+            String input = TaskLynx.getScanner().nextLine().trim();
+            if (input.equalsIgnoreCase("yes")) {
+                writeToFile(text);
+            }
         }
     }
 
