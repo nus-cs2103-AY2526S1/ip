@@ -21,4 +21,5 @@ event party /from tomorrow
 event party /from tomorrow /to
 mark
 mark 0
+delete 2
 bye

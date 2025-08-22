@@ -54,7 +54,7 @@ public class Romidas {
 
                     case TODO:
                         if (words.length < 2) throw new RomidasException("todo requires a description");
-                        if (input.length() < 6) throw new RomidasException("todo requires a description"); // "todo " (5) + at least 1 char
+                        if (input.length() < 6) throw new RomidasException("todo requires a description");
                         String description = input.trim().substring(5);
                         task = new TodoTask(description);
                         break;
@@ -65,7 +65,7 @@ public class Romidas {
                         if (input.length() <= 9)
                             throw new RomidasException("deadline tasks should follow the format: deadline <task> /by <date/time>");
                         String subDeadline = input.substring(9);
-                        String[] partsDeadline = subDeadline.split(" /by ", 2);
+                        String[] partsDeadline = subDeadline.split(" /by ");
                         if (partsDeadline.length < 2 || partsDeadline[0].isBlank() || partsDeadline[1].isBlank())
                             throw new RomidasException("deadline tasks should follow the format: deadline <task> /by <date/time>");
                         task = new DeadlineTask(partsDeadline[0] + " (by: " + partsDeadline[1] + ")");
@@ -77,20 +77,32 @@ public class Romidas {
                         if (input.length() <= 6)
                             throw new RomidasException("event tasks should follow the format: event <event name> /from <date/time> /to <date/time>");
                         String subEvent = input.substring(6);
-                        String[] partsEvent = subEvent.split(" /from ", 2);
+                        String[] partsEvent = subEvent.split(" /from ");
                         if (partsEvent.length < 2 || partsEvent[0].isBlank())
                             throw new RomidasException("event tasks should follow the format: event <event name> /from <date/time> /to <date/time>");
                         String fromAndTo = partsEvent[1];
-                        String[] timeParts = fromAndTo.split(" /to ", 2);
+                        String[] timeParts = fromAndTo.split(" /to ");
                         if (timeParts.length < 2 || timeParts[0].isBlank() || timeParts[1].isBlank())
                             throw new RomidasException("event tasks should follow the format: event <event name> /from <date/time> /to <date/time>");
                         task = new Event(partsEvent[0] + " (from: " + timeParts[0] + " to: " + timeParts[1] + ")");
                         break;
 
-                    // default not needed for invalid command; valueOf throws before switch
+                    case DELETE:
+                        if (words.length < 2) {
+                            throw new RomidasException("event tasks should follow the format: event <event name> /from <date/time> /to <date/time>");
+                        }
+                        int index =  Integer.parseInt(words[1]) - 1;
+                        if (index < 0 || index >= store.size()) {
+                            throw new InvalidIndexException();
+                        }
+                        Task dele = store.get(index);
+                        System.out.println("Noted. I've removed this task:");
+                        store.remove(dele);
+                        System.out.println("  " + dele.toString());
+                        System.out.println("Now you have " + store.size() + " tasks in your list.");
+
                 }
 
-                // Add newly created task (for TODO/DEADLINE/EVENT)
                 if (task != null) {
                     System.out.println("Got it. I've added this task:");
                     store.add(task);
@@ -98,12 +110,12 @@ public class Romidas {
                     System.out.println("Now you have " + store.size() + " tasks in your list.");
                 }
 
+            } catch (NumberFormatException e) {
+                System.out.println("Task number must be an integer.");
             } catch (IllegalArgumentException e) {
                 System.out.println("I'm sorry, I don't recognise that command. Try one of list, event, todo, deadline, mark, unmark, delete");
             } catch (RomidasException e) {
                 System.out.println(e.getMessage());
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Invalid input: " + e.getMessage());
             }
             finally {
                 System.out.println("____________________________________________________________");
