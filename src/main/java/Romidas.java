@@ -106,10 +106,10 @@ public class Romidas {
                     task = new DeadlineTask(parts[0] +  " (by: " + parts[1] + ")");
                 } else if (input.toLowerCase().startsWith("event")) {
                     String sub = input.substring(6);
-                    String[] parts = input.split(" /from ");
+                    String[] parts = sub.split(" /from ");
                     String fromAndTo = parts[1];
                     String[] timeParts = fromAndTo.split(" /to ");
-                    task = new DeadlineTask(parts[0] +  " (from: " + timeParts[0] + " to: " +  timeParts[1] + ")");
+                    task = new Event(parts[0] +  " (from: " + timeParts[0] + " to: " +  timeParts[1] + ")");
                 }
                 store.add(task);
                 System.out.println("  " + task.toString());
