@@ -7,4 +7,10 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public String getData() {
+        return String.format("T|%s|%s",
+                super.getDescription(), super.getIsMarked());
+    }
 }
