@@ -8,10 +8,18 @@ public class UI {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Reads and returns the next line of user input from the console.
+     *
+     * @return The user's input as a string.
+     */
     public String getNextInput() {
         return this.scanner.nextLine();
     }
 
+    /**
+     * Prints a greeting message to the user when the bot starts.
+     */
     public void greetUser() {
         String botGreet = """
                 ____________________________________________________________
@@ -23,11 +31,23 @@ public class UI {
         System.out.println(botGreet);
     }
 
+
+    /**
+     * Displays the current list of tasks to the user.
+     *
+     * @param tasks The TaskList containing all current tasks.
+     */
     public void listMessage(TaskList tasks) {
         String listOutput = UI.decoLine + "\n" + "Here are the tasks in your list:\n" + tasks + UI.decoLine;
         System.out.println(listOutput);
     }
 
+    /**
+     * Displays a confirmation message after marking a task as completed.
+     *
+     * @param indx       The task number shown to the user (1-based index).
+     * @param targetTask The task that has been marked as done.
+     */
     public void markTaskMessage(int indx, Task targetTask) {
         String curTask = String.format(
                 "%d. %s\n",
@@ -42,6 +62,12 @@ public class UI {
         System.out.println(decoLine + "\n" + output + decoLine);
     }
 
+    /**
+     * Displays a confirmation message after marking a task as not done.
+     *
+     * @param indx       The task number shown to the user (1-based index).
+     * @param targetTask The task that has been unmarked.
+     */
     public void unmarkTaskMessage(int indx, Task targetTask) {
         String curTask = String.format(
                 "%d. %s\n",
@@ -58,11 +84,10 @@ public class UI {
 
 
     /**
-     * Returns the bot's string response when a task is added to the list
+     * Displays a confirmation message after a task is added to the task list.
      *
-     * @param task Task to be added
-     * @param num Number of tasks in the list
-     * @return The bot's respond when a task is added
+     * @param task The task that was added.
+     * @param num  The new total number of tasks in the list.
      */
     public void addTaskMessage(Task task, int num) {
 
@@ -78,6 +103,12 @@ public class UI {
         System.out.println(s);
     }
 
+    /**
+     * Displays a confirmation message after a task is removed from the task list.
+     *
+     * @param targetTask The task that was deleted.
+     * @param taskSize   The new total number of tasks in the list.
+     */
     public void deleteMessage(Task targetTask, int taskSize) {
         String output = String.format("""
                         ____________________________________________________________
@@ -91,10 +122,16 @@ public class UI {
         System.out.println(output);
     }
 
+    /**
+     * Displays a generic message prompting the user to enter a valid command.
+     */
     public void invalidMessage() {
         this.generateErrorMsg("Please provide a valid command!");
     }
 
+    /**
+     * Prints a farewell message and exits the program by closing the input scanner.
+     */
     public void farewellUser() {
         System.out.println("""
                     ____________________________________________________________
@@ -105,16 +142,17 @@ public class UI {
         this.exit();
     }
 
+    /**
+     * Closes the input scanner and performs cleanup before exit.
+     */
     public void exit() {
         this.scanner.close();
     }
 
-
     /**
-     * Generates the bot's error message from the error message given
+     * Displays an error message wrapped in a decorative format.
      *
-     * @param e String error message
-     * @return Bot's error message response
+     * @param e The error message to display.
      */
     public void generateErrorMsg(String e) {
 
