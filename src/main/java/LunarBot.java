@@ -20,6 +20,9 @@ public class LunarBot {
         while (true) {
             System.out.print("Input: ");
             String input = sc.nextLine();
+
+            String[] tmp = input.split(" ");
+
             // Bye
             if (input.equals("bye")) {
                 // exit
@@ -35,10 +38,15 @@ public class LunarBot {
                 }
             }
             // Mark
-            else if (input.split(" ")[0].equals("mark") && input.split(" ").length > 1){
-                int index = Integer.valueOf(input.split(" ")[1]) - 1;
+            else if (tmp[0].equals("mark") && tmp.length > 1){
+                if (!tmp[1].matches("[-+]?\\d+")) {
+                    System.out.println("Operation not possible! Index has to be an integer!");
+                    System.out.println(LINE);
+                    continue;
+                }
+                int index = Integer.valueOf(tmp[1]) - 1;
                 if (index < 0 || index > tasks.size()) {
-                    System.out.println("Operation not possible!");
+                    System.out.println("Operation not possible! Need to specify a valid index to mark!");
                     System.out.println(LINE);
                     continue;
                 }
@@ -47,10 +55,15 @@ public class LunarBot {
                 System.out.println(tasks.get(index).print());
             }
             // Unmark
-            else if (input.split(" ")[0].equals("unmark") && input.split(" ").length > 1){
-                int index = Integer.valueOf(input.split(" ")[1]) - 1;
+            else if (tmp[0].equals("unmark") && tmp.length > 1){
+                if (!tmp[1].matches("[-+]?\\d+")) {
+                    System.out.println("Operation not possible! Index has to be an integer!");
+                    System.out.println(LINE);
+                    continue;
+                }
+                int index = Integer.valueOf(tmp[1]) - 1;
                 if (index < 0 || index > tasks.size()) {
-                    System.out.println("Operation not possible!");
+                    System.out.println("Operation not possible! Need to specify a valid index to unmark!");
                     System.out.println(LINE);
                     continue;
                 }
@@ -59,23 +72,52 @@ public class LunarBot {
                 System.out.println(tasks.get(index).print());
             }
             // Todos
-            else if (input.split(" ")[0].equals("todo")) {
+            else if (tmp[0].equals("todo")) {
+                if (tmp.length == 1) {
+                    System.out.println("Operation not possible! TODO's descriptor cannot be empty!");
+                    System.out.println(LINE);
+                    continue;
+                }
                 System.out.println("Okay! I'll add this to your TODOs");
                 tasks.add(new Todo(input.substring(input.indexOf(" ") + 1), false));
             }
             // Deadlines
-            else if (input.split(" ")[0].equals("deadline")) {
+            else if (tmp[0].equals("deadline")) {
+                if (tmp.length == 1) {
+                    System.out.println("Operation not possible! Deadline's descriptor cannot be empty!");
+                    System.out.println(LINE);
+                    continue;
+                }
+                if (input.split("/by").length == 1) {
+                    System.out.println("Operation not possible! Deadline's end time cannot be empty!");
+                    System.out.println(LINE);
+                    continue;
+                }
                 System.out.println("Okay! I'll add this to your deadlines~");
-
                 tasks.add(new Deadline(input.substring(input.indexOf(" ") + 1, input.indexOf("/") - 1),
                         false, input.split("/by ")[1]));
             }
             // Events
-            else if (input.split(" ")[0].equals("event")) {
-                String[] tmp = input.split("/from ")[1].split(" /to ");
+            else if (tmp[0].equals("event")) {
+                if (tmp.length == 1) {
+                    System.out.println("Operation not possible! Event's descriptor cannot be empty!");
+                    System.out.println(LINE);
+                    continue;
+                }
+                if (input.split("/from").length == 1) {
+                    System.out.println("Operation not possible! Event's start time cannot be empty!");
+                    System.out.println(LINE);
+                    continue;
+                }
+                if (input.split("/to").length == 1) {
+                    System.out.println("Operation not possible! Event's end time cannot be empty!");
+                    System.out.println(LINE);
+                    continue;
+                }
+                String[] tmp2 = input.split("/from ")[1].split(" /to ");
                 System.out.println("Okay! I'll add this to your events!");
                 tasks.add(new Event(input.substring(input.indexOf(" ") + 1, input.indexOf("/") - 1),
-                        false, tmp[0], tmp[1]));
+                        false, tmp2[0], tmp2[1]));
             }
             // Catch
             else {

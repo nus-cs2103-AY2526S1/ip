@@ -2,35 +2,55 @@ Hello from LunarBot!
 
 Nice to meet you! What can I do for you?
 __________________________________________
+Input: Operation not possible! TODO's descriptor cannot be empty!
+__________________________________________
 Input: Okay! I'll add this to your TODOs
 __________________________________________
+Input: Operation not possible! Deadline's descriptor cannot be empty!
+__________________________________________
+Input: Operation not possible! Deadline's end time cannot be empty!
+__________________________________________
 Input: Okay! I'll add this to your deadlines~
+__________________________________________
+Input: Operation not possible! Event's descriptor cannot be empty!
+__________________________________________
+Input: Operation not possible! Event's start time cannot be empty!
+__________________________________________
+Input: Operation not possible! Event's end time cannot be empty!
 __________________________________________
 Input: Okay! I'll add this to your events!
 __________________________________________
 Input: Printing history!
 1: [T] [ ] testT
-2: [D] [ ] testD (by: 12pm)
-3: [E] [ ] testE (from: 2pm to: 4pm)
+2: [D] [ ] testD-2 (by: TIME)
+3: [E] [ ] testE-3 (from: TIME2 to: TIME3)
+__________________________________________
+Input: Operation not possible! Index has to be an integer!
+__________________________________________
+Input: Operation not possible! Index has to be an integer!
+__________________________________________
+Input: Operation not possible! Need to specify a valid index to mark!
+__________________________________________
+Input: Operation not possible! Need to specify a valid index to unmark!
 __________________________________________
 Input: Okay, I'll mark that one off your list!
 [T] [X] testT
 __________________________________________
 Input: Okay, I'll mark that one off your list!
-[E] [X] testE (from: 2pm to: 4pm)
+[E] [X] testE-3 (from: TIME2 to: TIME3)
 __________________________________________
 Input: Printing history!
 1: [T] [X] testT
-2: [D] [ ] testD (by: 12pm)
-3: [E] [X] testE (from: 2pm to: 4pm)
+2: [D] [ ] testD-2 (by: TIME)
+3: [E] [X] testE-3 (from: TIME2 to: TIME3)
 __________________________________________
 Input: Okay, I'll unmark that!
 [T] [ ] testT
 __________________________________________
 Input: Printing history!
 1: [T] [ ] testT
-2: [D] [ ] testD (by: 12pm)
-3: [E] [X] testE (from: 2pm to: 4pm)
+2: [D] [ ] testD-2 (by: TIME)
+3: [E] [X] testE-3 (from: TIME2 to: TIME3)
 __________________________________________
 Input: __________________________________________
 Hope to see you soon!
