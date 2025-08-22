@@ -1,8 +1,13 @@
+import java.io.FileNotFoundException;
 import java.net.CookieHandler;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
 
 public class BobbyWasabi {
 
@@ -65,7 +70,6 @@ public class BobbyWasabi {
      * @param num Number of tasks in the list
      * @return The bot's respond when a task is added
      */
-
     public static String addTaskOutput(Task task, int num) {
 
         String s = String.format("""
@@ -121,10 +125,85 @@ public class BobbyWasabi {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                System.out.println(generateErrorMsg("Could not create the file ./data/BobbyWasabiTasks.txt!"));
+                System.out.println(generateErrorMsg(e.getMessage()));
             }
         }
 
+    }
+
+    /**
+     * This function reads from the data file BobbyWasabiTasks.txt
+     * It updates the current task array by adding all the tasks in the data file
+     *
+     * @param tasks Arraylist of tasks
+     */
+    public static void updateTasksFromDataFile(ArrayList<Task> tasks) {
+        try {
+            File file = new File("./data/BobbyWasabiTasks.txt");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                Task task = taskParser(scanner.nextLine());
+                tasks.add(task);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(generateErrorMsg(e.getMessage()));
+        }
+    }
+
+    /**
+     * Parses a string line which is intended to be from the BobbyWasabiTasks.txt file
+     * Return a task created from information parsed from the line
+     *
+     * @param line String line
+     * @return Task created from parsed string
+     */
+    public static Task taskParser(String line) {
+        String[] infos = line.split("|");
+
+        String type = infos[0];
+        String description = infos[1];
+        boolean isMarked = infos[2].equals("[X]");
+
+
+        if (type.equals("T")) {
+            return new ToDo(description, isMarked);
+        } else if (type.equals("D")) {
+            return new Deadline(description, isMarked, infos[3]);
+        } else if (type.equals("E")){
+            return new Event(description, isMarked, infos[3], infos[4]);
+        }
+
+        return null;
+    }
+
+    // writes to the file
+    public static void fileWrite(String line) {
+        try {
+            FileWriter filewriter = new FileWriter("./data/bobbyWasabiTasks.txt");
+            filewriter.write(line);
+            filewriter.close();
+        } catch (IOException e) {
+            System.out.println(generateErrorMsg(e.getMessage()));
+        }
+    }
+
+    // update datafile from tasks
+    public static void updateDatafileFromTasks(ArrayList<Task> tasks) {
+        try {
+            // clear the current data file
+            PrintWriter writer = new PrintWriter("./data/BobbyWasabiTasks.txt");
+            writer.print("");
+            writer.close();
+
+            // update the fresh data file with current tasks
+            for (int i = 0; i < tasks.size(); i++) {
+                Task cur = tasks.get(i);
+                String line = cur.getData();
+                BobbyWasabi.fileWrite(line);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(generateErrorMsg(e.getMessage()));
+        }
     }
 
     public static void main(String[] args) {
@@ -148,7 +227,7 @@ public class BobbyWasabi {
         BobbyWasabi.createDataStorage();
 
         // Read from the data storage file and add the tasks to the current tasks
-
+        BobbyWasabi.updateTasksFromDataFile(list);
 
 
         while (true) {
@@ -203,6 +282,7 @@ public class BobbyWasabi {
                                 curTask);
 
                         System.out.println(decoLine + "\n" + markOutput + decoLine);
+                        updateDatafileFromTasks(list);
                         continue;
                     }
                 } catch (BobbyWasabiException e) {
@@ -229,7 +309,7 @@ public class BobbyWasabi {
                                 curTask);
 
                         System.out.println(decoLine + "\n" + output + decoLine);
-
+                        updateDatafileFromTasks(list);
                         continue;
                     }
                 } catch (BobbyWasabiException e) {
@@ -251,9 +331,11 @@ public class BobbyWasabi {
                     }
 
                     Task todo = new ToDo(description, false);
+
                     list.add(todo);
 
                     System.out.println(BobbyWasabi.addTaskOutput(todo, list.size()));
+                    fileWrite(todo.getData());
                     continue;
                 } catch (BobbyWasabiException e) {
                     System.out.println(BobbyWasabi.generateErrorMsg(e.getMessage()));
@@ -287,6 +369,7 @@ public class BobbyWasabi {
                     list.add(deadlineTask);
 
                     System.out.println(BobbyWasabi.addTaskOutput(deadlineTask, list.size()));
+                    fileWrite(deadlineTask.getData());
                     continue;
                 } catch (BobbyWasabiException e) {
                     System.out.println(BobbyWasabi.generateErrorMsg(e.getMessage()));
@@ -332,6 +415,7 @@ public class BobbyWasabi {
                     list.add(eventTask);
 
                     System.out.println(BobbyWasabi.addTaskOutput(eventTask, list.size()));
+                    fileWrite(eventTask.getData());
                     continue;
 
                 } catch (BobbyWasabiException e) {
@@ -356,7 +440,7 @@ public class BobbyWasabi {
                                 targetTask, list.size());
 
                         System.out.println(output);
-
+                        updateDatafileFromTasks(list);
                         continue;
                     }
 
