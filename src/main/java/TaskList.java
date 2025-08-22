@@ -7,8 +7,8 @@ public class TaskList {
         this.list = new ArrayList<>();
     }
 
-    public void add(String description) {
-        this.list.add(new Task(description));
+    public void add(Task task) {
+        this.list.add(task);
     }
 
     public void mark(int i) {
@@ -22,6 +22,10 @@ public class TaskList {
     public Task get(int i) {
         // Get the ith Task in the list
         return this.list.get(i - 1);
+    }
+
+    public int size() {
+        return this.list.size();
     }
 
     @Override
