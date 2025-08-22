@@ -14,8 +14,16 @@ public class Event extends Task {
                 this.end);
     }
 
+
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " " + this.getDuration();
+    }
+
+    @Override
+    public String getData() {
+        return String.format("E|%s|%s|%s|%s",
+                super.getDescription(), super.getIsMarked(), this.start, this.end);
     }
 }

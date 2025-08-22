@@ -15,4 +15,10 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " " + this.getDeadline();
     }
 
+    @Override
+    public String getData() {
+        return String.format("D|%s|%s|%s",
+                super.getDescription(), super.getIsMarked(), this.deadline);
+    }
+
 }

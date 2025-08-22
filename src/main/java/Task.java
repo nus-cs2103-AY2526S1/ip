@@ -12,12 +12,19 @@ public class Task {
         this.isMarked = bool;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
+    public Boolean getIsMarked() {
+        return this.isMarked;
+    }
+
     /**
      * Returns the Mark/Unmarked Checkbox depending on the Boolean value of isMarked for the Task
      *
      * @return Mark/Unmarked Checkbox.
      */
-
     public String checked() {
         if (this.isMarked) {
             return "[X]";
@@ -32,8 +39,11 @@ public class Task {
      *
      * @return String representation of task.
      */
-
     public String toString() {
         return this.checked() + " " + this.description;
+    }
+
+    public String getData() {
+        return "";
     }
 }
