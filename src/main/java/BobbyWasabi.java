@@ -8,6 +8,10 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 
 public class BobbyWasabi {
 
@@ -158,7 +162,7 @@ public class BobbyWasabi {
      * @return Task created from parsed string
      */
     public static Task taskParser(String line) {
-        String[] infos = line.split("|");
+        String[] infos = line.split("\\|");
 
         String type = infos[0];
         String description = infos[1];
@@ -168,7 +172,9 @@ public class BobbyWasabi {
         if (type.equals("T")) {
             return new ToDo(description, isMarked);
         } else if (type.equals("D")) {
-            return new Deadline(description, isMarked, infos[3]);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            LocalDateTime dateTime = LocalDateTime.parse(infos[3].trim(), formatter);
+            return new Deadline(description, isMarked, dateTime);
         } else if (type.equals("E")){
             return new Event(description, isMarked, infos[3], infos[4]);
         }
@@ -375,16 +381,21 @@ public class BobbyWasabi {
                         throw new BobbyWasabiException("The deadline cannot be blank!");
                     }
 
-                    Task deadlineTask = new Deadline(descriptions[1], false, bySplit[1]);
+                    // check if the deadline has
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                    LocalDateTime dateTime = LocalDateTime.parse(deadline.trim(), formatter);
+
+                    Task deadlineTask = new Deadline(descriptions[1], false, dateTime);
                     list.add(deadlineTask);
 
                     System.out.println(BobbyWasabi.addTaskOutput(deadlineTask, list.size()));
                     fileWrite(deadlineTask.getData());
                     continue;
-                } catch (BobbyWasabiException e) {
+                } catch (BobbyWasabiException | DateTimeParseException e) {
                     System.out.println(BobbyWasabi.generateErrorMsg(e.getMessage()));
                     continue;
                 }
+
             case EVENT:
                 try {
                     String[] fromSplit = userInput.split("/from", 2);
