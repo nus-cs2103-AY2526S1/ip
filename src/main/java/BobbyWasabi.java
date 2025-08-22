@@ -172,14 +172,30 @@ public class BobbyWasabi {
         if (type.equals("T")) {
             return new ToDo(description, isMarked);
         } else if (type.equals("D")) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            LocalDateTime dateTime = LocalDateTime.parse(infos[3].trim(), formatter);
-            return new Deadline(description, isMarked, dateTime);
+            try {
+                LocalDateTime dateTime = parseDateString(infos[3]);
+                return new Deadline(description, isMarked, dateTime);
+            } catch (DateTimeParseException e) {
+                System.out.println(generateErrorMsg(e.getMessage()));
+            }
         } else if (type.equals("E")){
             return new Event(description, isMarked, infos[3], infos[4]);
         }
 
         return null;
+    }
+
+    /**
+     * Parses the given string into a LocalDateTime class
+     *
+     * @param date String representation of date
+     * @return LocalDateTime class
+     * @throws DateTimeParseException
+     */
+    public static LocalDateTime parseDateString(String date) throws DateTimeParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        LocalDateTime dateTime = LocalDateTime.parse(date.trim(), formatter);
+        return dateTime;
     }
 
     /**
@@ -381,9 +397,7 @@ public class BobbyWasabi {
                         throw new BobbyWasabiException("The deadline cannot be blank!");
                     }
 
-                    // check if the deadline has
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-                    LocalDateTime dateTime = LocalDateTime.parse(deadline.trim(), formatter);
+                    LocalDateTime dateTime = parseDateString(deadline);
 
                     Task deadlineTask = new Deadline(descriptions[1], false, dateTime);
                     list.add(deadlineTask);
