@@ -9,4 +9,16 @@ unmark 1
 list
 todo buy groceries
 list
+hello
+todo
+deadline
+deadline submitreport
+deadline submitreport /by
+event
+event party
+event party /from
+event party /from tomorrow
+event party /from tomorrow /to
+mark
+mark 0
 bye
