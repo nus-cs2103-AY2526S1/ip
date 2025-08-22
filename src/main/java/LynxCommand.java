@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 public class LynxCommand {
 
     public static void addTodo(String input) throws LynxException {
@@ -17,7 +19,7 @@ public class LynxCommand {
             throw new LynxException("Please specify a deadline using '/by'.");
         }
         String name = parts[0].trim();
-        String by = parts[1].trim();
+        LocalDateTime by = LynxDateManager.parseDateTime(parts[1].trim());
         LynxStorage.addTask(new DeadlineTask(name, by));
     }
 
@@ -34,8 +36,11 @@ public class LynxCommand {
         if (timeSplit.length < 2) {
             throw new LynxException("Please specify an end time using '/to'.");
         }
-        String from = timeSplit[0].trim();
-        String to = timeSplit[1].trim();
+        LocalDateTime from = LynxDateManager.parseDateTime(timeSplit[0].trim());
+        LocalDateTime to = LynxDateManager.parseDateTime(timeSplit[1].trim());
+        if (from.isAfter(to)) {
+            throw new LynxException("The start date/time cannot be after the end date/time.");
+        }
         LynxStorage.addTask(new EventTask(name, from, to));
     }
 
