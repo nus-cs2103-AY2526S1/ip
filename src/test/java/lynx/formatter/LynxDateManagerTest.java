@@ -1,15 +1,12 @@
 package lynx.formatter;
 
 import lynx.exception.LynxException;
-import lynx.task.DeadlineTask;
-import lynx.task.EventTask;
-import lynx.task.Task;
-import lynx.task.TodoTask;
-import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
 
 public class LynxDateManagerTest {
 

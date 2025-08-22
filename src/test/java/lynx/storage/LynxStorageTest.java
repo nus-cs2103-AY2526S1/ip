@@ -4,13 +4,13 @@ import lynx.task.DeadlineTask;
 import lynx.task.EventTask;
 import lynx.task.Task;
 import lynx.task.TodoTask;
-import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class LynxStorageTest {
 

@@ -5,11 +5,11 @@ import lynx.task.DeadlineTask;
 import lynx.task.EventTask;
 import lynx.task.Task;
 import lynx.task.TodoTask;
-import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class LynxTaskListTest {
 
