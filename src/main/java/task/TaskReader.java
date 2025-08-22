@@ -24,19 +24,34 @@ public class TaskReader {
     public static Task read(String input) {
         Matcher m;
 
-        m = TODO.matcher(input);
-        if (m.matches()) {
-            return new Todo(m.group(1).trim());
+        if (input.toLowerCase().startsWith("todo")) {
+            m = TODO.matcher(input);
+            if (m.matches()) {
+                return new Todo(m.group(1).trim());
+            } else {
+                throw new InvalidTaskException("Invalid todo format.\n" +
+                        "Please enter \"todo <description>\"");
+            }
         }
 
-        m = DEADLINE.matcher(input);
-        if (m.matches()) {
-            return new Deadline(m.group(1).trim(), m.group(2).trim());
+        if (input.toLowerCase().startsWith("deadline")) {
+            m = DEADLINE.matcher(input);
+            if (m.matches()) {
+                return new Deadline(m.group(1).trim(), m.group(2).trim());
+            } else {
+                throw new InvalidTaskException("Invalid deadline format.\n" +
+                        "Please enter \"deadline <description> /by: <deadline>\"");
+            }
         }
 
-        m = EVENT.matcher(input);
-        if (m.matches()) {
-            return new Event(m.group(1).trim(), m.group(2).trim(), m.group(3).trim());
+        if (input.toLowerCase().startsWith("event")) {
+            m = EVENT.matcher(input);
+            if (m.matches()) {
+                return new Event(m.group(1).trim(), m.group(2).trim(), m.group(3).trim());
+            } else {
+                throw new InvalidTaskException("Invalid event format.\n" +
+                        "Please enter \"event <description> /from: <start> /to: <end>\"");
+            }
         }
 
         throw new InvalidTaskException("Invalid task input. enter \"help\" to see command format.");
