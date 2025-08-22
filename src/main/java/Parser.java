@@ -5,12 +5,12 @@ import java.time.format.DateTimeParseException;
 public class Parser {
 
     /**
-     * Checks if the integer given in the command from user is valid
+     * Validates whether the given input string contains a valid integer within the range of the task list.
      *
-     * @param s String command from user
-     * @param arrLen arrayLength of list of tasks
-     * @return Boolean on whether the integer is true or not
-     * @throws BobbyWasabiException
+     * @param s       The full user input string (e.g. "mark 2").
+     * @param arrLen  The length of the current task list, used for bounds checking.
+     * @return        True if the input contains a valid integer within range.
+     * @throws BobbyWasabiException If the input format is invalid or the index is out of range.
      */
     public static boolean isValidInteger(String s, int arrLen) throws BobbyWasabiException {
         String[] wordList = s.split(" ");
@@ -35,6 +35,14 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Parses and returns the integer index from the user's command input.
+     *
+     * @param userInput The full input string containing a command and an index (e.g. "delete 3").
+     * @param taskSize  The size of the current task list.
+     * @return          The parsed index as an integer.
+     * @throws BobbyWasabiException If the index is invalid or out of range.
+     */
     public static int parseCommandIndex(String userInput, int taskSize) throws BobbyWasabiException {
         if (Parser.isValidInteger(userInput, taskSize)) {
             String[] wordList = userInput.split(" ");
@@ -45,6 +53,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts the task description from a "todo" command input.
+     *
+     * @param userInput The full input string (e.g. "todo read book").
+     * @return          The extracted task description.
+     * @throws BobbyWasabiException If the description is missing or blank.
+     */
     public static String parseTodo(String userInput) throws BobbyWasabiException {
         String[] descriptions = userInput.split("todo ");
 
@@ -62,6 +77,13 @@ public class Parser {
 
     }
 
+    /**
+     * Extracts the task description and deadline from a "deadline" command.
+     *
+     * @param userInput The full input string (e.g. "deadline submit report /by 30/8/2025 1800").
+     * @return          A string array with two elements: [description, deadline string].
+     * @throws BobbyWasabiException If required components are missing or blank.
+     */
     public static String[] parseDeadline(String userInput) throws BobbyWasabiException {
         String[] bySplit = userInput.split("/by", 2);
 
@@ -92,6 +114,13 @@ public class Parser {
 
     }
 
+    /**
+     * Extracts the task description, start time, and end time from an "event" command.
+     *
+     * @param userInput The full input string (e.g. "event project meeting /from 29/8/2025 1200 /to 29/8/2025 1400").
+     * @return          A string array with three elements: [description, start time, end time].
+     * @throws BobbyWasabiException If required parts of the command are missing or blank.
+     */
     public static String[] parseEvent(String userInput) throws BobbyWasabiException {
 
         String[] fromSplit = userInput.split("/from", 2);
@@ -135,11 +164,12 @@ public class Parser {
     }
 
     /**
-     * Parses the given string into a LocalDateTime class
+     * Parses a string representation of a date into a {@link LocalDateTime} object.
+     * The expected format is "d/M/yyyy HHmm" (e.g. "22/8/2025 1930").
      *
-     * @param date String representation of date
-     * @return LocalDateTime class
-     * @throws DateTimeParseException
+     * @param date The input string representing the date and time.
+     * @return     A {@link LocalDateTime} object parsed from the input string.
+     * @throws BobbyWasabiException If the date format is incorrect or parsing fails.
      */
     public static LocalDateTime parseDateString(String date) throws BobbyWasabiException {
         try {
