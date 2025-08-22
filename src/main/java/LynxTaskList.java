@@ -5,10 +5,12 @@ import java.util.List;
 public class LynxTaskList {
     private static final ArrayList<Task> COMMANDS = new ArrayList<>(100);
 
-    public static void clearTasks() {
+    public static void clearTasks(boolean dialogue) {
         COMMANDS.clear();
-        LynxUI.printBox("Removed all tasks." +
-                "\nNow you have 0 tasks in the list.");
+        if (dialogue) {
+            LynxUI.printBox("Removed all tasks." +
+                    "\nNow you have 0 tasks in the list.");
+        }
     }
 
     public static void addTask(Task task, boolean dialogue) {

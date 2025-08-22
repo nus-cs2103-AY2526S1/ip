@@ -7,7 +7,7 @@ public abstract class LynxCommand {
             throw new MissingArgumentException("todo");
         }
         String name = input.substring(5).trim();
-        LynxStorage.addTask(new TodoTask(name));
+        LynxTaskList.addTask(new TodoTask(name), true);
     }
 
     public static void addDeadline(String input) throws LynxException {
@@ -20,7 +20,7 @@ public abstract class LynxCommand {
         }
         String name = parts[0].trim();
         LocalDateTime by = LynxDateManager.parseDateTime(parts[1].trim());
-        LynxStorage.addTask(new DeadlineTask(name, by));
+        LynxTaskList.addTask(new DeadlineTask(name, by), true);
     }
 
     public static void addEvent(String input) throws LynxException {
@@ -41,7 +41,7 @@ public abstract class LynxCommand {
         if (from.isAfter(to)) {
             throw new LynxException("The start date/time cannot be after the end date/time.");
         }
-        LynxStorage.addTask(new EventTask(name, from, to));
+        LynxTaskList.addTask(new EventTask(name, from, to), true);
     }
 
     public static void markTask(String input) throws LynxException {
@@ -69,7 +69,7 @@ public abstract class LynxCommand {
             // Mark by unique ID
             try {
                 int id = Integer.parseInt(input.substring(3).trim());
-                return LynxStorage.findTaskById(id);
+                return LynxTaskList.findTaskById(id);
             } catch (NumberFormatException e) {
                 throw new LynxException("Sorry, that isn't a valid ID.");
             }
@@ -77,7 +77,7 @@ public abstract class LynxCommand {
             // Mark by position in list
             try {
                 int pos = Integer.parseInt(input);
-                return LynxStorage.findTaskByPosition(pos);
+                return LynxTaskList.findTaskByPosition(pos);
             } catch (NumberFormatException e) {
                 throw new LynxException("Please provide a valid position number.");
             }
@@ -90,22 +90,22 @@ public abstract class LynxCommand {
         }
         input = input.substring(7).trim();
         if (input.equals("/all")) {
-            LynxStorage.clearTasks();
+            LynxTaskList.clearTasks(true);
             return;
         }
         Task task = findTask(input);
-        LynxStorage.removeTask(task);
+        LynxTaskList.removeTask(task, true);
     }
 
     public static void listTasks(String input) throws LynxException {
         if (input.equals("list")) {
-            LynxStorage.printTasks();
+            LynxTaskList.printTasks();
             return;
         }
         input = input.substring(5).trim();
         try {
             LocalDateTime dateTime = LynxDateManager.parseDateTime(input);
-            LynxStorage.printTasksOnDate(dateTime);
+            LynxTaskList.printTasksOnDate(dateTime);
         } catch (LynxException e) {
             LynxUI.printBox(e.getMessage());
         }
