@@ -65,9 +65,25 @@ public class Paul {
                 continue;
             }
 
-            list.add(input);
+            if (input.startsWith("todo ")) {
+                list.add(new ToDo(input.substring(5)));
+            } else if (input.startsWith("deadline ")) {
+                String[] parts = input.substring(9).split(" /by ", 2);
+                list.add(new Deadline(parts[0], parts[1]));
+            } else if (input.startsWith("event ")) {
+                String[] parts = input.substring(6).split(" /from | /to ");
+                list.add(new Event(parts[0], parts[1], parts[2]));
+            } else {
+                System.out.println(LINE);
+                System.out.println("Please input a valid task!");
+                System.out.println(LINE);
+                continue;
+            }
+
             System.out.println(LINE);
-            System.out.println("added: " + input);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(list.get(list.size()));
+            System.out.println("Now you have " + list.size() + " tasks in the list.");
             System.out.println(LINE);
         }
         sc.close();
