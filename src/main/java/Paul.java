@@ -9,6 +9,7 @@ public class Paul {
                 |  __/ ___ \\ |_| | |___
                 |_| /_/   \\_\\___/|_____|
                 """;
+    private static TaskList list = new TaskList();
 
     public static void main(String[] args) {
         System.out.println(LINE);
@@ -28,8 +29,16 @@ public class Paul {
                 break;
             }
 
+            if (input.equalsIgnoreCase("list")){
+                System.out.println(LINE);
+                System.out.println(list);
+                System.out.println(LINE);
+                continue;
+            }
+
+            list.add(input);
             System.out.println(LINE);
-            System.out.println(input);
+            System.out.println("added: " + input);
             System.out.println(LINE);
         }
         sc.close();
