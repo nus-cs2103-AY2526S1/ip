@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Dobby {
     private static ArrayList<Task> userTasks = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidTaskException {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Hello! I'm Dobby \n");
@@ -26,7 +26,11 @@ public class Dobby {
             } else if (input.startsWith("unmark")) {
                 handleMark(input, false);
             } else if (input.startsWith("todo")) {
-                storeTask(new ToDo(input.substring(5).trim()));
+                try {
+                    storeTask(new ToDo(input.substring(5).trim()));
+                } catch (InvalidTaskException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
             } else if (input.startsWith("deadline")) {
                 String[] parts = input.substring(9).split("/by");
                 if (parts.length == 2) {
@@ -43,7 +47,10 @@ public class Dobby {
         }
     }
 
-    private static void storeTask(Task task) {
+    private static void storeTask(Task task) throws InvalidTaskException {
+        if (task.getDescription().isEmpty()) {
+            throw new InvalidTaskException("Task desription cannot be empty!");
+        }
         userTasks.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
