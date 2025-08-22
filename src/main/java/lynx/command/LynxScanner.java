@@ -1,3 +1,8 @@
+package lynx.command;
+
+import lynx.exception.LynxException;
+import lynx.ui.LynxUI;
+
 import java.util.Scanner;
 
 public class LynxScanner {

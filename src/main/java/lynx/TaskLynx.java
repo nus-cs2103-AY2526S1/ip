@@ -1,4 +1,9 @@
-import java.util.Scanner;
+package lynx;
+
+import lynx.command.LynxScanner;
+import lynx.storage.LynxFileManager;
+import lynx.storage.LynxStorage;
+import lynx.ui.LynxUI;
 
 public class TaskLynx {
 

@@ -1,8 +1,17 @@
+package lynx.storage;
+
+import lynx.exception.LynxException;
+import lynx.formatter.LynxDateManager;
+import lynx.task.DeadlineTask;
+import lynx.task.EventTask;
+import lynx.task.Task;
+import lynx.ui.LynxUI;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-// All methods directly interacting with the Task List
+// All methods directly interacting with the lynx.task.Task List
 public class LynxTaskList {
     private static final ArrayList<Task> COMMANDS = new ArrayList<>(100);
 
@@ -39,7 +48,7 @@ public class LynxTaskList {
                 return t;
             }
         }
-        throw new LynxException("Task not found.");
+        throw new LynxException("lynx.task.Task not found.");
     }
 
     public static Task findTaskByPosition(int position) throws LynxException {

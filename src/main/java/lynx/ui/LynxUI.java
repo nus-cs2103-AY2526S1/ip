@@ -1,3 +1,5 @@
+package lynx.ui;
+
 public class LynxUI {
 
     private static final String LINE = "____________________________________________________________";
