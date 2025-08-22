@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 public class LynxCommand {
 
     public static void addTodo(String input) throws LynxException {
@@ -17,7 +19,7 @@ public class LynxCommand {
             throw new LynxException("Please specify a deadline using '/by'.");
         }
         String name = parts[0].trim();
-        String by = parts[1].trim();
+        LocalDateTime by = LynxDateManager.parseDateTime(parts[1].trim());
         LynxStorage.addTask(new DeadlineTask(name, by));
     }
 
@@ -34,8 +36,11 @@ public class LynxCommand {
         if (timeSplit.length < 2) {
             throw new LynxException("Please specify an end time using '/to'.");
         }
-        String from = timeSplit[0].trim();
-        String to = timeSplit[1].trim();
+        LocalDateTime from = LynxDateManager.parseDateTime(timeSplit[0].trim());
+        LocalDateTime to = LynxDateManager.parseDateTime(timeSplit[1].trim());
+        if (from.isAfter(to)) {
+            throw new LynxException("The start date/time cannot be after the end date/time.");
+        }
         LynxStorage.addTask(new EventTask(name, from, to));
     }
 
@@ -84,8 +89,25 @@ public class LynxCommand {
             throw new MissingArgumentException("delete");
         }
         input = input.substring(7).trim();
+        if (input.equals("/all")) {
+            LynxStorage.clearTasks();
+            return;
+        }
         Task task = findTask(input);
         LynxStorage.removeTask(task);
     }
 
+    public static void listTasks(String input) throws LynxException {
+        if (input.equals("list")) {
+            LynxStorage.printTasks();
+            return;
+        }
+        input = input.substring(5).trim();
+        try {
+            LocalDateTime dateTime = LynxDateManager.parseDateTime(input);
+            LynxStorage.printTasksOnDate(dateTime);
+        } catch (LynxException e) {
+            LynxUI.printBox(e.getMessage());
+        }
+    }
 }

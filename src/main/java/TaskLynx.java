@@ -35,14 +35,14 @@ public class TaskLynx {
             input = scanner.nextLine().trim();
 
             try {
-                if (input.equalsIgnoreCase("bye")) {
+                if (input.equals("bye")) {
                     break;
-                } else if (input.equalsIgnoreCase("reload")) {
+                } else if (input.equals("reload")) {
                     LynxFileManager.createFile();
                     LynxStorage.loadTasks(LynxFileManager.readFromFile());
                     LynxUI.line();
-                } else if (input.equalsIgnoreCase("list")) {
-                    LynxStorage.printTasks();
+                } else if (input.startsWith("list")) {
+                    LynxCommand.listTasks(input);
                 } else if (input.startsWith("mark")) {
                     LynxCommand.markTask(input);
                 } else if (input.startsWith("unmark")) {
