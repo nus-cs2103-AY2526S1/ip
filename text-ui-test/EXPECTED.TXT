@@ -79,72 +79,102 @@ ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
     [T][ ] read book
-Now you have 1 tasks in the list.
+Now you have 2 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+OOPS!!! Text 'Sunday' could not be parsed at index 0
 ____________________________________________________________
 
 ____________________________________________________________
 Got it. I've added this task:
-    [D][ ] return book  (by: Sunday)
-Now you have 2 tasks in the list.
+    [D][ ] return book  by: Dec 2 2003 0900
+Now you have 3 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+Got it. I've added this task:
+    [D][ ] return book  by: Dec 4 2003 0000
+Now you have 4 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+Got it. I've added this task:
+    [D][ ] return book  by: Jan 1 2004 0000
+Now you have 5 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 Got it. I've added this task:
     [E][ ] project meeting  (from: Mon to: Tue)
-Now you have 3 tasks in the list.
+Now you have 6 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
 Here are the tasks in your list:
-1. [T][ ] read book
-2. [D][ ] return book  (by: Sunday)
-3. [E][ ] project meeting  (from: Mon to: Tue)
+1. [E][ ] project meeting  (from: Mon to: Tue)
+2. [T][ ] read book
+3. [D][ ] return book  by: Dec 2 2003 0900
+4. [D][ ] return book  by: Dec 4 2003 0000
+5. [D][ ] return book  by: Jan 1 2004 0000
+6. [E][ ] project meeting  (from: Mon to: Tue)
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
-   2. [D][X] return book  (by: Sunday)
+   2. [T][X] read book
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as not done yet:
-   2. [D][ ] return book  (by: Sunday)
+   2. [T][ ] read book
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
-   3. [E][X] project meeting  (from: Mon to: Tue)
+   3. [D][X] return book  by: Dec 2 2003 0900
 ____________________________________________________________
 ____________________________________________________________
-OOPS!!! Index given in input is out of range, please try an index within the range of your list
+Nice! I've marked this task as done:
+   4. [D][X] return book  by: Dec 4 2003 0000
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [E][ ] project meeting  (from: Mon to: Tue)
+2. [T][ ] read book
+3. [D][X] return book  by: Dec 2 2003 0900
+4. [D][X] return book  by: Dec 4 2003 0000
+5. [D][ ] return book  by: Jan 1 2004 0000
+6. [E][ ] project meeting  (from: Mon to: Tue)
+____________________________________________________________
+____________________________________________________________
+Noted. I've removed this task:
+    [E][ ] project meeting  (from: Mon to: Tue)
+Now you have 5 tasks in the list
 ____________________________________________________________
 
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][ ] read book
-2. [D][ ] return book  (by: Sunday)
-3. [E][X] project meeting  (from: Mon to: Tue)
+2. [D][X] return book  by: Dec 2 2003 0900
+3. [D][X] return book  by: Dec 4 2003 0000
+4. [D][ ] return book  by: Jan 1 2004 0000
+5. [E][ ] project meeting  (from: Mon to: Tue)
 ____________________________________________________________
 ____________________________________________________________
 Noted. I've removed this task:
-    [T][ ] read book
-Now you have 2 tasks in the list
+    [D][X] return book  by: Dec 2 2003 0900
+Now you have 4 tasks in the list
 ____________________________________________________________
 
 ____________________________________________________________
 Here are the tasks in your list:
-1. [D][ ] return book  (by: Sunday)
-2. [E][X] project meeting  (from: Mon to: Tue)
+1. [T][ ] read book
+2. [D][X] return book  by: Dec 4 2003 0000
+3. [D][ ] return book  by: Jan 1 2004 0000
+4. [E][ ] project meeting  (from: Mon to: Tue)
 ____________________________________________________________
 ____________________________________________________________
 Noted. I've removed this task:
-    [E][X] project meeting  (from: Mon to: Tue)
-Now you have 1 tasks in the list
-____________________________________________________________
-
-____________________________________________________________
-Here are the tasks in your list:
-1. [D][ ] return book  (by: Sunday)
-____________________________________________________________
-____________________________________________________________
-OOPS!!! Index given in input is out of range, please try an index within the range of your list
+    [D][X] return book  by: Dec 4 2003 0000
+Now you have 3 tasks in the list
 ____________________________________________________________
 
 ____________________________________________________________
@@ -153,7 +183,9 @@ ____________________________________________________________
 
 ____________________________________________________________
 Here are the tasks in your list:
-1. [D][ ] return book  (by: Sunday)
+1. [T][ ] read book
+2. [D][ ] return book  by: Jan 1 2004 0000
+3. [E][ ] project meeting  (from: Mon to: Tue)
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!

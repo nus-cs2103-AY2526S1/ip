@@ -18,6 +18,9 @@ mark 2stol
 unmark 2unmark
 todo read book
 deadline return book /by Sunday
+deadline return book /by 2/12/2003 0900
+deadline return book /by3/12/2003 2400
+deadline return book /by    31/12/2003 2400
 event project meeting /from Mon /to Tue
 list
 mark 2
