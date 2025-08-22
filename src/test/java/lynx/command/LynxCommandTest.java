@@ -18,13 +18,10 @@ import org.junit.jupiter.api.Test;
 public class LynxCommandTest {
 
     @Test
-    public void addTodo_correctArgument_success() throws LynxException {
+    public void addTodo() throws LynxException {
         String testString = new TodoTask("a").testRepresentation();
         assertEquals(testString, LynxCommand.addTodo("todo    a").testRepresentation());
-    }
 
-    @Test
-    public void addTodo_incorrectArgument_exception() {
         try {
             LynxCommand.addTodo("todo    ");
             fail();
@@ -33,15 +30,12 @@ public class LynxCommandTest {
     }
 
     @Test
-    public void addDeadline_correctArgument_success() throws LynxException {
+    public void addDeadline() throws LynxException {
         String testString = new DeadlineTask("a",
                 LocalDateTime.of(2025, 11, 11, 0, 0)).testRepresentation();
         assertEquals(testString,
                 LynxCommand.addDeadline("deadline    a /by    2025-11-11").testRepresentation());
-    }
 
-    @Test
-    public void addDeadline_incorrectArgument_exception() {
         try {
             LynxCommand.addDeadline("deadline a/by2025-11-11");
             fail();
@@ -55,16 +49,13 @@ public class LynxCommandTest {
     }
 
     @Test
-    public void addEvent_correctArgument_success() throws LynxException {
+    public void addEvent() throws LynxException {
         String testString = new EventTask("a",
                 LocalDateTime.of(2025, 11, 11, 12, 0),
                 LocalDateTime.of(2025, 11, 12, 6, 30)).testRepresentation();
         assertEquals(testString, LynxCommand.addEvent(
                 "event a /from 2025-11-11-12 /to 2025-11-12-06-30").testRepresentation());
-    }
 
-    @Test
-    public void addEvent_incorrectArgument_exception() {
         try {
             LynxCommand.addEvent("event a /from 2025-11-11/to 2025-11-12");
             fail();
@@ -79,7 +70,7 @@ public class LynxCommandTest {
     }
 
     @Test
-    public void listTasks_correctArgument_success() {
+    public void listTasks() {
         try {
             LynxCommand.listTasks("list");
             LynxCommand.listTasks("list ");
@@ -88,10 +79,7 @@ public class LynxCommandTest {
         } catch (LynxException e) {
             fail();
         }
-    }
 
-    @Test
-    public void listTasks_incorrectArgument_exception() {
         try {
             LynxCommand.listTasks("list2025-11-11");
             fail();

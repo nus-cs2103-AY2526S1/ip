@@ -15,6 +15,10 @@ import java.util.List;
 public class LynxTaskList {
     private static final ArrayList<Task> COMMANDS = new ArrayList<>(100);
 
+    public static int getCount() {
+        return COMMANDS.size();
+    }
+
     public static void clearTasks(boolean dialogue) {
         COMMANDS.clear();
         if (dialogue) {
@@ -70,7 +74,7 @@ public class LynxTaskList {
         LynxUI.line();
     }
 
-    public static void printTasksOnDate(LocalDateTime target) {
+    public static boolean printTasksOnDate(LocalDateTime target) {
         LynxUI.line();
         System.out.println("Tasks occurring on " + LynxDateManager.textDateTime(target) + ":");
         boolean found = false;
@@ -92,6 +96,7 @@ public class LynxTaskList {
         }
         if (!found) System.out.println("     (No tasks for this date)");
         LynxUI.line();
+        return found;
     }
 
     // Helper: checks if two LocalDateTimes are on the same day
