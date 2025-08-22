@@ -2,18 +2,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+// Translates between the contents of task list and the data to be stored
 public class LynxStorage {
 
-    private static final ArrayList<Task> COMMANDS = new ArrayList<>(100);
-
-    public static void clearTasks() {
-        COMMANDS.clear();
-        LynxUI.printBox("Removed all tasks." +
-                "\nNow you have 0 tasks in the list.");
-    }
-
     public static void loadTasks(List<String> tasks) {
-        COMMANDS.clear();
+        LynxTaskList.clearTasks(false);
         int errorCount = 0;
         for (String line : tasks) {
             try {
@@ -41,7 +34,7 @@ public class LynxStorage {
         String status = parts[1], name = parts[3];
         Task t = new TodoTask(name);
         if (status.equals("COMPLETE")) t.setCompleted();
-        COMMANDS.add(t);
+        LynxTaskList.addTask(t, false);
     }
 
     private static void loadDeadline(String[] parts) throws IllegalArgumentException, LynxException {
@@ -50,7 +43,7 @@ public class LynxStorage {
         LocalDateTime by = LynxDateManager.parseDateTime(parts[4].replace("by:", ""));
         Task t = new DeadlineTask(name, by);
         if (status.equals("COMPLETE")) t.setCompleted();
-        COMMANDS.add(t);
+        LynxTaskList.addTask(t, false);
     }
 
     private static void loadEvent(String[] parts) throws IllegalArgumentException, LynxException {
@@ -60,12 +53,13 @@ public class LynxStorage {
                 to = LynxDateManager.parseDateTime(parts[5].replace("to:", ""));
         Task t = new EventTask(name, from, to);
         if (status.equals("COMPLETE")) t.setCompleted();
-        COMMANDS.add(t);
+        LynxTaskList.addTask(t, false);
     }
 
     public static List<String> unloadTasks() {
-        List<String> tasks = new ArrayList<>();
-        for (Task task : COMMANDS) {
+        List<String> taskString = new ArrayList<>();
+        List<Task> tasks = LynxTaskList.getAllTasks();
+        for (Task task : tasks) {
             StringBuilder sb = new StringBuilder();
 
             sb.append(task.getType().name());
@@ -80,77 +74,9 @@ public class LynxStorage {
                 sb.append("|to:").append(LynxDateManager.defaultDateTime(et.getEnd()));
             }
 
-            tasks.add(sb.toString());
+            taskString.add(sb.toString());
         }
-        return tasks;
-    }
-
-    public static void addTask(Task task) {
-        COMMANDS.add(task);
-        LynxUI.printBox("Added:\n     " + task + "\nNow you have " + COMMANDS.size() + " tasks in the list.");
-    }
-
-    public static void removeTask(Task task) {
-        COMMANDS.remove(task);
-        LynxUI.printBox("Removed:\n     " + task +
-                "\nNow you have " + COMMANDS.size() + " tasks in the list.");
-    }
-
-    public static Task findTaskById(int id) throws LynxException {
-        for (Task t : COMMANDS) {
-            if (t.getId() == id) {
-                return t;
-            }
-        }
-        throw new LynxException("Task not found.");
-    }
-
-    public static Task findTaskByPosition(int position) throws LynxException {
-        if (position < 1 || position > COMMANDS.size()) {
-            throw new LynxException("Sorry, no task at that position.");
-        }
-        return COMMANDS.get(position - 1);
-    }
-
-    public static void printTasks() {
-        LynxUI.line();
-        System.out.println("Here are the tasks in your list:");
-        if (COMMANDS.isEmpty()) {
-            System.out.println("     (No tasks yet)");
-        }
-        for (int i = 0; i < COMMANDS.size(); i++) {
-            System.out.println("     " + (i+1) + "." + COMMANDS.get(i));
-        }
-        LynxUI.line();
-    }
-
-    public static void printTasksOnDate(LocalDateTime target) {
-        LynxUI.line();
-        System.out.println("Tasks occurring on " + LynxDateManager.textDateTime(target) + ":");
-        boolean found = false;
-        for (int i = 0; i < COMMANDS.size(); i++) {
-            Task t = COMMANDS.get(i);
-            if (t instanceof DeadlineTask dt) {
-                // compare only date part if input has no time
-                if (isSameDay(dt.getDeadline(), target)) {
-                    System.out.println("     " + (i+1) + "." + t);
-                    found = true;
-                }
-            } else if (t instanceof EventTask et) {
-                // target date within event range
-                if (!target.isBefore(et.getStart()) && !target.isAfter(et.getEnd())) {
-                    System.out.println("     " + (i+1) + "." + t);
-                    found = true;
-                }
-            }
-        }
-        if (!found) System.out.println("     (No tasks for this date)");
-        LynxUI.line();
-    }
-
-    // Helper: checks if two LocalDateTimes are on the same day
-    private static boolean isSameDay(LocalDateTime a, LocalDateTime b) {
-        return a.toLocalDate().equals(b.toLocalDate());
+        return taskString;
     }
 
 }
