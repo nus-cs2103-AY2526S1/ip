@@ -15,3 +15,10 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Documentation folders (hidden from git)
+.docs/
+CLAUDE.md
+
+# Compiled class files
+*.class
