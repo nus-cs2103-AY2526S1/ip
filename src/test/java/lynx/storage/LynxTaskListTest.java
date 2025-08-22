@@ -1,6 +1,5 @@
 package lynx.storage;
 
-import lynx.command.LynxCommand;
 import lynx.exception.LynxException;
 import lynx.task.DeadlineTask;
 import lynx.task.EventTask;
