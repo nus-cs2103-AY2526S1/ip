@@ -24,6 +24,6 @@ public class Event extends Task {
     @Override
     public String getData() {
         return String.format("E|%s|%s|%s|%s",
-                super.getDescription(), super.getIsMarked(), this.start, this.end);
+                super.getDescription(), super.checked(), this.start, this.end);
     }
 }

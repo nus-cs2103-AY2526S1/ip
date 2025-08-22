@@ -1,13 +1,26 @@
-public class Deadline extends Task {
-    private String deadline;
+import org.w3c.dom.Text;
 
-    public Deadline(String description, boolean isMarked, String deadline) {
+import javax.print.attribute.TextSyntax;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.TextStyle;
+import java.util.Locale;
+
+public class Deadline extends Task {
+    private LocalDateTime deadline;
+
+    public Deadline(String description, boolean isMarked, LocalDateTime deadline) {
         super(description, isMarked);
         this.deadline = deadline;
     }
 
     public String getDeadline() {
-        return "(by:" + this.deadline + ")";
+        String output = this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
+
+        return String.format("by: %s",
+                output);
     }
 
     @Override
@@ -17,8 +30,9 @@ public class Deadline extends Task {
 
     @Override
     public String getData() {
+        String deadlineOutput = this.deadline.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         return String.format("D|%s|%s|%s",
-                super.getDescription(), super.getIsMarked(), this.deadline);
+                super.getDescription(), super.checked(), deadlineOutput);
     }
 
 }

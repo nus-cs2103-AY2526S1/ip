@@ -11,6 +11,6 @@ public class ToDo extends Task {
     @Override
     public String getData() {
         return String.format("T|%s|%s",
-                super.getDescription(), super.getIsMarked());
+                super.getDescription(), super.checked());
     }
 }
