@@ -2,6 +2,12 @@ import java.util.Scanner;
 
 public class TaskLynx {
 
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static Scanner getScanner() {
+        return scanner;
+    }
+
     public static void main(String[] args) {
         LynxFileManager.createFile();
         LynxStorage.loadTasks(LynxFileManager.readFromFile());
@@ -12,19 +18,18 @@ public class TaskLynx {
     }
 
     public static void hello() {
-        LynxUI.line();
-        System.out.println("Hello! I'm Tasklynx.");
-        System.out.println("Your dependable assistant for tracking tasks, managing deadlines, and keeping your work organized.");
+        LynxUI.printBox("Hello! I'm Tasklynx. \n" +
+                "Your dependable assistant for tracking tasks, managing deadlines, and keeping your work organized.");
     }
 
     public static void bye() {
+        scanner.close();
         LynxUI.printBox("Goodbye. I'll be here whenever you need to stay on track.");
     }
 
     public static void scanForCommands() {
-        Scanner scanner = new Scanner(System.in);
         String input;
-        LynxUI.printBox("How can I assist you with your tasks today? \nTasklynx is ready. Type your command:");
+        System.out.println("How can I assist you with your tasks today? \nTasklynx is ready. Type your command:");
 
         while (true) {
             input = scanner.nextLine().trim();
@@ -34,6 +39,8 @@ public class TaskLynx {
                     break;
                 } else if (input.equalsIgnoreCase("reload")) {
                     LynxFileManager.createFile();
+                    LynxStorage.loadTasks(LynxFileManager.readFromFile());
+                    LynxUI.line();
                 } else if (input.equalsIgnoreCase("list")) {
                     LynxStorage.printTasks();
                 } else if (input.startsWith("mark")) {
@@ -56,7 +63,6 @@ public class TaskLynx {
             }
         }
 
-        scanner.close();
     }
 
 }

@@ -1,4 +1,3 @@
-
 public class LynxCommand {
 
     public static void addTodo(String input) throws LynxException {

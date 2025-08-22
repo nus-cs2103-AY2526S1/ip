@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class LynxUI {
 
     private static final String LINE = "____________________________________________________________";
