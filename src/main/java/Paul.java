@@ -68,11 +68,11 @@ public class Paul {
             if (input.startsWith("todo ")) {
                 list.add(new ToDo(input.substring(5)));
             } else if (input.startsWith("deadline ")) {
-                String[] parts = input.substring(9).split(" /by ", 2);
-                list.add(new Deadline(parts[0], parts[1]));
+                String[] str = input.substring(9).split(" /by ", 2);
+                list.add(new Deadline(str[0], str[1]));
             } else if (input.startsWith("event ")) {
-                String[] parts = input.substring(6).split(" /from | /to ");
-                list.add(new Event(parts[0], parts[1], parts[2]));
+                String[] str = input.substring(6).split(" /from | /to ");
+                list.add(new Event(str[0], str[1], str[2]));
             } else {
                 System.out.println(LINE);
                 System.out.println("Please input a valid task!");
