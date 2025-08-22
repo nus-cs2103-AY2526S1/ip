@@ -1,6 +1,8 @@
 import java.net.CookieHandler;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 
 public class BobbyWasabi {
 
@@ -84,7 +86,6 @@ public class BobbyWasabi {
      * @param e String error message
      * @return Bot's error message response
      */
-
     public static String generateErrorMsg(String e) {
 
         String s = String.format("""
@@ -97,15 +98,43 @@ public class BobbyWasabi {
         return s;
     }
 
+    /**
+     * Checks if the data folders and file used to store the tasks for the list exists
+     * If they do not, it will create them
+     * End result is ./data/BobbyWasabiTasks.txt created
+     */
+    public static void createDataStorage() {
+        File folder = new File("./data");
+        File file = new File(folder, "BobbyWasabiTasks.txt");
 
+        // check if folder exists
+        if (!folder.exists()) {
+            // create the folder if it does not exist
+            if (!folder.mkdirs()) {
+                System.out.println(generateErrorMsg("Could not create the folder ./data!"));
+            }
+        }
+
+        // check if the file exists
+        if (!file.exists()) {
+            // create the file if it does not exist
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println(generateErrorMsg("Could not create the file ./data/BobbyWasabiTasks.txt!"));
+            }
+        }
+
+    }
 
     public static void main(String[] args) {
+        // create scanner and the array of tasks
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
 
 
+        // create the first bot greeting
         String decoLine = "____________________________________________________________";
-
         String botGreet = """
                 ____________________________________________________________
                  Hello! I'm Bobby Wasabi
@@ -113,8 +142,14 @@ public class BobbyWasabi {
                 ____________________________________________________________
                 
                 """;
-
         System.out.println(botGreet);
+
+        // check if ./data folder and BobbyWasabi.txt file exists, else create them
+        BobbyWasabi.createDataStorage();
+
+        // Read from the data storage file and add the tasks to the current tasks
+
+
 
         while (true) {
 
