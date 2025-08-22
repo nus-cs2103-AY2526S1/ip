@@ -39,6 +39,9 @@ public abstract class Task {
     public void setCompleted() { this.status = Status.COMPLETE; }
     public void resetCompleted() { this.status = Status.INCOMPLETE; }
 
+    // String generated for testing that compares everything except id
+    public abstract String testRepresentation();
+
     // Each subclass has its own toString
     @Override
     public abstract String toString();

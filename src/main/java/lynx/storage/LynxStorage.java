@@ -15,7 +15,10 @@ import java.util.List;
 // Translates between the contents of task list and the data to be stored
 public class LynxStorage {
 
-    public static void loadTasks(List<String> tasks) {
+    // Corrupted id and completion status are ignored and not considered errors
+    // The former does not matter since the ids of tasks are allocated on instantiation
+    // The latter is defaulted to 'INCOMPLETE'.
+    public static int loadTasks(List<String> tasks) {
         LynxTaskList.clearTasks(false);
         int errorCount = 0;
         for (String line : tasks) {
@@ -37,6 +40,7 @@ public class LynxStorage {
             LynxUI.line();
             System.out.println("⚠️ Lynx skipped " + errorCount + " invalid task(s) during loading.");
         }
+        return errorCount;
     }
 
     private static void loadTodo(String[] parts) throws IllegalArgumentException {
