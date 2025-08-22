@@ -2,48 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-class Task {
-    String name;
-    Boolean completed;
-    String type;
-    String from = "";
-    String by = "";
-
-    // Todos
-    Task(String name, Boolean completed, String type) {
-        this.name = name;
-        this.completed = completed;
-        this.type = type;
-    }
-
-    // Deadlines
-    Task(String name, Boolean completed, String type, String by) {
-        this.name = name;
-        this.completed = completed;
-        this.type = type;
-        this.by = by;
-    }
-
-    // Events
-    Task(String name, Boolean completed, String type, String from, String by) {
-        this.name = name;
-        this.completed = completed;
-        this.type = type;
-        this.by = by;
-        this.from = from;
-    }
-
-    public void setCompleted(Boolean bool) {
-        this.completed = bool;
-    }
-
-    public String print() {
-        return "[" + this.type + "] [" + (this.completed ? "X" : " ") + "] " + this.name +
-                (this.by.isEmpty() ? "" : (" (" +
-                (this.from.isEmpty() ? "by: " : "from: " + this.from + " to: ") + this.by + ")"));
-    }
-}
-
 public class LunarBot {
     public static final String LINE = "__________________________________________";
     public static void main(String[] args) {
@@ -103,26 +61,26 @@ public class LunarBot {
             // Todos
             else if (input.split(" ")[0].equals("todo")) {
                 System.out.println("Okay! I'll add this to your TODOs");
-                tasks.add(new Task(input.substring(input.indexOf(" ") + 1), false, "T"));
+                tasks.add(new Todo(input.substring(input.indexOf(" ") + 1), false));
             }
             // Deadlines
             else if (input.split(" ")[0].equals("deadline")) {
                 System.out.println("Okay! I'll add this to your deadlines~");
 
-                tasks.add(new Task(input.substring(input.indexOf(" ") + 1, input.indexOf("/") - 1),
-                        false, "D", input.split("/by ")[1]));
+                tasks.add(new Deadline(input.substring(input.indexOf(" ") + 1, input.indexOf("/") - 1),
+                        false, input.split("/by ")[1]));
             }
             // Events
             else if (input.split(" ")[0].equals("event")) {
                 String[] tmp = input.split("/from ")[1].split(" /to ");
                 System.out.println("Okay! I'll add this to your events!");
-                tasks.add(new Task(input.substring(input.indexOf(" ") + 1, input.indexOf("/") - 1),
-                        false, "E", tmp[0], tmp[1]));
+                tasks.add(new Event(input.substring(input.indexOf(" ") + 1, input.indexOf("/") - 1),
+                        false, tmp[0], tmp[1]));
             }
             // Catch
             else {
                 System.out.println("added: " + input);
-                tasks.add(new Task(input, false, " "));
+                tasks.add(new Task(input, false));
             }
             // add to history
             System.out.println(LINE);
