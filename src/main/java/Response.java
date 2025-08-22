@@ -1,3 +1,4 @@
+//class containing all jimbot responses
 import taskTypes.Task;
 import taskTypes.taskList;
 

@@ -21,7 +21,7 @@ public class Jimbot {
 
             try {
                 int taskCount = userList.getTaskCount();
-                if (userInput.toLowerCase().contains("bye")) {
+                if (userInput.toLowerCase().matches(".*\\b(bye|goodbye)\\b.*")) {
                     user.goodBye();
                     break;
 
