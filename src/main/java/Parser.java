@@ -181,5 +181,11 @@ public class Parser {
         }
     }
 
+    public static BobbyWasabi.Command parseCommand(String userInput) {
+        return BobbyWasabi.Command.toCommand(userInput.split(" ")[0]);
+    }
+
+
+
 
 }

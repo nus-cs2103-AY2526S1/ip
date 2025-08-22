@@ -78,7 +78,7 @@ public class Storage {
      * @param line String line
      * @return Task created from parsed string
      */
-    public Task taskParser(String line) throws DateTimeParseException {
+    public Task taskParser(String line) throws BobbyWasabiException {
         String[] infos = line.split("\\|");
 
         String type = infos[0];
@@ -90,7 +90,7 @@ public class Storage {
             return new ToDo(description, isMarked);
         } else if (type.equals("D")) {
 
-            LocalDateTime dateTime = BobbyWasabi.parseDateString(infos[3]);
+            LocalDateTime dateTime = Parser.parseDateString(infos[3]);
             return new Deadline(description, isMarked, dateTime);
 
         } else if (type.equals("E")){

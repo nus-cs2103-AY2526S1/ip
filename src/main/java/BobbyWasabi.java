@@ -37,274 +37,150 @@ public class BobbyWasabi {
 
     private TaskList taskList;
     private Storage storage;
+    private UI ui;
 
-    /**
-     * Checks if the integer given in the command from user is valid
-     *
-     * @param s String command from user
-     * @param arrLen arrayLength of list of tasks
-     * @return Boolean on whether the integer is true or not
-     * @throws BobbyWasabiException
-     */
-    public static boolean isValidInteger(String s, int arrLen) throws BobbyWasabiException {
-        String[] wordList = s.split(" ");
+    public BobbyWasabi() {
+        this.ui = new UI();
+        this.storage = new Storage("./data/BobbyWasabiTasks.txt", "./data");
 
-        // not valid command length
-        if (wordList.length != 2) {
-            throw new BobbyWasabiException("We only accept two inputs - the command and the integer");
-        }
-
-
-        // not a valid integer
         try {
-            int indx = Integer.parseInt(wordList[1]);
-            if (indx > arrLen) {
-                throw new BobbyWasabiException("Index given in input is out of range, please try an index within the range of your list");
-            }
-
-        } catch (NumberFormatException e) {
-            throw new BobbyWasabiException("Please input an index following your command");
-        }
-
-        return true;
-    }
-
-    /**
-     * Returns the bot's string response when a task is added to the list
-     *
-     * @param task Task to be added
-     * @param num Number of tasks in the list
-     * @return The bot's respond when a task is added
-     */
-    public static String addTaskOutput(Task task, int num) {
-
-        String s = String.format("""
-                ____________________________________________________________
-                Got it. I've added this task:
-                    %s
-                Now you have %d tasks in the list.
-                ____________________________________________________________
-                """,
-                task, num);
-
-        return s;
-    }
-
-    /**
-     * Generates the bot's error message from the error message given
-     *
-     * @param e String error message
-     * @return Bot's error message response
-     */
-    public static String generateErrorMsg(String e) {
-
-        String s = String.format("""
-                ____________________________________________________________
-                OOPS!!! %s
-                ____________________________________________________________
-                """,
-                e);
-
-        return s;
-    }
-
-
-    /**
-     * Parses the given string into a LocalDateTime class
-     *
-     * @param date String representation of date
-     * @return LocalDateTime class
-     * @throws DateTimeParseException
-     */
-    public static LocalDateTime parseDateString(String date) throws DateTimeParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        LocalDateTime dateTime = LocalDateTime.parse(date.trim(), formatter);
-        return dateTime;
-    }
-
-    public static void main(String[] args) {
-        // create scanner and the array of tasks
-        Scanner scanner = new Scanner(System.in);
-        Storage storage = new Storage("./data/BobbyWasabiTasks.txt", "./data");
-        TaskList list;
-        try {
-            storage.createDataStorage();
-            list = new TaskList(storage.load());
+            this.storage.createDataStorage();
+            this.taskList = new TaskList(storage.load());
         } catch (BobbyWasabiException e) {
-            System.out.println(generateErrorMsg(e.getMessage()));
-            list = new TaskList(new ArrayList<Task>());
+            ui.generateErrorMsg(e.getMessage());
+            this.taskList = new TaskList(new ArrayList<Task>());
         }
+    }
 
-
-        // create the first bot greeting
-        String decoLine = "____________________________________________________________";
-        String botGreet = """
-                ____________________________________________________________
-                 Hello! I'm Bobby Wasabi
-                 What can I do for you?
-                ____________________________________________________________
-                
-                """;
-        System.out.println(botGreet);
+    public void run() {
+        this.ui.greetUser();
 
         while (true) {
 
-            // Get user input
-            String userInput = scanner.nextLine();
-
-            Command command = Command.toCommand(userInput.split(" ")[0]);
+            // Get user input and command
+            String userInput = ui.getNextInput();
+            Command command = Parser.parseCommand(userInput);
 
             switch (command) {
-            case BYE:
-                System.out.println("""
-                    ____________________________________________________________
-                    Bye. Hope to see you again soon!
-                    ____________________________________________________________
-               
-                    """);
-                scanner.close();
-                return;
-            case LIST:
+                case BYE:
 
-                String listOutput = decoLine + "\n" + "Here are the tasks in your list:\n" + list + decoLine;
-                System.out.println(listOutput);
-                continue;
+                    ui.farewellUser();
+                    return;
 
-            case MARK:
-                try {
+                case LIST:
 
-                    int indx = Parser.parseCommandIndex(userInput, list.size());
-                    Task targetTask = list.get(indx - 1);
-                    targetTask.setIsMarked(true);
-
-                    String curTask = String.format(
-                            "%d. %s\n",
-                            indx,
-                            targetTask);
-
-                    String markOutput = String.format("""
-                                Nice! I've marked this task as done:
-                                   %s""",
-                            curTask);
-
-                    System.out.println(decoLine + "\n" + markOutput + decoLine);
-                    storage.updateDataFileFromTasks(list);
+                    ui.listMessage(this.taskList);
                     continue;
 
-                } catch (BobbyWasabiException e) {
-                    System.out.println(BobbyWasabi.generateErrorMsg(e.getMessage()));
-                    continue;
-                }
-            case UNMARK:
-                try {
+                case MARK:
+                    try {
 
-                    int indx = Parser.parseCommandIndex(userInput, list.size());
-                    Task targetTask = list.get(indx - 1);
-                    targetTask.setIsMarked(false);
+                        int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
+                        Task targetTask = this.taskList.get(indx - 1);
+                        targetTask.setIsMarked(true);
 
-                    String curTask = String.format(
-                            "%d. %s\n",
-                            indx,
-                            targetTask);
+                        ui.markTaskMessage(indx, targetTask);
+                        storage.updateDataFileFromTasks(this.taskList);
+                        continue;
 
-                    String output = String.format("""
-                                Nice! I've marked this task as not done yet:
-                                   %s""",
-                            curTask);
+                    } catch (BobbyWasabiException e) {
+                        ui.generateErrorMsg(e.getMessage());
+                        continue;
+                    }
+                case UNMARK:
+                    try {
 
-                    System.out.println(decoLine + "\n" + output + decoLine);
-                    storage.updateDataFileFromTasks(list);
-                    continue;
+                        int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
+                        Task targetTask = this.taskList.get(indx - 1);
+                        targetTask.setIsMarked(false);
 
-                } catch (BobbyWasabiException e) {
-                    System.out.println(BobbyWasabi.generateErrorMsg(e.getMessage()));
-                    continue;
-                }
-            case TODO:
-                try {
+                        ui.unmarkTaskMessage(indx, targetTask);
+                        storage.updateDataFileFromTasks(this.taskList);
+                        continue;
 
-                    String description = Parser.parseTodo(userInput);
+                    } catch (BobbyWasabiException e) {
+                        ui.generateErrorMsg(e.getMessage());
+                        continue;
+                    }
+                case TODO:
+                    try {
 
-                    Task todo = new ToDo(description, false);
-                    list.add(todo);
+                        String description = Parser.parseTodo(userInput);
 
-                    System.out.println(BobbyWasabi.addTaskOutput(todo, list.size()));
-                    storage.fileWrite(todo.getData());
-                    continue;
+                        Task todo = new ToDo(description, false);
+                        this.taskList.add(todo);
 
-                } catch (BobbyWasabiException e) {
+                        ui.addTaskMessage(todo, this.taskList.size());
+                        storage.fileWrite(todo.getData());
+                        continue;
 
-                    System.out.println(BobbyWasabi.generateErrorMsg(e.getMessage()));
-                    continue;
+                    } catch (BobbyWasabiException e) {
+                        ui.generateErrorMsg(e.getMessage());
+                        continue;
+                    }
+                case DEADLINE:
+                    try {
+                        String[] details = Parser.parseDeadline(userInput);
+                        String description = details[0];
+                        String deadline = details[1];
 
-                }
-            case DEADLINE:
-                try {
-                    String[] details = Parser.parseDeadline(userInput);
-                    String description = details[0];
-                    String deadline = details[1];
+                        LocalDateTime dateTime = Parser.parseDateString(deadline);
 
-                    LocalDateTime dateTime = parseDateString(deadline);
+                        Task deadlineTask = new Deadline(description, false, dateTime);
+                        this.taskList.add(deadlineTask);
 
-                    Task deadlineTask = new Deadline(description, false, dateTime);
-                    list.add(deadlineTask);
+                        ui.addTaskMessage(deadlineTask, this.taskList.size());
+                        storage.fileWrite(deadlineTask.getData());
+                        continue;
 
-                    System.out.println(BobbyWasabi.addTaskOutput(deadlineTask, list.size()));
-                    storage.fileWrite(deadlineTask.getData());
-                    continue;
+                    } catch (BobbyWasabiException | DateTimeParseException e) {
+                        ui.generateErrorMsg(e.getMessage());
+                        continue;
+                    }
 
-                } catch (BobbyWasabiException | DateTimeParseException e) {
-                    System.out.println(BobbyWasabi.generateErrorMsg(e.getMessage()));
-                    continue;
-                }
+                case EVENT:
+                    try {
+                        String[] details = Parser.parseEvent(userInput);
+                        String description = details[0];
+                        String start = details[1];
+                        String end = details[2];
 
-            case EVENT:
-                try {
-                    String[] details = Parser.parseEvent(userInput);
-                    String description = details[0];
-                    String start = details[1];
-                    String end = details[2];
+                        Task eventTask = new Event(description, false, start, end);
+                        this.taskList.add(eventTask);
 
-                    Task eventTask = new Event(description, false, start, end);
-                    list.add(eventTask);
+                        ui.addTaskMessage(eventTask, this.taskList.size());
+                        storage.fileWrite(eventTask.getData());
+                        continue;
 
-                    System.out.println(BobbyWasabi.addTaskOutput(eventTask, list.size()));
-                    storage.fileWrite(eventTask.getData());
-                    continue;
+                    } catch (BobbyWasabiException e) {
+                        ui.generateErrorMsg(e.getMessage());
+                        continue;
+                    }
+                case DELETE:
+                    try {
+                        int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
+                        Task targetTask = this.taskList.get(indx - 1);
+                        this.taskList.remove(indx - 1);
 
-                } catch (BobbyWasabiException e) {
-                    System.out.println(BobbyWasabi.generateErrorMsg(e.getMessage()));
-                    continue;
-                }
-            case DELETE:
-                try {
-                    int indx = Parser.parseCommandIndex(userInput, list.size());
-                    Task targetTask = list.get(indx - 1);
-                    list.remove(indx - 1);
+                        ui.deleteMessage(targetTask, this.taskList.size());
+                        storage.updateDataFileFromTasks(this.taskList);
+                        continue;
 
-                    String output = String.format("""
-                        ____________________________________________________________
-                        Noted. I've removed this task:
-                            %s
-                        Now you have %d tasks in the list
-                        ____________________________________________________________
-                        """,
-                            targetTask, list.size());
-
-                    System.out.println(output);
-                    storage.updateDataFileFromTasks(list);
-                    continue;
-
-                } catch (BobbyWasabiException e) {
-                    System.out.println(BobbyWasabi.generateErrorMsg(e.getMessage()));
-                    continue;
-                }
-            case OTHERS:
-                System.out.println(BobbyWasabi.generateErrorMsg("Please provide a valid command!"));
+                    } catch (BobbyWasabiException e) {
+                        ui.generateErrorMsg(e.getMessage());
+                        continue;
+                    }
+                case OTHERS:
+                    ui.invalidMessage();
             }
 
 
         }
+    }
 
+
+
+    public static void main(String[] args) {
+        new BobbyWasabi().run();
     }
 }
