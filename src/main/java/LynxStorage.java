@@ -2,6 +2,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+// Translates between the contents of task list and the data to be stored
 public class LynxStorage {
 
     public static void loadTasks(List<String> tasks) {

@@ -2,6 +2,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+// Class for parsing date / time representations
 public class LynxDateManager {
     private static final DateTimeFormatter DEFAULT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
     private static final DateTimeFormatter TEXT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");

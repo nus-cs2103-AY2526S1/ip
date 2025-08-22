@@ -2,6 +2,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+// All methods directly interacting with the Task List
 public class LynxTaskList {
     private static final ArrayList<Task> COMMANDS = new ArrayList<>(100);
 

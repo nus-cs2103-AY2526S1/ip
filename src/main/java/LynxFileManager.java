@@ -6,19 +6,21 @@ import java.util.List;
 
 import java.io.IOException;
 
+// All methods that directly interact with the hard drive
 public class LynxFileManager {
 
-    private static final Path filePath = Paths.get("./data/log.txt");
+    // Specified path where the data file should be created
+    private static final Path FILEPATH = Paths.get("./data/log.txt");
 
     public static void createFile() {
         try {
             // Ensure directory exists
-            if (!Files.exists(filePath.getParent())) {
-                Files.createDirectories(filePath.getParent());
+            if (!Files.exists(FILEPATH.getParent())) {
+                Files.createDirectories(FILEPATH.getParent());
             }
             // Create the file if it doesn't exist
-            if (!Files.exists(filePath)) {
-                Files.createFile(filePath);
+            if (!Files.exists(FILEPATH)) {
+                Files.createFile(FILEPATH);
             }
         } catch (IOException e) {
             LynxUI.line();
@@ -30,7 +32,7 @@ public class LynxFileManager {
 
     public static List<String> readFromFile() {
         try {
-            return Files.readAllLines(filePath);
+            return Files.readAllLines(FILEPATH);
         } catch (IOException e) {
             LynxUI.line();
             System.out.println("⚠️ Oops! Lynx couldn't read your data file.\n"
@@ -42,14 +44,14 @@ public class LynxFileManager {
 
     public static void writeToFile(List<String> text) {
         try {
-            Files.write(filePath, text);
+            Files.write(FILEPATH, text);
         } catch (IOException e) {
             LynxUI.printBox("⚠️ Oops! Lynx couldn't save your tasks.\n"
                     + "Details: " + e.getMessage() + "\n"
                     + "Any changes made during this session may not be saved.");
 
             System.out.println("Would you like to try saving again? (yes/no)");
-            String input = TaskLynx.getScanner().nextLine().trim();
+            String input = LynxScanner.SCANNER.nextLine().trim();
             if (input.equalsIgnoreCase("yes")) {
                 writeToFile(text);
             }

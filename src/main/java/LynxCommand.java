@@ -1,6 +1,13 @@
 import java.time.LocalDateTime;
 
+// Parses command details and executes them
 public abstract class LynxCommand {
+
+    public static void reload() {
+        LynxFileManager.createFile();
+        LynxStorage.loadTasks(LynxFileManager.readFromFile());
+        LynxUI.line();
+    }
 
     public static void addTodo(String input) throws LynxException {
         if (input.length() <= 4) {
