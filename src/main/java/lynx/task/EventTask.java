@@ -17,6 +17,11 @@ public class EventTask extends Task {
     public LocalDateTime getStart() { return start; }
     public LocalDateTime getEnd() { return end; }
 
+    public String testRepresentation() {
+        return String.format("%s%s %s (from: %s to: %s)", type.getSymbol(), status.getSymbol(),
+                name, LynxDateManager.textDateTime(start), LynxDateManager.textDateTime(end));
+    }
+
     @Override
     public String toString() {
         return String.format("%s%s %s (from: %s to: %s) (id:%d)", type.getSymbol(), status.getSymbol(),

@@ -14,6 +14,11 @@ public class DeadlineTask extends Task {
 
     public LocalDateTime getDeadline() { return deadline; }
 
+    public String testRepresentation() {
+        return String.format("%s%s %s (by: %s)", type.getSymbol(), status.getSymbol(),
+                name, LynxDateManager.textDateTime(deadline));
+    }
+
     @Override
     public String toString() {
         return String.format("%s%s %s (by: %s) (id:%d)", type.getSymbol(), status.getSymbol(),
