@@ -35,6 +35,9 @@ public class BobbyWasabi {
         }
     }
 
+    private TaskList taskList;
+    private Storage storage;
+
     /**
      * Checks if the integer given in the command from user is valid
      *
@@ -124,13 +127,13 @@ public class BobbyWasabi {
         // create scanner and the array of tasks
         Scanner scanner = new Scanner(System.in);
         Storage storage = new Storage("./data/BobbyWasabiTasks.txt", "./data");
-        ArrayList<Task> list;
+        TaskList list;
         try {
             storage.createDataStorage();
-            list = storage.load();
+            list = new TaskList(storage.load());
         } catch (BobbyWasabiException e) {
             System.out.println(generateErrorMsg(e.getMessage()));
-            list = new ArrayList<>();
+            list = new TaskList(new ArrayList<Task>());
         }
 
 
@@ -163,21 +166,11 @@ public class BobbyWasabi {
                 scanner.close();
                 return;
             case LIST:
-                StringBuilder textList = new StringBuilder("Here are the tasks in your list:\n");
 
-                for (int i = 0; i < list.size(); i++) {
-                    Task cur = list.get(i);
-
-                    String curTask = String.format("%d. %s\n", i + 1, cur);
-                    textList.append(curTask);
-                }
-
-
-                String listOutput = decoLine + "\n" + textList.toString() + decoLine;
-
+                String listOutput = decoLine + "\n" + "Here are the tasks in your list:\n" + list + decoLine;
                 System.out.println(listOutput);
-
                 continue;
+
             case MARK:
                 try {
                     if (BobbyWasabi.isValidInteger(userInput, list.size())) {

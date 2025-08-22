@@ -107,7 +107,7 @@ public class Storage {
      *
      * @param tasks Arraylist of tasks to be reflected into data file
      */
-    public void updateDataFileFromTasks(ArrayList<Task> tasks) throws BobbyWasabiException {
+    public void updateDataFileFromTasks(TaskList tasks) throws BobbyWasabiException {
         try {
             // clear the current data file
             PrintWriter writer = new PrintWriter(this.filepath);
