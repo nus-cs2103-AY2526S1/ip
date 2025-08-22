@@ -15,6 +15,7 @@ public class HelpCommand implements Command {
                 To add an event, enter "event <description> /from: <start> /to: <end>"
                 To see a list of all added tasks, enter "list"
                 To mark a task as complete, enter "mark <task number>"
+                To remove a task in the list, enter "delete <task number>"
                 To exit Aurora, enter "bye"
                 To see list of existing commands, enter "help"
                 """;

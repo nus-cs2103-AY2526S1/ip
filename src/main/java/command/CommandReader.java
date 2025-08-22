@@ -12,6 +12,7 @@ import task.*;
 public class CommandReader {
 
     private static final Pattern MARK = Pattern.compile("^mark\\s+(\\d+)$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DELETE = Pattern.compile("^delete\\s+(\\d+)$", Pattern.CASE_INSENSITIVE);
 
     /**
      * Reads user input and returns a {@link Command} object.
@@ -47,6 +48,17 @@ public class CommandReader {
             } else {
                 return new InvalidCommand("Invalid mark command.\n" +
                         "enter \"mark <task number>\" to mark tasks as complete.");
+            }
+        }
+
+        if (input.toLowerCase().startsWith("delete")) {
+            Matcher matcher = DELETE.matcher(input);
+            if (matcher.matches()) {
+                int index = Integer.parseInt(matcher.group(1));
+                return new DeleteCommand(index);
+            } else {
+                return new InvalidCommand("Invalid delete command.\n" +
+                        "enter \"delete <task number>\" to remove task from list.");
             }
         }
 
