@@ -176,7 +176,11 @@ public class BobbyWasabi {
         return null;
     }
 
-    // writes to the file
+    /**
+     * Given a string line, writes that line to the database file
+     *
+     * @param line String line to be written
+     */
     public static void fileWrite(String line) {
         try {
             FileWriter filewriter = new FileWriter("./data/bobbyWasabiTasks.txt");
@@ -187,7 +191,13 @@ public class BobbyWasabi {
         }
     }
 
-    // update datafile from tasks
+    /**
+     * Given an arraylist of tasks, this would:
+     * Clear the current data file
+     * Update the fresh file with all the tasks in accordance with the tasks given as arg
+     *
+     * @param tasks Arraylist of tasks to be reflected into data file
+     */
     public static void updateDatafileFromTasks(ArrayList<Task> tasks) {
         try {
             // clear the current data file
