@@ -66,6 +66,30 @@ public class Buddy {
                     System.out.println(" OOPS!!! Please provide a valid task number.");
                     System.out.println("____________________________________________________________");
                 }
+            } else if (input.startsWith("delete ")) {
+                try {
+                    int taskIndex = Integer.parseInt(input.substring(7)) - 1;
+                    if (taskIndex < 0 || taskIndex >= taskCount) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println(" OOPS!!! Task number is out of range.");
+                        System.out.println("____________________________________________________________");
+                    } else {
+                        Task deletedTask = tasks[taskIndex];
+                        for (int i = taskIndex; i < taskCount - 1; i++) {
+                            tasks[i] = tasks[i + 1];
+                        }
+                        taskCount--;
+                        System.out.println("____________________________________________________________");
+                        System.out.println(" Noted. I've removed this task:");
+                        System.out.println("   " + deletedTask);
+                        System.out.println(" Now you have " + taskCount + " tasks in the list.");
+                        System.out.println("____________________________________________________________");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" OOPS!!! Please provide a valid task number.");
+                    System.out.println("____________________________________________________________");
+                }
             } else if (input.equals("todo")) {
                 System.out.println("____________________________________________________________");
                 System.out.println(" OOPS!!! The description of a todo cannot be empty.");
