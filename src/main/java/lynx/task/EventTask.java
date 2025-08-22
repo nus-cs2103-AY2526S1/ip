@@ -1,3 +1,7 @@
+package lynx.task;
+
+import lynx.formatter.LynxDateManager;
+
 import java.time.LocalDateTime;
 
 public class EventTask extends Task {
@@ -5,7 +9,7 @@ public class EventTask extends Task {
     private final LocalDateTime end;
 
     public EventTask(String name, LocalDateTime start, LocalDateTime end) {
-        super(name, TaskType.EVENT);
+        super(name, Task.TaskType.EVENT);
         this.start = start;
         this.end = end;
     }

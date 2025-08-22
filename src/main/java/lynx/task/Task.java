@@ -1,3 +1,5 @@
+package lynx.task;
+
 public abstract class Task {
 
     public enum TaskType {
