@@ -31,6 +31,7 @@ public abstract class LynxCommand {
         if (name.isEmpty()) {
             throw new LynxException("Please specify a task name.");
         }
+
         TodoTask task = new TodoTask(name);
         LynxTaskList.addTask(task, true);
         return task;
@@ -48,6 +49,7 @@ public abstract class LynxCommand {
         if (name.isEmpty()) {
             throw new LynxException("Please specify a task name.");
         }
+
         LocalDateTime by = LynxDateManager.parseDateTime(parts[1].trim());
         DeadlineTask task = new DeadlineTask(name, by);
         LynxTaskList.addTask(task, true);
@@ -58,18 +60,19 @@ public abstract class LynxCommand {
         if (input.length() <= 5) {
             throw new MissingArgumentException("event");
         }
-        String[] nameSplit = input.substring(5).split(" /from ", 2);
-        if (nameSplit.length < 2) {
+        String[] parts = input.substring(5).split(" /from ", 2);
+        if (parts.length < 2) {
             throw new LynxException("Please specify a start time using ' /from '.");
         }
-        String name = nameSplit[0].trim();
+        String name = parts[0].trim();
         if (name.isEmpty()) {
             throw new LynxException("Please specify a task name.");
         }
-        String[] timeSplit = nameSplit[1].split(" /to ", 2);
+        String[] timeSplit = parts[1].split(" /to ", 2);
         if (timeSplit.length < 2) {
             throw new LynxException("Please specify an end time using ' /to '.");
         }
+
         LocalDateTime from = LynxDateManager.parseDateTime(timeSplit[0].trim());
         LocalDateTime to = LynxDateManager.parseDateTime(timeSplit[1].trim());
         if (from.isAfter(to)) {
@@ -86,7 +89,7 @@ public abstract class LynxCommand {
         }
         input = input.substring(4).trim();
         Task task = findTask(input);
-        task.setCompleted();
+        task.setComplete();
         LynxUI.printBox("Excellent! Marked as done:\n     " + task.toString());
         return task;
     }
@@ -97,7 +100,7 @@ public abstract class LynxCommand {
         }
         input = input.substring(6).trim();
         Task task = findTask(input);
-        task.resetCompleted();
+        task.setIncomplete();
         LynxUI.printBox("Alright, marked as not done:\n     " + task.toString());
         return task;
     }
@@ -137,8 +140,7 @@ public abstract class LynxCommand {
     }
 
     public static void listTasks(String input) throws LynxException {
-        String input2 = input;
-        if (input2.trim().equals("list")) {
+        if (input.trim().equals("list")) {
             LynxTaskList.printTasks();
         } else if (input.startsWith("list ")) {
             input = input.substring(4).trim();
@@ -148,4 +150,5 @@ public abstract class LynxCommand {
             throw new LynxException("Unrecognized 'list' command format.");
         }
     }
+
 }
