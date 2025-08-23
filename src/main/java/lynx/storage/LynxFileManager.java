@@ -12,7 +12,7 @@ import java.util.List;
 import java.io.IOException;
 
 // All methods that directly interact with the hard drive
-public class LynxFileManager {
+public abstract class LynxFileManager {
 
     // Specified path where the data file should be created
     private static final Path FILEPATH = Paths.get("./data/log.txt");

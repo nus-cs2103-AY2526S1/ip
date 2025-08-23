@@ -8,29 +8,36 @@ import lynx.task.Task;
 import lynx.ui.LynxUI;
 
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // All methods directly interacting with the lynx.task.Task List
-public class LynxTaskList {
+public abstract class LynxTaskList {
+
     private static final ArrayList<Task> COMMANDS = new ArrayList<>(100);
 
     public static int getCount() {
         return COMMANDS.size();
     }
 
+    public static List<Task> getAllTasks() {
+        return new ArrayList<>(COMMANDS);
+    }
+
     public static void clearTasks(boolean dialogue) {
         COMMANDS.clear();
         if (dialogue) {
             LynxUI.printBox("Removed all tasks." +
-                    "\nNow you have 0 tasks in the list.");
+                    "\nNow you have " + getCount() + " task(s) in your list.");
         }
     }
 
     public static void addTask(Task task, boolean dialogue) {
         COMMANDS.add(task);
         if (dialogue) {
-            LynxUI.printBox("Added:\n     " + task + "\nNow you have " + COMMANDS.size() + " tasks in the list.");
+            LynxUI.printBox("Added:\n     " + task +
+                    "\nNow you have " + getCount() + " task(s) in your list.");
         }
     }
 
@@ -38,21 +45,17 @@ public class LynxTaskList {
         COMMANDS.remove(task);
         if (dialogue) {
             LynxUI.printBox("Removed:\n     " + task +
-                    "\nNow you have " + COMMANDS.size() + " tasks in the list.");
+                    "\nNow you have " + getCount() + " task(s) in your list.");
         }
-    }
-
-    public static List<Task> getAllTasks() {
-        return new ArrayList<>(COMMANDS);
     }
 
     public static Task findTaskById(int id) throws LynxException {
-        for (Task t : COMMANDS) {
-            if (t.getId() == id) {
-                return t;
+        for (Task task : COMMANDS) {
+            if (task.getId() == id) {
+                return task;
             }
         }
-        throw new LynxException("lynx.task.Task not found.");
+        throw new LynxException("Task not found.");
     }
 
     public static Task findTaskByPosition(int position) throws LynxException {
@@ -62,39 +65,51 @@ public class LynxTaskList {
         return COMMANDS.get(position - 1);
     }
 
-    public static void printTasks() {
+    public static boolean printTasks() {
         LynxUI.line();
         System.out.println("Here are the tasks in your list:");
-        if (COMMANDS.isEmpty()) {
+
+        boolean found = !COMMANDS.isEmpty();
+        if (found) {
+            for (int i = 0; i < COMMANDS.size(); i++) {
+                System.out.println("     " + (i+1) + "." + COMMANDS.get(i));
+            }
+        } else {
             System.out.println("     (No tasks yet)");
         }
-        for (int i = 0; i < COMMANDS.size(); i++) {
-            System.out.println("     " + (i+1) + "." + COMMANDS.get(i));
-        }
+
         LynxUI.line();
+        return found;
     }
 
     public static boolean printTasksOnDate(LocalDateTime target) {
         LynxUI.line();
         System.out.println("Tasks occurring on " + LynxDateManager.textDateTime(target) + ":");
+
         boolean found = false;
         for (int i = 0; i < COMMANDS.size(); i++) {
-            Task t = COMMANDS.get(i);
-            if (t instanceof DeadlineTask dt) {
-                // compare only date part if input has no time
-                if (isSameDay(dt.getDeadline(), target)) {
-                    System.out.println("     " + (i+1) + "." + t);
+            Task task = COMMANDS.get(i);
+
+            if (task instanceof DeadlineTask deadlineTask) {
+                // compare only date part
+                if (isSameDay(deadlineTask.getDeadline(), target)) {
+                    System.out.println("     " + (i+1) + "." + task);
                     found = true;
                 }
-            } else if (t instanceof EventTask et) {
+            }
+
+            if (task instanceof EventTask eventTask) {
                 // target date within event range
-                if (!target.isBefore(et.getStart()) && !target.isAfter(et.getEnd())) {
-                    System.out.println("     " + (i+1) + "." + t);
+                if (!target.isBefore(eventTask.getStart()) && !target.isAfter(eventTask.getEnd())) {
+                    System.out.println("     " + (i+1) + "." + task);
                     found = true;
                 }
             }
         }
-        if (!found) System.out.println("     (No tasks for this date)");
+
+        if (!found) {
+            System.out.println("     (No tasks for this date)");
+        }
         LynxUI.line();
         return found;
     }
@@ -103,4 +118,5 @@ public class LynxTaskList {
     private static boolean isSameDay(LocalDateTime a, LocalDateTime b) {
         return a.toLocalDate().equals(b.toLocalDate());
     }
+
 }
