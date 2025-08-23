@@ -1,15 +1,15 @@
 package bobbywasabi.ui;
 
+import java.util.Scanner;
+
 import bobbywasabi.tasks.Task;
 import bobbywasabi.tasks.TaskList;
 
-import java.util.Scanner;
-
 public class UI {
+    private static final String decoLine = "____________________________________________________________";
     private Scanner scanner;
-    private final static String decoLine = "____________________________________________________________";
 
-    public UI () {
+    public UI() {
         this.scanner = new Scanner(System.in);
     }
 
@@ -31,7 +31,6 @@ public class UI {
                  Hello! I'm Bobby Wasabi
                  What can I do for you?
                 ____________________________________________________________
-                
                 """;
         System.out.println(botGreet);
     }
@@ -142,7 +141,6 @@ public class UI {
                     ____________________________________________________________
                     Bye. Hope to see you again soon!
                     ____________________________________________________________
-               
                     """);
         this.exit();
     }

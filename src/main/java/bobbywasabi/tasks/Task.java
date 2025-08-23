@@ -23,7 +23,8 @@ public class Task {
     }
 
     /**
-     * Returns the Mark/Unmarked Checkbox depending on the Boolean value of isMarked for the BobbyWasabi.BobbyWasabi.Tasks.Task
+     * Returns the Mark/Unmarked Checkbox
+     * Value depends on the Boolean value of isMarked in Task instance
      *
      * @return Mark/Unmarked Checkbox.
      */
