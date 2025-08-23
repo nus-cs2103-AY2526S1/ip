@@ -16,6 +16,11 @@ import java.util.regex.PatternSyntaxException;
 // Translates between the contents of task list and the data to be stored
 public abstract class LynxStorage {
 
+    /**
+     * Creates a list of string representations corresponding to the tasks in the task list.
+     *
+     * @return List of strings representations.
+     */
     public static List<String> unloadTasks() {
         List<String> taskStrings = new ArrayList<>();
         List<Task> tasks = LynxTaskList.getAllTasks();
@@ -41,9 +46,13 @@ public abstract class LynxStorage {
         return taskStrings;
     }
 
-    // When loading tasks, corrupted id and completion status are not treated as exceptions
-    // The former does not matter since the ids of tasks are allocated on instantiation
-    // The latter is defaulted to 'INCOMPLETE'.
+    /**
+     * Creates a list of tasks from a list of string representations and stores them in the task list.
+     * Default value of completion status is INCOMPLETE.
+     *
+     * @param tasks List of tasks represented as strings, in the format "type|status|id|name|...".
+     * @return Number of errors / unloaded tasks.
+     */
     public static int loadTasks(List<String> tasks) {
         LynxTaskList.clearTasks(false);
         int errorCount = 0;
@@ -73,6 +82,12 @@ public abstract class LynxStorage {
         return errorCount;
     }
 
+    /**
+     * Creates a TodoTask and adds it to the task list.
+     *
+     * @param parts Parsed representation of a TodoTask.
+     * @throws LynxException If input is of invalid format.
+     */
     private static void loadTodo(String[] parts) throws LynxException {
         if (parts.length < 4) {
             throw new LynxException("");
@@ -85,6 +100,12 @@ public abstract class LynxStorage {
         LynxTaskList.addTask(task, false);
     }
 
+    /**
+     * Creates a DeadlineTask and adds it to the task list.
+     *
+     * @param parts Parsed representation of a DeadlineTask.
+     * @throws LynxException If input is of invalid format or deadline is invalid.
+     */
     private static void loadDeadline(String[] parts) throws LynxException {
         if (parts.length < 5) {
             throw new LynxException("");
@@ -98,6 +119,12 @@ public abstract class LynxStorage {
         LynxTaskList.addTask(task, false);
     }
 
+    /**
+     * Creates an EventTask and adds it to the task list.
+     *
+     * @param parts Parsed representation of an EventTask.
+     * @throws LynxException If input is of invalid format or start / end is invalid.
+     */
     private static void loadEvent(String[] parts) throws LynxException {
         if (parts.length < 6) {
             throw new LynxException("");

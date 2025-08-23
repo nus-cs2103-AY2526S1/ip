@@ -7,6 +7,9 @@ import lynx.ui.LynxUI;
 
 public class TaskLynx {
 
+    /**
+     * Runs the main program.
+     */
     public static void run() {
         // Finds or creates the data file and load its contents
         LynxFileManager.createFile();

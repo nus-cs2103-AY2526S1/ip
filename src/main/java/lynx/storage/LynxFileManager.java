@@ -17,6 +17,10 @@ public abstract class LynxFileManager {
     // Specified path where the data file should be created
     private static final Path FILEPATH = Paths.get("./data/log.txt");
 
+    /**
+     * Creates a directory data and a file log.txt.
+     * Skips if directory / file already exists.
+     */
     public static void createFile() {
         try {
             // Ensure directory exists
@@ -35,6 +39,11 @@ public abstract class LynxFileManager {
         }
     }
 
+    /**
+     * Reads all lines from the file log.txt.
+     *
+     * @return File contents as list of strings.
+     */
     public static List<String> readFromFile() {
         try {
             return Files.readAllLines(FILEPATH);
@@ -47,6 +56,11 @@ public abstract class LynxFileManager {
         }
     }
 
+    /**
+     * Writes to the file log.txt.
+     *
+     * @param text Lines of text to be written.
+     */
     public static void writeToFile(List<String> text) {
         try {
             Files.write(FILEPATH, text);
