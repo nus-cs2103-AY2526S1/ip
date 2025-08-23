@@ -220,12 +220,12 @@ public abstract class LynxCommand {
     /**
      * Searches for a task using its id or position in the task list.
      *
-     * @param input Task id in the form "id:[id]" or position.
+     * @param input Task id in the form "/id [id]" or position.
      * @return Matching task.
      * @throws LynxException If command, id or position is invalid.
      */
     private static Task findTask(String input) throws LynxException {
-        if (input.startsWith("id:")) {
+        if (input.startsWith("/id ")) {
             // Mark by unique ID
             try {
                 int id = Integer.parseInt(input.substring(3).trim());

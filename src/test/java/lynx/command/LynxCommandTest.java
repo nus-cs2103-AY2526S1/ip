@@ -1,6 +1,7 @@
 package lynx.command;
 
 import lynx.exception.LynxException;
+import lynx.storage.LynxTaskList;
 import lynx.task.DeadlineTask;
 import lynx.task.EventTask;
 import lynx.task.TodoTask;
