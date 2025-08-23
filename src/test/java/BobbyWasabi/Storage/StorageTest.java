@@ -1,6 +1,6 @@
-package BobbyWasabi.Storage;
+package BobbyWasabi.storage;
 
-import BobbyWasabi.Exceptions.BobbyWasabiException;
+import BobbyWasabi.exceptions.BobbyWasabiException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;

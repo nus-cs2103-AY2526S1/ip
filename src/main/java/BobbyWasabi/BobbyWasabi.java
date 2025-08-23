@@ -1,14 +1,14 @@
 package BobbyWasabi;
 
-import BobbyWasabi.Exceptions.BobbyWasabiException;
-import BobbyWasabi.Parser.Parser;
-import BobbyWasabi.Storage.Storage;
-import BobbyWasabi.Tasks.Task;
-import BobbyWasabi.Tasks.Deadline;
-import BobbyWasabi.Tasks.Event;
-import BobbyWasabi.Tasks.ToDo;
-import BobbyWasabi.Tasks.TaskList;
-import BobbyWasabi.UI.UI;
+import BobbyWasabi.exceptions.bobbyWasabiExceptions;
+import BobbyWasabi.parser.Parser;
+import BobbyWasabi.storage.Storage;
+import BobbyWasabi.tasks.Task;
+import BobbyWasabi.tasks.Deadline;
+import BobbyWasabi.tasks.Event;
+import BobbyWasabi.tasks.ToDo;
+import BobbyWasabi.tasks.TaskList;
+import BobbyWasabi.ui.UI;
 
 
 

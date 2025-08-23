@@ -1,9 +1,9 @@
-package BobbyWasabi.Storage;
+package BobbyWasabi.storage;
 
-import BobbyWasabi.Exceptions.BobbyWasabiException;
-import BobbyWasabi.Parser.Parser;
-import BobbyWasabi.Tasks.*;
-import BobbyWasabi.Tasks.ToDo;
+import BobbyWasabi.exceptions.BobbyWasabiException;
+import BobbyWasabi.parser.Parser;
+import BobbyWasabi.tasks.*;
+import BobbyWasabi.tasks.ToDo;
 
 import java.io.*;
 import java.time.LocalDateTime;
