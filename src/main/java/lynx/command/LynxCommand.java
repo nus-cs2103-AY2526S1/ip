@@ -205,7 +205,7 @@ public abstract class LynxCommand {
         input = input.trim();
 
         if (input.equals("list")) {
-            LynxTaskList.printTasks();
+            LynxTaskList.printAllTasks();
             return;
         }
 

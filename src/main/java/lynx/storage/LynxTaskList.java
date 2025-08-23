@@ -111,7 +111,7 @@ public abstract class LynxTaskList {
      *
      * @return Number of tasks in the task list.
      */
-    public static int printTasks() {
+    public static int printAllTasks() {
         LynxUI.line();
         System.out.println("Here are the tasks in your list:");
 

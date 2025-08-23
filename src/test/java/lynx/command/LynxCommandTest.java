@@ -75,22 +75,25 @@ public class LynxCommandTest {
         try {
             LynxCommand.listTasks("list");
             LynxCommand.listTasks("list ");
-            LynxCommand.listTasks("list    2025-11-11");
-            LynxCommand.listTasks("list    2025-11-11-06-30");
+            LynxCommand.listTasks("list aaa (bbb)");
+            LynxCommand.listTasks("list    /on 2025-11-11");
+            LynxCommand.listTasks("list /on    2025-11-11-06-30");
+            LynxCommand.listTasks("list    /id    -999");
+            LynxCommand.listTasks("list    /id    999");
         } catch (LynxException e) {
             fail();
         }
 
         try {
-            LynxCommand.listTasks("list2025-11-11");
+            LynxCommand.listTasks("listaaa");
             fail();
         } catch (LynxException e1) {
             try {
-                LynxCommand.listTasks("list a");
+                LynxCommand.listTasks("list/on2025-11-11");
                 fail();
             } catch (LynxException e2) {
                 try {
-                    LynxCommand.listTasks("lista2025-11-11");
+                    LynxCommand.listTasks("list/id1");
                     fail();
                 } catch (LynxException e3) {
 
