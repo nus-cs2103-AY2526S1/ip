@@ -1,5 +1,9 @@
 package BobbyWasabi.Exceptions;
 
+/**
+ * Custom exception class for BobbyWasabi application-specific errors.
+ * Used to signal exceptions related to domain logic or validation failures within the app.
+ */
 public class BobbyWasabiException extends Exception {
 
     /**
