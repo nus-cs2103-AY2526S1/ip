@@ -10,19 +10,29 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the loading, saving, and creation of data storage for tasks.
+ */
 public class Storage {
     private String filepath;
     private String folderpath;
 
+    /**
+     * Constructs a Storage object with the given file and folder paths.
+     *
+     * @param filepath   Path to the data file (e.g., "./data/BobbyWasabiTasks.txt")
+     * @param folderpath Path to the folder containing the data file (e.g., "./data")
+     */
     public Storage(String filepath, String folderpath) {
         this.filepath = filepath;
         this.folderpath = folderpath;
     }
 
     /**
-     * Checks if the data folders and file used to store the tasks for the list exists
-     * If they do not, it will create them
-     * End result is ./data/BobbyWasabiTasks.txt created
+     * Checks if the data folder and file exist. If not, creates them.
+     * End result: "./data/BobbyWasabiTasks.txt" will be present.
+     *
+     * @throws BobbyWasabiException If the folder or file could not be created.
      */
     public void createDataStorage() throws BobbyWasabiException {
         File folder = new File(this.folderpath);
@@ -52,12 +62,10 @@ public class Storage {
 
 
     /**
-     * This function reads from the data file BobbyWasabiTasks.txt
-     * It creates a task array by adding all the tasks in the data file
+     * Loads tasks from the data file and returns them as a list.
      *
-     *
-     * @return ArrayList of tasks loaded from the datafile
-     * @throws BobbyWasabiException
+     * @return ArrayList of tasks loaded from the data file.
+     * @throws BobbyWasabiException If the file cannot be found or read.
      */
     public ArrayList<Task> load() throws BobbyWasabiException {
         try {
@@ -77,11 +85,11 @@ public class Storage {
     }
 
     /**
-     * Parses a string line which is intended to be from the BobbyWasabiTasks.txt file
-     * Return a task created from information parsed from the line
+     * Parses a string line from the data file into a Task object.
      *
-     * @param line String line
-     * @return BobbyWasabi.BobbyWasabi.Task created from parsed string
+     * @param line String representing a task (e.g., "T|read book|[X]")
+     * @return Task created from the parsed string.
+     * @throws BobbyWasabiException If the line cannot be parsed into a valid Task.
      */
     public Task taskParser(String line) throws BobbyWasabiException {
         String[] infos = line.split("\\|");
@@ -106,11 +114,11 @@ public class Storage {
     }
 
     /**
-     * Given an arraylist of tasks, this would:
-     * Clear the current data file
-     * Update the fresh file with all the tasks in accordance with the tasks given as arg
+     * Saves the current list of tasks to the data file.
+     * First clears the file, then writes each task in the list.
      *
-     * @param tasks Arraylist of tasks to be reflected into data file
+     * @param tasks TaskList containing the tasks to be written to file.
+     * @throws BobbyWasabiException If writing to the file fails.
      */
     public void updateDataFileFromTasks(TaskList tasks) throws BobbyWasabiException {
         try {
@@ -133,9 +141,11 @@ public class Storage {
     }
 
     /**
-     * Given a string line, writes that line to the database file
+     * Writes a single line (representing a task) to the data file.
+     * Overwrites existing file content each time.
      *
-     * @param line String line to be written
+     * @param line Line to be written to the data file.
+     * @throws BobbyWasabiException If the file cannot be written to.
      */
     public void fileWrite(String line) throws BobbyWasabiException {
         try {
