@@ -16,6 +16,9 @@ public class DeadlineTask extends Task {
         return deadline;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String testRepresentation() {
         return String.format("%s (by: %s)", super.testRepresentation(), LynxDateManager.textDateTime(deadline));

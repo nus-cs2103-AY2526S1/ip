@@ -23,6 +23,9 @@ public class EventTask extends Task {
         return end;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String testRepresentation() {
         return String.format("%s (from: %s to: %s)", super.testRepresentation(),

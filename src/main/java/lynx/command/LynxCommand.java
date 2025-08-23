@@ -17,12 +17,22 @@ import java.time.LocalDateTime;
 // Parses command details and executes them
 public abstract class LynxCommand {
 
+    /**
+     * Attempts to create the log.txt data file or load its contents if it exists.
+     */
     public static void reload() {
         LynxFileManager.createFile();
         LynxStorage.loadTasks(LynxFileManager.readFromFile());
         LynxUI.line();
     }
 
+    /**
+     * Creates a TodoTask and adds it to the task list.
+     *
+     * @param input User command in the form "todo [name]".
+     * @return TodoTask that is created.
+     * @throws LynxException If command is invalid.
+     */
     public static TodoTask addTodo(String input) throws LynxException {
         if (input.length() <= 4) {
             throw new MissingArgumentException("todo");
@@ -37,6 +47,13 @@ public abstract class LynxCommand {
         return task;
     }
 
+    /**
+     * Creates a DeadlineTask and adds it to the task list.
+     *
+     * @param input User command in the form "deadline [name] /by [date]".
+     * @return DeadlineTask that is created.
+     * @throws LynxException If command or date is invalid.
+     */
     public static DeadlineTask addDeadline(String input) throws LynxException {
         if (input.length() <= 8) {
             throw new MissingArgumentException("deadline");
@@ -56,6 +73,13 @@ public abstract class LynxCommand {
         return task;
     }
 
+    /**
+     * Creates a EventTask and adds it to the task list.
+     *
+     * @param input User command in the form "event [name] /from [start] /to [end]".
+     * @return EventTask that is created.
+     * @throws LynxException If command or date is invalid.
+     */
     public static EventTask addEvent(String input) throws LynxException {
         if (input.length() <= 5) {
             throw new MissingArgumentException("event");
@@ -83,6 +107,13 @@ public abstract class LynxCommand {
         return task;
     }
 
+    /**
+     * Marks a Task.
+     *
+     * @param input User command in the form "mark id:[id]" or "mark [position]".
+     * @return Task that is marked.
+     * @throws LynxException If command is invalid or task cannot be found.
+     */
     public static Task markTask(String input) throws LynxException {
         if (input.length() <= 4) {
             throw new MissingArgumentException("mark");
@@ -94,6 +125,13 @@ public abstract class LynxCommand {
         return task;
     }
 
+    /**
+     * Unmarks a Task.
+     *
+     * @param input User command in the form "unmark id:[id]" or "unmark [position]".
+     * @return Task that is unmarked.
+     * @throws LynxException If command is invalid or task cannot be found.
+     */
     public static Task unmarkTask(String input) throws LynxException {
         if (input.length() <= 6) {
             throw new MissingArgumentException("unmark");
@@ -105,6 +143,13 @@ public abstract class LynxCommand {
         return task;
     }
 
+    /**
+     * Searches for a task using its id or position in the task list.
+     *
+     * @param input Task id in the form "id:[id]" or position.
+     * @return Matching task.
+     * @throws LynxException If command, id or position is invalid.
+     */
     public static Task findTask(String input) throws LynxException {
         if (input.startsWith("id:")) {
             // Mark by unique ID
@@ -125,6 +170,14 @@ public abstract class LynxCommand {
         }
     }
 
+    /**
+     * Deletes a task using its id or position in the task list.
+     * Deletes all tasks if the argument "/all" is provided instead.
+     *
+     * @param input User command in the form "delete id:[id]" or "delete [position]" or "delete /all".
+     * @return Task that is deleted. Returns null if "delete /all" is provided instead.
+     * @throws LynxException If command, id or position is invalid.
+     */
     public static Task deleteTask(String input) throws LynxException {
         if (input.length() <= 6) {
             throw new MissingArgumentException("delete");
@@ -139,6 +192,13 @@ public abstract class LynxCommand {
         return task;
     }
 
+    /**
+     * Lists all tasks in the task list.
+     * If a date is provided, lists all tasks occurring on that date instead.
+     *
+     * @param input User command in the form "list" or "list [date]".
+     * @throws LynxException If command or date is invalid.
+     */
     public static void listTasks(String input) throws LynxException {
         if (input.trim().equals("list")) {
             LynxTaskList.printTasks();

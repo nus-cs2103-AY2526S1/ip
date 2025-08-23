@@ -73,11 +73,20 @@ public abstract class Task {
         this.status = Status.INCOMPLETE;
     }
 
-    // String generated for testing that compares everything except id
+    /**
+     * Returns a string representation of the task without its id.
+     *
+     * @return String representation.
+     */
     public String testRepresentation() {
         return String.format("%s%s %s", type.getSymbol(), status.getSymbol(), name);
     }
 
+    /**
+     * Returns a string representation of the task with its id.
+     *
+     * @return String representation.
+     */
     @Override
     public String toString() {
         return String.format("%s (id:%d)", testRepresentation(), id);
