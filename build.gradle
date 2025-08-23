@@ -33,11 +33,12 @@ test {
 }
 
 application {
-    mainClass.set("BobbyWasabi/BobbyWasabi")
+    mainClass.set("BobbyWasabi.BobbyWasabi")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveFileName = 'BobbyWasabi.jar'
+    archiveBaseName = "BobbyWasabi"
     archiveClassifier = null
 }
 
