@@ -109,61 +109,106 @@ public abstract class LynxTaskList {
     /**
      * Prints all tasks in the task list.
      *
-     * @return True if task list is not empty.
+     * @return Number of tasks in the task list.
      */
-    public static boolean printTasks() {
+    public static int printAllTasks() {
         LynxUI.line();
         System.out.println("Here are the tasks in your list:");
 
-        boolean found = !COMMANDS.isEmpty();
-        if (found) {
-            for (int i = 0; i < COMMANDS.size(); i++) {
-                System.out.println("     " + (i+1) + "." + COMMANDS.get(i));
-            }
-        } else {
-            System.out.println("     (No tasks yet)");
+        int count = 0;
+        for (Task task : COMMANDS) {
+            count++;
+            System.out.println("     " + count + "." + task);
         }
 
+        if (count == 0){
+            System.out.println("     (No tasks yet)");
+        }
         LynxUI.line();
-        return found;
+        return count;
+    }
+
+    /**
+     * Prints all tasks in the task list with a given word in its name.
+     *
+     * @param keyword Substring used to search tasks by name.
+     * @return Number of tasks with names fulfilling the search.
+     */
+    public static int printTasksContaining(String keyword) {
+        LynxUI.line();
+        System.out.println("Tasks containing \"" + keyword + "\":");
+
+        int count = 0;
+        for (Task task : COMMANDS) {
+            if (task.getName().toLowerCase().contains(keyword.toLowerCase())) {
+                count++;
+                System.out.println("     " + count + "." + task);
+            }
+        }
+
+        if (count == 0) {
+            System.out.println("     (No tasks found with this substring)");
+        }
+        LynxUI.line();
+        return count;
     }
 
     /**
      * Prints all tasks in the task list that are active on a given date.
      *
-     * @param target LocalDateTime object representing the date.
-     * @return True if one or more tasks match the date.
+     * @param target LocalDateTime object to search tasks by date.
+     * @return Number of tasks occurring on the given date.
      */
-    public static boolean printTasksOnDate(LocalDateTime target) {
+    public static int printTasksOnDate(LocalDateTime target) {
         LynxUI.line();
         System.out.println("Tasks occurring on " + LynxDateManager.textDateTime(target) + ":");
 
-        boolean found = false;
-        for (int i = 0; i < COMMANDS.size(); i++) {
-            Task task = COMMANDS.get(i);
-
+        int count = 0;
+        for (Task task : COMMANDS) {
             if (task instanceof DeadlineTask deadlineTask) {
                 // compare only date part
                 if (isSameDay(deadlineTask.getDeadline(), target)) {
-                    System.out.println("     " + (i+1) + "." + task);
-                    found = true;
+                    count++;
+                    System.out.println("     " + count + "." + task);
                 }
             }
 
             if (task instanceof EventTask eventTask) {
                 // target date within event range
                 if (!target.isBefore(eventTask.getStart()) && !target.isAfter(eventTask.getEnd())) {
-                    System.out.println("     " + (i+1) + "." + task);
-                    found = true;
+                    count++;
+                    System.out.println("     " + count + "." + task);
                 }
             }
         }
 
-        if (!found) {
+        if (count == 0) {
             System.out.println("     (No tasks for this date)");
         }
         LynxUI.line();
-        return found;
+        return count;
+    }
+
+    /**
+     * Prints the task in the task list with a given id.
+     *
+     * @param id Id of task to be printed.
+     * @return Number of tasks with the task id. Either 1 or 0.
+     */
+    public static int printTaskById(int id) {
+        LynxUI.line();
+        System.out.println("Task with id " + id + ":");
+
+        try {
+            Task task = findTaskById(id);
+            System.out.println("     " + task);
+            LynxUI.line();
+            return 1;
+        } catch (LynxException e) {
+            System.out.println("     (No task with this id)");
+            LynxUI.line();
+            return 0;
+        }
     }
 
     // Helper: checks if two LocalDateTimes are on the same day
