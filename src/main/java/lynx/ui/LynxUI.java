@@ -1,6 +1,6 @@
 package lynx.ui;
 
-public class LynxUI {
+public abstract class LynxUI {
 
     private static final String LINE = "____________________________________________________________";
 

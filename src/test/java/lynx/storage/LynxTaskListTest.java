@@ -8,7 +8,10 @@ import lynx.task.TodoTask;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
 public class LynxTaskListTest {
@@ -24,6 +27,7 @@ public class LynxTaskListTest {
             LynxTaskList.findTaskById(-1);
             fail();
         } catch (LynxException e) {
+
         }
     }
 
@@ -44,6 +48,7 @@ public class LynxTaskListTest {
                 LynxTaskList.findTaskByPosition(LynxTaskList.getCount() + 1);
                 fail();
             } catch (LynxException ex) {
+
             }
         }
     }

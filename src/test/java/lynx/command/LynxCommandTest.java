@@ -25,6 +25,7 @@ public class LynxCommandTest {
             LynxCommand.addTodo("todo    ");
             fail();
         } catch (LynxException e1) {
+
         }
     }
 
@@ -43,6 +44,7 @@ public class LynxCommandTest {
                 LynxCommand.addDeadline("deadline /by 2025-11-11");
                 fail();
             } catch (LynxException e2) {
+
             }
         }
     }

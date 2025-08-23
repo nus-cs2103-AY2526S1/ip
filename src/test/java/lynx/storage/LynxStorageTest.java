@@ -6,6 +6,7 @@ import lynx.task.Task;
 import lynx.task.TodoTask;
 
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,13 +39,14 @@ public class LynxStorageTest {
     // I can ensure with good precision the accuracy of the parsing.
     @Test
     public void unloadTasks_clearTasks_loadTasks() throws IllegalArgumentException {
-        LynxTaskList.clearTasks(true);
         Task testTaskA = new TodoTask("a");
         Task testTaskB = new DeadlineTask("b",
                 LocalDateTime.of(2025, 11, 11, 0, 0));
         Task testTaskC = new EventTask("c",
                 LocalDateTime.of(2025, 11, 12, 0, 0),
                 LocalDateTime.of(2025, 11, 13, 0, 0));
+
+        LynxTaskList.clearTasks(true);
         LynxTaskList.addTask(testTaskA, true);
         LynxTaskList.addTask(testTaskB, true);
         LynxTaskList.addTask(testTaskC, true);
