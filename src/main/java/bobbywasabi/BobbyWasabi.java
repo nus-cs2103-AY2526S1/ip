@@ -35,6 +35,7 @@ public class BobbyWasabi {
         TODO,
         DEADLINE,
         EVENT,
+        FIND,
         OTHERS;
 
         /**
@@ -70,7 +71,7 @@ public class BobbyWasabi {
             this.taskList = new TaskList(storage.load());
         } catch (BobbyWasabiException e) {
             ui.generateErrorMsg(e.getMessage());
-            this.taskList = new TaskList(new ArrayList<Task>());
+            this.taskList = new TaskList(new ArrayList<>());
         }
     }
 
@@ -82,7 +83,6 @@ public class BobbyWasabi {
         this.ui.greetUser();
 
         while (true) {
-
             // Get user input and command
             String userInput = ui.getNextInput();
             Command command = Parser.parseCommand(userInput);
@@ -196,6 +196,15 @@ public class BobbyWasabi {
                         ui.generateErrorMsg(e.getMessage());
                         continue;
                     }
+                case FIND:
+                    try {
+                        String keyword = Parser.parseFindCommend(userInput);
+                        String matchingTasks = this.taskList.findTasksThatMatchKeyword(keyword);
+                        ui.findMessage(matchingTasks); //
+                    } catch (BobbyWasabiException e) {
+                        ui.generateErrorMsg(e.getMessage());
+                    }
+                    continue;
                 case OTHERS:
                     ui.invalidMessage();
             }

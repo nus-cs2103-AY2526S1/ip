@@ -53,6 +53,14 @@ public class UI {
         System.out.println(listOutput);
     }
 
+    public void findMessage(String tasks) {
+        String output = tasks.isEmpty()
+                ? "Sorry! We could not find any matching tasks :/\n"
+                : "Here are the matching tasks in your list:\n";
+        String botResponse = UI.decoLine + "\n" + output + tasks + UI.decoLine;
+        System.out.println(botResponse);
+    }
+
     /**
      * Displays a confirmation message after marking a task as completed.
      *

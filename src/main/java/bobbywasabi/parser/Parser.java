@@ -64,6 +64,24 @@ public class Parser {
         }
     }
 
+    public static String parseFindCommend(String userInput) throws BobbyWasabiException {
+        String[] wordList = userInput.split(" ");
+        if (wordList.length > 2) {
+            throw new BobbyWasabiException("Please input a single keyword!");
+        }
+
+        if (wordList.length != 2) {
+            throw new BobbyWasabiException("Please input the command and the keyword to find!");
+        }
+
+        String keyword = wordList[1];
+        if (keyword.trim().isEmpty()) {
+            throw new BobbyWasabiException("Please input a keyword!");
+        }
+
+        return keyword;
+    }
+
     /**
      * Extracts the task description from a "todo" command input.
      *
@@ -78,11 +96,12 @@ public class Parser {
             throw new BobbyWasabiException("Please provide a description for todo");
         }
 
-        String description = descriptions[1];
+        String description = descriptions[1]; //
 
         if (description.trim().isEmpty()) {
             throw new BobbyWasabiException("Please provide a description for todo");
         }
+
 
         return description;
 
