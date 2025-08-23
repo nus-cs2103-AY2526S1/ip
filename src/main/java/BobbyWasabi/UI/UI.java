@@ -5,10 +5,17 @@ import BobbyWasabi.Tasks.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Handles user interaction through the console.
+ * Provides methods to read user input and display messages.
+ */
 public class UI {
     private Scanner scanner;
     private final static String decoLine = "____________________________________________________________";
 
+    /**
+     * Constructs a new UI instance and initializes the input scanner.
+     */
     public UI () {
         this.scanner = new Scanner(System.in);
     }

@@ -7,6 +7,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Utility class for parsing user input into structured commands
+ * and extracting relevant details like descriptions, dates, and indices.
+ */
 public class Parser {
 
     /**

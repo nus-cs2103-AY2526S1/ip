@@ -17,9 +17,17 @@ import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-
+/**
+ * Main class for the BobbyWasabi task manager application.
+ * This class handles command parsing, task list management,
+ * and interaction between the user interface, storage, and tasks.
+ */
 public class BobbyWasabi {
 
+    /**
+     * Enum representing supported user commands.
+     * If input does not match a valid command, it defaults to OTHERS.
+     */
     public enum Command {
         LIST,
         BYE,
@@ -31,6 +39,12 @@ public class BobbyWasabi {
         EVENT,
         OTHERS;
 
+        /**
+         * Converts a user input string to a corresponding Command.
+         *
+         * @param input User command input.
+         * @return Corresponding Command enum value.
+         */
         public static Command toCommand(String input) {
             try {
                 return Command.valueOf(input.toUpperCase());
@@ -44,6 +58,11 @@ public class BobbyWasabi {
     private Storage storage;
     private UI ui;
 
+    /**
+     * Constructs a new BobbyWasabi instance.
+     * Initializes the UI, Storage, and TaskList. If loading from storage fails,
+     * an empty task list is initialized and an error is displayed.
+     */
     public BobbyWasabi() {
         this.ui = new UI();
         this.storage = new Storage("./data/BobbyWasabiTasks.txt", "./data");
@@ -57,6 +76,10 @@ public class BobbyWasabi {
         }
     }
 
+    /**
+     * Starts the BobbyWasabi main command loop.
+     * Continuously reads and executes user commands until the BYE command is received.
+     */
     public void run() {
         this.ui.greetUser();
 
@@ -184,7 +207,11 @@ public class BobbyWasabi {
     }
 
 
-
+    /**
+     * Main entry point of the application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new BobbyWasabi().run();
     }
