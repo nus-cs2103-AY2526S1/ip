@@ -25,7 +25,12 @@ public class LynxCommandTest {
             LynxCommand.addTodo("todo    ");
             fail();
         } catch (LynxException e1) {
+            try {
+                LynxCommand.addTodo("todo /aaa");
+                fail();
+            } catch (LynxException e2) {
 
+            }
         }
     }
 

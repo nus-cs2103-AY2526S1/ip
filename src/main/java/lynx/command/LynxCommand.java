@@ -31,7 +31,7 @@ public abstract class LynxCommand {
      *
      * @param input User command in the form "todo [name]".
      * @return TodoTask that is created.
-     * @throws LynxException If command is invalid.
+     * @throws LynxException If command or name is invalid.
      */
     public static TodoTask addTodo(String input) throws LynxException {
         if (input.length() <= 4) {
@@ -41,6 +41,7 @@ public abstract class LynxCommand {
         if (name.isEmpty()) {
             throw new LynxException("Please specify a task name.");
         }
+        checkName(name);
 
         TodoTask task = new TodoTask(name);
         LynxTaskList.addTask(task, true);
@@ -52,7 +53,7 @@ public abstract class LynxCommand {
      *
      * @param input User command in the form "deadline [name] /by [date]".
      * @return DeadlineTask that is created.
-     * @throws LynxException If command or date is invalid.
+     * @throws LynxException If command, name or date is invalid.
      */
     public static DeadlineTask addDeadline(String input) throws LynxException {
         if (input.length() <= 8) {
@@ -66,6 +67,7 @@ public abstract class LynxCommand {
         if (name.isEmpty()) {
             throw new LynxException("Please specify a task name.");
         }
+        checkName(name);
 
         LocalDateTime by = LynxDateManager.parseDateTime(parts[1].trim());
         DeadlineTask task = new DeadlineTask(name, by);
@@ -78,7 +80,7 @@ public abstract class LynxCommand {
      *
      * @param input User command in the form "event [name] /from [start] /to [end]".
      * @return EventTask that is created.
-     * @throws LynxException If command or date is invalid.
+     * @throws LynxException If command, name or date is invalid.
      */
     public static EventTask addEvent(String input) throws LynxException {
         if (input.length() <= 5) {
@@ -88,14 +90,16 @@ public abstract class LynxCommand {
         if (parts.length < 2) {
             throw new LynxException("Please specify a start time using ' /from '.");
         }
-        String name = parts[0].trim();
-        if (name.isEmpty()) {
-            throw new LynxException("Please specify a task name.");
-        }
         String[] timeSplit = parts[1].split(" /to ", 2);
         if (timeSplit.length < 2) {
             throw new LynxException("Please specify an end time using ' /to '.");
         }
+        String name = parts[0].trim();
+        if (name.isEmpty()) {
+            throw new LynxException("Please specify a task name.");
+        }
+        checkName(name);
+
 
         LocalDateTime from = LynxDateManager.parseDateTime(timeSplit[0].trim());
         LocalDateTime to = LynxDateManager.parseDateTime(timeSplit[1].trim());
@@ -141,33 +145,6 @@ public abstract class LynxCommand {
         task.setIncomplete();
         LynxUI.printBox("Alright, marked as not done:\n     " + task.toString());
         return task;
-    }
-
-    /**
-     * Searches for a task using its id or position in the task list.
-     *
-     * @param input Task id in the form "id:[id]" or position.
-     * @return Matching task.
-     * @throws LynxException If command, id or position is invalid.
-     */
-    public static Task findTask(String input) throws LynxException {
-        if (input.startsWith("id:")) {
-            // Mark by unique ID
-            try {
-                int id = Integer.parseInt(input.substring(3).trim());
-                return LynxTaskList.findTaskById(id);
-            } catch (NumberFormatException e) {
-                throw new LynxException("Sorry, that isn't a valid ID.");
-            }
-        } else {
-            // Mark by position in list
-            try {
-                int pos = Integer.parseInt(input);
-                return LynxTaskList.findTaskByPosition(pos);
-            } catch (NumberFormatException e) {
-                throw new LynxException("Please provide a valid position number.");
-            }
-        }
     }
 
     /**
@@ -226,7 +203,7 @@ public abstract class LynxCommand {
                 int id = Integer.parseInt(input);
                 LynxTaskList.printTaskById(id);
             } catch (NumberFormatException e) {
-                throw new LynxException("Invalid id format. Id must be a number.");
+                throw new LynxException("Sorry, that isn't a valid ID.");
             }
             return;
         }
@@ -238,6 +215,41 @@ public abstract class LynxCommand {
         }
 
         throw new LynxException("Unrecognized 'list' command format.");
+    }
+
+    /**
+     * Searches for a task using its id or position in the task list.
+     *
+     * @param input Task id in the form "id:[id]" or position.
+     * @return Matching task.
+     * @throws LynxException If command, id or position is invalid.
+     */
+    private static Task findTask(String input) throws LynxException {
+        if (input.startsWith("id:")) {
+            // Mark by unique ID
+            try {
+                int id = Integer.parseInt(input.substring(3).trim());
+                return LynxTaskList.findTaskById(id);
+            } catch (NumberFormatException e) {
+                throw new LynxException("Sorry, that isn't a valid ID.");
+            }
+        } else {
+            // Mark by position in list
+            try {
+                int pos = Integer.parseInt(input);
+                return LynxTaskList.findTaskByPosition(pos);
+            } catch (NumberFormatException e) {
+                throw new LynxException("Please provide a valid position number.");
+            }
+        }
+    }
+
+    private static void checkName(String name) throws LynxException {
+        if (name.contains("/")) {
+            throw new LynxException("Task name cannot contain the \"/\" character.");
+        } else if (name.length() > 150) {
+            throw new LynxException("Task name cannot exceed 150 characters.");
+        }
     }
 
 }
