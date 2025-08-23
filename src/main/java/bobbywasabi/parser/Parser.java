@@ -64,7 +64,14 @@ public class Parser {
         }
     }
 
-    public static String parseFindCommend(String userInput) throws BobbyWasabiException {
+    /**
+     * Parses and returns the keyword from a "find" command input.
+     *
+     * @param userInput The full input string (e.g. "find book").
+     * @return          The keyword to search for.
+     * @throws BobbyWasabiException If the command is malformed or no keyword is provided.
+     */
+    public static String parseFindCommand(String userInput) throws BobbyWasabiException {
         String[] wordList = userInput.split(" ");
         if (wordList.length > 2) {
             throw new BobbyWasabiException("Please input a single keyword!");
@@ -208,6 +215,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts and converts the first word in the user's input into a {@link BobbyWasabi.Command}.
+     *
+     * @param userInput The full command input string (e.g. "todo read book").
+     * @return          The corresponding {@link BobbyWasabi.Command} enum value.
+     */
     public static BobbyWasabi.Command parseCommand(String userInput) {
         return BobbyWasabi.Command.toCommand(userInput.split(" ")[0]);
     }

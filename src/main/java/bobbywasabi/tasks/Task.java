@@ -1,10 +1,18 @@
 package bobbywasabi.tasks;
 
+/**
+ * Represents a generic task with a description and completion status.
+ */
 public class Task {
-
     private String description;
     private Boolean isMarked;
 
+    /**
+     * Constructs a Task with a description and marked status.
+     *
+     * @param description The description of the task.
+     * @param isMarked    True if the task is marked as done, false otherwise.
+     */
     public Task(String description, Boolean isMarked) {
         this.description = description;
         this.isMarked = isMarked;
@@ -22,6 +30,13 @@ public class Task {
         return this.isMarked;
     }
 
+    /**
+     * Checks if the task's description contains the exact keyword.
+     * Splits the description by spaces and matches whole words.
+     *
+     * @param keyword The keyword to search for.
+     * @return True if the keyword matches any word in the description, false otherwise.
+     */
     public boolean find(String keyword) {
         String[] wordList = this.description.split(" ");
         for (String word : wordList) {
@@ -33,7 +48,8 @@ public class Task {
     }
 
     /**
-     * Returns the Mark/Unmarked Checkbox depending on the Boolean value of isMarked for the BobbyWasabi.BobbyWasabi.Tasks.Task
+     * Returns the Mark/Unmarked Checkbox
+     * Depends on the Boolean value of isMarked for the Task instance
      *
      * @return Mark/Unmarked Checkbox.
      */
@@ -55,6 +71,12 @@ public class Task {
         return this.checked() + " " + this.description;
     }
 
+    /**
+     * Returns a formatted string representing the task data for storage or export.
+     * This base implementation returns an empty string and should be overridden in subclasses.
+     *
+     * @return Formatted task data string.
+     */
     public String getData() {
         return "";
     }

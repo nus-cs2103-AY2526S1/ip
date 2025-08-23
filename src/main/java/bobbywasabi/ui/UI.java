@@ -42,7 +42,6 @@ public class UI {
         System.out.println(botGreet);
     }
 
-
     /**
      * Displays the current list of tasks to the user.
      *
@@ -53,6 +52,11 @@ public class UI {
         System.out.println(listOutput);
     }
 
+    /**
+     * Displays the search results for tasks matching a query.
+     *
+     * @param tasks A formatted string representation of matching tasks.
+     */
     public void findMessage(String tasks) {
         String output = tasks.isEmpty()
                 ? "Sorry! We could not find any matching tasks :/\n"
