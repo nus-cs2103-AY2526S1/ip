@@ -1,6 +1,5 @@
 package BobbyWasabi.Storage;
 
-
 import BobbyWasabi.Exceptions.BobbyWasabiException;
 import BobbyWasabi.Parser.Parser;
 import BobbyWasabi.Tasks.*;
@@ -73,7 +72,7 @@ public class Storage {
 
             return tasks;
         } catch (FileNotFoundException e) {
-            throw new BobbyWasabiException(e.getMessage());
+            throw new BobbyWasabiException("File not found!");
         }
     }
 
