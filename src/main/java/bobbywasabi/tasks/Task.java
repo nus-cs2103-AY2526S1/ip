@@ -1,4 +1,4 @@
-package BobbyWasabi.Tasks;
+package bobbywasabi.tasks;
 
 public class Task {
 

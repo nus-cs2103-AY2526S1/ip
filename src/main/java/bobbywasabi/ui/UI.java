@@ -1,7 +1,7 @@
-package BobbyWasabi.UI;
+package bobbywasabi.ui;
 
-import BobbyWasabi.Tasks.Task;
-import BobbyWasabi.Tasks.TaskList;
+import bobbywasabi.tasks.Task;
+import bobbywasabi.tasks.TaskList;
 
 import java.util.Scanner;
 

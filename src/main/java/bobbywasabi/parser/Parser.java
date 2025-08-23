@@ -1,7 +1,7 @@
-package BobbyWasabi.Parser;
+package bobbywasabi.parser;
 
-import BobbyWasabi.Exceptions.BobbyWasabiException;
-import BobbyWasabi.BobbyWasabi;
+import bobbywasabi.exceptions.BobbyWasabiException;
+import bobbywasabi.BobbyWasabi;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

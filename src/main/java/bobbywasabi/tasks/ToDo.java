@@ -1,4 +1,4 @@
-package BobbyWasabi.Tasks;
+package bobbywasabi.tasks;
 
 public class ToDo extends Task {
     public ToDo(String description, boolean isMarked) {
