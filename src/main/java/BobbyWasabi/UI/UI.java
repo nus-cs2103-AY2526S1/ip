@@ -1,7 +1,7 @@
-package BobbyWasabi.ui;
+package bobbywasabi.ui;
 
-import BobbyWasabi.tasks.Task;
-import BobbyWasabi.tasks.TaskList;
+import bobbywasabi.tasks.Task;
+import bobbywasabi.tasks.TaskList;
 
 import java.util.Scanner;
 
@@ -45,6 +45,14 @@ public class UI {
     public void listMessage(TaskList tasks) {
         String listOutput = UI.decoLine + "\n" + "Here are the tasks in your list:\n" + tasks + UI.decoLine;
         System.out.println(listOutput);
+    }
+
+    public void findMessage(String tasks) {
+        String output = tasks.isEmpty()
+                ? "Sorry! We could not find any matching tasks :/\n"
+                : "Here are the matching tasks in your list:\n";
+        String botResponse = UI.decoLine + "\n" + output + tasks + UI.decoLine;
+        System.out.println(botResponse);
     }
 
     /**

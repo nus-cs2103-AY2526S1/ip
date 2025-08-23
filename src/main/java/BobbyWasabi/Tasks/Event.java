@@ -1,6 +1,6 @@
-package BobbyWasabi.tasks;
+package bobbywasabi.tasks;
 
-public class Event extends BobbyWasabi.Tasks.Task {
+public class Event extends bobbywasabi.tasks.Task {
     private String start;
     private String end;
 

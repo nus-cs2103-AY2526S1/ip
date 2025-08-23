@@ -1,4 +1,4 @@
-package BobbyWasabi.tasks;
+package bobbywasabi.tasks;
 
 public class Task {
 
@@ -20,6 +20,16 @@ public class Task {
 
     public Boolean getIsMarked() {
         return this.isMarked;
+    }
+
+    public boolean find(String keyword) {
+        String[] wordList = this.description.split(" ");
+        for (String word : wordList) {
+            if (keyword.equals(word)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

@@ -1,4 +1,4 @@
-package BobbyWasabi.exceptions;
+package bobbywasabi.exceptions;
 
 public class BobbyWasabiException extends Exception {
     public BobbyWasabiException(String msg) {
