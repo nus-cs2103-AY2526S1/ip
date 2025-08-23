@@ -1,9 +1,11 @@
-package BobbyWasabi.Parser;
+package bobbywasabi.parser;
 
-import BobbyWasabi.Exceptions.BobbyWasabiException;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import bobbywasabi.exceptions.BobbyWasabiException;
 
 public class ParserTest {
 
@@ -26,7 +28,8 @@ public class ParserTest {
                     Parser.isValidInteger("mark 17", 1));
             fail();
         } catch (BobbyWasabiException e) {
-            assertEquals("Index given in input is out of range, please try an index within the range of your list", e.getMessage());
+            assertEquals("Index given in input is out of range, "
+                    + "please try an index within the range of your list", e.getMessage());
         }
     }
 

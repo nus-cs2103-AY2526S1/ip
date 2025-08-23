@@ -1,6 +1,4 @@
-package BobbyWasabi.Tasks;
-
-import BobbyWasabi.Tasks.Task;
+package bobbywasabi.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -1,22 +1,22 @@
-package BobbyWasabi.UI;
-
-import BobbyWasabi.Tasks.Task;
-import BobbyWasabi.Tasks.TaskList;
+package bobbywasabi.ui;
 
 import java.util.Scanner;
+
+import bobbywasabi.tasks.Task;
+import bobbywasabi.tasks.TaskList;
 
 /**
  * Handles user interaction through the console.
  * Provides methods to read user input and display messages.
  */
 public class UI {
+    private static final String decoLine = "____________________________________________________________";
     private Scanner scanner;
-    private final static String decoLine = "____________________________________________________________";
 
     /**
      * Constructs a new UI instance and initializes the input scanner.
      */
-    public UI () {
+    public UI() {
         this.scanner = new Scanner(System.in);
     }
 
@@ -38,7 +38,6 @@ public class UI {
                  Hello! I'm Bobby Wasabi
                  What can I do for you?
                 ____________________________________________________________
-                
                 """;
         System.out.println(botGreet);
     }
@@ -149,7 +148,6 @@ public class UI {
                     ____________________________________________________________
                     Bye. Hope to see you again soon!
                     ____________________________________________________________
-               
                     """);
         this.exit();
     }

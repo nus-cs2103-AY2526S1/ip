@@ -1,4 +1,4 @@
-package BobbyWasabi.Tasks;
+package bobbywasabi.tasks;
 
 /**
  * Represents a simple task with no time constraints.

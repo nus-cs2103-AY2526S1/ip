@@ -1,10 +1,10 @@
-package BobbyWasabi.Tasks;
+package bobbywasabi.tasks;
 
 /**
  * Represents a task that occurs during a specific time range, with a start and end time.
  * Extends the Task class by including additional timing information.
  */
-public class Event extends BobbyWasabi.Tasks.Task {
+public class Event extends Task {
     private String start;
     private String end;
 

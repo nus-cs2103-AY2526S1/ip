@@ -1,18 +1,30 @@
-package BobbyWasabi.Storage;
+package bobbywasabi.storage;
 
-import BobbyWasabi.Exceptions.BobbyWasabiException;
-import BobbyWasabi.Parser.Parser;
-import BobbyWasabi.Tasks.*;
-import BobbyWasabi.Tasks.ToDo;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+<<<<<<< HEAD:src/main/java/BobbyWasabi/Storage/Storage.java
 /**
  * Handles the loading, saving, and creation of data storage for tasks.
  */
+=======
+import bobbywasabi.exceptions.BobbyWasabiException;
+import bobbywasabi.parser.Parser;
+import bobbywasabi.tasks.Deadline;
+import bobbywasabi.tasks.Event;
+import bobbywasabi.tasks.Task;
+import bobbywasabi.tasks.TaskList;
+import bobbywasabi.tasks.ToDo;
+
+
+
+>>>>>>> branch-A-CodingStandard:src/main/java/bobbywasabi/storage/Storage.java
 public class Storage {
     private String filepath;
     private String folderpath;

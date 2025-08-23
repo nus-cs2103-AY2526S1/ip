@@ -1,4 +1,4 @@
-package BobbyWasabi.Tasks;
+package bobbywasabi.tasks;
 
 /**
  * Represents a generic task with a description and completion status.
@@ -33,7 +33,12 @@ public class Task {
     }
 
     /**
+<<<<<<< HEAD:src/main/java/BobbyWasabi/Tasks/Task.java
      * Returns a checkbox representation of the task's completion status.
+=======
+     * Returns the Mark/Unmarked Checkbox
+     * Value depends on the Boolean value of isMarked in Task instance
+>>>>>>> branch-A-CodingStandard:src/main/java/bobbywasabi/tasks/Task.java
      *
      * @return "[X]" if the task is completed, "[ ]" otherwise.
      */

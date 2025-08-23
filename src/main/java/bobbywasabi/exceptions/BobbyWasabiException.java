@@ -1,4 +1,4 @@
-package BobbyWasabi.Exceptions;
+package bobbywasabi.exceptions;
 
 /**
  * Custom exception class for BobbyWasabi application-specific errors.

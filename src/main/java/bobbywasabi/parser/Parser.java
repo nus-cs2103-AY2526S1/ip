@@ -1,11 +1,12 @@
-package BobbyWasabi.Parser;
-
-import BobbyWasabi.Exceptions.BobbyWasabiException;
-import BobbyWasabi.BobbyWasabi;
+package bobbywasabi.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import bobbywasabi.BobbyWasabi;
+import bobbywasabi.exceptions.BobbyWasabiException;
+
 
 /**
  * Utility class for parsing user input into structured commands
@@ -34,7 +35,8 @@ public class Parser {
         try {
             int indx = Integer.parseInt(wordList[1]);
             if (indx > arrLen) {
-                throw new BobbyWasabiException("Index given in input is out of range, please try an index within the range of your list");
+                throw new BobbyWasabiException("Index given in input is out of range, "
+                        + "please try an index within the range of your list");
             }
 
         } catch (NumberFormatException e) {
@@ -116,10 +118,7 @@ public class Parser {
             throw new BobbyWasabiException("The deadline cannot be blank!");
         }
 
-        return new String[] {
-                descriptions[1],
-                deadline
-        };
+        return new String[] {descriptions[1], deadline};
 
     }
 
