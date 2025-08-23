@@ -12,6 +12,10 @@ event project meeting /from/to Tue
 event project meeting /from /to Tue
 event project meeting /from Mon /to
 event  /from Mon /to Tue
+find
+find 111 111
+find 111
+find meeting
 mark
 unmark
 mark 2stol
