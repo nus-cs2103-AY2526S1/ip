@@ -1,4 +1,6 @@
-public class Event extends Task {
+package BobbyWasabi.Tasks;
+
+public class Event extends BobbyWasabi.Tasks.Task {
     private String start;
     private String end;
 
@@ -13,8 +15,6 @@ public class Event extends Task {
                 this.start,
                 this.end);
     }
-
-
 
     @Override
     public String toString() {

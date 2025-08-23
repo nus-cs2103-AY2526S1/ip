@@ -1,3 +1,8 @@
+package BobbyWasabi.UI;
+
+import BobbyWasabi.Tasks.Task;
+import BobbyWasabi.Tasks.TaskList;
+
 import java.util.Scanner;
 
 public class UI {
@@ -35,7 +40,7 @@ public class UI {
     /**
      * Displays the current list of tasks to the user.
      *
-     * @param tasks The TaskList containing all current tasks.
+     * @param tasks The BobbyWasabi.BobbyWasabi.TaskList containing all current tasks.
      */
     public void listMessage(TaskList tasks) {
         String listOutput = UI.decoLine + "\n" + "Here are the tasks in your list:\n" + tasks + UI.decoLine;

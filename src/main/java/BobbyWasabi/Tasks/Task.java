@@ -1,3 +1,5 @@
+package BobbyWasabi.Tasks;
+
 public class Task {
 
     private String description;
@@ -21,7 +23,7 @@ public class Task {
     }
 
     /**
-     * Returns the Mark/Unmarked Checkbox depending on the Boolean value of isMarked for the Task
+     * Returns the Mark/Unmarked Checkbox depending on the Boolean value of isMarked for the BobbyWasabi.BobbyWasabi.Tasks.Task
      *
      * @return Mark/Unmarked Checkbox.
      */

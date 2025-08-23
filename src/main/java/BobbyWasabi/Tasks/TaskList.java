@@ -1,3 +1,5 @@
+package BobbyWasabi.Tasks;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -24,7 +26,7 @@ public class TaskList {
     }
 
     /**
-     * Supposed to give a string representation of all the tasks stored in TaskList
+     * Supposed to give a string representation of all the tasks stored in BobbyWasabi.BobbyWasabi.Tasks.TaskList
      *
      * @return String representation of all tasks
      */

@@ -1,8 +1,14 @@
+package BobbyWasabi.Storage;
+
+
+import BobbyWasabi.Exceptions.BobbyWasabiException;
+import BobbyWasabi.Parser.Parser;
+import BobbyWasabi.Tasks.*;
+import BobbyWasabi.Tasks.ToDo;
+
 import java.io.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Storage {
@@ -76,7 +82,7 @@ public class Storage {
      * Return a task created from information parsed from the line
      *
      * @param line String line
-     * @return Task created from parsed string
+     * @return BobbyWasabi.BobbyWasabi.Task created from parsed string
      */
     public Task taskParser(String line) throws BobbyWasabiException {
         String[] infos = line.split("\\|");
