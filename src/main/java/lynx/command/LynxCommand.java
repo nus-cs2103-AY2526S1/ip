@@ -194,21 +194,50 @@ public abstract class LynxCommand {
 
     /**
      * Lists all tasks in the task list.
-     * If a date is provided, lists all tasks occurring on that date instead.
+     * If a keyword is provided, lists all tasks with names containing that keyword instead.
+     * If a date is provided using "/on", lists all tasks occurring on that date instead.
+     * If an id is provided using "/id", lists the task with that id instead.
      *
-     * @param input User command in the form "list" or "list [date]".
+     * @param input User command in the form "list" or "list [keyword]" or "list /on [date]" or "list /id [id]".
      * @throws LynxException If command or date is invalid.
      */
     public static void listTasks(String input) throws LynxException {
-        if (input.trim().equals("list")) {
+        input = input.trim();
+
+        if (input.equals("list")) {
             LynxTaskList.printTasks();
-        } else if (input.startsWith("list ")) {
-            input = input.substring(4).trim();
-            LocalDateTime dateTime = LynxDateManager.parseDateTime(input);
-            LynxTaskList.printTasksOnDate(dateTime);
-        } else {
-            throw new LynxException("Unrecognized 'list' command format.");
+            return;
         }
+
+        if (input.startsWith("list /on ")) {
+            input = input.substring(9).trim();
+            try {
+                LocalDateTime dateTime = LynxDateManager.parseDateTime(input);
+                LynxTaskList.printTasksOnDate(dateTime);
+            } catch (LynxException e) {
+                LynxUI.printBox("Invalid date format: " + e.getMessage());
+            }
+            return;
+        }
+
+        if (input.startsWith("list /id ")) {
+            input = input.substring(9).trim();
+            try {
+                int id = Integer.parseInt(input);
+                LynxTaskList.printTaskById(id);
+            } catch (NumberFormatException e) {
+                throw new LynxException("Invalid id format. Id must be a number.");
+            }
+            return;
+        }
+
+        if (input.startsWith("list ")) {
+            String substring = input.substring(5).trim();
+            LynxTaskList.printTasksContaining(substring);
+            return;
+        }
+
+        throw new LynxException("Unrecognized 'list' command format.");
     }
 
 }
