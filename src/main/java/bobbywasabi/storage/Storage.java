@@ -9,11 +9,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-<<<<<<< HEAD:src/main/java/BobbyWasabi/Storage/Storage.java
-/**
- * Handles the loading, saving, and creation of data storage for tasks.
- */
-=======
 import bobbywasabi.exceptions.BobbyWasabiException;
 import bobbywasabi.parser.Parser;
 import bobbywasabi.tasks.Deadline;
@@ -22,9 +17,9 @@ import bobbywasabi.tasks.Task;
 import bobbywasabi.tasks.TaskList;
 import bobbywasabi.tasks.ToDo;
 
-
-
->>>>>>> branch-A-CodingStandard:src/main/java/bobbywasabi/storage/Storage.java
+/**
+ * Handles the loading, saving, and creation of data storage for tasks.
+ */
 public class Storage {
     private String filepath;
     private String folderpath;
