@@ -99,7 +99,7 @@ public class Storage {
             LocalDateTime dateTime = Parser.parseDateString(infos[3]);
             return new Deadline(description, isMarked, dateTime);
 
-        } else if (type.equals("E")){
+        } else if (type.equals("E")) {
             return new Event(description, isMarked, infos[3], infos[4]);
         }
 
@@ -143,7 +143,7 @@ public class Storage {
             FileWriter filewriter = new FileWriter(this.filepath);
             filewriter.write(line);
             filewriter.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new BobbyWasabiException(e.getMessage());
         }
     }
