@@ -11,20 +11,49 @@ import lynx.ui.LynxUI;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.PatternSyntaxException;
 
 // Translates between the contents of task list and the data to be stored
-public class LynxStorage {
+public abstract class LynxStorage {
 
-    // Corrupted id and completion status are ignored and not considered errors
+    public static List<String> unloadTasks() {
+        List<String> taskStrings = new ArrayList<>();
+        List<Task> tasks = LynxTaskList.getAllTasks();
+
+        for (Task task : tasks) {
+            StringBuilder taskString = new StringBuilder();
+
+            taskString.append(task.getType().name());
+            taskString.append("|").append(task.getStatus().name());
+            taskString.append("|").append(task.getId());
+            taskString.append("|").append(task.getName());
+
+            if (task instanceof DeadlineTask deadlineTask) {
+                taskString.append("|by:").append(LynxDateManager.defaultDateTime(deadlineTask.getDeadline()));
+            } else if (task instanceof EventTask eventTask) {
+                taskString.append("|from:").append(LynxDateManager.defaultDateTime(eventTask.getStart()));
+                taskString.append("|to:").append(LynxDateManager.defaultDateTime(eventTask.getEnd()));
+            }
+
+            taskStrings.add(taskString.toString());
+        }
+
+        return taskStrings;
+    }
+
+    // When loading tasks, corrupted id and completion status are not treated as exceptions
     // The former does not matter since the ids of tasks are allocated on instantiation
     // The latter is defaulted to 'INCOMPLETE'.
     public static int loadTasks(List<String> tasks) {
         LynxTaskList.clearTasks(false);
         int errorCount = 0;
-        for (String line : tasks) {
+
+        for (String task : tasks) {
             try {
-                if (line.isBlank()) continue;
-                String[] parts = line.split("\\|");
+                if (task.isBlank()) {
+                    continue;
+                }
+                String[] parts = task.split("\\|");
                 String type = parts[0];
                 switch (type) {
                     case "TODO" -> loadTodo(parts);
@@ -32,10 +61,11 @@ public class LynxStorage {
                     case "EVENT" -> loadEvent(parts);
                     default -> errorCount++;
                 }
-            } catch (Exception e) {
+            } catch (PatternSyntaxException | ArrayIndexOutOfBoundsException | LynxException e) {
                 errorCount++;
             }
         }
+
         if (errorCount > 0) {
             LynxUI.line();
             System.out.println("⚠️ Lynx skipped " + errorCount + " invalid task(s) during loading.");
@@ -43,54 +73,43 @@ public class LynxStorage {
         return errorCount;
     }
 
-    private static void loadTodo(String[] parts) throws IllegalArgumentException {
-        if (parts.length < 4) throw new IllegalArgumentException();
+    private static void loadTodo(String[] parts) throws LynxException {
+        if (parts.length < 4) {
+            throw new LynxException("");
+        }
         String status = parts[1], name = parts[3];
-        Task t = new TodoTask(name);
-        if (status.equals("COMPLETE")) t.setCompleted();
-        LynxTaskList.addTask(t, false);
+        Task task = new TodoTask(name);
+        if (status.equals("COMPLETE")) {
+            task.setComplete();
+        }
+        LynxTaskList.addTask(task, false);
     }
 
-    private static void loadDeadline(String[] parts) throws IllegalArgumentException, LynxException {
-        if (parts.length < 5) throw new IllegalArgumentException();
+    private static void loadDeadline(String[] parts) throws LynxException {
+        if (parts.length < 5) {
+            throw new LynxException("");
+        }
         String status = parts[1], name = parts[3];
         LocalDateTime by = LynxDateManager.parseDateTime(parts[4].replace("by:", ""));
-        Task t = new DeadlineTask(name, by);
-        if (status.equals("COMPLETE")) t.setCompleted();
-        LynxTaskList.addTask(t, false);
+        Task task = new DeadlineTask(name, by);
+        if (status.equals("COMPLETE")) {
+            task.setComplete();
+        }
+        LynxTaskList.addTask(task, false);
     }
 
-    private static void loadEvent(String[] parts) throws IllegalArgumentException, LynxException {
-        if (parts.length < 6) throw new IllegalArgumentException();
+    private static void loadEvent(String[] parts) throws LynxException {
+        if (parts.length < 6) {
+            throw new LynxException("");
+        }
         String status = parts[1], name = parts[3];
         LocalDateTime from = LynxDateManager.parseDateTime(parts[4].replace("from:", "")),
                 to = LynxDateManager.parseDateTime(parts[5].replace("to:", ""));
-        Task t = new EventTask(name, from, to);
-        if (status.equals("COMPLETE")) t.setCompleted();
-        LynxTaskList.addTask(t, false);
-    }
-
-    public static List<String> unloadTasks() {
-        List<String> taskString = new ArrayList<>();
-        List<Task> tasks = LynxTaskList.getAllTasks();
-        for (Task task : tasks) {
-            StringBuilder sb = new StringBuilder();
-
-            sb.append(task.getType().name());
-            sb.append("|").append(task.getStatus().name());
-            sb.append("|").append(task.getId());
-            sb.append("|").append(task.getName());
-
-            if (task instanceof DeadlineTask dt) {
-                sb.append("|by:").append(LynxDateManager.defaultDateTime(dt.getDeadline()));
-            } else if (task instanceof EventTask et) {
-                sb.append("|from:").append(LynxDateManager.defaultDateTime(et.getStart()));
-                sb.append("|to:").append(LynxDateManager.defaultDateTime(et.getEnd()));
-            }
-
-            taskString.add(sb.toString());
+        Task task = new EventTask(name, from, to);
+        if (status.equals("COMPLETE")) {
+            task.setComplete();
         }
-        return taskString;
+        LynxTaskList.addTask(task, false);
     }
 
 }

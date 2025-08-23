@@ -5,14 +5,16 @@ import lynx.ui.LynxUI;
 
 import java.util.Scanner;
 
-public class LynxScanner {
+public abstract class LynxScanner {
+
     // Scanner object shared within the program
     public static final Scanner SCANNER = new Scanner(System.in);
 
     // Continuously scan and identify the type of command to run
     public static void scanForCommands() {
         String input;
-        System.out.println("How can I assist you with your tasks today? \nTasklynx is ready. Type your command:");
+        System.out.println("How can I assist you with your tasks today? " +
+                "\nTasklynx is ready. Type your command:");
 
         while (true) {
             input = SCANNER.nextLine().trim();
@@ -45,4 +47,5 @@ public class LynxScanner {
             }
         }
     }
+
 }

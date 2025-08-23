@@ -7,7 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 // Class for parsing date / time representations
-public class LynxDateManager {
+public abstract class LynxDateManager {
+
     private static final DateTimeFormatter DEFAULT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
     private static final DateTimeFormatter TEXT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
@@ -19,7 +20,7 @@ public class LynxDateManager {
             } else if (input.matches("\\d{4}-\\d{2}-\\d{2}-\\d{2}")) {
                 // Date with hours, set seconds to 00
                 return LocalDateTime.parse(input + "-00", DEFAULT_FORMAT);
-            }else if (input.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            } else if (input.matches("\\d{4}-\\d{2}-\\d{2}")) {
                 // Date only, set time to 00:00
                 return LocalDateTime.parse(input + "-00-00", DEFAULT_FORMAT);
             } else {
@@ -37,4 +38,5 @@ public class LynxDateManager {
     public static String textDateTime(LocalDateTime dateTime) {
         return dateTime.format(TEXT_FORMAT);
     }
+
 }

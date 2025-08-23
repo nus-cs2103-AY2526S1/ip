@@ -31,6 +31,7 @@ public class LynxDateManagerTest {
                     LynxDateManager.parseDateTime("2025-11-11-00-00-00");
                     fail();
                 } catch (LynxException e3) {
+
                 }
             }
         }
