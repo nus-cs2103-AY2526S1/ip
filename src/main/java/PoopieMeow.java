@@ -1,6 +1,22 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+enum TaskType {
+    TODO("[T]"),
+    DEADLINE("[D]"),
+    EVENT("[E]");
+
+    private final String label;
+
+    TaskType(String label) {
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+}
+
 class EmptyDescriptionException extends Exception {
     public EmptyDescriptionException(String message) {
         super(message);
@@ -44,7 +60,7 @@ class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return TaskType.TODO.getLabel() + super.toString();
     }
 }
 
@@ -58,7 +74,7 @@ class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return TaskType.DEADLINE.getLabel() + super.toString() + " (by: " + by + ")";
     }
 }
 
@@ -74,7 +90,7 @@ class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return TaskType.EVENT.getLabel() + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
 
