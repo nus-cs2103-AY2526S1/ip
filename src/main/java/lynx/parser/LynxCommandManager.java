@@ -253,7 +253,7 @@ public abstract class LynxCommandManager {
 
         if (input.startsWith("/id ")) {
             try {
-                int id = Integer.parseInt(input.substring(3).trim());
+                int id = Integer.parseInt(input.substring(4).trim());
                 List<Task> task = new ArrayList<>();
                 task.add(LynxTaskList.findTaskById(id));
                 LynxUI.line();
@@ -265,6 +265,7 @@ public abstract class LynxCommandManager {
         }
 
         String keyword = input.trim();
+        checkName(keyword);
         LynxUI.line();
         System.out.printf("%s\"%s\":%n", command.getMessageByKeyword(), keyword);
         return LynxTaskList.findTasksContaining(keyword);
@@ -292,9 +293,13 @@ public abstract class LynxCommandManager {
 
     // Checks that task name is within 150-character limit and does not contain the special character "/".
     private static void checkName(String name) throws LynxException {
+        if (name.isBlank()) {
+            throw new LynxException("Task name cannot be blank.");
+        }
         if (name.contains("/")) {
             throw new LynxException("Task name cannot contain the \"/\" character.");
-        } else if (name.length() > 150) {
+        }
+        if (name.length() > 150) {
             throw new LynxException("Task name cannot exceed 150 characters.");
         }
     }

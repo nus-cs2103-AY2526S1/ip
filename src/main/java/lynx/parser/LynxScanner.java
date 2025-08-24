@@ -29,13 +29,13 @@ public abstract class LynxScanner {
                     break;
                 } else if (input.trim().equals("reload")) {
                     LynxCommandManager.reload();
-                } else if (input.startsWith("list")) {
+                } else if (input.startsWith("list ")) {
                     LynxCommandManager.listTasks(input);
-                } else if (input.startsWith("mark")) {
+                } else if (input.startsWith("mark ")) {
                     LynxCommandManager.markTasks(input);
-                } else if (input.startsWith("unmark")) {
+                } else if (input.startsWith("unmark ")) {
                     LynxCommandManager.unmarkTasks(input);
-                } else if (input.startsWith("delete")) {
+                } else if (input.startsWith("delete ")) {
                     LynxCommandManager.deleteTasks(input);
                 } else if (input.startsWith("todo ")) {
                     LynxCommandManager.addTodo(input);
