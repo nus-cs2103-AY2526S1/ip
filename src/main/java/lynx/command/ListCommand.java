@@ -1,5 +1,9 @@
 package lynx.command;
 
+/**
+ * Represents a "list" command.
+ * Stores the input and messages for different types of execution.
+ */
 public class ListCommand extends LynxCommand {
 
     public ListCommand(String input) {

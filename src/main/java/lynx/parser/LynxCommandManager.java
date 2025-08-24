@@ -18,11 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-// Parses command details and executes them
+/**
+ * Class containing methods for interpreting and executing user commands.
+ */
 public abstract class LynxCommandManager {
 
     /**
-     * Attempts to create the log.txt data file or load its contents if it exists.
+     * Attempts to create the <code>log.txt</code> data file or load its contents if it exists.
      */
     public static void reload() {
         LynxFileManager.createFile();
@@ -31,10 +33,10 @@ public abstract class LynxCommandManager {
     }
 
     /**
-     * Creates a TodoTask and adds it to the task list.
+     * Creates a <code>TodoTask</code> and adds it to the task list.
      *
      * @param input User command in the form "todo [name]".
-     * @return TodoTask that is created.
+     * @return <code>TodoTask</code> that is created.
      * @throws LynxException If command or name is invalid.
      */
     public static TodoTask addTodo(String input) throws LynxException {
@@ -53,10 +55,10 @@ public abstract class LynxCommandManager {
     }
 
     /**
-     * Creates a DeadlineTask and adds it to the task list.
+     * Creates a <code>DeadlineTask</code> and adds it to the task list.
      *
      * @param input User command in the form "deadline [name] /by [date]".
-     * @return DeadlineTask that is created.
+     * @return <code>DeadlineTask</code> that is created.
      * @throws LynxException If command, name or date is invalid.
      */
     public static DeadlineTask addDeadline(String input) throws LynxException {
@@ -80,10 +82,10 @@ public abstract class LynxCommandManager {
     }
 
     /**
-     * Creates a EventTask and adds it to the task list.
+     * Creates a <code>EventTask</code> and adds it to the task list.
      *
      * @param input User command in the form "event [name] /from [start] /to [end]".
-     * @return EventTask that is created.
+     * @return <code>EventTask</code> that is created.
      * @throws LynxException If command, name or date is invalid.
      */
     public static EventTask addEvent(String input) throws LynxException {
@@ -115,6 +117,20 @@ public abstract class LynxCommandManager {
         return task;
     }
 
+    /**
+     * Marks tasks in the task list as specified by the command.
+     * <p>
+     * To mark all tasks, use "mark /all".
+     * <p>
+     * To mark tasks by date, use "mark /on [date]".
+     * <p>
+     * To mark a task by id, use "mark /id [id]".
+     * <p>
+     * To mark tasks by keyword, use "mark [keyword]".
+     *
+     * @param input User command staring with "mark".
+     * @throws LynxException If command, date or id is invalid.
+     */
     public static void markTasks(String input) throws LynxException {
         Consumer<Task> mark = Task::setComplete;
         String empty = "     (No tasks found or marked)";
@@ -124,9 +140,23 @@ public abstract class LynxCommandManager {
         }
         MarkCommand command = new MarkCommand(input.substring(5).trim());
         List<Task> tasks = findTasks(command);
-        mapTasks(mark, tasks, empty);
+        executeOnTasks(mark, tasks, empty);
     }
 
+    /**
+     * Unmarks tasks in the task list as specified by the command.
+     * <p>
+     * To unmark all tasks, use "unmark /all".
+     * <p>
+     * To unmark tasks by date, use "unmark /on [date]".
+     * <p>
+     * To unmark a task by id, use "unmark /id [id]".
+     * <p>
+     * To unmark tasks by keyword, use "unmark [keyword]".
+     *
+     * @param input User command staring with "unmark".
+     * @throws LynxException If command, date or id is invalid.
+     */
     public static void unmarkTasks(String input) throws LynxException {
         Consumer<Task> unmark = Task::setIncomplete;
         String empty = "     (No tasks found or unmarked)";
@@ -136,9 +166,23 @@ public abstract class LynxCommandManager {
         }
         UnmarkCommand command = new UnmarkCommand(input.substring(7).trim());
         List<Task> tasks = findTasks(command);
-        mapTasks(unmark, tasks, empty);
+        executeOnTasks(unmark, tasks, empty);
     }
 
+    /**
+     * Removes tasks from the task list as specified by the command.
+     * <p>
+     * To remove all tasks, use "delete /all".
+     * <p>
+     * To remove tasks by date, use "delete /on [date]".
+     * <p>
+     * To remove a task by id, use "delete /id [id]".
+     * <p>
+     * To remove tasks by keyword, use "delete [keyword]".
+     *
+     * @param input User command staring with "delete".
+     * @throws LynxException If command, date or id is invalid.
+     */
     public static void deleteTasks(String input) throws LynxException {
         Consumer<Task> delete = task -> LynxTaskList.removeTask(task, false);
         String empty = "     (No tasks found or deleted)";
@@ -148,10 +192,24 @@ public abstract class LynxCommandManager {
         }
         DeleteCommand command = new DeleteCommand(input.substring(7).trim());
         List<Task> tasks = findTasks(command);
-        mapTasks(delete, tasks, empty);
+        executeOnTasks(delete, tasks, empty);
         System.out.println("You currently have " + LynxTaskList.getCount() + " task(s) in your list.");
     }
 
+    /**
+     * Prints tasks from the task list as specified by the command.
+     * <p>
+     * To print all tasks, use "list /all".
+     * <p>
+     * To print tasks by date, use "list /on [date]".
+     * <p>
+     * To print a task by id, use "list /id [id]".
+     * <p>
+     * To print tasks by keyword, use "list [keyword]".
+     *
+     * @param input User command staring with "list".
+     * @throws LynxException If command, date or id is invalid.
+     */
     public static void listTasks(String input) throws LynxException {
         Consumer<Task> list = task -> {};
         String empty = "     (No tasks yet)";
@@ -161,9 +219,18 @@ public abstract class LynxCommandManager {
         }
         ListCommand command = new ListCommand(input.substring(5).trim());
         List<Task> tasks = findTasks(command);
-        mapTasks(list, tasks, empty);
+        executeOnTasks(list, tasks, empty);
     }
 
+    /**
+     * Searches tasks from the task list as specified by a <code>Command</code> object.
+     * <p>
+     * Searches based on keyword by default.
+     *
+     * @param command <code>Command</code> object containing a valid command.
+     * @return List of tasks fulfilling the search.
+     * @throws LynxException If command is of invalid format.
+     */
     private static List<Task> findTasks(LynxCommand command) throws LynxException {
         String input = command.getInput();
         if (input.trim().equals("/all")) {
@@ -203,7 +270,14 @@ public abstract class LynxCommandManager {
         return LynxTaskList.findTasksContaining(keyword);
     }
 
-    private static void mapTasks(Consumer<Task> consumer, List<Task> tasks, String empty) {
+    /**
+     * Maps a <code>Consumer</code> to a list of tasks and prints each task.
+     *
+     * @param consumer <code>Consumer</code> containing the action to execute on each task.
+     * @param tasks List of tasks to perform action on.
+     * @param empty String to be printed instead if list is empty.
+     */
+    private static void executeOnTasks(Consumer<Task> consumer, List<Task> tasks, String empty) {
         int count = 0;
         for (Task task : tasks) {
             count++;
@@ -216,6 +290,7 @@ public abstract class LynxCommandManager {
         LynxUI.line();
     }
 
+    // Checks that task name is within 150-character limit and does not contain the special character "/".
     private static void checkName(String name) throws LynxException {
         if (name.contains("/")) {
             throw new LynxException("Task name cannot contain the \"/\" character.");

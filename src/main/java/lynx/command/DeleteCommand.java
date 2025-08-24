@@ -1,5 +1,9 @@
 package lynx.command;
 
+/**
+ * Represents a "delete" command.
+ * Stores the input and messages for different types of execution.
+ */
 public class DeleteCommand extends LynxCommand {
 
     public DeleteCommand(String input) {

@@ -1,5 +1,10 @@
 package lynx.task;
 
+/**
+ * Represents a task with a <code>TaskType</code>, <code>Status</code>, name and id for tracking.
+ * <p>
+ * <code>Status</code> is <code>INCOMPLETE</code> by default, and id is assigned by the constructor.
+ */
 public abstract class Task {
 
     public enum TaskType {

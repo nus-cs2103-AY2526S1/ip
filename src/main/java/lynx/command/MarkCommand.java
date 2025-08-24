@@ -1,5 +1,9 @@
 package lynx.command;
 
+/**
+ * Represents a "mark" command.
+ * Stores the input and messages for different types of execution.
+ */
 public class MarkCommand extends LynxCommand {
 
     public MarkCommand(String input) {

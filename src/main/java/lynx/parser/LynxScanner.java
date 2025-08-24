@@ -5,6 +5,9 @@ import lynx.ui.LynxUI;
 
 import java.util.Scanner;
 
+/**
+ * Class containing the central <code>Scanner</code> object, and the main program loop.
+ */
 public abstract class LynxScanner {
 
     // Scanner object shared within the program

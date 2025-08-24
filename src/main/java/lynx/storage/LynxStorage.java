@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
-// Translates between the contents of task list and the data to be stored
+/**
+ * Class containing methods for loading and unloading tasks in the task list, using a string representation.
+ */
 public abstract class LynxStorage {
 
     /**
@@ -48,7 +50,8 @@ public abstract class LynxStorage {
 
     /**
      * Creates a list of tasks from a list of string representations and stores them in the task list.
-     * Default value of completion status is INCOMPLETE.
+     * <p>
+     * Default value of completion status is <code>INCOMPLETE</code>.
      *
      * @param tasks List of tasks represented as strings, in the format "type|status|id|name|...".
      * @return Number of errors / unloaded tasks.
@@ -83,9 +86,9 @@ public abstract class LynxStorage {
     }
 
     /**
-     * Creates a TodoTask and adds it to the task list.
+     * Creates a <code>TodoTask</code> and adds it to the task list.
      *
-     * @param parts Parsed representation of a TodoTask.
+     * @param parts Parsed representation of a <code>TodoTask</code>.
      * @throws LynxException If input is of invalid format.
      */
     private static void loadTodo(String[] parts) throws LynxException {
@@ -101,9 +104,9 @@ public abstract class LynxStorage {
     }
 
     /**
-     * Creates a DeadlineTask and adds it to the task list.
+     * Creates a <code>DeadlineTask</code> and adds it to the task list.
      *
-     * @param parts Parsed representation of a DeadlineTask.
+     * @param parts Parsed representation of a <code>DeadlineTask</code>.
      * @throws LynxException If input is of invalid format or deadline is invalid.
      */
     private static void loadDeadline(String[] parts) throws LynxException {
@@ -120,9 +123,9 @@ public abstract class LynxStorage {
     }
 
     /**
-     * Creates an EventTask and adds it to the task list.
+     * Creates an <code>EventTask</code> and adds it to the task list.
      *
-     * @param parts Parsed representation of an EventTask.
+     * @param parts Parsed representation of an <code>EventTask</code>.
      * @throws LynxException If input is of invalid format or start / end is invalid.
      */
     private static void loadEvent(String[] parts) throws LynxException {

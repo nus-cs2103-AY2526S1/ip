@@ -1,5 +1,8 @@
 package lynx.exception;
 
+/**
+ * Represents an invalid command that is missing an argument.
+ */
 public class MissingArgumentException extends LynxException {
 
     public MissingArgumentException(String command) {

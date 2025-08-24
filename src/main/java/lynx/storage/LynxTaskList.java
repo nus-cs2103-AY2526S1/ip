@@ -12,7 +12,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-// All methods directly interacting with the lynx.task.Task List
+/**
+ * Class containing methods that directly access the task list.
+ */
 public abstract class LynxTaskList {
 
     private static final ArrayList<Task> COMMANDS = new ArrayList<>(100);
@@ -77,10 +79,10 @@ public abstract class LynxTaskList {
     }
 
     /**
-     * Prints all tasks in the task list with a given word in its name.
+     * Returns all tasks in the task list with a given keyword in its name.
      *
-     * @param keyword Substring used to search tasks by name.
-     * @return Number of tasks with names fulfilling the search.
+     * @param keyword Keyword used to search tasks by name.
+     * @return List of tasks with names fulfilling the search.
      */
     public static List<Task> findTasksContaining(String keyword) {
         List<Task> tasks = new ArrayList<>();
@@ -93,10 +95,10 @@ public abstract class LynxTaskList {
     }
 
     /**
-     * Prints all tasks in the task list that are active on a given date.
+     * Returns all tasks in the task list that are active on a given date.
      *
-     * @param target LocalDateTime object to search tasks by date.
-     * @return Number of tasks occurring on the given date.
+     * @param target <code>LocalDateTime</code> object to search tasks by date.
+     * @return List of tasks occurring on the given date.
      */
     public static List<Task> findTasksOnDate(LocalDateTime target) {
         List<Task> tasks = new ArrayList<>();
@@ -119,7 +121,7 @@ public abstract class LynxTaskList {
     }
 
     /**
-     * Searches for a task in the task list using its id.
+     * Returns the task in the task list with the given id.
      *
      * @param id Id of task to be retrieved.
      * @return Task with matching id.
@@ -132,20 +134,6 @@ public abstract class LynxTaskList {
             }
         }
         throw new LynxException("Task not found.");
-    }
-
-    /**
-     * Searches for a task in the task list using its position.
-     *
-     * @param position Position of task in the task list, starting from 1.
-     * @return Task in matching position.
-     * @throws LynxException If position < 1 or > LynxTaskList.getCount().
-     */
-    public static Task findTaskByPosition(int position) throws LynxException {
-        if (position < 1 || position > COMMANDS.size()) {
-            throw new LynxException("Sorry, no task at that position.");
-        }
-        return COMMANDS.get(position - 1);
     }
 
     // Helper: checks if two LocalDateTimes are on the same day

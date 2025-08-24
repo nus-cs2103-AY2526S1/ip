@@ -1,5 +1,9 @@
 package lynx.command;
 
+/**
+ * Represents an "unmark" command.
+ * Stores the input and messages for different types of execution.
+ */
 public class UnmarkCommand extends LynxCommand {
 
     public UnmarkCommand(String input) {
