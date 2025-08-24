@@ -1,6 +1,6 @@
 package lynx.storage;
 
-import lynx.command.LynxScanner;
+import lynx.parser.LynxScanner;
 import lynx.ui.LynxUI;
 
 import java.nio.file.Files;
@@ -11,14 +11,17 @@ import java.util.List;
 
 import java.io.IOException;
 
-// All methods that directly interact with the hard drive
+/**
+ * Class containing methods to read and write data to the drive.
+ */
 public abstract class LynxFileManager {
 
     // Specified path where the data file should be created
     private static final Path FILEPATH = Paths.get("./data/log.txt");
 
     /**
-     * Creates a directory data and a file log.txt.
+     * Creates a directory <code>data</code> and a file <code>log.txt</code>.
+     * <p>
      * Skips if directory / file already exists.
      */
     public static void createFile() {
@@ -40,7 +43,7 @@ public abstract class LynxFileManager {
     }
 
     /**
-     * Reads all lines from the file log.txt.
+     * Reads all lines from the file <code>log.txt</code>.
      *
      * @return File contents as list of strings.
      */
@@ -57,7 +60,7 @@ public abstract class LynxFileManager {
     }
 
     /**
-     * Writes to the file log.txt.
+     * Writes to the file <code>log.txt</code>.
      *
      * @param text Lines of text to be written.
      */

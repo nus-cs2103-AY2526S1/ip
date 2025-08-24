@@ -1,5 +1,8 @@
 package lynx.ui;
 
+/**
+ * Class containing general methods pertaining to the UI.
+ */
 public abstract class LynxUI {
 
     /**

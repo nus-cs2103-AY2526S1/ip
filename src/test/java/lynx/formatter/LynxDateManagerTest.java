@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 public class LynxDateManagerTest {
 
     @Test
-    public void parseDateTime() throws LynxException {
+    public void testParseDateTime() throws LynxException {
         LocalDateTime testDateA = LocalDateTime.of(2025, 11, 11, 0, 0);
         LocalDateTime testDateB = LocalDateTime.of(2025, 11, 11, 6, 0);
         LocalDateTime testDateC = LocalDateTime.of(2025, 11, 11, 6, 30);

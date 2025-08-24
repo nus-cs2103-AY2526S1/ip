@@ -17,7 +17,39 @@ import org.junit.jupiter.api.Test;
 public class LynxTaskListTest {
 
     @Test
-    public void findTaskById() throws LynxException {
+    public void testFindTasksContaining() throws LynxException {
+        LynxTaskList.clearTasks(false);
+        LynxTaskList.addTask(new TodoTask("A aaa test BBB"), true);
+        LynxTaskList.addTask(new TodoTask("BAAA,testBB"), true);
+        assertEquals(2, LynxTaskList.findTasksContaining("a").size());
+        assertEquals(2, LynxTaskList.findTasksContaining("AAA").size());
+        assertEquals(2, LynxTaskList.findTasksContaining("test").size());
+        assertEquals(1, LynxTaskList.findTasksContaining("a,TEST").size());
+        assertEquals(1, LynxTaskList.findTasksContaining("bbb").size());
+        assertEquals(1, LynxTaskList.findTasksContaining("a a").size());
+        assertEquals(0, LynxTaskList.findTasksContaining(" a ").size());
+    }
+
+    @Test
+    public void testFindTasksOnDate() throws LynxException {
+        LynxTaskList.clearTasks(false);
+        LynxTaskList.addTask(new DeadlineTask("a", LocalDateTime.of(
+                2025, 11, 11, 0, 0)), true);
+        LynxTaskList.addTask(new DeadlineTask("a", LocalDateTime.of(
+                2025, 11, 12, 0, 0)), true);
+        LynxTaskList.addTask(new EventTask("a",
+                LocalDateTime.of(2025, 11, 12, 0, 0),
+                LocalDateTime.of(2025, 11, 13, 0, 0)), true);
+        assertEquals(1, LynxTaskList.findTasksOnDate(
+                LocalDateTime.of(2025, 11, 11, 0, 0)).size());
+        assertEquals(2, LynxTaskList.findTasksOnDate(
+                LocalDateTime.of(2025, 11, 12, 6, 0)).size());
+        assertEquals(0, LynxTaskList.findTasksOnDate(
+                LocalDateTime.of(2025, 11, 13, 6, 0)).size());
+    }
+
+    @Test
+    public void testFindTaskById() throws LynxException {
         LynxTaskList.clearTasks(false);
         TodoTask testTask = new TodoTask("a");
         LynxTaskList.addTask(testTask, true);
@@ -30,61 +62,6 @@ public class LynxTaskListTest {
         } catch (LynxException e) {
 
         }
-    }
-
-    @Test
-    public void findTaskByPos() throws LynxException {
-        LynxTaskList.clearTasks(false);
-        LynxTaskList.addTask(new TodoTask("a"), true);
-        LynxTaskList.addTask(new TodoTask("b"), true);
-        Task testTask1 = LynxTaskList.findTaskByPosition(1);
-        assertEquals(testTask1, LynxTaskList.findTaskByPosition(1));
-        Task testTask2 = LynxTaskList.findTaskByPosition(2);
-        assertEquals(testTask2, LynxTaskList.findTaskByPosition(2));
-
-        try {
-            LynxTaskList.findTaskByPosition(0);
-            fail();
-        } catch (LynxException e) {
-            try {
-                LynxTaskList.findTaskByPosition(LynxTaskList.getCount() + 1);
-                fail();
-            } catch (LynxException ex) {
-
-            }
-        }
-    }
-
-    @Test
-    public void printTasksContaining() {
-        LynxTaskList.clearTasks(false);
-        LynxTaskList.addTask(new TodoTask("A aaa test BBB"), true);
-        LynxTaskList.addTask(new TodoTask("BAAA,testBB"), true);
-        assertEquals(2, LynxTaskList.printTasksContaining("a"));
-        assertEquals(2, LynxTaskList.printTasksContaining("AAA"));
-        assertEquals(2, LynxTaskList.printTasksContaining("test"));
-        assertEquals(1, LynxTaskList.printTasksContaining("a,TEST"));
-        assertEquals(1, LynxTaskList.printTasksContaining("bbb"));
-        assertEquals(1, LynxTaskList.printTasksContaining("a a"));
-        assertEquals(0, LynxTaskList.printTasksContaining(" a "));
-    }
-
-    @Test
-    public void printTasksOnDate() {
-        LynxTaskList.clearTasks(false);
-        LynxTaskList.addTask(new DeadlineTask("a", LocalDateTime.of(
-                2025, 11, 11, 0, 0)), true);
-        LynxTaskList.addTask(new DeadlineTask("a", LocalDateTime.of(
-                2025, 11, 12, 0, 0)), true);
-        LynxTaskList.addTask(new EventTask("a",
-                LocalDateTime.of(2025, 11, 12, 0, 0),
-                LocalDateTime.of(2025, 11, 13, 0, 0)), true);
-        assertEquals(1, LynxTaskList.printTasksOnDate(
-                LocalDateTime.of(2025, 11, 11, 0, 0)));
-        assertEquals(2, LynxTaskList.printTasksOnDate(
-                LocalDateTime.of(2025, 11, 12, 6, 0)));
-        assertEquals(0, LynxTaskList.printTasksOnDate(
-                LocalDateTime.of(2025, 11, 13, 6, 0)));
     }
 
 }

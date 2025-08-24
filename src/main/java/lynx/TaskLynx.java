@@ -1,6 +1,6 @@
 package lynx;
 
-import lynx.command.LynxScanner;
+import lynx.parser.LynxScanner;
 import lynx.storage.LynxFileManager;
 import lynx.storage.LynxStorage;
 import lynx.ui.LynxUI;
