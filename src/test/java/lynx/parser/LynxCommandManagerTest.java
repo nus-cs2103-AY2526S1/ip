@@ -1,7 +1,6 @@
-package lynx.command;
+package lynx.parser;
 
 import lynx.exception.LynxException;
-import lynx.storage.LynxTaskList;
 import lynx.task.DeadlineTask;
 import lynx.task.EventTask;
 import lynx.task.TodoTask;
@@ -15,19 +14,19 @@ import org.junit.jupiter.api.Test;
 // Primarily tests the parsing responsible by LynxCommand
 // mark, unmark, delete and find are not tested since they primarily rely on the
 // correctness of methods within Task and LynxTaskList
-public class LynxCommandTest {
+public class LynxCommandManagerTest {
 
     @Test
     public void addTodo() throws LynxException {
         String testString = new TodoTask("a").testRepresentation();
-        assertEquals(testString, LynxCommand.addTodo("todo    a").testRepresentation());
+        assertEquals(testString, LynxCommandManager.addTodo("todo    a").testRepresentation());
 
         try {
-            LynxCommand.addTodo("todo    ");
+            LynxCommandManager.addTodo("todo    ");
             fail();
         } catch (LynxException e1) {
             try {
-                LynxCommand.addTodo("todo /aaa");
+                LynxCommandManager.addTodo("todo /aaa");
                 fail();
             } catch (LynxException e2) {
 
@@ -40,14 +39,14 @@ public class LynxCommandTest {
         String testString = new DeadlineTask("a",
                 LocalDateTime.of(2025, 11, 11, 0, 0)).testRepresentation();
         assertEquals(testString,
-                LynxCommand.addDeadline("deadline    a /by    2025-11-11").testRepresentation());
+                LynxCommandManager.addDeadline("deadline    a /by    2025-11-11").testRepresentation());
 
         try {
-            LynxCommand.addDeadline("deadline a/by2025-11-11");
+            LynxCommandManager.addDeadline("deadline a/by2025-11-11");
             fail();
         } catch (LynxException e1) {
             try {
-                LynxCommand.addDeadline("deadline /by 2025-11-11");
+                LynxCommandManager.addDeadline("deadline /by 2025-11-11");
                 fail();
             } catch (LynxException e2) {
 
@@ -60,15 +59,15 @@ public class LynxCommandTest {
         String testString = new EventTask("a",
                 LocalDateTime.of(2025, 11, 11, 12, 0),
                 LocalDateTime.of(2025, 11, 12, 6, 30)).testRepresentation();
-        assertEquals(testString, LynxCommand.addEvent(
+        assertEquals(testString, LynxCommandManager.addEvent(
                 "event a /from 2025-11-11-12 /to 2025-11-12-06-30").testRepresentation());
 
         try {
-            LynxCommand.addEvent("event a /from 2025-11-11/to 2025-11-12");
+            LynxCommandManager.addEvent("event a /from 2025-11-11/to 2025-11-12");
             fail();
         } catch (LynxException e1) {
             try {
-                LynxCommand.addEvent("event a /from 2025-11-11 /to 2025-11-10");
+                LynxCommandManager.addEvent("event a /from 2025-11-11 /to 2025-11-10");
                 fail();
             } catch (LynxException e2) {
 
@@ -79,27 +78,27 @@ public class LynxCommandTest {
     @Test
     public void listTasks() {
         try {
-            LynxCommand.listTasks("list");
-            LynxCommand.listTasks("list ");
-            LynxCommand.listTasks("list aaa (bbb)");
-            LynxCommand.listTasks("list    /on 2025-11-11");
-            LynxCommand.listTasks("list /on    2025-11-11-06-30");
-            LynxCommand.listTasks("list    /id    -999");
-            LynxCommand.listTasks("list    /id    999");
+            LynxCommandManager.listTasks("list");
+            LynxCommandManager.listTasks("list ");
+            LynxCommandManager.listTasks("list aaa (bbb)");
+            LynxCommandManager.listTasks("list    /on 2025-11-11");
+            LynxCommandManager.listTasks("list /on    2025-11-11-06-30");
+            LynxCommandManager.listTasks("list    /id    -999");
+            LynxCommandManager.listTasks("list    /id    999");
         } catch (LynxException e) {
             fail();
         }
 
         try {
-            LynxCommand.listTasks("listaaa");
+            LynxCommandManager.listTasks("listaaa");
             fail();
         } catch (LynxException e1) {
             try {
-                LynxCommand.listTasks("list/on2025-11-11");
+                LynxCommandManager.listTasks("list/on2025-11-11");
                 fail();
             } catch (LynxException e2) {
                 try {
-                    LynxCommand.listTasks("list/id1");
+                    LynxCommandManager.listTasks("list/id1");
                     fail();
                 } catch (LynxException e3) {
 

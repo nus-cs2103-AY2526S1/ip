@@ -1,6 +1,6 @@
 package lynx.storage;
 
-import lynx.command.LynxScanner;
+import lynx.parser.LynxScanner;
 import lynx.ui.LynxUI;
 
 import java.nio.file.Files;
