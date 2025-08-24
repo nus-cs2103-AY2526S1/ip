@@ -29,6 +29,8 @@ public abstract class LynxScanner {
                     break;
                 } else if (input.trim().equals("reload")) {
                     LynxCommandManager.reload();
+                } else if (input.trim().equals("help")) {
+                    LynxUI.printHelp();
                 } else if (input.startsWith("list ")) {
                     LynxCommandManager.listTasks(input);
                 } else if (input.startsWith("mark ")) {
@@ -45,7 +47,7 @@ public abstract class LynxScanner {
                     LynxCommandManager.addEvent(input);
                 } else if (!input.isEmpty()) {
                     throw new LynxException("Sorry, I didn't understand that command. " +
-                            "Please try again or type 'list' to see available tasks.");
+                            "Please try again or type \"help\" to access the user guide.");
                 }
             } catch (LynxException e) {
                 LynxUI.printBox(e.getMessage());
