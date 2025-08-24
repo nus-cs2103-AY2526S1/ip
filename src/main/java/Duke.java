@@ -3,10 +3,35 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
+/*
+Enum reference
+https://stackoverflow.com/a/3978690
+https://stackoverflow.com/a/604426
+https://stackoverflow.com/a/59608518
+https://stackoverflow.com/a/26118954
+*/
+
 public class Duke {
     private static final String LINESEP = "____________________________________________________________";
-    private static final String EXIT = "bye";
-    private static final String LIST = "list";
+    private enum ChatCommand {
+        BYE("bye"),
+        LIST("list"),
+        MARK("mark"),
+        UNMARK("unmark"),
+        UNKNOWNCMD("unrecognized command")
+        ;
+
+        private final String text;
+
+        ChatCommand(String text) {
+            this.text = text;
+        }
+
+        @Override
+        public String toString() {
+            return this.text;
+        }
+    }
 
     //Handles printing format
     private static void chatPrint(String txt) {
@@ -28,14 +53,29 @@ public class Duke {
         //Work loop vars
         Scanner scanStdin = new Scanner(System.in);
         boolean exitFlag = false;
-        ArrayList<String> chatHist = new ArrayList<String>();
+        ArrayList<Task> chatHist = new ArrayList<Task>();
         
         //Work loop
         while (!exitFlag) {
-            String userCmd = scanStdin.nextLine();
+            String userInput = scanStdin.nextLine();
+            
+            //Look for any valid commands and set enum value
+            ChatCommand userCmd;
+            try {
+                userCmd = ChatCommand.valueOf(
+                    userInput.split(" ", 2)[0].toUpperCase()
+                );
+            } catch (IllegalArgumentException ex) {
+                userCmd = ChatCommand.UNKNOWNCMD;
+            }
 
             switch (userCmd) {
-                case Duke.LIST:
+                case ChatCommand.BYE:
+                    exitFlag = true;
+                    chatPrint("Bye. Hope to see you again soon!");
+                    break;
+                case ChatCommand.LIST:
+                    //todo: this print isnt perfect yet
                     Stream.<Integer>iterate(0, x -> x < chatHist.size(), x -> x + 1)
                         .forEach(x -> System.out.println(String.format(
                             "\t%d. %s",
@@ -43,13 +83,33 @@ public class Duke {
                             chatHist.get(x)
                         )));
                     break;
-                case Duke.EXIT:
-                    exitFlag = true;
-                    chatPrint("Bye. Hope to see you again soon!");
+                //Fall over cases
+                case ChatCommand.MARK:
+                case ChatCommand.UNMARK:
+                    /*
+                    Can fail in 2 ways
+                    1. user requested index is not integer
+                    2. index does not exist
+                    */
+                    Task task = chatHist.get(
+                        Integer.valueOf(userInput.split(" ", 2)[1]) - 1
+                    );
+
+                    if (userCmd == ChatCommand.MARK) {
+                        chatPrint(String.format(
+                            "Nice! I've marked this task as done:\n\t  %s",
+                            task.toggleDone()
+                        ));
+                    } else {
+                        chatPrint(String.format(
+                            "OK, I've marked this task as not done yet:\n\t  %s",
+                            task.toggleDone()
+                        ));
+                    }
                     break;
                 default:
-                    chatHist.add(userCmd);
-                    chatPrint("added: " + userCmd);
+                    chatHist.add(new Task(userInput));
+                    chatPrint("added: " + userInput);
             }
         }
     }
