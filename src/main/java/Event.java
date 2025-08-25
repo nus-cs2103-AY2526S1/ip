@@ -1,0 +1,22 @@
+public class Event extends Task {
+    private static final String TASKTYPE = "[D]";
+    private final String starttime;
+    private final String endtime;
+
+    public Event(String description, String starttime, String endtime) {
+        super(description);
+        this.starttime = starttime;
+        this.endtime = endtime;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+            "%s%s (from: %s to: %s)",
+            Event.TASKTYPE,
+            super.toString(),
+            this.starttime,
+            this.endtime
+        );
+    }
+}
