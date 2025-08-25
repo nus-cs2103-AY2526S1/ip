@@ -1,6 +1,21 @@
+import java.util.ArrayList;
+
 public class Zell {
+    private static final String FILE_PATH = "./data/Zell.txt";
+
     public static void main(String[] args) {
-        ChatLoop chatLoop = new ChatLoop();
+        Storage storage = new Storage(FILE_PATH);
+        TaskList taskList;
+
+        try {
+            taskList = new TaskList(storage.loadTasks());
+        } catch (ZellException ze) {
+            System.out.println(ze);
+            taskList = new TaskList(new ArrayList<>());
+        }
+
+        ChatLoop chatLoop = new ChatLoop(taskList , storage);
         chatLoop.run();
+
     }
 }

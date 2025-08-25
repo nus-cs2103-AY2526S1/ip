@@ -3,10 +3,12 @@ import java.util.Scanner;
 public class ChatLoop {
     private TaskList taskList;
     private UserInputHandler userInputHandler;
+    private Storage storage;
 
-    public ChatLoop() {
-        this.taskList = new TaskList();
+    public ChatLoop(TaskList taskList, Storage storage) {
+        this.taskList = taskList;
         this.userInputHandler = new UserInputHandler();
+        this.storage = storage;
     }
 
     public void run() {
@@ -17,7 +19,7 @@ public class ChatLoop {
 
         while (!endProgram) {
             String userInput = scanner.nextLine();
-            String output = this.userInputHandler.handleInput(userInput, this.taskList);
+            String output = this.userInputHandler.handleInput(userInput, this.taskList, this.storage);
             printFormattedMessage(output);
 
             endProgram = this.userInputHandler.getEndProgram();

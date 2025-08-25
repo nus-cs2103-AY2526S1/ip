@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private final String name;
     private boolean isDone;
 
@@ -7,15 +7,32 @@ public class Task {
         this.isDone = false;
     }
 
-    public void setDone() {
-        this.isDone = true;
+    public static Task stringToTask(String stringTask) throws ZellException{
+        String[] components = stringTask.split(" \\| ");
+        switch (components[0]) {
+        case "T":
+            return new ToDo(components[2], Boolean.parseBoolean(components[1]));
+        case "D":
+            return new Deadline(components[2], components[3], Boolean.parseBoolean(components[1]));
+        case "E":
+            return new Event(components[2], components[3], components[4], Boolean.parseBoolean(components[1]));
+        default:
+            throw new ZellException("Unknown task type encountered when converting tasks");
+        }
     }
 
-    public void setNotDone() {
-        this.isDone = false;
+    public abstract String taskToString();
+
+
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
-    public boolean getIsDone() {
+    public String getName() {
+        return this.name;
+    }
+
+    public boolean getDone() {
         return this.isDone;
     }
 

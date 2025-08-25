@@ -5,7 +5,7 @@ public class UserInputHandler {
         this.endProgram = false;
     }
 
-    public String handleInput(String userInput, TaskList taskList) {
+    public String handleInput(String userInput, TaskList taskList, Storage storage) {
         int firstSpaceIndex = userInput.indexOf(" ");
 
         String command = firstSpaceIndex != -1 ? userInput.substring(0, firstSpaceIndex) : userInput;
@@ -13,7 +13,7 @@ public class UserInputHandler {
 
         // Handle exceptions;
         try {
-            output = handleCommand(userInput, command, taskList);
+            output = handleCommand(userInput, command, taskList, storage);
         } catch (ZellException ze) {
             output = ze.toString();
         }
@@ -21,7 +21,8 @@ public class UserInputHandler {
         return output;
     }
 
-    public String handleCommand(String userInput, String command, TaskList taskList) throws ZellException {
+    public String handleCommand(String userInput, String command,
+                                TaskList taskList, Storage storage) throws ZellException {
         int firstSpaceIndex = userInput.indexOf(" ");
         String output;
 
@@ -42,10 +43,10 @@ public class UserInputHandler {
         case "deadline":
             // Fallthrough
         case "event":
-            output = handleTaskCommands(userInput, command, firstSpaceIndex, taskList);
+            output = handleTaskCommands(userInput, command, firstSpaceIndex, taskList, storage);
             break;
         case "delete":
-            output = handleDelete(userInput, command, firstSpaceIndex, taskList);
+            output = handleDelete(userInput, command, firstSpaceIndex, taskList, storage);
             break;
         default:
             throw new ZellException(command + ZellMessage.UNKNOWN_COMMAND.message());
@@ -54,7 +55,8 @@ public class UserInputHandler {
         return output;
     }
 
-    public String handleTaskCommands(String userInput, String command, int firstSpaceIndex, TaskList taskList)
+    public String handleTaskCommands(String userInput, String command, int firstSpaceIndex,
+                                     TaskList taskList, Storage storage)
             throws ZellException {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(ZellMessage.TASK_ADDED.message());
@@ -63,6 +65,8 @@ public class UserInputHandler {
 
         taskList.addTask(task);
 
+        storage.storeTask(task);
+
         stringBuilder.append(task);
 
         stringBuilder.append(taskList);
@@ -70,7 +74,8 @@ public class UserInputHandler {
         return stringBuilder.toString();
     }
 
-    public String handleDelete(String userInput, String command, int firstSpaceIndex, TaskList taskList)
+    public String handleDelete(String userInput, String command, int firstSpaceIndex,
+                               TaskList taskList, Storage storage)
             throws ZellException {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(ZellMessage.TASK_REMOVED.message());
@@ -82,6 +87,8 @@ public class UserInputHandler {
         stringBuilder.append(taskList.getTask(index));
 
         taskList.removeTask(index);
+
+        storage.updateTasks(taskList.getAllTasksInString());
 
         stringBuilder.append(taskList);
 
