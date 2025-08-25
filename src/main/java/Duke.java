@@ -1,5 +1,6 @@
 //Imports
 import java.util.Scanner;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
@@ -51,7 +52,7 @@ public class Duke {
     private static void printChatHist(List<Task> chatHist) {
         //Can do some sanity check for whether there is any chat history items
 
-        String hist = "";
+        String hist = "Here are the tasks in your list:\n";
         int counter = 0;
         for (Task item : chatHist) {
             counter += 1;
