@@ -48,8 +48,10 @@ public abstract class LynxUI {
         System.out.println("TaskLynx User Guide:");
         System.out.println();
         System.out.println("General commands:");
-        System.out.println("     bye                    - Exit the program");
-        System.out.println("     reload                 - Reload tasks from the data file (or create it if not found)");
+        System.out.println("     reload                 - Load tasks from data file to task list (destructively)");
+        System.out.println("     save                   - Save task list to date file (destructively)");
+        System.out.println("     bye                    - Save and exit the program");
+        System.out.println("     * Creates a data file first if not found.");
         System.out.println();
         System.out.println("Task creation:");
         System.out.println("     todo [name]");

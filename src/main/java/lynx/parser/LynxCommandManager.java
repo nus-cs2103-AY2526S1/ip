@@ -33,6 +33,15 @@ public abstract class LynxCommandManager {
     }
 
     /**
+     * Attempts to save the task list to the <code>log.txt</code> data file. Creates the file if it does not exist.
+     */
+    public static void save() {
+        LynxFileManager.createFile();
+        LynxFileManager.writeToFile(LynxStorage.unloadTasks());
+        LynxUI.line();
+    }
+
+    /**
      * Creates a <code>TodoTask</code> and adds it to the task list.
      *
      * @param input User command in the form "todo [name]".

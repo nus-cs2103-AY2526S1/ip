@@ -29,6 +29,8 @@ public abstract class LynxScanner {
                     break;
                 } else if (input.trim().equals("reload")) {
                     LynxCommandManager.reload();
+                } else if (input.trim().equals("save")) {
+                    LynxCommandManager.reload();
                 } else if (input.trim().equals("help")) {
                     LynxUI.printHelp();
                 } else if (input.startsWith("list ")) {
