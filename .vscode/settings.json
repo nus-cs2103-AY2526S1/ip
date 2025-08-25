@@ -1,0 +1,4 @@
+{
+    "javascript.format.indentSwitchCase": false,
+    "typescript.format.indentSwitchCase": false
+}
