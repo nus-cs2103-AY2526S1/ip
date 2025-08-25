@@ -23,6 +23,7 @@ public class Duke {
         TODO("todo"),
         DEADLINE("deadline"),
         EVENT("event"),
+        DELETE("delete"),
         UNKNOWNCMD("unrecognized command")
         ;
 
@@ -154,6 +155,7 @@ public class Duke {
                 //Fall over cases
                 case ChatCommand.MARK:
                 case ChatCommand.UNMARK:
+                case ChatCommand.DELETE:
                     /*
                     Can fail in 3 ways
                     1. user requested index is not integer
@@ -170,10 +172,17 @@ public class Duke {
                                 "Nice! I've marked this task as done:\n  %s",
                                 task.setDone(true)
                             ));
-                        } else {
+                        } else if (userCmd == ChatCommand.UNMARK) {
                             chatPrint(String.format(
                                 "OK, I've marked this task as not done yet:\n  %s",
                                 task.setDone(false)
+                            ));
+                        } else {
+                            chatHist.remove(task);
+                            chatPrint(String.format(
+                                "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.",
+                                task,
+                                chatHist.size()
                             ));
                         }
                     } catch (ArrayIndexOutOfBoundsException ex) {
