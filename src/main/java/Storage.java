@@ -35,7 +35,6 @@ public class Storage {
             }
         }
 
-        System.out.println(tasks);
         return tasks;
     }
 
