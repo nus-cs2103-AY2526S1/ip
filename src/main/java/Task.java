@@ -28,7 +28,11 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
-    public boolean getIsDone() {
+    public String getName() {
+        return this.name;
+    }
+
+    public boolean getDone() {
         return this.isDone;
     }
 
