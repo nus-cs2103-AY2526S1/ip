@@ -12,6 +12,7 @@ https://stackoverflow.com/a/26118954
 */
 
 public class Duke {
+    private static final String LINEINDENT = "    ";
     private static final String LINESEP = "____________________________________________________________";
     private enum ChatCommand {
         BYE("bye"),
@@ -35,13 +36,11 @@ public class Duke {
 
     //Handles printing format
     private static void chatPrint(String txt) {
-        //todo: handle multiline indents for all inputs
-        System.out.println(String.format(
-            "\t%s\n\t%s\n\t%s",
-            Duke.LINESEP,
-            txt,
-            Duke.LINESEP
-        ));
+        Stream<String> lineStream = Stream.<String>of(txt.split("\n"))
+
+        System.out.println(Duke.LINEINDENT + Duke.LINESEP);
+        lineStream.forEach(line -> System.out.println(Duke.LINEINDENT + line));
+        System.out.println(Duke.LINEINDENT + Duke.LINESEP);
     }
 
     //Entrypoint
