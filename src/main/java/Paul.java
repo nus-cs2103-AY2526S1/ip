@@ -29,38 +29,58 @@ public class Paul {
         printOutput("Here are the tasks in your list:\n" + list);
     }
 
-    private static void addToDo(String input) {
-        list.add(new ToDo(input.substring(5)));
+    private static void addToDo(String input) throws PaulException {
+        String desc = input.substring(4).trim();
+        if (desc.isEmpty()) {
+            throw new PaulException("The description of a todo cannot be empty!");
+        }
+        list.add(new ToDo(desc));
         printOutput("Got it. I've added this task:\n"
                 + list.get(list.size()) + "\nNow you have " + list.size() + " tasks in the list.");
     }
 
-    private static void addDeadline(String input) {
-        String[] str = input.substring(9).split(" /by ", 2);
-        list.add(new Deadline(str[0], str[1]));
+    private static void addDeadline(String input) throws PaulException {
+        String[] str = input.substring(8).split(" /by ", 2);
+        if (str.length < 2 || str[0].isBlank() || str[1].isBlank()) {
+            throw new PaulException("A deadline must have a description and a /by date!");
+        }
+        list.add(new Deadline(str[0].trim(), str[1]));
         printOutput("Got it. I've added this task:\n"
                 + list.get(list.size()) + "\nNow you have " + list.size() + " tasks in the list.");
     }
 
-    private static void addEvent(String input) {
-        String[] str = input.substring(6).split(" /from | /to ");
-        list.add(new Event(str[0], str[1], str[2]));
+    private static void addEvent(String input) throws PaulException {
+        String[] str = input.substring(5).split(" /from | /to ");
+        if (str.length < 3 || str[0].isBlank() || str[1].isBlank() || str[2].isBlank()) {
+            throw new PaulException("An event must have a description, /from, and /to!");
+        }
+        list.add(new Event(str[0].trim(), str[1], str[2]));
         printOutput("Got it. I've added this task:\n"
                 + list.get(list.size()) + "\nNow you have " + list.size() + " tasks in the list.");
     }
 
-    private static void markTask(String input) {
-        int index = Integer.parseInt(input.split(" ")[1]);
-        list.mark(index);
-
-        printOutput("Nice! I've marked this task as done:\n" + list.get(index));
+    private static void markTask(String input) throws PaulException {
+        try {
+            int index = Integer.parseInt(input.split(" ")[1]);
+            list.mark(index);
+            printOutput("Nice! I've marked this task as done:\n" + list.get(index));
+        } catch (IndexOutOfBoundsException e) {
+            throw new PaulException("Oops! Invalid task number for mark command.");
+        } catch (NumberFormatException e) {
+            throw new PaulException("Please input a number!");
+        }
     }
 
-    private static void unmarkTask(String input) {
-        int index = Integer.parseInt(input.split(" ")[1]);
-        list.unmark(index);
-
-        printOutput("OK, I've marked this task as not done yet:\n" + list.get(index));
+    private static void unmarkTask(String input) throws PaulException {
+        try {
+            int index = Integer.parseInt(input.split(" ")[1]);
+            list.unmark(index);
+            printOutput("OK, I've marked this task as not done yet:\n" + list.get(index));
+        } catch (IndexOutOfBoundsException e) {
+            throw new PaulException("Oops! Invalid task number for unmark command.");
+        } catch (NumberFormatException e) {
+            throw new PaulException("Please input a number!");
+        }
     }
 
     public static void main(String[] args) {
@@ -72,18 +92,22 @@ public class Paul {
             String input = sc.nextLine().trim();
             Parser.CommandType command = Parser.getCommandType(input);
 
-            switch (command) {
-                case BYE -> {
-                    goodbye();
-                    return;
+            try {
+                switch (command) {
+                    case BYE -> {
+                        goodbye();
+                        return;
+                    }
+                    case LIST -> printList();
+                    case TODO -> addToDo(input);
+                    case DEADLINE -> addDeadline(input);
+                    case EVENT -> addEvent(input);
+                    case MARK -> markTask(input);
+                    case UNMARK -> unmarkTask(input);
+                    case UNKNOWN -> printOutput("Sorry, I don't understand the command.");
                 }
-                case LIST -> printList();
-                case TODO -> addToDo(input);
-                case DEADLINE -> addDeadline(input);
-                case EVENT -> addEvent(input);
-                case MARK -> markTask(input);
-                case UNMARK -> unmarkTask(input);
-                default -> printOutput("Sorry, I don't understand the command.");
+            } catch (PaulException e) {
+                printOutput(e.getMessage());
             }
         }
     }
