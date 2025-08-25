@@ -42,13 +42,10 @@ public class Rafayel {
         taskNumber--;
         if (markTask) {
             tasks.get(taskNumber).markAsDone();
-            System.out
-                    .println("Nice! I've marked this task as done:\n  " + tasks.get(taskNumber).toString());
+            System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(taskNumber).toString());
         } else {
             tasks.get(taskNumber).markAsUndone();
-            System.out
-                    .println("OK, I've marked this task as not done yet:\n  "
-                            + tasks.get(taskNumber).toString());
+            System.out.println("OK, I've marked this task as not done yet:\n  " + tasks.get(taskNumber).toString());
 
         }
 
@@ -90,18 +87,15 @@ public class Rafayel {
         printNewTaskString(newTask, counter);
     }
 
-    private static void handleEventCommand(String input, ArrayList<Task> tasks, int counter)
-            throws RafayelException {
+    private static void handleEventCommand(String input, ArrayList<Task> tasks, int counter) throws RafayelException {
         if (input.length() <= 6) {
             throw new RafayelException("Please add in the description of the Event task.");
         }
         if (!input.contains("/from")) {
-            throw new RafayelException(
-                    "Event format is wrong. Example: event [desc] /from [time] /to [time]");
+            throw new RafayelException("Event format is wrong. Example: event [desc] /from [time] /to [time]");
         }
         if (!input.contains("/to")) {
-            throw new RafayelException(
-                    "Event format is wrong. Example: event [desc] /from [time] /to [time]");
+            throw new RafayelException("Event format is wrong. Example: event [desc] /from [time] /to [time]");
         }
 
         String[] taskDate = input.substring(6).split("/");
@@ -114,12 +108,8 @@ public class Rafayel {
 
     public static void main(String[] args) {
         String LINE = "____________________________________________________________";
-        String START_MSG = LINE + "\n"
-                + " Hello! I'm Rafayel\n"
-                + " What can I do for you?\n"
-                + LINE;
-        String END_MSG = " Bye. Hope to see you again soon!\n"
-                + LINE;
+        String START_MSG = LINE + "\n" + " Hello! I'm Rafayel\n" + " What can I do for you?\n" + LINE;
+        String END_MSG = " Bye. Hope to see you again soon!\n" + LINE;
 
         ArrayList<Task> tasks = new ArrayList<Task>();
         int counter = 0;
@@ -148,70 +138,68 @@ public class Rafayel {
                 // System.out.println(command);
 
                 switch (command) {
-                    case BYE:
-                        System.out.println(END_MSG);
-                        return;
+                case BYE:
+                    System.out.println(END_MSG);
+                    return;
 
-                    case LIST:
-                        for (int i = 0; i < counter; i++) {
-                            System.out.println(i + 1 + "." + tasks.get(i).toString());
-                            // System.out.println(String.format("%d. %s", i + 1, data[i]));
-                        }
-                        break;
+                case LIST:
+                    for (int i = 0; i < counter; i++) {
+                        System.out.println(i + 1 + "." + tasks.get(i).toString());
+                        // System.out.println(String.format("%d. %s", i + 1, data[i]));
+                    }
+                    break;
 
-                    case MARK:
-                        // Mark task
-                        handleMarkCommand(input, tasks, counter, true);
-                        break;
+                case MARK:
+                    // Mark task
+                    handleMarkCommand(input, tasks, counter, true);
+                    break;
 
-                    case UNMARK:
-                        // Unmark task
-                        handleMarkCommand(input, tasks, counter, false);
-                        break;
+                case UNMARK:
+                    // Unmark task
+                    handleMarkCommand(input, tasks, counter, false);
+                    break;
 
-                    case TODO:
-                        // Create Todo Task
-                        handleTodoCommand(input, tasks, counter);
-                        counter++;
-                        break;
+                case TODO:
+                    // Create Todo Task
+                    handleTodoCommand(input, tasks, counter);
+                    counter++;
+                    break;
 
-                    case DEADLINE:
-                        // Create Deadline Task
-                        handleDeadlineCommand(input, tasks, counter);
-                        counter++;
-                        break;
+                case DEADLINE:
+                    // Create Deadline Task
+                    handleDeadlineCommand(input, tasks, counter);
+                    counter++;
+                    break;
 
-                    case EVENT:
-                        // Create Event Task
-                        handleEventCommand(input, tasks, counter);
-                        counter++;
-                        break;
+                case EVENT:
+                    // Create Event Task
+                    handleEventCommand(input, tasks, counter);
+                    counter++;
+                    break;
 
-                    case DELETE:
-                        // Delete tasks
-                        if (input.length() <= 7) {
-                            throw new RafayelException("Please indicate which task to delete (i.e. delete 1)");
-                        }
-                        String[] temp = input.split(" ");
-                        int taskNumber = Integer.parseInt(temp[1]);
+                case DELETE:
+                    // Delete tasks
+                    if (input.length() <= 7) {
+                        throw new RafayelException("Please indicate which task to delete (i.e. delete 1)");
+                    }
+                    String[] temp = input.split(" ");
+                    int taskNumber = Integer.parseInt(temp[1]);
 
-                        if (taskNumber <= 0 || taskNumber > counter) {
-                            throw new RafayelException("Invalid task number.");
-                        }
-                        taskNumber--;
+                    if (taskNumber <= 0 || taskNumber > counter) {
+                        throw new RafayelException("Invalid task number.");
+                    }
+                    taskNumber--;
 
-                        Task deletedTask = tasks.remove(taskNumber);
-                        counter--;
+                    Task deletedTask = tasks.remove(taskNumber);
+                    counter--;
 
-                        System.out
-                                .println("Noted. I've removed this task:\n  " + deletedTask.toString()
-                                        + "\nNow you have "
-                                        + counter + " tasks in the list.");
-                        break;
+                    System.out.println("Noted. I've removed this task:\n  " + deletedTask.toString() + "\nNow you have "
+                            + counter + " tasks in the list.");
+                    break;
 
-                    case UNKNOWN:
-                        //
-                        throw new RafayelException("Please enter a valid prompt! (i.e. todo/deadline/event)");
+                case UNKNOWN:
+                    //
+                    throw new RafayelException("Please enter a valid prompt! (i.e. todo/deadline/event)");
 
                 }
             } catch (RafayelException e) {

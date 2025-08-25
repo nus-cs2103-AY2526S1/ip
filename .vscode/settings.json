@@ -1,4 +1,9 @@
 {
     "javascript.format.indentSwitchCase": false,
-    "typescript.format.indentSwitchCase": false
+    "typescript.format.indentSwitchCase": false,
+
+    "java.format.settings.profile": "NoIndentCase",
+    "java.format.settings.url": "file://${workspaceFolder}/eclipse-formatter.xml",
+
+
 }
