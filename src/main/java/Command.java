@@ -23,7 +23,9 @@ public enum Command {
 
     public static Command stringToCommand(String word) throws BBongException {
         for (Command c : Command.values()) {
-            if (c.getCommandWord().equalsIgnoreCase(word)) return c;
+            if (c.getCommandWord().equalsIgnoreCase(word)) {
+                return c;
+            }
         }
         throw new BBongException("Unknown Command");
     }

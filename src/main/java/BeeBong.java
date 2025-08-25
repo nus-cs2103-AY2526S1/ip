@@ -3,17 +3,17 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BeeBong {
-    private final String newLine = "____________________________________________________________";
+    private final String NEWLINE = "____________________________________________________________";
     private final List<Task> tasklist = new ArrayList<>();
 
     private void botMessage(String message) {
-        System.out.println(this.newLine);
+        System.out.println(this.NEWLINE);
         System.out.println(message);
-        System.out.println(this.newLine);
+        System.out.println(this.NEWLINE);
     }
 
     private void botErrorMessage(String errorMessage) {
-        botMessage("Bong Alert! - "+errorMessage);
+        botMessage("Bong Alert! - " + errorMessage);
     }
 
     private void greetingMessage() {
@@ -42,12 +42,12 @@ public class BeeBong {
             botMessage("Bong! I searched high and low… still nothing to show right now.");
             return;
         }
-        System.out.println(this.newLine);
+        System.out.println(this.NEWLINE);
         System.out.println("Bing! Here’s what’s buzzing in your list, courtesy of B. Bong:");
         for (int i = 0; i < this.tasklist.size(); i++) {
             System.out.println((i + 1) + ". " + this.tasklist.get(i));
         }
-        System.out.println(this.newLine);
+        System.out.println(this.NEWLINE);
     }
 
     private void markTaskAs(String params, boolean status) {
@@ -64,8 +64,11 @@ public class BeeBong {
                 return;
             }
             //Mark Task as Completed/Incomplete
-            if (status) this.tasklist.get(taskNum).markCompleted();
-            else this.tasklist.get(taskNum).markIncomplete();
+            if (status) {
+                this.tasklist.get(taskNum).markCompleted();
+            } else {
+                this.tasklist.get(taskNum).markIncomplete();
+            }
             botMessage("Bing! Task #" + (taskNum + 1) + " marked as " + (status ? "complete" : "incomplete") + "!");
         } catch (NumberFormatException e) {
             botErrorMessage("That task number doesn’t exist. Try a real one!");
@@ -106,14 +109,17 @@ public class BeeBong {
         }
         // Add Task to taskList
         this.tasklist.add(newTask);
-        botMessage("Bing! Task added to my list:\n"+newTask+"\nYou now have "+this.tasklist.size()+" task(s) buzzing around in the list.");
+        botMessage("Bing! Task added to my list:\n" + newTask + "\nYou now have " + this.tasklist.size() + " task(s) " +
+                "buzzing around in the list.");
     }
 
     private String[] convertDetailsToDeadlineTaskInfo(String details) throws BBongException {
         // e.g. "return book /by Sunday
         String[] taskInfo = details.split(" /by ");
         // If after the split we have more than 2 elements, means the input is invalid
-        if (taskInfo.length != 2) throw new BBongException("Invalid Task Details for Deadline Task");
+        if (taskInfo.length != 2) {
+            throw new BBongException("Invalid Task Details for Deadline Task");
+        }
         return taskInfo;
     }
 
@@ -123,12 +129,16 @@ public class BeeBong {
         // Split string based on /from
         String[] temp = details.split(" /from ");
         // If after the split we have more than 2 elements, means the input is invalid
-        if (temp.length != 2) throw new BBongException("Invalid Task Details for Event Task");
+        if (temp.length != 2) {
+            throw new BBongException("Invalid Task Details for Event Task");
+        }
         result[0] = temp[0];
         // Split string based on /to
         temp = temp[1].split(" /to ");
         // If after the split we have more than 2 elements, means the input is invalid
-        if (temp.length != 2) throw new BBongException("Invalid Task Details for Event Task");
+        if (temp.length != 2) {
+            throw new BBongException("Invalid Task Details for Event Task");
+        }
         result[1] = temp[0];
         result[2] = temp[1];
         return result;
@@ -185,39 +195,39 @@ public class BeeBong {
             String params = commandParts.length > 1 ? commandParts[1] : null;
 
             switch (command) {
-                // Exit
-                case BYE:
-                    exitMessage();
-                    running = false;
-                    break;
-                // Help
-                case HELP:
-                    showCommands();
-                    break;
-                // List Tasks
-                case LIST:
-                    // List all Tasks
-                    listTasks();
-                    break;
-                // Mark Tasks
-                case MARK:
-                case UNMARK:
-                    // Mark the task as complete or incomplete
-                    markTaskAs(params, command == Command.MARK);
-                    break;
-                // Add Tasks
-                case DEADLINE:
-                case TODO:
-                case EVENT:
-                    addTask(command.getCommandWord(), params);
-                    break;
-                // Delete Tasks
-                case DELETE:
-                    deleteTask(params);
-                    break;
-                // Unknown Commands
-                default:
-                    botErrorMessage("Something went boom in B. Bong’s circuits.");
+            // Exit
+            case BYE:
+                exitMessage();
+                running = false;
+                break;
+            // Help
+            case HELP:
+                showCommands();
+                break;
+            // List Tasks
+            case LIST:
+                // List all Tasks
+                listTasks();
+                break;
+            // Mark Tasks
+            case MARK:
+            case UNMARK:
+                // Mark the task as complete or incomplete
+                markTaskAs(params, command == Command.MARK);
+                break;
+            // Add Tasks
+            case DEADLINE:
+            case TODO:
+            case EVENT:
+                addTask(command.getCommandWord(), params);
+                break;
+            // Delete Tasks
+            case DELETE:
+                deleteTask(params);
+                break;
+            // Unknown Commands
+            default:
+                botErrorMessage("Something went boom in B. Bong’s circuits.");
             }
         }
     }
