@@ -19,6 +19,9 @@ public class Duke {
         LIST("list"),
         MARK("mark"),
         UNMARK("unmark"),
+        TODO("todo"),
+        DEADLINE("deadline"),
+        EVENT("event"),
         UNKNOWNCMD("unrecognized command")
         ;
 
@@ -36,18 +39,58 @@ public class Duke {
 
     //Handles printing format
     private static void chatPrint(String txt) {
-        Stream<String> lineStream = Stream.<String>of(txt.split("\n"))
+        //todo: does not check for empty txt string
+        Stream<String> lineStream = Stream.<String>of(txt.split("\n"));
 
         System.out.println(Duke.LINEINDENT + Duke.LINESEP);
         lineStream.forEach(line -> System.out.println(Duke.LINEINDENT + line));
         System.out.println(Duke.LINEINDENT + Duke.LINESEP);
     }
 
+    //LIST command
+    private static void printChatHist(List<Task> chatHist) {
+        //Can do some sanity check for whether there is any chat history items
+
+        String hist = "";
+        int counter = 0;
+        for (Task item : chatHist) {
+            counter += 1;
+            hist += String.format(
+                "%d. %s\n",
+                counter,
+                item
+            );
+        }
+
+        //Note: for static internal methods, should this function call be preceeded by 
+        //the class name? e.g. Duke.chatPrint(...)
+        chatPrint(hist.stripTrailing());
+    }
+
+    private static Todo createTodo(String taskDetail) {
+        return new Todo(taskDetail);
+    }
+
+    private static Deadline createDeadline(String taskDetail) {
+        String[] tmp = taskDetail.split(" /by ", 2);
+        
+        //exception thrown here indicates deadline was not provided by the user
+        return new Deadline(tmp[0], tmp[1]);
+    }
+
+    private static Event createEvent(String taskDetail) {
+        String[] tmp = taskDetail.split(" /from ", 2);
+        //exception thrown here indicates start/end was not provided by the user
+        String[] startEnd = tmp[1].split(" /to ", 2);
+        
+        return new Event(tmp[0], startEnd[0], startEnd[1]);
+    }
+
     //Entrypoint
     public static void main(String[] args) {
         //Entry message
         chatPrint("Hello! I'm Crysis Heir Activity Sentre Hepdesk (CHASH)." + 
-            "\n\t" + "What can I do for you?");
+            "\n" + "What can I do for you?");
 
         //Work loop vars
         Scanner scanStdin = new Scanner(System.in);
@@ -68,20 +111,16 @@ public class Duke {
                 userCmd = ChatCommand.UNKNOWNCMD;
             }
 
+            Task task;
             switch (userCmd) {
                 case ChatCommand.BYE:
                     exitFlag = true;
                     chatPrint("Bye. Hope to see you again soon!");
                     break;
                 case ChatCommand.LIST:
-                    //todo: this print isnt perfect yet
-                    Stream.<Integer>iterate(0, x -> x < chatHist.size(), x -> x + 1)
-                        .forEach(x -> System.out.println(String.format(
-                            "\t%d. %s",
-                            x + 1,
-                            chatHist.get(x)
-                        )));
+                    printChatHist(chatHist);
                     break;
+                
                 //Fall over cases
                 case ChatCommand.MARK:
                 case ChatCommand.UNMARK:
@@ -90,25 +129,44 @@ public class Duke {
                     1. user requested index is not integer
                     2. index does not exist
                     */
-                    Task task = chatHist.get(
+                    task = chatHist.get(
                         Integer.valueOf(userInput.split(" ", 2)[1]) - 1
                     );
 
                     if (userCmd == ChatCommand.MARK) {
                         chatPrint(String.format(
-                            "Nice! I've marked this task as done:\n\t  %s",
-                            task.toggleDone()
+                            "Nice! I've marked this task as done:\n  %s",
+                            task.setDone(true)
                         ));
                     } else {
                         chatPrint(String.format(
-                            "OK, I've marked this task as not done yet:\n\t  %s",
-                            task.toggleDone()
+                            "OK, I've marked this task as not done yet:\n  %s",
+                            task.setDone(false)
                         ));
                     }
                     break;
+                
+                case ChatCommand.TODO:
+                case ChatCommand.DEADLINE:
+                case ChatCommand.EVENT:
+                    String taskDetail = userInput.split(" ", 2)[1];
+                    if (userCmd == ChatCommand.TODO) {
+                        task = createTodo(taskDetail);
+                    } else if (userCmd == ChatCommand.DEADLINE) {
+                        task = createDeadline(taskDetail);
+                    } else {
+                        task = createEvent(taskDetail);
+                    }
+                    chatHist.add(task);
+                    chatPrint(String.format(
+                        "Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.",
+                        task,
+                        chatHist.size()
+                    ));
+                    break;
+                
                 default:
-                    chatHist.add(new Task(userInput));
-                    chatPrint("added: " + userInput);
+                    chatPrint("Unsupported Command: " + userInput);
             }
         }
     }
