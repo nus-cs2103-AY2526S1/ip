@@ -9,16 +9,20 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    public TaskList(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     public void addTask(Task task) {
         this.tasks.add(task);
     }
 
     public void markTaskAsDone(int index) {
-        this.tasks.get(index - 1).setDone();
+        this.tasks.get(index - 1).setDone(true);
     }
 
     public void markTaskAsNotDone(int index) {
-        this.tasks.get(index - 1).setNotDone();
+        this.tasks.get(index - 1).setDone(false);
     }
 
     public Task getTask(int index) {
@@ -39,6 +43,16 @@ public class TaskList {
         }
 
         return stringBuilder.toString();
+    }
+
+    public List<String> getAllTasksInString() {
+        List<String> tasks = new ArrayList<>();
+
+        for (Task task: this.tasks) {
+            tasks.add(task.taskToString());
+        }
+
+        return tasks;
     }
 
     public boolean checkIfTaskExists(int index) {
