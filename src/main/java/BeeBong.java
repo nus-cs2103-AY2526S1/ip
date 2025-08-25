@@ -1,10 +1,14 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 
 public class BeeBong {
     private final String NEWLINE = "____________________________________________________________";
-    private final List<Task> tasklist = new ArrayList<>();
+    private final List<Task> tasks = new ArrayList<>();
 
     private void botMessage(String message) {
         System.out.println(this.NEWLINE);
@@ -38,14 +42,14 @@ public class BeeBong {
 
     private void listTasks() {
         // If there are no Tasks to list
-        if (this.tasklist.isEmpty()) {
+        if (this.tasks.isEmpty()) {
             botMessage("Bong! I searched high and low… still nothing to show right now.");
             return;
         }
         System.out.println(this.NEWLINE);
         System.out.println("Bing! Here’s what’s buzzing in your list, courtesy of B. Bong:");
-        for (int i = 0; i < this.tasklist.size(); i++) {
-            System.out.println((i + 1) + ". " + this.tasklist.get(i));
+        for (int i = 0; i < this.tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + this.tasks.get(i));
         }
         System.out.println(this.NEWLINE);
     }
@@ -59,15 +63,15 @@ public class BeeBong {
         try {
             int taskNum = Integer.parseInt(params) - 1;
             //Check for valid task number
-            if (taskNum < 0 || taskNum >= this.tasklist.size()) {
+            if (taskNum < 0 || taskNum >= this.tasks.size()) {
                 botErrorMessage("That task number doesn’t exist. Try a real one!");
                 return;
             }
             //Mark Task as Completed/Incomplete
             if (status) {
-                this.tasklist.get(taskNum).markCompleted();
+                this.tasks.get(taskNum).markCompleted();
             } else {
-                this.tasklist.get(taskNum).markIncomplete();
+                this.tasks.get(taskNum).markIncomplete();
             }
             botMessage("Bing! Task #" + (taskNum + 1) + " marked as " + (status ? "complete" : "incomplete") + "!");
         } catch (NumberFormatException e) {
@@ -108,8 +112,8 @@ public class BeeBong {
             newTask = new ToDoTask(details);
         }
         // Add Task to taskList
-        this.tasklist.add(newTask);
-        botMessage("Bing! Task added to my list:\n" + newTask + "\nYou now have " + this.tasklist.size() + " task(s) " +
+        this.tasks.add(newTask);
+        botMessage("Bing! Task added to my list:\n" + newTask + "\nYou now have " + this.tasks.size() + " task(s) " +
                 "buzzing around in the list.");
     }
 
@@ -153,15 +157,51 @@ public class BeeBong {
         try {
             int taskNum = Integer.parseInt(params) - 1;
             //Check for valid task number
-            if (taskNum < 0 || taskNum >= this.tasklist.size()) {
+            if (taskNum < 0 || taskNum >= this.tasks.size()) {
                 botErrorMessage("That task number doesn’t exist. Try a real one!");
                 return;
             }
             //Delete Task
-            Task removedTask = this.tasklist.remove(taskNum);
-            botMessage("Bing! This task has been removed:\n"+removedTask+"\nYou now have "+this.tasklist.size()+" task(s) buzzing around in the list.");
+            Task removedTask = this.tasks.remove(taskNum);
+            botMessage("Bing! This task has been removed:\n"+removedTask+"\nYou now have "+this.tasks.size()+" task(s) buzzing around in the list.");
         } catch (NumberFormatException e) {
             botErrorMessage("That task number doesn’t exist. Try a real one!");
+        }
+    }
+
+    private void readTasksFromFile() {
+        //Check if File Exists
+        File saveFile = new File("bbongSave.txt");
+        // If File does not exist, create it
+        if (!saveFile.exists()) {
+            // Do nothing
+            return;
+        }
+        //Else Read the saved Tasks from the file
+        botMessage("Bing! Saved Tasks found, loading saved tasks...");
+        try {
+            Scanner reader = new Scanner(saveFile);
+        } catch (FileNotFoundException e) {
+            botErrorMessage("Unable to read tasks from file.");
+        }
+    }
+
+    // Referenced from: https://www.w3schools.com/java/java_files_create.asp
+    // and https://www.w3schools.com/java/java_files_read.asp
+    private void writeTasksToFile() {
+        // No need to check if the File exists before writing
+        // as FileWriter automatically handles that for us.
+
+        // Write Task List to File
+        try {
+            FileWriter writer = new FileWriter("bbongSave.txt", true);
+            for (Task t : tasks) {
+                writer.write(t.serializeTask() + System.lineSeparator());
+            }
+            writer.close();
+            botMessage("Bing! Bing! Tasks saved successfully!");
+        } catch (IOException e) {
+            botErrorMessage("Unable to save tasks to file.");
         }
     }
 
@@ -169,6 +209,9 @@ public class BeeBong {
         greetingMessage();
         showCommands();
         Scanner s = new Scanner(System.in);
+
+        // Check for Saved Data
+        readTasksFromFile();
 
         boolean running = true;
         while (running) {
@@ -181,6 +224,7 @@ public class BeeBong {
                 break;
             }
 
+            // Process user Input
             String input = s.nextLine().trim();
 
             // Check for Commands
@@ -197,6 +241,7 @@ public class BeeBong {
             switch (command) {
             // Exit
             case BYE:
+                writeTasksToFile();
                 exitMessage();
                 running = false;
                 break;

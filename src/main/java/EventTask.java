@@ -24,6 +24,13 @@ public class EventTask extends Task {
         this.endDate = endDate;
     }
 
+    public String serializeTask() {
+        return "E" + this.SAVEDELIMITER + (isCompleted() ? "1" : "0")
+                + this.SAVEDELIMITER + this.encodeString(this.getName())
+                + this.SAVEDELIMITER + this.encodeString(this.startDate)
+                + this.SAVEDELIMITER + this.encodeString(this.endDate);
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.startDate + " to " + this.endDate + ")";

@@ -1,6 +1,9 @@
+import java.util.Base64;
+
 public abstract class Task {
     private String name;
     private boolean completed;
+    protected final String SAVEDELIMITER = "|";
 
     public Task(String name) {
         this.name = name;
@@ -25,6 +28,20 @@ public abstract class Task {
 
     public void markIncomplete() {
         this.completed = false;
+    }
+
+    // SerialiseTask declared abstract for ensure child classes implement it,
+    // but deserializeTask cannot be declared as an abstract method here
+    // due to its nature of being static
+    public abstract String serializeTask();
+
+    // Idea taken from chatGPT on how to safely design my serialization of strings
+    protected String encodeString(String str) {
+        return Base64.getEncoder().encodeToString(str.getBytes());
+    }
+
+    protected String decodeString(String str) {
+        return new String(Base64.getDecoder().decode(str));
     }
 
     @Override
