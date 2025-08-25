@@ -1,0 +1,18 @@
+hello123
+this should be invalid
+
+todo RANDOM TODO
+deadline RANDOM DEADLINE /by TODAY!!!
+event RANDOM EVENT /from NOW /to TMR!!!
+todo some other todo
+deadline some other deadline /by 2359
+event some otther event /from 0000 /to 2359
+
+list
+mark 1
+mark 3
+mark 6
+list
+unmark 3
+list
+bye
