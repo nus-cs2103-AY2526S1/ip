@@ -69,20 +69,49 @@ public class Duke {
     }
 
     private static Todo createTodo(String taskDetail) {
+        //Sanity check
+        if (taskDetail.isEmpty()) {
+            throw new DukeException("Todo no description");
+        }
+
         return new Todo(taskDetail);
     }
 
     private static Deadline createDeadline(String taskDetail) {
         String[] tmp = taskDetail.split(" /by ", 2);
+
+        //Sanity check
+        if (tmp.length != 2) {
+            throw new DukeException("Deadline keyword /by missing");
+        } else if (tmp[0].isEmpty()) {
+            throw new DukeException("Deadline no description");
+        } else if (tmp[1].isEmpty()) {
+            throw new DukeException("/by missing value");
+        }
         
-        //exception thrown here indicates deadline was not provided by the user
         return new Deadline(tmp[0], tmp[1]);
     }
 
     private static Event createEvent(String taskDetail) {
         String[] tmp = taskDetail.split(" /from ", 2);
-        //exception thrown here indicates start/end was not provided by the user
+
+        //Sanity check
+        if (tmp.length != 2) {
+            throw new DukeException("Event keyword /from missing");
+        } else if (tmp[0].isEmpty()) {
+            throw new DukeException("Event no description");
+        }
+
         String[] startEnd = tmp[1].split(" /to ", 2);
+
+        //Sanity check
+        if (startEnd.length != 2) {
+            throw new DukeException("Event keyword /to missing");
+        } else if (startEnd[0].isEmpty()) {
+            throw new DukeException("/from missing value");
+        } else if (startEnd[1].isEmpty()) {
+            throw new DukeException("/to missing value");
+        }
         
         return new Event(tmp[0], startEnd[0], startEnd[1]);
     }
@@ -126,44 +155,60 @@ public class Duke {
                 case ChatCommand.MARK:
                 case ChatCommand.UNMARK:
                     /*
-                    Can fail in 2 ways
+                    Can fail in 3 ways
                     1. user requested index is not integer
                     2. index does not exist
+                    3. user did not provide an index
                     */
-                    task = chatHist.get(
-                        Integer.valueOf(userInput.split(" ", 2)[1]) - 1
-                    );
+                    try {
+                        task = chatHist.get(
+                            Integer.valueOf(userInput.split(" ", 2)[1]) - 1
+                        );
 
-                    if (userCmd == ChatCommand.MARK) {
-                        chatPrint(String.format(
-                            "Nice! I've marked this task as done:\n  %s",
-                            task.setDone(true)
-                        ));
-                    } else {
-                        chatPrint(String.format(
-                            "OK, I've marked this task as not done yet:\n  %s",
-                            task.setDone(false)
-                        ));
+                        if (userCmd == ChatCommand.MARK) {
+                            chatPrint(String.format(
+                                "Nice! I've marked this task as done:\n  %s",
+                                task.setDone(true)
+                            ));
+                        } else {
+                            chatPrint(String.format(
+                                "OK, I've marked this task as not done yet:\n  %s",
+                                task.setDone(false)
+                            ));
+                        }
+                    } catch (ArrayIndexOutOfBoundsException ex) {
+                        chatPrint("No item requested");
+                    } catch (NumberFormatException ex) {
+                        chatPrint("Please specify by item number");
+                    } catch (IndexOutOfBoundsException ex) {
+                        chatPrint("Item does not exist in the list");
                     }
                     break;
                 
                 case ChatCommand.TODO:
                 case ChatCommand.DEADLINE:
                 case ChatCommand.EVENT:
-                    String taskDetail = userInput.split(" ", 2)[1];
-                    if (userCmd == ChatCommand.TODO) {
-                        task = createTodo(taskDetail);
-                    } else if (userCmd == ChatCommand.DEADLINE) {
-                        task = createDeadline(taskDetail);
-                    } else {
-                        task = createEvent(taskDetail);
+                    try {
+                        String taskDetail = userInput.split(" ", 2)[1];
+                        if (userCmd == ChatCommand.TODO) {
+                            task = createTodo(taskDetail);
+                        } else if (userCmd == ChatCommand.DEADLINE) {
+                            task = createDeadline(taskDetail);
+                        } else {
+                            task = createEvent(taskDetail);
+                        }
+
+                        chatHist.add(task);
+                        chatPrint(String.format(
+                            "Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.",
+                            task,
+                            chatHist.size()
+                        ));
+                    } catch (ArrayIndexOutOfBoundsException ex) {
+                        chatPrint("No details provided");
+                    } catch (DukeException ex) {
+                        chatPrint(ex.getMessage());
                     }
-                    chatHist.add(task);
-                    chatPrint(String.format(
-                        "Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.",
-                        task,
-                        chatHist.size()
-                    ));
                     break;
                 
                 default:
