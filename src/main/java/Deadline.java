@@ -8,7 +8,11 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + deadlineDate + ")";
+        return "[D]" + super.toString() + " (by: " + this.deadlineDate + ")";
     }
 
+    @Override
+    public String saveTaskName() {
+        return "D" + super.saveTaskName() + " | " + this.deadlineDate;
+    }
 }
