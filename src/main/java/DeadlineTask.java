@@ -1,15 +1,16 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 public class DeadlineTask extends Task {
-    private LocalDate deadline;
+    private LocalDateTime deadline;
 
-    public DeadlineTask(String name, LocalDate deadline) {
+    public DeadlineTask(String name, LocalDateTime deadline) {
         super(name);
         this.deadline = deadline;
     }
 
-    private DeadlineTask(String name, boolean isCompleted, LocalDate deadline) {
+    private DeadlineTask(String name, boolean isCompleted, LocalDateTime deadline) {
         super(name);
         this.deadline = deadline;
         if (isCompleted) {
@@ -17,18 +18,18 @@ public class DeadlineTask extends Task {
         }
     }
 
-    public LocalDate getDeadline() {
+    public LocalDateTime getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(LocalDate deadline) {
+    public void setDeadline(LocalDateTime deadline) {
         this.deadline = deadline;
     }
 
     public String serializeTask() {
         return "D" + SAVE_DELIMITER + (isCompleted() ? "1" : "0")
                 + SAVE_DELIMITER + this.encodeString(this.getName())
-                + SAVE_DELIMITER + this.encodeString(Task.dateToString(this.deadline));
+                + SAVE_DELIMITER + this.encodeString(Task.dateTimeToString(this.deadline));
     }
 
     public static DeadlineTask deserializeTask(String taskStr) throws InvalidSerializedTaskDataException {
@@ -41,9 +42,9 @@ public class DeadlineTask extends Task {
         // ["D", "0", "NAME", "DEADLINE"]
         String name = decodeString(taskData[2]);
         boolean isCompleted = taskData[1].equals("1");
-        LocalDate deadline;
+        LocalDateTime deadline;
         try {
-            deadline = Task.parseDate(decodeString(taskData[3]));
+            deadline = Task.parseDateTime(decodeString(taskData[3]));
         } catch (DateTimeParseException e) {
             throw new InvalidSerializedTaskDataException();
         }
@@ -53,6 +54,6 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + Task.dateToString(this.deadline) + ")";
+        return "[D]" + super.toString() + " (by: " + Task.dateTimeToString(this.deadline) + ")";
     }
 }

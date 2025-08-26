@@ -9,7 +9,7 @@ public abstract class Task {
     private boolean completed;
     protected static String SAVE_DELIMITER = " ";
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy");
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy H:mm");
 
     public Task(String name) {
         this.name = name;
@@ -65,15 +65,7 @@ public abstract class Task {
         return new String(Base64.getDecoder().decode(str));
     }
 
-    public static LocalDate parseDate(String dateStr) {
-        return LocalDate.parse(dateStr, DATE_FORMATTER);
-    }
-
-    public static String dateToString(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return date.format(formatter);
-    }
-
+    // Updated methods to be more flexible with Date and Time
     public static LocalDateTime parseDateTime(String dateStr) {
         // In order to make the method flexible we need to
         // try parsing it as a LocalDateTime first, if not try LocalDate
@@ -87,11 +79,12 @@ public abstract class Task {
     public static String dateTimeToString(LocalDateTime dateTime) {
         DateTimeFormatter formatterDT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         DateTimeFormatter formatterD = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        // Check if time is 00:00
         if (dateTime.getHour() == 0 && dateTime.getMinute() == 0) {
-            // Only date
+            // Only Date
             return dateTime.toLocalDate().format(formatterD);
         } else {
-            // Date + time
+            // Date and Time
             return dateTime.format(formatterDT);
         }
     }

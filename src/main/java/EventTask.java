@@ -1,17 +1,18 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 public class EventTask extends Task {
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
-    public EventTask(String name, LocalDate startDate, LocalDate endDate) {
+    public EventTask(String name, LocalDateTime startDate, LocalDateTime endDate) {
         super(name);
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    private EventTask(String name, boolean isCompleted, LocalDate startDate, LocalDate endDate) {
+    private EventTask(String name, boolean isCompleted, LocalDateTime startDate, LocalDateTime endDate) {
         super(name);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -20,27 +21,27 @@ public class EventTask extends Task {
         }
     }
 
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return this.startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndDate() {
+    public LocalDateTime getEndDate() {
         return this.endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
     public String serializeTask() {
         return "E" + SAVE_DELIMITER + (isCompleted() ? "1" : "0")
                 + SAVE_DELIMITER + this.encodeString(this.getName())
-                + SAVE_DELIMITER + this.encodeString(Task.dateToString(this.startDate))
-                + SAVE_DELIMITER + this.encodeString(Task.dateToString(this.endDate));
+                + SAVE_DELIMITER + this.encodeString(Task.dateTimeToString(this.startDate))
+                + SAVE_DELIMITER + this.encodeString(Task.dateTimeToString(this.endDate));
     }
 
     public static EventTask deserializeTask(String taskStr) throws InvalidSerializedTaskDataException {
@@ -53,10 +54,10 @@ public class EventTask extends Task {
         // ["E", "0", "NAME", "START", "END]
         String name = decodeString(taskData[2]);
         boolean isCompleted = taskData[1].equals("1");
-        LocalDate startDate, endDate;
+        LocalDateTime startDate, endDate;
         try {
-            startDate = Task.parseDate(decodeString(taskData[3]));
-            endDate = Task.parseDate(decodeString(taskData[4]));
+            startDate = Task.parseDateTime(decodeString(taskData[3]));
+            endDate = Task.parseDateTime(decodeString(taskData[4]));
         } catch (DateTimeParseException e) {
             throw new InvalidSerializedTaskDataException();
         }
@@ -66,6 +67,6 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + Task.dateToString(this.startDate) + " to " + Task.dateToString(this.endDate) + ")";
+        return "[E]" + super.toString() + " (from: " + Task.dateTimeToString(this.startDate) + " to " + Task.dateTimeToString(this.endDate) + ")";
     }
 }
