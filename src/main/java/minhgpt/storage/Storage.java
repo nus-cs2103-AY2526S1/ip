@@ -1,9 +1,5 @@
 package minhgpt.storage;
 
-import minhgpt.task.Task;
-import minhgpt.task.TaskList;
-import minhgpt.util.Logger;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,6 +7,10 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import minhgpt.task.Task;
+import minhgpt.task.TaskList;
+import minhgpt.util.Logger;
 
 /**
  * Responsible for all storage related operations.

@@ -1,11 +1,11 @@
 package minhgpt.command;
 
+import java.text.ParseException;
+
 import minhgpt.ui.Ui;
 import minhgpt.storage.Storage;
 import minhgpt.task.Task;
 import minhgpt.task.TaskList;
-
-import java.text.ParseException;
 
 /**
  * Encapsulate the add task command.

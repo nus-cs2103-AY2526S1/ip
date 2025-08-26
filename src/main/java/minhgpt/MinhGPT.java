@@ -1,12 +1,12 @@
 package minhgpt;
 
+import java.util.Scanner;
+
 import minhgpt.command.Command;
 import minhgpt.task.Task;
 import minhgpt.task.TaskList;
 import minhgpt.ui.Ui;
 import minhgpt.storage.Storage;
-
-import java.util.Scanner;
 
 /**
  * Main program
