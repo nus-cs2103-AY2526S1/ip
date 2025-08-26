@@ -10,6 +10,11 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    // For loading from file
+    public TaskList(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     public int length() {
         return tasks.size();
     }
@@ -28,6 +33,10 @@ public class TaskList {
 
     public Task deleteTask(int taskNum) {
         return this.tasks.remove(taskNum);
+    }
+
+    public void writeTasksToFile(Storage storage) {
+        storage.writeTasksToFile(tasks);
     }
 
     @Override

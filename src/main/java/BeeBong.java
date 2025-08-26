@@ -2,13 +2,26 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 
 public class BeeBong {
     private final String NEWLINE = "____________________________________________________________";
-    private final TaskList taskList = new TaskList();
+    private TaskList taskList;
+    private Storage storage;
+
+    public BeeBong() {
+        storage = new Storage();
+        // Check for Saved Data
+        try {
+            this.taskList = new TaskList(this.storage.readTasksFromFile());
+        } catch (InvalidSerializedTaskDataException e) {
+            botErrorMessage(e.getMessage());
+            this.taskList = new TaskList();
+        }
+    }
 
     private void botMessage(String message) {
         System.out.println(this.NEWLINE);
@@ -230,9 +243,6 @@ public class BeeBong {
         showCommands();
         Scanner s = new Scanner(System.in);
 
-        // Check for Saved Data
-        readTasksFromFile();
-
         boolean running = true;
         while (running) {
             // Ask for user input
@@ -262,7 +272,7 @@ public class BeeBong {
             switch (command) {
             // Exit
             case BYE:
-                writeTasksToFile();
+                this.taskList.writeTasksToFile(this.storage);
                 exitMessage();
                 running = false;
                 break;
@@ -296,5 +306,9 @@ public class BeeBong {
                 botErrorMessage("Something went boom in B. Bong’s circuits.");
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new BeeBong().start();
     }
 }
