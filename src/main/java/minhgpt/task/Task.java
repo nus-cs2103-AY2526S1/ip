@@ -1,3 +1,5 @@
+package minhgpt.task;
+
 import java.text.ParseException;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -8,7 +10,7 @@ import java.util.function.Function;
 /**
  * Base class for a task.
  */
-abstract class Task {
+public abstract class Task {
     /** Map task regex String to constructor of the corresponding task. */
     private static final HashMap<String, Function<String, Task>> registry = new HashMap<>();
 
@@ -32,9 +34,9 @@ abstract class Task {
      * Initialise the mapping in 'registry'.
      */
     public static void initialise() {
-        new TodoTask("todo task1");
-        new DeadlineTask("deadline task1 /by 1970-01-01");
-        new EventTask("event task1 /from 1970-01-01 /to 1970-01-01");
+        new TaskTodo("todo task1");
+        new TaskDeadline("deadline task1 /by 1970-01-01");
+        new TaskEvent("event task1 /from 1970-01-01 /to 1970-01-01");
     }
 
     /**

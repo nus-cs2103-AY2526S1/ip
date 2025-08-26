@@ -1,12 +1,18 @@
-public class CommandMark extends Command {
+package minhgpt.command;
+
+import minhgpt.ui.Ui;
+import minhgpt.storage.Storage;
+import minhgpt.task.TaskList;
+
+class CommandUnmark extends Command {
     static {
-        registry.put("^mark \\d+$", CommandMark::new);
+        registry.put("^unmark \\d+$", CommandUnmark::new);
     }
 
     public void execute(String input, TaskList taskList, Ui ui, Storage storage) {
         int index = Integer.parseInt(input.split("\\s+", 2)[1]) - 1;
         try {
-            ui.printMark(taskList.mark(index));
+            ui.printUnmark(taskList.unmark(index));
         } catch (IndexOutOfBoundsException e) {
             ui.printIndexError();
         }

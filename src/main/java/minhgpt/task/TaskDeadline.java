@@ -1,12 +1,14 @@
+package minhgpt.task;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
  * Encapsulate a deadline task.
  */
-class DeadlineTask extends Task {
+class TaskDeadline extends Task {
     static {
-        register("^deadline .+ /by .+", DeadlineTask::new);
+        register("^deadline .+ /by .+", TaskDeadline::new);
     }
 
     /** Time that task need to be done before. */
@@ -17,7 +19,7 @@ class DeadlineTask extends Task {
      * 
      * @param input Input from user to create a deadline task.
      */
-    public DeadlineTask(String input) {
+    public TaskDeadline(String input) {
         super(input.substring(9).split(" /by ")[0]);
         deadline = LocalDate.parse(input.substring(9).split(" /by ")[1]);
     }

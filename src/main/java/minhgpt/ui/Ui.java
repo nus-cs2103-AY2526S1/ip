@@ -1,3 +1,8 @@
+package minhgpt.ui;
+
+import minhgpt.task.Task;
+import minhgpt.task.TaskList;
+
 /**
  * Responsible for all UI printing.
  */

@@ -1,3 +1,9 @@
+package minhgpt.command;
+
+import minhgpt.ui.Ui;
+import minhgpt.storage.Storage;
+import minhgpt.task.TaskList;
+
 import java.util.HashMap;
 import java.util.function.Supplier;
 
@@ -36,5 +42,9 @@ public abstract class Command {
         }
 
         return new CommandAdd();
+    }
+
+    public static boolean isCommandBye(Command command) {
+        return command instanceof CommandBye;
     }
 }

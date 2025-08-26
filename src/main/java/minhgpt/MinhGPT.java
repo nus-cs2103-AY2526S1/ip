@@ -1,3 +1,9 @@
+import minhgpt.command.Command;
+import minhgpt.task.Task;
+import minhgpt.task.TaskList;
+import minhgpt.ui.Ui;
+import minhgpt.storage.Storage;
+
 import java.util.Scanner;
 
 public class MinhGPT {
@@ -25,7 +31,7 @@ public class MinhGPT {
 
             Command cmd = Command.parseCommand(input);
             cmd.execute(input, taskList, ui, storage);
-            if (cmd instanceof CommandBye) {
+            if (Command.isCommandBye(cmd)) {
                 break;
             }
         }

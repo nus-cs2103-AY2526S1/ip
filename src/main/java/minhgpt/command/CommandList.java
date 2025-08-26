@@ -1,4 +1,10 @@
-public class CommandList extends Command {
+package minhgpt.command;
+
+import minhgpt.ui.Ui;
+import minhgpt.storage.Storage;
+import minhgpt.task.TaskList;
+
+class CommandList extends Command {
     static {
         registry.put("^list$", CommandList::new);
     }

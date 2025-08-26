@@ -1,12 +1,14 @@
+package minhgpt.task;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
  * Encapsulate an event task.
  */
-class EventTask extends Task {
+class TaskEvent extends Task {
     static {
-        register("^event .+ /from .+ /to .+", EventTask::new);
+        register("^event .+ /from .+ /to .+", TaskEvent::new);
     }
 
     /** Start time of event. */
@@ -19,7 +21,7 @@ class EventTask extends Task {
      * 
      * @param input Input from user to create an event task.
      */
-    public EventTask(String input) {
+    public TaskEvent(String input) {
         super(input.substring(6).split(" /from ")[0]);
         String[] split = input.substring(6).split(" /from ")[1].split(" /to ");
         from = LocalDate.parse(split[0]);
