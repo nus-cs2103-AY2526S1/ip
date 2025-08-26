@@ -1,5 +1,6 @@
-import java.util.ArrayList;
-
+/**
+ * Responsible for all UI printing.
+ */
 public class Ui {
     // NOTE: PRIVATE
 
@@ -108,7 +109,7 @@ public class Ui {
     /**
      * Print the UI when user list all tasks.
      */
-    public void printList(ArrayList<Task> tasks) {
+    public void printList(TaskList tasks) {
         System.out.println(String.format(
                 "(˶˃ ᵕ ˂˶) Here are the list of tasks. You have %d in total.", tasks.size()));
         for (int i = 0; i < tasks.size(); i++) {

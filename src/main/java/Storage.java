@@ -6,6 +6,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Responsible for all storage related operations.
+ */
 public class Storage {
     private static final String FILENAME = "mem.txt";
 
@@ -14,7 +17,7 @@ public class Storage {
      *
      * @param tasks Tasks to be saved.
      */
-    public void saveTasks(ArrayList<Task> tasks) {
+    public void saveTasks(TaskList tasks) {
         try {
             FileWriter writer = new FileWriter(FILENAME);
             String content = "";
@@ -38,8 +41,9 @@ public class Storage {
      *
      * @return Tasks read from disks.
      */
-    public ArrayList<Task> loadTasks() {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public TaskList loadTasks() {
+        TaskList tasks = new TaskList();
+
         try {
             Scanner scanner = new Scanner(new File(FILENAME));
             int i = 0;
