@@ -18,7 +18,7 @@ public class Zell {
         try {
             taskList = new TaskList(storage.loadTasks());
         } catch (ZellException ze) {
-            ui.showError(ze.toString());
+            ui.showMessage(ze.toString());
             taskList = new TaskList(new ArrayList<>());
         }
 

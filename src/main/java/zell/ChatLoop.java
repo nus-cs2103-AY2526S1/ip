@@ -15,7 +15,7 @@ public class ChatLoop {
         this.taskList = taskList;
         this.parser = new Parser();
         this.storage = storage;
-        this.ui = new Ui();
+        this.ui = ui;
     }
 
     public void run() {
@@ -26,13 +26,14 @@ public class ChatLoop {
         while (!endProgram) {
             String userInput = ui.readInput();
 
+            String output;
             try {
-                String output = parser.parseInput(userInput, taskList, storage);
-                ui.showMessage(output);
+                output = parser.parseInput(userInput, taskList, storage);
             } catch (ZellException ze) {
-                ui.showError(ze.toString());
+                output = ze.toString();
             }
 
+            ui.showMessage(output);
             endProgram = parser.getEndProgram();
         }
     }

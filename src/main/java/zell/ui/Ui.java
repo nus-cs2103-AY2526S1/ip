@@ -17,10 +17,6 @@ public class Ui {
         System.out.println(formatMessage(message));
     }
 
-    public void showError(String message) {
-        System.out.println(formatMessage("Error: " + message));
-    }
-
     private static String formatMessage(String message) {
         return "________________________________________" +
                 "__________________________________________________\n" +
