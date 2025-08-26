@@ -1,17 +1,30 @@
 package taskTypes;
 
-public class Event extends Task {
-    protected String from;
-    protected String to;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String from, String to) {
+public class Event extends Task {
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
+    private String dateTimeStr(LocalDateTime dateTime) {
+        boolean isMidnight = dateTime.toLocalTime().equals(LocalTime.MIDNIGHT);
+        if (isMidnight) return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        else return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm"));
+    }
+
     @Override
     public String toString() {
-        return "[E]"  + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]"  + super.toString() + " (FROM: " +
+                dateTimeStr(from) +
+                " TO: " +
+                dateTimeStr(to) + ")";
     }
 }

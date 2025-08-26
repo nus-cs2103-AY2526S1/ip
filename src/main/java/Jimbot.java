@@ -1,6 +1,9 @@
 import exceptions.*;
 import taskTypes.*;
 import util.Helper;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Jimbot {
@@ -8,8 +11,8 @@ public class Jimbot {
         String userInput;
         Scanner scanner = new Scanner(System.in);
         Response user = new Response();
-        Database db = new Database("./data/database.db");
-        taskList userList = db.load();
+        Database userDb = new Database("./data/database.txt");
+        taskList userList = userDb.load();
 
         user.hello("Jimbot");
 
@@ -18,7 +21,7 @@ public class Jimbot {
 
             try {
                 int taskCount = userList.getTaskCount();
-                if (userInput.toLowerCase().matches(".*\\b(bye|goodbye)\\b.*mal")) {
+                if (userInput.toLowerCase().matches(".*\\b(bye|goodbye)\\b.*")) {
                     user.goodBye();
                     break;
 
@@ -30,32 +33,31 @@ public class Jimbot {
                     Task task = userList.getTask(index);
                     task.markAsDone();
                     user.markRes(userList, index);
-                    db.update(userList);
+                    userDb.update(userList);
 
                 } else if (userInput.startsWith("unmark")) {
                     int index = Helper.parseIndex(userInput, "unmark", taskCount);
                     Task task = userList.getTask(index);
                     task.markAsUndone();
                     user.unmarkRes(userList, index);
-                    db.update(userList);
+                    userDb.update(userList);
 
                 } else if (userInput.startsWith("deadline")) {
 
                     if (!userInput.contains("/by")) throw new InvalidDeadlineException();
-                    else {
-                        String[] deadline = userInput.substring(9)
-                                .trim()
-                                .split("/by", 2);
-                        String description = deadline[0].trim();
-                        String by = deadline[1].trim();
-                        if (by.isEmpty() || description.isEmpty()) throw new InvalidDeadlineException();
-                        else {
-                            Deadline userDeadline = new Deadline(description, by);
-                            userList.addToList(userDeadline);
-                            user.addTask(userDeadline, taskCount + 1);
-                            db.update(userList);
-                        }
-                    }
+                    String[] deadline = userInput.substring(9)
+                            .trim()
+                            .split("/by", 2);
+                    String description = deadline[0].trim();
+                    String by = deadline[1].trim();
+                    if (by.isEmpty() || description.isEmpty()) throw new InvalidDeadlineException();
+
+                    LocalDateTime dateTime = Helper.parseDateTime(by);
+
+                    Deadline userDeadline = new Deadline(description, dateTime);
+                    userList.addToList(userDeadline);
+                    user.addTask(userDeadline, taskCount + 1);
+                    userDb.update(userList);
 
                 } else if (userInput.startsWith("event")) {
 
@@ -73,13 +75,17 @@ public class Jimbot {
 
                         String from = timings[0].trim();
                         String to = timings[1].trim();
+
                         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) throw new InvalidEventException();
-                        else {
-                            Event userEvent = new Event(description, from, to);
-                            userList.addToList(userEvent);
-                            user.addTask(userEvent, taskCount + 1);
-                            db.update(userList);
-                        }
+
+                        LocalDateTime dateTime1 = Helper.parseDateTime(from);
+                        LocalDateTime dateTime2 = Helper.parseDateTime(to);
+
+                        Event userEvent = new Event(description, dateTime1, dateTime2);
+                        userList.addToList(userEvent);
+                        user.addTask(userEvent, taskCount + 1);
+                        userDb.update(userList);
+
                     }
 
                 } else if (userInput.startsWith("todo")) {
@@ -89,19 +95,19 @@ public class Jimbot {
                         ToDo userToDo = new ToDo(description);
                         userList.addToList(userToDo);
                         user.addTask(userToDo, taskCount + 1);
-                        db.update(userList);
+                        userDb.update(userList);
                     }
                 } else if (userInput.startsWith("delete")) {
                     int index = Helper.parseIndex(userInput, "delete", taskCount);
                     Task task = userList.getTask(index);
                     userList.deleteFromList(userList.getTask(index));
                     user.deleteTask(task, taskCount - 1);
-                    db.update(userList);
+                    userDb.update(userList);
 
                 } else {
                     user.echo(userInput);
                 }
-            } catch (InvalidDeadlineException | InvalidEventException |
+            } catch (InvalidDateTimeException | InvalidDeadlineException | InvalidEventException |
                      InvalidIndexException | InvalidToDoException | TaskLimitException e) {
                 System.out.println(e.getMessage());
             }

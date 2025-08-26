@@ -1,14 +1,31 @@
 package taskTypes;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
+
 public class Deadline extends Task {
-    protected String by;
-    public Deadline(String description, String by) {
+    protected LocalDate date;
+    protected LocalDateTime dateTime;
+    protected boolean isMidnight;
+
+    public Deadline(String description, LocalDateTime by) {
         super(description);
-        this.by = by;
+        this.dateTime = by;
+        this.isMidnight = dateTime.toLocalTime().equals(LocalTime.MIDNIGHT);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        if (isMidnight) {
+            return "[D]" + super.toString() + " (BY: " +
+                    dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+
+        } else {
+            return "[D]" + super.toString() + " (BY: " +
+                    dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm")) + ")";
+        }
     }
 }
