@@ -1,8 +1,10 @@
 task1
-deadline task2 by Sunday
-event task3 /from Monday to Friday
-event task3 from Monday /to Friday
-event task5 /from /to
+deadline task2 by 1970-01-01
+deadline task2 /by Sunday
+event task3 /from 1970-01-01 to 1970-01-02
+event task3 from 1970-01-01 /to 1970-01-02
+event task3 /from /to
+event task3 /from Monday /to Friday
 mark 1
 unmark 1
 todo task1

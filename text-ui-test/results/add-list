@@ -15,16 +15,17 @@ Your input:
 (˶ᵔ ᵕ ᵔ˶) Added: [T][ ] task1
 ------------------------------------------
 Your input: 
-(˶ᵔ ᵕ ᵔ˶) Added: [D][ ] task2 (by: Sunday)
+(˶ᵔ ᵕ ᵔ˶) Added: [D][ ] task2 (by: Jan 01 1970)
 ------------------------------------------
 Your input: 
-(˶ᵔ ᵕ ᵔ˶) Added: [E][ ] task3 (from: Monday to: Friday)
+(˶ᵔ ᵕ ᵔ˶) Added: [E][ ] task3 (from: Jan 01 1970 to: Jan 02 1970)
 ------------------------------------------
 Your input: 
 (˶˃ ᵕ ˂˶) Here are the list of tasks. You have 3 in total.
 1.[T][ ] task1
-2.[D][ ] task2 (by: Sunday)
-3.[E][ ] task3 (from: Monday to: Friday)
+2.[D][ ] task2 (by: Jan 01 1970)
+3.[E][ ] task3 (from: Jan 01 1970 to: Jan 02 1970)
 ------------------------------------------
 Your input: 
+[0;30m[47m INFO [0m Tasks are saved in mem.txt.
 (╥﹏╥) Bye. Hope to see you again soon!

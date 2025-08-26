@@ -18,13 +18,19 @@ Your input:
 ( ˶°ㅁ°) That is not a valid way to input a task!
 ------------------------------------------
 Your input: 
-( ˶°ㅁ°) That is not a valid way to input a task!
+( ˶°ㅁ°) Please input date in the format: yyyy-mm-dd
 ------------------------------------------
 Your input: 
 ( ˶°ㅁ°) That is not a valid way to input a task!
 ------------------------------------------
 Your input: 
 ( ˶°ㅁ°) That is not a valid way to input a task!
+------------------------------------------
+Your input: 
+( ˶°ㅁ°) That is not a valid way to input a task!
+------------------------------------------
+Your input: 
+( ˶°ㅁ°) Please input date in the format: yyyy-mm-dd
 ------------------------------------------
 Your input: 
 <( ⸝⸝•̀ - •́⸝⸝)> There is no tasks with that index. You could have caused an IndexOutOfBoundsException.
@@ -39,4 +45,5 @@ Your input:
 (˶ᵔ ᵕ ᵔ˶) Removed: [T][ ] task1
 ------------------------------------------
 Your input: 
+[0;30m[47m INFO [0m Tasks are saved in mem.txt.
 (╥﹏╥) Bye. Hope to see you again soon!

@@ -76,10 +76,10 @@ public class MinhGPT {
             }
             writer.write(content);
             writer.close();
-            System.out.println("Tasks are saved in mem.txt");
+            Logger.info("Tasks are saved in mem.txt.");
         } catch (IOException e) {
-            System.out.println(String.format("ERROR: %s", e.getMessage()));
-            System.out.println("Tasks are not saved");
+            Logger.error(e.getMessage());
+            Logger.error("Tasks are not saved.");
         }
     }
 
@@ -106,9 +106,10 @@ public class MinhGPT {
                 }
             }
             scanner.close();
-            System.out.println("Found mem.txt, loading tasks from previous sessions.");
+            Logger.info(
+                    "Found mem.txt, loading tasks from previous sessions. To disable, run with --fresh flag.");
         } catch (FileNotFoundException e) {
-            System.out.println("No memory file detected. Starting fresh.");
+            Logger.info("No memory file detected. Starting fresh.");
         }
 
         return tasks;
@@ -116,11 +117,12 @@ public class MinhGPT {
 
     /**
      * Keep polling inputs from users until they say 'bye'.
+     *
+     * @param initialTasks Initial list of tasks.
      */
-    private static void program() {
+    private static void program(ArrayList<Task> initialTasks) {
         Scanner scanner = new Scanner(System.in);
-        Task.initialise();
-        ArrayList<Task> tasks = loadTasks();
+        ArrayList<Task> tasks = initialTasks;
 
         while (true) {
             printDivider();
@@ -186,9 +188,16 @@ public class MinhGPT {
      * Main entry-point for the program.
      */
     public static void main(String[] args) {
+        // Get all flags
+        boolean isFresh = args.length > 0 && args[0].equals("--fresh");
+
+        // Initialisation
+        Task.initialise();
+        ArrayList<Task> initialTasks = isFresh ? new ArrayList<>() : loadTasks();
+
         printStartupMessage();
 
-        program();
+        program(initialTasks);
 
         printExitMessage();
     }
