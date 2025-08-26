@@ -1,9 +1,15 @@
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+// import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+// import java.time.temporal.ChronoUnit;
 
 public class Rafayel {
 
@@ -86,11 +92,30 @@ public class Rafayel {
             throw new RafayelException("Deadline format is wrong. Example: deadline [desc] /by [time]");
         }
 
-        String[] taskDate = input.substring(9).split("/by ");
-        Deadline newTask = new Deadline(taskDate[0].trim(), taskDate[1].trim());
+        String[] taskInfo = input.substring(9).split("/by ");
+        LocalDateTime dateTime = handleReadDate(taskInfo[1].trim());
+        Deadline newTask = new Deadline(taskInfo[0].trim(), dateTime);
         tasks.add(newTask);
 
         printNewTaskString(newTask, counter);
+    }
+
+    private static LocalDateTime handleReadDate(String input) {
+        // check if valid format
+        try {
+            LocalDateTime dateTime = LocalDateTime.parse(input);
+            return dateTime;
+
+        } catch (Exception e) {
+            System.out.println("An error has occured while reading the date/time.");
+        }
+
+        return null;
+    }
+
+    private static String handleDateTimeFormetting(LocalDateTime dateTime) {
+        return dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
+        // JAN 8 2012 4:00
     }
 
     private static void handleEventCommand(String input, ArrayList<Task> tasks, int counter) throws RafayelException {
@@ -104,8 +129,11 @@ public class Rafayel {
             throw new RafayelException("Event format is wrong. Example: event [desc] /from [time] /to [time]");
         }
 
-        String[] taskDate = input.substring(6).split("/");
-        Event newTask = new Event(taskDate[0].trim(), taskDate[1].substring(5).trim(), taskDate[2].substring(3).trim());
+        String[] taskInfo = input.substring(6).split("/");
+        LocalDateTime dateTimeFrom = handleReadDate(taskInfo[1].substring(5).trim());
+        LocalDateTime dateTimeTo = handleReadDate(taskInfo[2].substring(3).trim());
+
+        Event newTask = new Event(taskInfo[0].trim(), dateTimeFrom, dateTimeTo);
 
         tasks.add(newTask);
 
@@ -147,14 +175,14 @@ public class Rafayel {
                     break;
                 case "D":
                     if (parts.length >= 4) {
-                        String by = parts[3].trim();
+                        LocalDateTime by = handleReadDate(parts[3].trim());
                         task = new Deadline(description, by);
                     }
                     break;
                 case "E":
                     if (parts.length >= 5) {
-                        String from = parts[3].trim();
-                        String to = parts[4].trim();
+                        LocalDateTime from = handleReadDate(parts[3].trim());
+                        LocalDateTime to = handleReadDate(parts[4].trim());
                         task = new Event(description, from, to);
                     }
                     break;
