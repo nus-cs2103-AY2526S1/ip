@@ -1,5 +1,7 @@
 package lynx.task;
 
+import lynx.exception.LynxException;
+
 import java.time.LocalDateTime;
 
 /**
@@ -43,6 +45,23 @@ public abstract class Task {
             return symbol;
         }
 
+        public static Status matchSymbol(String symbol) throws LynxException {
+            switch (symbol) {
+                case "complete" -> {
+                    return COMPLETE;
+                }
+                case "incomplete" -> {
+                    return INCOMPLETE;
+                }
+                case "expired" -> {
+                    return EXPIRED;
+                }
+                default -> {
+                    throw new LynxException("Invalid status.");
+                }
+            }
+        }
+
     }
 
     private static int currId = 0;
@@ -79,11 +98,15 @@ public abstract class Task {
     }
 
     public void setIncomplete() {
-        this.status = Status.INCOMPLETE;
+        if (status.equals(Status.COMPLETE)) {
+            this.status = Status.INCOMPLETE;
+        }
     }
 
     public void setExpired() {
-        this.status = Status.EXPIRED;
+        if (status.equals(Status.INCOMPLETE)) {
+            this.status = Status.EXPIRED;
+        }
     }
 
     /**

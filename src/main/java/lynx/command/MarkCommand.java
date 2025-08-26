@@ -26,5 +26,9 @@ public class MarkCommand extends LynxCommand {
         return "Marked tasks containing ";
     }
 
+    public String getMessageByStatus() {
+        return "Marked tasks with status ";
+    }
+
 }
 

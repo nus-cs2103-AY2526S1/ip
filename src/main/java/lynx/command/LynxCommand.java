@@ -25,6 +25,9 @@ public abstract class LynxCommand {
     // Header message for case "/id".
     public abstract String getMessageById();
 
+    // Header message for case /status.
+    public abstract String getMessageByStatus();
+
     // Header message for default case (by keyword).
     public abstract String getMessageByKeyword();
 

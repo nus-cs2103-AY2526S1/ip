@@ -171,6 +171,8 @@ public abstract class LynxCommandManager {
      * <p>
      * To mark a task by id, use "mark /id [id]".
      * <p>
+     * To mark tasks by status, use "mark /status [status]".
+     * <p>
      * To mark tasks by keyword, use "mark [keyword]".
      *
      * @param input User command staring with "mark".
@@ -197,6 +199,8 @@ public abstract class LynxCommandManager {
      * To unmark tasks by date, use "unmark /on [date]".
      * <p>
      * To unmark a task by id, use "unmark /id [id]".
+     * <p>
+     * To unmark tasks by status, use "unmark /status [status]".
      * <p>
      * To unmark tasks by keyword, use "unmark [keyword]".
      *
@@ -225,6 +229,8 @@ public abstract class LynxCommandManager {
      * <p>
      * To remove a task by id, use "delete /id [id]".
      * <p>
+     * To remove tasks by status, use "delete /status [status]".
+     * <p>
      * To remove tasks by keyword, use "delete [keyword]".
      *
      * @param input User command staring with "delete".
@@ -252,6 +258,8 @@ public abstract class LynxCommandManager {
      * To print tasks by date, use "list /on [date]".
      * <p>
      * To print a task by id, use "list /id [id]".
+     * <p>
+     * To print tasks by status, use "list /status [status]".
      * <p>
      * To print tasks by keyword, use "list [keyword]".
      *
@@ -314,6 +322,14 @@ public abstract class LynxCommandManager {
             } catch (LynxException e) {
                 LynxUI.printBox("Invalid date format: " + e.getMessage());
             }
+        }
+
+        if (input.startsWith("/status ")) {
+            input = input.substring(8).trim().toLowerCase();
+            Task.Status status = Task.Status.matchSymbol(input);
+            LynxUI.line();
+            System.out.printf("%s%s:%n", command.getMessageByStatus(), status);
+            return LynxTaskList.filterTasksByStatus(tasks, status).toList();
         }
 
         String keyword = input.trim();

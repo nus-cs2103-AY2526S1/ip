@@ -26,4 +26,8 @@ public class ListCommand extends LynxCommand {
         return "Tasks containing ";
     }
 
+    public String getMessageByStatus() {
+        return "Tasks with status ";
+    }
+
 }

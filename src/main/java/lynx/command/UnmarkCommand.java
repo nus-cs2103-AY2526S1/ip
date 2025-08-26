@@ -26,5 +26,9 @@ public class UnmarkCommand extends LynxCommand {
         return "Unmarked tasks containing ";
     }
 
+    public String getMessageByStatus() {
+        return "Unmarked tasks with status ";
+    }
+
 }
 
