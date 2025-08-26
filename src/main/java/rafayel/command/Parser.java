@@ -10,7 +10,7 @@ public class Parser {
      * Enumeration of all possible commands that can be recognised by the application.
      */
     public enum Command {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN;
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, UNKNOWN;
 
         /**
          * Parses the input string to determine the corresponding command type.
@@ -35,6 +35,8 @@ public class Parser {
                 return EVENT;
             if (input.startsWith("delete"))
                 return DELETE;
+            if (input.startsWith("find"))
+                return FIND;
             return UNKNOWN;
         }
     }

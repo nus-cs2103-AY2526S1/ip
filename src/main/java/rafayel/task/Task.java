@@ -76,4 +76,14 @@ public abstract class Task {
     public String saveTaskName() {
         return String.format(" | %s | %s", this.getTaskIcon(), this.description);
     }
+
+    /**
+     * Find substring in the description.
+     *
+     * @param substring user input string that is searched in the description.
+     * @return true if the substring is found in the description.
+     */
+    public boolean findSubstring(String substring) {
+        return this.description.contains(substring);
+    }
 }

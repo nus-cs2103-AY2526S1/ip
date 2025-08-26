@@ -125,10 +125,35 @@ public class TaskList {
     }
 
     /**
-     * @return the Arraylist storing all the tasks
+     * @return the Arraylist storing all the tasks.
      */
     public ArrayList<Task> getAll() {
         return this.tasks;
+    }
+
+    /**
+     * Matches substring with each task in ArrayList of tasks.
+     *
+     * @param substring user input substring to check in each list.
+     * @return list of tasks that has matching substring.
+     */
+    public ArrayList<Task> matchTasks(String substring) {
+        ArrayList<Task> results = new ArrayList<Task>();
+        if (this.getSize() == 0) {
+            System.out.println("There's nothing in the list.");
+        } else {
+            for (Task task : tasks) {
+                if (task.findSubstring(substring)) {
+                    results.add(task);
+                }
+            }
+        }
+        if (results.isEmpty()) {
+            System.out.println("There's nothing in the list.");
+            return null;
+        } else {
+            return results;
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package rafayel.ui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import rafayel.RafayelException;
@@ -20,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Chatbot named Rafayel that manages a task list.
- * Functions include to add, delete, mark, unmark and list tasks.
+ * Functions include to add, delete, mark, unmark, find and list tasks.
  * Supports different task types: Todo, Deadline, and Event.
  * Saves task data to local file storage.
  */
@@ -275,6 +276,20 @@ public class Rafayel {
 
                     System.out.println("Noted. I've removed this task:\n  " + deletedTask.toString() + "\nNow you have "
                             + tasks.getSize() + " tasks in the list.");
+                    break;
+
+                case FIND:
+                    // Find substring
+                    if (input.length() <= 5) {
+                        throw new RafayelException("Please indicate what to find in the task (i.e. find book)");
+                    }
+                    String substring = input.substring(5).trim();
+                    ArrayList<Task> matchedTasks = tasks.matchTasks(substring);
+
+                    System.out.println("Here are the matching tasks in your list:");
+                    for (int i = 0; i < matchedTasks.size(); i++) {
+                        System.out.println(i + 1 + "." + matchedTasks.get(i).toString());
+                    }
                     break;
 
                 case UNKNOWN:
