@@ -1,9 +1,4 @@
-import java.io.FileWriter;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 // import java.time.LocalDate;
@@ -37,12 +32,15 @@ public class Rafayel {
         }
     }
 
-    private static String SAVED_FILE_NAME = "rafayel.txt";
+    private static String FILE_PATH = "./data/rafayel.txt";
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
     DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
-    private static void handleMarkCommand(String input, ArrayList<Task> tasks, int counter, boolean markTask)
-            throws RafayelException {
+    private static void handleMarkCommand(String input, TaskList tasks, boolean markTask) throws RafayelException {
         int minLen = markTask ? 5 : 7;
         if (input.length() <= minLen) {
             throw new RafayelException("Please state what task to be marked/unmarked.");
@@ -50,7 +48,7 @@ public class Rafayel {
         String[] temp = input.split(" ");
         int taskNumber = Integer.parseInt(temp[1]);
 
-        if (taskNumber <= 0 || taskNumber > counter) {
+        if (taskNumber <= 0 || taskNumber > tasks.getSize()) {
             throw new RafayelException("Invalid task number.");
         }
         taskNumber--;
@@ -74,7 +72,7 @@ public class Rafayel {
         System.out.println("Now you have " + ++counter + " tasks in the list.");
     }
 
-    private static void handleTodoCommand(String input, ArrayList<Task> tasks, int counter) throws RafayelException {
+    private static void handleTodoCommand(String input, TaskList tasks) throws RafayelException {
         if (input.length() <= 5) {
             throw new RafayelException("Please add in the description of the Todo task.");
         }
@@ -82,11 +80,10 @@ public class Rafayel {
         Todo newTask = new Todo(input.substring(5).trim());
         tasks.add(newTask);
 
-        printNewTaskString(newTask, counter);
+        printNewTaskString(newTask, tasks.getSize());
     }
 
-    private static void handleDeadlineCommand(String input, ArrayList<Task> tasks, int counter)
-            throws RafayelException {
+    private static void handleDeadlineCommand(String input, TaskList tasks) throws RafayelException {
         if (input.length() <= 10) {
             throw new RafayelException("Please add in the description of the Deadline task.");
         }
@@ -99,10 +96,10 @@ public class Rafayel {
         Deadline newTask = new Deadline(taskInfo[0].trim(), dateTime);
         tasks.add(newTask);
 
-        printNewTaskString(newTask, counter);
+        printNewTaskString(newTask, tasks.getSize());
     }
 
-    private static LocalDateTime handleReadDate(String input) {
+    public static LocalDateTime handleReadDate(String input) {
         // check if valid format
         DateTimeFormatter[] differenTimeFormatters = new DateTimeFormatter[] {
                 DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"), DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"),
@@ -121,7 +118,7 @@ public class Rafayel {
         return null;
     }
 
-    private static void handleEventCommand(String input, ArrayList<Task> tasks, int counter) throws RafayelException {
+    private static void handleEventCommand(String input, TaskList tasks) throws RafayelException {
         if (input.length() <= 6) {
             throw new RafayelException("Please add in the description of the Event task.");
         }
@@ -140,157 +137,79 @@ public class Rafayel {
 
         tasks.add(newTask);
 
-        printNewTaskString(newTask, counter);
+        printNewTaskString(newTask, tasks.getSize());
     }
 
-    private static ArrayList<Task> loadFile(String fileName) throws IOException {
-        // check if file is there
-        ArrayList<Task> tasks = new ArrayList<Task>();
+    public Rafayel(String filePath) throws IOException {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
         try {
-            FileReader reader = new FileReader(fileName);
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            String line;
-
-            while ((line = bufferedReader.readLine()) != null) {
-                // System.out.println(line);
-                if (line.trim().isEmpty()) {
-                    break;
-                }
-
-                String[] parts = line.split(" \\| ");
-                // for (int i = 0; i < parts.length; i++) {
-                // System.out.println(parts[i]);
-                // }
-                // System.out.println(parts);
-                if (parts.length < 2) {
-                    continue;
-                }
-
-                String taskType = parts[0].trim();
-                boolean isDone = parts[1].trim().equals("1");
-                String description = parts[2].trim();
-
-                Task task = null;
-
-                switch (taskType) {
-                case "T":
-                    task = new Todo(description);
-                    break;
-                case "D":
-                    if (parts.length >= 4) {
-                        LocalDateTime by = handleReadDate(parts[3].trim());
-                        task = new Deadline(description, by);
-                    }
-                    break;
-                case "E":
-                    if (parts.length >= 5) {
-                        LocalDateTime from = handleReadDate(parts[3].trim());
-                        LocalDateTime to = handleReadDate(parts[4].trim());
-                        task = new Event(description, from, to);
-                    }
-                    break;
-                }
-                if (task != null) {
-                    if (isDone) {
-                        task.markAsDone();
-                    }
-                    tasks.add(task);
-                }
-            }
-            bufferedReader.close();
-            reader.close();
-
-        } catch (IOException e) {
-            System.out.println("Error");
+            tasks = new TaskList(storage.load());
+        } catch (RafayelException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
         }
-
-        return tasks;
     }
 
-    private static void saveFile(String fileName, ArrayList<Task> tasks) throws Exception {
-        try {
-            FileWriter fw = new FileWriter(fileName);
-            for (Task task : tasks) {
-                fw.write(task.saveTaskName() + "\n");
-            }
-            fw.close();
-
-        } catch (IOException e) {
-            System.out.println("An error occurred while importing.");
-            e.printStackTrace();
-        }
-
-    }
-
-    public static void main(String[] args) throws Exception {
-        String LINE = "____________________________________________________________";
-        String START_MSG = LINE + "\n" + " Hello! I'm Rafayel\n" + " What can I do for you?\n" + LINE;
-        String END_MSG = " Bye. Hope to see you again soon!\n" + LINE;
-
-        ArrayList<Task> tasks = loadFile(SAVED_FILE_NAME);
-        int counter = tasks.size();
+    public void run() throws RafayelException, Exception {
+        ui.showWelcome();
+        boolean isExit = false;
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println(START_MSG);
-
-        while (true) {
-            if (!sc.hasNextLine()) {
-                System.out.println(LINE + "\n" + END_MSG);
-                break;
-            }
-
-            String input = sc.nextLine();
-
-            if (input == null) {
-                System.out.println(LINE + "\n" + END_MSG);
-                break;
-            }
-
-            System.out.println(LINE);
-
+        while (!isExit) {
             try {
+                if (!sc.hasNextLine()) {
+                    ui.showLine();
+                    ui.showExit();
+                    break;
+                }
+
+                String input = sc.nextLine();
+
+                if (input == null) {
+                    ui.showLine();
+                    ui.showExit();
+                    break;
+                }
+
+                ui.showLine();
+
                 Command command = Command.parseCommand(input);
                 // System.out.println(command);
 
                 switch (command) {
                 case BYE:
-                    System.out.println(END_MSG);
+                    ui.showExit();
                     return;
 
                 case LIST:
-                    for (int i = 0; i < counter; i++) {
-                        System.out.println(i + 1 + "." + tasks.get(i).toString());
-                        // System.out.println(String.format("%d. %s", i + 1, data[i]));
-                    }
+                    tasks.getTaskList();
                     break;
 
                 case MARK:
                     // Mark task
-                    handleMarkCommand(input, tasks, counter, true);
+                    handleMarkCommand(input, tasks, true);
                     break;
 
                 case UNMARK:
                     // Unmark task
-                    handleMarkCommand(input, tasks, counter, false);
+                    handleMarkCommand(input, tasks, false);
                     break;
 
                 case TODO:
                     // Create Todo Task
-                    handleTodoCommand(input, tasks, counter);
-                    counter++;
+                    handleTodoCommand(input, tasks);
                     break;
 
                 case DEADLINE:
                     // Create Deadline Task
-                    handleDeadlineCommand(input, tasks, counter);
-                    counter++;
+                    handleDeadlineCommand(input, tasks);
                     break;
 
                 case EVENT:
                     // Create Event Task
-                    handleEventCommand(input, tasks, counter);
-                    counter++;
+                    handleEventCommand(input, tasks);
                     break;
 
                 case DELETE:
@@ -301,34 +220,26 @@ public class Rafayel {
                     String[] temp = input.split(" ");
                     int taskNumber = Integer.parseInt(temp[1]);
 
-                    if (taskNumber <= 0 || taskNumber > counter) {
-                        throw new RafayelException("Invalid task number.");
-                    }
                     taskNumber--;
-
                     Task deletedTask = tasks.remove(taskNumber);
-                    counter--;
 
                     System.out.println("Noted. I've removed this task:\n  " + deletedTask.toString() + "\nNow you have "
-                            + counter + " tasks in the list.");
+                            + tasks.getSize() + " tasks in the list.");
                     break;
 
                 case UNKNOWN:
-                    //
                     throw new RafayelException("Please enter a valid prompt! (i.e. todo/deadline/event)");
-
                 }
-
             } catch (RafayelException e) {
-                System.out.println(e.getMessage());
-                // return;
+                ui.showError(e.getMessage());
             }
-
-            saveFile(SAVED_FILE_NAME, tasks);
-
-            System.out.println(LINE + "\n");
         }
-
+        tasks.saveTasks(storage);
+        ui.showLine();
         sc.close();
+    }
+
+    public static void main(String[] args) throws Exception {
+        new Rafayel(FILE_PATH).run();
     }
 }
