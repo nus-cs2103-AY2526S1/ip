@@ -11,6 +11,10 @@ public abstract class Task {
         return (this.isDone ? "X" : " "); // mark done task with X
     }
 
+    public String getTaskIcon() {
+        return (this.isDone ? "1" : "0"); // mark done task with X
+    }
+
     public String getDescription() {
         return this.description;
     }
@@ -25,5 +29,9 @@ public abstract class Task {
 
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
+    }
+
+    public String saveTaskName() {
+        return String.format(" | %s | %s", this.getTaskIcon(), this.description);
     }
 }

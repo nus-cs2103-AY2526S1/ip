@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Rafayel {
 
@@ -26,6 +30,8 @@ public class Rafayel {
             return UNKNOWN;
         }
     }
+
+    private static String SAVED_FILE_NAME = "rafayel.txt";
 
     private static void handleMarkCommand(String input, ArrayList<Task> tasks, int counter, boolean markTask)
             throws RafayelException {
@@ -81,7 +87,7 @@ public class Rafayel {
         }
 
         String[] taskDate = input.substring(9).split("/by ");
-        Deadline newTask = new Deadline(taskDate[0], taskDate[1]);
+        Deadline newTask = new Deadline(taskDate[0].trim(), taskDate[1].trim());
         tasks.add(newTask);
 
         printNewTaskString(newTask, counter);
@@ -99,20 +105,99 @@ public class Rafayel {
         }
 
         String[] taskDate = input.substring(6).split("/");
-        Event newTask = new Event(taskDate[0], taskDate[1].substring(5), taskDate[2].substring(3));
+        Event newTask = new Event(taskDate[0].trim(), taskDate[1].substring(5).trim(), taskDate[2].substring(3).trim());
 
         tasks.add(newTask);
 
         printNewTaskString(newTask, counter);
     }
 
-    public static void main(String[] args) {
+    private static ArrayList<Task> loadFile(String fileName) throws IOException {
+        // check if file is there
+        ArrayList<Task> tasks = new ArrayList<Task>();
+        try {
+            FileReader reader = new FileReader(fileName);
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                // System.out.println(line);
+                if (line.trim().isEmpty()) {
+                    break;
+                }
+
+                String[] parts = line.split(" \\| ");
+                // for (int i = 0; i < parts.length; i++) {
+                // System.out.println(parts[i]);
+                // }
+                // System.out.println(parts);
+                if (parts.length < 2) {
+                    continue;
+                }
+
+                String taskType = parts[0].trim();
+                boolean isDone = parts[1].trim().equals("1");
+                String description = parts[2].trim();
+
+                Task task = null;
+
+                switch (taskType) {
+                case "T":
+                    task = new Todo(description);
+                    break;
+                case "D":
+                    if (parts.length >= 4) {
+                        String by = parts[3].trim();
+                        task = new Deadline(description, by);
+                    }
+                    break;
+                case "E":
+                    if (parts.length >= 5) {
+                        String from = parts[3].trim();
+                        String to = parts[4].trim();
+                        task = new Event(description, from, to);
+                    }
+                    break;
+                }
+                if (task != null) {
+                    if (isDone) {
+                        task.markAsDone();
+                    }
+                    tasks.add(task);
+                }
+            }
+            bufferedReader.close();
+            reader.close();
+
+        } catch (IOException e) {
+            System.out.println("Error");
+        }
+
+        return tasks;
+    }
+
+    private static void saveFile(String fileName, ArrayList<Task> tasks) throws Exception {
+        try {
+            FileWriter fw = new FileWriter(fileName);
+            for (Task task : tasks) {
+                fw.write(task.saveTaskName() + "\n");
+            }
+            fw.close();
+
+        } catch (IOException e) {
+            System.out.println("An error occurred while importing.");
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void main(String[] args) throws Exception {
         String LINE = "____________________________________________________________";
         String START_MSG = LINE + "\n" + " Hello! I'm Rafayel\n" + " What can I do for you?\n" + LINE;
         String END_MSG = " Bye. Hope to see you again soon!\n" + LINE;
 
-        ArrayList<Task> tasks = new ArrayList<Task>();
-        int counter = 0;
+        ArrayList<Task> tasks = loadFile(SAVED_FILE_NAME);
+        int counter = tasks.size();
 
         Scanner sc = new Scanner(System.in);
 
@@ -202,9 +287,13 @@ public class Rafayel {
                     throw new RafayelException("Please enter a valid prompt! (i.e. todo/deadline/event)");
 
                 }
+
             } catch (RafayelException e) {
                 System.out.println(e.getMessage());
+                // return;
             }
+
+            saveFile(SAVED_FILE_NAME, tasks);
 
             System.out.println(LINE + "\n");
         }
