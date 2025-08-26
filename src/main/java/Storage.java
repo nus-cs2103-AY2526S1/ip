@@ -7,11 +7,17 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Storage {
+    private final String filePath;
+
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
     // Referenced from: https://www.w3schools.com/java/java_files_create.asp
     // and https://www.w3schools.com/java/java_files_read.asp
     public List<Task> readTasksFromFile() throws InvalidSerializedTaskDataException {
         //Check if File Exists
-        File saveFile = new File("bbongSave.txt");
+        File saveFile = new File(this.filePath);
         // If File does not exist, do nothing
         if (!saveFile.exists()) {
             return null;

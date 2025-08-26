@@ -13,7 +13,7 @@ public class BeeBong {
     private Storage storage;
 
     public BeeBong() {
-        storage = new Storage();
+        storage = new Storage("bbongSave.txt");
         // Check for Saved Data
         try {
             this.taskList = new TaskList(this.storage.readTasksFromFile());
