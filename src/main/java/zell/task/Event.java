@@ -1,3 +1,8 @@
+package zell.task;
+
+import zell.util.DateOrTime;
+import zell.exception.ZellException;
+
 public class Event extends Task{
     private final DateOrTime start;
     private final DateOrTime end;

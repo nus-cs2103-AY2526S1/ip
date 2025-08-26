@@ -1,3 +1,10 @@
+package zell;
+
+import zell.storage.Storage;
+import zell.task.TaskList;
+import zell.ui.Ui;
+import zell.exception.ZellException;
+
 public class ChatLoop {
     private final TaskList taskList;
     private final Parser parser;

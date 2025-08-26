@@ -1,3 +1,8 @@
+package zell.storage;
+
+import zell.task.Task;
+import zell.exception.ZellException;
+
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;

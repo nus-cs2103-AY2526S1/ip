@@ -1,3 +1,5 @@
+package zell;
+
 public enum ZellMessage {
     WELCOME_MESSAGE("Hello! My name is Zell\n How can I help you?"),
     UNKNOWN_COMMAND(" is an unknown command. Please try again with a valid command"),
