@@ -96,7 +96,7 @@ public class BeeBong {
             try {
                 String[] taskInfo = convertDetailsToEventTaskInfo(details);
                 newTask = new EventTask(taskInfo[0], taskInfo[1], taskInfo[2]);
-            } catch (BBongException e) {
+            } catch (InvalidTaskDetailsException e) {
                 botErrorMessage("Invalid Task Details for Event Task!");
                 return;
             }
@@ -104,7 +104,7 @@ public class BeeBong {
             try {
                 String[] taskInfo = convertDetailsToDeadlineTaskInfo(details);
                 newTask = new DeadlineTask(taskInfo[0], taskInfo[1]);
-            } catch (BBongException e) {
+            } catch (InvalidTaskDetailsException e) {
                 botErrorMessage("Invalid Task Details for Deadline Task!");
                 return;
             }
@@ -117,31 +117,31 @@ public class BeeBong {
                 "buzzing around in the list.");
     }
 
-    private String[] convertDetailsToDeadlineTaskInfo(String details) throws BBongException {
+    private String[] convertDetailsToDeadlineTaskInfo(String details) throws InvalidTaskDetailsException {
         // e.g. "return book /by Sunday
         String[] taskInfo = details.split(" /by ");
         // If after the split we have more than 2 elements, means the input is invalid
         if (taskInfo.length != 2) {
-            throw new BBongException("Invalid Task Details for Deadline Task");
+            throw new InvalidTaskDetailsException();
         }
         return taskInfo;
     }
 
-    private String[] convertDetailsToEventTaskInfo(String details) throws BBongException {
+    private String[] convertDetailsToEventTaskInfo(String details) throws InvalidTaskDetailsException {
         // e.g. "project meeting /from Mon 2pm /to 4pm"
         String[] result = new String[] {"", "", ""}; // name, from, to
         // Split string based on /from
         String[] temp = details.split(" /from ");
         // If after the split we have more than 2 elements, means the input is invalid
         if (temp.length != 2) {
-            throw new BBongException("Invalid Task Details for Event Task");
+            throw new InvalidTaskDetailsException();
         }
         result[0] = temp[0];
         // Split string based on /to
         temp = temp[1].split(" /to ");
         // If after the split we have more than 2 elements, means the input is invalid
         if (temp.length != 2) {
-            throw new BBongException("Invalid Task Details for Event Task");
+            throw new InvalidTaskDetailsException();
         }
         result[1] = temp[0];
         result[2] = temp[1];
@@ -169,6 +169,8 @@ public class BeeBong {
         }
     }
 
+    // Referenced from: https://www.w3schools.com/java/java_files_create.asp
+    // and https://www.w3schools.com/java/java_files_read.asp
     private void readTasksFromFile() {
         //Check if File Exists
         File saveFile = new File("bbongSave.txt");
@@ -181,8 +183,15 @@ public class BeeBong {
         botMessage("Bing! Saved Tasks found, loading saved tasks...");
         try {
             Scanner reader = new Scanner(saveFile);
+            while (reader.hasNextLine()) {
+                String taskStr = reader.nextLine();
+                tasks.add(Task.deserializeTask(taskStr));
+            }
+            reader.close();
         } catch (FileNotFoundException e) {
-            botErrorMessage("Unable to read tasks from file.");
+            botErrorMessage("Unable to read tasks from file!");
+        } catch (InvalidSerializedTaskDataException e) {
+            botErrorMessage("Unable to read all saved task data, data is corrupted!");
         }
     }
 
@@ -194,12 +203,14 @@ public class BeeBong {
 
         // Write Task List to File
         try {
-            FileWriter writer = new FileWriter("bbongSave.txt", true);
+            // No need to append, just write new as
+            // we always read existing data and append within the tasklist
+            FileWriter writer = new FileWriter("bbongSave.txt");
             for (Task t : tasks) {
                 writer.write(t.serializeTask() + System.lineSeparator());
             }
             writer.close();
-            botMessage("Bing! Bing! Tasks saved successfully!");
+            botMessage("Bing Bing! Tasks saved successfully!");
         } catch (IOException e) {
             botErrorMessage("Unable to save tasks to file.");
         }
@@ -233,8 +244,9 @@ public class BeeBong {
             // Convert command into Command enum
             try {
                 command = Command.stringToCommand(commandParts[0].toLowerCase());
-            } catch (BBongException e) {
-                botErrorMessage("Unknown Command! B. Bong doesn't know what to do...");
+            } catch (UnknownCommandException e) {
+                botErrorMessage(e.getMessage());
+                continue;
             }
             String params = commandParts.length > 1 ? commandParts[1] : null;
 

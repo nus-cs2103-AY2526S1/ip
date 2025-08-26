@@ -8,6 +8,15 @@ public class EventTask extends Task {
         this.endDate = endDate;
     }
 
+    private EventTask(String name, boolean isCompleted, String startDate, String endDate) {
+        super(name);
+        this.startDate = startDate;
+        this.endDate = endDate;
+        if (isCompleted) {
+            markCompleted();
+        }
+    }
+
     public String getStartDate() {
         return this.startDate;
     }
@@ -25,10 +34,26 @@ public class EventTask extends Task {
     }
 
     public String serializeTask() {
-        return "E" + this.SAVEDELIMITER + (isCompleted() ? "1" : "0")
-                + this.SAVEDELIMITER + this.encodeString(this.getName())
-                + this.SAVEDELIMITER + this.encodeString(this.startDate)
-                + this.SAVEDELIMITER + this.encodeString(this.endDate);
+        return "E" + SAVEDELIMITER + (isCompleted() ? "1" : "0")
+                + SAVEDELIMITER + this.encodeString(this.getName())
+                + SAVEDELIMITER + this.encodeString(this.startDate)
+                + SAVEDELIMITER + this.encodeString(this.endDate);
+    }
+
+    public static EventTask deserializeTask(String taskStr) throws InvalidSerializedTaskDataException {
+        // -1 limit allows for empty strings
+        String[] taskData = taskStr.split(SAVEDELIMITER, -1);
+        if (taskData.length != 5) {
+            throw new InvalidSerializedTaskDataException();
+        }
+
+        // ["E", "0", "NAME", "START", "END]
+        String name = decodeString(taskData[2]);
+        boolean isCompleted = taskData[1].equals("1");
+        String startDate = decodeString(taskData[3]);
+        String endDate = decodeString(taskData[4]);
+
+        return new EventTask(name, isCompleted, startDate, endDate);
     }
 
     @Override
