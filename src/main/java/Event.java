@@ -15,12 +15,14 @@ public class Event extends Task{
 
     @Override
     public String taskToString() {
-        return String.format("%s | %b | %s | %s | %s", "E", getDone(), getName(), this.start.originalFormat(), this.end.originalFormat());
+        return String.format("%s | %b | %s | %s | %s", "E", getDone(), getName(),
+                this.start.originalFormat(), this.end.originalFormat());
     }
 
     @Override
     public String toString() {
-        return String.format("[%s]%s (from: %s to: %s)", "E", super.toString(), this.start.toString(), this.end.toString());
+        return String.format("[%s]%s (from: %s to: %s)", "E", super.toString(),
+                this.start.toString(), this.end.toString());
     }
 }
 
