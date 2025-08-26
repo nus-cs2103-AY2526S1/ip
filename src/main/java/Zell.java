@@ -5,16 +5,17 @@ public class Zell {
 
     public static void main(String[] args) {
         Storage storage = new Storage(FILE_PATH);
+        Ui ui = new Ui();
         TaskList taskList;
 
         try {
             taskList = new TaskList(storage.loadTasks());
         } catch (ZellException ze) {
-            System.out.println(ze);
+            ui.showError(ze.toString());
             taskList = new TaskList(new ArrayList<>());
         }
 
-        ChatLoop chatLoop = new ChatLoop(taskList , storage);
+        ChatLoop chatLoop = new ChatLoop(taskList , storage, ui);
         chatLoop.run();
 
     }
