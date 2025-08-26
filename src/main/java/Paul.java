@@ -34,9 +34,10 @@ public class Paul {
         if (desc.isEmpty()) {
             throw new PaulException("The description of a todo cannot be empty!");
         }
-        list.add(new ToDo(desc));
-        printOutput("Got it. I've added this task:\n"
-                + list.get(list.size()) + "\nNow you have " + list.size() + " tasks in the list.");
+        Task task = new ToDo(desc);
+        list.add(task);
+        printOutput("Got it. I've added this task:\n" + task +
+                "\nNow you have " + list.size() + " tasks in the list.");
     }
 
     private static void addDeadline(String input) throws PaulException {
@@ -44,9 +45,10 @@ public class Paul {
         if (str.length < 2 || str[0].isBlank() || str[1].isBlank()) {
             throw new PaulException("A deadline must have a description and a /by date!");
         }
-        list.add(new Deadline(str[0].trim(), str[1]));
-        printOutput("Got it. I've added this task:\n"
-                + list.get(list.size()) + "\nNow you have " + list.size() + " tasks in the list.");
+        Task task = new Deadline(str[0].trim(), str[1]);
+        list.add(task);
+        printOutput("Got it. I've added this task:\n" + task
+                + "\nNow you have " + list.size() + " tasks in the list.");
     }
 
     private static void addEvent(String input) throws PaulException {
@@ -54,9 +56,10 @@ public class Paul {
         if (str.length < 3 || str[0].isBlank() || str[1].isBlank() || str[2].isBlank()) {
             throw new PaulException("An event must have a description, /from, and /to!");
         }
-        list.add(new Event(str[0].trim(), str[1], str[2]));
-        printOutput("Got it. I've added this task:\n"
-                + list.get(list.size()) + "\nNow you have " + list.size() + " tasks in the list.");
+        Task task = new Event(str[0].trim(), str[1], str[2]);
+        list.add(task);
+        printOutput("Got it. I've added this task:\n" + task
+                + "\nNow you have " + list.size() + " tasks in the list.");
     }
 
     private static void markTask(String input) throws PaulException {
