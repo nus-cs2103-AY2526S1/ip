@@ -5,7 +5,8 @@ public class Rainy {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String line = "____________________________________________________________\n";
-        ArrayList<Task> tasks = new ArrayList<>();
+        Storage storage = new Storage("./data/rainy.txt");
+        ArrayList<Task> tasks = storage.load();
 
         System.out.println(line
                 + "Hello! I'm Rainy\n"
@@ -37,6 +38,7 @@ public class Rainy {
                         throw new RainyException("OOPS!!! That task number doesn’t exist :-(");
                     }
                     tasks.get(taskNumber).markAsDone();
+                    storage.save(tasks);
                     System.out.println(line
                             + "Nice! I've marked this task as done:\n  "
                             + tasks.get(taskNumber)
@@ -52,6 +54,7 @@ public class Rainy {
                         throw new RainyException("OOPS!!! That task number doesn’t exist :-(");
                     }
                     tasks.get(taskNumber).unmark();
+                    storage.save(tasks);
                     System.out.println(line
                             + "OK, I've marked this task as not done yet:\n  "
                             + tasks.get(taskNumber)
@@ -64,6 +67,7 @@ public class Rainy {
                     }
                     String desc = input.substring(4);
                     tasks.add(new Todo(desc));
+                    storage.save(tasks);
                     System.out.println(line
                             + "Got it. I've added this task:\n  "
                             + tasks.get(tasks.size() - 1)
@@ -78,6 +82,7 @@ public class Rainy {
                         throw new RainyException("OOPS!!! Please specify task and deadline.");
                     }
                     tasks.add(new Deadline(parts[0], parts[1]));
+                    storage.save(tasks);
                     System.out.println(line
                             + "Got it. I've added this task:\n  "
                             + tasks.get(tasks.size() - 1)
@@ -92,6 +97,7 @@ public class Rainy {
                         throw new RainyException("OOPS!!! Please specify task from when to when.");
                     }
                     tasks.add(new Event(parts[0], parts[1], parts[2]));
+                    storage.save(tasks);
                     System.out.println(line
                             + "Got it. I've added this task:\n  "
                             + tasks.get(tasks.size() - 1)
@@ -109,6 +115,7 @@ public class Rainy {
                         throw new RainyException("OOPS!!! That task number doesn’t exist.");
                     }
                     Task removedTask = tasks.remove(taskNumber);
+                    storage.save(tasks);
                     System.out.println(line
                             + "Noted. I've removed this task:\n  "
                             + removedTask

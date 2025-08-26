@@ -1,0 +1,5 @@
+T | 0 |  reee
+T | 0 |  read book
+D | 0 |  return book | June 6th
+E | 0 |  project meeting | Aug 6th | Aug 7th
+T | 0 |  read book
