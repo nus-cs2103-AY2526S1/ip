@@ -1,5 +1,5 @@
 // Referenced from: https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html (Planets example)
-public enum Command {
+public enum CommandKeyword {
     TODO("todo"),
     DEADLINE("deadline"),
     EVENT("event"),
@@ -11,19 +11,19 @@ public enum Command {
     BYE("bye"),
     NONE("none");
 
-    private final String commandWord;
+    private final String keyword;
 
-    Command(String word) {
-        this.commandWord = word;
+    CommandKeyword(String word) {
+        this.keyword = word;
     }
 
-    public String getCommandWord() {
-        return this.commandWord;
+    public String getKeyword() {
+        return this.keyword;
     }
 
-    public static Command stringToCommand(String word) throws UnknownCommandException {
-        for (Command c : Command.values()) {
-            if (c.getCommandWord().equalsIgnoreCase(word)) {
+    public static CommandKeyword stringToCommand(String word) throws UnknownCommandException {
+        for (CommandKeyword c : CommandKeyword.values()) {
+            if (c.getKeyword().equalsIgnoreCase(word)) {
                 return c;
             }
         }

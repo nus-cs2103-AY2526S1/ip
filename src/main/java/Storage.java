@@ -23,7 +23,6 @@ public class Storage {
             return null;
         }
         //Else Read the saved Tasks from the file
-//        botMessage("Bing! Saved Tasks found, loading saved tasks...");
         List<Task> tasks = new ArrayList<>();
         try {
             Scanner reader = new Scanner(saveFile);
