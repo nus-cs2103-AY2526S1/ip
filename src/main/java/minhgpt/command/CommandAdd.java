@@ -7,6 +7,9 @@ import minhgpt.task.TaskList;
 
 import java.text.ParseException;
 
+/**
+ * Encapsulate the add task command.
+ */
 class CommandAdd extends Command {
     @Override
     public void execute(String input, TaskList taskList, Ui ui, Storage storage) {

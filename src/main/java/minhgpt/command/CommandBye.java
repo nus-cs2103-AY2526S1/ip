@@ -4,6 +4,9 @@ import minhgpt.ui.Ui;
 import minhgpt.storage.Storage;
 import minhgpt.task.TaskList;
 
+/**
+ * Encapsulate the bye command.
+ */
 class CommandBye extends Command {
     static {
         registry.put("^bye$", CommandBye::new);

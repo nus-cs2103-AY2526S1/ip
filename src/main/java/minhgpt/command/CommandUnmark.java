@@ -4,6 +4,9 @@ import minhgpt.ui.Ui;
 import minhgpt.storage.Storage;
 import minhgpt.task.TaskList;
 
+/**
+ * Encapsulate the unmark task command.
+ */
 class CommandUnmark extends Command {
     static {
         registry.put("^unmark \\d+$", CommandUnmark::new);

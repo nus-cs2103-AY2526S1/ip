@@ -4,6 +4,9 @@ import minhgpt.ui.Ui;
 import minhgpt.storage.Storage;
 import minhgpt.task.TaskList;
 
+/**
+ * Encapsulate the mark task command.
+ */
 class CommandMark extends Command {
     static {
         registry.put("^mark \\d+$", CommandMark::new);

@@ -4,6 +4,9 @@ import minhgpt.ui.Ui;
 import minhgpt.storage.Storage;
 import minhgpt.task.TaskList;
 
+/**
+ * Encapsulate the list task command.
+ */
 class CommandList extends Command {
     static {
         registry.put("^list$", CommandList::new);

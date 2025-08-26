@@ -4,6 +4,9 @@ import minhgpt.ui.Ui;
 import minhgpt.storage.Storage;
 import minhgpt.task.TaskList;
 
+/**
+ * Encapsulate the delete task command.
+ */
 class CommandDelete extends Command {
     static {
         registry.put("^delete \\d+$", CommandDelete::new);
