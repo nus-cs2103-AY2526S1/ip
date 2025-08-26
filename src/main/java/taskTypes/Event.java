@@ -1,5 +1,6 @@
 package taskTypes;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -12,6 +13,14 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    public LocalDate getFrom() {
+        return from.toLocalDate();
+    }
+
+    public LocalDate getTo() {
+        return to.toLocalDate();
     }
 
     private String dateTimeStr(LocalDateTime dateTime) {

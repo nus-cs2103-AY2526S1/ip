@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 
 
 public class Deadline extends Task {
-    protected LocalDate date;
     protected LocalDateTime dateTime;
     protected boolean isMidnight;
 
@@ -15,6 +14,10 @@ public class Deadline extends Task {
         super(description);
         this.dateTime = by;
         this.isMidnight = dateTime.toLocalTime().equals(LocalTime.MIDNIGHT);
+    }
+
+    public LocalDate getDate() {
+        return dateTime.toLocalDate();
     }
 
     @Override

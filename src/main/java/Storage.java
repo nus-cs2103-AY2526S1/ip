@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Database {
+public class Storage {
     private final String path;
 
-    public Database(String filePath) {
+    public Storage(String filePath) {
         this.path = filePath;
     }
 

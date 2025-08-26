@@ -6,7 +6,6 @@ import exceptions.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.Temporal;
 
 public class Helper {
     //obtaining task index from user input to for access tasks in taskList
@@ -46,6 +45,16 @@ public class Helper {
                 LocalTime time = LocalTime.parse(input, timeFormat);
                 return time.atDate(LocalDate.now());
             }
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException();
+        }
+    }
+
+    public static LocalDate parseDate(String input) throws InvalidDateTimeException {
+        input = input.trim();
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            return LocalDate.parse(input, formatter);
         } catch (DateTimeParseException e) {
             throw new InvalidDateTimeException();
         }

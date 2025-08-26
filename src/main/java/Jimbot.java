@@ -2,19 +2,28 @@ import exceptions.*;
 import taskTypes.*;
 import util.Helper;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Jimbot {
-    public static void main(String[] args) {
-        String userInput;
-        Scanner scanner = new Scanner(System.in);
-        Response user = new Response();
-        Database userDb = new Database("./data/database.txt");
-        taskList userList = userDb.load();
+    private Storage userStorage;
+    private taskList userList;
+    private Response user;
+
+    public Jimbot(String filePath) {
+        user = new Response();
+        userStorage = new Storage(filePath);
+        userList = userStorage.load();
 
         user.hello("Jimbot");
+
+    }
+
+    public void run() {
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
 
         while (true) {
             userInput = scanner.nextLine().trim();
@@ -33,14 +42,14 @@ public class Jimbot {
                     Task task = userList.getTask(index);
                     task.markAsDone();
                     user.markRes(userList, index);
-                    userDb.update(userList);
+                    userStorage.update(userList);
 
                 } else if (userInput.startsWith("unmark")) {
                     int index = Helper.parseIndex(userInput, "unmark", taskCount);
                     Task task = userList.getTask(index);
                     task.markAsUndone();
                     user.unmarkRes(userList, index);
-                    userDb.update(userList);
+                    userStorage.update(userList);
 
                 } else if (userInput.startsWith("deadline")) {
 
@@ -57,7 +66,7 @@ public class Jimbot {
                     Deadline userDeadline = new Deadline(description, dateTime);
                     userList.addToList(userDeadline);
                     user.addTask(userDeadline, taskCount + 1);
-                    userDb.update(userList);
+                    userStorage.update(userList);
 
                 } else if (userInput.startsWith("event")) {
 
@@ -84,7 +93,7 @@ public class Jimbot {
                         Event userEvent = new Event(description, dateTime1, dateTime2);
                         userList.addToList(userEvent);
                         user.addTask(userEvent, taskCount + 1);
-                        userDb.update(userList);
+                        userStorage.update(userList);
 
                     }
 
@@ -95,17 +104,22 @@ public class Jimbot {
                         ToDo userToDo = new ToDo(description);
                         userList.addToList(userToDo);
                         user.addTask(userToDo, taskCount + 1);
-                        userDb.update(userList);
+                        userStorage.update(userList);
                     }
                 } else if (userInput.startsWith("delete")) {
                     int index = Helper.parseIndex(userInput, "delete", taskCount);
                     Task task = userList.getTask(index);
                     userList.deleteFromList(userList.getTask(index));
                     user.deleteTask(task, taskCount - 1);
-                    userDb.update(userList);
+                    userStorage.update(userList);
+
+                } else if (userInput.contains("/")) {
+                    LocalDate date = Helper.parseDate(userInput);
+                    user.printList(userList.getTasksAtDate(date));
 
                 } else {
                     user.echo(userInput);
+
                 }
             } catch (InvalidDateTimeException | InvalidDeadlineException | InvalidEventException |
                      InvalidIndexException | InvalidToDoException | TaskLimitException e) {
@@ -113,5 +127,9 @@ public class Jimbot {
             }
         }
         scanner.close();
+    }
+
+    public static void main(String[] args) {
+        new Jimbot("data/database.txt").run();
     }
 }

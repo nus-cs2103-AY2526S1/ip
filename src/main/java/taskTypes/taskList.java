@@ -2,6 +2,7 @@ package taskTypes;
 
 import exceptions.TaskLimitException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,5 +41,23 @@ public class taskList {
 
     public int getTaskCount() {
         return listOfTasks.size();
+    }
+
+    public List<Task> getTasksAtDate(LocalDate date) {
+        List<Task> result = new ArrayList<>();
+        for (Task task : listOfTasks) {
+            if (task instanceof Deadline deadline) {
+                if (deadline.getDate().equals(date)) {
+                    result.add(task);
+                }
+            } else if (task instanceof Event event) {
+                if ((event.getFrom().equals(date) || date.isAfter(event.getFrom())) &&
+                        (event.getTo().equals(date) || date.isBefore(event.getTo()))) {
+                    result.add(task);
+                }
+            }
+        }
+        return result;
+
     }
 }
