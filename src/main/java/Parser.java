@@ -5,6 +5,10 @@ public class UserInputHandler {
         this.endProgram = false;
     }
 
+    public boolean getEndProgram() {
+        return this.endProgram;
+    }
+    
     public String handleInput(String userInput, TaskList taskList, Storage storage) {
         int firstSpaceIndex = userInput.indexOf(" ");
 
@@ -21,8 +25,8 @@ public class UserInputHandler {
         return output;
     }
 
-    public String handleCommand(String userInput, String command,
-                                TaskList taskList, Storage storage) throws ZellException {
+    public String handleCommand(String userInput, String command, TaskList taskList,
+            Storage storage) throws ZellException {
         int firstSpaceIndex = userInput.indexOf(" ");
         String output;
 
@@ -56,8 +60,7 @@ public class UserInputHandler {
     }
 
     public String handleTaskCommands(String userInput, String command, int firstSpaceIndex,
-                                     TaskList taskList, Storage storage)
-            throws ZellException {
+            TaskList taskList, Storage storage) throws ZellException {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(ZellMessage.TASK_ADDED.message());
 
@@ -75,8 +78,7 @@ public class UserInputHandler {
     }
 
     public String handleDelete(String userInput, String command, int firstSpaceIndex,
-                               TaskList taskList, Storage storage)
-            throws ZellException {
+            TaskList taskList, Storage storage) throws ZellException {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(ZellMessage.TASK_REMOVED.message());
 
@@ -95,7 +97,8 @@ public class UserInputHandler {
         return stringBuilder.toString();
     }
 
-    public Task createTask(String userInput, String command, int firstSpaceIndex) throws ZellException {
+    public Task createTask(String userInput, String command, int firstSpaceIndex)
+            throws ZellException {
         checkNoSpacesInCommand(command, firstSpaceIndex);
 
         String userInputSecondHalf = userInput.substring(firstSpaceIndex + 1);
@@ -132,10 +135,6 @@ public class UserInputHandler {
         return task;
     }
 
-    public boolean getEndProgram() {
-        return this.endProgram;
-    }
-
     public String handleBye(int firstSpaceIndex, String command) throws ZellException {
         checkIfCommandHasSpaces(command, firstSpaceIndex);
         this.endProgram = true;
@@ -152,8 +151,8 @@ public class UserInputHandler {
         return stringBuilder.toString();
     }
 
-    public String handleMarkOrUnMark(String command, String userInput, int firstSpaceIndex, TaskList taskList)
-    throws ZellException{
+    public String handleMarkOrUnMark(String command, String userInput,
+            int firstSpaceIndex, TaskList taskList) throws ZellException {
         int index = parseIndex(command, userInput, firstSpaceIndex, taskList);
 
         Task currentTask = taskList.getTask(index);
@@ -172,8 +171,8 @@ public class UserInputHandler {
         return stringBuilder.toString();
     }
 
-    public int parseIndex(String command, String userInput, int firstSpaceIndex, TaskList taskList)
-    throws ZellException {
+    public int parseIndex(String command, String userInput, int firstSpaceIndex,
+            TaskList taskList) throws ZellException {
         checkNoSpacesInCommand(command, firstSpaceIndex);
 
         String indexInStringForm = userInput.substring(firstSpaceIndex + 1);
@@ -184,8 +183,8 @@ public class UserInputHandler {
         try {
             index = Integer.parseInt(indexInStringForm);
         } catch (NumberFormatException e) {
-            String formatMessage = String.format("%s is not a number, you should indicate a number from the list to %s." +
-                    "\nFor example:\n%s 2", indexInStringForm, command, command);
+            String formatMessage = String.format("%s is not a number, you should indicate a number from "
+                    + "the list to %s." + "\nFor example:\n%s 2", indexInStringForm, command, command);
             throw new ZellException(formatMessage);
         }
 
@@ -194,9 +193,10 @@ public class UserInputHandler {
         return index;
     }
 
-    public void checkIfCommandHasSpaces(String command, int firstSpaceIndex) throws ZellException{
+    public void checkIfCommandHasSpaces(String command, int firstSpaceIndex) throws ZellException {
         if (firstSpaceIndex != -1) {
-            String formatMessage = String.format("%s should not have anything after.\nFor example:\n%s", command, command);
+            String formatMessage = String.format("%s should not have anything after.\nFor example:\n%s",
+                    command, command);
             throw new ZellException(formatMessage);
         }
     }
@@ -206,16 +206,20 @@ public class UserInputHandler {
             String formatMessage;
             switch (command) {
             case "todo":
-                formatMessage = String.format("%s should include a thing to do.\nFor example:\n%s read books", command, command);
+                formatMessage = String.format("%s should include a thing to do.\nFor example:\n%s read books",
+                        command, command);
                 break;
             case "deadline":
-                formatMessage = String.format("%s should include a thing to do.\nFor example:\n%s books /by  Sunday", command, command);
+                formatMessage = String.format("%s should include a thing to do.\nFor example:\n%s books "
+                        + "/by  Sunday", command, command);
                 break;
             case "event":
-                formatMessage = String.format("%s should include a thing to do.\nFor example:\n%s books /from Mon 2pm /to 4pm", command, command);
+                formatMessage = String.format("%s should include a thing to do.\nFor example:\n%s "
+                        + "books /from Mon 2pm /to 4pm", command, command);
                 break;
             default:
-                formatMessage = String.format("%s should have a number to indicate which one to %s.\nFor example:\n%s 2", command, command, command);
+                formatMessage = String.format("%s should have a number to indicate which one to %s."
+                        + "\nFor example:\n%s 2", command, command, command);
                 break;
             }
 
@@ -225,57 +229,59 @@ public class UserInputHandler {
 
     public void checkForInvalidTaskNumber(int index, TaskList taskList) throws ZellException {
         if (!taskList.checkIfTaskExists(index)) {
-            String formatMessage = String.format("Task %d does not exist, please indicate a task number from 1 to %d", index, taskList.getNumberOfTask());
+            String formatMessage = String.format("Task %d does not exist, please indicate a "
+                    + "task number from 1 to %d", index, taskList.getNumberOfTask());
             throw new ZellException(formatMessage);
         }
     }
 
-    public void checkForDeadlineExceptions(String command, String userInput, String splitBy, int firstByIndex) throws ZellException {
+    public void checkForDeadlineExceptions(String command, String userInput, String splitBy,
+            int firstByIndex) throws ZellException {
         // Handle missing deadline name
-        if (userInput.contains(splitBy) && firstByIndex == - 1) {
-            String formatMessage = String.format("%s should include a name.\nFor example:\n" +
-                    "%s project meeting /by Mon 2pm", command, command);
+        if (userInput.contains(splitBy) && firstByIndex == -1) {
+            String formatMessage = String.format("%s should include a name.\nFor example:\n" + "%s project "
+                    + "meeting /by Mon 2pm", command, command);
             throw new ZellException(formatMessage);
         }
 
-        if (firstByIndex == - 1) {
-            String formatMessage = String.format("%s should include a dateline by using /by.\nFor example:\n" +
-                    "%s read books /by Sunday", command, command);
+        if (firstByIndex == -1) {
+            String formatMessage = String.format("%s should include a dateline by using /by.\nFor "
+                    + "example:\n" + "%s read books /by Sunday", command, command);
             throw new ZellException(formatMessage);
         }
     }
 
-    public void checkForEventExceptions(String command, String userInput, String splitFrom, int firstFromIndex, int firstToIndex)
-            throws ZellException {
+    public void checkForEventExceptions(String command, String userInput, String splitFrom,
+            int firstFromIndex, int firstToIndex) throws ZellException {
         // Handle if no name for event was provided. event /from today /to tmr
-        if (userInput.contains(splitFrom) && firstFromIndex == - 1) {
-            String formatMessage = String.format("%s should include a name.\nFor example:\n" +
-                    "%s project meeting /from Mon 2pm /to 4pm", command, command);
+        if (userInput.contains(splitFrom) && firstFromIndex == -1) {
+            String formatMessage = String.format("%s should include a name.\nFor example:\n" + "%s project "
+                    + "meeting /from Mon 2pm /to 4pm", command, command);
             throw new ZellException(formatMessage);
         }
 
-        if (firstFromIndex == - 1) {
-            String formatMessage = String.format("%s should include a start by using /from.\nFor example:\n" +
-                    "%s project meeting /from Mon 2pm /to 4pm", command, command);
+        if (firstFromIndex == -1) {
+            String formatMessage = String.format("%s should include a start by using /from.\nFor "
+                    + "example:\n" + "%s project meeting /from Mon 2pm /to 4pm", command, command);
             throw new ZellException(formatMessage);
         }
 
-        if (firstToIndex == - 1) {
-            String formatMessage = String.format("%s should include a end by using /to.\nFor example:\n" +
-                    "%s project meeting /from Mon 2pm /to 4pm", command, command);
+        if (firstToIndex == -1) {
+            String formatMessage = String.format("%s should include a end by using /to.\nFor "
+                    + "example:\n" + "%s project meeting /from Mon 2pm /to 4pm", command, command);
             throw new ZellException(formatMessage);
         }
 
         // Handle exception if /to comes before /from
         if (firstFromIndex > firstToIndex) {
-            String formatMessage = String.format("For %s /from should come before /to.\nFor example:\n" +
-                    "%s project meeting /from Mon 2pm /to 4pm", command, command);
+            String formatMessage = String.format("For %s /from should come before /to.\nFor "
+                    + "example:\n" + "%s project meeting /from Mon 2pm /to 4pm", command, command);
             throw new ZellException(formatMessage);
         }
 
         if (firstFromIndex + splitFrom.length() > firstToIndex) {
-            String formatMessage = String.format("For %s please include a start date/time using /from.\nFor example:\n" +
-                    "%s project meeting /from Mon 2pm /to 4pm", command, command);
+            String formatMessage = String.format("For %s please include a start date/time using "
+                    + "/from.\nFor example:\n" + "%s project meeting /from Mon 2pm /to 4pm", command, command);
             throw new ZellException(formatMessage);
         }
     }

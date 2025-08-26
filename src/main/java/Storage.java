@@ -31,7 +31,8 @@ public class Storage {
                 FileWriter fw = new FileWriter(this.filePath, true);
                 fw.close();
             } catch (IOException ie) {
-                throw new ZellException("Failed to store task to local storage because of: " + ie.getMessage());
+                throw new ZellException("Failed to store task to local storage because of: "
+                        + ie.getMessage());
             }
         }
 
