@@ -1,30 +1,32 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
  * Encapsulate a deadline task.
  */
 class DeadlineTask extends Task {
+    static {
+        register("^deadline .+ /by .+", DeadlineTask::new);
+    }
+
     /** Time that task need to be done before. */
-    private String deadline;
+    private LocalDate deadline;
 
     /**
      * Construct a basic task.
      * 
-     * @param name Name of task to be created.
-     * @param deadline Deadline of task to be created.
+     * @param input Input from user to create a deadline task.
      */
-    public DeadlineTask(String name, String deadline) {
-        super(name);
-        this.deadline = deadline;
+    public DeadlineTask(String input) {
+        super(input.substring(9).split(" /by ")[0]);
+        deadline = LocalDate.parse(input.substring(9).split(" /by ")[1]);
     }
 
     @Override
     public ArrayList<String> toCommands() {
-        ArrayList<String> commands = new ArrayList<>();
-        commands.add(String.format("deadline %s /by %s", name, deadline));
-        if (status) {
-            commands.add(String.format("mark"));
-        }
+        ArrayList<String> commands = super.toCommands();
+        commands.set(0, String.format("deadline %s /by %s", commands.get(0),
+                deadline.format(DATE_SAVE_FORMAT)));
         return commands;
     }
 
@@ -33,6 +35,7 @@ class DeadlineTask extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.deadline);
+        return String.format("[D]%s (by: %s)", super.toString(),
+                this.deadline.format(DATE_OUTPUT_FORMAT));
     }
 }

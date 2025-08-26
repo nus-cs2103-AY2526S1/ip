@@ -1,14 +1,41 @@
 import java.text.ParseException;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.function.Function;
 
 /**
  * Base class for a task.
  */
 abstract class Task {
+    /** Map task regex String to constructor of the corresponding task. */
+    private static final HashMap<String, Function<String, Task>> registry = new HashMap<>();
+
+    /** Date format when tasks are saved to disk. */
+    protected static final DateTimeFormatter DATE_SAVE_FORMAT =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    /** Date format when tasks are displayed. */
+    protected static final DateTimeFormatter DATE_OUTPUT_FORMAT =
+            DateTimeFormatter.ofPattern("MMM dd yyyy");
+
     /** Name of task. */
-    protected String name;
+    private String name;
     /** If status is true, task is done. Otherwise, task is not done. */
-    protected boolean status;
+    private boolean status;
+
+    protected static void register(String regex, Function<String, Task> supplier) {
+        registry.put(regex, supplier);
+    }
+
+    /**
+     * Initialise the mapping in 'registry'.
+     */
+    public static void initialise() {
+        new TodoTask("todo task1");
+        new DeadlineTask("deadline task1 /by 1970-01-01");
+        new EventTask("event task1 /from 1970-01-01 /to 1970-01-01");
+    }
 
     /**
      * Factory method for creating a task.
@@ -17,22 +44,18 @@ abstract class Task {
      * @throws ParseException When the input string does not match any known input patterns.
      */
     public static Task parseTask(String input) throws ParseException {
-        if (input.matches("^todo .+")) {
-            // Todo task
-            return new TodoTask(input.substring(5));
-        } else if (input.matches("^deadline .+ /by .+")) {
-            // Deadline task
-            String[] split = input.substring(9).split(" /by ");
-            return new DeadlineTask(split[0], split[1]);
-        } else if (input.matches("^event .+ /from .+ /to .+")) {
-            // Event task
-            String[] split1 = input.substring(6).split(" /from ");
-            String[] split2 = split1[1].split(" /to ");
-            return new EventTask(split1[0], split2[0], split2[1]);
-        } else {
-            // None of the above
-            throw new ParseException("( ˶°ㅁ°) That is not a valid way to input a task!", 0);
+        try {
+            for (String regex : registry.keySet()) {
+                if (input.matches(regex)) {
+                    return registry.get(regex).apply(input);
+                }
+            }
+        } catch (DateTimeParseException e) {
+            throw new ParseException("( ˶°ㅁ°) Please input date in the format: yyyy-mm-dd", 0);
         }
+
+        // If control reaches here, there is no matching task type
+        throw new ParseException("( ˶°ㅁ°) That is not a valid way to input a task!", 0);
     }
 
     /**
@@ -62,7 +85,14 @@ abstract class Task {
     /**
      * @return Input commands to re-create this task.
      */
-    public abstract ArrayList<String> toCommands();
+    public ArrayList<String> toCommands() {
+        ArrayList<String> commands = new ArrayList<>();
+        commands.add(name);
+        if (status) {
+            commands.add("mark");
+        }
+        return commands;
+    }
 
     /**
      * @return Simple String representation of a task.
