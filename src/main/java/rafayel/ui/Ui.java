@@ -1,3 +1,7 @@
+package rafayel.ui;
+
+import rafayel.RafayelException;
+
 public class Ui {
     String LINE = "____________________________________________________________";
     String START_MSG = LINE + "\n" + " Hello! I'm Rafayel ^-^\n" + " What can I do for you?\n" + LINE;

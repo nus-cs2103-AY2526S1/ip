@@ -1,4 +1,9 @@
+package rafayel.task;
+
 import java.util.ArrayList;
+
+import rafayel.RafayelException;
+import rafayel.Storage;
 
 public class TaskList {
 
@@ -47,6 +52,7 @@ public class TaskList {
         if (this.getSize() == 0) {
             System.out.println("There's nothing in the list.");
         } else {
+            System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < this.getSize(); i++) {
                 System.out.println(i + 1 + "." + tasks.get(i).toString());
                 // System.out.println(String.format("%d. %s", i + 1, data[i]));
@@ -54,8 +60,12 @@ public class TaskList {
         }
     }
 
-    public void saveTasks(Storage storage) throws Exception {
-        storage.save(this.tasks);
+    // public void saveTasks(Storage storage) throws Exception {
+    //     storage.save(this.tasks);
+    // }
+
+    public ArrayList<Task> getAll() {
+        return this.tasks;
     }
 
 }

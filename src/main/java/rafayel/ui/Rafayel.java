@@ -1,5 +1,17 @@
+package rafayel.ui;
+
 import java.io.IOException;
 import java.util.Scanner;
+
+import rafayel.RafayelException;
+import rafayel.Storage;
+import rafayel.command.Parser;
+// import rafayel.command.Parser.Command;
+import rafayel.task.Deadline;
+import rafayel.task.Event;
+import rafayel.task.Task;
+import rafayel.task.TaskList;
+import rafayel.task.Todo;
 
 // import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -45,7 +57,7 @@ public class Rafayel {
 
         System.out.println(TASK_START);
         System.out.println("  " + newTask.toString());
-        System.out.println("Now you have " + ++counter + " tasks in the list.");
+        System.out.println("Now you have " + counter + " tasks in the list.");
     }
 
     private static void handleTodoCommand(String input, TaskList tasks) throws RafayelException {
@@ -208,10 +220,13 @@ public class Rafayel {
                 }
             } catch (RafayelException e) {
                 ui.showError(e.getMessage());
+            } finally {
+                storage.save(tasks.getAll());
+                ui.showLine();
             }
         }
-        tasks.saveTasks(storage);
-        ui.showLine();
+        storage.save(tasks.getAll());
+        // ui.showLine();
         sc.close();
     }
 

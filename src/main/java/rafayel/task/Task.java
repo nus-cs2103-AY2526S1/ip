@@ -1,3 +1,5 @@
+package rafayel.task;
+
 /**
  * Abstract task with description and completion status. Subclasses should
  * define the specfic types of tasks.
