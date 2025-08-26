@@ -9,13 +9,13 @@ ____________________________________________________________
 
 	____________________________________________________________
 	Got it, I've added this task:
-	  [D][ ] deadline homework (by: tonight)
+	  [D][ ] deadline homework (by: Dec 02 2025, 6:00 PM)
 	Now you have 1 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	Here are the tasks in your list:
-	1.[D][ ] deadline homework (by: tonight)
+	1.[D][ ] deadline homework (by: Dec 02 2025, 6:00 PM)
 	____________________________________________________________
 
 	____________________________________________________________
@@ -26,19 +26,19 @@ ____________________________________________________________
 
 	____________________________________________________________
 	Here are the tasks in your list:
-	1.[D][ ] deadline homework (by: tonight)
+	1.[D][ ] deadline homework (by: Dec 02 2025, 6:00 PM)
 	2.[T][ ] todo cs2103
 	____________________________________________________________
 
 	____________________________________________________________
 	Got it, I've added this task:
-	  [E][ ] event carnival (from: today to: tomorrow)
+	  [E][ ] event carnival (from: Dec 15 2025, 2:00 PM to: Dec 15 2025, 6:00 PM)
 	Now you have 3 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	Got it, I've added this task:
-	  [E][ ] event birthday (from: Aug 20 to: Aug 21)
+	  [E][ ] event birthday (from: Aug 20 2025, 10:00 AM to: Aug 21 2025, 10:00 PM)
 	Now you have 4 tasks in the list.
 	____________________________________________________________
 
@@ -49,41 +49,41 @@ ____________________________________________________________
 
 	____________________________________________________________
 	Here are the tasks in your list:
-	1.[D][ ] deadline homework (by: tonight)
+	1.[D][ ] deadline homework (by: Dec 02 2025, 6:00 PM)
 	2.[T][X] todo cs2103
-	3.[E][ ] event carnival (from: today to: tomorrow)
-	4.[E][ ] event birthday (from: Aug 20 to: Aug 21)
+	3.[E][ ] event carnival (from: Dec 15 2025, 2:00 PM to: Dec 15 2025, 6:00 PM)
+	4.[E][ ] event birthday (from: Aug 20 2025, 10:00 AM to: Aug 21 2025, 10:00 PM)
 	____________________________________________________________
 
 	____________________________________________________________
 	Nice! I've marked this task as done:
-	  [D][X] deadline homework (by: tonight)
+	  [D][X] deadline homework (by: Dec 02 2025, 6:00 PM)
 	____________________________________________________________
 
 	____________________________________________________________
 	Here are the tasks in your list:
-	1.[D][X] deadline homework (by: tonight)
+	1.[D][X] deadline homework (by: Dec 02 2025, 6:00 PM)
 	2.[T][X] todo cs2103
-	3.[E][ ] event carnival (from: today to: tomorrow)
-	4.[E][ ] event birthday (from: Aug 20 to: Aug 21)
+	3.[E][ ] event carnival (from: Dec 15 2025, 2:00 PM to: Dec 15 2025, 6:00 PM)
+	4.[E][ ] event birthday (from: Aug 20 2025, 10:00 AM to: Aug 21 2025, 10:00 PM)
 	____________________________________________________________
 
 	____________________________________________________________
 	OK, I've marked this task as not done yet:
-	  [D][ ] deadline homework (by: tonight)
+	  [D][ ] deadline homework (by: Dec 02 2025, 6:00 PM)
 	____________________________________________________________
 
 	____________________________________________________________
 	Here are the tasks in your list:
-	1.[D][ ] deadline homework (by: tonight)
+	1.[D][ ] deadline homework (by: Dec 02 2025, 6:00 PM)
 	2.[T][X] todo cs2103
-	3.[E][ ] event carnival (from: today to: tomorrow)
-	4.[E][ ] event birthday (from: Aug 20 to: Aug 21)
+	3.[E][ ] event carnival (from: Dec 15 2025, 2:00 PM to: Dec 15 2025, 6:00 PM)
+	4.[E][ ] event birthday (from: Aug 20 2025, 10:00 AM to: Aug 21 2025, 10:00 PM)
 	____________________________________________________________
 
 	____________________________________________________________
 	I have removed this task:
-	  [D][ ] deadline homework (by: tonight)
+	  [D][ ] deadline homework (by: Dec 02 2025, 6:00 PM)
 	Now you have 3 tasks in the list.
 	____________________________________________________________
 
