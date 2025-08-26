@@ -11,8 +11,16 @@ import java.util.function.Function;
  * Base class for a task.
  */
 public abstract class Task {
+    // NOTE: PRIVATE
+
     /** Map task regex String to constructor of the corresponding task. */
     private static final HashMap<String, Function<String, Task>> registry = new HashMap<>();
+    /** Name of task. */
+    private String name;
+    /** If status is true, task is done. Otherwise, task is not done. */
+    private boolean status;
+
+    // NOTE: PROTECTED
 
     /** Date format when tasks are saved to disk. */
     protected static final DateTimeFormatter DATE_SAVE_FORMAT =
@@ -21,14 +29,11 @@ public abstract class Task {
     protected static final DateTimeFormatter DATE_OUTPUT_FORMAT =
             DateTimeFormatter.ofPattern("MMM dd yyyy");
 
-    /** Name of task. */
-    private String name;
-    /** If status is true, task is done. Otherwise, task is not done. */
-    private boolean status;
-
     protected static void register(String regex, Function<String, Task> supplier) {
         registry.put(regex, supplier);
     }
+
+    // NOTE: PUBLIC
 
     /**
      * Initialise the mapping in 'registry'.

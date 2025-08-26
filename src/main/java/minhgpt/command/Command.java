@@ -1,11 +1,11 @@
 package minhgpt.command;
 
+import java.util.HashMap;
+import java.util.function.Supplier;
+
 import minhgpt.ui.Ui;
 import minhgpt.storage.Storage;
 import minhgpt.task.TaskList;
-
-import java.util.HashMap;
-import java.util.function.Supplier;
 
 /**
  * Encapsulate an user command and what to be executed.
