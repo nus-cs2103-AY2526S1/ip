@@ -11,13 +11,13 @@ public class ToDoTask extends Task {
     }
 
     public String serializeTask() {
-        return "T" + SAVEDELIMITER + (isCompleted() ? "1" : "0")
-                + SAVEDELIMITER + this.encodeString(this.getName());
+        return "T" + SAVE_DELIMITER + (isCompleted() ? "1" : "0")
+                + SAVE_DELIMITER + this.encodeString(this.getName());
     }
 
     public static ToDoTask deserializeTask(String taskStr) throws InvalidSerializedTaskDataException {
         // -1 limit allows for empty strings
-        String[] taskData = taskStr.split(SAVEDELIMITER, -1);
+        String[] taskData = taskStr.split(SAVE_DELIMITER, -1);
         if (taskData.length != 3) {
             throw new InvalidSerializedTaskDataException();
         }

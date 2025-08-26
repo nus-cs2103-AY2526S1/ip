@@ -1,12 +1,16 @@
-public class DeadlineTask extends Task {
-    private String deadline;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
-    public DeadlineTask(String name, String deadline) {
+public class DeadlineTask extends Task {
+    private LocalDateTime deadline;
+
+    public DeadlineTask(String name, LocalDateTime deadline) {
         super(name);
         this.deadline = deadline;
     }
 
-    private DeadlineTask(String name, boolean isCompleted, String deadline) {
+    private DeadlineTask(String name, boolean isCompleted, LocalDateTime deadline) {
         super(name);
         this.deadline = deadline;
         if (isCompleted) {
@@ -14,23 +18,23 @@ public class DeadlineTask extends Task {
         }
     }
 
-    public String getDeadline() {
+    public LocalDateTime getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(String deadline) {
+    public void setDeadline(LocalDateTime deadline) {
         this.deadline = deadline;
     }
 
     public String serializeTask() {
-        return "D" + SAVEDELIMITER + (isCompleted() ? "1" : "0")
-                + SAVEDELIMITER + this.encodeString(this.getName())
-                + SAVEDELIMITER + this.encodeString(this.deadline);
+        return "D" + SAVE_DELIMITER + (isCompleted() ? "1" : "0")
+                + SAVE_DELIMITER + this.encodeString(this.getName())
+                + SAVE_DELIMITER + this.encodeString(Task.dateTimeToString(this.deadline));
     }
 
     public static DeadlineTask deserializeTask(String taskStr) throws InvalidSerializedTaskDataException {
         // -1 limit allows for empty strings
-        String[] taskData = taskStr.split(SAVEDELIMITER, -1);
+        String[] taskData = taskStr.split(SAVE_DELIMITER, -1);
         if (taskData.length != 4) {
             throw new InvalidSerializedTaskDataException();
         }
@@ -38,13 +42,18 @@ public class DeadlineTask extends Task {
         // ["D", "0", "NAME", "DEADLINE"]
         String name = decodeString(taskData[2]);
         boolean isCompleted = taskData[1].equals("1");
-        String deadline = decodeString(taskData[3]);
+        LocalDateTime deadline;
+        try {
+            deadline = Task.parseDateTime(decodeString(taskData[3]));
+        } catch (DateTimeParseException e) {
+            throw new InvalidSerializedTaskDataException();
+        }
 
         return new DeadlineTask(name, isCompleted, deadline);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+        return "[D]" + super.toString() + " (by: " + Task.dateTimeToString(this.deadline) + ")";
     }
 }

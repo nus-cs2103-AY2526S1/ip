@@ -1,5 +1,8 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -36,6 +39,7 @@ public class BeeBong {
                     Delete - removes a task from the list
                     Help - shows full command list
                     Bye - exit
+                    (Enter Dates using this format: DD/MM/YYYY hh:mm, time is optional)
                     Enter a new Task name or Command""";
         botMessage(commandList);
     }
@@ -95,17 +99,31 @@ public class BeeBong {
         if (type.equals("event")) {
             try {
                 String[] taskInfo = convertDetailsToEventTaskInfo(details);
-                newTask = new EventTask(taskInfo[0], taskInfo[1], taskInfo[2]);
+                LocalDateTime startDate = Task.parseDateTime(taskInfo[1]);
+                LocalDateTime endDate = Task.parseDateTime(taskInfo[2]);
+                // Make sure startDate <= endDate
+                if (startDate.isAfter(endDate)) {
+                    botErrorMessage("Invalid Dates Provided! Start Date cannot be after End Date!");
+                    return;
+                }
+                newTask = new EventTask(taskInfo[0], startDate, endDate);
             } catch (InvalidTaskDetailsException e) {
                 botErrorMessage("Invalid Task Details for Event Task!");
+                return;
+            } catch (DateTimeParseException e) {
+                botErrorMessage("Invalid Dates Provided!");
                 return;
             }
         } else if (type.equals("deadline")) {
             try {
                 String[] taskInfo = convertDetailsToDeadlineTaskInfo(details);
-                newTask = new DeadlineTask(taskInfo[0], taskInfo[1]);
+                LocalDateTime deadline = Task.parseDateTime(taskInfo[1]);
+                newTask = new DeadlineTask(taskInfo[0], deadline);
             } catch (InvalidTaskDetailsException e) {
                 botErrorMessage("Invalid Task Details for Deadline Task!");
+                return;
+            } catch (DateTimeParseException e) {
+                botErrorMessage("Invalid Date Provided!");
                 return;
             }
         } else {
