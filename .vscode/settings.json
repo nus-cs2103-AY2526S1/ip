@@ -4,6 +4,7 @@
 
     "java.format.settings.profile": "NoIndentCase",
     "java.format.settings.url": "file://${workspaceFolder}/eclipse-formatter.xml",
+    "java.configuration.updateBuildConfiguration": "interactive",
 
 
 }
