@@ -27,6 +27,11 @@ public class Deadline extends Task {
         this.by = parsedDate;
     }
 
+    public Deadline(String description, LocalDateTime by) {
+        super(description, TaskType.DEADLINE);
+        this.by = by;
+    }
+
     @Override
     public String toString() {
         return super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a")) + ")";

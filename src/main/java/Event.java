@@ -11,6 +11,12 @@ public class Event extends Task {
         this.to = parseDateTime(to);
     }
 
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
+        super(description, TaskType.EVENT);
+        this.from = from;
+        this.to = to;
+    }
+
     private LocalDateTime parseDateTime(String input) {
         DateTimeFormatter[] formatters = new DateTimeFormatter[] {
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),

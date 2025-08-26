@@ -1,5 +1,2 @@
-T | 0 |  reee
-T | 0 |  read book
-D | 0 |  return book | June 6th
-E | 0 |  project meeting | Aug 6th | Aug 7th
-T | 0 |  read book
+T | 1 |  read book
+D | 1 |  return book | 2019-12-02T18:00

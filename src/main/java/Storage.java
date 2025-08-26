@@ -1,5 +1,10 @@
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.time.LocalDateTime;
 
 public class Storage {
     private final String filePath;
@@ -32,12 +37,13 @@ public class Storage {
             return tasks;
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
+        try (Scanner sc = new Scanner(file)) {
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
                 String[] parts = line.split(" \\| ");
                 String type = parts[0];
                 boolean isDone = parts[1].equals("1");
+                String description = parts[2];
 
                 switch (type) {
                 case "T":
@@ -46,12 +52,15 @@ public class Storage {
                     tasks.add(todo);
                     break;
                 case "D":
-                    Task deadline = new Deadline(parts[2], parts[3]);
+                    LocalDateTime by = LocalDateTime.parse(parts[3]);
+                    Task deadline = new Deadline(description, by);
                     if (isDone) deadline.markAsDone();
                     tasks.add(deadline);
                     break;
                 case "E":
-                    Task event = new Event(parts[2], parts[3], parts[4]);
+                    LocalDateTime from = LocalDateTime.parse(parts[3]);
+                    LocalDateTime to = LocalDateTime.parse(parts[4]);
+                    Task event = new Event(description, from, to);
                     if (isDone) event.markAsDone();
                     tasks.add(event);
                     break;
@@ -59,7 +68,7 @@ public class Storage {
                     System.out.println("OOPS!!! Skipping corrupted line... " + line);
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("OOPS!!! There is an error reading file..." + e.getMessage());
         }
         return tasks;
