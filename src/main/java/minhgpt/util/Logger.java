@@ -1,3 +1,5 @@
+package minhgpt.util;
+
 /**
  * Provides logging capability for the program.
  */

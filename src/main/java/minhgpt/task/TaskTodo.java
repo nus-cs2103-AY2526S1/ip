@@ -1,11 +1,13 @@
+package minhgpt.task;
+
 import java.util.ArrayList;
 
 /**
  * Encapsulate a todo task.
  */
-class TodoTask extends Task {
+class TaskTodo extends Task {
     static {
-        Task.register("^todo .+", TodoTask::new);
+        Task.register("^todo .+", TaskTodo::new);
     }
 
     /**
@@ -13,7 +15,7 @@ class TodoTask extends Task {
      * 
      * @param input Input from user to create a todo task.
      */
-    public TodoTask(String input) {
+    public TaskTodo(String input) {
         super(input.substring(5));
     }
 

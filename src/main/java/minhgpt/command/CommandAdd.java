@@ -1,6 +1,13 @@
+package minhgpt.command;
+
+import minhgpt.ui.Ui;
+import minhgpt.storage.Storage;
+import minhgpt.task.Task;
+import minhgpt.task.TaskList;
+
 import java.text.ParseException;
 
-public class CommandAdd extends Command {
+class CommandAdd extends Command {
     @Override
     public void execute(String input, TaskList taskList, Ui ui, Storage storage) {
         try {

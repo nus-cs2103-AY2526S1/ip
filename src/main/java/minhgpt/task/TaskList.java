@@ -1,3 +1,5 @@
+package minhgpt.task;
+
 import java.util.ArrayList;
 
 /**

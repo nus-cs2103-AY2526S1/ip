@@ -1,4 +1,10 @@
-public class CommandBye extends Command {
+package minhgpt.command;
+
+import minhgpt.ui.Ui;
+import minhgpt.storage.Storage;
+import minhgpt.task.TaskList;
+
+class CommandBye extends Command {
     static {
         registry.put("^bye$", CommandBye::new);
     }
