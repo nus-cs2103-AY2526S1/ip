@@ -1,37 +1,32 @@
-import java.util.Scanner;
-
 public class ChatLoop {
-    private TaskList taskList;
-    private UserInputHandler userInputHandler;
-    private Storage storage;
+    private final TaskList taskList;
+    private final Parser parser;
+    private final Storage storage;
+    private final Ui ui;
 
-    public ChatLoop(TaskList taskList, Storage storage) {
+    public ChatLoop(TaskList taskList, Storage storage, Ui ui) {
         this.taskList = taskList;
-        this.userInputHandler = new UserInputHandler();
+        this.parser = new Parser();
         this.storage = storage;
+        this.ui = new Ui();
     }
 
     public void run() {
         boolean endProgram = false;
-        Scanner scanner = new Scanner(System.in);
 
-        printFormattedMessage(ZellMessage.WELCOME_MESSAGE.message());
+        ui.showMessage(ZellMessage.WELCOME_MESSAGE.message());
 
         while (!endProgram) {
-            String userInput = scanner.nextLine();
-            String output = this.userInputHandler.handleInput(userInput, this.taskList, this.storage);
-            printFormattedMessage(output);
+            String userInput = ui.readInput();
 
-            endProgram = this.userInputHandler.getEndProgram();
+            try {
+                String output = parser.parseInput(userInput, taskList, storage);
+                ui.showMessage(output);
+            } catch (ZellException ze) {
+                ui.showError(ze.toString());
+            }
+
+            endProgram = parser.getEndProgram();
         }
-    }
-
-    public void printFormattedMessage(String message) {
-        String formattedMessage =
-                "____________________________________________________________\n" +
-                        message +
-                        "\n____________________________________________________________\n\n";
-
-        System.out.println(formattedMessage);
     }
 }
