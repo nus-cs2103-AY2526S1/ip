@@ -21,3 +21,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # Test results
 /text-ui-test/results
+
+# Program memory
+mem.txt
