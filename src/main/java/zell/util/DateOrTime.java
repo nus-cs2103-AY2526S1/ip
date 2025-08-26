@@ -28,7 +28,7 @@ public class DateOrTime {
     }
 
     public String originalFormat() {
-         String original = "";
+        String original = "";
 
         if (this.date != null) {
             original = this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
