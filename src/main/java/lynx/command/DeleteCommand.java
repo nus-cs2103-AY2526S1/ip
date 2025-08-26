@@ -26,5 +26,9 @@ public class DeleteCommand extends LynxCommand {
         return "Removed tasks containing ";
     }
 
+    public String getMessageByStatus() {
+        return "Removed tasks with status ";
+    }
+
 }
 

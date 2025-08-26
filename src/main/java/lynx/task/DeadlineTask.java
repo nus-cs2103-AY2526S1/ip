@@ -16,10 +16,22 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String name, LocalDateTime deadline) {
         super(name, TaskType.DEADLINE);
         this.deadline = deadline;
+        if (deadline.isBefore(LocalDateTime.now())) {
+            setExpired();
+        }
     }
 
     public LocalDateTime getDeadline() {
         return deadline;
+    }
+
+    /**
+     * Checks if the task is active on the given date.
+     *
+     * @return True if deadline lies on the given date.
+     */
+    public boolean isActive(LocalDateTime dateTime) {
+        return dateTime.toLocalDate().equals(deadline.toLocalDate());
     }
 
     /**

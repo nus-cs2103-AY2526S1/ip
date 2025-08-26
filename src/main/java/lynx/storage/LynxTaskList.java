@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Class containing methods that directly access the task list.
@@ -29,12 +30,12 @@ public abstract class LynxTaskList {
     }
 
     /**
-     * Returns a copy of the task list.
+     * Returns the task list as a stream.
      *
-     * @return Copy of task list.
+     * @return Stream of tasks.
      */
-    public static List<Task> getAllTasks() {
-        return new ArrayList<>(COMMANDS);
+    public static Stream<Task> getAllTasks() {
+        return COMMANDS.stream();
     }
 
     /**
@@ -79,48 +80,6 @@ public abstract class LynxTaskList {
     }
 
     /**
-     * Returns all tasks in the task list with a given keyword in its name.
-     *
-     * @param keyword Keyword used to search tasks by name.
-     * @return List of tasks with names fulfilling the search.
-     */
-    public static List<Task> findTasksContaining(String keyword) {
-        List<Task> tasks = new ArrayList<>();
-        for (Task task : COMMANDS) {
-            if (task.getName().toLowerCase().contains(keyword.toLowerCase())) {
-                tasks.add(task);
-            }
-        }
-        return tasks;
-    }
-
-    /**
-     * Returns all tasks in the task list that are active on a given date.
-     *
-     * @param target <code>LocalDateTime</code> object to search tasks by date.
-     * @return List of tasks occurring on the given date.
-     */
-    public static List<Task> findTasksOnDate(LocalDateTime target) {
-        List<Task> tasks = new ArrayList<>();
-        for (Task task : COMMANDS) {
-            if (task instanceof DeadlineTask deadlineTask) {
-                // compare only date part
-                if (isSameDay(deadlineTask.getDeadline(), target)) {
-                    tasks.add(task);
-                }
-            }
-
-            if (task instanceof EventTask eventTask) {
-                // target date within event range
-                if (!target.isBefore(eventTask.getStart()) && !target.isAfter(eventTask.getEnd())) {
-                    tasks.add(task);
-                }
-            }
-        }
-        return tasks;
-    }
-
-    /**
      * Returns the task in the task list with the given id.
      *
      * @param id Id of task to be retrieved.
@@ -136,9 +95,37 @@ public abstract class LynxTaskList {
         throw new LynxException("Task not found.");
     }
 
-    // Helper: checks if two LocalDateTimes are on the same day
-    private static boolean isSameDay(LocalDateTime a, LocalDateTime b) {
-        return a.toLocalDate().equals(b.toLocalDate());
+    /**
+     * Returns all tasks in a stream with a given keyword in its name.
+     *
+     * @param tasks Stream of tasks to be filtered.
+     * @param keyword Keyword used to filter tasks by name.
+     * @return Task stream filtered by keyword.
+     */
+    public static Stream<Task> filterTasksByKeyword(Stream<Task> tasks, String keyword) {
+        return tasks.filter(task -> task.getName().toLowerCase().contains(keyword.toLowerCase()));
+    }
+
+    /**
+     * Returns all tasks in a stream that are active on a given date.
+     *
+     * @param tasks Stream of tasks to be filtered.
+     * @param dateTime <code>LocalDateTime</code> object to filter tasks by date.
+     * @return Task stream filtered by date.
+     */
+    public static Stream<Task> filterTasksByDate(Stream<Task> tasks, LocalDateTime dateTime) {
+        return tasks.filter(task -> task.isActive(dateTime));
+    }
+
+    /**
+     * Returns all tasks in a stream that match a given status.
+     *
+     * @param tasks Stream of tasks to be filtered.
+     * @param status <code>Status</code> used to filter tasks.
+     * @return Task stream filtered by status.
+     */
+    public static Stream<Task> filterTasksByStatus(Stream<Task> tasks, Task.Status status) {
+        return tasks.filter(task -> task.getStatus().equals(status));
     }
 
 }

@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 /**
  * Class containing methods for interpreting and executing user commands.
@@ -127,6 +128,41 @@ public abstract class LynxCommandManager {
     }
 
     /**
+     * Print all urgent (incomplete) tasks today, if any. Uses the system clock.
+     */
+    public static void tasksToday() {
+        LocalDateTime today = LocalDateTime.now();
+        Stream<Task> tasks = LynxTaskList.filterTasksByDate(LynxTaskList.getAllTasks(), today);
+        List<Task> tasks1 = LynxTaskList.filterTasksByStatus(tasks, Task.Status.INCOMPLETE).toList();
+
+        if (tasks1.isEmpty()) {
+            System.out.println("You have cleared all tasks today. Good job!");
+            LynxUI.line();
+            return;
+        }
+        System.out.println("Here are the tasks requiring completion today:");
+        executeOnTasks(task -> {}, tasks1, "");
+        LynxUI.line();
+    }
+
+    /**
+     * Print all incomplete and unexpired tasks.
+     */
+    public static void tasksFromToday() {
+        List<Task> tasks = LynxTaskList.filterTasksByStatus(
+                LynxTaskList.getAllTasks(), Task.Status.INCOMPLETE).toList();
+
+        if (tasks.isEmpty()) {
+            System.out.println("You have no outstanding tasks. Good job!");
+            LynxUI.line();
+            return;
+        }
+        System.out.println("Reminder for your outstanding tasks:");
+        executeOnTasks(task -> {}, tasks, "");
+        LynxUI.line();
+    }
+
+    /**
      * Marks tasks in the task list as specified by the command.
      * <p>
      * To mark all tasks, use "mark /all".
@@ -134,6 +170,8 @@ public abstract class LynxCommandManager {
      * To mark tasks by date, use "mark /on [date]".
      * <p>
      * To mark a task by id, use "mark /id [id]".
+     * <p>
+     * To mark tasks by status, use "mark /status [status]".
      * <p>
      * To mark tasks by keyword, use "mark [keyword]".
      *
@@ -150,6 +188,7 @@ public abstract class LynxCommandManager {
         MarkCommand command = new MarkCommand(input.substring(5).trim());
         List<Task> tasks = findTasks(command);
         executeOnTasks(mark, tasks, empty);
+        LynxUI.line();
     }
 
     /**
@@ -160,6 +199,8 @@ public abstract class LynxCommandManager {
      * To unmark tasks by date, use "unmark /on [date]".
      * <p>
      * To unmark a task by id, use "unmark /id [id]".
+     * <p>
+     * To unmark tasks by status, use "unmark /status [status]".
      * <p>
      * To unmark tasks by keyword, use "unmark [keyword]".
      *
@@ -176,6 +217,7 @@ public abstract class LynxCommandManager {
         UnmarkCommand command = new UnmarkCommand(input.substring(7).trim());
         List<Task> tasks = findTasks(command);
         executeOnTasks(unmark, tasks, empty);
+        LynxUI.line();
     }
 
     /**
@@ -186,6 +228,8 @@ public abstract class LynxCommandManager {
      * To remove tasks by date, use "delete /on [date]".
      * <p>
      * To remove a task by id, use "delete /id [id]".
+     * <p>
+     * To remove tasks by status, use "delete /status [status]".
      * <p>
      * To remove tasks by keyword, use "delete [keyword]".
      *
@@ -203,6 +247,7 @@ public abstract class LynxCommandManager {
         List<Task> tasks = findTasks(command);
         executeOnTasks(delete, tasks, empty);
         System.out.println("You currently have " + LynxTaskList.getCount() + " task(s) in your list.");
+        LynxUI.line();
     }
 
     /**
@@ -213,6 +258,8 @@ public abstract class LynxCommandManager {
      * To print tasks by date, use "list /on [date]".
      * <p>
      * To print a task by id, use "list /id [id]".
+     * <p>
+     * To print tasks by status, use "list /status [status]".
      * <p>
      * To print tasks by keyword, use "list [keyword]".
      *
@@ -229,6 +276,7 @@ public abstract class LynxCommandManager {
         ListCommand command = new ListCommand(input.substring(5).trim());
         List<Task> tasks = findTasks(command);
         executeOnTasks(list, tasks, empty);
+        LynxUI.line();
     }
 
     /**
@@ -242,23 +290,6 @@ public abstract class LynxCommandManager {
      */
     private static List<Task> findTasks(LynxCommand command) throws LynxException {
         String input = command.getInput();
-        if (input.trim().equals("/all")) {
-            LynxUI.line();
-            System.out.printf("%s:%n", command.getMessageForAll());
-            return LynxTaskList.getAllTasks();
-        }
-
-        if (input.startsWith("/on ")) {
-            input = input.substring(4).trim();
-            try {
-                LocalDateTime dateTime = LynxDateManager.parseDateTime(input);
-                LynxUI.line();
-                System.out.printf("%s%s:%n", command.getMessageByDate(), LynxDateManager.textDateTime(dateTime));
-                return LynxTaskList.findTasksOnDate(dateTime);
-            } catch (LynxException e) {
-                LynxUI.printBox("Invalid date format: " + e.getMessage());
-            }
-        }
 
         if (input.startsWith("/id ")) {
             try {
@@ -273,11 +304,39 @@ public abstract class LynxCommandManager {
             }
         }
 
+        Stream<Task> tasks = LynxTaskList.getAllTasks();
+
+        if (input.trim().equals("/all")) {
+            LynxUI.line();
+            System.out.printf("%s:%n", command.getMessageForAll());
+            return tasks.toList();
+        }
+
+        if (input.startsWith("/on ")) {
+            input = input.substring(4).trim();
+            try {
+                LocalDateTime dateTime = LynxDateManager.parseDateTime(input);
+                LynxUI.line();
+                System.out.printf("%s%s:%n", command.getMessageByDate(), LynxDateManager.textDateTime(dateTime));
+                return LynxTaskList.filterTasksByDate(tasks, dateTime).toList();
+            } catch (LynxException e) {
+                LynxUI.printBox("Invalid date format: " + e.getMessage());
+            }
+        }
+
+        if (input.startsWith("/status ")) {
+            input = input.substring(8).trim().toLowerCase();
+            Task.Status status = Task.Status.matchSymbol(input);
+            LynxUI.line();
+            System.out.printf("%s%s:%n", command.getMessageByStatus(), status);
+            return LynxTaskList.filterTasksByStatus(tasks, status).toList();
+        }
+
         String keyword = input.trim();
         checkName(keyword);
         LynxUI.line();
         System.out.printf("%s\"%s\":%n", command.getMessageByKeyword(), keyword);
-        return LynxTaskList.findTasksContaining(keyword);
+        return LynxTaskList.filterTasksByKeyword(tasks, keyword).toList();
     }
 
     /**
@@ -297,7 +356,6 @@ public abstract class LynxCommandManager {
         if (count == 0) {
             System.out.println(empty);
         }
-        LynxUI.line();
     }
 
     // Checks that task name is within 150-character limit and does not contain the special character "/".

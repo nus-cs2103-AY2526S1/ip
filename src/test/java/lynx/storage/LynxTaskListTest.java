@@ -7,6 +7,7 @@ import lynx.task.Task;
 import lynx.task.TodoTask;
 
 import java.time.LocalDateTime;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -21,13 +22,21 @@ public class LynxTaskListTest {
         LynxTaskList.clearTasks(false);
         LynxTaskList.addTask(new TodoTask("A aaa test BBB"), true);
         LynxTaskList.addTask(new TodoTask("BAAA,testBB"), true);
-        assertEquals(2, LynxTaskList.findTasksContaining("a").size());
-        assertEquals(2, LynxTaskList.findTasksContaining("AAA").size());
-        assertEquals(2, LynxTaskList.findTasksContaining("test").size());
-        assertEquals(1, LynxTaskList.findTasksContaining("a,TEST").size());
-        assertEquals(1, LynxTaskList.findTasksContaining("bbb").size());
-        assertEquals(1, LynxTaskList.findTasksContaining("a a").size());
-        assertEquals(0, LynxTaskList.findTasksContaining(" a ").size());
+
+        assertEquals(2, LynxTaskList.filterTasksByKeyword(
+                LynxTaskList.getAllTasks(), "a").count());
+        assertEquals(2, LynxTaskList.filterTasksByKeyword(
+                LynxTaskList.getAllTasks(), "AAA").count());
+        assertEquals(2, LynxTaskList.filterTasksByKeyword(
+                LynxTaskList.getAllTasks(), "test").count());
+        assertEquals(1, LynxTaskList.filterTasksByKeyword(
+                LynxTaskList.getAllTasks(), "a,TEST").count());
+        assertEquals(1, LynxTaskList.filterTasksByKeyword(
+                LynxTaskList.getAllTasks(), "bbb").count());
+        assertEquals(1, LynxTaskList.filterTasksByKeyword(
+                LynxTaskList.getAllTasks(), "a a").count());
+        assertEquals(0, LynxTaskList.filterTasksByKeyword(
+                LynxTaskList.getAllTasks(), " a ").count());
     }
 
     @Test
@@ -40,12 +49,13 @@ public class LynxTaskListTest {
         LynxTaskList.addTask(new EventTask("a",
                 LocalDateTime.of(2025, 11, 12, 0, 0),
                 LocalDateTime.of(2025, 11, 13, 0, 0)), true);
-        assertEquals(1, LynxTaskList.findTasksOnDate(
-                LocalDateTime.of(2025, 11, 11, 0, 0)).size());
-        assertEquals(2, LynxTaskList.findTasksOnDate(
-                LocalDateTime.of(2025, 11, 12, 6, 0)).size());
-        assertEquals(0, LynxTaskList.findTasksOnDate(
-                LocalDateTime.of(2025, 11, 13, 6, 0)).size());
+
+        assertEquals(1, LynxTaskList.filterTasksByDate(LynxTaskList.getAllTasks(),
+                LocalDateTime.of(2025, 11, 11, 0, 0)).count());
+        assertEquals(2, LynxTaskList.filterTasksByDate(LynxTaskList.getAllTasks(),
+                LocalDateTime.of(2025, 11, 12, 6, 0)).count());
+        assertEquals(0, LynxTaskList.filterTasksByDate(LynxTaskList.getAllTasks(),
+                LocalDateTime.of(2025, 11, 13, 6, 0)).count());
     }
 
     @Test

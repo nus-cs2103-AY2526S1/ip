@@ -1,5 +1,9 @@
 package lynx.task;
 
+import lynx.exception.LynxException;
+
+import java.time.LocalDateTime;
+
 /**
  * Represents a task with a <code>TaskType</code>, <code>Status</code>, name and id for tracking.
  * <p>
@@ -27,8 +31,9 @@ public abstract class Task {
 
     public enum Status {
 
-        COMPLETE("[X]"),
-        INCOMPLETE("[ ]");
+        COMPLETE("[C]"),
+        INCOMPLETE("[I]"),
+        EXPIRED("[E]");
 
         private final String symbol;
 
@@ -38,6 +43,23 @@ public abstract class Task {
 
         public String getSymbol() {
             return symbol;
+        }
+
+        public static Status matchSymbol(String symbol) throws LynxException {
+            switch (symbol) {
+                case "complete" -> {
+                    return COMPLETE;
+                }
+                case "incomplete" -> {
+                    return INCOMPLETE;
+                }
+                case "expired" -> {
+                    return EXPIRED;
+                }
+                default -> {
+                    throw new LynxException("Invalid status.");
+                }
+            }
         }
 
     }
@@ -66,6 +88,7 @@ public abstract class Task {
     public TaskType getType() {
         return type;
     }
+
     public Status getStatus() {
         return status;
     }
@@ -75,8 +98,23 @@ public abstract class Task {
     }
 
     public void setIncomplete() {
-        this.status = Status.INCOMPLETE;
+        if (status.equals(Status.COMPLETE)) {
+            this.status = Status.INCOMPLETE;
+        }
     }
+
+    public void setExpired() {
+        if (status.equals(Status.INCOMPLETE)) {
+            this.status = Status.EXPIRED;
+        }
+    }
+
+    /**
+     * Checks if the task is active on the given date.
+     *
+     * @return True if task occurs on given date.
+     */
+    public abstract boolean isActive(LocalDateTime dateTime);
 
     /**
      * Returns a string representation of the task without its id.
