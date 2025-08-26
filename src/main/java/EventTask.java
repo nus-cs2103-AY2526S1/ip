@@ -1,34 +1,36 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
  * Encapsulate an event task.
  */
 class EventTask extends Task {
+    static {
+        register("^event .+ /from .+ /to .+", EventTask::new);
+    }
+
     /** Start time of event. */
-    private String from;
+    private LocalDate from;
     /** End time of event. */
-    private String to;
+    private LocalDate to;
 
     /**
      * Construct a basic task.
      * 
-     * @param name Name of task to be created.
-     * @param from Start time of event.
-     * @param to End time of event.
+     * @param input Input from user to create an event task.
      */
-    public EventTask(String name, String from, String to) {
-        super(name);
-        this.from = from;
-        this.to = to;
+    public EventTask(String input) {
+        super(input.substring(6).split(" /from ")[0]);
+        String[] split = input.substring(6).split(" /from ")[1].split(" /to ");
+        from = LocalDate.parse(split[0]);
+        to = LocalDate.parse(split[1]);
     }
 
     @Override
     public ArrayList<String> toCommands() {
-        ArrayList<String> commands = new ArrayList<>();
-        commands.add(String.format("event %s /from %s /to %s", name, from, to));
-        if (status) {
-            commands.add(String.format("mark"));
-        }
+        ArrayList<String> commands = super.toCommands();
+        commands.set(0, String.format("event %s /from %s /to %s", commands.get(0),
+                from.format(DATE_SAVE_FORMAT), to.format(DATE_SAVE_FORMAT)));
         return commands;
     }
 
@@ -37,6 +39,7 @@ class EventTask extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), from, to);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(),
+                from.format(DATE_OUTPUT_FORMAT), to.format(DATE_OUTPUT_FORMAT));
     }
 }

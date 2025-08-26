@@ -119,6 +119,7 @@ public class MinhGPT {
      */
     private static void program() {
         Scanner scanner = new Scanner(System.in);
+        Task.initialise();
         ArrayList<Task> tasks = loadTasks();
 
         while (true) {
