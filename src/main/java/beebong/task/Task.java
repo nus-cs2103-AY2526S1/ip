@@ -1,8 +1,12 @@
+package beebong.task;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Base64;
+
+import beebong.exception.InvalidSerializedTaskDataException;
 
 public abstract class Task {
     private String name;
