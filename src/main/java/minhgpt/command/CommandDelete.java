@@ -9,7 +9,7 @@ import minhgpt.task.TaskList;
  */
 class CommandDelete extends Command {
     static {
-        registry.put("^delete \\d+$", CommandDelete::new);
+        register("^delete \\d+$", CommandDelete::new);
     }
 
     public void execute(String input, TaskList taskList, Ui ui, Storage storage) {

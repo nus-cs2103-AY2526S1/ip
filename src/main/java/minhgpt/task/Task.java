@@ -26,6 +26,12 @@ public abstract class Task {
     /** If status is true, task is done. Otherwise, task is not done. */
     private boolean status;
 
+    /**
+     * Put mapping into 'registry'.
+     *
+     * @param regex Regex that the task matches.
+     * @param supplier Constructor for the task.
+     */
     protected static void register(String regex, Function<String, Task> supplier) {
         registry.put(regex, supplier);
     }
@@ -82,6 +88,13 @@ public abstract class Task {
      */
     public void markAsUndone() {
         this.status = false;
+    }
+
+    /**
+     * Return true if the task name matches 'query'. False otherwise.
+     */
+    public boolean match(String query) {
+        return name.toUpperCase().contains(query.toUpperCase());
     }
 
     /**

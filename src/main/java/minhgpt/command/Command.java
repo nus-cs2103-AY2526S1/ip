@@ -11,7 +11,18 @@ import java.util.function.Supplier;
  * Encapsulate an user command and what to be executed.
  */
 public abstract class Command {
-    protected static final HashMap<String, Supplier<Command>> registry = new HashMap<>();
+    /** Map command regex String to constructor of the corresponding command. */
+    private static final HashMap<String, Supplier<Command>> registry = new HashMap<>();
+
+    /**
+     * Put mapping into 'registry'.
+     *
+     * @param regex Regex that the command matches.
+     * @param supplier Constructor for the command.
+     */
+    protected static void register(String regex, Supplier<Command> supplier) {
+        registry.put(regex, supplier);
+    }
 
     /**
      * Execute the command.
@@ -23,6 +34,9 @@ public abstract class Command {
      */
     public abstract void execute(String input, TaskList taskList, Ui ui, Storage storage);
 
+    /**
+     * Initialise the mapping in 'registry'.
+     */
     public static void initialise() {
         new CommandAdd();
         new CommandBye();
@@ -30,6 +44,7 @@ public abstract class Command {
         new CommandList();
         new CommandMark();
         new CommandUnmark();
+        new CommandFind();
     }
 
     /**
