@@ -19,6 +19,9 @@ public class EventTask extends Task {
         super(name, TaskType.EVENT);
         this.start = start;
         this.end = end;
+        if (end.isBefore(LocalDateTime.now())) {
+            setExpired();
+        }
     }
 
     public LocalDateTime getStart() {
@@ -27,6 +30,15 @@ public class EventTask extends Task {
 
     public LocalDateTime getEnd() {
         return end;
+    }
+
+    /**
+     * Checks if the task is active on the given date.
+     *
+     * @return True if given date lies within event period.
+     */
+    public boolean isActive(LocalDateTime dateTime) {
+        return !dateTime.isBefore(start) && !dateTime.isAfter(end);
     }
 
     /**

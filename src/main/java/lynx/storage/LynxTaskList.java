@@ -95,6 +95,22 @@ public abstract class LynxTaskList {
     }
 
     /**
+     * Returns the task in the task list with the given id.
+     *
+     * @param id Id of task to be retrieved.
+     * @return Task with matching id.
+     * @throws LynxException If no matching task is found.
+     */
+    public static Task findTaskById(int id) throws LynxException {
+        for (Task task : COMMANDS) {
+            if (task.getId() == id) {
+                return task;
+            }
+        }
+        throw new LynxException("Task not found.");
+    }
+
+    /**
      * Returns all tasks in the task list that are active on a given date.
      *
      * @param target <code>LocalDateTime</code> object to search tasks by date.
@@ -118,22 +134,6 @@ public abstract class LynxTaskList {
             }
         }
         return tasks;
-    }
-
-    /**
-     * Returns the task in the task list with the given id.
-     *
-     * @param id Id of task to be retrieved.
-     * @return Task with matching id.
-     * @throws LynxException If no matching task is found.
-     */
-    public static Task findTaskById(int id) throws LynxException {
-        for (Task task : COMMANDS) {
-            if (task.getId() == id) {
-                return task;
-            }
-        }
-        throw new LynxException("Task not found.");
     }
 
     // Helper: checks if two LocalDateTimes are on the same day
