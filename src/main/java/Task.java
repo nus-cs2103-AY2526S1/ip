@@ -1,9 +1,15 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Base64;
 
 public abstract class Task {
     private String name;
     private boolean completed;
-    protected static String SAVEDELIMITER = " ";
+    protected static String SAVE_DELIMITER = " ";
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
 
     public Task(String name) {
         this.name = name;
@@ -57,6 +63,37 @@ public abstract class Task {
 
     protected static String decodeString(String str) {
         return new String(Base64.getDecoder().decode(str));
+    }
+
+    public static LocalDate parseDate(String dateStr) {
+        return LocalDate.parse(dateStr, DATE_FORMATTER);
+    }
+
+    public static String dateToString(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return date.format(formatter);
+    }
+
+    public static LocalDateTime parseDateTime(String dateStr) {
+        // In order to make the method flexible we need to
+        // try parsing it as a LocalDateTime first, if not try LocalDate
+        try {
+            return LocalDateTime.parse(dateStr, DATE_TIME_FORMATTER);
+        } catch (DateTimeParseException e) {
+            return LocalDate.parse(dateStr, DATE_FORMATTER).atStartOfDay(); // Default 00:00
+        }
+    }
+
+    public static String dateTimeToString(LocalDateTime dateTime) {
+        DateTimeFormatter formatterDT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        DateTimeFormatter formatterD = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        if (dateTime.getHour() == 0 && dateTime.getMinute() == 0) {
+            // Only date
+            return dateTime.toLocalDate().format(formatterD);
+        } else {
+            // Date + time
+            return dateTime.format(formatterDT);
+        }
     }
 
     @Override
