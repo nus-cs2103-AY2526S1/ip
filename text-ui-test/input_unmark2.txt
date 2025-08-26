@@ -9,14 +9,14 @@ list
 unmark 1
 list
 mark 3
-deadline play game /by Monday
+deadline play game /by 2025-08-11
 list
-deadline read game manual /by 19th August 2025
+deadline read game manual /by 2025-08-19
 list
-deadline buy game /by next Sunday
+deadline buy game /by 2025-08-22
 list
 mark 4
-deadline test game /by next Sunday /by Monday
+deadline test game /by 2025-08-16
 list
 unmark 3
 list

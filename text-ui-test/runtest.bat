@@ -22,3 +22,5 @@ java -classpath ..\bin Zell < input_%fileName%.txt > ACTUAL_%fileName%.TXT
 
 REM compare the output to the expected output
 FC ACTUAL_%fileName%.TXT EXPECTED_%fileName%.TXT
+
+rmdir /s /q data

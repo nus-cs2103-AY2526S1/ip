@@ -1,7 +1,7 @@
-deadline do stuff /by Friday
+deadline do stuff /by 2025-08-11
 deadline
 deadlines
 deadline do stuff
 deadline /by
-deadline /by Friday
+deadline /by 2025-08-11
 bye

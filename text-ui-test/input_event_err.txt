@@ -1,10 +1,10 @@
-event do stuff /from Mon 25th /to Mon 27th
+event do stuff /from 2025-08-11 /to 2025-08-12
 list
 event
 events
 event do stuff
-event do stuff /from Mon 25th
-event do stuff /to Mon 27th
-event do stuff /to Mon 27th /from Mon 25th
+event do stuff /from 2025-08-11
+event do stuff /to 2025-08-11
+event do stuff /to 2025-08-11 /from 2025-08-11
 event /from /to s
 bye

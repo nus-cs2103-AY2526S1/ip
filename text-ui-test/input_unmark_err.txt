@@ -1,6 +1,6 @@
 todo study
-deadline do homework /by Friday
-event go school /from Today 2pm /to Today 5pm
+deadline do homework /by 2025-08-11
+event go school /from 2025-08-11 14:00 /to 2025-08-11 17:00
 list
 mark 1
 mark 2
