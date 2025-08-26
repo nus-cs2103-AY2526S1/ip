@@ -16,22 +16,24 @@ public class Storage {
     private static final String DATA_DIR = "data";
     private static final String FILE_NAME = "byte.txt";
     private final Path filePath;
+    private TaskList taskList;
 
     /**
      * Creates a Storage instance with the default file path.
      */
     public Storage() {
         this.filePath = Paths.get(DATA_DIR, FILE_NAME);
+        this.taskList = new TaskList();
     }
 
     /**
      * Loads tasks from the file.
      * Creates the directory and file if they don't exist.
      *
-     * @return List of loaded tasks
+     * @return TaskList of loaded tasks
      * @throws IOException if there's an error reading the file
      */
-    public List<Task> loadTasks() throws IOException {
+    public TaskList load() throws IOException {
         File dataDir = new File(DATA_DIR);
         if (!dataDir.exists()) {
             dataDir.mkdirs();
@@ -39,7 +41,7 @@ public class Storage {
 
         if (!Files.exists(filePath)) {
             Files.createFile(filePath);
-            return new ArrayList<>();
+            return new TaskList();
         }
 
         List<String> lines = Files.readAllLines(filePath);
@@ -56,39 +58,97 @@ public class Storage {
             }
         }
 
-        return tasks;
+        this.taskList = new TaskList(tasks);
+        return this.taskList;
+    }
+
+    /**
+     * Gets the current task list.
+     */
+    public TaskList getTaskList() {
+        return taskList;
+    }
+
+    /**
+     * Initializes the storage with a given TaskList.
+     * This is used when loading from file fails, then start with an empty list.
+     *
+     * @param taskList The TaskList to initialize with
+     */
+    public void initializeWithTaskList(TaskList taskList) {
+        this.taskList = taskList;
+    }
+
+    /**
+     * Gets the number of tasks in the list.
+     */
+    public int getSize() {
+        return taskList.size();
+    }
+
+
+
+    /**
+     * Gets a task at the specified index.
+     */
+    public Task getTask(int index) throws ByteException {
+        return taskList.get(index);
+    }
+
+    /**
+     * Adds a task to the list and saves.
+     */
+    public void addTask(Task task) {
+        taskList.add(task);
+        saveTasks(taskList);
+    }
+
+    /**
+     * Marks a task as done and saves.
+     */
+    public void markTask(int index) throws ByteException {
+        taskList.mark(index);
+        saveTasks(taskList);
+    }
+
+    /**
+     * Marks a task as not done and saves.
+     */
+    public void unmarkTask(int index) throws ByteException {
+        taskList.unmark(index);
+        saveTasks(taskList);
+    }
+
+    /**
+     * Deletes a task and saves.
+     */
+    public Task deleteTask(int index) throws ByteException {
+        Task removed = taskList.delete(index);
+        saveTasks(taskList);
+        return removed;
     }
 
     /**
      * Saves tasks to the file.
      *
-     * @param tasks List of tasks to save
-     * @throws IOException if there's an error writing to the file
+     * @param tasks TaskList to save
      */
-    public void saveTasks(List<Task> tasks) throws IOException {
-        // Create directory if it doesn't exist
-        File dataDir = new File(DATA_DIR);
-        if (!dataDir.exists()) {
-            dataDir.mkdirs();
-        }
-
-        try (FileWriter writer = new FileWriter(filePath.toFile())) {
-            for (Task task : tasks) {
-                writer.write(taskToFileString(task) + "\n");
+    public void saveTasks(TaskList tasks) {
+        try {
+            File dataDir = new File(DATA_DIR);
+            if (!dataDir.exists()) {
+                dataDir.mkdirs();
             }
+
+            FileWriter writer = new FileWriter(filePath.toFile());
+            taskList.writeToFile(writer);
+            writer.close();
+        } catch (IOException e) {
+            System.err.println("Could not save tasks to file: " + e.getMessage());
         }
     }
 
-    /**
-     * Converts a task to its file representation.
-     *
-     * @param task Task to convert
-     * @return String representation for file storage
-     */
-    private String taskToFileString(Task task) {
-        Status status = task.isDone ? Status.DONE : Status.NOT_DONE;
-        return status.getValue() + " | " + task;
-    }
+
 
     /**
      * Parses a task from its file string representation.
