@@ -80,16 +80,6 @@ public abstract class LynxTaskList {
     }
 
     /**
-     * Returns all tasks in the task list with a given keyword in its name.
-     *
-     * @param keyword Keyword used to search tasks by name.
-     * @return List of tasks with names fulfilling the search.
-     */
-    public static List<Task> findTasksContaining(String keyword) {
-        return filterTasksByKeyword(COMMANDS.stream(), keyword).toList();
-    }
-
-    /**
      * Returns the task in the task list with the given id.
      *
      * @param id Id of task to be retrieved.
@@ -103,16 +93,6 @@ public abstract class LynxTaskList {
             }
         }
         throw new LynxException("Task not found.");
-    }
-
-    /**
-     * Returns all tasks in the task list that are active on a given date.
-     *
-     * @param dateTime <code>LocalDateTime</code> object to search tasks by date.
-     * @return List of tasks occurring on the given date.
-     */
-    public static List<Task> findTasksOnDate(LocalDateTime dateTime) {
-        return filterTasksByDate(COMMANDS.stream(), dateTime).toList();
     }
 
     /**

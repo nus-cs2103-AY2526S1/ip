@@ -17,11 +17,13 @@ public class TaskLynx {
 
         // Starts the process of scanning for commands
         LynxUI.hello();
+        LynxCommandManager.tasksToday();
         LynxScanner.scanForCommands();
 
         // Once finished, unload contents into data file
         LynxCommandManager.save();
         LynxScanner.SCANNER.close();
+        LynxCommandManager.tasksFromToday();
         LynxUI.bye();
     }
 
