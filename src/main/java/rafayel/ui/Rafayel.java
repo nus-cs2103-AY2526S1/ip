@@ -18,16 +18,32 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 // import java.time.temporal.ChronoUnit;
 
+/**
+ * Chatbot named Rafayel that manages a task list.
+ * Functions include to add, delete, mark, unmark and list tasks.
+ * Supports different task types: Todo, Deadline, and Event.
+ * Saves task data to local file storage.
+ */
 public class Rafayel {
 
-    private static String FILE_PATH = "./data/rafayel.txt";
-
-    private Storage storage;
+    /* Storage object that saves the task to local file storage. */
+    private final Storage storage;
+    /* TaskList stores the list of tasks */
     private TaskList tasks;
-    private Ui ui;
+    /* Manages the ui of Rafayel */
+    private final Ui ui;
 
+    /* Standardised formatting of the LocalDateTime object */
     DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
+    /**
+     * Handles marking or unmarking a task as done/not done.
+     *
+     * @param input user input containing the mark/unmark command.
+     * @param tasks TaskList with all the tasks.
+     * @param markTask true to mark the task as done, false otherwise.
+     * @throws RafayelException if the input format or task number is invalid.
+     */
     private static void handleMarkCommand(String input, TaskList tasks, boolean markTask) throws RafayelException {
         int minLen = markTask ? 5 : 7;
         if (input.length() <= minLen) {
@@ -51,6 +67,12 @@ public class Rafayel {
 
     }
 
+    /**
+     * Prints the confirmation message when a new task is added to the list
+     *
+     * @param newTask the task that was added.
+     * @param counter the current number of tasks in the ArrayList.
+     */
     private static void printNewTaskString(Task newTask, int counter) {
         // FOR CREATING TASKS
         String TASK_START = "Got it. I've added this task:";
@@ -60,6 +82,13 @@ public class Rafayel {
         System.out.println("Now you have " + counter + " tasks in the list.");
     }
 
+    /**
+     * Handles the creation and addition of a new Todo task.
+     *
+     * @param input user input with the todo command.
+     * @param tasks TaskList to add the new task to.
+     * @throws RafayelException if the input format is invalid or description is missing.
+     */
     private static void handleTodoCommand(String input, TaskList tasks) throws RafayelException {
         if (input.length() <= 5) {
             throw new RafayelException("Please add in the description of the Todo task.");
@@ -71,6 +100,13 @@ public class Rafayel {
         printNewTaskString(newTask, tasks.getSize());
     }
 
+    /**
+     * Handles the creation and addition of a new Deadline task.
+     *
+     * @param input user input with the deadline command.
+     * @param tasks TaskList to add the new task to.
+     * @throws RafayelException if the input format is invalid, description is missing or date format is wrong.
+     */
     private static void handleDeadlineCommand(String input, TaskList tasks) throws RafayelException {
         if (input.length() <= 10) {
             throw new RafayelException("Please add in the description of the Deadline task.");
@@ -87,6 +123,12 @@ public class Rafayel {
         printNewTaskString(newTask, tasks.getSize());
     }
 
+    /**
+     * Parses a date string into a LocalDateTime object with three supported formats.
+     *
+     * @param input input of the date string to parse.
+     * @return the parsed LocalDateTime object, null if no format matches.
+     */
     public static LocalDateTime handleReadDate(String input) {
         // check if valid format
         DateTimeFormatter[] differentTimeFormatters = new DateTimeFormatter[] {
@@ -107,6 +149,13 @@ public class Rafayel {
         return null;
     }
 
+    /**
+     * Handles the creation and addition of a new Event task.
+     *
+     * @param input user input with the event command
+     * @param tasks TaskList to add the new task to
+     * @throws RafayelException if the input format is invalid, description is missing, or date formats are incorrect.
+     */
     private static void handleEventCommand(String input, TaskList tasks) throws RafayelException {
         if (input.length() <= 6) {
             throw new RafayelException("Please add in the description of the Event task.");
@@ -129,6 +178,12 @@ public class Rafayel {
         printNewTaskString(newTask, tasks.getSize());
     }
 
+    /**
+     * Constructs a new Rafayel chatbot instance with the specified file path for data storage.
+     *
+     * @param filePath path to the file where task data will be stored.
+     * @throws IOException if there is an error initialising the storage.
+     */
     public Rafayel(String filePath) throws IOException {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -140,6 +195,13 @@ public class Rafayel {
         }
     }
 
+    /**
+     * Starts the main execution loop of the Rafayel chatbot.
+     * Processes user commands until the exit command is received.
+     *
+     * @throws RafayelException if there is an error processing commands.
+     * @throws Exception if there is any other unexpected error.
+     */
     public void run() throws RafayelException, Exception {
         ui.showWelcome();
 
@@ -230,7 +292,15 @@ public class Rafayel {
         sc.close();
     }
 
+    /**
+     * The main entry point of the Rafayel chatbot application.
+     *
+     * @param args command line arguments (not used)
+     * @throws Exception if there is an error initialising or running the chatbot
+     */
     public static void main(String[] args) throws Exception {
+        /* Path of the file that stores tasks */
+        String FILE_PATH = "./data/rafayel.txt";
         new Rafayel(FILE_PATH).run();
     }
 }

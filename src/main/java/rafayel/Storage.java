@@ -15,14 +15,32 @@ import rafayel.task.Event;
 import rafayel.task.Task;
 import rafayel.task.Todo;
 
+/**
+ * Storage class handles all file operations for the Rafayel chatbot.
+ * Responsible for saving tasks to file and loading tasks from file.
+ * Manages file and directory creation if they don't exist.
+ */
 public class Storage {
 
+    /* String to store the path to the data/files */
     String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath the path to the file where tasks will be stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the list of tasks to the storage file.
+     * Each task is converted to a string representation and written to the file.
+     *
+     * @param tasks list of tasks to be saved.
+     * @throws Exception if an error occurs during file writing.
+     */
     public void save(ArrayList<Task> tasks) throws Exception {
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -38,6 +56,13 @@ public class Storage {
 
     }
 
+    /**
+     * Ensures that the storage file and its parent directories exist.
+     * Creates directories and file if they don't exist.
+     *
+     * @throws RafayelException if directory or file creation fails.
+     * @throws IOException if an I/O error occurs.
+     */
     private void ensureFileExists() throws RafayelException, IOException {
         File file = new File(filePath);
         File directory = file.getParentFile();
@@ -57,6 +82,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the storage file.
+     * Parses each line of the file to reconstruct Task objects.
+     *
+     * @return an ArrayList of Task objects loaded from the file.
+     * @throws RafayelException if there's an error ensuring file existence.
+     * @throws IOException if there's an error reading the file.
+     */
     public ArrayList<Task> load() throws RafayelException, IOException {
         ArrayList<Task> tasks = new ArrayList<Task>();
         // Tasklist?
@@ -125,6 +158,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Parses a date string into a LocalDateTime object using multiple supported formats.
+     *
+     * @param input the date string to parse.
+     * @return the parsed LocalDateTime object, or null if no format matches.
+     */
     public static LocalDateTime handleReadDate(String input) {
         // check if valid format
         DateTimeFormatter[] differenTimeFormatters = new DateTimeFormatter[] {

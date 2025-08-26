@@ -2,9 +2,8 @@ package rafayel.task;
 
 /**
  * Abstract task with description and completion status. Subclasses should
- * define the specfic types of tasks.
+ * define the specific types of tasks.
  */
-
 public abstract class Task {
     protected String description;
     protected boolean isDone;
