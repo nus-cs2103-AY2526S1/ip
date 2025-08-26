@@ -1,6 +1,9 @@
-import java.time.LocalDate;
+package beebong.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import beebong.exception.InvalidSerializedTaskDataException;
 
 public class EventTask extends Task {
     private LocalDateTime startDate;
@@ -37,6 +40,7 @@ public class EventTask extends Task {
         this.endDate = endDate;
     }
 
+    @Override
     public String serializeTask() {
         return "E" + SAVE_DELIMITER + (isCompleted() ? "1" : "0")
                 + SAVE_DELIMITER + this.encodeString(this.getName())

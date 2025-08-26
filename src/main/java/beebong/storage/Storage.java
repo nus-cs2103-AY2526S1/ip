@@ -1,3 +1,5 @@
+package beebong.storage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -5,6 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import beebong.exception.BBongException;
+import beebong.exception.InvalidSerializedTaskDataException;
+import beebong.task.Task;
 
 public class Storage {
     private final String filePath;
@@ -52,7 +58,6 @@ public class Storage {
                 writer.write(t.serializeTask() + System.lineSeparator());
             }
             writer.close();
-//            botMessage("Bing Bing! Tasks saved successfully!");
         } catch (IOException e) {
             throw new BBongException("Unable to save tasks to file.");
         }
