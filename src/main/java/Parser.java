@@ -1,31 +1,23 @@
-public class UserInputHandler {
+public class Parser {
     private boolean endProgram;
 
-    public UserInputHandler() {
-        this.endProgram = false;
+    public Parser() {
+        endProgram = false;
     }
 
     public boolean getEndProgram() {
-        return this.endProgram;
+        return endProgram;
     }
-    
-    public String handleInput(String userInput, TaskList taskList, Storage storage) {
+
+    public String parseInput(String userInput, TaskList taskList, Storage storage) throws ZellException {
         int firstSpaceIndex = userInput.indexOf(" ");
 
         String command = firstSpaceIndex != -1 ? userInput.substring(0, firstSpaceIndex) : userInput;
-        String output;
 
-        // Handle exceptions;
-        try {
-            output = handleCommand(userInput, command, taskList, storage);
-        } catch (ZellException ze) {
-            output = ze.toString();
-        }
-
-        return output;
+        return executeCommand(userInput, command, taskList, storage);
     }
 
-    public String handleCommand(String userInput, String command, TaskList taskList,
+    public String executeCommand(String userInput, String command, TaskList taskList,
             Storage storage) throws ZellException {
         int firstSpaceIndex = userInput.indexOf(" ");
         String output;
@@ -137,7 +129,7 @@ public class UserInputHandler {
 
     public String handleBye(int firstSpaceIndex, String command) throws ZellException {
         checkIfCommandHasSpaces(command, firstSpaceIndex);
-        this.endProgram = true;
+        endProgram = true;
         return ZellMessage.GOODBYE.message();
     }
 
