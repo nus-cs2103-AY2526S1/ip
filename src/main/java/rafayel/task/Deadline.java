@@ -11,17 +11,17 @@ public class Deadline extends Task {
         this.deadlineDate = deadlineDate;
     }
 
-    private static String handleDateTimeFormetting(LocalDateTime dateTime) {
+    private static String handleDateTimeFormatting(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + handleDateTimeFormetting(this.deadlineDate) + ")";
+        return "[D]" + super.toString() + " (by: " + handleDateTimeFormatting(this.deadlineDate) + ")";
     }
 
     @Override
     public String saveTaskName() {
-        return "D" + super.saveTaskName() + " | " + handleDateTimeFormetting(this.deadlineDate);
+        return "D" + super.saveTaskName() + " | " + handleDateTimeFormatting(this.deadlineDate);
     }
 }

@@ -15,19 +15,19 @@ public class Event extends Task {
         this.endDate = endDate;
     }
 
-    private static String handleDateTimeFormetting(LocalDateTime dateTime) {
+    private static String handleDateTimeFormatting(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + handleDateTimeFormetting(this.startDate) + " to: "
-                + handleDateTimeFormetting(this.endDate) + ")";
+        return "[E]" + super.toString() + " (from: " + handleDateTimeFormatting(this.startDate) + " to: "
+                + handleDateTimeFormatting(this.endDate) + ")";
     }
 
     @Override
     public String saveTaskName() {
-        return "E" + super.saveTaskName() + " | " + handleDateTimeFormetting(this.startDate) + " - "
-                + handleDateTimeFormetting(this.endDate);
+        return "E" + super.saveTaskName() + " | " + handleDateTimeFormatting(this.startDate) + " - "
+                + handleDateTimeFormatting(this.endDate);
     }
 }

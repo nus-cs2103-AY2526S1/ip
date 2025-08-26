@@ -89,11 +89,12 @@ public class Rafayel {
 
     public static LocalDateTime handleReadDate(String input) {
         // check if valid format
-        DateTimeFormatter[] differenTimeFormatters = new DateTimeFormatter[] {
-                DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"), DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"),
+        DateTimeFormatter[] differentTimeFormatters = new DateTimeFormatter[] {
+                DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"),
+                DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"),
                 DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm") };
 
-        for (DateTimeFormatter formatter : differenTimeFormatters) {
+        for (DateTimeFormatter formatter : differentTimeFormatters) {
             try {
                 return LocalDateTime.parse(input, formatter);
             } catch (Exception ignore) {
@@ -141,11 +142,10 @@ public class Rafayel {
 
     public void run() throws RafayelException, Exception {
         ui.showWelcome();
-        boolean isExit = false;
 
         Scanner sc = new Scanner(System.in);
 
-        while (!isExit) {
+        while (true) {
             try {
                 if (!sc.hasNextLine()) {
                     ui.showLine();
