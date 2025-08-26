@@ -8,30 +8,6 @@ import java.time.format.DateTimeFormatter;
 
 public class Rafayel {
 
-    public enum Command {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN;
-
-        public static Command parseCommand(String input) {
-            if (input.equals("bye"))
-                return BYE;
-            if (input.equals("list"))
-                return LIST;
-            if (input.startsWith("mark"))
-                return MARK;
-            if (input.startsWith("unmark"))
-                return UNMARK;
-            if (input.startsWith("todo"))
-                return TODO;
-            if (input.startsWith("deadline"))
-                return DEADLINE;
-            if (input.startsWith("event"))
-                return EVENT;
-            if (input.startsWith("delete"))
-                return DELETE;
-            return UNKNOWN;
-        }
-    }
-
     private static String FILE_PATH = "./data/rafayel.txt";
 
     private Storage storage;
@@ -175,7 +151,7 @@ public class Rafayel {
 
                 ui.showLine();
 
-                Command command = Command.parseCommand(input);
+                Parser.Command command = Parser.parse(input);
                 // System.out.println(command);
 
                 switch (command) {
