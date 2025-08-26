@@ -11,10 +11,11 @@ import java.util.function.Supplier;
  * Encapsulate an user command and what to be executed.
  */
 public abstract class Command {
+    /** Map command regex String to constructor of the corresponding command. */
     protected static final HashMap<String, Supplier<Command>> registry = new HashMap<>();
 
     /**
-     * Execute the command.
+     * Execute the program logic for the command.
      *
      * @param input Input from user.
      * @param taskList program's list of tasks.
@@ -35,7 +36,7 @@ public abstract class Command {
     /**
      * Factory method for creating commands.
      *
-     * @input Input command from user.
+     * @param input Input command from user.
      */
     public static Command parseCommand(String input) {
         for (String regex : registry.keySet()) {
@@ -47,6 +48,9 @@ public abstract class Command {
         return new CommandAdd();
     }
 
+    /**
+     * Return true if 'command' is a CommandBye. False otherwise.
+     */
     public static boolean isCommandBye(Command command) {
         return command instanceof CommandBye;
     }
