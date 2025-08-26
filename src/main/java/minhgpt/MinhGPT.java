@@ -8,6 +8,9 @@ import minhgpt.storage.Storage;
 
 import java.util.Scanner;
 
+/**
+ * Main program
+ */
 public class MinhGPT {
     /**
      * Main entry-point for the program.

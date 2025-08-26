@@ -28,4 +28,5 @@ mem.txt
 
 # Project file
 .project
+.classpath
 /.settings/
