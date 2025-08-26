@@ -1,3 +1,5 @@
+package minhgpt;
+
 import minhgpt.command.Command;
 import minhgpt.task.Task;
 import minhgpt.task.TaskList;
