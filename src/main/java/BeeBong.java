@@ -1,17 +1,14 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 
 public class BeeBong {
     private final String NEWLINE = "____________________________________________________________";
-    private final List<Task> tasks = new ArrayList<>();
+    private final TaskList taskList = new TaskList();
 
     private void botMessage(String message) {
         System.out.println(this.NEWLINE);
@@ -46,15 +43,13 @@ public class BeeBong {
 
     private void listTasks() {
         // If there are no Tasks to list
-        if (this.tasks.isEmpty()) {
+        if (this.taskList.length() == 0) {
             botMessage("Bong! I searched high and low… still nothing to show right now.");
             return;
         }
         System.out.println(this.NEWLINE);
         System.out.println("Bing! Here’s what’s buzzing in your list, courtesy of B. Bong:");
-        for (int i = 0; i < this.tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + this.tasks.get(i));
-        }
+        System.out.print(this.taskList);
         System.out.println(this.NEWLINE);
     }
 
@@ -67,16 +62,12 @@ public class BeeBong {
         try {
             int taskNum = Integer.parseInt(params) - 1;
             //Check for valid task number
-            if (taskNum < 0 || taskNum >= this.tasks.size()) {
+            if (taskNum < 0 || taskNum >= this.taskList.length()) {
                 botErrorMessage("That task number doesn’t exist. Try a real one!");
                 return;
             }
             //Mark Task as Completed/Incomplete
-            if (status) {
-                this.tasks.get(taskNum).markCompleted();
-            } else {
-                this.tasks.get(taskNum).markIncomplete();
-            }
+            this.taskList.markTaskAs(taskNum, status);
             botMessage("Bing! Task #" + (taskNum + 1) + " marked as " + (status ? "complete" : "incomplete") + "!");
         } catch (NumberFormatException e) {
             botErrorMessage("That task number doesn’t exist. Try a real one!");
@@ -130,8 +121,8 @@ public class BeeBong {
             newTask = new ToDoTask(details);
         }
         // Add Task to taskList
-        this.tasks.add(newTask);
-        botMessage("Bing! Task added to my list:\n" + newTask + "\nYou now have " + this.tasks.size() + " task(s) " +
+        this.taskList.addTask(newTask);
+        botMessage("Bing! Task added to my list:\n" + newTask + "\nYou now have " + this.taskList.length() + " task(s) " +
                 "buzzing around in the list.");
     }
 
@@ -175,13 +166,13 @@ public class BeeBong {
         try {
             int taskNum = Integer.parseInt(params) - 1;
             //Check for valid task number
-            if (taskNum < 0 || taskNum >= this.tasks.size()) {
+            if (taskNum < 0 || taskNum >= this.taskList.length()) {
                 botErrorMessage("That task number doesn’t exist. Try a real one!");
                 return;
             }
             //Delete Task
-            Task removedTask = this.tasks.remove(taskNum);
-            botMessage("Bing! This task has been removed:\n"+removedTask+"\nYou now have "+this.tasks.size()+" task(s) buzzing around in the list.");
+            Task removedTask = this.taskList.deleteTask(taskNum);
+            botMessage("Bing! This task has been removed:\n"+removedTask+"\nYou now have "+this.taskList.length()+" task(s) buzzing around in the list.");
         } catch (NumberFormatException e) {
             botErrorMessage("That task number doesn’t exist. Try a real one!");
         }
@@ -203,7 +194,7 @@ public class BeeBong {
             Scanner reader = new Scanner(saveFile);
             while (reader.hasNextLine()) {
                 String taskStr = reader.nextLine();
-                tasks.add(Task.deserializeTask(taskStr));
+                taskList.addTask(Task.deserializeTask(taskStr));
             }
             reader.close();
         } catch (FileNotFoundException e) {
@@ -224,9 +215,9 @@ public class BeeBong {
             // No need to append, just write new as
             // we always read existing data and append within the tasklist
             FileWriter writer = new FileWriter("bbongSave.txt");
-            for (Task t : tasks) {
-                writer.write(t.serializeTask() + System.lineSeparator());
-            }
+//            for (Task t : tasks) {
+//                writer.write(t.serializeTask() + System.lineSeparator());
+//            }
             writer.close();
             botMessage("Bing Bing! Tasks saved successfully!");
         } catch (IOException e) {
