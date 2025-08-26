@@ -1,9 +1,5 @@
 import exceptions.*;
-import taskTypes.Deadline;
-import taskTypes.Event;
-import taskTypes.ToDo;
-import taskTypes.Task;
-import taskTypes.taskList;
+import taskTypes.*;
 import util.Helper;
 import java.util.Scanner;
 
@@ -12,7 +8,8 @@ public class Jimbot {
         String userInput;
         Scanner scanner = new Scanner(System.in);
         Response user = new Response();
-        taskList userList = new taskList();
+        Database db = new Database("./data/database.db");
+        taskList userList = db.load();
 
         user.hello("Jimbot");
 
@@ -21,7 +18,7 @@ public class Jimbot {
 
             try {
                 int taskCount = userList.getTaskCount();
-                if (userInput.toLowerCase().matches(".*\\b(bye|goodbye)\\b.*")) {
+                if (userInput.toLowerCase().matches(".*\\b(bye|goodbye)\\b.*mal")) {
                     user.goodBye();
                     break;
 
@@ -33,12 +30,14 @@ public class Jimbot {
                     Task task = userList.getTask(index);
                     task.markAsDone();
                     user.markRes(userList, index);
+                    db.update(userList);
 
                 } else if (userInput.startsWith("unmark")) {
                     int index = Helper.parseIndex(userInput, "unmark", taskCount);
                     Task task = userList.getTask(index);
                     task.markAsUndone();
                     user.unmarkRes(userList, index);
+                    db.update(userList);
 
                 } else if (userInput.startsWith("deadline")) {
 
@@ -54,6 +53,7 @@ public class Jimbot {
                             Deadline userDeadline = new Deadline(description, by);
                             userList.addToList(userDeadline);
                             user.addTask(userDeadline, taskCount + 1);
+                            db.update(userList);
                         }
                     }
 
@@ -78,6 +78,7 @@ public class Jimbot {
                             Event userEvent = new Event(description, from, to);
                             userList.addToList(userEvent);
                             user.addTask(userEvent, taskCount + 1);
+                            db.update(userList);
                         }
                     }
 
@@ -88,12 +89,14 @@ public class Jimbot {
                         ToDo userToDo = new ToDo(description);
                         userList.addToList(userToDo);
                         user.addTask(userToDo, taskCount + 1);
+                        db.update(userList);
                     }
                 } else if (userInput.startsWith("delete")) {
                     int index = Helper.parseIndex(userInput, "delete", taskCount);
                     Task task = userList.getTask(index);
                     userList.deleteFromList(userList.getTask(index));
                     user.deleteTask(task, taskCount - 1);
+                    db.update(userList);
 
                 } else {
                     user.echo(userInput);

@@ -8,8 +8,14 @@ import java.util.List;
 public class taskList {
     protected List<Task> listOfTasks;
 
+    //default taskList to intiate
     public taskList() {
         listOfTasks = new ArrayList<>();
+    }
+
+    //taskList that returns stored tasks
+    public taskList(List<Task> loadTasks) {
+        this.listOfTasks = loadTasks;
     }
 
     public List<Task> getTaskList() {
