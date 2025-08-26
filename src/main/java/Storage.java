@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,7 +87,7 @@ public class Storage {
      */
     private String taskToFileString(Task task) {
         Status status = task.isDone ? Status.DONE : Status.NOT_DONE;
-        return status.getValue() + " | " + task.toString();
+        return status.getValue() + " | " + task;
     }
 
     /**
@@ -112,7 +114,8 @@ public class Storage {
 
                 String by = taskString.substring(byStart, byEnd);
                 String description = taskString.substring(taskString.indexOf("] ") + 2, taskString.indexOf(" (by:"));
-                yield new Deadline(description, by);
+                String convertedBy = convertDisplayToInput(by);
+                yield new Deadline(description, convertedBy);
             }
             case "E" -> {
                 int fromStart = taskString.indexOf("(from: ") + 7;
@@ -123,7 +126,9 @@ public class Storage {
                 String from = taskString.substring(fromStart, fromEnd);
                 String to = taskString.substring(toStart, toEnd);
                 String description = taskString.substring(taskString.indexOf("] ") + 2, taskString.indexOf(" (from:"));
-                yield new Event(description, from, to);
+                String convertedFrom = convertDisplayToInput(from);
+                String convertedTo = convertDisplayToInput(to);
+                yield new Event(description, convertedFrom, convertedTo);
             }
             default -> throw new ByteException("Unknown task type in string: " + taskString);
         };
@@ -135,5 +140,24 @@ public class Storage {
         }
 
         return task;
+    }
+
+    /**
+     * Converts display format (MMM dd yyyy, h:mm a) back to input format (d/M/yyyy HHmm).
+     * This is needed when loading tasks from file.
+     *
+     * @param displayFormat The date string in display format
+     * @return The date string in input format
+     * @throws ByteException if the conversion fails
+     */
+    private String convertDisplayToInput(String displayFormat) throws ByteException {
+        try {
+            DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+            LocalDateTime dateTime = LocalDateTime.parse(displayFormat, displayFormatter);
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            return dateTime.format(inputFormatter);
+        } catch (Exception e) {
+            throw new ByteException("Failed to parse date from storage: " + displayFormat);
+        }
     }
 }
