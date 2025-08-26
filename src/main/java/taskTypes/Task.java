@@ -1,6 +1,11 @@
 package taskTypes;
 
-public class Task {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Task implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     protected String description;
     protected boolean isDone;
 

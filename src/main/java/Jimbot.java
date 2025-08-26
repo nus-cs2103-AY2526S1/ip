@@ -48,7 +48,7 @@ public class Jimbot {
                                 .split("/by", 2);
                         String description = deadline[0].trim();
                         String by = deadline[1].trim();
-                        if (by.isEmpty()) throw new InvalidDeadlineException();
+                        if (by.isEmpty() || description.isEmpty()) throw new InvalidDeadlineException();
                         else {
                             Deadline userDeadline = new Deadline(description, by);
                             userList.addToList(userDeadline);
@@ -73,7 +73,7 @@ public class Jimbot {
 
                         String from = timings[0].trim();
                         String to = timings[1].trim();
-                        if (from.isEmpty() || to.isEmpty()) throw new InvalidEventException();
+                        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) throw new InvalidEventException();
                         else {
                             Event userEvent = new Event(description, from, to);
                             userList.addToList(userEvent);
