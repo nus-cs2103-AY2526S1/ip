@@ -83,6 +83,20 @@ public class Paul {
         }
     }
 
+    private static void deleteTask(String input) throws PaulException {
+        try {
+            int index = Integer.parseInt(input.split(" ")[1]);
+            Task task = list.get(index);
+            list.delete(index);
+            printOutput("Noted. I've removed this task:\n" + task +
+                    "\nNow you have " + list.size() + " tasks in the list.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new PaulException("Oops! Invalid task number for delete command.");
+        } catch (NumberFormatException e) {
+            throw new PaulException("Please input a number!");
+        }
+    }
+
     public static void main(String[] args) {
         greeting();
 
@@ -104,6 +118,7 @@ public class Paul {
                     case EVENT -> addEvent(input);
                     case MARK -> markTask(input);
                     case UNMARK -> unmarkTask(input);
+                    case DELETE -> deleteTask(input);
                     case UNKNOWN -> printOutput("Sorry, I don't understand the command.");
                 }
             } catch (PaulException e) {

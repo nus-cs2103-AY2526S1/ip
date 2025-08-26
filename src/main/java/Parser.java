@@ -6,6 +6,7 @@ public class Parser {
         LIST,
         MARK,
         UNMARK,
+        DELETE,
         BYE,
         UNKNOWN
     }
@@ -21,6 +22,7 @@ public class Parser {
             case "list" -> CommandType.LIST;
             case "mark" -> CommandType.MARK;
             case "unmark" -> CommandType.UNMARK;
+            case "delete" -> CommandType.DELETE;
             case "bye" -> CommandType.BYE;
             default -> CommandType.UNKNOWN;
         };

@@ -15,7 +15,7 @@ public class Task {
         this.isDone = true;
     }
 
-    public  void unmarkTask() {
+    public void unmarkTask() {
         this.isDone = false;
     }
 

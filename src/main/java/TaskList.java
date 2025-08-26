@@ -12,6 +12,10 @@ public class TaskList {
         this.list.add(task);
     }
 
+    public void delete(int i) {
+        this.list.remove(i - 1);
+    }
+
     public void mark(int i) {
         this.list.get(i - 1).markTask();
     }
