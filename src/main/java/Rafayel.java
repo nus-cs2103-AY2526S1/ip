@@ -2,7 +2,7 @@ import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -38,6 +38,8 @@ public class Rafayel {
     }
 
     private static String SAVED_FILE_NAME = "rafayel.txt";
+
+    DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
     private static void handleMarkCommand(String input, ArrayList<Task> tasks, int counter, boolean markTask)
             throws RafayelException {
@@ -102,20 +104,21 @@ public class Rafayel {
 
     private static LocalDateTime handleReadDate(String input) {
         // check if valid format
-        try {
-            LocalDateTime dateTime = LocalDateTime.parse(input);
-            return dateTime;
+        DateTimeFormatter[] differenTimeFormatters = new DateTimeFormatter[] {
+                DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"), DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"),
+                DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm") };
 
-        } catch (Exception e) {
-            System.out.println("An error has occured while reading the date/time.");
+        for (DateTimeFormatter formatter : differenTimeFormatters) {
+            try {
+                return LocalDateTime.parse(input, formatter);
+            } catch (Exception ignore) {
+                // ignore
+            }
         }
 
-        return null;
-    }
+        System.out.println("Please use one of: MMM d yyyy HH:mm | yyyy/MM/dd HH:mm | dd-MM-yyyy HH:mm");
 
-    private static String handleDateTimeFormetting(LocalDateTime dateTime) {
-        return dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
-        // JAN 8 2012 4:00
+        return null;
     }
 
     private static void handleEventCommand(String input, ArrayList<Task> tasks, int counter) throws RafayelException {
