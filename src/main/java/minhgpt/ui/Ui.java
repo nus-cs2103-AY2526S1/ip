@@ -1,5 +1,7 @@
 package minhgpt.ui;
 
+import java.util.ArrayList;
+
 import minhgpt.task.Task;
 import minhgpt.task.TaskList;
 
@@ -117,6 +119,17 @@ public class Ui {
     public void printList(TaskList tasks) {
         System.out.println(String.format(
                 "(˶˃ ᵕ ˂˶) Here are the list of tasks. You have %d in total.", tasks.size()));
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(String.format("%d.%s", i + 1, tasks.get(i)));
+        }
+    }
+
+    /**
+     * Print the UI when user list all tasks.
+     */
+    public void printFind(ArrayList<Task> tasks) {
+        System.out.println(
+                String.format("(˶˃ ᵕ ˂˶) Here are the matching tasks in your list.", tasks.size()));
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(String.format("%d.%s", i + 1, tasks.get(i)));
         }

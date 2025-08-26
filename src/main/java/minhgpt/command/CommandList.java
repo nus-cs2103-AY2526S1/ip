@@ -9,7 +9,7 @@ import minhgpt.task.TaskList;
  */
 class CommandList extends Command {
     static {
-        registry.put("^list$", CommandList::new);
+        register("^list$", CommandList::new);
     }
 
     public void execute(String input, TaskList taskList, Ui ui, Storage storage) {

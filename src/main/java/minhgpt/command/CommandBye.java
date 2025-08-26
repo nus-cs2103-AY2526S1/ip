@@ -9,7 +9,7 @@ import minhgpt.task.TaskList;
  */
 class CommandBye extends Command {
     static {
-        registry.put("^bye$", CommandBye::new);
+        register("^bye$", CommandBye::new);
     }
 
     @Override

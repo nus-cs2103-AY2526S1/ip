@@ -9,7 +9,7 @@ import minhgpt.task.TaskList;
  */
 class CommandMark extends Command {
     static {
-        registry.put("^mark \\d+$", CommandMark::new);
+        register("^mark \\d+$", CommandMark::new);
     }
 
     public void execute(String input, TaskList taskList, Ui ui, Storage storage) {
