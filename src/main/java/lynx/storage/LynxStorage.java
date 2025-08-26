@@ -25,7 +25,7 @@ public abstract class LynxStorage {
      */
     public static List<String> unloadTasks() {
         List<String> taskStrings = new ArrayList<>();
-        List<Task> tasks = LynxTaskList.getAllTasks();
+        List<Task> tasks = LynxTaskList.getAllTasks().toList();
 
         for (Task task : tasks) {
             StringBuilder taskString = new StringBuilder();

@@ -245,7 +245,7 @@ public abstract class LynxCommandManager {
         if (input.trim().equals("/all")) {
             LynxUI.line();
             System.out.printf("%s:%n", command.getMessageForAll());
-            return LynxTaskList.getAllTasks();
+            return LynxTaskList.getAllTasks().toList();
         }
 
         if (input.startsWith("/on ")) {
