@@ -10,36 +10,22 @@ import bobbywasabi.tasks.TaskList;
  * Provides methods to read user input and display messages.
  */
 public class UI {
-    private static final String decoLine = "____________________________________________________________";
-    private Scanner scanner;
 
     /**
      * Constructs a new UI instance and initializes the input scanner.
      */
     public UI() {
-        this.scanner = new Scanner(System.in);
-    }
-
-    /**
-     * Reads and returns the next line of user input from the console.
-     *
-     * @return The user's input as a string.
-     */
-    public String getNextInput() {
-        return this.scanner.nextLine();
     }
 
     /**
      * Prints a greeting message to the user when the bot starts.
      */
-    public void greetUser() {
+    public String greetUser() {
         String botGreet = """
-                ____________________________________________________________
                  Hello! I'm Bobby Wasabi
                  What can I do for you?
-                ____________________________________________________________
                 """;
-        System.out.println(botGreet);
+        return botGreet;
     }
 
     /**
@@ -47,9 +33,9 @@ public class UI {
      *
      * @param tasks The BobbyWasabi.BobbyWasabi.TaskList containing all current tasks.
      */
-    public void listMessage(TaskList tasks) {
-        String listOutput = UI.decoLine + "\n" + "Here are the tasks in your list:\n" + tasks + UI.decoLine;
-        System.out.println(listOutput);
+    public String listMessage(TaskList tasks) {
+        String listOutput = "Here are the tasks in your list:\n" + tasks;
+        return listOutput;
     }
 
     /**
@@ -57,12 +43,12 @@ public class UI {
      *
      * @param tasks A formatted string representation of matching tasks.
      */
-    public void findMessage(String tasks) {
+    public String findMessage(String tasks) {
         String output = tasks.isEmpty()
                 ? "Sorry! We could not find any matching tasks :/\n"
                 : "Here are the matching tasks in your list:\n";
-        String botResponse = UI.decoLine + "\n" + output + tasks + UI.decoLine;
-        System.out.println(botResponse);
+        String botResponse = output + tasks;
+        return botResponse;
     }
 
     /**
@@ -71,7 +57,7 @@ public class UI {
      * @param indx       The task number shown to the user (1-based index).
      * @param targetTask The task that has been marked as done.
      */
-    public void markTaskMessage(int indx, Task targetTask) {
+    public String markTaskMessage(int indx, Task targetTask) {
         String curTask = String.format(
                 "%d. %s\n",
                 indx,
@@ -79,10 +65,11 @@ public class UI {
 
         String output = String.format("""
                                 Nice! I've marked this task as done:
-                                   %s""",
+                                %s
+                                """,
                 curTask);
 
-        System.out.println(decoLine + "\n" + output + decoLine);
+        return output;
     }
 
     /**
@@ -91,7 +78,7 @@ public class UI {
      * @param indx       The task number shown to the user (1-based index).
      * @param targetTask The task that has been unmarked.
      */
-    public void unmarkTaskMessage(int indx, Task targetTask) {
+    public String unmarkTaskMessage(int indx, Task targetTask) {
         String curTask = String.format(
                 "%d. %s\n",
                 indx,
@@ -99,10 +86,11 @@ public class UI {
 
         String output = String.format("""
                                 Nice! I've marked this task as not done yet:
-                                   %s""",
+                                %s
+                                """,
                 curTask);
 
-        System.out.println(decoLine + "\n" + output + decoLine);
+        return output;
     }
 
 
@@ -112,18 +100,16 @@ public class UI {
      * @param task The task that was added.
      * @param num  The new total number of tasks in the list.
      */
-    public void addTaskMessage(Task task, int num) {
+    public String addTaskMessage(Task task, int num) {
 
         String s = String.format("""
-                ____________________________________________________________
                 Got it. I've added this task:
-                    %s
+                %s
                 Now you have %d tasks in the list.
-                ____________________________________________________________
                 """,
                 task, num);
 
-        System.out.println(s);
+        return s;
     }
 
     /**
@@ -132,60 +118,48 @@ public class UI {
      * @param targetTask The task that was deleted.
      * @param taskSize   The new total number of tasks in the list.
      */
-    public void deleteMessage(Task targetTask, int taskSize) {
+    public String deleteMessage(Task targetTask, int taskSize) {
         String output = String.format("""
-                        ____________________________________________________________
                         Noted. I've removed this task:
-                            %s
+                        %s
                         Now you have %d tasks in the list
-                        ____________________________________________________________
                         """,
                 targetTask, taskSize);
 
-        System.out.println(output);
+       return output;
     }
 
     /**
      * Displays a generic message prompting the user to enter a valid command.
      */
-    public void invalidMessage() {
-        this.generateErrorMsg("Please provide a valid command!");
+    public String invalidMessage() {
+
+        return this.generateErrorMsg("Please provide a valid command!");
     }
 
     /**
      * Prints a farewell message and exits the program by closing the input scanner.
      */
-    public void farewellUser() {
-        System.out.println("""
-                    ____________________________________________________________
-                    Bye. Hope to see you again soon!
-                    ____________________________________________________________
-                    """);
-        this.exit();
+    public String farewellUser() {
+        return """
+               Bye. Hope to see you again soon!
+               """;
     }
 
-    /**
-     * Closes the input scanner and performs cleanup before exit.
-     */
-    public void exit() {
-        this.scanner.close();
-    }
 
     /**
      * Displays an error message wrapped in a decorative format.
      *
      * @param e The error message to display.
      */
-    public void generateErrorMsg(String e) {
+    public String generateErrorMsg(String e) {
 
         String s = String.format("""
-                ____________________________________________________________
                 OOPS!!! %s
-                ____________________________________________________________
                 """,
                 e);
 
-        System.out.println(s);
+        return s;
     }
 
 }
