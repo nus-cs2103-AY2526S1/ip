@@ -1,15 +1,16 @@
 package beebong.task;
 
 import beebong.exception.InvalidSerializedTaskDataException;
+import beebong.util.StringUtil;
 
 public abstract class Task {
     private String name;
-    private boolean completed;
+    private boolean isCompleted;
     protected static String SAVE_DELIMITER = " ";
 
     public Task(String name) {
         this.name = name;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     public String getName() {
@@ -21,25 +22,27 @@ public abstract class Task {
     }
 
     public boolean isCompleted() {
-        return this.completed;
+        return this.isCompleted;
     }
 
     public void markCompleted() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     public void markIncomplete() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     // SerialiseTask declared abstract for ensure child classes implement it,
     // but deserializeTask cannot be declared as an abstract method here
     // due to its nature of being static
-    public abstract String serializeTask();
+    public String serializeTask() {
+        return ((isCompleted()) ? "1" : "0") + SAVE_DELIMITER + StringUtil.encode(this.getName());
+    };
 
     public static Task deserializeTask(String taskStr) throws InvalidSerializedTaskDataException {
         // Each instance of deserializeTask in the child classes
-        // also throw InvalidSeralizedTaskDataException
+        // also throw InvalidSerializedTaskDataException
         // If any of them throw it here, just let the callee
         // of this method handle it
         if (taskStr.startsWith("T")) {
@@ -54,6 +57,6 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + (this.completed ? "X" : " " ) + "] " + this.name;
+        return "[" + ((this.isCompleted) ? "X" : " " ) + "] " + this.name;
     }
 }

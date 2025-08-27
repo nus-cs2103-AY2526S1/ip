@@ -10,7 +10,7 @@ public class ListAllTasksCommand extends Command {
     public void execute(TaskList taskList, UI ui, Storage storage) throws BBongException {
         // If there are no Tasks to list
         if (taskList.length() == 0) {
-            ui.botMessage("Bong! I searched high and low… still nothing to show right now.");
+            ui.showMessage("Bong! I searched high and low… still nothing to show right now.");
             return;
         }
         ui.printBorder();

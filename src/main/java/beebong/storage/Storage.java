@@ -57,7 +57,7 @@ public class Storage {
         // Write Task List to File
         try {
             // No need to append, just write new as
-            // we always read existing data and append within the tasklist
+            // we always read existing data and append within the taskList
             FileWriter writer = new FileWriter("bbongSave.txt");
             for (Task t : tasks) {
                 writer.write(t.serializeTask() + System.lineSeparator());

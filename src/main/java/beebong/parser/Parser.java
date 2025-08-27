@@ -27,9 +27,10 @@ public class Parser {
         // Check for Commands
         String[] commandParts = input.split(" ", 2);
         CommandKeyword command;
+
         // Convert command into Command enum
         command = CommandKeyword.stringToCommand(commandParts[0].toLowerCase());
-        String params = commandParts.length > 1 ? commandParts[1] : null;
+        String params = (commandParts.length) > 1 ? commandParts[1] : null;
 
         switch (command) {
         // Exit

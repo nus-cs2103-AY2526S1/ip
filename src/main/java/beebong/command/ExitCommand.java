@@ -10,8 +10,8 @@ public class ExitCommand extends Command {
     public void execute(TaskList taskList, UI ui, Storage storage) throws BBongException {
         // Try to save tasks to file before exiting
         taskList.writeTasksToFile(storage);
-        ui.botMessage("Bing Bing! Tasks saved successfully!");
-        ui.exitMessage();
+        ui.showMessage("Bing Bing! Tasks saved successfully!");
+        ui.showExitMessage();
     }
 
     @Override

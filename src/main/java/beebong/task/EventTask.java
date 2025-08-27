@@ -44,8 +44,7 @@ public class EventTask extends Task {
 
     @Override
     public String serializeTask() {
-        return "E" + SAVE_DELIMITER + (isCompleted() ? "1" : "0")
-                + SAVE_DELIMITER + StringUtil.encode(this.getName())
+        return "E" + SAVE_DELIMITER + super.serializeTask()
                 + SAVE_DELIMITER + StringUtil.encode(DateTimeUtil.toSerializedString(this.startDate))
                 + SAVE_DELIMITER + StringUtil.encode(DateTimeUtil.toSerializedString(this.endDate));
     }
@@ -73,6 +72,8 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + DateTimeUtil.toString(this.startDate) + " to " + DateTimeUtil.toSerializedString(this.endDate) + ")";
+        return "[E]" + super.toString() + " (from: "
+                + DateTimeUtil.toString(this.startDate) + " to "
+                + DateTimeUtil.toString(this.endDate) + ")";
     }
 }

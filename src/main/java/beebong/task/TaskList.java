@@ -1,9 +1,9 @@
 package beebong.task;
 
-import beebong.storage.Storage;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import beebong.storage.Storage;
 
 public class TaskList {
     private final List<Task> tasks;
@@ -25,8 +25,8 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public void markTaskAs(int taskNum, boolean status) {
-        if (status) {
+    public void markTaskAs(int taskNum, boolean isComplete) {
+        if (isComplete) {
             this.tasks.get(taskNum).markCompleted();
         } else {
             this.tasks.get(taskNum).markIncomplete();
