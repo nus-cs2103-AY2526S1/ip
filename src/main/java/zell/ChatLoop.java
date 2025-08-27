@@ -27,6 +27,7 @@ public class ChatLoop {
             String userInput = ui.readInput();
 
             String output;
+
             try {
                 output = parser.parseInput(userInput, taskList, storage);
             } catch (ZellException ze) {
@@ -34,6 +35,7 @@ public class ChatLoop {
             }
 
             ui.showMessage(output);
+
             endProgram = parser.getEndProgram();
         }
     }

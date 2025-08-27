@@ -31,7 +31,7 @@ public class TaskList {
         return this.tasks.get(index - 1);
     }
 
-    public void removeTask (int index) {
+    public void removeTask(int index) {
         this.tasks.remove(index - 1);
     }
 
@@ -65,6 +65,7 @@ public class TaskList {
         return this.tasks.size();
     }
 
+    @Override
     public String toString() {
         return String.format("\nThere are currently %d task in the list.", getNumberOfTask());
     }
