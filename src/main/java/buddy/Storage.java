@@ -7,6 +7,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Storage {
+    private static final String TASK_DELIMITER = " | ";
+    private static final String DONE_MARKER = "1";
+    private static final String NOT_DONE_MARKER = "0";
+    
     private String filePath;
     
     public Storage(String filePath) {
@@ -57,15 +61,17 @@ public class Storage {
     }
     
     private String formatTaskForFile(Task task) {
-        String isDone = task.isDone() ? "1" : "0";
+        String isDone = task.isDone() ? DONE_MARKER : NOT_DONE_MARKER;
         if (task instanceof Todo) {
-            return "T | " + isDone + " | " + task.getDescription();
+            return "T" + TASK_DELIMITER + isDone + TASK_DELIMITER + task.getDescription();
         } else if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            return "D | " + isDone + " | " + deadline.getDescription() + " | " + deadline.getBy();
+            return "D" + TASK_DELIMITER + isDone + TASK_DELIMITER + deadline.getDescription() 
+                   + TASK_DELIMITER + deadline.getBy();
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return "E | " + isDone + " | " + event.getDescription() + " | " + event.getFrom() + " | " + event.getTo();
+            return "E" + TASK_DELIMITER + isDone + TASK_DELIMITER + event.getDescription() 
+                   + TASK_DELIMITER + event.getFrom() + TASK_DELIMITER + event.getTo();
         }
         return "";
     }
@@ -76,7 +82,7 @@ public class Storage {
             if (parts.length < 3) return null;
             
             String type = parts[0];
-            boolean isDone = parts[1].equals("1");
+            boolean isDone = parts[1].equals(DONE_MARKER);
             String description = parts[2];
             
             Task task = null;
