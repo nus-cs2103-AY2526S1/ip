@@ -30,7 +30,7 @@ public class BeeBong {
         try {
             this.taskList = new TaskList(this.storage.readTasksFromFile());
             this.ui.botMessage("Bing! Saved Tasks found, loading saved tasks...");
-        } catch (InvalidSerializedTaskDataException e) {
+        } catch (BBongException e) {
             this.ui.botErrorMessage(e.getMessage());
             this.taskList = new TaskList();
         }
