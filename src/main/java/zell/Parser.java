@@ -126,8 +126,9 @@ public class Parser {
 
     /**
      * Deals with the delete command. Here a task is deleted if it is valid.
-     * <p></p>
+     * <p>
      * Exceptions are checked using checkNoSpacesInCommand
+     * </p>
      * @param userInput The user's input.
      * @param command The command to be executed.
      * @param firstSpaceIndex The index of the first space in the user's input.
@@ -163,7 +164,7 @@ public class Parser {
      * command's class.
      * <p></p>
      * Exceptions are checked using checkNoSpacesInCommand, checkForDeadlineExceptions, checkForEventExceptions.
-     *
+     * </p>
      * @param userInput The user's input
      * @param command The command to be executed
      * @param firstSpaceIndex The index of the first space in the user's input
@@ -214,9 +215,9 @@ public class Parser {
     /**
      * Deals with the bye command.
      * Here the instance variable {@link #endProgram} is set to true to indicate we should terminate the program
-     * <p></p>
+     * <p>
      * Exceptions are checked using checkIfCommandHasSpaces
-     * 
+     * </p>
      * @param firstSpaceIndex The index of the first space in the user's input
      * @param command The command to be executed
      * @return The goodbye message
@@ -231,9 +232,9 @@ public class Parser {
 
     /**
      * Deals with the list command. Here we get all the tasks in the string format.
-     * <p></p>
+     * <p>
      * Exceptions are checked using checkIfCommandHasSpaces
-     * 
+     * </p>
      * @param firstSpaceIndex The index of the first space in the user's input
      * @param command The command to be executed
      * @param taskList The {@link zell.task.TaskList} object which stores tasks.
@@ -284,9 +285,9 @@ public class Parser {
 
     /**
      * Extracts the index of the task from the user's input.
-     * <p></p>
+     * <p>
      * Exceptions are checked using checkForInvalidTaskNumber
-     *
+     * </p>
      * @param command The command to be executed.
      * @param userInput The user's input.
      * @param firstSpaceIndex The index of the first space in the user's input.
