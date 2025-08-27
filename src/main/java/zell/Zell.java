@@ -7,7 +7,11 @@ import zell.exception.ZellException;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the Zell chatbot.
+ */
 public class Zell {
+    /** Path to the local storage file */
     private static final String FILE_PATH = "./data/Zell.txt";
 
     public static void main(String[] args) {
