@@ -29,7 +29,7 @@ CHIRP CHIRP! Let's get to work!
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 SWEET! I've marked this task as done:
 [D][X] return book (by: Sunday)
-Let's get to work!
+CHIRP CHIRP! Let's get to work!
 1.[T][ ] borrow book
 2.[D][X] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
