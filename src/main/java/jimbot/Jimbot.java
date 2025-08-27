@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Jimbot {
-    private Storage userStorage;
-    private TaskList userList;
-    private UI user;
+    private final Storage userStorage;
+    private final TaskList userList;
+    private final UI user;
 
     public Jimbot(String filePath) {
         user = new UI();
@@ -115,10 +115,13 @@ public class Jimbot {
                     user.deleteTask(task, taskCount - 1);
                     userStorage.update(userList);
 
-                } else if (userInput.contains("/")) {
-                    LocalDate date = Parser.parseDate(userInput);
-                    user.printListAtDate(userList.getTasksAtDate(date));
-
+                } else if (userInput.contains("/") || userInput.equalsIgnoreCase("today")) {
+                    LocalDate date = LocalDate.now();
+                    if (!userInput.equals("today")) {
+                         date = Parser.parseDate(userInput);
+                    }
+                    user.printListAtDate(userList.getTasksAtDate(date),
+                            date.isEqual(LocalDate.now()) || userInput.equals("today"));
                 } else {
                     user.echo(userInput);
 

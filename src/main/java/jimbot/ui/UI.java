@@ -138,7 +138,7 @@ public class UI {
                 bottomBorder);
     }
 
-    public void printListAtDate(List<Task> list) {
+    public void printListAtDate(List<Task> list, boolean isToday) {
         int maxLength = 34;
         int taskCount = list.size();
         String box = "─";
@@ -153,7 +153,7 @@ public class UI {
             Task task = list.get(i);
             int padding = maxLength - task.toString().length();
             String spaces = "";
-            for (int j = 0; j < padding + 3; j++) spaces += " ";
+            for (int j = 0; j < padding + 4; j++) spaces += " ";
             if (i <= 8) {
                 listContent += "\n         │ " + (i + 1) + ". " + task + spaces + " │";
             } else {
@@ -161,11 +161,22 @@ public class UI {
             }
         }
 
-        for (int i = 0; i < maxLength + 7; i++) box += "─";
+        String header;
+        if (isToday) {
+            for (int i = 0; i < maxLength + 8; i++) box += "─";
 
-        String header = "         │ Here are your tasks from that date:";
-        int headerPadding = maxLength - 29;
-        for (int i = 0; i < headerPadding; i++) header += " ";
+            header = "         │ Here are your tasks for today:";
+            int headerPadding = maxLength - 23;
+            for (int i = 0; i < headerPadding; i++) header += " ";
+
+        } else {
+            for (int i = 0; i < maxLength + 8; i++) box += "─";
+
+            header = "         │ Here are your tasks for that date:";
+            int headerPadding = maxLength - 27;
+            for (int i = 0; i < headerPadding; i++) header += " ";
+
+        }
 
         String topBorder = "         ┌" + box + "┐\n";
         String bottomBorder = " (・ω・)ノ└" + box + "┘";
