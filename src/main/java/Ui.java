@@ -1,7 +1,13 @@
 import java.util.List;
+import java.util.Scanner;
 
 public class Ui {
     private final String line = "____________________________________________________________\n";
+    private final Scanner scanner;
+
+    public Ui() {
+        this.scanner = new Scanner(System.in);
+    }
 
     public void showGreeting() {
         System.out.println(line + "Hello! I'm Byte.\nWhat can I do for you?\n" + line);
@@ -38,6 +44,14 @@ public class Ui {
 
     public void showDeleted(Task removed, int total) {
         System.out.println("\t" + line + "\t" + "I have removed this task:\n\t  " + removed + "\n\tNow you have " + total + " tasks in the list." + "\n" + "\t" + line);
+    }
+
+    public String readCommand() {
+        return scanner.nextLine();
+    }
+
+    public void closeScanner() {
+        scanner.close();
     }
 
 }

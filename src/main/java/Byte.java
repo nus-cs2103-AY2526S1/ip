@@ -1,4 +1,3 @@
-import java.util.Scanner;
 import java.io.IOException;
 
 /**
@@ -7,7 +6,7 @@ import java.io.IOException;
 public class Byte {
     private final Ui ui;
     private final Storage storage;
-    private final Parser parser;
+    
 
     public Byte() {
         this.ui = new Ui();
@@ -20,24 +19,22 @@ public class Byte {
             ui.showError("Could not load tasks from file: " + e.getMessage());
         }
         
-        this.parser = new Parser(storage, ui);
     }
 
     public void run() {
         ui.showGreeting();
-        Scanner scanner = new Scanner(System.in);
-        String command = "";
-        
-        while (!"bye".equals(command)) {
-            command = scanner.nextLine();
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                parser.handle(command);
+                String fullCommand = ui.readCommand();
+                Command c = Parser.parse(fullCommand);
+                c.execute(ui, storage);
+                isExit = c.isExit();
             } catch (ByteException e) {
                 ui.showError(e.getMessage());
             }
         }
-        
-        scanner.close();
+        ui.closeScanner();
     }
 
     public static void main(String[] args) {

@@ -141,7 +141,7 @@ public class Storage {
             }
 
             FileWriter writer = new FileWriter(filePath.toFile());
-            taskList.writeToFile(writer);
+            tasks.writeToFile(writer);
             writer.close();
         } catch (IOException e) {
             System.err.println("Could not save tasks to file: " + e.getMessage());
