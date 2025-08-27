@@ -10,9 +10,10 @@ https://stackoverflow.com/a/3978690
 https://stackoverflow.com/a/604426
 https://stackoverflow.com/a/59608518
 https://stackoverflow.com/a/26118954
+https://stackoverflow.com/a/23128025
 */
 
-public class Duke {
+public class Chash {
     private static final String LINEINDENT = "    ";
     private static final String LINESEP = "____________________________________________________________";
     private enum ChatCommand {
@@ -44,9 +45,9 @@ public class Duke {
         //todo: does not check for empty txt string
         Stream<String> lineStream = Stream.<String>of(txt.split("\n"));
 
-        System.out.println(Duke.LINEINDENT + Duke.LINESEP);
-        lineStream.forEach(line -> System.out.println(Duke.LINEINDENT + line));
-        System.out.println(Duke.LINEINDENT + Duke.LINESEP);
+        System.out.println(Chash.LINEINDENT + Chash.LINESEP);
+        lineStream.forEach(line -> System.out.println(Chash.LINEINDENT + line));
+        System.out.println(Chash.LINEINDENT + Chash.LINESEP);
     }
 
     //LIST command
@@ -65,14 +66,14 @@ public class Duke {
         }
 
         //Note: for static internal methods, should this function call be preceeded by 
-        //the class name? e.g. Duke.chatPrint(...)
+        //the class name? e.g. Chash.chatPrint(...)
         chatPrint(hist.stripTrailing());
     }
 
     private static Todo createTodo(String taskDetail) {
         //Sanity check
         if (taskDetail.isEmpty()) {
-            throw new DukeException("Todo no description");
+            throw new ChashException("Todo no description");
         }
 
         return new Todo(taskDetail);
@@ -83,11 +84,11 @@ public class Duke {
 
         //Sanity check
         if (tmp.length != 2) {
-            throw new DukeException("Deadline keyword /by missing");
+            throw new ChashException("Deadline keyword /by missing");
         } else if (tmp[0].isEmpty()) {
-            throw new DukeException("Deadline no description");
+            throw new ChashException("Deadline no description");
         } else if (tmp[1].isEmpty()) {
-            throw new DukeException("/by missing value");
+            throw new ChashException("/by missing value");
         }
         
         return new Deadline(tmp[0], tmp[1]);
@@ -98,20 +99,20 @@ public class Duke {
 
         //Sanity check
         if (tmp.length != 2) {
-            throw new DukeException("Event keyword /from missing");
+            throw new ChashException("Event keyword /from missing");
         } else if (tmp[0].isEmpty()) {
-            throw new DukeException("Event no description");
+            throw new ChashException("Event no description");
         }
 
         String[] startEnd = tmp[1].split(" /to ", 2);
 
         //Sanity check
         if (startEnd.length != 2) {
-            throw new DukeException("Event keyword /to missing");
+            throw new ChashException("Event keyword /to missing");
         } else if (startEnd[0].isEmpty()) {
-            throw new DukeException("/from missing value");
+            throw new ChashException("/from missing value");
         } else if (startEnd[1].isEmpty()) {
-            throw new DukeException("/to missing value");
+            throw new ChashException("/to missing value");
         }
         
         return new Event(tmp[0], startEnd[0], startEnd[1]);
@@ -215,7 +216,7 @@ public class Duke {
                         ));
                     } catch (ArrayIndexOutOfBoundsException ex) {
                         chatPrint("No details provided");
-                    } catch (DukeException ex) {
+                    } catch (ChashException ex) {
                         chatPrint(ex.getMessage());
                     }
                     break;
