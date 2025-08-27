@@ -8,9 +8,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-public class Main extends AnchorPane {
+public class MainWindow extends AnchorPane {
     @FXML
-    private ScrollPane scrollpane;
+    private ScrollPane scrollPane;
 
     @FXML
     private VBox dialogContainer;
@@ -23,12 +23,12 @@ public class Main extends AnchorPane {
 
     private BobbyWasabi bobbywasabi;
 
-    private Image userImage = new Image(getClass().getResourceAsStream("/images/andrew gar.jepg"));
+    private Image userImage = new Image(getClass().getResourceAsStream("/images/adam.jpeg"));
     private Image bobbywasabiImage = new Image(getClass().getResourceAsStream("/images/BobbyWasabi.jpeg"));
 
     @FXML
-    public void initialise() {
-        scrollpane.vvalueProperty().bind(dialogContainer.heightProperty());
+    public void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
     public void setBobbyWasabi(BobbyWasabi bobbywasabi) {
@@ -38,6 +38,7 @@ public class Main extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+
         String response = bobbywasabi.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(this.userImage, input),
