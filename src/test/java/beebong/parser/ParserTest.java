@@ -10,9 +10,9 @@ import beebong.command.Command;
 import beebong.command.ExitCommand;
 import beebong.command.HelpCommand;
 import beebong.command.ListAllTasksCommand;
-import beebong.command.NullCommand;
 // Import Exceptions
 import beebong.exception.BBongException;
+import beebong.exception.InvalidDateException;
 import beebong.exception.InvalidTaskDetailsException;
 import beebong.exception.UnknownCommandException;
 
@@ -72,7 +72,7 @@ public class ParserTest {
 
     @Test
     public void parseCommand_deadlineTaskWithInvalidDate_throwsInvalidTaskDetailsException() {
-        assertThrows(InvalidTaskDetailsException.class,
+        assertThrows(InvalidDateException.class,
                 () -> parser.parseCommand("deadline return book /by hi"));
     }
 
@@ -85,13 +85,13 @@ public class ParserTest {
 
     @Test
     public void parseCommand_eventTaskWithInvalidDatesStartDateAfterEndDate_throwsInvalidTaskDetailsException() {
-        assertThrows(InvalidTaskDetailsException.class,
+        assertThrows(InvalidDateException.class,
                 () -> parser.parseCommand("event hackathon /from 22/08/2025 18:00 /to 22/08/2025 16:00"));
     }
 
     @Test
     public void parseCommand_eventTaskWithInvalidDates_throwsInvalidTaskDetailsException() {
-        assertThrows(InvalidTaskDetailsException.class,
+        assertThrows(InvalidDateException.class,
                 () -> parser.parseCommand("event party /from hi /to hi again"));
     }
 
