@@ -85,6 +85,9 @@ public class Parser {
         case "delete":
             output = handleDelete(userInput, command, firstSpaceIndex, taskList, storage);
             break;
+        case "find":
+            output = handleFind(userInput, command, firstSpaceIndex, taskList);
+            break;
         default:
             throw new ZellException(command + ZellMessage.UNKNOWN_COMMAND.message());
         }
@@ -136,7 +139,7 @@ public class Parser {
      * @param storage The {@link zell.storage.Storage} object which deals with local storage.
      * @return The delete messages to be printed.
      * @throws ZellException If the delete command format is invalid or the task to be deleted does not exist.
-     * @see #checkNoSpacesInCommand(String, int) 
+     * @see #checkNoSpacesInCommand(String, int)
      */
     public String handleDelete(String userInput, String command, int firstSpaceIndex,
             TaskList taskList, Storage storage) throws ZellException {
@@ -170,9 +173,9 @@ public class Parser {
      * @param firstSpaceIndex The index of the first space in the user's input
      * @return The task that is created
      * @throws ZellException If the task command format is invalid such as missing parameters or invalid dates
-     * @see #checkNoSpacesInCommand(String, int) 
-     * @see #checkForDeadlineExceptions(String, String, String, int) 
-     * @see #checkForEventExceptions(String, String, String, int, int) 
+     * @see #checkNoSpacesInCommand(String, int)
+     * @see #checkForDeadlineExceptions(String, String, String, int)
+     * @see #checkForEventExceptions(String, String, String, int, int)
      */
     public Task createTask(String userInput, String command, int firstSpaceIndex)
             throws ZellException {
@@ -222,7 +225,7 @@ public class Parser {
      * @param command The command to be executed
      * @return The goodbye message
      * @throws ZellException If bye command format is invalid
-     * @see #checkIfCommandHasSpaces(String, int) 
+     * @see #checkIfCommandHasSpaces(String, int)
      */
     public String handleBye(int firstSpaceIndex, String command) throws ZellException {
         checkIfCommandHasSpaces(command, firstSpaceIndex);
@@ -240,7 +243,7 @@ public class Parser {
      * @param taskList The {@link zell.task.TaskList} object which stores tasks.
      * @return The messages for the list command
      * @throws ZellException If the list command format is invalid such as missing parameters.
-     * @see #checkIfCommandHasSpaces(String, int) 
+     * @see #checkIfCommandHasSpaces(String, int)
      */
     public String handleList(int firstSpaceIndex, String command, TaskList taskList) throws ZellException {
         checkIfCommandHasSpaces(command, firstSpaceIndex);
@@ -279,6 +282,21 @@ public class Parser {
         }
 
         stringBuilder.append(currentTask);
+
+        return stringBuilder.toString();
+    }
+
+    public String handleFind(String userInput, String command, int firstSpaceIndex,
+            TaskList taskList) throws ZellException {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(ZellMessage.TASK_FOUND.message());
+
+        checkNoSpacesInCommand(command, firstSpaceIndex);
+
+        String word = userInput.substring(firstSpaceIndex + 1);
+
+        stringBuilder.append(taskList.listAllTasksContainingWord(word));
 
         return stringBuilder.toString();
     }
@@ -357,6 +375,10 @@ public class Parser {
             case "event":
                 formatMessage = String.format("%s should include a thing to do.\nFor example:\n%s "
                         + "books /from Mon 2pm /to 4pm", command, command);
+                break;
+            case "find":
+                formatMessage = String.format("%s should include a thing to search for.\nFor example:\n%s "
+                        + "book", command, command);
                 break;
             default:
                 formatMessage = String.format("%s should have a number to indicate which one to %s."
