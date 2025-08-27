@@ -40,11 +40,32 @@ public class TaskList {
 
         for (int i = 0; i < this.tasks.size(); i++) {
             Task currentTask = this.tasks.get(i);
-            String taskFormatted = String.format(" %d. %s\n", i + 1, currentTask);
-            stringBuilder.append(taskFormatted);
+            stringBuilder.append(formatTask(i, currentTask));
         }
 
         return stringBuilder.toString();
+    }
+
+    public String listAllTasksContainingWord(String word) {
+        StringBuilder stringBuilder = new StringBuilder();
+        int count = 0;
+
+        for (int i = 0; i < this.tasks.size(); i++) {
+            Task currentTask = this.tasks.get(i);
+            String taskToString = currentTask.toString();
+
+            if (taskToString.contains(word)) {
+                stringBuilder.append(formatTask(count, currentTask));
+                count++;
+            }
+
+        }
+
+        return stringBuilder.toString();
+    }
+
+    public String formatTask(int num, Task task) {
+        return String.format(" %d. %s\n", num + 1, task);
     }
 
     public List<String> getAllTasksInString() {

@@ -54,6 +54,9 @@ public class Parser {
         case "delete":
             output = handleDelete(userInput, command, firstSpaceIndex, taskList, storage);
             break;
+        case "find":
+            output = handleFind(userInput, command, firstSpaceIndex, taskList);
+            break;
         default:
             throw new ZellException(command + ZellMessage.UNKNOWN_COMMAND.message());
         }
@@ -173,6 +176,21 @@ public class Parser {
         return stringBuilder.toString();
     }
 
+    public String handleFind(String userInput, String command, int firstSpaceIndex,
+            TaskList taskList) throws ZellException {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(ZellMessage.TASK_FOUND.message());
+
+        checkNoSpacesInCommand(command, firstSpaceIndex);
+
+        String word = userInput.substring(firstSpaceIndex + 1);
+
+        stringBuilder.append(taskList.listAllTasksContainingWord(word));
+
+        return stringBuilder.toString();
+    }
+
     public int parseIndex(String command, String userInput, int firstSpaceIndex,
             TaskList taskList) throws ZellException {
         checkNoSpacesInCommand(command, firstSpaceIndex);
@@ -218,6 +236,10 @@ public class Parser {
             case "event":
                 formatMessage = String.format("%s should include a thing to do.\nFor example:\n%s "
                         + "books /from Mon 2pm /to 4pm", command, command);
+                break;
+            case "find":
+                formatMessage = String.format("%s should include a thing to search for.\nFor example:\n%s "
+                        + "book", command, command);
                 break;
             default:
                 formatMessage = String.format("%s should have a number to indicate which one to %s."
