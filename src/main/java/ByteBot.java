@@ -1,14 +1,22 @@
+package bytebot;
+
+import bytebot.ui.Ui;
+import bytebot.storage.Storage;
+import bytebot.parser.Parser;
+import bytebot.command.Command;
+import bytebot.task.TaskList;
+import bytebot.ByteException;
 import java.io.IOException;
 
 /**
- * Entry point for the Byte chatbot
+ * Entry point for the ByteBot
  */
-public class Byte {
+public class ByteBot {
     private final Ui ui;
     private final Storage storage;
     
 
-    public Byte() {
+    public ByteBot() {
         this.ui = new Ui();
         this.storage = new Storage();
         
@@ -38,6 +46,6 @@ public class Byte {
     }
 
     public static void main(String[] args) {
-        new Byte().run();
+        new ByteBot().run();
     }
 }

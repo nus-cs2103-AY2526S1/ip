@@ -1,3 +1,11 @@
+package bytebot.command;
+
+import bytebot.ByteException;
+import bytebot.ui.Ui;
+import bytebot.storage.Storage;
+import bytebot.task.Deadline;
+import bytebot.task.Task;
+
 public class DeadlineCommand extends Command {
     private final String description;
     private final String by;

@@ -1,3 +1,8 @@
+package bytebot.task;
+
+import bytebot.ByteException;
+import bytebot.task.Task;
+
 /**
  * Represents a to-do task without any associated time.
  */

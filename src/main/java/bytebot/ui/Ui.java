@@ -1,3 +1,8 @@
+package bytebot.ui;
+
+import java.util.List;
+import java.util.Scanner;
+import bytebot.task.Task;
 import java.util.List;
 import java.util.Scanner;
 

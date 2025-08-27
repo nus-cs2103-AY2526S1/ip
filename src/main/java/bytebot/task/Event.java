@@ -1,3 +1,8 @@
+package bytebot.task;
+
+import bytebot.ByteException;
+import bytebot.task.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

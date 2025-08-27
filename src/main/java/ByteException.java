@@ -1,3 +1,5 @@
+package bytebot;
+
 /**
  * Represents errors in the Byte chatbot.
  */
@@ -10,7 +12,7 @@ public class ByteException extends Exception {
      * @param message error details
      */
     public ByteException(String message) {
-        super("Bzzzz, Byte does not accept this command!!! " + message);
+        super("Bzzzz, ByteBot does not accept this command!!! " + message);
     }
 }
 
