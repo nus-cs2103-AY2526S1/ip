@@ -1,3 +1,2 @@
-T | 1 | read book
-D | 0 | return book | Sunday
-E | 0 | project meeting | Mon 2pm | Mon 4pm
+D | 0 | submit homework | 2024-12-25
+D | 0 | return library book | 2024-01-15
