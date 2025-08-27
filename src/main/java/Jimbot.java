@@ -1,19 +1,18 @@
 import exceptions.*;
 import taskTypes.*;
-import util.Helper;
+import util.Parser;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Jimbot {
     private Storage userStorage;
-    private taskList userList;
-    private Response user;
+    private TaskList userList;
+    private UI user;
 
     public Jimbot(String filePath) {
-        user = new Response();
+        user = new UI();
         userStorage = new Storage(filePath);
         userList = userStorage.load();
 
@@ -38,14 +37,14 @@ public class Jimbot {
                     user.printList(userList.getTaskList());
 
                 } else if (userInput.startsWith("mark")) {
-                    int index = Helper.parseIndex(userInput, "mark", taskCount);
+                    int index = Parser.parseIndex(userInput, "mark", taskCount);
                     Task task = userList.getTask(index);
                     task.markAsDone();
                     user.markRes(userList, index);
                     userStorage.update(userList);
 
                 } else if (userInput.startsWith("unmark")) {
-                    int index = Helper.parseIndex(userInput, "unmark", taskCount);
+                    int index = Parser.parseIndex(userInput, "unmark", taskCount);
                     Task task = userList.getTask(index);
                     task.markAsUndone();
                     user.unmarkRes(userList, index);
@@ -61,7 +60,7 @@ public class Jimbot {
                     String by = deadline[1].trim();
                     if (by.isEmpty() || description.isEmpty()) throw new InvalidDeadlineException();
 
-                    LocalDateTime dateTime = Helper.parseDateTime(by);
+                    LocalDateTime dateTime = Parser.parseDateTime(by);
 
                     Deadline userDeadline = new Deadline(description, dateTime);
                     userList.addToList(userDeadline);
@@ -87,8 +86,8 @@ public class Jimbot {
 
                         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) throw new InvalidEventException();
 
-                        LocalDateTime dateTime1 = Helper.parseDateTime(from);
-                        LocalDateTime dateTime2 = Helper.parseDateTime(to);
+                        LocalDateTime dateTime1 = Parser.parseDateTime(from);
+                        LocalDateTime dateTime2 = Parser.parseDateTime(to);
 
                         Event userEvent = new Event(description, dateTime1, dateTime2);
                         userList.addToList(userEvent);
@@ -107,15 +106,15 @@ public class Jimbot {
                         userStorage.update(userList);
                     }
                 } else if (userInput.startsWith("delete")) {
-                    int index = Helper.parseIndex(userInput, "delete", taskCount);
+                    int index = Parser.parseIndex(userInput, "delete", taskCount);
                     Task task = userList.getTask(index);
                     userList.deleteFromList(userList.getTask(index));
                     user.deleteTask(task, taskCount - 1);
                     userStorage.update(userList);
 
                 } else if (userInput.contains("/")) {
-                    LocalDate date = Helper.parseDate(userInput);
-                    user.printList(userList.getTasksAtDate(date));
+                    LocalDate date = Parser.parseDate(userInput);
+                    user.printListAtDate(userList.getTasksAtDate(date));
 
                 } else {
                     user.echo(userInput);

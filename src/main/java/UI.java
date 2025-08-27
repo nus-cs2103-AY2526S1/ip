@@ -1,12 +1,12 @@
 //class containing all jimbot responses
 import taskTypes.Task;
-import taskTypes.taskList;
+import taskTypes.TaskList;
 
 import java.util.List;
 
-public class Response {
+public class UI {
 
-    public void markRes(taskList userList, int index) {
+    public void markRes(TaskList userList, int index) {
         String padding = "  ";
         int inputLength = userList.getTask(index).toString().length();
         int maxLength = 37;
@@ -35,7 +35,7 @@ public class Response {
                 "♪ ｖ(＾＿＾ｖ)♪ ~~ ♪(ｖ＾＿＾)ｖ ╯");
     }
 
-    public void unmarkRes(taskList userList, int index) {
+    public void unmarkRes(TaskList userList, int index) {
         String padding = "  ";
         int inputLength = userList.getTask(index).toString().length();
         int maxLength = 43;
@@ -130,6 +130,43 @@ public class Response {
 
         String topBorder = " ┌" + box + "┐\n";
         String bottomBorder = " └" + box + "┴ ノ( ゜-゜ノ)";
+        header += " │";
+        System.out.println(topBorder +
+                header + listContent + "\n" +
+                bottomBorder);
+    }
+
+    public void printListAtDate(List<Task> list) {
+        int maxLength = 34;
+        int taskCount = list.size();
+        String box = "─";
+        for (Task task : list) {
+            if (task.toString().length() > maxLength) {
+                maxLength = task.toString().length();
+            }
+        }
+
+        String listContent = "";
+        for (int i = 0; i < taskCount; i++) {
+            Task task = list.get(i);
+            int padding = maxLength - task.toString().length();
+            String spaces = "";
+            for (int j = 0; j < padding + 3; j++) spaces += " ";
+            if (i <= 8) {
+                listContent += "\n         │ " + (i + 1) + ". " + task + spaces + " │";
+            } else {
+                listContent += "\n         │ " + (i + 1) + ". " + task + spaces + "│";
+            }
+        }
+
+        for (int i = 0; i < maxLength + 7; i++) box += "─";
+
+        String header = "         │ Here are your tasks from that date:";
+        int headerPadding = maxLength - 29;
+        for (int i = 0; i < headerPadding; i++) header += " ";
+
+        String topBorder = "         ┌" + box + "┐\n";
+        String bottomBorder = " (・ω・)ノ└" + box + "┘";
         header += " │";
         System.out.println(topBorder +
                 header + listContent + "\n" +
