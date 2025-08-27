@@ -30,7 +30,6 @@ public class Deadline extends Task {
      */
     public String getDeadline() {
         String output = this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
-
         return String.format("by: %s",
                 output);
     }
