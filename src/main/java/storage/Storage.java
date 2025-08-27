@@ -1,3 +1,5 @@
+package storage;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -5,6 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDateTime;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 public class Storage {
     private final String filePath;
@@ -21,7 +28,7 @@ public class Storage {
         if (parentDir != null && !parentDir.exists()) {
             boolean dirCreated = parentDir.mkdirs();
             if (!dirCreated) {
-                System.out.println("OOPS!!! Could not create data directory :-(");
+                System.out.println("oh no!!! i can't create data directory :c");
             }
         }
 
@@ -29,10 +36,10 @@ public class Storage {
             try {
                 boolean fileCreated = file.createNewFile();
                 if (!fileCreated) {
-                    System.out.println("OOPS!!! We couldn't create save file.");
+                    System.out.println("oh no!!! i couldn't create save file.");
                 }
             } catch (IOException e) {
-                System.out.println("OOPS!!! We couldn't create save file: " + e.getMessage());
+                System.out.println("oh no!!! i couldn't create save file: " + e.getMessage());
             }
             return tasks;
         }
@@ -65,11 +72,11 @@ public class Storage {
                     tasks.add(event);
                     break;
                 default:
-                    System.out.println("OOPS!!! Skipping corrupted line... " + line);
+                    System.out.println("oh no!!! skipping corrupted line... " + line);
                 }
             }
         } catch (Exception e) {
-            System.out.println("OOPS!!! There is an error reading file..." + e.getMessage());
+            System.out.println("oh no!!! there is an error reading file..." + e.getMessage());
         }
         return tasks;
     }
@@ -81,7 +88,7 @@ public class Storage {
                 bw.newLine();
             }
         } catch (IOException e) {
-            System.out.println("OOPS!!! We couldn't save the following task: " + e.getMessage());
+            System.out.println("oh no!!! i couldn't save the following task: " + e.getMessage());
         }
     }
 }

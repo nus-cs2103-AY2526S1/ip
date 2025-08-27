@@ -1,3 +1,7 @@
+package tasks;
+
+import exception.RainyException;
+
 import java.util.ArrayList;
 
 public class TaskList {
