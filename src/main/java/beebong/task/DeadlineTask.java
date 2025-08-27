@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import beebong.exception.InvalidSerializedTaskDataException;
+import beebong.util.DateTimeUtil;
+import beebong.util.StringUtil;
 
 public class DeadlineTask extends Task {
     private LocalDateTime deadline;
@@ -32,8 +34,8 @@ public class DeadlineTask extends Task {
     @Override
     public String serializeTask() {
         return "D" + Task.SAVE_DELIMITER + (isCompleted() ? "1" : "0")
-                + Task.SAVE_DELIMITER + this.encodeString(this.getName())
-                + Task.SAVE_DELIMITER + this.encodeString(Task.dateTimeToString(this.deadline));
+                + Task.SAVE_DELIMITER + StringUtil.encode(this.getName())
+                + Task.SAVE_DELIMITER + StringUtil.encode(DateTimeUtil.toSerializedString(this.deadline));
     }
 
     public static DeadlineTask deserializeTask(String taskStr) throws InvalidSerializedTaskDataException {
@@ -44,11 +46,11 @@ public class DeadlineTask extends Task {
         }
 
         // ["D", "0", "NAME", "DEADLINE"]
-        String name = Task.decodeString(taskData[2]);
+        String name = StringUtil.decode(taskData[2]);
         boolean isCompleted = taskData[1].equals("1");
         LocalDateTime deadline;
         try {
-            deadline = Task.parseDateTime(Task.decodeString(taskData[3]));
+            deadline = DateTimeUtil.parseDateTime(StringUtil.decode(taskData[3]));
         } catch (DateTimeParseException e) {
             throw new InvalidSerializedTaskDataException();
         }
@@ -58,6 +60,6 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + Task.dateTimeToString(this.deadline) + ")";
+        return "[D]" + super.toString() + " (by: " + DateTimeUtil.toString(this.deadline) + ")";
     }
 }

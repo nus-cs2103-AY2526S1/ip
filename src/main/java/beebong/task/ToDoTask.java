@@ -1,6 +1,7 @@
 package beebong.task;
 
 import beebong.exception.InvalidSerializedTaskDataException;
+import beebong.util.StringUtil;
 
 public class ToDoTask extends Task {
     public ToDoTask(String name) {
@@ -17,7 +18,7 @@ public class ToDoTask extends Task {
     @Override
     public String serializeTask() {
         return "T" + SAVE_DELIMITER + (isCompleted() ? "1" : "0")
-                + SAVE_DELIMITER + this.encodeString(this.getName());
+                + SAVE_DELIMITER + StringUtil.encode(this.getName());
     }
 
     public static ToDoTask deserializeTask(String taskStr) throws InvalidSerializedTaskDataException {
@@ -28,7 +29,7 @@ public class ToDoTask extends Task {
         }
 
         // ["T", "0", "NAME"]
-        String name = decodeString(taskData[2]);
+        String name = StringUtil.decode(taskData[2]);
         boolean isCompleted = taskData[1].equals("1");
 
         return new ToDoTask(name, isCompleted);

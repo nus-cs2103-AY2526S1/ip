@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import beebong.exception.InvalidSerializedTaskDataException;
+import beebong.util.DateTimeUtil;
+import beebong.util.StringUtil;
 
 public class EventTask extends Task {
     private LocalDateTime startDate;
@@ -43,9 +45,9 @@ public class EventTask extends Task {
     @Override
     public String serializeTask() {
         return "E" + SAVE_DELIMITER + (isCompleted() ? "1" : "0")
-                + SAVE_DELIMITER + this.encodeString(this.getName())
-                + SAVE_DELIMITER + this.encodeString(Task.dateTimeToString(this.startDate))
-                + SAVE_DELIMITER + this.encodeString(Task.dateTimeToString(this.endDate));
+                + SAVE_DELIMITER + StringUtil.encode(this.getName())
+                + SAVE_DELIMITER + StringUtil.encode(DateTimeUtil.toSerializedString(this.startDate))
+                + SAVE_DELIMITER + StringUtil.encode(DateTimeUtil.toSerializedString(this.endDate));
     }
 
     public static EventTask deserializeTask(String taskStr) throws InvalidSerializedTaskDataException {
@@ -56,12 +58,12 @@ public class EventTask extends Task {
         }
 
         // ["E", "0", "NAME", "START", "END]
-        String name = decodeString(taskData[2]);
+        String name = StringUtil.decode(taskData[2]);
         boolean isCompleted = taskData[1].equals("1");
         LocalDateTime startDate, endDate;
         try {
-            startDate = Task.parseDateTime(decodeString(taskData[3]));
-            endDate = Task.parseDateTime(decodeString(taskData[4]));
+            startDate = DateTimeUtil.parseDateTime(StringUtil.decode(taskData[3]));
+            endDate = DateTimeUtil.parseDateTime(StringUtil.decode(taskData[4]));
         } catch (DateTimeParseException e) {
             throw new InvalidSerializedTaskDataException();
         }
@@ -71,6 +73,6 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + Task.dateTimeToString(this.startDate) + " to " + Task.dateTimeToString(this.endDate) + ")";
+        return "[E]" + super.toString() + " (from: " + DateTimeUtil.toString(this.startDate) + " to " + DateTimeUtil.toSerializedString(this.endDate) + ")";
     }
 }

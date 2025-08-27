@@ -1,5 +1,7 @@
 package beebong.parser;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 // Import Commands
 import beebong.command.AddDeadlineTaskCommand;
@@ -16,11 +18,8 @@ import beebong.command.NullCommand;
 // Import Exceptions
 import beebong.exception.BBongException;
 import beebong.exception.InvalidTaskDetailsException;
-// Import Tasks
-import beebong.task.Task;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
+// Import Utils
+import beebong.util.DateTimeUtil;
 
 public class Parser {
     public Command parseCommand(String input) throws BBongException {
@@ -72,11 +71,11 @@ public class Parser {
             }
             try {
                 String[] taskInfo = convertDetailsToDeadlineTaskInfo(params);
-                LocalDateTime deadline = Task.parseDateTime(taskInfo[1]);
+                LocalDateTime deadline = DateTimeUtil.parseDateTime(taskInfo[1]);
                 // Add New Deadline Task
                 return new AddDeadlineTaskCommand(taskInfo[0], deadline);
             } catch (DateTimeParseException e) {
-                throw new InvalidTaskDetailsException("Invalid Date Provided!");
+                throw new InvalidTaskDetailsException("Invalid Date Provided! Enter in dd/MM/yyyy hh:mm format (time is optional)");
             }
         case EVENT:
             // Check if details is empty
@@ -85,8 +84,8 @@ public class Parser {
             }
             try {
                 String[] taskInfo = convertDetailsToEventTaskInfo(params);
-                LocalDateTime startDate = Task.parseDateTime(taskInfo[1]);
-                LocalDateTime endDate = Task.parseDateTime(taskInfo[2]);
+                LocalDateTime startDate = DateTimeUtil.parseDateTime(taskInfo[1]);
+                LocalDateTime endDate = DateTimeUtil.parseDateTime(taskInfo[2]);
                 // Make sure startDate <= endDate
                 if (startDate.isAfter(endDate)) {
                     throw new InvalidTaskDetailsException("Invalid Dates Provided! Start Date cannot be after End Date!");
@@ -94,7 +93,7 @@ public class Parser {
                 // Add New Event Task
                 return new AddEventTaskCommand(taskInfo[0], startDate, endDate);
             } catch (DateTimeParseException e) {
-                throw new InvalidTaskDetailsException("Invalid Dates Provided!");
+                throw new InvalidTaskDetailsException("Invalid Date Provided! Enter in dd/MM/yyyy hh:mm format (time is optional)");
             }
         // Delete Tasks
         case DELETE:
