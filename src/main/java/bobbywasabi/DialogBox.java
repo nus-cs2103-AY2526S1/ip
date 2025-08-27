@@ -2,22 +2,29 @@ package bobbywasabi;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Collections;
 
-public class DialogContainer extends HBox {
-    private Image image;
-    private String text;
+public class DialogBox extends HBox {
+    @FXML
+    private Label dialog;
 
-    public DialogContainer(Image image, String text) {
+    @FXML
+    private ImageView displayPicture;
+
+    public DialogBox(Image image, String text) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/DialogContainer.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -25,8 +32,9 @@ public class DialogContainer extends HBox {
             e.printStackTrace();
         }
 
-        this.image = image;
-        this.text = text;
+        dialog.setText(text);
+        displayPicture.setImage(image);
+
     }
 
     private void flip() {
@@ -36,12 +44,12 @@ public class DialogContainer extends HBox {
         this.setAlignment(Pos.TOP_LEFT);
     }
 
-    public static DialogContainer getUserDialog(Image image, String text) {
-        return new DialogContainer(image, text);
+    public static DialogBox getUserDialog(Image image, String text) {
+        return new DialogBox(image, text);
     }
 
-    public static DialogContainer getBobbyWasabiDialog(Image image, String text) {
-        var db = new DialogContainer(image, text);
+    public static DialogBox getBobbyWasabiDialog(Image image, String text) {
+        var db = new DialogBox(image, text);
         db.flip();
         return db;
     }
