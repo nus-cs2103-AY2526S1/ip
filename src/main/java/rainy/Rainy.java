@@ -1,5 +1,11 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+package rainy;
+
+import commands.Command;
+import exception.RainyException;
+import parser.Parser;
+import storage.Storage;
+import tasks.TaskList;
+import ui.Ui;
 
 public class Rainy {
     private Storage storage;

@@ -1,3 +1,8 @@
+package parser;
+
+import commands.*;
+import exception.RainyException;
+
 public class Parser {
     public static Command parse(String fullCommand) throws RainyException {
         String[] words = fullCommand.trim().split(" ", 2);

@@ -1,17 +1,24 @@
-public class AddEventCommand extends Command {
-    private final String description;
-    private final String from;
-    private final String to;
+package commands;
 
-    public AddEventCommand(String description, String from, String to) {
+import exception.RainyException;
+import storage.Storage;
+import tasks.Deadline;
+import tasks.Task;
+import tasks.TaskList;
+import ui.Ui;
+
+public class AddDeadlineCommand extends Command {
+    private final String description;
+    private final String by;
+
+    public AddDeadlineCommand(String description, String by) {
         this.description = description;
-        this.from = from;
-        this.to = to;
+        this.by = by;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws RainyException {
-        Task t = new Event(description, from, to);
+        Task t = new Deadline(description, by);
         tasks.addTask(t);
         storage.save(tasks.getAllTasks());
         ui.showLine();

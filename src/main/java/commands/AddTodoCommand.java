@@ -1,15 +1,22 @@
-public class AddDeadlineCommand extends Command {
-    private final String description;
-    private final String by;
+package commands;
 
-    public AddDeadlineCommand(String description, String by) {
+import exception.RainyException;
+import storage.Storage;
+import tasks.Task;
+import tasks.TaskList;
+import tasks.Todo;
+import ui.Ui;
+
+public class AddTodoCommand extends Command {
+    private final String description;
+
+    public AddTodoCommand(String description) {
         this.description = description;
-        this.by = by;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws RainyException {
-        Task t = new Deadline(description, by);
+        Task t = new Todo(description);
         tasks.addTask(t);
         storage.save(tasks.getAllTasks());
         ui.showLine();
