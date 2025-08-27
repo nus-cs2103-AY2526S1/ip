@@ -1,5 +1,8 @@
 package zell;
 
+/**
+ * Represents an Enum which contains all the default Zell messages
+ */
 public enum ZellMessage {
     WELCOME_MESSAGE("Hello! My name is Zell\n How can I help you?"),
     UNKNOWN_COMMAND(" is an unknown command. Please try again with a valid command"),
@@ -10,6 +13,7 @@ public enum ZellMessage {
     TASK_MARKED("Nice! I've marked this task as done:\n "),
     TASK_UNMARKED("OK, I've marked this task as not done yet:\n ");
 
+    /** The default message for the scenario  */
     private String message;
 
     ZellMessage(String message) {
