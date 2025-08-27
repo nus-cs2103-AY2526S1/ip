@@ -77,140 +77,113 @@ public class BobbyWasabi {
      * Starts the BobbyWasabi main command loop.
      * Continuously reads and executes user commands until the BYE command is received.
      */
-    public void run() {
-        this.ui.greetUser();
+    public String getResponse(String userInput) {
 
-        while (true) {
-            // Get user input and command
-            String userInput = ui.getNextInput();
-            Command command = Parser.parseCommand(userInput);
+        Command command = Parser.parseCommand(userInput);
 
-            switch (command) {
-            case BYE:
+        switch (command) {
+        case BYE:
+            return ui.farewellUser();
+        case LIST:
+            return ui.listMessage(this.taskList);
+        case MARK:
+            try {
 
-                ui.farewellUser();
-                return;
+                int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
+                Task targetTask = this.taskList.get(indx - 1);
+                targetTask.setIsMarked(true);
 
-            case LIST:
+                storage.updateDataFileFromTasks(this.taskList);
+                return ui.markTaskMessage(indx, targetTask);
 
-                ui.listMessage(this.taskList);
-                continue;
+            } catch (BobbyWasabiException e) {
+                return ui.generateErrorMsg(e.getMessage());
+            }
+        case UNMARK:
+            try {
 
-            case MARK:
-                try {
+                int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
+                Task targetTask = this.taskList.get(indx - 1);
+                targetTask.setIsMarked(false);
 
-                    int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
-                    Task targetTask = this.taskList.get(indx - 1);
-                    targetTask.setIsMarked(true);
+                storage.updateDataFileFromTasks(this.taskList);
+                return ui.unmarkTaskMessage(indx, targetTask);
 
-                    ui.markTaskMessage(indx, targetTask);
-                    storage.updateDataFileFromTasks(this.taskList);
-                    continue;
+            } catch (BobbyWasabiException e) {
+                return ui.generateErrorMsg(e.getMessage());
+            }
+        case TODO:
+            try {
+                String description = Parser.parseTodo(userInput);
 
-                } catch (BobbyWasabiException e) {
-                    ui.generateErrorMsg(e.getMessage());
-                    continue;
-                }
-            case UNMARK:
-                try {
+                Task todo = new ToDo(description, false);
+                this.taskList.add(todo);
 
-                    int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
-                    Task targetTask = this.taskList.get(indx - 1);
-                    targetTask.setIsMarked(false);
+                storage.fileWrite(todo.getData());
+                return ui.addTaskMessage(todo, this.taskList.size());
 
-                    ui.unmarkTaskMessage(indx, targetTask);
-                    storage.updateDataFileFromTasks(this.taskList);
-                    continue;
+            } catch (BobbyWasabiException e) {
+                return ui.generateErrorMsg(e.getMessage());
+            }
+        case DEADLINE:
+            try {
+                String[] details = Parser.parseDeadline(userInput);
+                String description = details[0];
+                String deadline = details[1];
 
-                } catch (BobbyWasabiException e) {
-                    ui.generateErrorMsg(e.getMessage());
-                    continue;
-                }
-            case TODO:
-                try {
+                LocalDateTime dateTime = Parser.parseDateString(deadline);
 
-                    String description = Parser.parseTodo(userInput);
+                Task deadlineTask = new Deadline(description, false, dateTime);
+                this.taskList.add(deadlineTask);
 
-                    Task todo = new ToDo(description, false);
-                    this.taskList.add(todo);
+                storage.fileWrite(deadlineTask.getData());
+                return ui.addTaskMessage(deadlineTask, this.taskList.size());
 
-                    ui.addTaskMessage(todo, this.taskList.size());
-                    storage.fileWrite(todo.getData());
-                    continue;
-
-                } catch (BobbyWasabiException e) {
-                    ui.generateErrorMsg(e.getMessage());
-                    continue;
-                }
-            case DEADLINE:
-                try {
-                    String[] details = Parser.parseDeadline(userInput);
-                    String description = details[0];
-                    String deadline = details[1];
-
-                    LocalDateTime dateTime = Parser.parseDateString(deadline);
-
-                    Task deadlineTask = new Deadline(description, false, dateTime);
-                    this.taskList.add(deadlineTask);
-
-                    ui.addTaskMessage(deadlineTask, this.taskList.size());
-                    storage.fileWrite(deadlineTask.getData());
-                    continue;
-
-                } catch (BobbyWasabiException | DateTimeParseException e) {
-                    ui.generateErrorMsg(e.getMessage());
-                    continue;
-                }
-
-            case EVENT:
-                try {
-                    String[] details = Parser.parseEvent(userInput);
-                    String description = details[0];
-                    String start = details[1];
-                    String end = details[2];
-
-                    Task eventTask = new Event(description, false, start, end);
-                    this.taskList.add(eventTask);
-
-                    ui.addTaskMessage(eventTask, this.taskList.size());
-                    storage.fileWrite(eventTask.getData());
-                    continue;
-
-                } catch (BobbyWasabiException e) {
-                    ui.generateErrorMsg(e.getMessage());
-                    continue;
-                }
-            case DELETE:
-                try {
-                    int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
-                    Task targetTask = this.taskList.get(indx - 1);
-                    this.taskList.remove(indx - 1);
-
-                    ui.deleteMessage(targetTask, this.taskList.size());
-                    storage.updateDataFileFromTasks(this.taskList);
-                    continue;
-
-                } catch (BobbyWasabiException e) {
-                    ui.generateErrorMsg(e.getMessage());
-                    continue;
-                }
-            case FIND:
-                try {
-                    String keyword = Parser.parseFindCommand(userInput);
-                    String matchingTasks = this.taskList.findTasksThatMatchKeyword(keyword);
-                    ui.findMessage(matchingTasks); //
-                } catch (BobbyWasabiException e) {
-                    ui.generateErrorMsg(e.getMessage());
-                }
-                continue;
-            case OTHERS:
-                ui.invalidMessage();
-                continue;
-            default:
-                ui.invalidMessage();
+            } catch (BobbyWasabiException | DateTimeParseException e) {
+                return ui.generateErrorMsg(e.getMessage());
             }
 
+        case EVENT:
+            try {
+                String[] details = Parser.parseEvent(userInput);
+                String description = details[0];
+                String start = details[1];
+                String end = details[2];
 
+                Task eventTask = new Event(description, false, start, end);
+                this.taskList.add(eventTask);
+
+                storage.fileWrite(eventTask.getData());
+                return ui.addTaskMessage(eventTask, this.taskList.size());
+
+            } catch (BobbyWasabiException e) {
+                return ui.generateErrorMsg(e.getMessage());
+            }
+        case DELETE:
+            try {
+                int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
+                Task targetTask = this.taskList.get(indx - 1);
+                this.taskList.remove(indx - 1);
+
+
+                storage.updateDataFileFromTasks(this.taskList);
+                return ui.deleteMessage(targetTask, this.taskList.size());
+
+            } catch (BobbyWasabiException e) {
+                return ui.generateErrorMsg(e.getMessage());
+            }
+        case FIND:
+            try {
+                String keyword = Parser.parseFindCommand(userInput);
+                String matchingTasks = this.taskList.findTasksThatMatchKeyword(keyword);
+                return ui.findMessage(matchingTasks);
+            } catch (BobbyWasabiException e) {
+                return ui.generateErrorMsg(e.getMessage());
+            }
+        case OTHERS:
+            return ui.invalidMessage();
+        default:
+            return ui.invalidMessage();
         }
     }
 
@@ -221,6 +194,6 @@ public class BobbyWasabi {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        new BobbyWasabi().run();
+
     }
 }
