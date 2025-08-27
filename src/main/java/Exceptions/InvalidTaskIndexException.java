@@ -1,3 +1,5 @@
+package Exceptions;
+
 public class InvalidTaskIndexException extends EvansBotException {
     public InvalidTaskIndexException(int max) {
         super(max == 0
