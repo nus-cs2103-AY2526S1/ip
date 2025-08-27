@@ -28,13 +28,16 @@ test {
 }
 
 application {
-    mainClass.set("Rainy")
+    mainClass.set("rainy.Rainy")
 }
 
 shadowJar {
     archiveBaseName = "rainy"
     archiveClassifier = null
     archiveFileName = "rainy.jar"
+    manifest {
+        attributes 'Main-Class': 'rainy.Rainy'
+    }
 }
 
 run{
