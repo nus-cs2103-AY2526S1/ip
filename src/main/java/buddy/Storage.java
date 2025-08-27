@@ -6,6 +6,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * Handles loading and saving of tasks to persistent storage.
+ * Manages file I/O operations and data format conversion for task persistence.
+ */
 public class Storage {
     private String filePath;
     

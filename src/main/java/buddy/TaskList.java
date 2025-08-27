@@ -2,6 +2,10 @@ package buddy;
 
 import java.util.ArrayList;
 
+/**
+ * Manages a list of tasks with operations for adding, deleting, and modifying tasks.
+ * Provides functionality to mark tasks as done/undone and retrieve tasks by index.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
     
@@ -13,6 +17,11 @@ public class TaskList {
         this.tasks = tasks;
     }
     
+    /**
+     * Adds a task to the task list.
+     * 
+     * @param task the task to be added
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }

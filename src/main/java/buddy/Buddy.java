@@ -1,10 +1,21 @@
 package buddy;
 
+/**
+ * Main class for the Buddy task management application.
+ * Provides a command-line interface for managing personal tasks including
+ * todos, deadlines, and events with persistent storage.
+ */
 public class Buddy {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     
+    /**
+     * Constructs a new Buddy application with the specified data file path.
+     * Initializes UI, storage, and task list components.
+     * 
+     * @param filePath the path to the data file for persistent storage
+     */
     public Buddy(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -16,6 +27,10 @@ public class Buddy {
         }
     }
     
+    /**
+     * Starts the main application loop.
+     * Displays welcome message and processes user commands until exit.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
