@@ -37,7 +37,7 @@ public class Storage {
         File file = new File(this.filePath);
 
         // Create /data folder if it does not exist
-        file.getParentFile().mkdir();
+        file.getParentFile().mkdirs();
 
         try (Scanner scanner = new Scanner(file)){
             while (scanner.hasNext()) {
@@ -45,8 +45,8 @@ public class Storage {
             }
         } catch (FileNotFoundException fe) {
             try {
-                FileWriter fw = new FileWriter(this.filePath, true);
-                fw.close();
+                FileWriter fileWriter = new FileWriter(this.filePath, true);
+                fileWriter.close();
             } catch (IOException ie) {
                 throw new ZellException("Failed to store task to local storage because of: "
                         + ie.getMessage());
@@ -65,9 +65,9 @@ public class Storage {
      */
     public void storeTask(Task task) throws ZellException {
         try {
-            FileWriter fw = new FileWriter(this.filePath, true);
-            fw.write(task.taskToString() + "\n");
-            fw.close();
+            FileWriter fileWriter = new FileWriter(this.filePath, true);
+            fileWriter.write(task.taskToString() + "\n");
+            fileWriter.close();
         } catch (IOException e) {
             throw new ZellException("Failed to store task to local storage because of: " + e.getMessage());
         }
@@ -87,13 +87,13 @@ public class Storage {
      */
     public void updateTasks(List<String> tasks) throws ZellException {
         try {
-            FileWriter fw = new FileWriter(this.filePath);
+            FileWriter fileWriter = new FileWriter(this.filePath);
 
             for (String task: tasks) {
-                fw.write(task + "\n");
+                fileWriter.write(task + "\n");
             }
 
-            fw.close();
+            fileWriter.close();
         } catch (IOException e) {
             throw new ZellException("Failed to store task to local storage because of: " + e.getMessage());
         }
