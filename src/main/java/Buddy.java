@@ -1,9 +1,17 @@
 import java.util.Scanner;
+import java.io.*;
+import java.nio.file.*;
+import java.util.ArrayList;
 
 public class Buddy {
+    private static final String DATA_DIR = "./data";
+    private static final String DATA_FILE = "./data/buddy.txt";
+    
     public static void main(String[] args) {
         Task[] tasks = new Task[100];
         int taskCount = 0;
+        
+        taskCount = loadTasks(tasks);
         
         System.out.println("____________________________________________________________");
         System.out.println(" Hello! I'm Buddy");
@@ -37,6 +45,7 @@ public class Buddy {
                         System.out.println("____________________________________________________________");
                     } else {
                         tasks[taskIndex].markAsDone();
+                        saveTasks(tasks, taskCount);
                         System.out.println("____________________________________________________________");
                         System.out.println(" Nice! I've marked this task as done:");
                         System.out.println("   " + tasks[taskIndex]);
@@ -56,6 +65,7 @@ public class Buddy {
                         System.out.println("____________________________________________________________");
                     } else {
                         tasks[taskIndex].markAsNotDone();
+                        saveTasks(tasks, taskCount);
                         System.out.println("____________________________________________________________");
                         System.out.println(" OK, I've marked this task as not done yet:");
                         System.out.println("   " + tasks[taskIndex]);
@@ -79,6 +89,7 @@ public class Buddy {
                             tasks[i] = tasks[i + 1];
                         }
                         taskCount--;
+                        saveTasks(tasks, taskCount);
                         System.out.println("____________________________________________________________");
                         System.out.println(" Noted. I've removed this task:");
                         System.out.println("   " + deletedTask);
@@ -104,6 +115,7 @@ public class Buddy {
                     Task newTask = new Todo(description);
                     tasks[taskCount] = newTask;
                     taskCount++;
+                    saveTasks(tasks, taskCount);
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + newTask);
@@ -127,6 +139,7 @@ public class Buddy {
                         Task newTask = new Deadline(description, by);
                         tasks[taskCount] = newTask;
                         taskCount++;
+                        saveTasks(tasks, taskCount);
                         System.out.println("____________________________________________________________");
                         System.out.println(" Got it. I've added this task:");
                         System.out.println("   " + newTask);
@@ -162,6 +175,7 @@ public class Buddy {
                             Task newTask = new Event(description, from, to);
                             tasks[taskCount] = newTask;
                             taskCount++;
+                            saveTasks(tasks, taskCount);
                             System.out.println("____________________________________________________________");
                             System.out.println(" Got it. I've added this task:");
                             System.out.println("   " + newTask);
@@ -182,5 +196,92 @@ public class Buddy {
         }
         
         scanner.close();
+    }
+    
+    private static int loadTasks(Task[] tasks) {
+        int taskCount = 0;
+        try {
+            Path dataPath = Paths.get(DATA_FILE);
+            if (!Files.exists(dataPath)) {
+                Path dirPath = Paths.get(DATA_DIR);
+                if (!Files.exists(dirPath)) {
+                    Files.createDirectories(dirPath);
+                }
+                return 0;
+            }
+            
+            ArrayList<String> lines = new ArrayList<>(Files.readAllLines(dataPath));
+            for (String line : lines) {
+                Task task = parseTaskFromFile(line);
+                if (task != null && taskCount < tasks.length) {
+                    tasks[taskCount] = task;
+                    taskCount++;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
+        return taskCount;
+    }
+    
+    private static void saveTasks(Task[] tasks, int taskCount) {
+        try {
+            Path dirPath = Paths.get(DATA_DIR);
+            if (!Files.exists(dirPath)) {
+                Files.createDirectories(dirPath);
+            }
+            
+            ArrayList<String> lines = new ArrayList<>();
+            for (int i = 0; i < taskCount; i++) {
+                lines.add(formatTaskForFile(tasks[i]));
+            }
+            Files.write(Paths.get(DATA_FILE), lines);
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+    
+    private static String formatTaskForFile(Task task) {
+        String isDone = task.isDone() ? "1" : "0";
+        if (task instanceof Todo) {
+            return "T | " + isDone + " | " + task.getDescription();
+        } else if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            return "D | " + isDone + " | " + deadline.getDescription() + " | " + deadline.getBy();
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
+            return "E | " + isDone + " | " + event.getDescription() + " | " + event.getFrom() + " | " + event.getTo();
+        }
+        return "";
+    }
+    
+    private static Task parseTaskFromFile(String line) {
+        try {
+            String[] parts = line.split(" \\| ");
+            if (parts.length < 3) return null;
+            
+            String type = parts[0];
+            boolean isDone = parts[1].equals("1");
+            String description = parts[2];
+            
+            Task task = null;
+            if (type.equals("T")) {
+                task = new Todo(description);
+            } else if (type.equals("D") && parts.length >= 4) {
+                String by = parts[3];
+                task = new Deadline(description, by);
+            } else if (type.equals("E") && parts.length >= 5) {
+                String from = parts[3];
+                String to = parts[4];
+                task = new Event(description, from, to);
+            }
+            
+            if (task != null && isDone) {
+                task.markAsDone();
+            }
+            return task;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
