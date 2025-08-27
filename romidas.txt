@@ -1,0 +1,4 @@
+T | 0 | read book
+E | 0 | project meeting (from: Mon 2pm to: 4pm) | Mon 2pm-4pm
+D | 0 | return book (by: Sunday) | Sunday
+D | 1 | borrow book (by: Friday) | Friday

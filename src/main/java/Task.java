@@ -21,6 +21,8 @@ public abstract class Task {
 
     public abstract String getStatus();
 
+    public abstract String toText();
+
     @Override
     public String toString() {
         return this.getStatus() + this.getStatusIcon() + " " + this.getDescription();
