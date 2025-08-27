@@ -21,12 +21,12 @@ public class Storage {
 
     // Referenced from: https://www.w3schools.com/java/java_files_create.asp
     // and https://www.w3schools.com/java/java_files_read.asp
-    public List<Task> readTasksFromFile() throws InvalidSerializedTaskDataException {
+    public List<Task> readTasksFromFile() throws BBongException {
         //Check if File Exists
         File saveFile = new File(this.filePath);
         // If File does not exist, do nothing
         if (!saveFile.exists()) {
-            return null;
+            throw new BBongException("Save file does not exist!");
         }
         //Else Read the saved Tasks from the file
         List<Task> tasks = new ArrayList<>();
@@ -48,6 +48,11 @@ public class Storage {
     public void writeTasksToFile(List<Task> tasks) throws BBongException {
         // No need to check if the File exists before writing
         // as FileWriter automatically handles that for us.
+
+        // Check if tasks is empty
+        if (tasks.isEmpty()) {
+            return;
+        }
 
         // Write Task List to File
         try {
