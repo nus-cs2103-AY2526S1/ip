@@ -20,7 +20,7 @@ public abstract class AddTaskCommand extends Command {
         // Create new Task
         Task newTask = createTask();
         taskList.addTask(newTask);
-        ui.botMessage("Bing! Task added to my list:\n" + newTask + "\nYou now have " + taskList.length() + " task(s) " +
-                "buzzing around in the list.");
+        ui.showMessage("Bing! Task added to my list:\n" + newTask + "\nYou now have "
+                + taskList.length() + " task(s) " + "buzzing around in the list.");
     }
 }

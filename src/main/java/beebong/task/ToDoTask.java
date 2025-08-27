@@ -17,8 +17,7 @@ public class ToDoTask extends Task {
 
     @Override
     public String serializeTask() {
-        return "T" + SAVE_DELIMITER + (isCompleted() ? "1" : "0")
-                + SAVE_DELIMITER + StringUtil.encode(this.getName());
+        return "T" + Task.SAVE_DELIMITER + super.serializeTask();
     }
 
     public static ToDoTask deserializeTask(String taskStr) throws InvalidSerializedTaskDataException {

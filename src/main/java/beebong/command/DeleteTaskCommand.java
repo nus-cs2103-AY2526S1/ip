@@ -22,7 +22,7 @@ public class DeleteTaskCommand extends Command {
         }
         // Delete Task
         Task removedTask = taskList.deleteTask(taskNum);
-        ui.botMessage("Bing! This task has been removed:\n"
+        ui.showMessage("Bing! This task has been removed:\n"
                 + removedTask + "\nYou now have " + taskList.length()
                 + " task(s) buzzing around in the list.");
     }

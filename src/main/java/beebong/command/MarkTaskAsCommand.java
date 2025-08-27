@@ -8,11 +8,11 @@ import beebong.ui.UI;
 
 public class MarkTaskAsCommand extends Command {
     private final int taskNum;
-    private final boolean status;
+    private final boolean isComplete;
 
-    public MarkTaskAsCommand(int taskNum, boolean status) {
+    public MarkTaskAsCommand(int taskNum, boolean isComplete) {
         this.taskNum = taskNum;
-        this.status = status;
+        this.isComplete = isComplete;
     }
 
     @Override
@@ -22,7 +22,8 @@ public class MarkTaskAsCommand extends Command {
             throw new InvalidTaskDetailsException("That task number doesn’t exist. Try a real one!");
         }
         // Mark Task as Completed/Incomplete
-        taskList.markTaskAs(taskNum, status);
-        ui.botMessage("Bing! Task #" + (taskNum + 1) + " marked as " + (status ? "complete" : "incomplete") + "!");
+        taskList.markTaskAs(taskNum, isComplete);
+        ui.showMessage("Bing! Task #" + (taskNum + 1) + " marked as "
+                + ((isComplete) ? "complete" : "incomplete") + "!");
     }
 }

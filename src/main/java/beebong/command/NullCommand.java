@@ -8,6 +8,6 @@ import beebong.ui.UI;
 public class NullCommand extends Command {
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws BBongException {
-        ui.botErrorMessage("Something went boom in B. Bong’s circuits.");
+        ui.showErrorMessage("Something went boom in B. Bong’s circuits.");
     }
 }
