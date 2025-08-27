@@ -8,6 +8,7 @@ import beebong.command.AddDeadlineTaskCommand;
 import beebong.command.AddEventTaskCommand;
 import beebong.command.AddToDoTaskCommand;
 import beebong.command.DeleteTaskCommand;
+import beebong.command.FindTaskCommand;
 import beebong.command.MarkTaskAsCommand;
 import beebong.command.CommandKeyword;
 import beebong.command.Command;
@@ -50,6 +51,7 @@ public class Parser {
             if (params == null) {
                 throw new InvalidTaskDetailsException("You forgot the task number!");
             }
+
             // Parse params into taskNum
             try {
                 int taskNum = Integer.parseInt(params) - 1;
@@ -64,6 +66,7 @@ public class Parser {
             if (params == null || params.isEmpty()) {
                 throw new InvalidTaskDetailsException("Missing Task Details!");
             }
+
             // Add New ToDoTask
             return new AddToDoTaskCommand(params);
         case DEADLINE:
@@ -71,6 +74,8 @@ public class Parser {
             if (params == null || params.isEmpty()) {
                 throw new InvalidTaskDetailsException("Missing Task Details!");
             }
+
+            // Parse params into task details
             try {
                 String[] taskInfo = convertDetailsToDeadlineTaskInfo(params);
                 LocalDateTime deadline = DateTimeUtil.parseDateTime(taskInfo[1]);
@@ -84,6 +89,8 @@ public class Parser {
             if (params == null || params.isEmpty()) {
                 throw new InvalidTaskDetailsException("Missing Task Details!");
             }
+
+            // Parse params into task details
             try {
                 String[] taskInfo = convertDetailsToEventTaskInfo(params);
                 LocalDateTime startDate = DateTimeUtil.parseDateTime(taskInfo[1]);
@@ -103,6 +110,7 @@ public class Parser {
             if (params == null) {
                 throw new InvalidTaskDetailsException("You forgot the task number!");
             }
+
             // Parse params into taskNum
             try {
                 int taskNum = Integer.parseInt(params) - 1;
@@ -111,6 +119,15 @@ public class Parser {
             } catch (NumberFormatException e) {
                 throw new InvalidTaskDetailsException("That task number doesn’t exist. Try a real one!");
             }
+        // Find Tasks
+        case FIND:
+            // Check if params were provided
+            if (params == null) {
+                throw new InvalidTaskDetailsException("You forgot the task number!");
+            }
+
+            // Find Tasks with keyword
+            return new FindTaskCommand(params);
         // Unknown Commands
         default:
             return new NullCommand();
@@ -118,7 +135,7 @@ public class Parser {
     }
 
     private String[] convertDetailsToDeadlineTaskInfo(String details) throws InvalidTaskDetailsException {
-        // e.g. "return book /by Sunday
+        // e.g. "return book /by Sunday"
         String[] taskInfo = details.split(" /by ");
         // If after the split we have more than 2 elements, means the input is invalid
         if (taskInfo.length != 2) {

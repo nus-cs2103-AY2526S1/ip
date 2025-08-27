@@ -41,6 +41,17 @@ public class TaskList {
         storage.writeTasksToFile(tasks);
     }
 
+    public TaskList findTasks(String keyword) {
+        TaskList newTaskList = new TaskList();
+        for (Task t : tasks) {
+            // Make both to lowerCase to allow case-insensitive matching
+            if (t.getName().toLowerCase().contains(keyword.toLowerCase())) {
+                newTaskList.addTask(t);
+            }
+        }
+        return newTaskList;
+    }
+
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder();

@@ -11,6 +11,7 @@ public enum CommandKeyword {
     UNMARK("unmark"),
     DELETE("delete"),
     LIST("list"),
+    FIND("find"),
     HELP("help"),
     BYE("bye");
 
