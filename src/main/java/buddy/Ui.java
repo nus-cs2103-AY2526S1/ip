@@ -79,6 +79,19 @@ public class Ui {
         System.out.println("Error loading tasks from file. Starting with empty task list.");
     }
     
+    public void showFoundTasks(Task[] foundTasks) {
+        showLine();
+        if (foundTasks.length == 0) {
+            System.out.println(" No matching tasks found in your list.");
+        } else {
+            System.out.println(" Here are the matching tasks in your list:");
+            for (int i = 0; i < foundTasks.length; i++) {
+                System.out.println(" " + (i + 1) + "." + foundTasks[i]);
+            }
+        }
+        showLine();
+    }
+    
     public void close() {
         scanner.close();
     }

@@ -75,6 +75,9 @@ public class Buddy {
             case "event":
                 handleEvent(input);
                 break;
+            case "find":
+                handleFind(input);
+                break;
             default:
                 throw new BuddyException("I'm sorry, but I don't know what that means :-(");
         }
@@ -128,6 +131,12 @@ public class Buddy {
         ui.showTaskAdded(task, tasks.size());
     }
     
+    private void handleFind(String input) throws BuddyException {
+        String keyword = Parser.parseDescription(input, "find");
+        Task[] matchingTasks = tasks.findTasks(keyword);
+        ui.showFoundTasks(matchingTasks);
+    }
+
     private void saveTasksToFile() throws BuddyException {
         storage.save(tasks.getTasks());
     }
