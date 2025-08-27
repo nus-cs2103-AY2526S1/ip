@@ -21,7 +21,7 @@ public class Deadline extends Task {
 
         if (parsedDate == null) {
             throw new IllegalArgumentException(
-                    "OOPS!!! Invalid date format. Please use yyyy-MM-dd HHmm "
+                    "oh no!!! wrong date format... please use yyyy-MM-dd HHmm "
                             + "or d/M/yyyy HHmm.");
         }
         this.by = parsedDate;

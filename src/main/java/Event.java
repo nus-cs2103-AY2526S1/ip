@@ -29,7 +29,7 @@ public class Event extends Task {
             } catch (Exception ignored) {}
         }
         throw new IllegalArgumentException(
-                "OOPS!!! Invalid date format. Please use yyyy-MM-dd HHmm or d/M/yyyy HHmm.");
+                "oh no!!! wrong date format... please use yyyy-MM-dd HHmm or d/M/yyyy HHmm.");
     }
 
     @Override
