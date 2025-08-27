@@ -34,4 +34,22 @@ public class Task {
         };
         return "[" + typeIcon + "]" + "[" + this.getStatusIcon() +"] " + description;
     }
+
+    public String toFormat() {
+        String isDoneNumber = isDone ? "1" : "0";
+        switch (type) {
+        case TODO :
+            return "T " + "| "+ isDoneNumber +" | "+ description;
+        case DEADLINE:
+            String by = ((Deadline)this).by;
+            return "D " + "| "+ isDoneNumber +" | " +description +" | " +by;
+        case EVENT:
+            String from = ((Event)this).from;
+            String to = ((Event)this).to;
+            return "E " + "| " + isDoneNumber + " | "+description+" | "+from+" | " + to;
+        default:
+            return "";
+        }
+
+    }
 }
