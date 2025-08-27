@@ -1,7 +1,7 @@
 # Ref: https://docs.github.com/en/get-started/git-basics/configuring-git-to-handle-line-endings
 
 # Set the default behavior, in case people don't have core.autocrlf set
-* text=auto
+# * text=auto
 
 # Source code files set to LF ending
 *.java text eol=lf
