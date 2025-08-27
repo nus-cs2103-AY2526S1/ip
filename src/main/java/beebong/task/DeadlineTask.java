@@ -33,8 +33,7 @@ public class DeadlineTask extends Task {
 
     @Override
     public String serializeTask() {
-        return "D" + Task.SAVE_DELIMITER + (isCompleted() ? "1" : "0")
-                + Task.SAVE_DELIMITER + StringUtil.encode(this.getName())
+        return "D" + Task.SAVE_DELIMITER + super.serializeTask()
                 + Task.SAVE_DELIMITER + StringUtil.encode(DateTimeUtil.toSerializedString(this.deadline));
     }
 

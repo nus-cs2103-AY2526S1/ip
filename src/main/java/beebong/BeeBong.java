@@ -6,7 +6,6 @@ import java.util.Scanner;
 import beebong.command.Command;
 // Import Exceptions
 import beebong.exception.BBongException;
-import beebong.exception.InvalidSerializedTaskDataException;
 // Import Parser
 import beebong.parser.Parser;
 // Import Storage
@@ -26,19 +25,21 @@ public class BeeBong {
         this.ui = new UI();
         this.storage = new Storage("bbongSave.txt");
         this.parser = new Parser();
+
         // Check for Saved Data
         try {
             this.taskList = new TaskList(this.storage.readTasksFromFile());
-            this.ui.botMessage("Bing! Saved Tasks found, loading saved tasks...");
+            this.ui.showMessage("Bing! Saved Tasks found, loading saved tasks...");
         } catch (BBongException e) {
-            this.ui.botErrorMessage(e.getMessage());
+            this.ui.showErrorMessage(e.getMessage());
             this.taskList = new TaskList();
         }
     }
 
     public void start() {
-        this.ui.greetingMessage();
+        this.ui.showGreetingMessage();
         this.ui.showCommands();
+
         Scanner s = new Scanner(System.in);
 
         while (true) {
@@ -53,6 +54,7 @@ public class BeeBong {
 
             // Process user Input
             String input = s.nextLine().trim();
+
             try {
                 Command command = parser.parseCommand(input);
                 command.execute(this.taskList, this.ui, this.storage);
@@ -60,7 +62,7 @@ public class BeeBong {
                     break;
                 }
             } catch (BBongException e) {
-                this.ui.botErrorMessage(e.getMessage());
+                this.ui.showErrorMessage(e.getMessage());
             }
         }
     }
