@@ -1,11 +1,32 @@
+package ip;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.io.IOException;
 
 public class Note {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+    private static final String FILE_PATH = "data/duke.txt";
+    private Storage storage;
+    private List<Task> tasks;
 
+    public static void main(String[] args) {
+        new Note().run();
+    }
+
+    public void run() {
+        Scanner sc = new Scanner(System.in);
+        storage = new Storage(FILE_PATH);
+
+        // Load existing tasks
+        try {
+            tasks = storage.load();
+        } catch (IOException e) {
+            System.out.println("Could not load tasks: " + e.getMessage());
+            tasks = new ArrayList<>();
+        }
+
+        // Print welcome message
         String logo =
                 " _   _       _        \n"
                         + "| \\ | | ___ | |_ ___  \n"
@@ -20,8 +41,8 @@ public class Note {
 
         while (true) {
             String input = sc.nextLine();
-
             System.out.println("____________________________________________________________");
+
             try {
                 if (input.equals("bye")) {
                     System.out.println(" Bye. Hope to see you again soon!");
@@ -42,6 +63,7 @@ public class Note {
                         throw new NoteException("Invalid task number to mark!");
                     }
                     tasks.get(index).markAsDone();
+                    saveTasks();
                     System.out.println(" Nice! I've marked this task as done:");
                     System.out.println("   " + tasks.get(index));
                 } else if (input.startsWith("unmark ")) {
@@ -50,6 +72,7 @@ public class Note {
                         throw new NoteException("Invalid task number to unmark!");
                     }
                     tasks.get(index).markAsNotDone();
+                    saveTasks();
                     System.out.println(" OK, I've marked this task as not done yet:");
                     System.out.println("   " + tasks.get(index));
                 } else if (input.startsWith("delete ")) {
@@ -59,6 +82,7 @@ public class Note {
                             throw new NoteException("Invalid task number to delete!");
                         }
                         Task removedTask = tasks.remove(index);
+                        saveTasks();
                         System.out.println(" Noted. I've removed this task:");
                         System.out.println("   " + removedTask);
                         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
@@ -66,12 +90,13 @@ public class Note {
                         throw new NoteException("Please specify a valid task number to delete.");
                     }
                 } else if (input.startsWith("todo ")) {
-                    String desc = input.substring(5);
+                    String desc = input.substring(5).trim();
                     if (desc.isEmpty()) {
                         throw new NoteException("The description of a todo cannot be empty.");
                     }
                     Task t = new Todo(desc);
                     tasks.add(t);
+                    saveTasks();
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + t);
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
@@ -82,6 +107,7 @@ public class Note {
                     }
                     Task t = new Deadline(parts[0], parts[1]);
                     tasks.add(t);
+                    saveTasks();
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + t);
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
@@ -92,6 +118,7 @@ public class Note {
                     }
                     Task t = new Event(parts[0], parts[1], parts[2]);
                     tasks.add(t);
+                    saveTasks();
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + t);
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
@@ -104,6 +131,14 @@ public class Note {
             }
 
             System.out.println("____________________________________________________________");
+        }
+    }
+
+    private void saveTasks() {
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            System.out.println(" Error saving tasks: " + e.getMessage());
         }
     }
 }
