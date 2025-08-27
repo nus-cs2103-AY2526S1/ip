@@ -18,6 +18,7 @@ import beebong.command.NullCommand;
 // Import Exceptions
 import beebong.exception.BBongException;
 import beebong.exception.InvalidTaskDetailsException;
+import beebong.exception.InvalidDateException;
 // Import Utils
 import beebong.util.DateTimeUtil;
 
@@ -75,7 +76,7 @@ public class Parser {
                 // Add New Deadline Task
                 return new AddDeadlineTaskCommand(taskInfo[0], deadline);
             } catch (DateTimeParseException e) {
-                throw new InvalidTaskDetailsException("Invalid Date Provided! Enter in dd/MM/yyyy hh:mm format (time is optional)");
+                throw new InvalidDateException();
             }
         case EVENT:
             // Check if details is empty
@@ -88,12 +89,12 @@ public class Parser {
                 LocalDateTime endDate = DateTimeUtil.parseDateTime(taskInfo[2]);
                 // Make sure startDate <= endDate
                 if (startDate.isAfter(endDate)) {
-                    throw new InvalidTaskDetailsException("Invalid Dates Provided! Start Date cannot be after End Date!");
+                    throw new InvalidDateException("Invalid Dates Provided! Start Date cannot be after End Date!");
                 }
                 // Add New Event Task
                 return new AddEventTaskCommand(taskInfo[0], startDate, endDate);
             } catch (DateTimeParseException e) {
-                throw new InvalidTaskDetailsException("Invalid Date Provided! Enter in dd/MM/yyyy hh:mm format (time is optional)");
+                throw new InvalidDateException();
             }
         // Delete Tasks
         case DELETE:

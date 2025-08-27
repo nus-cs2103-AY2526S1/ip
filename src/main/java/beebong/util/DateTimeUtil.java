@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import beebong.exception.InvalidDateException;
+
 public class DateTimeUtil {
     private static final DateTimeFormatter DATE_FORMATTER_PARSER = DateTimeFormatter.ofPattern("d/M/yyyy");
     private static final DateTimeFormatter DATE_TIME_FORMATTER_PARSER = DateTimeFormatter.ofPattern("d/M/yyyy H:mm");
@@ -14,13 +16,17 @@ public class DateTimeUtil {
     private static final DateTimeFormatter DATE_TIME_FORMATTER_SERIALIZE = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     // Updated methods to be more flexible with Date and Time
-    public static LocalDateTime parseDateTime(String dateStr) {
+    public static LocalDateTime parseDateTime(String dateStr) throws InvalidDateException {
         // In order to make the method flexible we need to
         // try parsing it as a LocalDateTime first, if not try LocalDate
         try {
             return LocalDateTime.parse(dateStr, DATE_TIME_FORMATTER_PARSER);
-        } catch (DateTimeParseException e) {
-            return LocalDate.parse(dateStr, DATE_FORMATTER_PARSER).atStartOfDay(); // Default 00:00
+        } catch (DateTimeParseException e1) {
+            try {
+                return LocalDate.parse(dateStr, DATE_FORMATTER_PARSER).atStartOfDay(); // Default 00:00
+            } catch (DateTimeParseException e2) {
+                throw new InvalidDateException();
+            }
         }
     }
 
