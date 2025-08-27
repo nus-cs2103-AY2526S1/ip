@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     protected LocalDateTime by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws RainyException {
         super(description, TaskType.DEADLINE);
         DateTimeFormatter[] formatters = new DateTimeFormatter[] {
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
@@ -20,7 +20,7 @@ public class Deadline extends Task {
         }
 
         if (parsedDate == null) {
-            throw new IllegalArgumentException(
+            throw new RainyException(
                     "oh no!!! wrong date format... please use yyyy-MM-dd HHmm "
                             + "or d/M/yyyy HHmm.");
         }

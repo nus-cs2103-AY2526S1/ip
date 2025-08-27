@@ -5,7 +5,7 @@ public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws RainyException {
         super(description, TaskType.EVENT);
         this.from = parseDateTime(from);
         this.to = parseDateTime(to);
@@ -17,7 +17,7 @@ public class Event extends Task {
         this.to = to;
     }
 
-    private LocalDateTime parseDateTime(String input) {
+    private LocalDateTime parseDateTime(String input) throws RainyException {
         DateTimeFormatter[] formatters = new DateTimeFormatter[] {
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
                 DateTimeFormatter.ofPattern("d/M/yyyy HHmm")
@@ -28,8 +28,7 @@ public class Event extends Task {
                 return LocalDateTime.parse(input.trim(), f);
             } catch (Exception ignored) {}
         }
-        throw new IllegalArgumentException(
-                "oh no!!! wrong date format... please use yyyy-MM-dd HHmm or d/M/yyyy HHmm.");
+        throw new RainyException("oh no!!! wrong date format... please use yyyy-MM-dd HHmm or d/M/yyyy HHmm.");
     }
 
     @Override
