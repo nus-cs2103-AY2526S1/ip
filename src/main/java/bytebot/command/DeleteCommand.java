@@ -1,3 +1,10 @@
+package bytebot.command;
+
+import bytebot.ByteException;
+import bytebot.ui.Ui;
+import bytebot.storage.Storage;
+import bytebot.task.Task;
+
 public class DeleteCommand extends Command {
     private final int index;
 

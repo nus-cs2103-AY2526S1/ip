@@ -1,3 +1,5 @@
+package bytebot.task;
+
 /**
  * Represents a generic task with a description and completion status.
  * This is the base class for specific task types

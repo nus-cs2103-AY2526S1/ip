@@ -1,3 +1,6 @@
+package bytebot.task;
+
+import bytebot.ByteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.FileWriter;

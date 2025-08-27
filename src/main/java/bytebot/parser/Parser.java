@@ -1,3 +1,16 @@
+package bytebot.parser;
+
+import bytebot.ByteException;
+import bytebot.command.Command;
+import bytebot.command.ExitCommand;
+import bytebot.command.ListCommand;
+import bytebot.command.TodoCommand;
+import bytebot.command.DeadlineCommand;
+import bytebot.command.EventCommand;
+import bytebot.command.MarkCommand;
+import bytebot.command.UnmarkCommand;
+import bytebot.command.DeleteCommand;
+
 public class Parser {
 
     private static String[] parseSegments(String[] options) {

@@ -1,3 +1,7 @@
+package bytebot.task;
+
+import bytebot.ByteException;
+
 /**
  * Represents the completion status of a task.
  */

@@ -1,3 +1,11 @@
+package bytebot.command;
+
+import bytebot.ByteException;
+import bytebot.ui.Ui;
+import bytebot.storage.Storage;
+import bytebot.task.Event;
+import bytebot.task.Task;
+
 public class EventCommand extends Command {
     private final String description;
     private final String from;
