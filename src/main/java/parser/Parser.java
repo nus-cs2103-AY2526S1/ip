@@ -3,7 +3,18 @@ package parser;
 import commands.*;
 import exception.RainyException;
 
+/**
+ * Parses user input strings into executable commands.
+ */
 public class Parser {
+
+    /**
+     * Parses a full user command into a corresponding command
+     *
+     * @param fullCommand the user input string
+     * @return parsed command
+     * @throws RainyException if the command is invalid or missing arguments
+     */
     public static Command parse(String fullCommand) throws RainyException {
         String[] words = fullCommand.trim().split(" ", 2);
         String commandWord = words[0];
