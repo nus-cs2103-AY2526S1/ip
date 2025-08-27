@@ -9,15 +9,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles saving and loading of tasks to and from a file.
+ */
 public class Storage {
 
     private String filePath;
 
+    /**
+     * Constructs a Storage object for the given file path.
+     *
+     * @param filePath the path to the file where tasks are stored
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    // Save the tasks to file
+    /**
+     * Saves a list of tasks to the file.
+     * Each task is stored in a line in the format:
+     * <Type> | <Done status> | <Description> | <Additional info>
+     *
+     * @param tasks the list of tasks to save
+     * @throws IOException if an I/O error occurs while writing to the file
+     */
     public void save(List<Task> tasks) throws IOException {
         File folder = new File(filePath).getParentFile();
         if (!folder.exists()) {
@@ -44,7 +59,13 @@ public class Storage {
         }
     }
 
-    // Load tasks from file
+    /**
+     * Loads tasks from the file.
+     * Parses each line according to the format used in {@link #save(List)}.
+     *
+     * @return a list of tasks loaded from the file
+     * @throws IOException if an I/O error occurs while reading the file
+     */
     public List<Task> load() throws IOException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);

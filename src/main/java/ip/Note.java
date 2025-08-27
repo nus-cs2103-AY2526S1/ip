@@ -5,15 +5,31 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.IOException;
 
+/**
+ * The Note class represents a simple command-line task manager chatbot.
+ * Users can add todos, deadlines, and events, mark/unmark tasks as done,
+ * delete tasks, find tasks by keyword, and save/load tasks from a file.
+ */
 public class Note {
     private static final String FILE_PATH = "data/duke.txt";
     private Storage storage;
     private List<Task> tasks;
 
+    /**
+     * Main entry point for the Note application.
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         new Note().run();
     }
 
+    /**
+     * Runs the main program loop.
+     * Handles user input commands such as todo, deadline, event, list, mark,
+     * unmark, delete, find, and bye. Loads tasks from storage on start and
+     * saves tasks to storage after modifications.
+     */
     public void run() {
         Scanner sc = new Scanner(System.in);
         storage = new Storage(FILE_PATH);
@@ -122,6 +138,27 @@ public class Note {
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + t);
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                } else if (input.startsWith("find ")) {
+                    String keyword = input.substring(5).trim(); // get the keyword after "find "
+                    if (keyword.isEmpty()) {
+                        throw new NoteException("Please provide a keyword to search for.");
+                    }
+
+                    List<Task> matchingTasks = new ArrayList<>();
+                    for (Task t : tasks) {
+                        if (t.getDescription().contains(keyword)) {
+                            matchingTasks.add(t);
+                        }
+                    }
+
+                    if (matchingTasks.isEmpty()) {
+                        System.out.println(" No matching tasks found.");
+                    } else {
+                        System.out.println(" Here are the matching tasks in your list:");
+                        for (int i = 0; i < matchingTasks.size(); i++) {
+                            System.out.println(" " + (i + 1) + "." + matchingTasks.get(i));
+                        }
+                    }
                 } else {
                     throw new NoteException("I'm sorry, but I don't know what that means :-(");
                 }
@@ -134,6 +171,10 @@ public class Note {
         }
     }
 
+    /**
+     * Saves the current list of tasks to storage.
+     * If an IOException occurs, it prints an error message.
+     */
     private void saveTasks() {
         try {
             storage.save(tasks);
