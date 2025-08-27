@@ -8,7 +8,15 @@ import zell.task.Deadline;
 import zell.task.Event;
 import zell.exception.ZellException;
 
+/**
+ * Deals with the parsing of the user's input and executes
+ * the relevant commands.
+ * It also returns the message to print based on the user's
+ * input and command executed.
+ * It also keeps track of whether the chatbot should terminate.
+ */
 public class Parser {
+    /** Indicates if the chatbot should terminate */
     private boolean endProgram;
 
     public Parser() {
@@ -19,6 +27,17 @@ public class Parser {
         return endProgram;
     }
 
+    /**
+     * Processes user input and extracts the command to be executed.
+     * It also calls the method to execute the command.
+     *
+     * @param userInput The user's input.
+     * @param taskList The {@link zell.task.TaskList} object which stores tasks.
+     * @param storage The {@link zell.storage.Storage} object which deals with local storage.
+     * @return The message to be printed based on the input and command executed.
+     * @throws ZellException If an invalid command is provided (wrong format or command does not exist).
+     * @see #executeCommand(String, String, TaskList, Storage)
+     */
     public String parseInput(String userInput, TaskList taskList, Storage storage) throws ZellException {
         int firstSpaceIndex = userInput.indexOf(" ");
 
@@ -27,6 +46,18 @@ public class Parser {
         return executeCommand(userInput, command, taskList, storage);
     }
 
+    /**
+     * Executes the user command using the command extracted and the user's input.
+     * It executes the command using a switch case and calling the relevant method to deal
+     * with the command.
+     *
+     * @param userInput The user's input.
+     * @param command The command to be executed.
+     * @param taskList The {@link zell.task.TaskList} object which stores tasks.
+     * @param storage The {@link zell.storage.Storage} object which deals with local storage.
+     * @return The message to be printed based on the input and command executed.
+     * @throws ZellException If an invalid command is provided (wrong format or command does not exist).
+     */
     public String executeCommand(String userInput, String command, TaskList taskList,
             Storage storage) throws ZellException {
         int firstSpaceIndex = userInput.indexOf(" ");
@@ -61,6 +92,20 @@ public class Parser {
         return output;
     }
 
+    /**
+     * Deals with the Task command (ToDo, Deadline, Event).
+     * Here the relevant task is created using createTask,
+     * added to the TaskList, and stored in local storage.
+     *
+     * @param userInput The user's input.
+     * @param command The command to be executed.
+     * @param firstSpaceIndex The index of the first space in the user's input.
+     * @param taskList The {@link zell.task.TaskList} object which stores tasks.
+     * @param storage The {@link zell.storage.Storage} object which deals with local storage.
+     * @return The task messages to be printed.
+     * @throws ZellException If the task commands format is invalid.
+     * @see #createTask(String, String, int).
+     */
     public String handleTaskCommands(String userInput, String command, int firstSpaceIndex,
             TaskList taskList, Storage storage) throws ZellException {
         StringBuilder stringBuilder = new StringBuilder();
@@ -79,6 +124,19 @@ public class Parser {
         return stringBuilder.toString();
     }
 
+    /**
+     * Deals with the delete command. Here a task is deleted if it is valid.
+     * <p></p>
+     * Exceptions are checked using checkNoSpacesInCommand
+     * @param userInput The user's input.
+     * @param command The command to be executed.
+     * @param firstSpaceIndex The index of the first space in the user's input.
+     * @param taskList The {@link zell.task.TaskList} object which stores tasks.
+     * @param storage The {@link zell.storage.Storage} object which deals with local storage.
+     * @return The delete messages to be printed.
+     * @throws ZellException If the delete command format is invalid or the task to be deleted does not exist.
+     * @see #checkNoSpacesInCommand(String, int) 
+     */
     public String handleDelete(String userInput, String command, int firstSpaceIndex,
             TaskList taskList, Storage storage) throws ZellException {
         StringBuilder stringBuilder = new StringBuilder();
@@ -99,6 +157,22 @@ public class Parser {
         return stringBuilder.toString();
     }
 
+    /**
+     * Deals with creating a task. Here a task is created by checking the command if it is
+     * (ToDo, Deadline, Event). We then pass in the appropriate parameters to the constructor of each
+     * command's class.
+     * <p></p>
+     * Exceptions are checked using checkNoSpacesInCommand, checkForDeadlineExceptions, checkForEventExceptions.
+     *
+     * @param userInput The user's input
+     * @param command The command to be executed
+     * @param firstSpaceIndex The index of the first space in the user's input
+     * @return The task that is created
+     * @throws ZellException If the task command format is invalid such as missing parameters or invalid dates
+     * @see #checkNoSpacesInCommand(String, int) 
+     * @see #checkForDeadlineExceptions(String, String, String, int) 
+     * @see #checkForEventExceptions(String, String, String, int, int) 
+     */
     public Task createTask(String userInput, String command, int firstSpaceIndex)
             throws ZellException {
         checkNoSpacesInCommand(command, firstSpaceIndex);
@@ -137,12 +211,36 @@ public class Parser {
         return task;
     }
 
+    /**
+     * Deals with the bye command.
+     * Here the instance variable {@link #endProgram} is set to true to indicate we should terminate the program
+     * <p></p>
+     * Exceptions are checked using checkIfCommandHasSpaces
+     * 
+     * @param firstSpaceIndex The index of the first space in the user's input
+     * @param command The command to be executed
+     * @return The goodbye message
+     * @throws ZellException If bye command format is invalid
+     * @see #checkIfCommandHasSpaces(String, int) 
+     */
     public String handleBye(int firstSpaceIndex, String command) throws ZellException {
         checkIfCommandHasSpaces(command, firstSpaceIndex);
         endProgram = true;
         return ZellMessage.GOODBYE.message();
     }
 
+    /**
+     * Deals with the list command. Here we get all the tasks in the string format.
+     * <p></p>
+     * Exceptions are checked using checkIfCommandHasSpaces
+     * 
+     * @param firstSpaceIndex The index of the first space in the user's input
+     * @param command The command to be executed
+     * @param taskList The {@link zell.task.TaskList} object which stores tasks.
+     * @return The messages for the list command
+     * @throws ZellException If the list command format is invalid such as missing parameters.
+     * @see #checkIfCommandHasSpaces(String, int) 
+     */
     public String handleList(int firstSpaceIndex, String command, TaskList taskList) throws ZellException {
         checkIfCommandHasSpaces(command, firstSpaceIndex);
 
@@ -153,6 +251,17 @@ public class Parser {
         return stringBuilder.toString();
     }
 
+    /**
+     * Deals with the mark/unmark command. We use an if else to determine which command to execute.
+     * Here we get the task if it is valid and mark/unmark it.
+     *
+     * @param command The command to be executed.
+     * @param userInput The user's input.
+     * @param firstSpaceIndex The index of the first space in the user's input.
+     * @param taskList The {@link zell.task.TaskList} object which stores tasks.
+     * @return The task messages to be printed.
+     * @throws ZellException If the mark/unmark commands format is invalid.
+     */
     public String handleMarkOrUnMark(String command, String userInput,
             int firstSpaceIndex, TaskList taskList) throws ZellException {
         int index = parseIndex(command, userInput, firstSpaceIndex, taskList);
@@ -173,6 +282,19 @@ public class Parser {
         return stringBuilder.toString();
     }
 
+    /**
+     * Extracts the index of the task from the user's input.
+     * <p></p>
+     * Exceptions are checked using checkForInvalidTaskNumber
+     *
+     * @param command The command to be executed.
+     * @param userInput The user's input.
+     * @param firstSpaceIndex The index of the first space in the user's input.
+     * @param taskList The {@link zell.task.TaskList} object which stores tasks.
+     * @return The index of the task from the user's input.
+     * @throws ZellException If a non-number was provided for the index
+     * @see #checkForInvalidTaskNumber
+     */
     public int parseIndex(String command, String userInput, int firstSpaceIndex,
             TaskList taskList) throws ZellException {
         checkNoSpacesInCommand(command, firstSpaceIndex);
@@ -195,6 +317,14 @@ public class Parser {
         return index;
     }
 
+    /**
+     * Checks if a command contains a space.
+     * Since for certain commands like bye and list it should not have anything after it.
+     *
+     * @param command The command to be executed.
+     * @param firstSpaceIndex The index of the first space in the user's input.
+     * @throws ZellException If the command is invalid by containing spaces.
+     */
     public void checkIfCommandHasSpaces(String command, int firstSpaceIndex) throws ZellException {
         if (firstSpaceIndex != -1) {
             String formatMessage = String.format("%s should not have anything after.\nFor example:\n%s",
@@ -203,6 +333,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if a command does not contain a space.
+     * Since for certain commands like ToDo, Deadline, Event it should have some parameters after it.
+     *
+     * @param command The command to be executed.
+     * @param firstSpaceIndex The index of the first space in the user's input.
+     * @throws ZellException If the command is invalid by not containing spaces.
+     */
     public void checkNoSpacesInCommand(String command, int firstSpaceIndex) throws ZellException {
         if (firstSpaceIndex == -1) {
             String formatMessage;
@@ -229,6 +367,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the task number provided is valid
+     *
+     * @param index The task number.
+     * @param taskList The {@link zell.task.TaskList} object which stores tasks.
+     * @throws ZellException If an invalid task number is provided.
+     */
     public void checkForInvalidTaskNumber(int index, TaskList taskList) throws ZellException {
         if (!taskList.checkIfTaskExists(index)) {
             String formatMessage = String.format("Task %d does not exist, please indicate a "
@@ -237,6 +382,18 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the deadline command format is invalid.
+     * Such cases occur when:
+     * 1) The name of the deadline is missing.
+     * 2) The deadline of the task is missing.
+     *
+     * @param command The command to be executed.
+     * @param userInput The user's input.
+     * @param splitBy The string we use to indicate the datetime we provide.
+     * @param firstByIndex The first index of " /by ".
+     * @throws ZellException If the deadline command format is invalid
+     */
     public void checkForDeadlineExceptions(String command, String userInput, String splitBy,
             int firstByIndex) throws ZellException {
         // Handle missing deadline name
@@ -253,6 +410,21 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the event command format is invalid.
+     * Such cases occur when:
+     * 1) The name of the event is missing.
+     * 2) The start of the event is missing.
+     * 3) The end of the event is missing
+     * 4) The end of the event come before the start of the event.
+     *
+     * @param command The command to be executed.
+     * @param userInput The user's input.
+     * @param splitFrom The string we use to indicate the starting datetime we provide.
+     * @param firstFromIndex The first index of " /from ".
+     * @param firstToIndex The first index of " /to ".
+     * @throws ZellException If the event command format is invalid
+     */
     public void checkForEventExceptions(String command, String userInput, String splitFrom,
             int firstFromIndex, int firstToIndex) throws ZellException {
         // Handle if no name for event was provided. event /from today /to tmr
