@@ -6,16 +6,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class taskList {
+public class TaskList {
     protected List<Task> listOfTasks;
 
     //default taskList to intiate
-    public taskList() {
+    public TaskList() {
         listOfTasks = new ArrayList<>();
     }
 
     //taskList that returns stored tasks
-    public taskList(List<Task> loadTasks) {
+    public TaskList(List<Task> loadTasks) {
         this.listOfTasks = loadTasks;
     }
 

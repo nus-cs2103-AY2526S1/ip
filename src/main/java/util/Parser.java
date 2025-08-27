@@ -7,7 +7,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Helper {
+public class Parser {
     //obtaining task index from user input to for access tasks in taskList
     public static int parseIndex(String input, String command, int taskCount) throws InvalidIndexException {
         try {
