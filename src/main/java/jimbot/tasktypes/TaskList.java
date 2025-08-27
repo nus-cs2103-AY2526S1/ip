@@ -1,6 +1,6 @@
-package taskTypes;
+package jimbot.tasktypes;
 
-import exceptions.TaskLimitException;
+import jimbot.exceptions.TaskLimitException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

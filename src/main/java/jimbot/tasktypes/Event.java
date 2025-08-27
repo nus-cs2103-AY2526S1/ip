@@ -1,4 +1,4 @@
-package taskTypes;
+package jimbot.tasktypes;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

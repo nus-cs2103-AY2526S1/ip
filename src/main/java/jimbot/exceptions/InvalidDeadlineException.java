@@ -1,4 +1,4 @@
-package exceptions;
+package jimbot.exceptions;
 
 public class InvalidDeadlineException extends JimbotException {
     public InvalidDeadlineException() {

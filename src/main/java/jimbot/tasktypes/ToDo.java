@@ -1,4 +1,4 @@
-package taskTypes;
+package jimbot.tasktypes;
 
 public class ToDo extends Task {
     public ToDo(String description) {

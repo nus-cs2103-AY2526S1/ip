@@ -1,6 +1,9 @@
-import exceptions.*;
-import taskTypes.*;
-import util.Parser;
+package jimbot;
+
+import jimbot.exceptions.*;
+import jimbot.ui.UI;
+import jimbot.tasktypes.*;
+import jimbot.util.Parser;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

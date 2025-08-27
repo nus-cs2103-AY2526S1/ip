@@ -1,4 +1,4 @@
-package exceptions;
+package jimbot.exceptions;
 
 public class InvalidEventException extends JimbotException {
     public InvalidEventException() {

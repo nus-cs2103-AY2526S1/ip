@@ -1,6 +1,8 @@
+package jimbot.ui;
+
 //class containing all jimbot responses
-import taskTypes.Task;
-import taskTypes.TaskList;
+import jimbot.tasktypes.Task;
+import jimbot.tasktypes.TaskList;
 
 import java.util.List;
 

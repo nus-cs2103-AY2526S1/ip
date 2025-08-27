@@ -1,7 +1,7 @@
 //helper class for useful fns
-package util;
+package jimbot.util;
 
-import exceptions.*;
+import jimbot.exceptions.*;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;

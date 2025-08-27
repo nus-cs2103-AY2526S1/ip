@@ -1,5 +1,7 @@
-import taskTypes.Task;
-import taskTypes.TaskList;
+package jimbot;
+
+import jimbot.tasktypes.Task;
+import jimbot.tasktypes.TaskList;
 
 import java.io.*;
 import java.util.ArrayList;
