@@ -11,10 +11,6 @@ public enum Status {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
-
     public static Status fromString(String status) throws ByteException {
         for (Status s : Status.values()) {
             if (s.value.equals(status)) {

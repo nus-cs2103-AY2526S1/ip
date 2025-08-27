@@ -1,0 +1,13 @@
+public class ExitCommand extends Command {
+    @Override
+    public void execute(Ui ui, Storage storage) {
+        ui.showFarewell();
+    }
+
+    @Override
+    public boolean isExit() {
+        return true;
+    }
+}
+
+
