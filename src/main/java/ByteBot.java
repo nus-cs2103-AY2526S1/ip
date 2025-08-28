@@ -6,6 +6,7 @@ import bytebot.parser.Parser;
 import bytebot.command.Command;
 import bytebot.task.TaskList;
 import bytebot.ByteException;
+
 import java.io.IOException;
 
 /**
@@ -14,19 +15,19 @@ import java.io.IOException;
 public class ByteBot {
     private final Ui ui;
     private final Storage storage;
-    
+
 
     public ByteBot() {
         this.ui = new Ui();
         this.storage = new Storage();
-        
+
         try {
             storage.load();
         } catch (IOException e) {
             storage.initializeWithTaskList(new TaskList());
             ui.showError("Could not load tasks from file: " + e.getMessage());
         }
-        
+
     }
 
     public void run() {

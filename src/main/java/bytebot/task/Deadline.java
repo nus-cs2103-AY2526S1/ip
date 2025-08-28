@@ -19,7 +19,7 @@ public class Deadline extends Task {
      * Creates a deadline task.
      *
      * @param description Description of the task
-     * @param by Deadline as a string in format "d/M/yyyy HHmm"
+     * @param by          Deadline as a string in format "d/M/yyyy HHmm"
      */
     public Deadline(String description, String by) throws ByteException {
         super(description);
