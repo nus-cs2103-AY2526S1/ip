@@ -65,7 +65,8 @@ public class Storage {
                 case "D":
                     return new Deadline(parts[2], parts[1].equals("1"), parts[3]);
                 case "E":
-                    return new Event(parts[2], parts[1].equals("1"), parts[3]);
+                    // For Event, expect: E | 1 | description | from | to
+                    return new Event(parts[2], parts[1].equals("1"), parts[3], parts[4]);
                 default:
                     return null;
             }
@@ -81,10 +82,10 @@ public class Storage {
             return "T | " + status + " | " + task.description;
         } else if (task instanceof Deadline) {
             Deadline d = (Deadline) task;
-            return "D | " + status + " | " + d.description + " | " + d.by;
+            return "D | " + status + " | " + d.description + " | " + d.getByRaw();
         } else if (task instanceof Event) {
             Event e = (Event) task;
-            return "E | " + status + " | " + e.description + " | " + e.at;
+            return "E | " + status + " | " + e.description + " | " + e.getFromRaw() + " | " + e.getToRaw();
         } else {
             return "";
         }
