@@ -48,6 +48,14 @@ public class Event extends Task{
         return toDate;
     }
 
+    public String getFromRaw() {
+        return fromRaw;
+    }
+
+    public String getToRaw() {
+        return toRaw;
+    }
+
     @Override
     public String toString() {
         String from;
