@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * Entry point for the ByteBot application.
  * <p>
- * This class combines together the {@link Ui}, {@link Storage}, and parser/command
+ * This class combines together the Ui and Storage, and parser/command
  * components
  */
 public class ByteBot {

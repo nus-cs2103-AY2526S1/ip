@@ -7,7 +7,7 @@ public class ByteException extends Exception {
 
     /**
      * Creates a new ByteException with the given message.
-     * The message is prefixed with "Bzzz!!! " for bytebot
+     * The message is prefixed with "Bzzz!!! " for Bytebot
      *
      * @param message error details
      */

@@ -20,9 +20,9 @@ public abstract class Command {
 
 
     /**
-     * Indicates whether executing this command should exit the application.
+     * Indicates whether executing this command should exit the app.
      *
-     * @return if the application should exit after execution
+     * @return if the app should exit after execution
      */
     public boolean isExit() {
         return false;

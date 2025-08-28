@@ -17,7 +17,7 @@ import bytebot.command.DeleteCommand;
 public class Parser {
 
     /**
-     * Splits options into up to 3 segments by switches (e.g., /by, /from, /to).
+     * Splits options into up to 3 segments
      * The first segment is considered free; subsequent segments follow each switch.
      *
      * @param options Tokenized input string
