@@ -37,6 +37,8 @@ public class GoksChat {
                 ui.exceptionMessage(e);
             } catch (InvalidPromptException e) {
                 ui.exceptionMessage(e);
+            } catch (DeadlineException e) {
+                ui.exceptionMessage(e);
             } finally {
                 // Get user input again
                 userInput = ui.readUserInput();
