@@ -44,6 +44,12 @@ public class Parser {
         } else if (trimmed.startsWith("delete ")) {
             int index = Integer.parseInt(trimmed.split(" ")[1]);
             return new DeleteCommand(index);
+        } else if (trimmed.startsWith("find ")){
+            String keyword = trimmed.substring(5).trim();
+            if (keyword.isEmpty()) {
+                throw new InvalidCommandException("Please provide a keyword to search for.");
+            }
+            return new FindCommand(keyword);
         } else {
             throw new InvalidCommandException();
         }
