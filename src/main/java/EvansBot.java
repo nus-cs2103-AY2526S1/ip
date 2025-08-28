@@ -1,104 +1,44 @@
 import java.io.IOException;
-import java.util.Scanner;
+import java.util.ArrayList;
 import Exceptions.*;
 
 public class EvansBot {
+    private final Storage storage;
+    private final Ui ui;
+    private TaskList tasks;
 
-    private static int parseIndex(String input, int taskCount) throws InvalidTaskIndexException {
+    public EvansBot(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
         try {
-            int index = Integer.parseInt(input.trim());
-            if (index <= 0 || index > taskCount) {
-                throw new InvalidTaskIndexException(taskCount);
-            }
-            return index;
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new InvalidTaskIndexException(taskCount);
+            ArrayList<Task> loadedTasks = storage.load(); // Storage returns ArrayList<Task>
+            tasks = new TaskList(storage, loadedTasks); // wrap in TaskList
+        } catch (IOException e) {
+            ui.showError("Could not load save file, starting with empty list.");
+            tasks = new TaskList(storage); // empty TaskList with storage reference
         }
+    }
+
+    public void run() {
+        ui.greet();
+        boolean isExit = false;
+
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand(); // read user input
+                Command command = Parser.parse(fullCommand); // parse into Command
+                command.execute(tasks, ui, storage); // execute command
+                isExit = command.isExit(); // check if it was ExitCommand
+            } catch (EvansBotException e) {
+                ui.showError(e.getMessage());
+            }
+        }
+
+        ui.close(); // close scanner
     }
 
     public static void main(String[] args) {
-        Greet greeter = new Greet("EvansBot");
-        Exit exiter = new Exit();
-        Scanner scanner = new Scanner(System.in);
-        Storage storage = new Storage("./data/evansbot.txt");
-        String input;
-        TaskList tasks;
-
-        try {
-            tasks = new TaskList(storage, storage.load());
-        } catch (IOException e) {
-            System.out.println("Could not load save file, starting with empty list.");
-            tasks = new TaskList(storage);
-        }
-        greeter.greet();
-        while (true) {
-            input = scanner.nextLine();
-            try {
-                if (input.equalsIgnoreCase("bye")) {
-                    exiter.sayBye();
-                    break;
-                } else if (input.equalsIgnoreCase("list")) {
-                    tasks.listTasks();
-                } else if (input.startsWith("mark")) {
-                    String[] inputs = input.trim().split(" ");
-                    if (inputs.length < 2) {
-                        throw new InvalidTaskIndexException(tasks.getCount());
-                    }
-                    //if int after mark is not within the number of tasks, throws InvalidTaskIndexException
-                    int index = parseIndex(inputs[1], tasks.getCount());
-                    tasks.markTask(index);
-                } else if (input.startsWith("unmark")) {
-                    String[] inputs = input.trim().split(" ");
-                    if (inputs.length < 2) {
-                        throw new InvalidTaskIndexException(tasks.getCount());
-                    }
-                    //if int after unmark is not within the number of tasks, throws InvalidTaskIndexException
-                    int index = parseIndex(inputs[1], tasks.getCount());
-                    tasks.unmarkTask(index);
-                } else if (input.startsWith("todo ")) {
-                    String description = input.substring(5);
-                    if (description.isEmpty()){
-                        throw new InvalidTodoException();
-                    }
-                    tasks.addTask(new ToDo(description));
-                } else if (input.startsWith("deadline ")) {
-                    //split by /by
-                    String[] information = input.substring(9).split(" /by ", 2);
-                    if (information.length < 2) {
-                        throw new InvalidDeadlineException();
-                    }
-                    String description = information[0];
-                    String by = information[1];
-                    tasks.addTask(new Deadline(description, by));
-                } else if (input.startsWith("event ")) {
-                    //split by /from and /to
-                    String[] information = input.substring(6).split(" /from | /to ", 3);
-                    if (information.length < 3) {
-                        throw new InvalidEventException();
-                    }
-                    String description = information[0];
-                    String from = information[1];
-                    String to = information[2];
-                    tasks.addTask(new Event(description, from, to));
-                } else if (input.startsWith("delete")) {
-                    String[] inputs = input.trim().split(" ");
-                    if (inputs.length < 2) {
-                        throw new InvalidTaskIndexException(tasks.getCount());
-                    }
-                    int index = parseIndex(inputs[1], tasks.getCount());
-                    tasks.deleteTask(index);
-                }
-                else {
-                    System.out.println("Sorry! I don't know what this comment is supposed to be...");
-                    System.out.println("Available commands: todo (description) , event (description) (from) (to), deadline (description) (by)");
-                    System.out.println("Type 'bye' to cancel the chat!");
-                }
-            } catch (InvalidTaskIndexException | InvalidTodoException | InvalidDeadlineException | InvalidEventException e) {
-                System.out.println(e.getMessage());
-            }
-
-        }
-
-        scanner.close();
+        new EvansBot("./data/evansbot.txt").run();
     }
+
 }

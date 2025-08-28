@@ -59,13 +59,13 @@ public class TaskList {
 
     public void deleteTask(int index) {
         Task task = tasks.get(index - 1);
-        save();
         System.out.println("############################################################");
         System.out.println("Okay! I will remove this task: ");
         System.out.println(" " + task.toString());
         System.out.println("Now there is " + (tasks.size() - 1) + " tasks in the list!");
         System.out.println("############################################################");
         tasks.remove(index - 1);
+        save();
     }
 
     public int getCount() {
