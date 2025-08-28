@@ -27,7 +27,6 @@ import beebong.util.DateTimeUtil;
  * Handles the parsing of user input into executable {@link Command}.
  */
 public class Parser {
-
     /**
      * Parses a user input string into a {@link Command}.
      * <p>
