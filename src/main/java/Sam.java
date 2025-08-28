@@ -63,7 +63,7 @@ public class Sam {
                         break;
 
                     case MARK: {
-                        int idx = parseIndex(rest, tasks.size());
+                        int idx = parseIndex(rest, tasks.size());                        git tag Level-7
                         tasks.get(idx).markDone();
                         storage.save(tasks);
                         System.out.println("____________________________________________________________");
