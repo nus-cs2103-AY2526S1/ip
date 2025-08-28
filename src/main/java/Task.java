@@ -16,19 +16,11 @@ public class Task {
     // Mark task as done
     public void markAsDone() {
         completionStatus = "X";
-        System.out.println("    ____________________________________________________________");
-        System.out.println("    Amazing! Insane productivity la keep it up. Marked it as done:");
-        System.out.println("        " + this);
-        System.out.println("    ____________________________________________________________");
     }
 
     // Unmark task completion
     public void unmarkTask() {
         completionStatus = " ";
-        System.out.println("    ____________________________________________________________");
-        System.out.println("    Boooo... Do better next time bro. Marked this as not done yet:");
-        System.out.println("        " + this);
-        System.out.println("    ____________________________________________________________");
     }
 
     // Getter for completion status
