@@ -7,13 +7,65 @@ import piper.task.Todo;
 import piper.task.Deadline;
 import piper.task.Event;
 import piper.PiperException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class Piper {
+    private static final String DATA_DIR = "data";
+    private static final String DATA_FILE = "piper.txt";
+    private static final Path SAVE_PATH = Paths.get(DATA_DIR, DATA_FILE);
+
     public static void main(String[] args) {
         final String CHATBOT_NAME = "Piper";
         Ui ui = new Ui(CHATBOT_NAME);
         TaskList tasks = new TaskList();
         boolean exit = false;
+
+        try {
+            Path dir = SAVE_PATH.getParent();
+            if (dir != null && !Files.exists(dir)) {
+                Files.createDirectories(dir);
+            }
+            if (!Files.exists(SAVE_PATH)) {
+                Files.createFile(SAVE_PATH);
+            }
+
+            List<String> lines = Files.readAllLines(SAVE_PATH, StandardCharsets.UTF_8);
+            for (String line : lines) {
+                if (line == null || line.isEmpty()) {
+                    continue;
+                }
+                String[] substrings = line.split(" | ", 5);
+                String taskType = substrings[0];
+                String doneField = substrings[1];
+                String description = substrings[2];
+                boolean isDone = "1".equals(doneField);
+
+                Task task = null;
+                switch (taskType) {
+                case "T":
+                    task = new Todo(description);
+                    break;
+                case "D":
+                    task = new Deadline(description, substrings[3]);
+                    break;
+                case "E":
+                    task = new Event(description, substrings[3], substrings[4]);
+                    break;
+                }
+
+                if (isDone) {
+                    task.markDone();
+                }
+                tasks.addTask(task);
+            }
+        } catch (IOException e) {
+            ui.showError("SQUAWK! Can't seem to read the save file at " + SAVE_PATH + ": " + e.getMessage());
+        }
 
         ui.greetUser();
 
