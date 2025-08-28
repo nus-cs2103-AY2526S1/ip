@@ -1,4 +1,9 @@
-import Exceptions.InvalidTaskIndexException;
+package evansbot.command;
+
+import evansbot.Exceptions.InvalidTaskIndexException;
+import evansbot.task.Storage;
+import evansbot.task.TaskList;
+import evansbot.ui.Ui;
 
 public class MarkCommand extends Command {
     private final int index;

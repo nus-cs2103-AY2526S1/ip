@@ -1,7 +1,10 @@
-import Exceptions.EvansBotException;
-import Exceptions.InvalidCommandException;
-import Exceptions.InvalidDeadlineException;
-import Exceptions.InvalidEventException;
+package evansbot.ui;
+
+import evansbot.Exceptions.EvansBotException;
+import evansbot.Exceptions.InvalidCommandException;
+import evansbot.Exceptions.InvalidDeadlineException;
+import evansbot.Exceptions.InvalidEventException;
+import evansbot.command.*;
 
 public class Parser {
     public static Command parse(String input) throws EvansBotException {

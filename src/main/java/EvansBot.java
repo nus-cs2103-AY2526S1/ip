@@ -1,6 +1,12 @@
 import java.io.IOException;
 import java.util.ArrayList;
-import Exceptions.*;
+import evansbot.Exceptions.*;
+import evansbot.command.Command;
+import evansbot.task.Storage;
+import evansbot.task.Task;
+import evansbot.task.TaskList;
+import evansbot.ui.Parser;
+import evansbot.ui.Ui;
 
 public class EvansBot {
     private final Storage storage;
@@ -11,11 +17,11 @@ public class EvansBot {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            ArrayList<Task> loadedTasks = storage.load(); // Storage returns ArrayList<Task>
-            tasks = new TaskList(storage, loadedTasks); // wrap in TaskList
+            ArrayList<Task> loadedTasks = storage.load(); // evansbot.task.Storage returns ArrayList<evansbot.task.Task>
+            tasks = new TaskList(storage, loadedTasks); // wrap in evansbot.task.TaskList
         } catch (IOException e) {
             ui.showError("Could not load save file, starting with empty list.");
-            tasks = new TaskList(storage); // empty TaskList with storage reference
+            tasks = new TaskList(storage); // empty evansbot.task.TaskList with storage reference
         }
     }
 
@@ -26,9 +32,9 @@ public class EvansBot {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand(); // read user input
-                Command command = Parser.parse(fullCommand); // parse into Command
+                Command command = Parser.parse(fullCommand); // parse into evansbot.command.Command
                 command.execute(tasks, ui, storage); // execute command
-                isExit = command.isExit(); // check if it was ExitCommand
+                isExit = command.isExit(); // check if it was evansbot.command.ExitCommand
             } catch (EvansBotException e) {
                 ui.showError(e.getMessage());
             }

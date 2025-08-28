@@ -1,4 +1,4 @@
-
+package evansbot.task;
 
 public class Task {
     protected String description;

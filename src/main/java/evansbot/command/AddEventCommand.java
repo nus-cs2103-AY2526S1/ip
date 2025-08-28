@@ -1,5 +1,11 @@
-import Exceptions.EvansBotException;
-import Exceptions.InvalidEventException;
+package evansbot.command;
+
+import evansbot.Exceptions.EvansBotException;
+import evansbot.Exceptions.InvalidEventException;
+import evansbot.task.Storage;
+import evansbot.task.TaskList;
+import evansbot.ui.Ui;
+import evansbot.task.Event;
 
 public class AddEventCommand extends Command {
     private final String description;
