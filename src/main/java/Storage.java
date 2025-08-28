@@ -1,3 +1,4 @@
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
@@ -69,10 +70,25 @@ public class Storage {
             return "T | " + status + " | " + task.description;
         } else if (task instanceof Deadline) {
             Deadline d = (Deadline) task;
-            return "D | " + status + " | " + d.description + " | " + d.by;
+            String byStr;
+            if (d.getByDate() != null) {
+                byStr = String.valueOf(d.byDate);
+            } else {
+                byStr = d.byRaw;
+            }
+            return "D | " + status + " | " + d.description + " | " + byStr;
         } else if (task instanceof Event) {
             Event e = (Event) task;
-            return "E | " + status + " | " + e.description + " | " + e.from + " | " + e.to;
+            String fromStr;
+            String toStr;
+            if (e.getFromDate() != null && e.getToDate() != null) {
+                fromStr = String.valueOf(e.fromDate);
+                toStr = String.valueOf(e.toDate);
+            } else {
+                fromStr = e.fromRaw;
+                toStr = e.toRaw;
+            }
+            return "E | " + status + " | " + e.description + " | " + fromStr + " | " + toStr;
         }
         return "";
     }
