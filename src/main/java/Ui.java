@@ -1,11 +1,8 @@
 import java.util.Scanner;
 
-/**
- * This class deals with interactions with the user.
- *
- * @author Ravichandran Gokul
- */
-
+/// This class deals with interactions with the user.
+///
+/// @author Ravichandran Gokul
 public class Ui {
     // Declare fields
 
