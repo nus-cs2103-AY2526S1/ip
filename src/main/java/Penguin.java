@@ -38,7 +38,7 @@ public class Penguin {
                     taskType = "T";
                 } else if (task instanceof Deadline) {
                     taskType = "D";
-                    additionalInfo = " | " + ((Deadline) task).by;
+                    additionalInfo = " | " + ((Deadline) task).by.toString();
                 } else if (task instanceof Event) {
                     taskType = "E";
                     additionalInfo = " | " + ((Event) task).from + " | " + ((Event) task).to;
@@ -76,7 +76,12 @@ public class Penguin {
                         task = new Todo(description);
                     } else if (taskType.equals("D") && parts.length >= 4) {
                         String deadline = parts[3];
-                        task = new Deadline(description, deadline);
+                        try {
+                            task = new Deadline(description, deadline);
+                        } catch (Exception e) {
+                            // Skip invalid date entries
+                            continue;
+                        }
                     } else if (taskType.equals("E") && parts.length >= 5) {
                         String from = parts[3];
                         String to = parts[4];
@@ -166,10 +171,14 @@ public class Penguin {
                     if (byPos != -1) {
                         String desc = body.substring(0, byPos).trim();
                         String by = body.substring(byPos + 3).trim();
-                        Task t = new Deadline(desc, by);
-                        tasks.add(t);
-                        saveTasks(tasks);
-                        System.out.println("Got it. I've added this task:\n  " + t + "\nNow you have " + tasks.size() + " tasks in the list.");
+                        try {
+                            Task t = new Deadline(desc, by);
+                            tasks.add(t);
+                            saveTasks(tasks);
+                            System.out.println("Got it. I've added this task:\n  " + t + "\nNow you have " + tasks.size() + " tasks in the list.");
+                        } catch (Exception e) {
+                            throw new PenguinException("Please use the date format yyyy-mm-dd (e.g., 2019-12-02)");
+                        }
                     } else {
                         System.out.println("invalid task");
                     }
