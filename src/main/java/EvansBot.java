@@ -63,7 +63,7 @@ public class EvansBot {
                     tasks.addTask(new ToDo(description));
                 } else if (input.startsWith("deadline ")) {
                     //split by /by
-                    String[] information = input.substring(9).split(" /by", 2);
+                    String[] information = input.substring(9).split(" /by ", 2);
                     if (information.length < 2) {
                         throw new InvalidDeadlineException();
                     }
