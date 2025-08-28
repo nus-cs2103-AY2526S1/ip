@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import bytebot.task.Task;
 
+
 /**
  * Handles all user-facing input and output
  */
@@ -50,6 +51,15 @@ public class Ui {
     public void showTasks(List<Task> tasks) {
         StringBuilder output = new StringBuilder();
         output.append("Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            output.append("\n\t").append(i + 1).append(".").append(tasks.get(i).toString());
+        }
+        System.out.println("\t" + line + "\t" + output + "\n" + "\t" + line);
+    }
+
+    public void showMatching(List<Task> tasks) {
+        StringBuilder output = new StringBuilder();
+        output.append("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             output.append("\n\t").append(i + 1).append(".").append(tasks.get(i).toString());
         }

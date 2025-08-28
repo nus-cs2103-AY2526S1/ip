@@ -82,6 +82,32 @@ public class Storage {
     }
 
     /**
+     * Returns a copy of all tasks for read iteration.
+     * Callers should not mutate returned tasks in a way that breaks invariants.
+     */
+    public List<Task> getAllTasks() {
+        return new ArrayList<>(taskList.asList());
+    }
+
+    /**
+     * Finds tasks whose string representation contains the given keyword.
+     *
+     * @param keyword text to search for
+     * @return list of matching tasks
+     */
+    public List<Task> findTasksByKeyword(String keyword) {
+        String needle = keyword == null ? "" : keyword.toLowerCase();
+        List<Task> result = new ArrayList<>();
+        for (Task task : taskList.asList()) {
+            String description = task.toString();
+            if (description.toLowerCase().contains(needle)) {
+                result.add(task);
+            }
+        }
+        return result;
+    }
+
+    /**
      * Initializes the storage with a given TaskList.
      * This is used when loading from file fails, then start with an empty list.
      *
