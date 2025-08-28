@@ -1,5 +1,8 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.List;
-import java.util.ArrayList;
 
 /// The class processes user inputs
 ///
@@ -25,6 +28,25 @@ public class InputProcessor {
     }
 
     /**
+     * Checks if a string is a valid date in the "yyyy-MM-dd" format.
+     * This method is strict and validates the date's existence (e.g., leap years).
+     *
+     * @param  deadline The string to validate.
+     * @return boolean  If the string is a valid date in the specified format, return true; return false otherwise.
+     */
+    public static boolean isValidDate(String deadline) {
+        // Use ResolverStyle.STRICT to ensure dates like "2025-02-29" are rejected.
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd")
+                .withResolverStyle(ResolverStyle.STRICT);
+        try {
+            LocalDate.parse(deadline, dateFormatter);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Processes the input of the user and returns a Command object.
      *
      * @param input
@@ -32,7 +54,7 @@ public class InputProcessor {
      * @throws InvalidPromptException
      * @throws TodoException
      */
-    public Command processInput(String input) throws InvalidPromptException, TodoException {
+    public Command processInput(String input) throws InvalidPromptException, TodoException, DeadlineException {
         String[] words = input.split(" ");
         int firstSpaceIndex = input.indexOf(" ");
         String restOfinput = input.substring(firstSpaceIndex + 1);
@@ -48,9 +70,15 @@ public class InputProcessor {
         } else if (words[0].equals("delete")) {
             int index = Integer.parseInt(words[1]);
             return new DeleteCommand(index, this.listOfTasks, this.ui);
-        } else if (words[0].equals("todo") || words[0].equals("deadline") || words[0].equals("event")){
+        } else if (words[0].equals("todo") || words[0].equals("deadline") || words[0].equals("event")) {
             if (words[0].equals("todo") && words.length == 1) {
                 throw new TodoException("      YIKES!!! You need to enter a description for a task!!!");
+            } else if (words[0].equals("deadline")) {
+                int firstSlashIndex = restOfinput.indexOf("/");
+                String deadline = restOfinput.substring(firstSlashIndex + 4);
+                if (!isValidDate(deadline)) {
+                    throw new DeadlineException("      Oh NO! This date is either invalid or incorrectly formatted!");
+                }
             }
             return new AddCommand(this.listOfTasks, this.ui, restOfinput, words[0]);
         } else {

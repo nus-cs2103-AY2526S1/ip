@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /// This class extends from Task, representing a task with a deadline.
 ///
 /// @author Ravichandran Gokul
@@ -14,6 +17,8 @@ public class DeadlineTask extends Task{
      */
     public DeadlineTask(String nameOfTask, String deadline) {
         super(nameOfTask);
+        LocalDate date = LocalDate.parse(deadline);
+        deadline = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         this.deadline = deadline;
     }
 
