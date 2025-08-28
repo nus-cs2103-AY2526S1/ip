@@ -15,8 +15,20 @@ public class Event extends Task {
         this.to = parts[1];
     }
 
+    // Used for deserialization
+    public Event(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+
+    @Override
+    public String serialize() {
+        return "E" + "|" + (this.isDone() ? "1" : "0") + "|" + this.getDescription() + "|" + this.from + "|" + this.to;
     }
 }
