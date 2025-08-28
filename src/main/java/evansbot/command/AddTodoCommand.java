@@ -4,8 +4,8 @@ import evansbot.Exceptions.EvansBotException;
 import evansbot.Exceptions.InvalidTodoException;
 import evansbot.task.Storage;
 import evansbot.task.TaskList;
-import evansbot.task.ToDo;
 import evansbot.ui.Ui;
+import evansbot.task.ToDo;
 
 public class AddTodoCommand extends Command {
     private final String description;
