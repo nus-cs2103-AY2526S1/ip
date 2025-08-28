@@ -1,11 +1,28 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /// Skeletal Version of GoksChat
 ///
 /// @author Ravichandran Gokul
 public class GoksChat {
-    private static Ui ui = new Ui();
-    private static InputProcessor inputProcessor = new InputProcessor(ui);
+    private Ui ui;
+    private Storage storage;
+    private InputProcessor inputProcessor;
+    private List<Task> listOfTasks;
 
-    public static void main(String[] args) throws InvalidPromptException, TodoException {
+    public GoksChat(String filePath) throws BadFileException {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            listOfTasks = storage.intialiseTaskList();
+        } catch (BadFileException e) {
+            ui.exceptionMessage(e);
+            listOfTasks = new ArrayList<>();
+        }
+        inputProcessor = new InputProcessor(ui, storage, listOfTasks);
+    }
+
+    public void run() {
         ui.printWelcomeMessage();
 
         // Get user input
@@ -26,6 +43,18 @@ public class GoksChat {
             }
         }
 
+        try {
+            storage.updateFile(listOfTasks);
+        } catch (BadFileException e) {
+            ui.exceptionMessage(e);
+            listOfTasks = new ArrayList<>();
+        }
+
         ui.printGoodbyeMessage();
+    }
+
+    public static void main(String[] args) throws InvalidPromptException, TodoException, BadFileException {
+        GoksChat goks = new GoksChat("src/data/gokschat.txt");
+        goks.run();
     }
 }
