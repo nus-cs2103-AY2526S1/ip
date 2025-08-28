@@ -1,3 +1,5 @@
+package gokschat.exceptions;
+
 /// Deadline exception
 ///
 /// @author Ravichandran Gokul

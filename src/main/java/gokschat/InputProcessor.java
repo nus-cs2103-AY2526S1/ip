@@ -1,3 +1,11 @@
+package gokschat;
+
+import gokschat.commands.*;
+import gokschat.exceptions.DeadlineException;
+import gokschat.exceptions.InvalidPromptException;
+import gokschat.exceptions.TodoException;
+import gokschat.tasks.Task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,7 +22,7 @@ public class InputProcessor {
     private Storage storage;
 
     /**
-     * Constructs a new {@code InputProcessor} object with the task list, the UI object and storage.
+     * Constructs a new {@code gokschat.InputProcessor} object with the task list, the UI object and storage.
      * This constructor initializes the object's internal state based on the provided parameters.
      *
      * @param ui
@@ -47,10 +55,10 @@ public class InputProcessor {
     }
 
     /**
-     * Processes the input of the user and returns a Command object.
+     * Processes the input of the user and returns a gokschat.commands.Command object.
      *
      * @param input
-     * @return Command
+     * @return gokschat.commands.Command
      * @throws InvalidPromptException
      * @throws TodoException
      */

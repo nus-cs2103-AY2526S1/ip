@@ -1,3 +1,8 @@
+package gokschat.commands;
+
+import gokschat.Ui;
+import gokschat.tasks.Task;
+
 import java.util.List;
 
 /// This class executes the listing task command
@@ -9,7 +14,7 @@ public class DisplayCommand extends Command {
     private Ui ui;
 
     /**
-     * Constructs a new {@code DisplayCommand} object with the task list and UI object.
+     * Constructs a new {@code gokschat.commands.DisplayCommand} object with the task list and UI object.
      * This constructor initializes the object's internal state based on the provided parameters.
      *
      * @param listOfTasks The list of tasks.

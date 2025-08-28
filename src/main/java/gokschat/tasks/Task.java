@@ -1,3 +1,5 @@
+package gokschat.tasks;
+
 /**
  * This class represents a To-do task.
  *
@@ -9,7 +11,7 @@ public class Task {
     private String nameOfTask;
 
     /**
-     * Constructs a new {@code Task} object with the name of the task.
+     * Constructs a new {@code gokschat.tasks.Task} object with the name of the task.
      * This constructor initializes the object's internal state based on the provided parameters.
      *
      * @param nameOfTask  The name of the task

@@ -1,4 +1,9 @@
-import jdk.jfr.Event;
+package gokschat;
+
+import gokschat.exceptions.BadFileException;
+import gokschat.tasks.DeadlineTask;
+import gokschat.tasks.EventTask;
+import gokschat.tasks.Task;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -15,7 +20,7 @@ public class Storage {
     private String filePath;
 
     /**
-     * Constructs a new {@code Storage} object with the file path.
+     * Constructs a new {@code gokschat.Storage} object with the file path.
      * This constructor initializes the object's internal state based on the provided parameters.
      *
      * @param filePath
@@ -27,7 +32,7 @@ public class Storage {
     /**
      * Returns task list corresponding to contents of file.
      *
-     * @return List<Task>
+     * @return List<gokschat.tasks.Task>
      * @throws BadFileException
      */
     public List<Task> intialiseTaskList() throws BadFileException {
@@ -83,7 +88,7 @@ public class Storage {
      * Creates a task object by parsing through a line in the text file.
      *
      * @param line
-     * @return Task
+     * @return gokschat.tasks.Task
      */
     private Task parseLineToTask(String line) {
         String[] parts = line.split(" \\| ");

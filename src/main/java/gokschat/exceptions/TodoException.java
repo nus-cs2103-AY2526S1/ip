@@ -1,3 +1,5 @@
+package gokschat.exceptions;
+
 /// To-Do exception
 ///
 /// @author Ravichandran Gokul

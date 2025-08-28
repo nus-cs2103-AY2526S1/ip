@@ -1,3 +1,8 @@
+package gokschat.commands;
+
+import gokschat.Ui;
+import gokschat.tasks.Task;
+
 import java.util.List;
 
 /// This class executes the mark task command
@@ -10,7 +15,7 @@ public class MarkCommand extends Command {
     private Ui ui;
 
     /**
-     * Constructs a new {@code MarkCommand} object with the task number, task list and the UI object.
+     * Constructs a new {@code gokschat.commands.MarkCommand} object with the task number, task list and the UI object.
      * This constructor initializes the object's internal state based on the provided parameters.
      *
      * @param index The id number of the task.

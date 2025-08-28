@@ -1,3 +1,5 @@
+package gokschat.exceptions;
+
 /// Bad file exception
 ///
 /// @author Ravichandran Gokul

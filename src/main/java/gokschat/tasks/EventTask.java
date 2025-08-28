@@ -1,4 +1,6 @@
-/// This class extends from Task, representing an event task.
+package gokschat.tasks;
+
+/// This class extends from gokschat.tasks.Task, representing an event task.
 ///
 /// @author Ravichandran Gokul
 public class EventTask extends Task {
@@ -7,7 +9,7 @@ public class EventTask extends Task {
     String to;
 
     /**
-     * Constructs a new {@code DeadlineTask} object with the name of the task and its deadline.
+     * Constructs a new {@code gokschat.tasks.DeadlineTask} object with the name of the task and its deadline.
      * This constructor initializes the object's internal state based on the provided parameters.
      *
      * @param nameOfTask  The name of the task

@@ -1,3 +1,8 @@
+package gokschat.commands;
+
+import gokschat.Ui;
+import gokschat.tasks.Task;
+
 import java.util.List;
 
 /// This class executes the delete task command
@@ -10,7 +15,7 @@ public class DeleteCommand extends Command {
     private Ui ui;
 
     /**
-     * Constructs a new {@code DeleteCommand} object with the task number, the task list and the UI object
+     * Constructs a new {@code gokschat.commands.DeleteCommand} object with the task number, the task list and the UI object
      * This constructor initializes the object's internal state based on the provided parameters.
      *
      * @param index The id number of the task.

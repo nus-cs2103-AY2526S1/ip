@@ -1,3 +1,5 @@
+package gokschat.exceptions;
+
 /// Invalid prompt exception
 ///
 /// @author Ravichandran Gokul

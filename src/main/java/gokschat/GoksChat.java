@@ -1,7 +1,16 @@
+package gokschat;
+
+import gokschat.commands.Command;
+import gokschat.exceptions.BadFileException;
+import gokschat.exceptions.DeadlineException;
+import gokschat.exceptions.InvalidPromptException;
+import gokschat.exceptions.TodoException;
+import gokschat.tasks.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 
-/// Skeletal Version of GoksChat
+/// Skeletal Version of gokschat.GoksChat
 ///
 /// @author Ravichandran Gokul
 public class GoksChat {

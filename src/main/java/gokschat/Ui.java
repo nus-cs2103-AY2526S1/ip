@@ -1,3 +1,7 @@
+package gokschat;
+
+import gokschat.tasks.Task;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,7 +14,7 @@ public class Ui {
      */
     public void printWelcomeMessage() {
         System.out.println("    ____________________________________________________________");
-        System.out.println("    What's up, what's up! I'm GoksChat");
+        System.out.println("    What's up, what's up! I'm gokschat.GoksChat");
         System.out.println("    How can I assist you today?");
         System.out.println("    ____________________________________________________________");
     }
@@ -54,7 +58,7 @@ public class Ui {
     }
 
     /**
-     * Displays the Mark Task message on the UI.
+     * Displays the Mark gokschat.tasks.Task message on the UI.
      *
      * @param task
      */
@@ -66,7 +70,7 @@ public class Ui {
     }
 
     /**
-     * Displays the Unmark Task message on the UI.
+     * Displays the Unmark gokschat.tasks.Task message on the UI.
      *
      * @param task
      */
@@ -78,7 +82,7 @@ public class Ui {
     }
 
     /**
-     * Displays the Delete Task message on the UI.
+     * Displays the Delete gokschat.tasks.Task message on the UI.
      *
      * @param task
      * @param listOfTasks
@@ -92,7 +96,7 @@ public class Ui {
     }
 
     /**
-     * Displays the Add Task message on the UI.
+     * Displays the Add gokschat.tasks.Task message on the UI.
      *
      * @param task
      * @param listOfTasks

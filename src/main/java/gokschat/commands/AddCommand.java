@@ -1,3 +1,10 @@
+package gokschat.commands;
+
+import gokschat.Ui;
+import gokschat.tasks.DeadlineTask;
+import gokschat.tasks.EventTask;
+import gokschat.tasks.Task;
+
 import java.util.List;
 
 /// This class executes the adding task command
@@ -10,7 +17,7 @@ public class AddCommand extends Command {
     private String taskType;
 
     /**
-     * Constructs a new {@code DeleteCommand} object with the task list, the UI object, task name, and task
+     * Constructs a new {@code gokschat.commands.DeleteCommand} object with the task list, the UI object, task name, and task
      * type.
      * This constructor initializes the object's internal state based on the provided parameters.
      *
