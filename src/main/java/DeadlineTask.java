@@ -17,6 +17,12 @@ public class DeadlineTask extends Task{
         this.deadline = deadline;
     }
 
+    // toFileString overriding
+    @Override
+    public String toFileString() {
+        return "D | " + (getCompletionStatus().equals("X") ? "1 | " : "0 | ") + getNameOfTask() + " | by " + deadline;
+    }
+
     // toString overriding
     @Override
     public String toString() {

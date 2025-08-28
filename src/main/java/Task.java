@@ -51,6 +51,15 @@ public class Task {
         return this.nameOfTask;
     }
 
+    /**
+     * Returns string in format for file
+     *
+     * @return String
+     */
+    public String toFileString() {
+        return "T | " + (completionStatus.equals("X") ? "1 | " : "0 | ") + nameOfTask;
+    }
+
     // toString overriding
     @Override
     public String toString() {

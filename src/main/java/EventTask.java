@@ -20,6 +20,13 @@ public class EventTask extends Task {
         this.to = to;
     }
 
+    // toFileString overriding
+    @Override
+    public String toFileString() {
+        return "E | " + (getCompletionStatus().equals("X") ? "1 | " : "0 | ") + getNameOfTask() + " | from " + from
+                + " | to " + to;
+    }
+
     // toString overriding
     @Override
     public String toString() {

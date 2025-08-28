@@ -8,11 +8,11 @@ public class GoksChat {
     private Ui ui;
     private Storage storage;
     private InputProcessor inputProcessor;
+    private List<Task> listOfTasks;
 
     public GoksChat(String filePath) throws BadFileException {
         ui = new Ui();
         storage = new Storage(filePath);
-        List<Task> listOfTasks;
         try {
             listOfTasks = storage.intialiseTaskList();
         } catch (BadFileException e) {
@@ -41,6 +41,13 @@ public class GoksChat {
                 // Get user input again
                 userInput = ui.readUserInput();
             }
+        }
+
+        try {
+            storage.updateFile(listOfTasks);
+        } catch (BadFileException e) {
+            ui.exceptionMessage(e);
+            listOfTasks = new ArrayList<>();
         }
 
         ui.printGoodbyeMessage();

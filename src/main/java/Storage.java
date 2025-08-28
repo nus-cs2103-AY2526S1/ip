@@ -1,6 +1,7 @@
 import jdk.jfr.Event;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Returns task list corresponding to contents of file.
+     *
+     * @return List<Task>
+     * @throws BadFileException
+     */
     public List<Task> intialiseTaskList() throws BadFileException {
         List<Task> listOfTasks = new ArrayList<>();
         File file = new File(filePath);
@@ -55,6 +62,29 @@ public class Storage {
         return listOfTasks;
     }
 
+    /**
+     * Updates file based on latest state of task list.
+     *
+     * @param listOfTasks
+     * @throws BadFileException
+     */
+    public void updateFile(List<Task> listOfTasks) throws BadFileException {
+        try (FileWriter fw = new FileWriter(filePath)) {
+            for (int i = 0; i < listOfTasks.size(); i++) {
+                Task task = listOfTasks.get(i);
+                fw.write(task.toFileString() + "\n");
+            }
+        } catch (IOException e) {
+            throw new BadFileException("      Woahh! I couldn't update the file man... I'll have to start over again");
+        }
+    }
+
+    /**
+     * Creates a task object by parsing through a line in the text file.
+     *
+     * @param line
+     * @return Task
+     */
     private Task parseLineToTask(String line) {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0];
