@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 import Exceptions.*;
 
@@ -18,10 +19,17 @@ public class EvansBot {
     public static void main(String[] args) {
         Greet greeter = new Greet("EvansBot");
         Exit exiter = new Exit();
-        TaskList tasks = new TaskList(100); //size 100 array
         Scanner scanner = new Scanner(System.in);
+        Storage storage = new Storage("./data/evansbot.txt");
         String input;
+        TaskList tasks;
 
+        try {
+            tasks = new TaskList(storage, storage.load());
+        } catch (IOException e) {
+            System.out.println("Could not load save file, starting with empty list.");
+            tasks = new TaskList(storage);
+        }
         greeter.greet();
         while (true) {
             input = scanner.nextLine();
