@@ -1,5 +1,5 @@
 todo read book
-deadline return book /by Sunday
+deadline return book /by 2023-12-31
 event project meeting /from Mon 2pm /to 4pm
 list
 mark 1
@@ -9,6 +9,7 @@ unmark 1
 list
 todo buy groceries
 list
+deadline invalid task /by Sunday
 hello
 todo
 deadline

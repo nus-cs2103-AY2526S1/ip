@@ -1,149 +1,60 @@
-import java.time.format.DateTimeParseException;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class Romidas {
-    private static final String DATA_PATH = "romidas.txt";
+    private static final String DATA_PATH = getProjectRootPath() + File.separator + "romidas.txt";
+    
+    private static String getProjectRootPath() {
+        // Get current working directory
+        String currentDir = System.getProperty("user.dir");
+        
+        // If we're in the text-ui-test subdirectory, go up one level to get the project root
+        if (currentDir.endsWith("text-ui-test")) {
+            return new File(currentDir).getParent();
+        }
+        
+        // If we're already in the project root, use current directory
+        return currentDir;
+    }
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
+
+    public Romidas() {
+        this.ui = new Ui();
+        this.storage = new Storage();
+        ArrayList<Task> store = storage.loadTasks(DATA_PATH);
+        this.taskList = new TaskList(store);
+    }
 
     public void run() {
-        Scanner scanner = new Scanner(System.in);
-        Storage storage = new Storage();
-        ArrayList<Task> store = storage.loadTasks(DATA_PATH);
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Romidas");
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
-        while (true) {
-            String input = scanner.nextLine();
-            if (input.equalsIgnoreCase("bye")) break;
+        ui.welcome();
+        boolean isBye = false;
+        while (!isBye) {
             try {
-                System.out.println("____________________________________________________________");
-                String[] words = input.trim().split("\\s+");
-                String cmdWord = words[0].toUpperCase();
-                Command cmd = Command.valueOf(cmdWord);
-                Task task = null;
-
-                switch (cmd) {
-                case LIST:
-                        System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < store.size(); i++) {
-                            Task t = store.get(i);
-                            System.out.println((i + 1) + "." + t.toString());
-                        }
-                        break;
-
-                case MARK:
-                    if (words.length != 2)
-                        throw new RomidasException("Should follow the format: mark <Task Number>");
-                    int indexMark = Integer.parseInt(words[1]) - 1;
-                    if (indexMark < 0 || indexMark >= store.size())
-                        throw new InvalidIndexException();
-                    System.out.println("Nice! I've marked this task as done:");
-                    Task tMark = store.get(indexMark);
-                    tMark.setIsDone(true);
-                    System.out.println("  " + tMark.toString());
-
+                String input = ui.readCommand();
+                if (input.equalsIgnoreCase("bye")) {
+                    isBye = true;
+                    ui.showLine();
                     break;
-
-                case UNMARK:
-                    if (words.length != 2)
-                        throw new RomidasException("Should follow the format: unmark <Task Number>");
-                    int indexUnmark = Integer.parseInt(words[1]) - 1;
-                    if (indexUnmark < 0 || indexUnmark >= store.size())
-                        throw new InvalidIndexException();
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    Task tUnmark = store.get(indexUnmark);
-                    tUnmark.setIsDone(false);
-                    System.out.println("  " + tUnmark.toString());
-
-                    break;
-
-                case TODO:
-                    if (words.length < 2) throw new RomidasException("todo requires a description");
-                    if (input.length() < 6) throw new RomidasException("todo requires a description");
-                    String description = input.trim().substring(5);
-                    task = new TodoTask(description);
-                    break;
-
-                case DEADLINE:
-                    if (words.length < 2)
-                        throw new RomidasException("deadline tasks should follow the format: deadline <task> /by <date/time>");
-                    if (input.length() <= 9)
-                        throw new RomidasException("deadline tasks should follow the format: deadline <task> /by <date/time>");
-                    String subDeadline = input.substring(9);
-                    String[] partsDeadline = subDeadline.split(" /by ");
-                    if (partsDeadline.length < 2 || partsDeadline[0].isBlank() || partsDeadline[1].isBlank())
-                        throw new RomidasException("deadline tasks should follow the format: deadline <task> /by <date/time>");
-                    DateTimeFormatter fmt = DateTimeFormatter.ISO_LOCAL_DATE;
-                    try {
-                        LocalDate.parse(partsDeadline[1], fmt);
-                    } catch (DateTimeParseException e) {
-                        throw new RomidasException("deadline should follow the format: yyyy-MM-dd");
-                    }
-                    task = new DeadlineTask(partsDeadline[0] + " (by: " + partsDeadline[1] + ")", partsDeadline[1]);
-                    break;
-
-                case EVENT:
-                    if (words.length < 2)
-                        throw new RomidasException("event tasks should follow the format: event <event name> /from <date/time> /to <date/time>");
-                    if (input.length() <= 6)
-                        throw new RomidasException("event tasks should follow the format: event <event name> /from <date/time> /to <date/time>");
-                    String subEvent = input.substring(6);
-                    String[] partsEvent = subEvent.split(" /from ");
-                    if (partsEvent.length < 2 || partsEvent[0].isBlank())
-                        throw new RomidasException("event tasks should follow the format: event <event name> /from <date/time> /to <date/time>");
-                    String fromAndTo = partsEvent[1];
-                    String[] timeParts = fromAndTo.split(" /to ");
-                    if (timeParts.length < 2 || timeParts[0].isBlank() || timeParts[1].isBlank()) {
-                        throw new RomidasException("event tasks should follow the format: event <event name> /from <date/time> /to <date/time>");
-                    }
-                    task = new Event(partsEvent[0] + " (from: " + timeParts[0] + " to: " + timeParts[1] + ")", timeParts[0], timeParts[1]);
-                    break;
-
-                case DELETE:
-                    if (words.length < 2) {
-                        throw new RomidasException("Should follow the format: delete <Task Number>");
-                    }
-                    int index =  Integer.parseInt(words[1]) - 1;
-                    if (index < 0 || index >= store.size()) {
-                        throw new InvalidIndexException();
-                    }
-                    Task dele = store.get(index);
-                    System.out.println("Noted. I've removed this task:");
-                    store.remove(index);
-                    System.out.println("  " + dele.toString());
-                    System.out.println("Now you have " + store.size() + " tasks in your list.");
-
                 }
-
-                if (task != null) {
-                    System.out.println("Got it. I've added this task:");
-                    store.add(task);
-                    System.out.println("  " + task.toString());
-                    System.out.println("Now you have " + store.size() + " tasks in your list.");
-
-                }
-                storage.saveTasks(DATA_PATH, store);
-
+                ui.showLine();
+                Command c = Parser.parse(input, taskList, ui, storage, DATA_PATH);
+                c.execute(taskList, ui, storage);
+                isBye = c.isBye();
             } catch (NumberFormatException e) {
-                System.out.println("Task number must be an integer.");
+                ui.showError("Task number must be an integer.");
             } catch (IllegalArgumentException e) {
-                System.out.println("I'm sorry, I don't recognise that command. Try one of list, event, todo, deadline, mark, unmark, delete");
+                ui.showError("I'm sorry, I don't recognise that command. Try one of list, event, todo, deadline, mark, unmark, delete");
             } catch (RomidasException e) {
-                System.out.println(e.getMessage());
+                ui.showError(e.getMessage());
+            } finally {
+                if (!isBye) {
+                    ui.showLine();
+                }
             }
-            finally {
-
-                System.out.println("____________________________________________________________");
-            }
-
         }
-
-        System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+        ui.showGoodbye();
     }
 
     public static void main(String[] args) {
