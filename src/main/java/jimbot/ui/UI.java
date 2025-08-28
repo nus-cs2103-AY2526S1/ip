@@ -76,10 +76,10 @@ public class UI {
         }
 
         for (int i = 0; i < maxLength + 6 ; i++) box += "─";
-        String topBorder = "            ┌" + box + "┐\n";
+        String topBorder = "           ┌" + box + "┐\n";
         String bottomBorder = " ─┴" + box + "┘\n";
-        String header = "            │ Got it. I've added this task:";
-        String closer = "            │ Now you have " + taskCount + " tasks in the list!";
+        String header = "           │ Got it. I've added this task:";
+        String closer = "           │ Now you have " + taskCount + " tasks in the list!";
 
         String padding1 = "  ";
         for (int i = 0; i < maxLength - 25; i++) padding1 += " ";
@@ -94,7 +94,7 @@ public class UI {
 
         System.out.println(topBorder +
                 header + padding1 + "│\n" +
-                "            │     " + task + padding2 + "│\n" +
+                "           │     " + task + padding2 + "│\n" +
                 closer + padding3 + "│\n" +
                 " (￣^￣)ゞ" + bottomBorder
         );
@@ -201,10 +201,10 @@ public class UI {
         }
 
         for (int i = 0; i < maxLength + 6 ; i++) box += "─";
-        String topBorder = "            ┌" + box + "┐\n";
+        String topBorder = "           ┌" + box + "┐\n";
         String bottomBorder = " ─┴" + box + "┘\n";
-        String header = "            │ Noted. I've removed this task:";
-        String closer = "            │ Now you have " + taskCount + " tasks in the list!";
+        String header = "           │ Noted. I've removed this task:";
+        String closer = "           │ Now you have " + taskCount + " tasks in the list!";
 
         String padding1 = "  ";
         for (int i = 0; i < maxLength - 26; i++) padding1 += " ";
@@ -219,7 +219,7 @@ public class UI {
 
         System.out.println(topBorder +
                 header + padding1 + "│\n" +
-                "            │     " + task + padding2 + "│\n" +
+                "           │     " + task + padding2 + "│\n" +
                 closer + padding3 + "│\n" +
                 " (￣^￣)ゞ" + bottomBorder
         );
