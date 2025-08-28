@@ -54,6 +54,9 @@ public class Event extends Task {
         return to;
     }
 
+    /**
+     * Returns the string representation prefixed with [E] including from/to times.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from.format(DISPLAY_FORMATTER) + " to: " + to.format(DISPLAY_FORMATTER) + ")";

@@ -6,13 +6,24 @@ import bytebot.storage.Storage;
 import bytebot.task.Task;
 import bytebot.task.Todo;
 
+/**
+ * Adds a Todo task without time information.
+ */
 public class TodoCommand extends Command {
     private final String description;
 
+    /**
+     * Constructs a todo command.
+     *
+     * @param description Description of the to-do task
+     */
     public TodoCommand(String description) {
         this.description = description;
     }
 
+    /**
+     * Validates input, creates the to-do, persists it, and shows feedback.
+     */
     @Override
     public void execute(Ui ui, Storage storage) throws ByteException {
         if (description == null || description.trim().isEmpty()) {

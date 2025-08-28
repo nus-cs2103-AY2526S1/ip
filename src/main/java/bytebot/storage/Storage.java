@@ -74,6 +74,8 @@ public class Storage {
 
     /**
      * Gets the current task list.
+     *
+     * @return The task list
      */
     public TaskList getTaskList() {
         return taskList;
@@ -91,6 +93,8 @@ public class Storage {
 
     /**
      * Gets the number of tasks in the list.
+     *
+     * @return Number of tasks persisted
      */
     public int getSize() {
         return taskList.size();
@@ -100,6 +104,10 @@ public class Storage {
 
     /**
      * Gets a task at the specified index.
+     *
+     * @param index Index to get
+     * @return The task at the given index
+     * @throws ByteException If index is out of range
      */
     public Task getTask(int index) throws ByteException {
         return taskList.get(index);
@@ -107,6 +115,8 @@ public class Storage {
 
     /**
      * Adds a task to the list and saves.
+     *
+     * @param task Task to add
      */
     public void addTask(Task task) {
         taskList.add(task);
@@ -115,6 +125,9 @@ public class Storage {
 
     /**
      * Marks a task as done and saves.
+     *
+     * @param index Index of the task to mark
+     * @throws ByteException If the index is invalid
      */
     public void markTask(int index) throws ByteException {
         taskList.mark(index);
@@ -123,6 +136,9 @@ public class Storage {
 
     /**
      * Marks a task as not done and saves.
+     *
+     * @param index Index of the task to unmark
+     * @throws ByteException If the index is invalid
      */
     public void unmarkTask(int index) throws ByteException {
         taskList.unmark(index);
@@ -131,6 +147,10 @@ public class Storage {
 
     /**
      * Deletes a task and saves.
+     *
+     * @param index Index of the task to delete
+     * @return The removed task
+     * @throws ByteException If the index is invalid
      */
     public Task deleteTask(int index) throws ByteException {
         Task removed = taskList.delete(index);

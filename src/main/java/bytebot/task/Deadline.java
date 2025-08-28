@@ -42,6 +42,9 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns the string representation prefixed with [D] and the deadline time.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.format(DISPLAY_FORMATTER) + ")";
