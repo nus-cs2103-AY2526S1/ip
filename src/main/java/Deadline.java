@@ -12,8 +12,19 @@ public class Deadline extends Task {
         this.by = parts[1];
     }
 
+    // Used for deserialization
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = by;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
+    @Override
+    public String serialize() {
+        return "D" + "|" + (this.isDone() ? "1" : "0") + "|" + this.getDescription() + "|" + this.by;
     }
 }
