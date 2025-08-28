@@ -7,24 +7,21 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     protected final String taskType = "D";
     protected String by;
-    private LocalDate date;
+    private LocalDate byDate;
     private static final DateTimeFormatter DISPLAYED_DATE = DateTimeFormatter.ofPattern("MMM d yyyy");
 
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
         try {
-            this.date = LocalDate.parse(this.by);
+            this.byDate = LocalDate.parse(this.by);
         } catch (DateTimeParseException e) {
-            this.date = null;
+            this.byDate = null;
         }
     }
 
-    private String formatDate() {
-        if (date != null) {
-            return String.valueOf(DISPLAYED_DATE);
-        }
-        return this.by;
+    private String formatByDate() {
+        return (byDate != null) ? byDate.format(DISPLAYED_DATE) : this.by;
     }
 
     @Override
@@ -34,7 +31,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[" + taskType + "]" + super.toString() + " (by: " + formatDate() + ")";
+        return "[" + this.taskType + "]" + super.toString() + " (by: " + this.formatByDate() + ")";
     }
 
     @Override
