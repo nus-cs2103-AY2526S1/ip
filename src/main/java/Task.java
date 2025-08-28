@@ -1,34 +1,52 @@
 /**
- * Task class (ToDo class essentially)
+ * This class represents a To-do task.
+ *
+ * @author Ravichandran Gokul
  */
-
 public class Task {
     // Fields declared
     private String completionStatus;
     private String nameOfTask;
 
-    // Constructor
+    /**
+     * Constructs a new {@code Task} object with the name of the task.
+     * This constructor initializes the object's internal state based on the provided parameters.
+     *
+     * @param nameOfTask  The name of the task
+     */
     public Task(String nameOfTask) {
         this.nameOfTask = nameOfTask;
         this.completionStatus = " ";
     }
 
-    // Mark task as done
+    /**
+     * Marks task as done
+     */
     public void markAsDone() {
         completionStatus = "X";
     }
 
-    // Unmark task completion
+    /**
+     * Unmarks task completion
+     */
     public void unmarkTask() {
         completionStatus = " ";
     }
 
-    // Getter for completion status
+    /**
+     * Getter for completion status of task
+     *
+     * @return String
+     */
     public String getCompletionStatus() {
         return this.completionStatus;
     }
 
-    // Getter for task name
+    /**
+     * Getter for the name of the task
+     *
+     * @return String
+     */
     public String getNameOfTask() {
         return this.nameOfTask;
     }

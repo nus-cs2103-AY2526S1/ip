@@ -5,8 +5,6 @@ import java.util.Scanner;
 ///
 /// @author Ravichandran Gokul
 public class Ui {
-    // Declare fields
-
     /**
      * Prints welcome message.
      */
@@ -39,6 +37,11 @@ public class Ui {
         return scanner.nextLine();
     }
 
+    /**
+     * Displays the list of items.
+     *
+     * @param listOfTasks
+     */
     public void displayList(List<Task> listOfTasks) {
         int len = listOfTasks.size();
 
@@ -50,6 +53,11 @@ public class Ui {
         System.out.println("    ____________________________________________________________");
     }
 
+    /**
+     * Displays the Mark Task message on the UI.
+     *
+     * @param task
+     */
     public void markTaskMessage(Task task) {
         System.out.println("    ____________________________________________________________");
         System.out.println("    Amazing! Insane productivity la keep it up. Marked it as done:");
@@ -57,6 +65,11 @@ public class Ui {
         System.out.println("    ____________________________________________________________");
     }
 
+    /**
+     * Displays the Unmark Task message on the UI.
+     *
+     * @param task
+     */
     public void unmarkTaskMessage(Task task) {
         System.out.println("    ____________________________________________________________");
         System.out.println("    Boooo... Do better next time bro. Marked this as not done yet:");
@@ -64,6 +77,12 @@ public class Ui {
         System.out.println("    ____________________________________________________________");
     }
 
+    /**
+     * Displays the Delete Task message on the UI.
+     *
+     * @param task
+     * @param listOfTasks
+     */
     public void deleteTaskMessage(Task task, List<Task> listOfTasks) {
         System.out.println("    ____________________________________________________________");
         System.out.println("    Aights. I have deleted this task:");
@@ -72,6 +91,12 @@ public class Ui {
         System.out.println("    ____________________________________________________________");
     }
 
+    /**
+     * Displays the Add Task message on the UI.
+     *
+     * @param task
+     * @param listOfTasks
+     */
     public void addTaskMessage(Task task, List<Task> listOfTasks) {
         System.out.println("    ____________________________________________________________");
         System.out.println("    Aights. I have added this task:");
@@ -80,6 +105,11 @@ public class Ui {
         System.out.println("    ____________________________________________________________");
     }
 
+    /**
+     * Displays the exception message on the UI.
+     *
+     * @param e
+     */
     public void exceptionMessage(Exception e) {
         System.out.println("    ____________________________________________________________");
         System.out.println(e.getMessage());

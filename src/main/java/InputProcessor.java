@@ -20,6 +20,14 @@ public class InputProcessor {
         this.ui = ui;
     }
 
+    /**
+     * Processes the input of the user and returns a Command object.
+     *
+     * @param input
+     * @return Command
+     * @throws InvalidPromptException
+     * @throws TodoException
+     */
     public Command processInput(String input) throws InvalidPromptException, TodoException {
         String[] words = input.split(" ");
         int firstSpaceIndex = input.indexOf(" ");
