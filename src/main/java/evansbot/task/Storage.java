@@ -1,4 +1,5 @@
-import java.time.format.DateTimeFormatter;
+package evansbot.task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
@@ -47,7 +48,7 @@ public class Storage {
                 continue;
             }
 
-            if (task.isDone) {
+            if (isDone) {
                 task.markAsDone();
             }
             tasks.add(task);

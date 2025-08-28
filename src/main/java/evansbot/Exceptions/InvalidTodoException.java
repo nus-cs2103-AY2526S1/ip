@@ -1,4 +1,4 @@
-package Exceptions;
+package evansbot.Exceptions;
 
 public class InvalidTodoException extends EvansBotException {
     public InvalidTodoException() {
