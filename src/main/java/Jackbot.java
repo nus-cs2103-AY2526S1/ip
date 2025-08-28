@@ -66,7 +66,7 @@ public class Jackbot {
         printFramed("Hello! I'm Jackbot\nWhat can I do for you?");
 
         // Event loop
-        while (true) {
+        while (sc.hasNextLine()) {
             String input = sc.nextLine();
 
             if (input.equalsIgnoreCase("bye")) {
@@ -95,13 +95,19 @@ public class Jackbot {
                     printFramed("ERROR: Task not found");
                     continue;
                 }
+
+                if (task.isDone()) {
+                    printFramed("ERROR: Task is already marked");
+                    continue;
+                }
+
                 task.mark();
                 printFramed("Nice, I've marked this task as done:\n"
                           + "  " + task);
             } else if (input.toLowerCase().startsWith("unmark ")) {
                 Integer idx;
                 try {
-                    idx = Integer.parseInt(input.substring(5).trim());
+                    idx = Integer.parseInt(input.substring(7).trim());
                 } catch (Exception e) {
                     printFramed("ERROR: Failed to parse task index number");
                     continue;
@@ -114,6 +120,12 @@ public class Jackbot {
                     printFramed("ERROR: Task not found");
                     continue;
                 }
+
+                if (!task.isDone()) {
+                    printFramed("ERROR: Task is already unmarked");
+                    continue;
+                }
+
                 task.unmark();
                 printFramed("OK, I've marked this task as not done:\n"
                           + "  " + task);
@@ -155,7 +167,7 @@ public class Jackbot {
         }
 
         // End session
-        printFramed(" Bye. Hope to see you again soon!\n");
+        printFramed("Bye. Hope to see you again soon!\n");
         sc.close();
     }
 }
