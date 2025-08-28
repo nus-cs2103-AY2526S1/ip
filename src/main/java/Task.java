@@ -6,6 +6,19 @@ public class Task {
         this.description = description;
         this.isDone = false; // default not done
     }
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+    
+    public boolean isDone() {
+        return isDone;
+    }
+    
+    public String toSaveFormat() {
+        // Default: T | 1 | description
+        return String.format("T | %d | %s", isDone ? 1 : 0, description);
+    }
 
     public void markDone() { 
         this.isDone = true; 
