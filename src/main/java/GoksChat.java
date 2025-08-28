@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class GoksChat {
     private static InputProcessor inputProcessor = new InputProcessor();
+    private static Ui ui = new Ui();
 
     public static void printWelcomeMessage() {
         System.out.println("    ____________________________________________________________");
@@ -32,19 +33,19 @@ public class GoksChat {
     }
 
     public static void main(String[] args) throws InvalidPromptException, TodoException {
-        printWelcomeMessage();
+        ui.printWelcomeMessage();
 
         // Get user input
-        String userInput = getUserInput();
+        String userInput = ui.readUserInput();
 
         // Print according to what the user input is
         while (!userInput.equals("bye")) {
             inputProcessor.processInput(userInput);
 
             // Get user input again
-            userInput = getUserInput();
+            userInput = ui.readUserInput();
         }
 
-        printGoodbyeMessage();
+        ui.printGoodbyeMessage();
     }
 }
