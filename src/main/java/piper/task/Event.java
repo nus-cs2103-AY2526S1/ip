@@ -1,14 +1,40 @@
 package piper.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
     protected final String taskType = "E";
     protected String from;
     protected String to;
+    private LocalDate fromDate;
+    private LocalDate toDate;
+    private static final DateTimeFormatter DISPLAYED_DATE = DateTimeFormatter.ofPattern("MMM d yyyy");
+
 
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
+        try {
+            this.fromDate = LocalDate.parse(this.from);
+        } catch (DateTimeParseException e) {
+            this.fromDate = null;
+        }
+        try {
+            this.toDate = LocalDate.parse(this.to);
+        } catch (DateTimeParseException e) {
+            this.toDate = null;
+        }
+    }
+
+    private String formatFromDate() {
+        return (fromDate != null) ? fromDate.format(DISPLAYED_DATE) : this.from;
+    }
+
+    private String formatToDate() {
+        return (toDate != null) ? toDate.format(DISPLAYED_DATE) : this.to;
     }
 
     @Override
@@ -18,7 +44,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[" + taskType + "]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[" + this.taskType + "]" + super.toString() + " (from: " + this.formatFromDate() + " to: " + this.formatToDate() + ")";
     }
 
     @Override
