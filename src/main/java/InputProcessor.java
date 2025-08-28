@@ -11,14 +11,15 @@ public class InputProcessor {
     private Storage storage;
 
     /**
-     * Constructs a new {@code InputProcessor} object with the task list and the UI object.
+     * Constructs a new {@code InputProcessor} object with the task list, the UI object and storage.
      * This constructor initializes the object's internal state based on the provided parameters.
      *
      * @param ui
      * @param storage
+     * @param listOfTasks
      */
-    public InputProcessor(Ui ui, Storage storage) {
-        this.listOfTasks = new ArrayList<>();
+    public InputProcessor(Ui ui, Storage storage, List<Task> listOfTasks) {
+        this.listOfTasks = listOfTasks;
         this.ui = ui;
         this.storage = storage;
     }
