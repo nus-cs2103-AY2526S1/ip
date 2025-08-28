@@ -62,7 +62,7 @@ public class UI {
         System.out.println(topBorder +
                 header +
                 "     │     " + userList.getTask(index) + padding + "│\n" +
-                bottomBorder + " (｀_´)ゞ ノ"
+                bottomBorder + " (｀_´)ゞ ╯"
         );
     }
 
@@ -76,10 +76,10 @@ public class UI {
         }
 
         for (int i = 0; i < maxLength + 6 ; i++) box += "─";
-        String topBorder = "           ┌" + box + "┐\n";
-        String bottomBorder = " ─┴" + box + "┘\n";
-        String header = "           │ Got it. I've added this task:";
-        String closer = "           │ Now you have " + taskCount + " tasks in the list!";
+        String topBorder = "     ┌" + box + "┐\n";
+        String bottomBorder = "     └" + box + "┘\n";
+        String header = "     │ Got it. I've added this task:";
+        String closer = "     │ Now you have " + taskCount + " tasks in the list!";
 
         String padding1 = "  ";
         for (int i = 0; i < maxLength - 25; i++) padding1 += " ";
@@ -94,11 +94,45 @@ public class UI {
 
         System.out.println(topBorder +
                 header + padding1 + "│\n" +
-                "           │     " + task + padding2 + "│\n" +
+                "     │     " + task + padding2 + "│\n" +
                 closer + padding3 + "│\n" +
-                " (￣^￣)ゞ" + bottomBorder
+                bottomBorder  + " (￣^￣)ゞ ╯"
         );
 
+    }
+
+    public void deleteTask(Task task, int taskCount) {
+        int taskLength = task.toString().length();
+        int maxLength = 36;
+        String box = "─";
+
+        if (taskLength > 36) {
+            maxLength = taskLength;
+        }
+
+        for (int i = 0; i < maxLength + 6 ; i++) box += "─";
+        String topBorder = "     ┌" + box + "┐\n";
+        String bottomBorder = "     └" + box + "┘\n";
+        String header = "     │ Noted. I've removed this task:";
+        String closer = "     │ Now you have " + taskCount + " tasks in the list!";
+
+        String padding1 = "  ";
+        for (int i = 0; i < maxLength - 26; i++) padding1 += " ";
+        String padding2 = "  ";
+        for (int i = 0; i < maxLength - taskLength; i++) padding2 += " ";
+        String padding3 = "  ";
+        if (taskCount >= 10) {
+            for (int i = 0; i < maxLength - 30; i++) padding3 += " ";
+        } else {
+            for (int i = 0; i < maxLength - 29; i++) padding3 += " ";
+        }
+
+        System.out.println(topBorder +
+                header + padding1 + "│\n" +
+                "     │     " + task + padding2 + "│\n" +
+                closer + padding3 + "│\n" +
+                bottomBorder + " (─.─)ゞ ╯"
+        );
     }
 
     public void printList(List<Task> list) {
@@ -148,34 +182,6 @@ public class UI {
             }
         }
 
-        String listContent = getString(list, taskCount, maxLength);
-
-        String header;
-        if (isToday) {
-            for (int i = 0; i < maxLength + 8; i++) box += "─";
-
-            header = "          │ Here are your tasks for today:";
-            int headerPadding = maxLength - 23;
-            for (int i = 0; i < headerPadding; i++) header += " ";
-
-        } else {
-            for (int i = 0; i < maxLength + 8; i++) box += "─";
-
-            header = "          │ Here are your tasks for that date:";
-            int headerPadding = maxLength - 27;
-            for (int i = 0; i < headerPadding; i++) header += " ";
-
-        }
-
-        String topBorder = "          ┌" + box + "┐\n";
-        String bottomBorder = " (・ω・)ノ└" + box + "┘";
-        header += " │";
-        System.out.println(topBorder +
-                header + listContent + "\n" +
-                bottomBorder);
-    }
-
-    private static String getString(List<Task> list, int taskCount, int maxLength) {
         String listContent = "";
         for (int i = 0; i < taskCount; i++) {
             Task task = list.get(i);
@@ -183,46 +189,35 @@ public class UI {
             String spaces = "";
             for (int j = 0; j < padding + 4; j++) spaces += " ";
             if (i <= 8) {
-                listContent += "\n          │ " + (i + 1) + ". " + task + spaces + " │";
+                listContent += "\n         │ " + (i + 1) + ". " + task + spaces + " │";
             } else {
-                listContent += "\n          │ " + (i + 1) + ". " + task + spaces + "│";
+                listContent += "\n         │ " + (i + 1) + ". " + task + spaces + "│";
             }
         }
-        return listContent;
-    }
 
-    public void deleteTask(Task task, int taskCount) {
-        int taskLength = task.toString().length();
-        int maxLength = 36;
-        String box = "─";
+        String header;
+        if (isToday) {
+            for (int i = 0; i < maxLength + 8; i++) box += "─";
 
-        if (taskLength > 36) {
-            maxLength = taskLength;
-        }
+            header = "         │ Here are your tasks for today:";
+            int headerPadding = maxLength - 23;
+            for (int i = 0; i < headerPadding; i++) header += " ";
 
-        for (int i = 0; i < maxLength + 6 ; i++) box += "─";
-        String topBorder = "           ┌" + box + "┐\n";
-        String bottomBorder = " ─┴" + box + "┘\n";
-        String header = "           │ Noted. I've removed this task:";
-        String closer = "           │ Now you have " + taskCount + " tasks in the list!";
-
-        String padding1 = "  ";
-        for (int i = 0; i < maxLength - 26; i++) padding1 += " ";
-        String padding2 = "  ";
-        for (int i = 0; i < maxLength - taskLength; i++) padding2 += " ";
-        String padding3 = "  ";
-        if (taskCount >= 10) {
-            for (int i = 0; i < maxLength - 30; i++) padding3 += " ";
         } else {
-            for (int i = 0; i < maxLength - 29; i++) padding3 += " ";
+            for (int i = 0; i < maxLength + 8; i++) box += "─";
+
+            header = "         │ Here are your tasks for that date:";
+            int headerPadding = maxLength - 27;
+            for (int i = 0; i < headerPadding; i++) header += " ";
+
         }
 
+        String topBorder = "         ┌" + box + "┐\n";
+        String bottomBorder = " (・ω・)ノ└" + box + "┘";
+        header += " │";
         System.out.println(topBorder +
-                header + padding1 + "│\n" +
-                "           │     " + task + padding2 + "│\n" +
-                closer + padding3 + "│\n" +
-                " (￣^￣)ゞ" + bottomBorder
-        );
+                header + listContent + "\n" +
+                bottomBorder);
     }
 
     public void hello(String name) {
@@ -253,13 +248,43 @@ public class UI {
                     """);
     }
 
-    public void echo(String userInput) {
+    public void respond(String userInput) {
+        int maxLength = 46;
+        int length = userInput.length();
+        if (length > 40) maxLength = length + 2;
         String textBox =  "─";
-        for (int i = 0; i < userInput.length() + 6; i++) {
+
+        for (int i = 0; i < maxLength + 2; i++) {
             textBox += "─";
         }
-        System.out.println("                   ┌" + textBox + "┐\n" +
-                "                   │ " + userInput + "      │\n" +
-                "ʕ •ᴥ•ʔ     ʕ•ᴥ• ʔ ─┴" + textBox + "┘");
+        String padding1 = "";
+        for (int i = 0; i < maxLength - 36; i++) padding1 += " ";
+        String padding2 = "";
+        for (int i = 0; i < maxLength - length - 2; i++) padding2 += " ";
+        String padding3 = "";
+        for (int i = 0; i < maxLength - 41; i++) padding3 += " ";
+
+        System.out.println("                     ┌" + textBox + "┐\n" +
+                "                     │ Sorry I don't recognize this command: " + padding1 + "│ \n" +
+                "                     │   \"" + userInput + "\"" + padding2 + "│\n" +
+                "                     │ Type \"help\" for the list possible commands."+ padding3 + "│ \n " +
+                " ʕ •ᴥ•ʔ     ʕ•ᴥ• ʔ ─┴" + textBox + "┘");
+    }
+
+    public void commandList() {
+        System.out.print("""
+                            ┌─────────────────────────────────────────┐
+                            │ Here are the commands you can use:      │
+                            │   (input date in dd/mm/yyyy)            │
+                            │   deadline                              │
+                            │   delete                                │
+                            │   event                                 │
+                            │   list                                  │
+                            │   mark                                  │
+                            │   today                                 │
+                            │   todo                                  │
+                            │   unmark                                │
+                            └─────────────────────────────────────────┘ _(•̀ω•́ 」∠)_
+                            """);
     }
 }

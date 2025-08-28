@@ -122,9 +122,10 @@ public class Jimbot {
                     }
                     user.printListAtDate(userList.getTasksAtDate(date),
                             date.isEqual(LocalDate.now()) || userInput.equals("today"));
+                } else if (userInput.equalsIgnoreCase("help")) {
+                    user.commandList();
                 } else {
-                    user.echo(userInput);
-
+                    user.respond(userInput);
                 }
             } catch (InvalidDateTimeException | InvalidDeadlineException | InvalidEventException |
                      InvalidIndexException | InvalidToDoException | TaskLimitException e) {
