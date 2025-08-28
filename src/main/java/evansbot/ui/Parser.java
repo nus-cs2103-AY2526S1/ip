@@ -6,7 +6,21 @@ import evansbot.Exceptions.InvalidDeadlineException;
 import evansbot.Exceptions.InvalidEventException;
 import evansbot.command.*;
 
+/**
+ * Parses user input strings into corresponding Command objects for EvansBot.
+ * Throws EvansBotException or its subclasses if the input is invalid.
+ */
 public class Parser {
+    /**
+     * Parses the user's input and returns the appropriate Command object.
+     * Recognizes commands like "bye", "list", "mark", "unmark", "todo",
+     * "deadline", "event", and "delete".
+     *
+     * @param input Raw user input string.
+     * @return Command object corresponding to the user's input.
+     * @throws EvansBotException If the input is invalid or cannot be parsed
+     *                           into a recognized command.
+     */
     public static Command parse(String input) throws EvansBotException {
         String trimmed = input.trim();
 
