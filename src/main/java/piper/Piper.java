@@ -6,14 +6,66 @@ import piper.task.Task;
 import piper.task.Todo;
 import piper.task.Deadline;
 import piper.task.Event;
-import piper.PiperException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Piper {
+    private static final String DATA_DIR = "data";
+    private static final String DATA_FILE = "piper.txt";
+    private static final Path SAVE_PATH = Paths.get(DATA_DIR, DATA_FILE);
+
     public static void main(String[] args) {
         final String CHATBOT_NAME = "Piper";
         Ui ui = new Ui(CHATBOT_NAME);
         TaskList tasks = new TaskList();
         boolean exit = false;
+
+        try {
+            Path dir = SAVE_PATH.getParent();
+            if (dir != null && !Files.exists(dir)) {
+                Files.createDirectories(dir);
+            }
+            if (!Files.exists(SAVE_PATH)) {
+                Files.createFile(SAVE_PATH);
+            }
+
+            List<String> lines = Files.readAllLines(SAVE_PATH, StandardCharsets.UTF_8);
+            for (String line : lines) {
+                if (line == null || line.isEmpty()) {
+                    continue;
+                }
+                String[] substrings = line.split(" \\| ", 5);
+                String taskType = substrings[0];
+                String doneField = substrings[1];
+                String description = substrings[2];
+                boolean isDone = "1".equals(doneField);
+
+                Task task = null;
+                switch (taskType) {
+                case "T":
+                    task = new Todo(description);
+                    break;
+                case "D":
+                    task = new Deadline(description, substrings[3]);
+                    break;
+                case "E":
+                    task = new Event(description, substrings[3], substrings[4]);
+                    break;
+                }
+
+                if (isDone) {
+                    task.markDone();
+                }
+                tasks.addTask(task);
+            }
+        } catch (IOException e) {
+            ui.showError("SQUAWK! Can't seem to read the save file at " + SAVE_PATH + ": " + e.getMessage());
+        }
 
         ui.greetUser();
 
@@ -68,6 +120,8 @@ public class Piper {
                                     break;
                             }
 
+                            saveAll(tasks);
+
                             ui.showTaskStatus(task);
                         } catch (Exception e) {
                             // task index is outside of array range
@@ -82,6 +136,9 @@ public class Piper {
                             Task task = tasks.getTask(index);
 
                             tasks.deleteTask(index);
+
+                            saveAll(tasks);
+
                             ui.showDeletedTask(task);
                             ui.getTasksSize(tasks);
                         } catch (Exception e) {
@@ -138,6 +195,9 @@ public class Piper {
                         }
 
                         tasks.addTask(task);
+
+                        saveAll(tasks);
+
                         ui.showAddedTask(task);
                         ui.getTasksSize(tasks);
                     } else {
@@ -151,4 +211,21 @@ public class Piper {
         }
         ui.close();
     }
+
+    private static String serialize(Task task) {
+        return task.toSerializedLine();
+    }
+
+    private static void saveAll(TaskList tasks) throws PiperException {
+        try {
+            List<String> out = new ArrayList<>();
+            for (int i = 0; i < tasks.getSize(); i++) {
+                out.add(serialize(tasks.getTask(i)));
+            }
+            Files.write(SAVE_PATH, out, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new PiperException("SQUAWK! Can't seem to write tasks to " + SAVE_PATH + ": " + e.getMessage());
+        }
+    }
+
 }

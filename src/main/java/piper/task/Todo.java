@@ -7,6 +7,7 @@ public class Todo extends Task {
         super(description);
     }
 
+    @Override
     public String getTaskType() {
         return taskType;
     }
@@ -14,6 +15,11 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "[" + taskType + "]" + super.toString();
+    }
+
+    @Override
+    public String toSerializedLine() {
+        return super.toSerializedLine();
     }
 
 }
