@@ -11,6 +11,7 @@ public class Romidas {
         Scanner scanner = new Scanner(System.in);
         Storage storage = new Storage();
         ArrayList<Task> store = storage.loadTasks(DATA_PATH);
+        TaskList taskList = new TaskList(store);
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Romidas");
         System.out.println("What can I do for you?");
@@ -28,8 +29,8 @@ public class Romidas {
                 switch (cmd) {
                 case LIST:
                         System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < store.size(); i++) {
-                            Task t = store.get(i);
+                        for (int i = 0; i < taskList.size(); i++) {
+                            Task t = taskList.get(i);
                             System.out.println((i + 1) + "." + t.toString());
                         }
                         break;
@@ -38,10 +39,10 @@ public class Romidas {
                     if (words.length != 2)
                         throw new RomidasException("Should follow the format: mark <Task Number>");
                     int indexMark = Integer.parseInt(words[1]) - 1;
-                    if (indexMark < 0 || indexMark >= store.size())
+                    if (indexMark < 0 || indexMark >= taskList.size())
                         throw new InvalidIndexException();
                     System.out.println("Nice! I've marked this task as done:");
-                    Task tMark = store.get(indexMark);
+                    Task tMark = taskList.get(indexMark);
                     tMark.setIsDone(true);
                     System.out.println("  " + tMark.toString());
 
@@ -51,10 +52,10 @@ public class Romidas {
                     if (words.length != 2)
                         throw new RomidasException("Should follow the format: unmark <Task Number>");
                     int indexUnmark = Integer.parseInt(words[1]) - 1;
-                    if (indexUnmark < 0 || indexUnmark >= store.size())
+                    if (indexUnmark < 0 || indexUnmark >= taskList.size())
                         throw new InvalidIndexException();
                     System.out.println("OK, I've marked this task as not done yet:");
-                    Task tUnmark = store.get(indexUnmark);
+                    Task tUnmark = taskList.get(indexUnmark);
                     tUnmark.setIsDone(false);
                     System.out.println("  " + tUnmark.toString());
 
@@ -107,25 +108,25 @@ public class Romidas {
                         throw new RomidasException("Should follow the format: delete <Task Number>");
                     }
                     int index =  Integer.parseInt(words[1]) - 1;
-                    if (index < 0 || index >= store.size()) {
+                    if (index < 0 || index >= taskList.size()) {
                         throw new InvalidIndexException();
                     }
-                    Task dele = store.get(index);
+                    Task dele = taskList.get(index);
                     System.out.println("Noted. I've removed this task:");
-                    store.remove(index);
+                    taskList.remove(index);
                     System.out.println("  " + dele.toString());
-                    System.out.println("Now you have " + store.size() + " tasks in your list.");
+                    System.out.println("Now you have " + taskList.size() + " tasks in your list.");
 
                 }
 
                 if (task != null) {
                     System.out.println("Got it. I've added this task:");
-                    store.add(task);
+                    taskList.add(task);
                     System.out.println("  " + task.toString());
-                    System.out.println("Now you have " + store.size() + " tasks in your list.");
+                    System.out.println("Now you have " + taskList.size() + " tasks in your list.");
 
                 }
-                storage.saveTasks(DATA_PATH, store);
+                storage.saveTasks(DATA_PATH, taskList.retreive());
 
             } catch (NumberFormatException e) {
                 System.out.println("Task number must be an integer.");
