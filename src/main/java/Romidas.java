@@ -1,5 +1,8 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Romidas {
     private static final String DATA_PATH = "romidas.txt";
@@ -73,6 +76,12 @@ public class Romidas {
                     String[] partsDeadline = subDeadline.split(" /by ");
                     if (partsDeadline.length < 2 || partsDeadline[0].isBlank() || partsDeadline[1].isBlank())
                         throw new RomidasException("deadline tasks should follow the format: deadline <task> /by <date/time>");
+                    DateTimeFormatter fmt = DateTimeFormatter.ISO_LOCAL_DATE;
+                    try {
+                        LocalDate.parse(partsDeadline[1], fmt);
+                    } catch (DateTimeParseException e) {
+                        throw new RomidasException("deadline should follow the format: yyyy-MM-dd");
+                    }
                     task = new DeadlineTask(partsDeadline[0] + " (by: " + partsDeadline[1] + ")", partsDeadline[1]);
                     break;
 

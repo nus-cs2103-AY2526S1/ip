@@ -1,12 +1,14 @@
+import java.time.LocalDate;
+
 public class DeadlineTask extends Task {
-    String deadline;
+    LocalDate deadline;
 
     public DeadlineTask(String description, String deadline) {
         super(description);
-        this.deadline = deadline;
+        this.deadline = LocalDate.parse(deadline);
     }
 
-    public String getDeadline() {
+    public LocalDate getDeadline() {
         return deadline;
     }
 
@@ -28,7 +30,7 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toText() {
-        return "D | " + (this.isDone ? "1 | ": "0 | ") + this.getDescription() + " (by: " + this.getDeadline() + ") | " + this.getDeadline();
+        return "D | " + (this.isDone ? "1 | ": "0 | ") + this.getDescription() + " (by: " + deadline + ")" + deadline;
     }
 
     @Override

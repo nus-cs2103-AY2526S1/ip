@@ -1,4 +1,5 @@
 T | 0 | read book
 E | 0 | project meeting (from: Mon 2pm to: 4pm) | Mon 2pm-4pm
-D | 0 | return book (by: Sunday) | Sunday
-D | 1 | borrow book (by: Friday) | Friday
+D | 0 | return book (by: 2019-12-01)2019-12-01
+D | 1 | borrow book (by: 2019-12-04)2019-12-04
+D | 1 | project (by: 2025-09-01) (by: 2025-09-01)2025-09-01
