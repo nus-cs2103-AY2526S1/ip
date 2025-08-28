@@ -1,6 +1,3 @@
 T | 0 | task
 D | 0 | deadline | tomorrow
 E | 0 | event | 1pm | 3pm
-T | 0 | anothertask
-D | 0 | testparsing | 2019-10-15
-E | 0 | testparsing | 2019-10-15 | 2019-11-01
