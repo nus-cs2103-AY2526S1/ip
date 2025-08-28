@@ -1,7 +1,6 @@
 package evansbot.task;
 
 import evansbot.Exceptions.InvalidTaskIndexException;
-import evansbot.Exceptions.InvalidTodoException;
 
 import java.io.IOException;
 import java.util.ArrayList;
