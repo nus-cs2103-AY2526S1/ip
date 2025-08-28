@@ -4,47 +4,33 @@ import java.util.Scanner;
 
 public class Jackbot {
 
-    static class Task {
-        private final String description;
-        private boolean done;
-
-        Task(String description) {
-            this.description = description;
-            this.done = false;
-        }
-
-        void mark()   { this.done = true; }
-        void unmark() { this.done = false; }
-
-        String checkbox() { return done ? "[X]" : "[ ]"; }
-        boolean isDone()  { return done; }
-        String getDescription() { return description; }
-
-        @Override
-        public String toString() {
-            return checkbox() + " " + description;
-        }
-    }
-
     // Helper function to print framed messages
     private static void printFramed(String msg) {
         System.out.println("____________________________________________________________\n");
         System.out.println(msg);
         System.out.println("____________________________________________________________\n");
     }
-    
+
+    // Helper function to add task
+    private static void addTask(List<Task> tasklist, Task task) {
+        tasklist.add(task);
+        printFramed("Got it. I've added this task\n"
+                  + "  " + task + "\n"
+                  + "Now you have " + tasklist.size() + " tasks in the list.");
+    }
+
     public static void main(String[] args) {
-        
+
         Scanner sc = new Scanner(System.in);
         List<Task> tasklist = new ArrayList<>();
 
         // Start session
         printFramed("Hello! I'm Jackbot\nWhat can I do for you?\n");
-        
+
         // Event loop
         while (true) {
             String input = sc.nextLine();
-            
+
             if (input.equalsIgnoreCase("bye")) {
                 break;
             } else if (input.equalsIgnoreCase("list")) {
@@ -55,14 +41,25 @@ public class Jackbot {
                 printFramed(sb.toString());
             } else if (input.toLowerCase().startsWith("mark ")) {
                 Integer idx = Integer.parseInt(input.substring(5).trim());
-                tasklist.get(idx - 1).mark();
+                Task task = tasklist.get(idx - 1);
+                task.mark();
+                printFramed("Nice, I've marked this task as done:\n"
+                          + "  " + task);
             } else if (input.toLowerCase().startsWith("unmark ")) {
                 Integer idx = Integer.parseInt(input.substring(7).trim());
-                tasklist.get(idx - 1).unmark();
-            } else { 
-                // Else, store task in tasklist
-                tasklist.add(new Task(input));
-                printFramed("added: " + input + "\n");
+                Task task = tasklist.get(idx - 1);
+                task.unmark();
+                printFramed("OK, I've marked this task as not done:\n"
+                          + "  " + task);
+            } else if (input.toLowerCase().startsWith("todo ")) {
+                input = input.substring(5);
+                addTask(tasklist, new Todo(input));
+            } else if (input.toLowerCase().startsWith("deadline ")) {
+                input = input.substring(9);
+                addTask(tasklist, new Deadline(input));
+            } else if (input.toLowerCase().startsWith("event ")) {
+                input = input.substring(6);
+                addTask(tasklist, new Event(input));
             }
         }
 
