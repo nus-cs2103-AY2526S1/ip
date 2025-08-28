@@ -1,12 +1,17 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Storage {
     private String filePath;
+    DateTimeFormatter format =
+            DateTimeFormatter.ofPattern("MMM dd yyyy HHmm", Locale.ENGLISH);
 
     public Storage(String filePath){
         this.filePath = filePath;
@@ -35,7 +40,7 @@ public class Storage {
                 tasks.add(todo);
                 break;
             case "D":
-                String by = parts[3];
+                LocalDateTime by = LocalDateTime.parse(parts[3], format);
                 Deadline deadline =new Deadline(description,by);
                 if (isDone) {
                     deadline.markAsDone();
@@ -43,13 +48,14 @@ public class Storage {
                 tasks.add(deadline);
                 break;
             case "E":
-                String from = parts[3];
-                String to = parts[4];
+                LocalDateTime from = LocalDateTime.parse(parts[3], format);
+                LocalDateTime to = LocalDateTime.parse(parts[4], format);
                 Event event = new Event(description,from,to);
                 if(isDone) {
                     event.markAsDone();
                 }
                 tasks.add(event);
+                break;
             default:
                 System.out.println("Invalid line: " + line);
             }
@@ -64,9 +70,4 @@ public class Storage {
         }
         file.close();
     }
-
-
-
-
-
 }

@@ -41,11 +41,11 @@ public class Task {
         case TODO :
             return "T " + "| "+ isDoneNumber +" | "+ description;
         case DEADLINE:
-            String by = ((Deadline)this).by;
+            String by = ((Deadline)this).byToFormat();
             return "D " + "| "+ isDoneNumber +" | " +description +" | " +by;
         case EVENT:
-            String from = ((Event)this).from;
-            String to = ((Event)this).to;
+            String from = ((Event)this).fromToFormat();
+            String to = ((Event)this).toToFormat();
             return "E " + "| " + isDoneNumber + " | "+description+" | "+from+" | " + to;
         default:
             return "";

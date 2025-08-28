@@ -1,11 +1,16 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Locale;
 
 public class Sora {
     private static Storage storage;
     private static List<Task> tasks;
+    private static final DateTimeFormatter format =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm",Locale.ENGLISH);
 
     public Sora(String filePath){
         storage = new Storage(filePath);
@@ -91,7 +96,8 @@ public class Sora {
                             throw new SoraException("Lack of deadline time!");
                         }
                         String[] check = input.substring(9).split(" /by ");
-                        tasks.add(new Deadline(check[0], check[1]));
+                        LocalDateTime deadline = LocalDateTime.parse(check[1],format);
+                        tasks.add(new Deadline(check[0], deadline));
                         System.out.println("Got it. I've added this task:");
                         System.out.println(tasks.getLast().toString());
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -109,7 +115,9 @@ public class Sora {
                             throw new SoraException("Lack of end time!");
                         }
                         String[] time = check[1].split(" /to ");
-                        tasks.add(new Event(check[0], time[0], time[1]));
+                        LocalDateTime from = LocalDateTime.parse(time[0], format);
+                        LocalDateTime to = LocalDateTime.parse(time[1],format);
+                        tasks.add(new Event(check[0], from, to));
                         System.out.println("Got it. I've added this task:");
                         System.out.println(tasks.getLast().toString());
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
