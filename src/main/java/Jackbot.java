@@ -66,7 +66,6 @@ public class Jackbot {
                   printFramed("ERROR: Task not found");
                   continue;
                 }
-
                 task.mark();
                 printFramed("Nice, I've marked this task as done:\n"
                           + "  " + task);
@@ -79,7 +78,6 @@ public class Jackbot {
                   continue;
                 }
 
-
                 Task task;
                 try {
                   task = tasklist.get(idx - 1);
@@ -90,6 +88,24 @@ public class Jackbot {
                 task.unmark();
                 printFramed("OK, I've marked this task as not done:\n"
                           + "  " + task);
+            } else if (input.toLowerCase().startsWith("delete ")) {
+                Integer idx;
+                try {
+                  idx = Integer.parseInt(input.substring(7).trim());
+                } catch (Exception e) {
+                  printFramed("ERROR: Failed to parse task index number");
+                  continue;
+                }
+
+                try {
+                  Task task = tasklist.remove(idx - 1);
+                  printFramed("Noted. I've removed this task:\n"
+                            + "  " + task + "\n"
+                            + "Now you have " + tasklist.size() + " tasks in the list.");
+                } catch (Exception e) {
+                  printFramed("ERROR: Task not found");
+                  continue;
+                }
             } else if (input.toLowerCase().startsWith("todo ")) {
                 input = input.substring(5);
                 if (!checkDescription(input)) continue;
