@@ -10,6 +10,7 @@ import bytebot.command.EventCommand;
 import bytebot.command.MarkCommand;
 import bytebot.command.UnmarkCommand;
 import bytebot.command.DeleteCommand;
+import bytebot.command.FindCommand;
 
 public class Parser {
 
@@ -80,6 +81,10 @@ public class Parser {
             }
             int index = Integer.parseInt(parts[1].trim()) - 1;
             return new DeleteCommand(index);
+        }
+        case "find": {
+            String term = parts.length >= 2 ? parts[1].trim() : "";
+            return new FindCommand(term);
         }
         default:
             throw new ByteException("I dont know what that means!");
