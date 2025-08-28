@@ -10,9 +10,9 @@ public class Deadline extends Task {
     private LocalDateTime by;
 
     public Deadline(String description) {
-        super(description.split("\\/by ", 2)[0]);
+        super(description.split(" \\/by ", 2)[0]);
 
-        String[] parts = description.split("\\/by ", 2);
+        String[] parts = description.split(" \\/by ", 2);
 
         this.by = LocalDateTime.parse(parts[1], formatter);
     }

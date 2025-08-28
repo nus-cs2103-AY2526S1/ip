@@ -11,10 +11,10 @@ public class Event extends Task {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public Event(String description) {
-        super(description.split("\\/from ", 2)[0]);
+        super(description.split(" \\/from ", 2)[0]);
 
-        String[] parts = description.split("\\/from ", 2);
-        parts = parts[1].split("\\ /to ", 2);
+        String[] parts = description.split(" \\/from ", 2);
+        parts = parts[1].split(" \\/to ", 2);
 
         this.from = LocalDateTime.parse(parts[0], formatter);
         this.to = LocalDateTime.parse(parts[1], formatter);

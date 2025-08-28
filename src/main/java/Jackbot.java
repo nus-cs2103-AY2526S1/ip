@@ -63,7 +63,7 @@ public class Jackbot {
         List<Task> tasklist = loadTaskFileIfExists();
 
         // Start session
-        printFramed("Hello! I'm Jackbot\nWhat can I do for you?\n");
+        printFramed("Hello! I'm Jackbot\nWhat can I do for you?");
 
         // Event loop
         while (true) {
