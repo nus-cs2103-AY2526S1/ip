@@ -101,7 +101,6 @@ public class Storage {
     }
 
 
-
     /**
      * Gets a task at the specified index.
      *
@@ -177,7 +176,6 @@ public class Storage {
             System.err.println("Could not save tasks to file: " + e.getMessage());
         }
     }
-
 
 
     /**

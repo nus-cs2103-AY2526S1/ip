@@ -20,8 +20,8 @@ public class Event extends Task {
      * Creates an event task.
      *
      * @param description Description of the event
-     * @param from Start time as a string in format "d/M/yyyy HHmm" 
-     * @param to End time as a string in format "d/M/yyyy HHmm" 
+     * @param from        Start time as a string in format "d/M/yyyy HHmm"
+     * @param to          End time as a string in format "d/M/yyyy HHmm"
      */
     public Event(String description, String from, String to) throws ByteException {
         super(description);
