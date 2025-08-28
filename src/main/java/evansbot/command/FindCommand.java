@@ -1,0 +1,55 @@
+package evansbot.command;
+
+import evansbot.task.Storage;
+import evansbot.task.Task;
+import evansbot.task.TaskList;
+import evansbot.ui.Ui;
+
+import java.util.ArrayList;
+
+/**
+ * Finds and lists tasks that contain a specific keyword in their description.
+ * The search is case-insensitive.
+ */
+public class FindCommand extends Command {
+    private final String keyword;
+
+    /**
+     * Constructs a FindCommand with the specified keyword.
+     *
+     * @param keyword Keyword to search for in task descriptions.
+     */
+    public FindCommand(String keyword) {
+        this.keyword = keyword;
+    }
+
+    /**
+     * Executes the find command on the given TaskList.
+     * Searches for tasks whose description contains the keyword and prints
+     * them to the console. If no tasks match, a message is displayed.
+     *
+     * @param tasks   TaskList containing all tasks.
+     * @param ui      UI instance used to interact with the user.
+     * @param storage Storage instance used for persisting tasks (not modified here).
+     */
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        ArrayList<Task> allTasks = tasks.getTasks();
+        ArrayList<Task> matched = new ArrayList<>();
+
+        for (Task task : allTasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matched.add(task);
+            }
+        }
+
+        if (matched.isEmpty()) {
+            System.out.println("No matching tasks found for \"" + keyword + "\".");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matched.size(); i++) {
+                System.out.println((i + 1) + "." + matched.get(i));
+            }
+        }
+    }
+}

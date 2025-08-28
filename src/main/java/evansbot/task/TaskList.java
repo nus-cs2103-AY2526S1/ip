@@ -125,6 +125,14 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**Returns the list of tasks in an ArrayList.
+     *
+     * @return The list of tasks in an ArrayList.
+     */
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
+
     /**
      * Saves the current task list to storage.
      */
