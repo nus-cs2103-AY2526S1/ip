@@ -8,16 +8,19 @@ public class InputProcessor {
     // Declare fields
     private List<Task> listOfTasks;
     private Ui ui;
+    private Storage storage;
 
     /**
      * Constructs a new {@code InputProcessor} object with the task list and the UI object.
      * This constructor initializes the object's internal state based on the provided parameters.
      *
-     * @param ui          The UI object.
+     * @param ui
+     * @param storage
      */
-    public InputProcessor(Ui ui) {
+    public InputProcessor(Ui ui, Storage storage) {
         this.listOfTasks = new ArrayList<>();
         this.ui = ui;
+        this.storage = storage;
     }
 
     /**

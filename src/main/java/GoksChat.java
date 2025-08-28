@@ -3,7 +3,8 @@
 /// @author Ravichandran Gokul
 public class GoksChat {
     private static Ui ui = new Ui();
-    private static InputProcessor inputProcessor = new InputProcessor(ui);
+    private static Storage storage = new Storage("data/gokschat.txt");
+    private static InputProcessor inputProcessor = new InputProcessor(ui, storage);
 
     public static void main(String[] args) throws InvalidPromptException, TodoException {
         ui.printWelcomeMessage();
