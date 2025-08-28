@@ -1,12 +1,35 @@
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class UserInterface {
     private static final String line = "____________________________________________________________";
     private final ArrayList<Task> task;
     private Integer count = 0;
+    private final Storage storage;
 
     public UserInterface() {
-        task = new ArrayList<>(100);
+        this.task = new ArrayList<>(100);
+        this.storage = new Storage();
+    }
+
+    public void load() throws PhucException {
+        try {
+            task.clear();
+            for (Task t : storage.load()) {
+                task.add(t);
+            }
+            count = task.size();
+        } catch (IOException e) {
+            throw new PhucException("Failed to load tasks: " + e.getMessage());
+        }
+    }
+
+    public void saveToStorage() throws PhucException {
+        try {
+            storage.save(task);
+        } catch (IOException e) {
+            throw new PhucException("Failed to save tasks: " + e.getMessage());
+        }
     }
 
     public int numTasks() {
@@ -32,7 +55,7 @@ public class UserInterface {
         String temp = "Here are the tasks in your list:\n";
         for(int i=0; i<count; i++) {
             temp += Integer.toString(i+1) + ". ";
-            temp += task.get(i).printTask() + "\n";
+            temp += task.get(i) + "\n";
         }
 
         System.out.println(line);
@@ -43,13 +66,13 @@ public class UserInterface {
     public void mark(String num) {
         int id = Integer.parseInt(num)-1;
         task.get(id).setDone();
-        print("Nice! I've marked this task as done:\n" + task.get(id).printTask());
+        print("Nice! I've marked this task as done:\n" + task.get(id));
     }
 
     public void unMark(String num) {
         int id = Integer.parseInt(num)-1;
         task.get(id).setNotDone();
-        print("OK, I've marked this task as not done yet:\n" + task.get(id).printTask());
+        print("OK, I've marked this task as not done yet:\n" + task.get(id));
     }
 
     public String notiNumOfTasks() {
@@ -62,21 +85,21 @@ public class UserInterface {
 
     public void toDo(String newtask) {
         task.add(new ToDoTask(newtask));
-        String temp = notiAddTasks() + task.get(count).printTask() + "\n" + this.notiNumOfTasks();
+        String temp = notiAddTasks() + task.get(count) + "\n" + this.notiNumOfTasks();
         print(temp);
         count++;
     }
 
     public void deadline(String newtask, String deadline) {
         task.add(new DeadlineTask(newtask, deadline));
-        String temp = notiAddTasks() + task.get(count).printTask() + "\n" + this.notiNumOfTasks();
+        String temp = notiAddTasks() + task.get(count) + "\n" + this.notiNumOfTasks();
         print(temp);
         count++;
     }
 
     public void event(String newtask, String from, String to) {
         task.add(new EventTask(newtask, from, to));
-        String temp = notiAddTasks() + task.get(count).printTask() + "\n" + this.notiNumOfTasks();
+        String temp = notiAddTasks() + task.get(count) + "\n" + this.notiNumOfTasks();
         print(temp);
         count++;
     }
@@ -84,7 +107,7 @@ public class UserInterface {
     public void delete(String num) {
         count-=2;
         String temp = "Noted. I've removed this task:\n" +
-                    task.get(Integer.parseInt(num)-1).printTask() + "\n" +
+                    task.get(Integer.parseInt(num)-1) + "\n" +
                     this.notiNumOfTasks();
         task.remove(Integer.parseInt(num)-1);
         print(temp);

@@ -9,6 +9,7 @@ public class Phuc {
 
     public void run() throws PhucException {
         pi.start();
+        pi.load();
 
         Scanner sc = new Scanner(System.in);
 

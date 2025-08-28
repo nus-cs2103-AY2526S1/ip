@@ -1,16 +1,19 @@
 public class ProcessInput {
-    UserInterface Ui = new UserInterface();
+    private final UserInterface ui = new UserInterface();
 
     public ProcessInput() {
-
     }
 
     public void start() {
-        Ui.sayHello();
+        ui.sayHello();
     }
 
     public void end() {
-        Ui.sayGoodbye();
+        ui.sayGoodbye();
+    }
+
+    public void load() throws PhucException {
+        ui.load();
     }
 
     public void process(String input) throws PhucException {
@@ -19,78 +22,61 @@ public class ProcessInput {
         String arg = words.length > 1 ? words[1] : "";
 
         switch (command) {
-            case "delete":
-                if (arg.isEmpty() || Integer.parseInt(arg) <= 0 || Integer.parseInt(arg) > Ui.numTasks()) {
-                    throw new PhucException("Please enter a number between 1 and " + (Ui.numTasks() - 1) +  " (T_T)");
-                }
-
-                Ui.delete(arg);
-                break;
-
-            case "event":
-                if (arg.isEmpty()) {
-                    throw new PhucException("Hold on — an event needs a description. Please type something after 'todo'（>﹏<）");
-                }
-
-                String[] tempwords = arg.split(" /from ", 2);
-
-                if (tempwords.length != 2) {
-                    throw new PhucException("Oops! An event must include both a start and an end time — don’t forget to add it (ಥ_ಥ)");
-                }
-
-                String[] day = tempwords[1].split(" /to ", 2);
-
-                if(day.length != 2) {
-                    throw new PhucException("Oops! An event must include both a start and an end time — don’t forget to add it (ಥ_ಥ)");
-                }
-
-                Ui.event(tempwords[0], day[0], day[1]);
-                break;
-
-            case "deadline":
-                if (arg.isEmpty()) {
-                    throw new PhucException("Hold on — a deadline needs a description. Please type something after 'todo'（>﹏<）");
-                }
-
-                String[] tempword = arg.split(" /by ", 2);
-
-                if(tempword.length < 2) {
-                    throw new PhucException("Oops! A deadline must include a date and time — don’t forget to add it (ಥ_ಥ)");
-                }
-
-                Ui.deadline(tempword[0], tempword[1]);
-                break;
-
-            case "todo":
-                if (arg.isEmpty()) {
-                    throw new PhucException("Hold on — a todo needs a description. Please type something after 'todo'（>﹏<）");
-                }
-
-                Ui.toDo(arg);
-                break;
-
-            case "list":
-                Ui.list();
-                break;
-
-            case "unmark":
-                if (arg.isEmpty() || Integer.parseInt(arg) <= 0 || Integer.parseInt(arg) > Ui.numTasks()) {
-                    throw new PhucException("Please enter a number between 1 and " + (Ui.numTasks() - 1) +  " (T_T)");
-                }
-
-                Ui.unMark(arg);
-                break;
-
-            case "mark":
-                if (arg.isEmpty() || Integer.parseInt(arg) <= 0 || Integer.parseInt(arg) > Ui.numTasks()) {
-                    throw new PhucException("Please enter a number between 1 and " + (Ui.numTasks() - 1) +  " (T_T)");
-                }
-
-                Ui.mark(arg);
-                break;
-
-            default:
-                throw new PhucException("I don’t understand that command. Please try another command! ༼☯﹏☯༽");
+        case "delete":
+            handleDelete(arg);
+            break;
+        case "event":
+            handleEvent(arg);
+            break;
+        case "deadline":
+            handleDeadline(arg);
+            break;
+        case "todo":
+            handleTodo(arg);
+            break;
+        case "unmark":
+            handleUnmark(arg);
+            break;
+        case "mark":
+            handleMark(arg);
+            break;
+        case "list":
+            ui.list();
+            break;
+        default:
+            throw new PhucException(ErrorHandler.ERROR_UNKNOWN_COMMAND);
         }
+
+        ui.saveToStorage();
+    }
+
+    private void handleDelete(String arguments) throws PhucException {
+        ErrorHandler.validateTaskIndex(arguments, ui.numTasks());
+        ui.delete(arguments);
+    }
+
+    private void handleEvent(String arguments) throws PhucException {
+        String[] eventArg = ErrorHandler.validateEventFormat(arguments);
+        ui.event(eventArg[0], eventArg[1], eventArg[2]);
+    }
+
+    private void handleDeadline(String arguments) throws PhucException {
+        String[] deadlineArg = ErrorHandler.validateDeadlineFormat(arguments);
+        ui.deadline(deadlineArg[0], deadlineArg[1]);
+    }
+
+    private void handleTodo(String arguments) throws PhucException {
+        ErrorHandler.validateDescription(arguments, "todo", "todo");
+        ui.toDo(arguments);
+    }
+
+    private void handleUnmark(String arguments) throws PhucException {
+        ErrorHandler.validateTaskIndex(arguments, ui.numTasks());
+        ui.unMark(arguments);
+    }
+
+    private void handleMark(String arguments) throws PhucException {
+        ErrorHandler.validateTaskIndex(arguments, ui.numTasks());
+        ui.mark(arguments);
     }
 }
