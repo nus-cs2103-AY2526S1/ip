@@ -5,6 +5,10 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
     }
+    public Deadline(String description, boolean isDone, String by) {
+        super(description, isDone);
+        this.by = by;
+    }
 
     @Override 
     protected String kind() { 
@@ -14,5 +18,9 @@ public class Deadline extends Task {
     @Override 
     public String toString() {
         return kind() + status() + " " + super.description + " (by: " + by + ")";
+    }
+    @Override
+    public String toSaveFormat() {
+        return String.format("D | %d | %s | %s", isDone() ? 1 : 0, description, by);
     }
 }
