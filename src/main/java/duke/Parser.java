@@ -1,6 +1,7 @@
 /**
  * Deals with making sense of the user command.
  */
+package duke;
 public class Parser {
 
     /**

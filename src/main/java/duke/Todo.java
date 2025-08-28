@@ -1,3 +1,4 @@
+package duke;
 /**
  * Represents a todo task with a description.
  * Inherits from Task class.

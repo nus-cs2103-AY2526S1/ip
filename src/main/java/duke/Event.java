@@ -2,6 +2,7 @@
  * Represents an event task with a specific start and end time.
  * Inherits from Task class and adds event timing information.
  */
+package duke;
 public class Event extends Task {
     /** The start time of the event */
     public String from;

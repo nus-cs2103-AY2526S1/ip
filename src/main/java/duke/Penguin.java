@@ -2,6 +2,7 @@
  * Penguin chatbot that manages a list of user tasks.
  * Uses OOP design with separate classes for UI, Storage, Parser, and TaskList.
  */
+package duke;
 public class Penguin {
     
     private Storage storage;
