@@ -1,5 +1,8 @@
 package evansbot.task;
 
+import evansbot.Exceptions.InvalidTaskIndexException;
+import evansbot.Exceptions.InvalidTodoException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -38,7 +41,10 @@ public class TaskList {
     }
 
     //marking the task
-    public void markTask(int index) {
+    public void markTask(int index) throws InvalidTaskIndexException {
+        if (index < 1 || index > tasks.size()) {
+            throw new InvalidTaskIndexException(tasks.size());
+        }
         Task task = tasks.get(index - 1);
         task.markAsDone();
         save();
@@ -49,7 +55,10 @@ public class TaskList {
     }
 
     //unmarking the task
-    public void unmarkTask(int index) {
+    public void unmarkTask(int index) throws InvalidTaskIndexException {
+        if (index < 1 || index > tasks.size()) {
+            throw new InvalidTaskIndexException(tasks.size());
+        }
         Task task = tasks.get(index - 1);
         task.unmarkDone();
         save();

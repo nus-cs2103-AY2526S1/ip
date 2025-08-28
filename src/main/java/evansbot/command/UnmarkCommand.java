@@ -14,6 +14,10 @@ public class UnmarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidTaskIndexException {
-        tasks.unmarkTask(index);
+        try {
+            tasks.unmarkTask(index);
+        } catch (InvalidTaskIndexException e) {
+            ui.showError("Invalid task number! Please enter a number between 1 and " + e.getMaxIndex());
+        }
     }
 }

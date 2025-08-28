@@ -17,11 +17,11 @@ public class EvansBot {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            ArrayList<Task> loadedTasks = storage.load(); // evansbot.task.Storage returns ArrayList<evansbot.task.Task>
-            tasks = new TaskList(storage, loadedTasks); // wrap in evansbot.task.TaskList
+            ArrayList<Task> loadedTasks = storage.load();
+            tasks = new TaskList(storage, loadedTasks);
         } catch (IOException e) {
             ui.showError("Could not load save file, starting with empty list.");
-            tasks = new TaskList(storage); // empty evansbot.task.TaskList with storage reference
+            tasks = new TaskList(storage);
         }
     }
 
@@ -32,9 +32,9 @@ public class EvansBot {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand(); // read user input
-                Command command = Parser.parse(fullCommand); // parse into evansbot.command.Command
-                command.execute(tasks, ui, storage); // execute command
-                isExit = command.isExit(); // check if it was evansbot.command.ExitCommand
+                Command command = Parser.parse(fullCommand);
+                command.execute(tasks, ui, storage);
+                isExit = command.isExit();
             } catch (EvansBotException e) {
                 ui.showError(e.getMessage());
             }
