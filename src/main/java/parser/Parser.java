@@ -9,6 +9,7 @@ import commands.ListCommand;
 import commands.MarkCommand;
 import commands.UnmarkCommand;
 import commands.DeleteCommand;
+import commands.FindCommand;
 
 import exception.RainyException;
 
@@ -81,6 +82,12 @@ public class Parser {
             }
             int deleteIndex = Integer.parseInt(words[1]) - 1;
             return new DeleteCommand(deleteIndex);
+
+        case "find":
+            if (words.length < 2) {
+                throw new RainyException("oh no!!! please specify a keyword to search.");
+            }
+            return new FindCommand(words[1].trim());
 
         default:
             throw new RainyException("oh no!!! idk what that means... :-(");

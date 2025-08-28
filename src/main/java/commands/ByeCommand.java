@@ -1,6 +1,5 @@
 package commands;
 
-import exception.RainyException;
 import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
