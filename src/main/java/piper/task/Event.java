@@ -11,6 +11,7 @@ public class Event extends Task {
         this.to = to;
     }
 
+    @Override
     public String getTaskType() {
         return taskType;
     }
@@ -18,6 +19,12 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[" + taskType + "]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+
+    @Override
+    public String toSerializedLine() {
+        String doneField = getStatusIcon().equals("X") ? "1" : "0";
+        return "E | " + doneField + " | " + this.getDescription() + " | " + this.from + " | " + this.to;
     }
 
 }

@@ -6,13 +6,13 @@ import piper.task.Task;
 import piper.task.Todo;
 import piper.task.Deadline;
 import piper.task.Event;
-import piper.PiperException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Piper {
     private static final String DATA_DIR = "data";
@@ -39,7 +39,7 @@ public class Piper {
                 if (line == null || line.isEmpty()) {
                     continue;
                 }
-                String[] substrings = line.split(" | ", 5);
+                String[] substrings = line.split(" \\| ", 5);
                 String taskType = substrings[0];
                 String doneField = substrings[1];
                 String description = substrings[2];
@@ -120,6 +120,8 @@ public class Piper {
                                     break;
                             }
 
+                            saveAll(tasks);
+
                             ui.showTaskStatus(task);
                         } catch (Exception e) {
                             // task index is outside of array range
@@ -134,6 +136,9 @@ public class Piper {
                             Task task = tasks.getTask(index);
 
                             tasks.deleteTask(index);
+
+                            saveAll(tasks);
+
                             ui.showDeletedTask(task);
                             ui.getTasksSize(tasks);
                         } catch (Exception e) {
@@ -190,6 +195,9 @@ public class Piper {
                         }
 
                         tasks.addTask(task);
+
+                        saveAll(tasks);
+
                         ui.showAddedTask(task);
                         ui.getTasksSize(tasks);
                     } else {
@@ -203,4 +211,21 @@ public class Piper {
         }
         ui.close();
     }
+
+    private static String serialize(Task task) {
+        return task.toSerializedLine();
+    }
+
+    private static void saveAll(TaskList tasks) throws PiperException {
+        try {
+            List<String> out = new ArrayList<>();
+            for (int i = 0; i < tasks.getSize(); i++) {
+                out.add(serialize(tasks.getTask(i)));
+            }
+            Files.write(SAVE_PATH, out, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new PiperException("SQUAWK! Can't seem to write tasks to " + SAVE_PATH + ": " + e.getMessage());
+        }
+    }
+
 }
