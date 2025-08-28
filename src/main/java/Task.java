@@ -23,6 +23,14 @@ public abstract class Task {
         return this;
     }
 
+    public String exportString() {
+        return String.format(
+            "%d | %s",
+            (this.isDone) ? 1 : 0,
+            this.description
+        );
+    }
+
     @Override
     public String toString() {
         return String.format(
