@@ -28,7 +28,8 @@ public class Sam {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        List<Task> tasks = new ArrayList<>();
+        Storage storage = new Storage("./data/duke.txt");
+        ArrayList<Task> tasks = storage.load();
 
         System.out.println("____________________________________________________________");
         System.out.println(" Hello! I'm Sam");
@@ -64,6 +65,7 @@ public class Sam {
                     case MARK: {
                         int idx = parseIndex(rest, tasks.size());
                         tasks.get(idx).markDone();
+                        storage.save(tasks);
                         System.out.println("____________________________________________________________");
                         System.out.println(" Nice! I've marked this task as done:");
                         System.out.println(" " + tasks.get(idx));
@@ -74,6 +76,7 @@ public class Sam {
                     case UNMARK: {
                         int idx = parseIndex(rest, tasks.size());
                         tasks.get(idx).unmark();
+                        storage.save(tasks);
                         System.out.println("____________________________________________________________");
                         System.out.println(" OK, I've marked this task as not done yet:");
                         System.out.println(" " + tasks.get(idx));
@@ -84,6 +87,7 @@ public class Sam {
                     case DELETE: {
                         int idx = parseIndex(rest, tasks.size());
                         Task removed = tasks.remove(idx);
+                        storage.save(tasks);
                         System.out.println("____________________________________________________________");
                         System.out.println(" Noted. I've removed this task:");
                         System.out.println(" " + removed);
@@ -95,6 +99,7 @@ public class Sam {
                     case TODO: {
                         if (rest.isEmpty()) throw new EmptyDescriptionException("todo");
                         tasks.add(new Todo(rest));
+                        storage.save(tasks);
                         printAdded(tasks.get(tasks.size() - 1), tasks.size());
                         break;
                     }
@@ -107,6 +112,7 @@ public class Sam {
                         if (descr.isEmpty() || by.isEmpty())
                             throw new SamException("OOPS!!! Use: deadline <description> /by <time>");
                         tasks.add(new Deadline(descr, by));
+                        storage.save(tasks);
                         printAdded(tasks.get(tasks.size() - 1), tasks.size());
                         break;
                     }
@@ -120,6 +126,7 @@ public class Sam {
                         if (descr.isEmpty() || from.isEmpty() || to.isEmpty())
                             throw new SamException("OOPS!!! Use: event <description> /from <start> /to <end>");
                         tasks.add(new Event(descr, from, to));
+                        storage.save(tasks);
                         printAdded(tasks.get(tasks.size() - 1), tasks.size());
                         break;
                     }
