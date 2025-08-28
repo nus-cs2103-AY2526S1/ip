@@ -1,3 +1,7 @@
+package sam.ui;
+
+import sam.Task;
+
 public class Ui {
     public void showWelcome() {
         System.out.println("____________________________________________________________");
