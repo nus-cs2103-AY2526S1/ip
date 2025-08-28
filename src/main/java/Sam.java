@@ -14,9 +14,9 @@ public class Sam {
 
         while (true) {
             String input = sc.nextLine().trim();
-            String[] parts = input.split("\\s+", 2);
-            String verb = parts[0].toLowerCase();
-            String rest = (parts.length > 1) ? parts[1].trim() : "";
+            String[] parsed = Parser.parse(input);
+            String verb = parsed[0];
+            String rest = parsed[1];
 
             try {
                 switch (Command.of(verb)) {
