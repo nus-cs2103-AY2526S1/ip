@@ -19,6 +19,15 @@ public class Jackbot {
                   + "Now you have " + tasklist.size() + " tasks in the list.");
     }
 
+    // Helper function to handle empty description
+    private static boolean checkDescription(String description) {
+        if (description.length() == 0) {
+          printFramed("ERROR: Task description cannot be empty");
+          return false;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -40,26 +49,61 @@ public class Jackbot {
                 }
                 printFramed(sb.toString());
             } else if (input.toLowerCase().startsWith("mark ")) {
-                Integer idx = Integer.parseInt(input.substring(5).trim());
-                Task task = tasklist.get(idx - 1);
+                Integer idx;
+
+                // Parse index number
+                try {
+                  idx = Integer.parseInt(input.substring(5).trim());
+                } catch (Exception e) {
+                  printFramed("ERROR: Failed to parse task index number");
+                  continue;
+                }
+
+                Task task;
+                try {
+                  task = tasklist.get(idx - 1);
+                } catch (Exception e) {
+                  printFramed("ERROR: Task not found");
+                  continue;
+                }
+
                 task.mark();
                 printFramed("Nice, I've marked this task as done:\n"
                           + "  " + task);
             } else if (input.toLowerCase().startsWith("unmark ")) {
-                Integer idx = Integer.parseInt(input.substring(7).trim());
-                Task task = tasklist.get(idx - 1);
+                Integer idx;
+                try {
+                  idx = Integer.parseInt(input.substring(5).trim());
+                } catch (Exception e) {
+                  printFramed("ERROR: Failed to parse task index number");
+                  continue;
+                }
+
+
+                Task task;
+                try {
+                  task = tasklist.get(idx - 1);
+                } catch (Exception e) {
+                  printFramed("ERROR: Task not found");
+                  continue;
+                }
                 task.unmark();
                 printFramed("OK, I've marked this task as not done:\n"
                           + "  " + task);
             } else if (input.toLowerCase().startsWith("todo ")) {
                 input = input.substring(5);
+                if (!checkDescription(input)) continue;
                 addTask(tasklist, new Todo(input));
             } else if (input.toLowerCase().startsWith("deadline ")) {
                 input = input.substring(9);
+                if (!checkDescription(input)) continue;
                 addTask(tasklist, new Deadline(input));
             } else if (input.toLowerCase().startsWith("event ")) {
                 input = input.substring(6);
+                if (!checkDescription(input)) continue;
                 addTask(tasklist, new Event(input));
+            } else {
+                printFramed("ERROR: Command doesn't exist");
             }
         }
 
