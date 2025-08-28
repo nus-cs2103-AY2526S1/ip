@@ -17,6 +17,9 @@ public class Todo extends Task {
         super(description);
     }
 
+    /**
+     * Returns the string representation prefixed with [T].
+     */
     @Override
     public String toString() {
         return "[T]" + super.toString();

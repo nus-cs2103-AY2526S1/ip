@@ -9,13 +9,20 @@ import bytebot.ByteException;
 import java.io.IOException;
 
 /**
- * Entry point for the ByteBot
+ * Entry point for the ByteBot application.
+ * <p>
+ * This class combines together the {@link Ui}, {@link Storage}, and parser/command
+ * components
  */
 public class ByteBot {
     private final Ui ui;
     private final Storage storage;
     
 
+    /**
+     * Creates a new Bytebot instance, initializing the UI and 
+     * storage.
+     */
     public ByteBot() {
         this.ui = new Ui();
         this.storage = new Storage();
@@ -29,6 +36,10 @@ public class ByteBot {
         
     }
 
+    /**
+     * Runs the main event loop: reads user input, parses it into a command,
+     * Executes the command, and repeats until an exit command is issued.
+     */
     public void run() {
         ui.showGreeting();
         boolean isExit = false;
@@ -45,6 +56,11 @@ public class ByteBot {
         ui.closeScanner();
     }
 
+    /**
+     * Application entry point.
+     *
+     * @param args CLI arguments 
+     */
     public static void main(String[] args) {
         new ByteBot().run();
     }

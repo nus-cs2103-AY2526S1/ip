@@ -1,13 +1,13 @@
 package bytebot;
 
 /**
- * Represents errors in the Byte chatbot.
+ * Represents errors in the Bytebot.
  */
 public class ByteException extends Exception {
 
     /**
      * Creates a new ByteException with the given message.
-     * The message is prefixed with "OOPS!!! " as per UI spec.
+     * The message is prefixed with "Bzzz!!! " for bytebot
      *
      * @param message error details
      */

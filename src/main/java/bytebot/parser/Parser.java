@@ -11,8 +11,18 @@ import bytebot.command.MarkCommand;
 import bytebot.command.UnmarkCommand;
 import bytebot.command.DeleteCommand;
 
+/**
+ * Parses raw user input into Command instances.
+ */
 public class Parser {
 
+    /**
+     * Splits options into up to 3 segments by switches (e.g., /by, /from, /to).
+     * The first segment is considered free; subsequent segments follow each switch.
+     *
+     * @param options Tokenized input string
+     * @return Array of up to 3 segments: description, first option, second option
+     */
     private static String[] parseSegments(String[] options) {
         String[] segments = new String[3];
         StringBuilder currentSegment = new StringBuilder();
@@ -38,6 +48,13 @@ public class Parser {
         return segments;
     }
 
+    /**
+     * Parses a user input line into a Command.
+     *
+     * @param input Raw user input
+     * @return A concrete command corresponding to the input
+     * @throws ByteException If the input is invalid
+     */
     public static Command parse(String input) throws ByteException {
         String[] parts = input.split(" ", 2);
         String keyword = parts[0];
