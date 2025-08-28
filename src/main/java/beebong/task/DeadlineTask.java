@@ -7,9 +7,18 @@ import beebong.exception.InvalidSerializedTaskDataException;
 import beebong.util.DateTimeUtil;
 import beebong.util.StringUtil;
 
+/**
+ * Represents a task with a specific deadline.
+ */
 public class DeadlineTask extends Task {
     private LocalDateTime deadline;
 
+    /**
+     * Creates a new incomplete deadline task.
+     *
+     * @param name     the name of the task.
+     * @param deadline the deadline of the task.
+     */
     public DeadlineTask(String name, LocalDateTime deadline) {
         super(name);
         this.deadline = deadline;
@@ -31,12 +40,22 @@ public class DeadlineTask extends Task {
         this.deadline = deadline;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String serializeTask() {
         return "D" + Task.SAVE_DELIMITER + super.serializeTask()
                 + Task.SAVE_DELIMITER + StringUtil.encode(DateTimeUtil.toSerializedString(this.deadline));
     }
 
+    /**
+     * Deserializes a string back into a {@link DeadlineTask}.
+     *
+     * @param taskStr the serialized task string.
+     * @return the corresponding {@link DeadlineTask} object.
+     * @throws InvalidSerializedTaskDataException If taskStr is invalid.
+     */
     public static DeadlineTask deserializeTask(String taskStr) throws InvalidSerializedTaskDataException {
         // -1 limit allows for empty strings
         String[] taskData = taskStr.split(Task.SAVE_DELIMITER, -1);

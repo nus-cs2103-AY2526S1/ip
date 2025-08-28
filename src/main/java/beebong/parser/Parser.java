@@ -17,14 +17,31 @@ import beebong.command.HelpCommand;
 import beebong.command.ListAllTasksCommand;
 import beebong.command.NullCommand;
 // Import Exceptions
-import beebong.exception.BBongException;
 import beebong.exception.InvalidTaskDetailsException;
 import beebong.exception.InvalidDateException;
+import beebong.exception.UnknownCommandException;
 // Import Utils
 import beebong.util.DateTimeUtil;
 
+/**
+ * Handles the parsing of user input into executable {@link Command}.
+ */
 public class Parser {
-    public Command parseCommand(String input) throws BBongException {
+
+    /**
+     * Parses a user input string into a {@link Command}.
+     * <p>
+     * This method identifies the command keyword in the user input and
+     * then parses the user input into its respective command.
+     * </p>
+     *
+     * @param input the string representing user input.
+     * @return the parsed {@link Command}.
+     * @throws UnknownCommandException If input is not a valid command.
+     * @throws InvalidTaskDetailsException If input does not contain valid details for the command.
+     * @throws InvalidDateException If input does not provide properly formatted dates.
+     */
+    public Command parseCommand(String input) throws UnknownCommandException, InvalidTaskDetailsException, InvalidDateException {
         // Check for Commands
         String[] commandParts = input.split(" ", 2);
         CommandKeyword command;

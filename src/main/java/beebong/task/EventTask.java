@@ -7,10 +7,20 @@ import beebong.exception.InvalidSerializedTaskDataException;
 import beebong.util.DateTimeUtil;
 import beebong.util.StringUtil;
 
+/**
+ * Represents a task that occurs within a specific time range (start and end).
+ */
 public class EventTask extends Task {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
+    /**
+     * Creates a new incomplete event task.
+     *
+     * @param name      the name of the task.
+     * @param startDate the start time of the event.
+     * @param endDate   the end time of the event.
+     */
     public EventTask(String name, LocalDateTime startDate, LocalDateTime endDate) {
         super(name);
         this.startDate = startDate;
@@ -42,6 +52,9 @@ public class EventTask extends Task {
         this.endDate = endDate;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String serializeTask() {
         return "E" + SAVE_DELIMITER + super.serializeTask()
@@ -49,6 +62,13 @@ public class EventTask extends Task {
                 + SAVE_DELIMITER + StringUtil.encode(DateTimeUtil.toSerializedString(this.endDate));
     }
 
+    /**
+     * Deserializes a string back into an {@link EventTask}.
+     *
+     * @param taskStr the serialized task string.
+     * @return the corresponding {@link EventTask} object.
+     * @throws InvalidSerializedTaskDataException If taskStr is invalid.
+     */
     public static EventTask deserializeTask(String taskStr) throws InvalidSerializedTaskDataException {
         // -1 limit allows for empty strings
         String[] taskData = taskStr.split(SAVE_DELIMITER, -1);
