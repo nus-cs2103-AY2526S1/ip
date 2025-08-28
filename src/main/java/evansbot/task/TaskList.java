@@ -6,20 +6,40 @@ import evansbot.Exceptions.InvalidTodoException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks that can be added, listed, marked as done, unmarked, or deleted.
+ * Handles saving the task list to persistent storage after each modification.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
     private Storage storage;
 
+    /**
+     * Constructs an empty TaskList with a given storage.
+     *
+     * @param storage Storage used to persist tasks.
+     */
     public TaskList(Storage storage) {
         this.tasks = new ArrayList<>();
         this.storage = storage;
     }
 
+    /**
+     * Constructs a TaskList with pre-existing tasks and storage.
+     *
+     * @param storage Storage used to persist tasks.
+     * @param tasks Initial list of tasks.
+     */
     public TaskList(Storage storage, ArrayList<Task> tasks) {
         this.tasks = tasks;
         this.storage = storage;
     }
-    //addition of tasks
+
+    /**
+     * Adds a task to the task list and saves the updated list.
+     *
+     * @param task Task to be added.
+     */
     public void addTask(Task task) {
         tasks.add(task);
         save();
@@ -30,7 +50,9 @@ public class TaskList {
         System.out.println("############################################################");
     }
 
-    //list all task out
+    /**
+     * Lists all tasks in the task list to the user.
+     */
     public void listTasks() {
         System.out.println("############################################################");
         System.out.println("Here are the tasks in your list");
@@ -40,7 +62,12 @@ public class TaskList {
         System.out.println("############################################################");
     }
 
-    //marking the task
+    /**
+     * Marks a task as done based on the provided 1-based index.
+     *
+     * @param index 1-based index of the task to mark as done.
+     * @throws InvalidTaskIndexException If the index is out of range.
+     */
     public void markTask(int index) throws InvalidTaskIndexException {
         if (index < 1 || index > tasks.size()) {
             throw new InvalidTaskIndexException(tasks.size());
@@ -54,7 +81,12 @@ public class TaskList {
         System.out.println("############################################################");
     }
 
-    //unmarking the task
+    /**
+     * Unmarks a task as done based on the provided 1-based index.
+     *
+     * @param index 1-based index of the task to unmark.
+     * @throws InvalidTaskIndexException If the index is out of range.
+     */
     public void unmarkTask(int index) throws InvalidTaskIndexException {
         if (index < 1 || index > tasks.size()) {
             throw new InvalidTaskIndexException(tasks.size());
@@ -68,6 +100,12 @@ public class TaskList {
         System.out.println("############################################################");
     }
 
+    /**
+     * Deletes a task from the task list based on the provided 1-based index
+     * and saves the updated list.
+     *
+     * @param index 1-based index of the task to delete.
+     */
     public void deleteTask(int index) {
         Task task = tasks.get(index - 1);
         System.out.println("############################################################");
@@ -79,10 +117,18 @@ public class TaskList {
         save();
     }
 
+    /**
+     * Returns the number of tasks currently in the task list.
+     *
+     * @return Number of tasks in the list.
+     */
     public int getCount() {
         return tasks.size();
     }
 
+    /**
+     * Saves the current task list to storage.
+     */
     private void save() {
         try {
             storage.save(tasks);
