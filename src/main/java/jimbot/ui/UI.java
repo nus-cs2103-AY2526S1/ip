@@ -76,10 +76,10 @@ public class UI {
         }
 
         for (int i = 0; i < maxLength + 6 ; i++) box += "─";
-        String topBorder = "           ┌" + box + "┐\n";
+        String topBorder = "            ┌" + box + "┐\n";
         String bottomBorder = " ─┴" + box + "┘\n";
-        String header = "           │ Got it. I've added this task:";
-        String closer = "           │ Now you have " + taskCount + " tasks in the list!";
+        String header = "            │ Got it. I've added this task:";
+        String closer = "            │ Now you have " + taskCount + " tasks in the list!";
 
         String padding1 = "  ";
         for (int i = 0; i < maxLength - 25; i++) padding1 += " ";
@@ -94,7 +94,7 @@ public class UI {
 
         System.out.println(topBorder +
                 header + padding1 + "│\n" +
-                "           │     " + task + padding2 + "│\n" +
+                "            │     " + task + padding2 + "│\n" +
                 closer + padding3 + "│\n" +
                 " (￣^￣)ゞ" + bottomBorder
         );
@@ -148,6 +148,34 @@ public class UI {
             }
         }
 
+        String listContent = getString(list, taskCount, maxLength);
+
+        String header;
+        if (isToday) {
+            for (int i = 0; i < maxLength + 8; i++) box += "─";
+
+            header = "          │ Here are your tasks for today:";
+            int headerPadding = maxLength - 23;
+            for (int i = 0; i < headerPadding; i++) header += " ";
+
+        } else {
+            for (int i = 0; i < maxLength + 8; i++) box += "─";
+
+            header = "          │ Here are your tasks for that date:";
+            int headerPadding = maxLength - 27;
+            for (int i = 0; i < headerPadding; i++) header += " ";
+
+        }
+
+        String topBorder = "          ┌" + box + "┐\n";
+        String bottomBorder = " (・ω・)ノ└" + box + "┘";
+        header += " │";
+        System.out.println(topBorder +
+                header + listContent + "\n" +
+                bottomBorder);
+    }
+
+    private static String getString(List<Task> list, int taskCount, int maxLength) {
         String listContent = "";
         for (int i = 0; i < taskCount; i++) {
             Task task = list.get(i);
@@ -155,35 +183,12 @@ public class UI {
             String spaces = "";
             for (int j = 0; j < padding + 4; j++) spaces += " ";
             if (i <= 8) {
-                listContent += "\n         │ " + (i + 1) + ". " + task + spaces + " │";
+                listContent += "\n          │ " + (i + 1) + ". " + task + spaces + " │";
             } else {
-                listContent += "\n         │ " + (i + 1) + ". " + task + spaces + "│";
+                listContent += "\n          │ " + (i + 1) + ". " + task + spaces + "│";
             }
         }
-
-        String header;
-        if (isToday) {
-            for (int i = 0; i < maxLength + 8; i++) box += "─";
-
-            header = "         │ Here are your tasks for today:";
-            int headerPadding = maxLength - 23;
-            for (int i = 0; i < headerPadding; i++) header += " ";
-
-        } else {
-            for (int i = 0; i < maxLength + 8; i++) box += "─";
-
-            header = "         │ Here are your tasks for that date:";
-            int headerPadding = maxLength - 27;
-            for (int i = 0; i < headerPadding; i++) header += " ";
-
-        }
-
-        String topBorder = "         ┌" + box + "┐\n";
-        String bottomBorder = " (・ω・)ノ└" + box + "┘";
-        header += " │";
-        System.out.println(topBorder +
-                header + listContent + "\n" +
-                bottomBorder);
+        return listContent;
     }
 
     public void deleteTask(Task task, int taskCount) {
@@ -196,10 +201,10 @@ public class UI {
         }
 
         for (int i = 0; i < maxLength + 6 ; i++) box += "─";
-        String topBorder = "           ┌" + box + "┐\n";
+        String topBorder = "            ┌" + box + "┐\n";
         String bottomBorder = " ─┴" + box + "┘\n";
-        String header = "           │ Noted. I've removed this task:";
-        String closer = "           │ Now you have " + taskCount + " tasks in the list!";
+        String header = "            │ Noted. I've removed this task:";
+        String closer = "            │ Now you have " + taskCount + " tasks in the list!";
 
         String padding1 = "  ";
         for (int i = 0; i < maxLength - 26; i++) padding1 += " ";
@@ -214,7 +219,7 @@ public class UI {
 
         System.out.println(topBorder +
                 header + padding1 + "│\n" +
-                "           │     " + task + padding2 + "│\n" +
+                "            │     " + task + padding2 + "│\n" +
                 closer + padding3 + "│\n" +
                 " (￣^￣)ゞ" + bottomBorder
         );
