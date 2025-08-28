@@ -1,13 +1,10 @@
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 
 public class Storage {
@@ -22,7 +19,7 @@ public class Storage {
             return tasks;
         }
         try {
-            ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(pathy);;
+            ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(pathy);
             return TextTaskConverter.convertToTask(lines);
         } catch (FileNotFoundException e) {
             System.out.println("Could not retrieve tasks from file");
@@ -31,8 +28,6 @@ public class Storage {
             System.out.println(e.getMessage());
             return tasks;
         }
-
-
     }
 
     public void saveTasks(String path, ArrayList<Task> tasks) throws RomidasException {

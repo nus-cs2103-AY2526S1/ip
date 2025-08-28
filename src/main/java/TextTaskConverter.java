@@ -4,6 +4,9 @@ public class TextTaskConverter  {
     public static ArrayList<Task> convertToTask(ArrayList<String> lines) throws RomidasException {
         ArrayList<Task> tasks = new ArrayList<>();
         for (String line : lines){
+            if (line.trim().isEmpty()) {
+                continue; // Skip empty lines
+            }
             String[] parts = line.split("\\|");
             for (int i = 0; i < parts.length; i++) {
                 parts[i] = parts[i].strip();
