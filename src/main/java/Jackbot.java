@@ -31,11 +31,11 @@ public class Jackbot {
                 }
                 printFramed(sb.toString());
                 continue; // Don’t store "history"
+            } else { 
+                // Else, store input in history
+                history.add(input);
+                printFramed(input + "\n");
             }
-
-            // Else, store input in history
-            history.add(input);
-            printFramed(" " + input + "\n");
         }
 
         // End session
