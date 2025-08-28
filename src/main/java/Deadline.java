@@ -1,21 +1,26 @@
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
 // Deadline Task
 
 public class Deadline extends Task {
 
-    private String by;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    private LocalDateTime by;
 
     public Deadline(String description) {
         super(description.split("\\/by ", 2)[0]);
 
         String[] parts = description.split("\\/by ", 2);
 
-        this.by = parts[1];
+        this.by = LocalDateTime.parse(parts[1], formatter);
     }
 
     // Used for deserialization
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.by = LocalDateTime.parse(by);
     }
 
     @Override

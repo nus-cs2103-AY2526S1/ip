@@ -1,9 +1,14 @@
-// Deadline Task
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
+// Event Task
 
 public class Event extends Task {
 
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public Event(String description) {
         super(description.split("\\/from ", 2)[0]);
@@ -11,15 +16,15 @@ public class Event extends Task {
         String[] parts = description.split("\\/from ", 2);
         parts = parts[1].split("\\ /to ", 2);
 
-        this.from = parts[0];
-        this.to = parts[1];
+        this.from = LocalDateTime.parse(parts[0], formatter);
+        this.to = LocalDateTime.parse(parts[1], formatter);
     }
 
     // Used for deserialization
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from);
+        this.to = LocalDateTime.parse(to);
     }
 
     @Override
