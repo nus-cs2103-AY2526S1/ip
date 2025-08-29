@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Paul {
@@ -53,13 +54,17 @@ public class Paul {
             throw new PaulException("A deadline must have a description and a /by date!");
         }
 
-        LocalDate date = LocalDate.parse(str[1]);
-        Task task = new Deadline(str[0].trim(), date);
-        tasks.add(task);
-        storage.saveTasks(tasks);
+        try {
+            LocalDate date = LocalDate.parse(str[1]);
+            Task task = new Deadline(str[0].trim(), date);
+            tasks.add(task);
+            storage.saveTasks(tasks);
 
-        printOutput("Got it. I've added this task:\n" + task
-                + "\nNow you have " + tasks.size() + " tasks in the list.");
+            printOutput("Got it. I've added this task:\n" + task
+                    + "\nNow you have " + tasks.size() + " tasks in the list.");
+        } catch (DateTimeParseException e) {
+            throw new PaulException("/by must be in yyyy-mm-dd format! (e.g., 2019-10-15)");
+        }
     }
 
     private static void addEvent(String input) throws PaulException {
@@ -69,14 +74,18 @@ public class Paul {
             throw new PaulException("An event must have a description, /from, and /to!");
         }
 
-        LocalDate fromDate = LocalDate.parse(str[1]);
-        LocalDate toDate = LocalDate.parse(str[2]);
-        Task task = new Event(str[0].trim(), fromDate, toDate);
-        tasks.add(task);
-        storage.saveTasks(tasks);
+        try {
+            LocalDate fromDate = LocalDate.parse(str[1]);
+            LocalDate toDate = LocalDate.parse(str[2]);
+            Task task = new Event(str[0].trim(), fromDate, toDate);
+            tasks.add(task);
+            storage.saveTasks(tasks);
 
-        printOutput("Got it. I've added this task:\n" + task
-                + "\nNow you have " + tasks.size() + " tasks in the list.");
+            printOutput("Got it. I've added this task:\n" + task
+                    + "\nNow you have " + tasks.size() + " tasks in the list.");
+        } catch (DateTimeParseException e) {
+            throw new PaulException("/from and /to must be in yyyy-mm-dd format! (e.g., 2019-10-15)");
+        }
     }
 
     private static void markTask(String input) throws PaulException {
