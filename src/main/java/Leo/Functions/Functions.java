@@ -36,9 +36,10 @@ public class Functions {
      * @throws IndexOutOfBoundsException If index given is more than the list length.
      * @throws IOException If the file storing data cannot be found.
      * @throws DateTimeException If the date or time is given in the wrong format.
+     * @throws NumberFormatException If the input format is incorrect
      */
     //Solution adapted from https://www.perplexity.ai/search/catch-a-function-but-handle-it-prjjRGnZRsu8igx_P1RE7A
-    public void SearchFunctions(String userInput) throws ZeroLengthException, IndexOutOfBoundsException, IOException, DateTimeException{
+    public void SearchFunctions(String userInput) throws NumberFormatException, ZeroLengthException, IndexOutOfBoundsException, IOException, DateTimeException{
         String[] userInputList = userInput.split(" ");
         switch(userInputList[0].trim()) {
             case "list":
@@ -49,16 +50,28 @@ public class Functions {
                 break;
             case "mark":
                 try {
-                    MarkTaskCommand.markTask(Integer.parseInt(userInputList[1]), listItems);
+                    MarkTaskCommand.markTask(Integer.parseInt(userInputList[1].trim()), listItems);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new ArrayIndexOutOfBoundsException("Missing list number of task to mark.");
+                } catch (NumberFormatException e) {
+                    throw new NumberFormatException(
+                            "Incorrect format provided."
+                            + "\n\tMake sure it is in this format:"
+                            + "\n\t\tunmark <task index>"
+                    );
                 }
                 break;
             case "unmark":
                 try {
-                    MarkTaskCommand.unmarkTask(Integer.parseInt(userInputList[1]), listItems);
+                    MarkTaskCommand.unmarkTask(Integer.parseInt(userInputList[1].trim()), listItems);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new ArrayIndexOutOfBoundsException("Missing list number of task to unmark.");
+                } catch (NumberFormatException e) {
+                    throw new NumberFormatException(
+                            "Incorrect format provided."
+                            + "\n\tMake sure it is in this format:"
+                            + "\n\t\tunmark <task index>"
+                    );
                 }
                 break;
             case "todo":

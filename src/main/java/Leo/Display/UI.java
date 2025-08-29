@@ -36,7 +36,8 @@ public class UI {
             catch (ZeroLengthException |
                    IndexOutOfBoundsException |
                    IOException |
-                   DateTimeException
+                   DateTimeException |
+                   NumberFormatException
                     e){
                 System.out.println(
                         "\t"
