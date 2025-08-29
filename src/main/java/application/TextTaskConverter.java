@@ -36,7 +36,8 @@ public class TextTaskConverter  {
                 case "T" -> TodoTask.toTask(parts);
                 case "D" -> DeadlineTask.toTask(parts);
                 case "E" -> Event.toTask(parts);
-                default -> throw new RomidasException("I'm sorry, I don't recognise that command. Try one of event, todo, deadline");
+                default -> throw new RomidasException("I'm sorry, I don't recognise that command. "
+                        + "Try one of event, todo, deadline");
             };
             tasks.add(task);
         }

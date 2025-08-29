@@ -26,7 +26,8 @@ public class TodoTask extends Task {
      */
     public static Task toTask(String[] parts) throws RomidasException {
         if (parts.length != 3) {
-            throw new RomidasException("Invalid number of arguments. Expected 3 but got " + parts.length);
+            throw new RomidasException("Invalid number of arguments. Expected 3 but got " 
+                    + parts.length);
         }
         TodoTask task = new TodoTask(parts[2]);
         if (parts[1].equals("1")) {
@@ -37,7 +38,7 @@ public class TodoTask extends Task {
 
     @Override
     public String toText() {
-        return "T | " + (this.isDone ? "1 | ": "0 | ") + this.getDescription();
+        return "T | " + (this.isDone ? "1 | " : "0 | ") + this.getDescription();
     }
 
     @Override

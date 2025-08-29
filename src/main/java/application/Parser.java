@@ -1,15 +1,20 @@
 package application;
-import exception.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-import command.*;
+import command.AddCommand;
+import command.Command;
+import command.DeleteCommand;
+import command.ExitCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import exception.InvalidIndexException;
+import exception.RomidasException;
 import tasks.DeadlineTask;
 import tasks.Event;
 import tasks.Task;
 import tasks.TodoTask;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  *Takes in user input that has been collected by ui and processes it to select the appropriate
@@ -28,7 +33,8 @@ public class Parser {
      * @return Specific command to execute
      * @throws RomidasException
      */
-    public static Command parse(String input, TaskList taskList, Ui ui, Storage storage, String dataPath) throws RomidasException {
+    public static Command parse(String input, TaskList taskList, Ui ui, Storage storage, 
+            String dataPath) throws RomidasException {
         String[] words = input.trim().split("\\s+");
         String cmdWord = words[0].toUpperCase();
         
@@ -71,15 +77,19 @@ public class Parser {
 
             case DEADLINE:
                 if (words.length < 2) {
-                    throw new RomidasException("deadline tasks should follow the format: deadline <task> /by <date/time>");
+                    throw new RomidasException("deadline tasks should follow the format: "
+                            + "deadline <task> /by <date/time>");
                 }
                 if (input.length() <= 9) {
-                    throw new RomidasException("deadline tasks should follow the format: deadline <task> /by <date/time>");
+                    throw new RomidasException("deadline tasks should follow the format: "
+                            + "deadline <task> /by <date/time>");
                 }
                 String subDeadline = input.substring(9);
                 String[] partsDeadline = subDeadline.split(" /by ");
-                if (partsDeadline.length < 2 || partsDeadline[0].isBlank() || partsDeadline[1].isBlank()) {
-                    throw new RomidasException("deadline tasks should follow the format: deadline <task> /by <date/time>");
+                if (partsDeadline.length < 2 || partsDeadline[0].isBlank() 
+                        || partsDeadline[1].isBlank()) {
+                    throw new RomidasException("deadline tasks should follow the format: "
+                            + "deadline <task> /by <date/time>");
                 }
                 DateTimeFormatter fmt = DateTimeFormatter.ISO_LOCAL_DATE;
                 try {
@@ -87,27 +97,33 @@ public class Parser {
                 } catch (DateTimeParseException e) {
                     throw new RomidasException("deadline should follow the format: yyyy-MM-dd");
                 }
-                Task deadlineTask = new DeadlineTask(partsDeadline[0] + " (by: " + partsDeadline[1] + ")", partsDeadline[1]);
+                Task deadlineTask = new DeadlineTask(partsDeadline[0] + " (by: " 
+                        + partsDeadline[1] + ")", partsDeadline[1]);
                 return new AddCommand(deadlineTask);
 
             case EVENT:
                 if (words.length < 2) {
-                    throw new RomidasException("event tasks should follow the format: event <event name> /from <date/time> /to <date/time>");
+                    throw new RomidasException("event tasks should follow the format: "
+                            + "event <event name> /from <date/time> /to <date/time>");
                 }
                 if (input.length() <= 6) {
-                    throw new RomidasException("event tasks should follow the format: event <event name> /from <date/time> /to <date/time>");
+                    throw new RomidasException("event tasks should follow the format: "
+                            + "event <event name> /from <date/time> /to <date/time>");
                 }
                 String subEvent = input.substring(6);
                 String[] partsEvent = subEvent.split(" /from ");
                 if (partsEvent.length < 2 || partsEvent[0].isBlank()) {
-                    throw new RomidasException("event tasks should follow the format: event <event name> /from <date/time> /to <date/time>");
+                    throw new RomidasException("event tasks should follow the format: "
+                            + "event <event name> /from <date/time> /to <date/time>");
                 }
                 String fromAndTo = partsEvent[1];
                 String[] timeParts = fromAndTo.split(" /to ");
                 if (timeParts.length < 2 || timeParts[0].isBlank() || timeParts[1].isBlank()) {
-                    throw new RomidasException("event tasks should follow the format: event <event name> /from <date/time> /to <date/time>");
+                    throw new RomidasException("event tasks should follow the format: "
+                            + "event <event name> /from <date/time> /to <date/time>");
                 }
-                Task eventTask = new Event(partsEvent[0] + " (from: " + timeParts[0] + " to: " + timeParts[1] + ")", timeParts[0], timeParts[1]);
+                Task eventTask = new Event(partsEvent[0] + " (from: " + timeParts[0] 
+                        + " to: " + timeParts[1] + ")", timeParts[0], timeParts[1]);
                 return new AddCommand(eventTask);
 
             case DELETE:
@@ -124,10 +140,12 @@ public class Parser {
                 return new ExitCommand();
 
             default:
-                throw new RomidasException("I'm sorry, I don't recognise that command. Try one of list, event, todo, deadline, mark, unmark, delete");
+                throw new RomidasException("I'm sorry, I don't recognise that command. "
+                        + "Try one of list, event, todo, deadline, mark, unmark, delete");
             }
         } catch (IllegalArgumentException e) {
-            throw new RomidasException("I'm sorry, I don't recognise that command. Try one of list, event, todo, deadline, mark, unmark, delete");
+            throw new RomidasException("I'm sorry, I don't recognise that command. "
+                    + "Try one of list, event, todo, deadline, mark, unmark, delete");
         }
     }
 }

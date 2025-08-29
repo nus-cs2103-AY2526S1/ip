@@ -35,7 +35,7 @@ public abstract class Task {
      * @return The status icon string.
      */
     public String getStatusIcon() {
-        return isDone ? "[X]": "[ ]";
+        return isDone ? "[X]" : "[ ]";
     }
 
     /**
