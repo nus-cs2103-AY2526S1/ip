@@ -28,25 +28,25 @@ public abstract class LynxScanner {
                 if (input.trim().equals("bye")) {
                     break;
                 } else if (input.trim().equals("reload")) {
-                    LynxCommandManager.reload();
+                    LynxGeneral.reload();
                 } else if (input.trim().equals("save")) {
-                    LynxCommandManager.reload();
+                    LynxGeneral.reload();
                 } else if (input.trim().equals("help")) {
                     LynxUI.printHelp();
                 } else if (input.startsWith("list ")) {
-                    LynxCommandManager.listTasks(input);
+                    LynxTaskEditor.listTasks(input);
                 } else if (input.startsWith("mark ")) {
-                    LynxCommandManager.markTasks(input);
+                    LynxTaskEditor.markTasks(input);
                 } else if (input.startsWith("unmark ")) {
-                    LynxCommandManager.unmarkTasks(input);
+                    LynxTaskEditor.unmarkTasks(input);
                 } else if (input.startsWith("delete ")) {
-                    LynxCommandManager.deleteTasks(input);
+                    LynxTaskEditor.deleteTasks(input);
                 } else if (input.startsWith("todo ")) {
-                    LynxCommandManager.addTodo(input);
+                    LynxGeneral.addTodo(input);
                 } else if (input.startsWith("deadline ")) {
-                    LynxCommandManager.addDeadline(input);
+                    LynxGeneral.addDeadline(input);
                 } else if (input.startsWith("event ")) {
-                    LynxCommandManager.addEvent(input);
+                    LynxGeneral.addEvent(input);
                 } else if (!input.isEmpty()) {
                     throw new LynxException("Sorry, I didn't understand that command. " +
                             "Please try again or type \"help\" to access the user guide.");

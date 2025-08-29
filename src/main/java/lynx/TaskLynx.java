@@ -1,9 +1,8 @@
 package lynx;
 
-import lynx.parser.LynxCommandManager;
+import lynx.parser.LynxGeneral;
 import lynx.parser.LynxScanner;
-import lynx.storage.LynxFileManager;
-import lynx.storage.LynxStorage;
+import lynx.parser.LynxTaskEditor;
 import lynx.ui.LynxUI;
 
 public class TaskLynx {
@@ -13,17 +12,17 @@ public class TaskLynx {
      */
     public static void run() {
         // Finds or creates the data file and load its contents
-        LynxCommandManager.reload();
+        LynxGeneral.reload();
 
         // Starts the process of scanning for commands
         LynxUI.hello();
-        LynxCommandManager.tasksToday();
+        LynxTaskEditor.tasksToday();
         LynxScanner.scanForCommands();
 
         // Once finished, unload contents into data file
-        LynxCommandManager.save();
+        LynxGeneral.save();
         LynxScanner.SCANNER.close();
-        LynxCommandManager.tasksFromToday();
+        LynxTaskEditor.tasksFromToday();
         LynxUI.bye();
     }
 
