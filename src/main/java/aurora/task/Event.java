@@ -30,4 +30,9 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to +  ")";
     }
+
+    @Override
+    public String toCSV() {
+        return "E," + super.toCSV() + String.format(",%s,%s\n", from, to);
+    }
 }

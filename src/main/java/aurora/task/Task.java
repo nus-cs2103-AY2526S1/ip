@@ -1,7 +1,7 @@
 package aurora.task;
 
 /**
- * Represents a Aurora.task.task with a description and completion status.
+ * Represents a task with a description and completion status.
  * Abstract base class for all subtasks.
  */
 public abstract class Task {
@@ -11,7 +11,7 @@ public abstract class Task {
     /**
      * Creates a Task with the given description.
      *
-     * @param description The Aurora.task.task details.
+     * @param description The task details.
      */
     public Task(String description) {
         this.description = description;
@@ -19,9 +19,9 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string representation of the Aurora.task.task.
+     * Returns a string representation of the task.
      *
-     * @return A formatted string describing the Aurora.task.task and its completion status.
+     * @return A formatted string describing the task and its completion status.
      */
     @Override
     public String toString() {
@@ -29,12 +29,21 @@ public abstract class Task {
     }
 
     /**
-     * Marks this Aurora.task.task as complete.
+     * Marks this task as complete.
      */
     public abstract void complete();
 
     /**
-     * Returns the description of this Aurora.task.task.
+     * Returns a CSV representation of the task.
+     *
+     * @return A string separated by commas representing the task.
+     */
+    public String toCSV() {
+        return String.format("%s,%s", isDone ? "true" : "false", description);
+    }
+
+    /**
+     * Returns the description of this task.
      *
      * @return The description as a string.
      */
