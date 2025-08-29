@@ -36,7 +36,7 @@ public abstract class LynxScanner {
                 } else if (input.startsWith("list ")) {
                     LynxCommandManager.listTasks(input);
                 } else if (input.startsWith("mark ")) {
-                    LynxCommandManager.markTasks(input);
+                    LynxCommandManager.markTasks2(input);
                 } else if (input.startsWith("unmark ")) {
                     LynxCommandManager.unmarkTasks(input);
                 } else if (input.startsWith("delete ")) {

@@ -3,14 +3,13 @@ package lynx.command;
 import lynx.exception.LynxException;
 import lynx.task.Task;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
-public abstract class LynxCommand2 {
+public class LynxCommand2 {
 
     private final String[] commands;
-    private int index = -1;
+    private int index = 0;
     private String date = "";
     private String keyword = "";
     private String id = "";
@@ -18,24 +17,42 @@ public abstract class LynxCommand2 {
     private String type = "";
     private List<Task> searchResult;
 
-    public void setDate(String date) {
+    public void setDate(String date) throws LynxException {
+        if (!this.date.isEmpty()) {
+            throw new LynxException("Only one date can be supplied per search.");
+        }
         this.date = String.format(" occurring on %s", date);
     }
 
     public void setKeyword(String keyword) {
-        this.keyword = String.format(" containing keyword \"%s\"", keyword);
+        if (this.keyword.isEmpty()) {
+            this.keyword = String.format(" containing keyword \"%s\"", keyword);
+        } else {
+            this.keyword = String.format("%s, \"%s\"", this.keyword, keyword);
+        }
     }
 
-    public void setId(String id) {
-        this.id = String.format(" with id: %s", id);
+    public void setId(String id) throws LynxException {
+        if (!this.id.isEmpty()) {
+            throw new LynxException("Only one id can be supplied per search.");
+        }
+        this.id = String.format(" with id %s", id);
     }
 
     public void setStatus(String status) {
-        this.status = String.format(" %s", status);
+        if (this.status.isEmpty()) {
+            this.status = String.format(" %s", status);
+        } else {
+            this.status = String.format("%s, %s", this.status, status);
+        }
     }
 
     public void setType(String type) {
-        this.type = String.format(" %s", type);
+        if (this.type.isEmpty()) {
+            this.type = String.format(" %s", type);
+        } else {
+            this.type = String.format("%s, %s", this.type, type);
+        }
     }
 
     public void setSearchResult(List<Task> searchResult) {
@@ -62,13 +79,19 @@ public abstract class LynxCommand2 {
         if (index >= commands.length) {
             return "";
         } else {
+            String command = commands[index];
             index++;
-            return commands[index];
+            return command;
         }
     }
 
     public String getSearchString() {
-        return String.format("all%s%s tasks%s%s%s:", status, type, date, keyword, id);
+        String searchString = String.format("all%s%s tasks%s%s%s:", status, type, date, keyword, id);
+        if (searchString.length() > 100) {
+            return "all matching tasks:";
+        } else {
+            return searchString;
+        }
     }
 
 }

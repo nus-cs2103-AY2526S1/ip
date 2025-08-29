@@ -27,6 +27,23 @@ public abstract class Task {
             return symbol;
         }
 
+        public static TaskType matchSymbol(String symbol) throws LynxException {
+            switch (symbol) {
+                case "todo" -> {
+                    return TODO;
+                }
+                case "deadline" -> {
+                    return DEADLINE;
+                }
+                case "event" -> {
+                    return EVENT;
+                }
+                default -> {
+                    throw new LynxException("Invalid type.");
+                }
+            }
+        }
+
     }
 
     public enum Status {

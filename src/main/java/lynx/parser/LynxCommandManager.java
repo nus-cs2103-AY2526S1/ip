@@ -191,6 +191,21 @@ public abstract class LynxCommandManager {
         LynxUI.line();
     }
 
+    public static void markTasks2(String input) throws LynxException {
+        Consumer<Task> mark = Task::setComplete;
+        String empty = "     (No tasks found or marked)";
+
+        if (input.length() <= 4 || !input.startsWith("mark")) {
+            throw new MissingArgumentException("mark");
+        }
+        LynxCommand2 command = new LynxCommand2(input.substring(5).trim());
+        findTasks2(command, LynxTaskList.getAllTasks());
+        LynxUI.line();
+        System.out.println(String.format("Marked %s", command.getSearchString()));
+        executeOnTasks(mark, command.getSearchResult(), empty);
+        LynxUI.line();
+    }
+
     /**
      * Unmarks tasks in the task list as specified by the command.
      * <p>
@@ -339,39 +354,66 @@ public abstract class LynxCommandManager {
         return LynxTaskList.filterTasksByKeyword(tasks, keyword).toList();
     }
 
-    public static LynxCommand2 findTasks2(LynxCommand2 command, Stream<Task> stream) throws LynxException {
+    public static void findTasks2(LynxCommand2 command, Stream<Task> stream) throws LynxException {
         String input = command.getNextCommand();
 
         if (input.isBlank()) {
             command.setSearchResult(stream.toList());
+            return;
         }
 
-        if (input.equals("/all")) {
-
+        switch (input) {
+            case "/all" -> findTasks2(command, stream);
+            case "/id" -> findTasksById(command, stream);
+            case "/key" -> findTasksByKeyword(command, stream);
+            case "/on" -> findTasksByDate(command, stream);
+            case "/sts" -> findTasksByStatus(command, stream);
+            case "/type" -> findTasksByType(command, stream);
+            default -> throw new LynxException("Non matching command detected.");
         }
 
-        if (input.equals("/id")) {
+    }
 
+    private static void findTasksById(LynxCommand2 command, Stream<Task> stream) throws LynxException {
+        try {
+            String id = command.getNextCommand();
+            command.setId(id);
+            findTasks2(command, LynxTaskList.filterTasksById(stream, Integer.parseInt(id)));
+        } catch (NumberFormatException e) {
+            throw new LynxException("Sorry, that isn't a valid ID.");
         }
+    }
 
-        if (input.equals("/key")) {
+    private static void findTasksByKeyword(LynxCommand2 command, Stream<Task> stream) throws LynxException {
+        String keyword = command.getNextCommand();
+        checkName(keyword);
+        command.setKeyword(keyword);
+        findTasks2(command, LynxTaskList.filterTasksByKeyword(stream, keyword));
+    }
 
+    private static void findTasksByDate(LynxCommand2 command, Stream<Task> stream) {
+        String date = command.getNextCommand();
+        try {
+            LocalDateTime dateTime = LynxDateManager.parseDateTime(date);
+            command.setDate(LynxDateManager.textDateTime(dateTime));
+            findTasks2(command, LynxTaskList.filterTasksByDate(stream, dateTime));
+        } catch (LynxException e) {
+            LynxUI.printBox("Invalid date format: " + e.getMessage());
         }
+    }
 
-        if (input.equals("/on")) {
+    private static void findTasksByStatus(LynxCommand2 command, Stream<Task> stream) throws LynxException {
+        String symbol = command.getNextCommand();
+        Task.Status status = Task.Status.matchSymbol(symbol);
+        command.setStatus(symbol);
+        findTasks2(command, LynxTaskList.filterTasksByStatus(stream, status));
+    }
 
-        }
-
-        if (input.equals("/sts")) {
-
-        }
-
-        if (input.equals("/type")) {
-
-        }
-
-        throw new LynxException("Non matching command detected.");
-
+    private static void findTasksByType(LynxCommand2 command, Stream<Task> stream) throws LynxException {
+        String symbol = command.getNextCommand();
+        Task.TaskType type = Task.TaskType.matchSymbol(symbol);
+        command.setType(symbol);
+        findTasks2(command, LynxTaskList.filterTasksByType(stream, type));
     }
 
     /**
