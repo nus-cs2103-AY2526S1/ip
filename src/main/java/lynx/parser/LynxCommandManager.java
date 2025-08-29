@@ -339,6 +339,41 @@ public abstract class LynxCommandManager {
         return LynxTaskList.filterTasksByKeyword(tasks, keyword).toList();
     }
 
+    public static LynxCommand2 findTasks2(LynxCommand2 command, Stream<Task> stream) throws LynxException {
+        String input = command.getNextCommand();
+
+        if (input.isBlank()) {
+            command.setSearchResult(stream.toList());
+        }
+
+        if (input.equals("/all")) {
+
+        }
+
+        if (input.equals("/id")) {
+
+        }
+
+        if (input.equals("/key")) {
+
+        }
+
+        if (input.equals("/on")) {
+
+        }
+
+        if (input.equals("/sts")) {
+
+        }
+
+        if (input.equals("/type")) {
+
+        }
+
+        throw new LynxException("Non matching command detected.");
+
+    }
+
     /**
      * Maps a <code>Consumer</code> to a list of tasks and prints each task.
      *
