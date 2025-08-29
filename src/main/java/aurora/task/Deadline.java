@@ -12,10 +12,11 @@ public class Deadline extends Task {
      * Creates a Deadline with the given description and due date.
      *
      * @param description the task details
+     * @param isDone the completion status
      * @param by the task due date
      */
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String description, boolean isDone, String by) {
+        super(description, isDone);
         this.by = by;
     }
 
@@ -30,7 +31,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toCSV() {
-        return "D," + super.toCSV() + String.format(",%s\n", by);
+    public String toText() {
+        return "D|" + super.toText() + String.format("|%s\n", by);
     }
 }

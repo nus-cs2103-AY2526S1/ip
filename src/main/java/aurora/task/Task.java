@@ -12,10 +12,11 @@ public abstract class Task {
      * Creates a Task with the given description.
      *
      * @param description The task details.
+     * @param isDone The completion status.
      */
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     /**
@@ -34,12 +35,12 @@ public abstract class Task {
     public abstract void complete();
 
     /**
-     * Returns a CSV representation of the task.
+     * Returns a text representation of the task.
      *
-     * @return A string separated by commas representing the task.
+     * @return A string separated by | representing the task.
      */
-    public String toCSV() {
-        return String.format("%s,%s", isDone ? "true" : "false", description);
+    public String toText() {
+        return String.format("%s|%s", isDone ? "true" : "false", description);
     }
 
     /**
