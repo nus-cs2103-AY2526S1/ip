@@ -13,13 +13,6 @@ dir /s /b ..\src\main\java\*.java > sources.txt
 REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
 
-REM clear Leo.txt
-echo.> ..\.data\Leo.txt
-
-REM Solution https://www.perplexity.ai/search/change-branch-name-in-local-an-Fkk8ZHiwSyOZ4IElmJrh_g#11
-REM create list of all .java files recursively
-dir /s /b ..\src\main\java\*.java > sources.txt
-
 REM compile the code into the bin folder
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin @sources.txt
 IF ERRORLEVEL 1 (
