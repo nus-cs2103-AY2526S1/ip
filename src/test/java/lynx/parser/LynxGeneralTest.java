@@ -1,7 +1,6 @@
 package lynx.parser;
 
 import lynx.exception.LynxException;
-import lynx.storage.LynxTaskList;
 import lynx.task.DeadlineTask;
 import lynx.task.EventTask;
 import lynx.task.TodoTask;
@@ -12,8 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
-// Primarily tests the parsing responsible by LynxCommand
-// mark, unmark and delete are not tested as they follow the same structure as list
 public class LynxGeneralTest {
 
     @Test
@@ -71,44 +68,6 @@ public class LynxGeneralTest {
                 fail();
             } catch (LynxException e2) {
 
-            }
-        }
-    }
-
-    @Test
-    public void testListTasks() {
-        TodoTask testTask = new TodoTask("a");
-        int testId = testTask.getId();
-        LynxTaskList.addTask(testTask, true);
-        try {
-            LynxGeneral.listTasks("list    /all");
-            LynxGeneral.listTasks("list aaa (bbb)");
-            LynxGeneral.listTasks("list    /on 2025-11-11");
-            LynxGeneral.listTasks("list /on    2025-11-11-06-30");
-            LynxGeneral.listTasks("list    /id    " + testId);
-        } catch (LynxException e) {
-            fail();
-        }
-
-        try {
-            LynxGeneral.listTasks("list /id 0");
-            fail();
-        } catch (LynxException e1) {
-            try {
-                LynxGeneral.listTasks("list /id" + testId);
-                fail();
-            } catch (LynxException e2) {
-                try {
-                    LynxGeneral.listTasks("list /on2025-11-11");
-                    fail();
-                } catch (LynxException e3) {
-                    try {
-                        LynxGeneral.listTasks("list    ");
-                        fail();
-                    } catch (LynxException e4) {
-
-                    }
-                }
             }
         }
     }

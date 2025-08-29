@@ -23,6 +23,10 @@ public abstract class LynxScanner {
 
         while (true) {
             input = SCANNER.nextLine().trim();
+            if (input.length() > 300) {
+                LynxUI.printBox("Sorry, commands cannot exceed 200 characters in length.");
+                continue;
+            }
 
             try {
                 if (input.trim().equals("bye")) {

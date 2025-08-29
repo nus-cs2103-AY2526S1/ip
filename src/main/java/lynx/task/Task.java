@@ -35,7 +35,7 @@ public abstract class Task {
          * @throws LynxException If symbol does not match any <code>TaskType</code>.
          */
         public static TaskType matchSymbol(String symbol) throws LynxException {
-            switch (symbol) {
+            switch (symbol.toLowerCase()) {
                 case "todo" -> {
                     return TODO;
                 }
@@ -77,7 +77,7 @@ public abstract class Task {
          * @throws LynxException If symbol does not match any <code>Status</code>.
          */
         public static Status matchSymbol(String symbol) throws LynxException {
-            switch (symbol) {
+            switch (symbol.toLowerCase()) {
                 case "complete" -> {
                     return COMPLETE;
                 }
