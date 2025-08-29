@@ -1,12 +1,16 @@
 package aurora.task;
 
+import aurora.util.DateUtil;
+
+import java.time.temporal.Temporal;
+
 /**
  * Represents an Event task.
  * Task with description, start date, end date, and completion status.
  */
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected Temporal from;
+    protected Temporal to;
 
     /**
      * Creates a Deadline with the given description and due date.
@@ -16,7 +20,7 @@ public class Event extends Task {
      * @param from the task start date
      * @param to the task end date
      */
-    public Event(String description, boolean isDone, String from, String to) {
+    public Event(String description, boolean isDone, Temporal from, Temporal to) {
         super(description, isDone);
         this.from = from;
         this.to = to;
@@ -29,7 +33,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to +  ")";
+        return "[E]" + super.toString() +
+                " (from: " + DateUtil.prettierDate(from) + " to: " + DateUtil.prettierDate(to) +  ")";
     }
 
     @Override
