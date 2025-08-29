@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Paul {
@@ -18,11 +20,11 @@ public class Paul {
         System.out.println(LINE);
     }
 
-    private static void greeting() {
+    private static void greetUser() {
         printOutput("Hello I'm\n" + LOGO + "\nWhat can I do for you?");
     }
 
-    private static void goodbye() {
+    private static void byeUser() {
         printOutput("Goodbye! Paul will miss you :(");
     }
 
@@ -52,12 +54,17 @@ public class Paul {
             throw new PaulException("A deadline must have a description and a /by date!");
         }
 
-        Task task = new Deadline(str[0].trim(), str[1]);
-        tasks.add(task);
-        storage.saveTasks(tasks);
+        try {
+            LocalDate date = LocalDate.parse(str[1]);
+            Task task = new Deadline(str[0].trim(), date);
+            tasks.add(task);
+            storage.saveTasks(tasks);
 
-        printOutput("Got it. I've added this task:\n" + task
-                + "\nNow you have " + tasks.size() + " tasks in the list.");
+            printOutput("Got it. I've added this task:\n" + task
+                    + "\nNow you have " + tasks.size() + " tasks in the list.");
+        } catch (DateTimeParseException e) {
+            throw new PaulException("/by must be in yyyy-mm-dd format! (e.g., 2019-10-15)");
+        }
     }
 
     private static void addEvent(String input) throws PaulException {
@@ -67,12 +74,18 @@ public class Paul {
             throw new PaulException("An event must have a description, /from, and /to!");
         }
 
-        Task task = new Event(str[0].trim(), str[1], str[2]);
-        tasks.add(task);
-        storage.saveTasks(tasks);
+        try {
+            LocalDate fromDate = LocalDate.parse(str[1]);
+            LocalDate toDate = LocalDate.parse(str[2]);
+            Task task = new Event(str[0].trim(), fromDate, toDate);
+            tasks.add(task);
+            storage.saveTasks(tasks);
 
-        printOutput("Got it. I've added this task:\n" + task
-                + "\nNow you have " + tasks.size() + " tasks in the list.");
+            printOutput("Got it. I've added this task:\n" + task
+                    + "\nNow you have " + tasks.size() + " tasks in the list.");
+        } catch (DateTimeParseException e) {
+            throw new PaulException("/from and /to must be in yyyy-mm-dd format! (e.g., 2019-10-15)");
+        }
     }
 
     private static void markTask(String input) throws PaulException {
@@ -117,7 +130,7 @@ public class Paul {
     }
 
     public static void main(String[] args) {
-        greeting();
+        greetUser();
 
         Scanner sc = new Scanner(System.in);
 
@@ -128,7 +141,7 @@ public class Paul {
             try {
                 switch (command) {
                     case BYE -> {
-                        goodbye();
+                        byeUser();
                         return;
                     }
                     case LIST -> printList();

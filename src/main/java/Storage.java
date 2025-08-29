@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Storage {
@@ -37,8 +38,9 @@ public class Storage {
                 Task task;
                 switch (type) {
                     case "T" -> task = new ToDo(description);
-                    case "D" -> task = new Deadline(description, parts[3]);
-                    case "E" -> task = new Event(description, parts[3], parts[4]);
+                    case "D" -> task = new Deadline(description, LocalDate.parse(parts[3]));
+                    case "E" -> task = new Event(
+                            description, LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
                     default -> {
                         continue; // skip unknown line
                     }
