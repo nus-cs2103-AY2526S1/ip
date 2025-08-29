@@ -3,7 +3,7 @@ public class Event extends Task{
     protected String until;
 
     public Event(String description, String from, String until) {
-        super(description);
+        super(description, TaskType.EVENT);
         this.from = from;
         this.until = until;
     }

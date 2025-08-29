@@ -1,10 +1,18 @@
+public enum TaskType {
+    TODO,
+    DEADLINE,
+    EVENT
+}
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    private TaskType type;
 
-    public Task(String description) {
+    public Task(String description, TaskType type) {
         this.description = description;
         this.isDone = false; // default
+        this.type = type;
     }
 
     public String getStatus() {
