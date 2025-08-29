@@ -2,6 +2,7 @@ package jimbot;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Scanner;
 
 import jimbot.exceptions.InvalidDateTimeException;
@@ -142,14 +143,22 @@ public class Jimbot {
                     userList.deleteFromList(userList.getTask(index));
                     user.deleteTask(task, taskCount - 1);
                     userStorage.update(userList);
+                } else if (userInput.startsWith("find")) {
+                    String description = userInput.toLowerCase()
+                            .substring(4)
+                            .trim();
+                    List<Task> tasks = userList.findTasks(description);
+
+                    user.printList(tasks);
                 } else if (userInput.contains("/") || userInput.equalsIgnoreCase("today")) {
                     LocalDate date = LocalDate.now();
+                    List<Task> tasks = userList.findTasksAtDate(date);
 
                     if (!userInput.equals("today")) {
                          date = Parser.parseDate(userInput);
                     }
 
-                    user.printListAtDate(userList.getTasksAtDate(date),
+                    user.printListAtDate(tasks,
                             date.isEqual(LocalDate.now()) || userInput.equals("today"));
                 } else if (userInput.equalsIgnoreCase("help")) {
                     user.commandList();

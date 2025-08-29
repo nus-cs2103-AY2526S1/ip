@@ -70,12 +70,39 @@ public class TaskList {
     }
 
     /**
+     * Returns a list of tasks with description matching user input as a List<Task>.
+     *
+     * @param description Description provided by user.
+     * @return List of tasks whose description contains the given description.
+     * */
+    public List<Task> findTasks(String description) {
+        List<Task> result = new ArrayList<>();
+
+        for (Task task : listOfTasks) {
+            if (task instanceof Deadline deadline) {
+                if (deadline.getDescription().contains(description)) {
+                    result.add(task);
+                }
+            } else if (task instanceof Event event) {
+                if (event.getDescription().contains(description)) {
+                    result.add(task);
+                }
+            } else if (task instanceof ToDo todo) {
+                if (todo.getDescription().contains(description)) {
+                    result.add(task);
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
      * Returns a list of tasks with date matching user input as a List<Task>.
      *
      * @param date Date provided by user.
      * @return List of tasks whose date matches the given date.
      * */
-    public List<Task> getTasksAtDate(LocalDate date) {
+    public List<Task> findTasksAtDate(LocalDate date) {
         List<Task> result = new ArrayList<>();
 
         for (Task task : listOfTasks) {

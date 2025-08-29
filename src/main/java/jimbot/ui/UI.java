@@ -370,6 +370,7 @@ public class UI {
                              │   deadline                              │
                              │   delete                                │
                              │   event                                 │
+                             │   find                                  │
                              │   list                                  │
                              │   mark                                  │
                              │   today                                 │
