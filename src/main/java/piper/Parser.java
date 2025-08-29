@@ -61,6 +61,14 @@ public final class Parser {
         return new ParsedString(cmd, arg);
     }
 
+    public static int parseIndex(String index) throws PiperException {
+        try {
+            return Integer.parseInt(index);
+        } catch (Exception e) {
+            throw new PiperException("PEEP! Please give me a numeric task index!");
+        }
+    }
+
     public static DeadlineArgs parseDeadlineArgs(String arg) throws PiperException {
         try {
             String[] descriptionAndBy = arg.split("/by ", 2);

@@ -51,7 +51,7 @@ public class Piper { ;
                         // mark task as done or undone
 
                         try {
-                            int taskNumber = Integer.parseInt(arg);
+                            int taskNumber = Parser.parseIndex(arg);
                             int index = taskNumber - 1; // task list starts from index 1 but array list starts from index 0
                             Task task = tasks.getTask(index);
 
@@ -65,9 +65,8 @@ public class Piper { ;
                             }
 
                             storage.saveAll(tasks);
-
                             ui.showTaskStatus(task);
-                        } catch (Exception e) {
+                        } catch (IndexOutOfBoundsException e) {
                             // task index is outside of array range
                             throw new PiperException("PEEP! That task flew out of the nest. Please check using 'list' to see which tasks are home!");
                         }
@@ -75,7 +74,7 @@ public class Piper { ;
                         // delete task
 
                         try {
-                            int taskNumber = Integer.parseInt(arg);
+                            int taskNumber = Parser.parseIndex(arg);
                             int index = taskNumber - 1;
                             Task task = tasks.getTask(index);
 
@@ -85,7 +84,7 @@ public class Piper { ;
 
                             ui.showDeletedTask(task);
                             ui.getTasksSize(tasks);
-                        } catch (Exception e) {
+                        } catch (IndexOutOfBoundsException e) {
                             throw new PiperException("PEEP! Bad egg. Please check using 'list' to see which tasks are home!");
                         }
                     } else if (cmd.equals("todo") || cmd.equals("deadline") || cmd.equals("event")) {
