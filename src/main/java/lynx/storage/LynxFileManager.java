@@ -12,7 +12,7 @@ import java.util.List;
 import java.io.IOException;
 
 /**
- * Class containing methods to read and write data to the drive.
+ * Contains methods to read and write data to the drive.
  */
 public abstract class LynxFileManager {
 

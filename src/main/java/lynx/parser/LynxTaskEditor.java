@@ -14,6 +14,9 @@ import java.util.stream.Stream;
 
 import static lynx.parser.LynxSearcher.findTasks;
 
+/**
+ * Contains methods to execute commands that act on the tasks within the task list.
+ */
 public class LynxTaskEditor {
 
     /**
@@ -121,7 +124,7 @@ public class LynxTaskEditor {
     }
 
     /**
-     * Print all urgent (incomplete) tasks today, if any. Uses the system clock.
+     * Prints all urgent (incomplete) tasks today, if any. Uses the system clock.
      */
     public static void tasksToday() {
         LocalDateTime today = LocalDateTime.now();
@@ -139,7 +142,7 @@ public class LynxTaskEditor {
     }
 
     /**
-     * Print all incomplete and unexpired tasks.
+     * Prints all incomplete tasks from today onwards. Uses the system clock.
      */
     public static void tasksFromToday() {
         List<Task> tasks = LynxTaskList.filterTasksByStatus(

@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Class containing methods for parsing date / time representations.
+ * Contains methods for parsing date / time representations.
  */
 public abstract class LynxDateManager {
 

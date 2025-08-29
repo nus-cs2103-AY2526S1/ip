@@ -6,7 +6,7 @@ import lynx.ui.LynxUI;
 import java.util.Scanner;
 
 /**
- * Class containing the central <code>Scanner</code> object, and the main program loop.
+ * Contains the central <code>Scanner</code> object, and the main program loop.
  */
 public abstract class LynxScanner {
 
@@ -14,7 +14,7 @@ public abstract class LynxScanner {
     public static final Scanner SCANNER = new Scanner(System.in);
 
     /**
-     * Continuously interpret and respond to user input until the "bye" command is called.
+     * Interprets and responds to user input until the "bye" command is called.
      */
     public static void scanForCommands() {
         String input;

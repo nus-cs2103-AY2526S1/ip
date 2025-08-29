@@ -9,6 +9,11 @@ import java.time.LocalDateTime;
  */
 public class TodoTask extends Task {
 
+    /**
+     * Constructor for creating a <code>TodoTask</code>
+     *
+     * @param name Name of the task.
+     */
     public TodoTask(String name) {
         super(name, TaskType.TODO);
     }

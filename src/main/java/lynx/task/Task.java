@@ -27,6 +27,13 @@ public abstract class Task {
             return symbol;
         }
 
+        /**
+         * Checks if the given symbol matches one of the task types alphabetically.
+         *
+         * @param symbol Symbol to be checked as a string.
+         * @return <code>TaskType</code> matching the symbol.
+         * @throws LynxException If symbol does not match any <code>TaskType</code>.
+         */
         public static TaskType matchSymbol(String symbol) throws LynxException {
             switch (symbol) {
                 case "todo" -> {
@@ -62,6 +69,13 @@ public abstract class Task {
             return symbol;
         }
 
+        /**
+         * Checks if the given symbol matches one of the statuses alphabetically.
+         *
+         * @param symbol Symbol to be checked as a string.
+         * @return <code>Status</code> matching the symbol.
+         * @throws LynxException If symbol does not match any <code>Status</code>.
+         */
         public static Status matchSymbol(String symbol) throws LynxException {
             switch (symbol) {
                 case "complete" -> {

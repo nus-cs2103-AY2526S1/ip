@@ -1,6 +1,5 @@
 package lynx.parser;
 
-import lynx.command.*;
 import lynx.exception.LynxException;
 import lynx.exception.MissingArgumentException;
 import lynx.formatter.LynxDateManager;
@@ -9,17 +8,13 @@ import lynx.storage.LynxStorage;
 import lynx.storage.LynxTaskList;
 import lynx.task.DeadlineTask;
 import lynx.task.EventTask;
-import lynx.task.Task;
 import lynx.task.TodoTask;
 import lynx.ui.LynxUI;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 /**
- * Class containing methods for interpreting and executing user commands.
+ * Contains methods to execute general commands.
  */
 public abstract class LynxGeneral {
 
@@ -126,7 +121,12 @@ public abstract class LynxGeneral {
         return task;
     }
 
-    // Checks that task name is within 150-character limit and does not contain the special character "/".
+    /**
+     * Checks that a task name is not blank, does not contain the "/" character, and does not exceed 150 characters.
+     *
+     * @param name Name of the task to be checked.
+     * @throws LynxException If task name is invalid.
+     */
     public static void checkName(String name) throws LynxException {
         if (name.isBlank()) {
             throw new LynxException("Task name cannot be blank.");

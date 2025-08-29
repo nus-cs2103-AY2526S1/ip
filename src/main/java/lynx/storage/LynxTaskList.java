@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * Class containing methods that directly access the task list.
+ * Contains methods that directly access the task list.
  */
 public abstract class LynxTaskList {
 
@@ -80,26 +80,10 @@ public abstract class LynxTaskList {
     }
 
     /**
-     * Returns the task in the task list with the given id.
-     *
-     * @param id Id of task to be retrieved.
-     * @return Task with matching id.
-     * @throws LynxException If no matching task is found.
-     */
-    public static Task findTaskById(int id) throws LynxException {
-        for (Task task : COMMANDS) {
-            if (task.getId() == id) {
-                return task;
-            }
-        }
-        throw new LynxException("Task not found.");
-    }
-
-    /**
      * Returns the task with a given id.
      *
      * @param tasks Stream of tasks to be filtered.
-     * @param id Keyword used to filter tasks by name.
+     * @param id Id of task to be retrieved.
      * @return Stream containing a single task.
      */
     public static Stream<Task> filterTasksById(Stream<Task> tasks, int id) {
@@ -130,7 +114,7 @@ public abstract class LynxTaskList {
     }
 
     /**
-     * Returns all tasks in a stream that match a given status.
+     * Returns all tasks in a stream that match a given <code>Status</code>.
      *
      * @param tasks Stream of tasks to be filtered.
      * @param status <code>Status</code> used to filter tasks.
@@ -141,7 +125,7 @@ public abstract class LynxTaskList {
     }
 
     /**
-     * Returns all tasks in a stream that match a given type.
+     * Returns all tasks in a stream that match a given <code>TaskType</code>.
      *
      * @param tasks Stream of tasks to be filtered.
      * @param type <code>TaskType</code> used to filter tasks.
