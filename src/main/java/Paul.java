@@ -9,7 +9,8 @@ public class Paul {
                 |  __/ ___ \\ |_| | |___
                 |_| /_/   \\_\\___/|_____|
                 """;
-    private static final TaskList list = new TaskList();
+    private static final Storage storage = new Storage();
+    private static final TaskList tasks = storage.loadTasks();
 
     private static void printOutput(String output) {
         System.out.println(LINE);
@@ -26,77 +27,92 @@ public class Paul {
     }
 
     private static void printList() {
-        printOutput("Here are the tasks in your list:\n" + list);
+        printOutput("Here are the tasks in your list:\n" + tasks);
     }
 
     private static void addToDo(String input) throws PaulException {
         String desc = input.substring(4).trim();
+
         if (desc.isEmpty()) {
             throw new PaulException("The description of a todo cannot be empty!");
         }
+
         Task task = new ToDo(desc);
-        list.add(task);
+        tasks.add(task);
+        storage.saveTasks(tasks);
+
         printOutput("Got it. I've added this task:\n" + task +
-                "\nNow you have " + list.size() + " tasks in the list.");
+                "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     private static void addDeadline(String input) throws PaulException {
         String[] str = input.substring(8).split(" /by ", 2);
+
         if (str.length < 2 || str[0].isBlank() || str[1].isBlank()) {
             throw new PaulException("A deadline must have a description and a /by date!");
         }
+
         Task task = new Deadline(str[0].trim(), str[1]);
-        list.add(task);
+        tasks.add(task);
+        storage.saveTasks(tasks);
+
         printOutput("Got it. I've added this task:\n" + task
-                + "\nNow you have " + list.size() + " tasks in the list.");
+                + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     private static void addEvent(String input) throws PaulException {
         String[] str = input.substring(5).split(" /from | /to ");
+
         if (str.length < 3 || str[0].isBlank() || str[1].isBlank() || str[2].isBlank()) {
             throw new PaulException("An event must have a description, /from, and /to!");
         }
+
         Task task = new Event(str[0].trim(), str[1], str[2]);
-        list.add(task);
+        tasks.add(task);
+        storage.saveTasks(tasks);
+
         printOutput("Got it. I've added this task:\n" + task
-                + "\nNow you have " + list.size() + " tasks in the list.");
+                + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     private static void markTask(String input) throws PaulException {
         try {
             int index = Integer.parseInt(input.split(" ")[1]);
-            list.mark(index);
-            printOutput("Nice! I've marked this task as done:\n" + list.get(index));
+            tasks.mark(index);
+            storage.saveTasks(tasks);
+            printOutput("Nice! I've marked this task as done:\n" + tasks.get(index));
         } catch (IndexOutOfBoundsException e) {
             throw new PaulException("Oops! Invalid task number for mark command.");
         } catch (NumberFormatException e) {
-            throw new PaulException("Please input a number!");
+            throw new PaulException("Please input a valid task number!");
         }
     }
 
     private static void unmarkTask(String input) throws PaulException {
         try {
             int index = Integer.parseInt(input.split(" ")[1]);
-            list.unmark(index);
-            printOutput("OK, I've marked this task as not done yet:\n" + list.get(index));
+            tasks.unmark(index);
+            storage.saveTasks(tasks);
+            printOutput("OK, I've marked this task as not done yet:\n" + tasks.get(index));
         } catch (IndexOutOfBoundsException e) {
             throw new PaulException("Oops! Invalid task number for unmark command.");
         } catch (NumberFormatException e) {
-            throw new PaulException("Please input a number!");
+            throw new PaulException("Please input a valid task number!");
         }
     }
 
     private static void deleteTask(String input) throws PaulException {
         try {
             int index = Integer.parseInt(input.split(" ")[1]);
-            Task task = list.get(index);
-            list.delete(index);
+            Task task = tasks.get(index);
+            tasks.delete(index);
+            storage.saveTasks(tasks);
             printOutput("Noted. I've removed this task:\n" + task +
-                    "\nNow you have " + list.size() + " tasks in the list.");
+                    "\nNow you have " + tasks.size() + " tasks in the list.");
         } catch (IndexOutOfBoundsException e) {
             throw new PaulException("Oops! Invalid task number for delete command.");
         } catch (NumberFormatException e) {
-            throw new PaulException("Please input a number!");
+            throw new PaulException("Please input a valid task number!");
         }
     }
 
