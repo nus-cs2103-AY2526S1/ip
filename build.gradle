@@ -34,7 +34,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "gokschat"
+    archiveBaseName = ""
     archiveClassifier = null
     archiveFileName = 'gokschat.jar'
 }
