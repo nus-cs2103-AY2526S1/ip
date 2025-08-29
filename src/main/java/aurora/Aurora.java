@@ -3,14 +3,17 @@ package aurora;
 import aurora.command.Command;
 import aurora.command.CommandReader;
 import aurora.task.Task;
+import aurora.task.TaskReader;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
-import java.io.File;
-import java.io.FileWriter;
 
 /**
  * Aurora is a chatbot that manages tasks.
@@ -22,7 +25,7 @@ public class Aurora {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<Task> list = new ArrayList<>();
+        List<Task> list = load();
 
         speak(INTRO);
         loop(scanner, list);
@@ -47,7 +50,7 @@ public class Aurora {
 
     private static void save(List<Task> list) {
         try {
-            File tasks = new File("./data/aurora.csv");
+            File tasks = new File("./data/aurora.txt");
             File parentDir = tasks.getParentFile();
 
             if (!parentDir.exists() && !parentDir.mkdirs()) {
@@ -56,11 +59,26 @@ public class Aurora {
 
             try (FileWriter fw = new FileWriter(tasks)) {
                 for (Task task : list) {
-                    fw.write(task.toCSV());
+                    fw.write(task.toText());
                 }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static List<Task> load() {
+        List<Task> result = new ArrayList<>();
+        try {
+            File tasks = new File("./data/aurora.txt");
+            Scanner s = new Scanner(tasks);
+            while (s.hasNextLine()) {
+                result.add(TaskReader.fromText(s.nextLine()));
+            }
+        } catch (FileNotFoundException e) {
+            return result;
+        }
+
+        return result;
     }
 }
