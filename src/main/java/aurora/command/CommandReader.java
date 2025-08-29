@@ -1,6 +1,7 @@
 package aurora.command;
 
-import java.util.regex.*;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 import aurora.task.InvalidTaskException;
 import aurora.task.Task;
