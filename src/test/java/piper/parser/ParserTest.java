@@ -3,7 +3,8 @@ package piper.parser;
 import org.junit.jupiter.api.Test;
 import piper.PiperException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParserTest {
 
@@ -28,7 +29,7 @@ class ParserTest {
     @Test
     void parseIndex_trimsAndRejectsNonNumeric() {
         PiperException e = assertThrows(PiperException.class, () -> Parser.parseIndex(" two "));
-        assertTrue(e.getMessage().toLowerCase().contains("numeric"));
+        assertEquals("PEEP! Please give me a numeric task index!", e.getMessage());
     }
 
     @Test
