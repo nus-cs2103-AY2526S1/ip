@@ -1,3 +1,6 @@
+import java.io.File;
+import java.util.ArrayList;
+
 import application.Parser;
 import application.Storage;
 import application.TaskList;
@@ -5,22 +8,17 @@ import application.Ui;
 import command.Command;
 import exception.RomidasException;
 import tasks.Task;
-import java.io.File;
-import java.util.ArrayList;
 
 public class Romidas {
     private static final String DATA_PATH = getProjectRootPath() + File.separator + "romidas.txt";
     
     private static String getProjectRootPath() {
-        // Get current working directory
         String currentDir = System.getProperty("user.dir");
         
-        // If we're in the text-ui-test subdirectory, go up one level to get the project root
         if (currentDir.endsWith("text-ui-test")) {
             return new File(currentDir).getParent();
         }
         
-        // If we're already in the project root, use current directory
         return currentDir;
     }
     private Storage storage;
@@ -52,7 +50,8 @@ public class Romidas {
             } catch (NumberFormatException e) {
                 ui.showError("tasks.Task number must be an integer.");
             } catch (IllegalArgumentException e) {
-                ui.showError("I'm sorry, I don't recognise that command. Try one of list, event, todo, deadline, mark, unmark, delete");
+                ui.showError("I'm sorry, I don't recognise that command. "
+                        + "Try one of list, event, todo, deadline, mark, unmark, delete");
             } catch (RomidasException e) {
                 ui.showError(e.getMessage());
             } finally {

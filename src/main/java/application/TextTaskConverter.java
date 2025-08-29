@@ -1,12 +1,12 @@
 package application;
 
+import java.util.ArrayList;
+
+import exception.RomidasException;
 import tasks.DeadlineTask;
 import tasks.Event;
 import tasks.Task;
 import tasks.TodoTask;
-import exception.RomidasException;
-
-import java.util.ArrayList;
 
 public class TextTaskConverter  {
     public static ArrayList<Task> convertToTask(ArrayList<String> lines) throws RomidasException {
@@ -23,7 +23,8 @@ public class TextTaskConverter  {
                 case "T" -> TodoTask.toTask(parts);
                 case "D" -> DeadlineTask.toTask(parts);
                 case "E" -> Event.toTask(parts);
-                default -> throw new RomidasException("I'm sorry, I don't recognise that command. Try one of event, todo, deadline");
+                default -> throw new RomidasException("I'm sorry, I don't recognise that command. "
+                        + "Try one of event, todo, deadline");
             };
             tasks.add(task);
         }

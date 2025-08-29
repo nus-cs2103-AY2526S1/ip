@@ -1,6 +1,7 @@
 package tasks;
-import exception.RomidasException;
 import java.time.LocalDate;
+
+import exception.RomidasException;
 
 public class DeadlineTask extends Task {
     LocalDate deadline;
@@ -16,7 +17,8 @@ public class DeadlineTask extends Task {
 
     public static Task toTask(String[] parts) throws RomidasException {
         if (parts.length != 3) {
-            throw new RomidasException("Invalid number of arguments. Expected 3 but got " + parts.length);
+            throw new RomidasException("Invalid number of arguments. Expected 3 but got " 
+                    + parts.length);
         }
         // Extract the base description and deadline from parts[2]
         String fullDescription = parts[2];
@@ -30,14 +32,16 @@ public class DeadlineTask extends Task {
             // Find the closing ")" after "(by: "
             int closingParen = fullDescription.indexOf(")", byIndex);
             if (closingParen == -1) {
-                throw new RomidasException("Invalid deadline format. Expected closing ')' after '(by: date)' in: " + fullDescription);
+                throw new RomidasException("Invalid deadline format. Expected closing ')' after "
+                        + "'(by: date)' in: " + fullDescription);
             }
             
             // Extract the date between "(by: " and ")"
             deadline = fullDescription.substring(byIndex + 6, closingParen);
             
         } else {
-            throw new RomidasException("Invalid deadline format. Expected '(by: date)' but got: " + fullDescription);
+            throw new RomidasException("Invalid deadline format. Expected '(by: date)' but got: " 
+                    + fullDescription);
         }
         
         DeadlineTask task = new DeadlineTask(baseDescription, deadline);
@@ -49,7 +53,8 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toText() {
-        return "D | " + (this.isDone ? "1 | ": "0 | ") + this.getDescription() + " (by: " + deadline + ")" + deadline;
+        return "D | " + (this.isDone ? "1 | " : "0 | ") + this.getDescription() 
+                + " (by: " + deadline + ")" + deadline;
     }
 
     @Override

@@ -13,16 +13,19 @@ public class Event extends Task {
 
     public static Task toTask(String[] parts) throws RomidasException {
         if (parts.length != 4) {
-            throw new RomidasException("Invalid number of arguments. Expected 4 but got " + parts.length);
+            throw new RomidasException("Invalid number of arguments. Expected 4 but got " 
+                    + parts.length);
         }
         String[] timeParts = parts[3].split("-");
         if (timeParts.length != 2 || timeParts[0].isBlank() || timeParts[1].isBlank()) {
-            throw new RomidasException("Invalid event format. Expected 'from-to' but got: " + parts[3]);
+            throw new RomidasException("Invalid event format. Expected 'from-to' but got: " 
+                    + parts[3]);
         }
         // Extract the base description by removing the "(from: ... to: ...)" part
         String baseDescription = parts[2];
         if (baseDescription.contains(" (from: ")) {
-            baseDescription = baseDescription.substring(0, baseDescription.indexOf(" (from: "));
+            baseDescription = baseDescription.substring(0, 
+                    baseDescription.indexOf(" (from: "));
         }
         Event task = new Event(baseDescription, timeParts[0], timeParts[1]);
         if (parts[1].equals("1")) {
@@ -33,7 +36,9 @@ public class Event extends Task {
 
     @Override
     public String toText() {
-        return "E | " + (this.isDone ? "1 | ": "0 | ") + this.getDescription() + " (from: " + this.from + " to: " + this.to + ") | " + this.from + "-" + this.to;
+        return "E | " + (this.isDone ? "1 | " : "0 | ") + this.getDescription() 
+                + " (from: " + this.from + " to: " + this.to + ") | " 
+                + this.from + "-" + this.to;
     }
 
     @Override

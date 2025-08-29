@@ -1,9 +1,9 @@
 package command;
+import application.Storage;
 import application.TaskList;
 import application.Ui;
-import application.Storage;
-import tasks.Task;
 import exception.RomidasException;
+import tasks.Task;
 
 public class MarkCommand extends Command {
     private int index;

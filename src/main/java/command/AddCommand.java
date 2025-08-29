@@ -1,9 +1,9 @@
 package command;
-import tasks.Task;
+import application.Storage;
 import application.TaskList;
 import application.Ui;
-import application.Storage;
 import exception.RomidasException;
+import tasks.Task;
 
 public class AddCommand extends Command {
     private Task task;
