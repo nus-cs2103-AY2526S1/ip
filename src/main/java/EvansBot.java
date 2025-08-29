@@ -41,7 +41,7 @@ public class EvansBot {
      * Reads user input, parses it into commands, executes them, and handles exceptions.
      * The loop continues until an exit command is issued.
      */
-    public void run() {
+    private void run() {
         ui.greet();
         boolean isExit = false;
 
