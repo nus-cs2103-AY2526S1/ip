@@ -9,20 +9,27 @@ import java.util.List;
 public class TaskList {
     protected List<Task> listOfTasks;
 
-    //default taskList to intiate
+    /** Default constructor when there is no data stored */
     public TaskList() {
         listOfTasks = new ArrayList<>();
     }
 
-    //taskList that returns stored tasks
+    /** Constructor used for when there is data to load */
     public TaskList(List<Task> loadTasks) {
         this.listOfTasks = loadTasks;
     }
 
+    /** Returns the list of tasks as a  List<Task> */
     public List<Task> getTaskList() {
         return listOfTasks;
     }
 
+    /**
+     * Adds a given task to the list of tasks.
+     *
+     * @param task Task to be added.
+     * @throws TaskLimitException If the current task count in the list is >= 100.
+     */
     public void addToList(Task task) throws TaskLimitException {
         if (listOfTasks.size() >= 99) {
             throw new TaskLimitException();
@@ -31,18 +38,35 @@ public class TaskList {
         }
     }
 
+    /**
+     * Retrieves a specific task from the list of tasks.
+     *
+     * @param index Index of task to be retrieved, starting from 0.
+     * @return Task from at given index.
+     */
     public Task getTask(int index) {
         return listOfTasks.get(index);
     }
 
+    /** Removes a specific task from the list of tasks.
+     *
+     * @param task Task to be removed.
+     */
     public void deleteFromList(Task task) {
         listOfTasks.remove(task);
     }
 
+    /** Returns the current number of tasks stored in the list */
     public int getTaskCount() {
         return listOfTasks.size();
     }
 
+    /**
+     * Returns a list of tasks with date matching user input as a List<Task>.
+     *
+     * @param date Date provided by user.
+     * @return List of tasks whose date matches the given date.
+     * */
     public List<Task> getTasksAtDate(LocalDate date) {
         List<Task> result = new ArrayList<>();
         for (Task task : listOfTasks) {

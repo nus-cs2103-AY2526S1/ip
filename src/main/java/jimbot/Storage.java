@@ -7,7 +7,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * This class stores task data in hard disk.
+ *
+ * @author limjimin-nus
+ */
 public class Storage {
     private final String path;
 

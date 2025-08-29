@@ -1,11 +1,15 @@
 package jimbot.ui;
 
-//class containing all jimbot responses
 import jimbot.tasktypes.Task;
 import jimbot.tasktypes.TaskList;
 
 import java.util.List;
 
+ /**
+  * Class that handles the UI of programs' responses to user.
+  *
+  * @author limjimin-nus
+  * */
 public class UI {
 
     public void markRes(TaskList userList, int index) {
@@ -172,6 +176,12 @@ public class UI {
                 bottomBorder);
     }
 
+     /**
+      * Prints a the lsit of tasks at a specific date.
+      *
+      * @param list List of tasks with the same dates.
+      * @param isToday If specific date matches LocalDate.now(), string response changes to mention that.
+      */
     public void printListAtDate(List<Task> list, boolean isToday) {
         int maxLength = 34;
         int taskCount = list.size();
@@ -248,6 +258,7 @@ public class UI {
                     """);
     }
 
+    /** Response for unrecognized commands */
     public void respond(String userInput) {
         int maxLength = 46;
         int length = userInput.length();
@@ -271,11 +282,13 @@ public class UI {
                 " ʕ •ᴥ•ʔ     ʕ•ᴥ• ʔ ─┴" + textBox + "┘");
     }
 
+    /** Prints a list of all possible commands */
     public void commandList() {
         System.out.print("""
                             ┌─────────────────────────────────────────┐
                             │ Here are the commands you can use:      │
                             │   (input date in dd/mm/yyyy)            │
+                            │   bye/goodbye                           │
                             │   deadline                              │
                             │   delete                                │
                             │   event                                 │
@@ -284,7 +297,7 @@ public class UI {
                             │   today                                 │
                             │   todo                                  │
                             │   unmark                                │
-                            └─────────────────────────────────────────┘ _(•̀ω•́ 」∠)_
+                            └─────────────────────────────────────────┴─  _(•̀ω•́ 」∠)_
                             """);
     }
 }

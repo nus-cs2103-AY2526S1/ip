@@ -8,7 +8,16 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    //obtaining task index from user input to for access tasks in taskList
+
+    /**
+     * Parses a user input string into an int.
+     * Throws InvalidIndexException if user input string is invalid.
+     *
+     * @param input User input string.
+     * @param command Command string found in user input to split.
+     * @param taskCount Current number of tasks in user's task list.
+     * @throws InvalidIndexException If index < 0 or >= taskCount.
+     */
     public static int parseIndex(String input, String command, int taskCount) throws InvalidIndexException {
         try {
             int index = Integer.parseInt(input
@@ -20,7 +29,14 @@ public class Parser {
             throw new InvalidIndexException();
         }
     }
-    //obtaining date and time from user input
+
+    /**
+     * Parses user input string into a LocalDateTime.
+     * Throws invalidDateTimeException if user string format is invalid.
+     *
+     * @param input User input string in dd/MM/yyyy HHmm format.
+     * @throws InvalidDateTimeException If in the wrong format.
+     */
     public static LocalDateTime parseDateTime(String input) throws InvalidDateTimeException {
         input = input.trim();
         //date + time

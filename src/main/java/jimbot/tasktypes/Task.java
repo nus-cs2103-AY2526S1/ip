@@ -4,6 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 public class Task implements Serializable {
+    /** Version identifier number that is stored with the serialized tasks */
     @Serial
     private static final long serialVersionUID = 1L;
     protected String description;
@@ -17,7 +18,6 @@ public class Task implements Serializable {
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
-
 
     public void markAsDone() {
         this.isDone = true;
