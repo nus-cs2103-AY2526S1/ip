@@ -71,13 +71,13 @@ public class TaskList {
     }
 
     /**
-     * Returns a list of tasks with description matching user input as a List<Task>.
+     * Returns a list of tasks with description matching user input as a TaskList.
      *
      * @param description Description provided by user.
      * @return List of tasks whose description contains the given description.
      * @throws NoSuchTaskException If description does not match any task in the list.
      * */
-    public List<Task> findTasks(String description) throws NoSuchTaskException {
+    public TaskList findTasks(String description) throws NoSuchTaskException {
         List<Task> result = new ArrayList<>();
 
         if (description.isEmpty()) {
@@ -103,18 +103,18 @@ public class TaskList {
         if  (result.isEmpty()) {
             throw new NoSuchTaskException();
         } else {
-            return result;
+            return new TaskList(result);
         }
     }
 
     /**
-     * Returns a list of tasks with date matching user input as a List<Task>.
+     * Returns a list of tasks with date matching user input as a TaskList.
      *
      * @param date Date provided by user.
      * @return List of tasks whose date matches the given date.
      * @throws NoSuchTaskException If date does not match any tasks' date in the list.
      * */
-    public List<Task> findTasksAtDate(LocalDate date) throws NoSuchTaskException {
+    public TaskList findTasksAtDate(LocalDate date) throws NoSuchTaskException {
         List<Task> result = new ArrayList<>();
 
         for (Task task : listOfTasks) {
@@ -133,7 +133,7 @@ public class TaskList {
         if (result.isEmpty()) {
             throw new NoSuchTaskException();
         } else {
-            return result;
+            return new TaskList(result);
         }
     }
 }

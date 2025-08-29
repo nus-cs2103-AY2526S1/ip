@@ -11,6 +11,7 @@ import jimbot.exceptions.InvalidEventException;
 import jimbot.exceptions.NoSuchTaskException;
 import jimbot.exceptions.InvalidToDoException;
 import jimbot.exceptions.TaskLimitException;
+import jimbot.storage.Storage;
 import jimbot.ui.UI;
 import jimbot.tasktypes.Deadline;
 import jimbot.tasktypes.Event;
@@ -146,7 +147,7 @@ public class Jimbot {
                     String description = userInput.toLowerCase()
                             .substring(4)
                             .trim();
-                    List<Task> tasks = userList.findTasks(description);
+                    List<Task> tasks = userList.findTasks(description).getTaskList();
 
                     user.printList(tasks);
                 } else if (userInput.contains("/") || userInput.equalsIgnoreCase("today")) {
@@ -156,7 +157,7 @@ public class Jimbot {
                          date = Parser.parseDate(userInput);
                     }
 
-                    List<Task> tasks = userList.findTasksAtDate(date);
+                    List<Task> tasks = userList.findTasksAtDate(date).getTaskList();
 
                     user.printListAtDate(tasks,
                             date.isEqual(LocalDate.now()) || userInput.equals("today"));

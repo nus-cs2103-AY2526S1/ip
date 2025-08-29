@@ -1,4 +1,4 @@
-package jimbot;
+package jimbot.storage;
 
 import java.io.*;
 import java.util.ArrayList;
