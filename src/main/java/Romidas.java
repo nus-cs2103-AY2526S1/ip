@@ -1,3 +1,6 @@
+import java.io.File;
+import java.util.ArrayList;
+
 import application.Parser;
 import application.Storage;
 import application.TaskList;
@@ -5,12 +8,21 @@ import application.Ui;
 import command.Command;
 import exception.RomidasException;
 import tasks.Task;
-import java.io.File;
-import java.util.ArrayList;
 
+/**
+ * Main application class for the Romidas task management system.
+ * Handles the application lifecycle, user input processing, and coordination between components.
+ */
 public class Romidas {
+    /** Path to the data file for persistent storage */
     private static final String DATA_PATH = getProjectRootPath() + File.separator + "romidas.txt";
     
+    /**
+     * Determines the project root path for data file storage.
+     * Handles different execution contexts (project root vs text-ui-test subdirectory).
+     *
+     * @return The absolute path to the project root directory.
+     */
     private static String getProjectRootPath() {
         // Get current working directory
         String currentDir = System.getProperty("user.dir");
@@ -23,10 +35,17 @@ public class Romidas {
         // If we're already in the project root, use current directory
         return currentDir;
     }
+    /** Storage component for file I/O operations */
     private Storage storage;
+    /** Task list component for managing tasks */
     private TaskList taskList;
+    /** User interface component for input/output */
     private Ui ui;
 
+    /**
+     * Constructs a new Romidas application instance.
+     * Initializes all components and loads existing tasks from storage.
+     */
     public Romidas() {
         this.ui = new Ui();
         this.storage = new Storage();
@@ -34,6 +53,11 @@ public class Romidas {
         this.taskList = new TaskList(store);
     }
 
+    /**
+     * Runs the main application loop.
+     * Handles user input, command processing, and application lifecycle.
+     * Continues until the user issues an exit command or encounters an error.
+     */
     public void run() {
         ui.welcome();
         boolean isBye = false;
@@ -64,6 +88,12 @@ public class Romidas {
         ui.showGoodbye();
     }
 
+    /**
+     * Main entry point for the Romidas application.
+     * Creates and runs the application instance.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         Romidas romidas = new Romidas();
         romidas.run();

@@ -1,16 +1,36 @@
 package tasks;
 import exception.RomidasException;
 
+/**
+ * Represents an event task with a start and end time.
+ * Extends the base Task class to provide event-specific functionality.
+ */
 public class Event extends Task {
     String from;
     String to;
 
+    /**
+     * Constructs a new Event task with the specified description and time range.
+     *
+     * @param description The description of the event.
+     * @param from The start time of the event.
+     * @param to The end time of the event.
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Converts a string array representation back to an Event task.
+     * Parses the task data from storage format and reconstructs the Event object.
+     * Handles validation of input format and extracts time information.
+     *
+     * @param parts Array containing task type, completion status, description, and time range.
+     * @return The reconstructed Event task.
+     * @throws RomidasException If the input format is invalid or missing required parts.
+     */
     public static Task toTask(String[] parts) throws RomidasException {
         if (parts.length != 4) {
             throw new RomidasException("Invalid number of arguments. Expected 4 but got " + parts.length);
