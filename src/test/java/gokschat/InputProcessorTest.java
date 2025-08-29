@@ -8,6 +8,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/// This class contains tests for the InputProcessor class
+///
+/// @author Ravichandran Gokul
 public class InputProcessorTest {
 
     // Valid dates for isValidDate method
