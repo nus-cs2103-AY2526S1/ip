@@ -36,7 +36,7 @@ public abstract class LynxScanner {
                 } else if (input.startsWith("list ")) {
                     LynxCommandManager.listTasks(input);
                 } else if (input.startsWith("mark ")) {
-                    LynxCommandManager.markTasks2(input);
+                    LynxCommandManager.markTasks(input);
                 } else if (input.startsWith("unmark ")) {
                     LynxCommandManager.unmarkTasks(input);
                 } else if (input.startsWith("delete ")) {
@@ -51,7 +51,7 @@ public abstract class LynxScanner {
                     throw new LynxException("Sorry, I didn't understand that command. " +
                             "Please try again or type \"help\" to access the user guide.");
                 }
-            } catch (LynxException e) {
+            } catch (Exception e) {
                 LynxUI.printBox(e.getMessage());
             }
         }

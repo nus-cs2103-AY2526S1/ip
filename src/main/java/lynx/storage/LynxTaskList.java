@@ -114,7 +114,8 @@ public abstract class LynxTaskList {
      * @return Task stream filtered by keyword.
      */
     public static Stream<Task> filterTasksByKeyword(Stream<Task> tasks, String keyword) {
-        return tasks.filter(task -> task.getName().toLowerCase().contains(keyword.toLowerCase()));
+        return tasks.filter(task -> task.getName().replaceAll("\\s+", "")
+                .toLowerCase().contains(keyword.toLowerCase()));
     }
 
     /**

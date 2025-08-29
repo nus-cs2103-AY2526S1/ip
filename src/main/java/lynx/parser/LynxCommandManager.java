@@ -163,20 +163,10 @@ public abstract class LynxCommandManager {
     }
 
     /**
-     * Marks tasks in the task list as specified by the command.
-     * <p>
-     * To mark all tasks, use "mark /all".
-     * <p>
-     * To mark tasks by date, use "mark /on [date]".
-     * <p>
-     * To mark a task by id, use "mark /id [id]".
-     * <p>
-     * To mark tasks by status, use "mark /status [status]".
-     * <p>
-     * To mark tasks by keyword, use "mark [keyword]".
+     * Marks tasks in the task list as specified by the input command.
      *
-     * @param input User command staring with "mark".
-     * @throws LynxException If command, date or id is invalid.
+     * @param input Command staring with "mark".
+     * @throws LynxException If command is invalid.
      */
     public static void markTasks(String input) throws LynxException {
         Consumer<Task> mark = Task::setComplete;
@@ -185,21 +175,8 @@ public abstract class LynxCommandManager {
         if (input.length() <= 4 || !input.startsWith("mark")) {
             throw new MissingArgumentException("mark");
         }
-        MarkCommand command = new MarkCommand(input.substring(5).trim());
-        List<Task> tasks = findTasks(command);
-        executeOnTasks(mark, tasks, empty);
-        LynxUI.line();
-    }
-
-    public static void markTasks2(String input) throws LynxException {
-        Consumer<Task> mark = Task::setComplete;
-        String empty = "     (No tasks found or marked)";
-
-        if (input.length() <= 4 || !input.startsWith("mark")) {
-            throw new MissingArgumentException("mark");
-        }
         LynxCommand2 command = new LynxCommand2(input.substring(5).trim());
-        findTasks2(command, LynxTaskList.getAllTasks());
+        findTasks(command, LynxTaskList.getAllTasks());
         LynxUI.line();
         System.out.println(String.format("Marked %s", command.getSearchString()));
         executeOnTasks(mark, command.getSearchResult(), empty);
@@ -207,20 +184,10 @@ public abstract class LynxCommandManager {
     }
 
     /**
-     * Unmarks tasks in the task list as specified by the command.
-     * <p>
-     * To unmark all tasks, use "unmark /all".
-     * <p>
-     * To unmark tasks by date, use "unmark /on [date]".
-     * <p>
-     * To unmark a task by id, use "unmark /id [id]".
-     * <p>
-     * To unmark tasks by status, use "unmark /status [status]".
-     * <p>
-     * To unmark tasks by keyword, use "unmark [keyword]".
+     * Unmarks tasks in the task list as specified by the input command.
      *
-     * @param input User command staring with "unmark".
-     * @throws LynxException If command, date or id is invalid.
+     * @param input Command staring with "unmark".
+     * @throws LynxException If command is invalid.
      */
     public static void unmarkTasks(String input) throws LynxException {
         Consumer<Task> unmark = Task::setIncomplete;
@@ -229,27 +196,19 @@ public abstract class LynxCommandManager {
         if (input.length() <= 6 || !input.startsWith("unmark")) {
             throw new MissingArgumentException("unmark");
         }
-        UnmarkCommand command = new UnmarkCommand(input.substring(7).trim());
-        List<Task> tasks = findTasks(command);
-        executeOnTasks(unmark, tasks, empty);
+        LynxCommand2 command = new LynxCommand2(input.substring(7).trim());
+        findTasks(command, LynxTaskList.getAllTasks());
+        LynxUI.line();
+        System.out.println(String.format("Unmarked %s", command.getSearchString()));
+        executeOnTasks(unmark, command.getSearchResult(), empty);
         LynxUI.line();
     }
 
     /**
-     * Removes tasks from the task list as specified by the command.
-     * <p>
-     * To remove all tasks, use "delete /all".
-     * <p>
-     * To remove tasks by date, use "delete /on [date]".
-     * <p>
-     * To remove a task by id, use "delete /id [id]".
-     * <p>
-     * To remove tasks by status, use "delete /status [status]".
-     * <p>
-     * To remove tasks by keyword, use "delete [keyword]".
+     * Removes tasks from the task list as specified by the input command.
      *
-     * @param input User command staring with "delete".
-     * @throws LynxException If command, date or id is invalid.
+     * @param input Command staring with "delete".
+     * @throws LynxException If command is invalid.
      */
     public static void deleteTasks(String input) throws LynxException {
         Consumer<Task> delete = task -> LynxTaskList.removeTask(task, false);
@@ -258,28 +217,20 @@ public abstract class LynxCommandManager {
         if (input.length() <= 6 || !input.startsWith("delete")) {
             throw new MissingArgumentException("delete");
         }
-        DeleteCommand command = new DeleteCommand(input.substring(7).trim());
-        List<Task> tasks = findTasks(command);
-        executeOnTasks(delete, tasks, empty);
+        LynxCommand2 command = new LynxCommand2(input.substring(7).trim());
+        findTasks(command, LynxTaskList.getAllTasks());
+        LynxUI.line();
+        System.out.println(String.format("Deleted %s", command.getSearchString()));
+        executeOnTasks(delete, command.getSearchResult(), empty);
         System.out.println("You currently have " + LynxTaskList.getCount() + " task(s) in your list.");
         LynxUI.line();
     }
 
     /**
-     * Prints tasks from the task list as specified by the command.
-     * <p>
-     * To print all tasks, use "list /all".
-     * <p>
-     * To print tasks by date, use "list /on [date]".
-     * <p>
-     * To print a task by id, use "list /id [id]".
-     * <p>
-     * To print tasks by status, use "list /status [status]".
-     * <p>
-     * To print tasks by keyword, use "list [keyword]".
+     * Prints tasks in the task list as specified by the input command.
      *
-     * @param input User command staring with "list".
-     * @throws LynxException If command, date or id is invalid.
+     * @param input Command staring with "list".
+     * @throws LynxException If command is invalid.
      */
     public static void listTasks(String input) throws LynxException {
         Consumer<Task> list = task -> {};
@@ -288,9 +239,11 @@ public abstract class LynxCommandManager {
         if (input.length() <= 4 || !input.startsWith("list")) {
             throw new MissingArgumentException("list");
         }
-        ListCommand command = new ListCommand(input.substring(5).trim());
-        List<Task> tasks = findTasks(command);
-        executeOnTasks(list, tasks, empty);
+        LynxCommand2 command = new LynxCommand2(input.substring(5).trim());
+        findTasks(command, LynxTaskList.getAllTasks());
+        LynxUI.line();
+        System.out.println(String.format("Here are %s", command.getSearchString()));
+        executeOnTasks(list, command.getSearchResult(), empty);
         LynxUI.line();
     }
 
@@ -303,58 +256,7 @@ public abstract class LynxCommandManager {
      * @return List of tasks fulfilling the search.
      * @throws LynxException If command is of invalid format.
      */
-    private static List<Task> findTasks(LynxCommand command) throws LynxException {
-        String input = command.getInput();
-
-        if (input.startsWith("/id ")) {
-            try {
-                int id = Integer.parseInt(input.substring(4).trim());
-                List<Task> task = new ArrayList<>();
-                task.add(LynxTaskList.findTaskById(id));
-                LynxUI.line();
-                System.out.printf("%s%s:%n", command.getMessageById(), id);
-                return task;
-            } catch (NumberFormatException e) {
-                throw new LynxException("Sorry, that isn't a valid ID.");
-            }
-        }
-
-        Stream<Task> tasks = LynxTaskList.getAllTasks();
-
-        if (input.trim().equals("/all")) {
-            LynxUI.line();
-            System.out.printf("%s:%n", command.getMessageForAll());
-            return tasks.toList();
-        }
-
-        if (input.startsWith("/on ")) {
-            input = input.substring(4).trim();
-            try {
-                LocalDateTime dateTime = LynxDateManager.parseDateTime(input);
-                LynxUI.line();
-                System.out.printf("%s%s:%n", command.getMessageByDate(), LynxDateManager.textDateTime(dateTime));
-                return LynxTaskList.filterTasksByDate(tasks, dateTime).toList();
-            } catch (LynxException e) {
-                LynxUI.printBox("Invalid date format: " + e.getMessage());
-            }
-        }
-
-        if (input.startsWith("/status ")) {
-            input = input.substring(8).trim().toLowerCase();
-            Task.Status status = Task.Status.matchSymbol(input);
-            LynxUI.line();
-            System.out.printf("%s%s:%n", command.getMessageByStatus(), status);
-            return LynxTaskList.filterTasksByStatus(tasks, status).toList();
-        }
-
-        String keyword = input.trim();
-        checkName(keyword);
-        LynxUI.line();
-        System.out.printf("%s\"%s\":%n", command.getMessageByKeyword(), keyword);
-        return LynxTaskList.filterTasksByKeyword(tasks, keyword).toList();
-    }
-
-    public static void findTasks2(LynxCommand2 command, Stream<Task> stream) throws LynxException {
+    public static void findTasks(LynxCommand2 command, Stream<Task> stream) throws LynxException {
         String input = command.getNextCommand();
 
         if (input.isBlank()) {
@@ -363,7 +265,7 @@ public abstract class LynxCommandManager {
         }
 
         switch (input) {
-            case "/all" -> findTasks2(command, stream);
+            case "/all" -> findTasks(command, stream);
             case "/id" -> findTasksById(command, stream);
             case "/key" -> findTasksByKeyword(command, stream);
             case "/on" -> findTasksByDate(command, stream);
@@ -378,7 +280,7 @@ public abstract class LynxCommandManager {
         try {
             String id = command.getNextCommand();
             command.setId(id);
-            findTasks2(command, LynxTaskList.filterTasksById(stream, Integer.parseInt(id)));
+            findTasks(command, LynxTaskList.filterTasksById(stream, Integer.parseInt(id)));
         } catch (NumberFormatException e) {
             throw new LynxException("Sorry, that isn't a valid ID.");
         }
@@ -388,32 +290,28 @@ public abstract class LynxCommandManager {
         String keyword = command.getNextCommand();
         checkName(keyword);
         command.setKeyword(keyword);
-        findTasks2(command, LynxTaskList.filterTasksByKeyword(stream, keyword));
+        findTasks(command, LynxTaskList.filterTasksByKeyword(stream, keyword));
     }
 
-    private static void findTasksByDate(LynxCommand2 command, Stream<Task> stream) {
+    private static void findTasksByDate(LynxCommand2 command, Stream<Task> stream) throws LynxException {
         String date = command.getNextCommand();
-        try {
-            LocalDateTime dateTime = LynxDateManager.parseDateTime(date);
-            command.setDate(LynxDateManager.textDateTime(dateTime));
-            findTasks2(command, LynxTaskList.filterTasksByDate(stream, dateTime));
-        } catch (LynxException e) {
-            LynxUI.printBox("Invalid date format: " + e.getMessage());
-        }
+        LocalDateTime dateTime = LynxDateManager.parseDateTime(date);
+        command.setDate(LynxDateManager.textDateTime(dateTime));
+        findTasks(command, LynxTaskList.filterTasksByDate(stream, dateTime));
     }
 
     private static void findTasksByStatus(LynxCommand2 command, Stream<Task> stream) throws LynxException {
         String symbol = command.getNextCommand();
         Task.Status status = Task.Status.matchSymbol(symbol);
         command.setStatus(symbol);
-        findTasks2(command, LynxTaskList.filterTasksByStatus(stream, status));
+        findTasks(command, LynxTaskList.filterTasksByStatus(stream, status));
     }
 
     private static void findTasksByType(LynxCommand2 command, Stream<Task> stream) throws LynxException {
         String symbol = command.getNextCommand();
         Task.TaskType type = Task.TaskType.matchSymbol(symbol);
         command.setType(symbol);
-        findTasks2(command, LynxTaskList.filterTasksByType(stream, type));
+        findTasks(command, LynxTaskList.filterTasksByType(stream, type));
     }
 
     /**
