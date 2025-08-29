@@ -13,6 +13,12 @@ import java.time.LocalDateTime;
 public class DeadlineTask extends Task {
     private final LocalDateTime deadline;
 
+    /**
+     * Constructor for creating a <code>DeadlineTask</code>
+     *
+     * @param name Name of the task.
+     * @param deadline Deadline of the task.
+     */
     public DeadlineTask(String name, LocalDateTime deadline) {
         super(name, TaskType.DEADLINE);
         this.deadline = deadline;

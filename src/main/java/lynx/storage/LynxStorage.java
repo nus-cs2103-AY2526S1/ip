@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
 /**
- * Class containing methods for loading and unloading tasks in the task list, using a string representation.
+ * Contains methods for loading and unloading tasks in the task list, using a string representation.
  */
 public abstract class LynxStorage {
 

@@ -6,7 +6,7 @@ import lynx.ui.LynxUI;
 import java.util.Scanner;
 
 /**
- * Class containing the central <code>Scanner</code> object, and the main program loop.
+ * Contains the central <code>Scanner</code> object, and the main program loop.
  */
 public abstract class LynxScanner {
 
@@ -14,7 +14,7 @@ public abstract class LynxScanner {
     public static final Scanner SCANNER = new Scanner(System.in);
 
     /**
-     * Continuously interpret and respond to user input until the "bye" command is called.
+     * Interprets and responds to user input until the "bye" command is called.
      */
     public static void scanForCommands() {
         String input;
@@ -23,35 +23,39 @@ public abstract class LynxScanner {
 
         while (true) {
             input = SCANNER.nextLine().trim();
+            if (input.length() > 300) {
+                LynxUI.printBox("Sorry, commands cannot exceed 200 characters in length.");
+                continue;
+            }
 
             try {
                 if (input.trim().equals("bye")) {
                     break;
                 } else if (input.trim().equals("reload")) {
-                    LynxCommandManager.reload();
+                    LynxGeneral.reload();
                 } else if (input.trim().equals("save")) {
-                    LynxCommandManager.reload();
+                    LynxGeneral.save();
                 } else if (input.trim().equals("help")) {
                     LynxUI.printHelp();
                 } else if (input.startsWith("list ")) {
-                    LynxCommandManager.listTasks(input);
+                    LynxTaskEditor.listTasks(input);
                 } else if (input.startsWith("mark ")) {
-                    LynxCommandManager.markTasks(input);
+                    LynxTaskEditor.markTasks(input);
                 } else if (input.startsWith("unmark ")) {
-                    LynxCommandManager.unmarkTasks(input);
+                    LynxTaskEditor.unmarkTasks(input);
                 } else if (input.startsWith("delete ")) {
-                    LynxCommandManager.deleteTasks(input);
+                    LynxTaskEditor.deleteTasks(input);
                 } else if (input.startsWith("todo ")) {
-                    LynxCommandManager.addTodo(input);
+                    LynxGeneral.addTodo(input);
                 } else if (input.startsWith("deadline ")) {
-                    LynxCommandManager.addDeadline(input);
+                    LynxGeneral.addDeadline(input);
                 } else if (input.startsWith("event ")) {
-                    LynxCommandManager.addEvent(input);
+                    LynxGeneral.addEvent(input);
                 } else if (!input.isEmpty()) {
                     throw new LynxException("Sorry, I didn't understand that command. " +
                             "Please try again or type \"help\" to access the user guide.");
                 }
-            } catch (LynxException e) {
+            } catch (Exception e) {
                 LynxUI.printBox(e.getMessage());
             }
         }

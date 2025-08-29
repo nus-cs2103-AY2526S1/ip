@@ -1,20 +1,15 @@
 package lynx.storage;
 
-import lynx.exception.LynxException;
-import lynx.formatter.LynxDateManager;
-import lynx.task.DeadlineTask;
-import lynx.task.EventTask;
 import lynx.task.Task;
 import lynx.ui.LynxUI;
 
 import java.time.LocalDateTime;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * Class containing methods that directly access the task list.
+ * Contains methods that directly access the task list.
  */
 public abstract class LynxTaskList {
 
@@ -80,19 +75,14 @@ public abstract class LynxTaskList {
     }
 
     /**
-     * Returns the task in the task list with the given id.
+     * Returns the task with a given id.
      *
+     * @param tasks Stream of tasks to be filtered.
      * @param id Id of task to be retrieved.
-     * @return Task with matching id.
-     * @throws LynxException If no matching task is found.
+     * @return Stream containing a single task.
      */
-    public static Task findTaskById(int id) throws LynxException {
-        for (Task task : COMMANDS) {
-            if (task.getId() == id) {
-                return task;
-            }
-        }
-        throw new LynxException("Task not found.");
+    public static Stream<Task> filterTasksById(Stream<Task> tasks, int id) {
+        return tasks.filter(task -> task.getId() == id);
     }
 
     /**
@@ -103,7 +93,8 @@ public abstract class LynxTaskList {
      * @return Task stream filtered by keyword.
      */
     public static Stream<Task> filterTasksByKeyword(Stream<Task> tasks, String keyword) {
-        return tasks.filter(task -> task.getName().toLowerCase().contains(keyword.toLowerCase()));
+        return tasks.filter(task -> task.getName().replaceAll("\\s+", "")
+                .toLowerCase().contains(keyword.toLowerCase()));
     }
 
     /**
@@ -118,7 +109,7 @@ public abstract class LynxTaskList {
     }
 
     /**
-     * Returns all tasks in a stream that match a given status.
+     * Returns all tasks in a stream that match a given <code>Status</code>.
      *
      * @param tasks Stream of tasks to be filtered.
      * @param status <code>Status</code> used to filter tasks.
@@ -126,6 +117,17 @@ public abstract class LynxTaskList {
      */
     public static Stream<Task> filterTasksByStatus(Stream<Task> tasks, Task.Status status) {
         return tasks.filter(task -> task.getStatus().equals(status));
+    }
+
+    /**
+     * Returns all tasks in a stream that match a given <code>TaskType</code>.
+     *
+     * @param tasks Stream of tasks to be filtered.
+     * @param type <code>TaskType</code> used to filter tasks.
+     * @return Task stream filtered by type.
+     */
+    public static Stream<Task> filterTasksByType(Stream<Task> tasks, Task.TaskType type) {
+        return tasks.filter(task -> task.getType().equals(type));
     }
 
 }
