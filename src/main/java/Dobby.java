@@ -9,6 +9,7 @@ import java.io.IOException;
 public class Dobby {
     private static ArrayList<Task> userTasks = new ArrayList<>();
     private static final Path FILE_PATH = Paths.get("data", "dobby.txt");
+    private static Storage storage = new Storage(FILE_PATH);
     // OS-independent file path
 
     public static void main(String[] args) throws InvalidTaskException {
@@ -61,7 +62,7 @@ public class Dobby {
             throw new InvalidTaskException("Task description cannot be empty!");
         }
         userTasks.add(task);
-        saveTasksToFile(task); // save to hard disk
+        storage.saveTasks(userTasks);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + userTasks.size() + " tasks in the list.\n");
@@ -101,18 +102,5 @@ public class Dobby {
             } catch (Exception e) {
                 System.out.println("Invalid task number.");
         }
-    }
-
-    private static void saveTasksToFile(Task task) {
-        try {
-            File file = FILE_PATH.toFile();
-            file.getParentFile().mkdirs(); // make sure ./data exists
-            FileWriter fw = new FileWriter(file, true); // true = append mode
-            fw.write(task.toString() + System.lineSeparator());
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Error saving task: " + e.getMessage());
-        }
-
     }
 }
