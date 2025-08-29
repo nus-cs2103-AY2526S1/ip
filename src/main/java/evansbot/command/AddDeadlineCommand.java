@@ -38,7 +38,9 @@ public class AddDeadlineCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EvansBotException {
-        if (description.isEmpty() || by.isEmpty()) throw new InvalidDeadlineException();
+        if (description.isEmpty() || by.isEmpty()) {
+            throw new InvalidDeadlineException();
+        }
         tasks.addTask(new Deadline(description, by));
     }
 }

@@ -40,7 +40,9 @@ public class AddEventCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EvansBotException {
-        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) throw new InvalidEventException();
+        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+            throw new InvalidEventException();
+        }
         tasks.addTask(new Event(description, from, to));
     }
 }

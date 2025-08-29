@@ -35,7 +35,9 @@ public class AddTodoCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EvansBotException {
-        if (description.isEmpty()) throw new InvalidTodoException();
+        if (description.isEmpty()) {
+            throw new InvalidTodoException();
+        }
         tasks.addTask(new ToDo(description));
     }
 }

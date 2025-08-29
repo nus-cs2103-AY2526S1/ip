@@ -18,6 +18,7 @@ public abstract class Command {
      * @throws EvansBotException If anything is invalid.
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws EvansBotException;
+
     public boolean isExit() {
         return false;
     }
