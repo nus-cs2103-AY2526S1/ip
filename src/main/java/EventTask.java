@@ -1,26 +1,28 @@
-public class EventTask extends Task {
-    private final String startdate;
-    private final String enddate;
+import java.time.LocalDateTime;
 
-    public EventTask(String description, String startdate, String enddate) {
+public class EventTask extends Task {
+    private final LocalDateTime startDate;
+    private final LocalDateTime endDate;
+
+    public EventTask(String description, LocalDateTime startDate, LocalDateTime endDate) {
         super(description);
-        this.startdate = startdate;
-        this.enddate = enddate;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
-    public EventTask(String description, String startdate, String enddate, boolean isDone) {
+    public EventTask(String description, LocalDateTime startDate, LocalDateTime endDate, boolean isDone) {
         super(description, isDone);
-        this.startdate = startdate;
-        this.enddate = enddate;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override
     public String writeToFile() {
-        return "E | " + isDone + " | " + description + " | " + startdate + " | " + enddate;
+        return "E | " + isDone + " | " + description + " | " + DateTimeProcess.formatForFile(startDate) + " | " + DateTimeProcess.formatForFile(endDate);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startdate + " to: " + enddate + ")";
+        return "[E]" + super.toString() + " (from: " + DateTimeProcess.formatForDisplay(startDate) + " to: " + DateTimeProcess.formatForDisplay(endDate) + ")";
     }
 }
