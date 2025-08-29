@@ -1,9 +1,9 @@
 package application;
 
-import tasks.Task;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import tasks.Task;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
@@ -38,5 +38,43 @@ public class TaskList {
 
     public ArrayList<Task> retreive() {
         return tasks;
+    }
+    
+    /**
+     * Finds all tasks whose descriptions contain the specified keyword.
+     * Returns a list of IndexedTask objects containing both the task and its original index.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return ArrayList of IndexedTask objects containing matching tasks and their indices.
+     */
+    public ArrayList<IndexedTask> findTasks(String keyword) {
+        ArrayList<IndexedTask> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(new IndexedTask(tasks.get(i), i + 1)); // 1-based index for display
+            }
+        }
+        return matchingTasks;
+    }
+    
+    /**
+     * Helper class to store a task along with its original index for search results.
+     */
+    public static class IndexedTask {
+        private final Task task;
+        private final int index;
+        
+        public IndexedTask(Task task, int index) {
+            this.task = task;
+            this.index = index;
+        }
+        
+        public Task getTask() {
+            return task;
+        }
+        
+        public int getIndex() {
+            return index;
+        }
     }
 }

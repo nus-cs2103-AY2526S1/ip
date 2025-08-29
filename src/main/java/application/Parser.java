@@ -7,6 +7,7 @@ import command.AddCommand;
 import command.Command;
 import command.DeleteCommand;
 import command.ExitCommand;
+import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import exception.InvalidIndexException;
@@ -136,16 +137,23 @@ public class Parser {
                 }
                 return new DeleteCommand(index);
 
+            case FIND:
+                if (words.length < 2) {
+                    throw new RomidasException("find requires a keyword");
+                }
+                String keyword = input.trim().substring(5); // Remove "find " prefix
+                return new FindCommand(keyword);
+
             case BYE:
                 return new ExitCommand();
 
             default:
                 throw new RomidasException("I'm sorry, I don't recognise that command. "
-                        + "Try one of list, event, todo, deadline, mark, unmark, delete");
+                        + "Try one of list, event, todo, deadline, mark, unmark, delete, find");
             }
         } catch (IllegalArgumentException e) {
             throw new RomidasException("I'm sorry, I don't recognise that command. "
-                    + "Try one of list, event, todo, deadline, mark, unmark, delete");
+                    + "Try one of list, event, todo, deadline, mark, unmark, delete, find");
         }
     }
 }
