@@ -1,7 +1,7 @@
 package jimbot.util;
 
 import jimbot.exceptions.InvalidDateTimeException;
-import jimbot.exceptions.InvalidIndexException;
+import jimbot.exceptions.NoSuchTaskException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -11,16 +11,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
     @Test
-    public void parseIndex_validInput_success() throws InvalidIndexException {
+    public void parseIndex_validInput_success() throws NoSuchTaskException {
         int taskCount = 5;
         int index = Parser.parseIndex("delete 2", "delete", taskCount);
         assertEquals(1, index);
     }
 
     @Test
-    public void parseIndex_invalidInput_exceptionThrown() throws InvalidIndexException {
+    public void parseIndex_invalidInput_exceptionThrown() throws NoSuchTaskException {
         int taskCount = 3;
-        assertThrows(InvalidIndexException.class,
+        assertThrows(NoSuchTaskException.class,
                 () -> Parser.parseIndex("mark 4", "mark", taskCount));
     }
 

@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import jimbot.exceptions.InvalidDateTimeException;
-import jimbot.exceptions.InvalidIndexException;
+import jimbot.exceptions.NoSuchTaskException;
 
 public class Parser {
 
@@ -19,21 +19,21 @@ public class Parser {
      * @param input User input string.
      * @param command Command string found in user input to split.
      * @param taskCount Current number of tasks in user's task list.
-     * @throws InvalidIndexException If index < 0 or >= taskCount.
+     * @throws NoSuchTaskException If index < 0 or >= taskCount.
      */
-    public static int parseIndex(String input, String command, int taskCount) throws InvalidIndexException {
+    public static int parseIndex(String input, String command, int taskCount) throws NoSuchTaskException {
         try {
             int index = Integer.parseInt(input
                     .substring(command.length())
                     .trim()) - 1;
 
             if (index < 0 || index >= taskCount) {
-                throw new InvalidIndexException();
+                throw new NoSuchTaskException();
             }
 
             return index;
         } catch (NumberFormatException e) {
-            throw new InvalidIndexException();
+            throw new NoSuchTaskException();
         }
     }
 

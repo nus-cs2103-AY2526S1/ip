@@ -1,7 +1,7 @@
 package jimbot.exceptions;
 
-public class InvalidIndexException extends JimbotException {
-    public InvalidIndexException(){
+public class NoSuchTaskException extends JimbotException {
+    public NoSuchTaskException(){
         super("""
                        ┌──────────────────────────┐
                        │ I can't find that task!  │

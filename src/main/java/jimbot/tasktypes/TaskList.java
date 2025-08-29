@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import jimbot.exceptions.NoSuchTaskException;
 import jimbot.exceptions.TaskLimitException;
 
 public class TaskList {
@@ -74,9 +75,14 @@ public class TaskList {
      *
      * @param description Description provided by user.
      * @return List of tasks whose description contains the given description.
+     * @throws NoSuchTaskException If description does not match any task in the list.
      * */
-    public List<Task> findTasks(String description) {
+    public List<Task> findTasks(String description) throws NoSuchTaskException {
         List<Task> result = new ArrayList<>();
+
+        if (description.isEmpty()) {
+            throw new NoSuchTaskException();
+        }
 
         for (Task task : listOfTasks) {
             if (task instanceof Deadline deadline) {
@@ -93,7 +99,12 @@ public class TaskList {
                 }
             }
         }
-        return result;
+
+        if  (result.isEmpty()) {
+            throw new NoSuchTaskException();
+        } else {
+            return result;
+        }
     }
 
     /**
@@ -101,8 +112,9 @@ public class TaskList {
      *
      * @param date Date provided by user.
      * @return List of tasks whose date matches the given date.
+     * @throws NoSuchTaskException If date does not match any tasks' date in the list.
      * */
-    public List<Task> findTasksAtDate(LocalDate date) {
+    public List<Task> findTasksAtDate(LocalDate date) throws NoSuchTaskException {
         List<Task> result = new ArrayList<>();
 
         for (Task task : listOfTasks) {
@@ -117,6 +129,11 @@ public class TaskList {
                 }
             }
         }
-        return result;
+
+        if (result.isEmpty()) {
+            throw new NoSuchTaskException();
+        } else {
+            return result;
+        }
     }
 }
