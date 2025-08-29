@@ -1,3 +1,7 @@
+package application;
+
+import tasks.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

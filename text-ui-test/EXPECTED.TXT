@@ -93,7 +93,7 @@ ____________________________________________________________
 event tasks should follow the format: event <event name> /from <date/time> /to <date/time>
 ____________________________________________________________
 ____________________________________________________________
-Should follow the format: mark <Task Number>
+Should follow the format: mark <tasks.Task Number>
 ____________________________________________________________
 ____________________________________________________________
 No such task number.

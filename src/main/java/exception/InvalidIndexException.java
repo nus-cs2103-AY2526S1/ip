@@ -1,4 +1,6 @@
-public class InvalidIndexException extends RomidasException{
+package exception;
+
+public class InvalidIndexException extends RomidasException {
     public InvalidIndexException(){
         super("No such task number.");
     }

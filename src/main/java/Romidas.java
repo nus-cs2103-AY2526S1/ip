@@ -1,3 +1,10 @@
+import application.Parser;
+import application.Storage;
+import application.TaskList;
+import application.Ui;
+import command.Command;
+import exception.RomidasException;
+import tasks.Task;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -43,7 +50,7 @@ public class Romidas {
                 c.execute(taskList, ui, storage);
                 isBye = c.isBye();
             } catch (NumberFormatException e) {
-                ui.showError("Task number must be an integer.");
+                ui.showError("tasks.Task number must be an integer.");
             } catch (IllegalArgumentException e) {
                 ui.showError("I'm sorry, I don't recognise that command. Try one of list, event, todo, deadline, mark, unmark, delete");
             } catch (RomidasException e) {

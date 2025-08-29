@@ -1,3 +1,6 @@
+package tasks;
+import exception.RomidasException;
+
 public class Event extends Task {
     String from;
     String to;

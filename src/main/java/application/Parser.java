@@ -1,3 +1,12 @@
+package application;
+import exception.*;
+
+import command.*;
+import tasks.DeadlineTask;
+import tasks.Event;
+import tasks.Task;
+import tasks.TodoTask;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -17,7 +26,7 @@ public class Parser {
 
             case MARK:
                 if (words.length != 2) {
-                    throw new RomidasException("Should follow the format: mark <Task Number>");
+                    throw new RomidasException("Should follow the format: mark <tasks.Task Number>");
                 }
                 int indexMark = Integer.parseInt(words[1]) - 1;
                 if (indexMark < 0 || indexMark >= taskList.size()) {
@@ -27,7 +36,7 @@ public class Parser {
 
             case UNMARK:
                 if (words.length != 2) {
-                    throw new RomidasException("Should follow the format: unmark <Task Number>");
+                    throw new RomidasException("Should follow the format: unmark <tasks.Task Number>");
                 }
                 int indexUnmark = Integer.parseInt(words[1]) - 1;
                 if (indexUnmark < 0 || indexUnmark >= taskList.size()) {
@@ -88,7 +97,7 @@ public class Parser {
 
             case DELETE:
                 if (words.length < 2) {
-                    throw new RomidasException("Should follow the format: delete <Task Number>");
+                    throw new RomidasException("Should follow the format: delete <tasks.Task Number>");
                 }
                 int index = Integer.parseInt(words[1]) - 1;
                 if (index < 0 || index >= taskList.size()) {
