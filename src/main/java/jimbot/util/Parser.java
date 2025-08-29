@@ -1,11 +1,14 @@
 //helper class for useful fns
 package jimbot.util;
 
-import jimbot.exceptions.*;
-
-import java.time.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import jimbot.exceptions.InvalidDateTimeException;
+import jimbot.exceptions.InvalidIndexException;
 
 public class Parser {
 
@@ -23,7 +26,11 @@ public class Parser {
             int index = Integer.parseInt(input
                     .substring(command.length())
                     .trim()) - 1;
-            if (index < 0 || index >= taskCount) throw new InvalidIndexException();
+
+            if (index < 0 || index >= taskCount) {
+                throw new InvalidIndexException();
+            }
+
             return index;
         } catch (NumberFormatException e) {
             throw new InvalidIndexException();
@@ -39,26 +46,25 @@ public class Parser {
      */
     public static LocalDateTime parseDateTime(String input) throws InvalidDateTimeException {
         input = input.trim();
-        //date + time
+
+        // If input contains both date and time
         DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
-        //date only
+        // If input only contains date
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        //time only
+        // If input only contains time
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HHmm");
 
         try {
-            if (input.contains(" ")) {  //input has both date + time
-
+            if (input.contains(" ")) {  // input has both date + time
                 return LocalDateTime.parse(input, dtFormat);
-
-            } else if (input.contains("/")) { //input only has date
+            } else if (input.contains("/")) { // input only has date
                 LocalDate date = LocalDate.parse(input, dateFormat);
                 return date.atStartOfDay();
-
-            } else {    //input only has time
+            } else {    // input only has time
                 LocalTime time = LocalTime.parse(input, timeFormat);
+
                 return time.atDate(LocalDate.now());
             }
         } catch (DateTimeParseException e) {
@@ -68,8 +74,10 @@ public class Parser {
 
     public static LocalDate parseDate(String input) throws InvalidDateTimeException {
         input = input.trim();
+
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
             return LocalDate.parse(input, formatter);
         } catch (DateTimeParseException e) {
             throw new InvalidDateTimeException();

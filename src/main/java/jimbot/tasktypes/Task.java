@@ -4,9 +4,9 @@ import java.io.Serial;
 import java.io.Serializable;
 
 public class Task implements Serializable {
-    /** Version identifier number that is stored with the serialized tasks */
+    // Version identifier number that is stored with the serialized tasks
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long SERIAL_VERSION_UID = 1L;
     protected String description;
     protected boolean isDone;
 

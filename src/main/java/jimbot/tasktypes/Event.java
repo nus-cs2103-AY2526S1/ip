@@ -23,17 +23,26 @@ public class Event extends Task {
         return to.toLocalDate();
     }
 
-    private String dateTimeStr(LocalDateTime dateTime) {
+    /**
+     * Converts a given date and time into String with MMM dd yyyy, HH:mm format.
+     *
+     * @param dateTime DateTime in dd/MM/yyyy format.
+     * @return String represent of given date and time
+     */
+    private String dateTimeToString(LocalDateTime dateTime) {
         boolean isMidnight = dateTime.toLocalTime().equals(LocalTime.MIDNIGHT);
-        if (isMidnight) return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        else return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm"));
+        if (isMidnight) {
+            return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } else {
+            return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm"));
+        }
     }
 
     @Override
     public String toString() {
         return "[E]"  + super.toString() + " (FROM: " +
-                dateTimeStr(from) +
+                dateTimeToString(from) +
                 " TO: " +
-                dateTimeStr(to) + ")";
+                dateTimeToString(to) + ")";
     }
 }

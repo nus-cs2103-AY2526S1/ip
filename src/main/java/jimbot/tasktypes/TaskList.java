@@ -1,25 +1,31 @@
 package jimbot.tasktypes;
 
-import jimbot.exceptions.TaskLimitException;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import jimbot.exceptions.TaskLimitException;
+
 public class TaskList {
     protected List<Task> listOfTasks;
 
-    /** Default constructor when there is no data stored */
+    /**
+     * Default constructor when there is no data stored.
+     */
     public TaskList() {
         listOfTasks = new ArrayList<>();
     }
 
-    /** Constructor used for when there is data to load */
+    /**
+     * Constructor used for when there is data to load.
+     */
     public TaskList(List<Task> loadTasks) {
         this.listOfTasks = loadTasks;
     }
 
-    /** Returns the list of tasks as a  List<Task> */
+    /**
+     * Returns the list of tasks as a  List<Task>.
+     */
     public List<Task> getTaskList() {
         return listOfTasks;
     }
@@ -56,7 +62,9 @@ public class TaskList {
         listOfTasks.remove(task);
     }
 
-    /** Returns the current number of tasks stored in the list */
+    /**
+     * Returns the current number of tasks stored in the list.
+     */
     public int getTaskCount() {
         return listOfTasks.size();
     }
@@ -69,6 +77,7 @@ public class TaskList {
      * */
     public List<Task> getTasksAtDate(LocalDate date) {
         List<Task> result = new ArrayList<>();
+
         for (Task task : listOfTasks) {
             if (task instanceof Deadline deadline) {
                 if (deadline.getDate().equals(date)) {
@@ -82,6 +91,5 @@ public class TaskList {
             }
         }
         return result;
-
     }
 }

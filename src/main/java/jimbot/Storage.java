@@ -1,11 +1,11 @@
 package jimbot;
 
-import jimbot.tasktypes.Task;
-import jimbot.tasktypes.TaskList;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import jimbot.tasktypes.Task;
+import jimbot.tasktypes.TaskList;
 
 /**
  * This class stores task data in hard disk.
@@ -20,7 +20,8 @@ public class Storage {
     }
 
     public void update(TaskList tasks) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))) {
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path));
             oos.writeObject(new ArrayList<>(tasks.getTaskList()));
         } catch (IOException e) {
             e.printStackTrace();
@@ -30,6 +31,7 @@ public class Storage {
     @SuppressWarnings("unchecked")
     public TaskList load() {
         File file = new File(path);
+
         if (!file.exists()) {
             if (file.getParentFile() != null) {
                 file.getParentFile().mkdirs();
