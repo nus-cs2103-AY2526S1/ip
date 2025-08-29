@@ -53,7 +53,7 @@ public abstract class LynxUI {
         System.out.println("     reload                    - Load tasks from data file to task list (destructively)");
         System.out.println("     save                      - Save task list to date file (destructively)");
         System.out.println("     bye                       - Save and exit the program");
-        System.out.println("     * Creates a data file first if not found.");
+        System.out.println("     * Creates a data file first if not found");
         System.out.println();
         System.out.println("Task creation:");
         System.out.println("     todo [name]");
@@ -61,25 +61,32 @@ public abstract class LynxUI {
         System.out.println("     event [name] /from [date] /to [date]");
         System.out.println("     * Date format: yyyy-mm-dd, yyyy-mm-dd-hh, or yyyy-mm-dd-hh-mm");
         System.out.println();
-        System.out.println("Task actions (requires a search modifier):");
+        System.out.println("Task actions (requires one or more search modifier(s)):");
         System.out.println("     list                      - Show task(s)");
         System.out.println("     mark                      - Mark task(s) as done");
         System.out.println("     unmark                    - Unmark task(s) as not done");
         System.out.println("     delete                    - Remove task(s)");
         System.out.println();
         System.out.println("Search modifiers:");
-        System.out.println("     [keyword]                 - Tasks with names containing the keyword");
+        System.out.println("     /key [keyword]            - Tasks with names containing the keyword");
         System.out.println("     /on [date]                - Tasks occurring on a specific date");
         System.out.println("     /status [status]          - Tasks with matching status");
+        System.out.println("     /type [type]              - Tasks with matching type");
         System.out.println("     /id [id]                  - Task with matching id");
         System.out.println("     /all                      - All tasks in the task list");
+        System.out.println("     * Arguments must not contain blank characters, keywords included");
         System.out.println();
         System.out.println("Example usage:");
-        System.out.println("     list meeting              - Show all tasks containing 'meeting'");
+        System.out.println("     list /key meeting         - Show all tasks containing 'meeting'");
         System.out.println("     list /on 2025-09-01       - Show tasks occurring on 1st September 2025");
         System.out.println("     delete /status complete   - Delete all tasks marked as completed");
+        System.out.println("     delete /type todo         - Delete all todo tasks");
         System.out.println("     mark /id 3                - Mark the task with id 3 as done");
         System.out.println("     unmark /all               - Unmark all tasks as not done");
+        System.out.println();
+        System.out.println("Advanced usage (chaining):");
+        System.out.println("     list /type deadline /status incomplete /on 2025-09-01 /key attendacodingcourse");
+        System.out.println("     * [D][I] Attend a Coding Course by John (by: Sep 1 2025 00:00) (id:1)");
         LynxUI.line();
     }
 
