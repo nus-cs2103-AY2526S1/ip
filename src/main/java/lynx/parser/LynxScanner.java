@@ -34,7 +34,7 @@ public abstract class LynxScanner {
                 } else if (input.trim().equals("reload")) {
                     LynxGeneral.reload();
                 } else if (input.trim().equals("save")) {
-                    LynxGeneral.reload();
+                    LynxGeneral.save();
                 } else if (input.trim().equals("help")) {
                     LynxUI.printHelp();
                 } else if (input.startsWith("list ")) {

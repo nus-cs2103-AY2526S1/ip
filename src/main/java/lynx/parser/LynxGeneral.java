@@ -22,8 +22,10 @@ public abstract class LynxGeneral {
      * Attempts to create the <code>log.txt</code> data file or load its contents if it exists.
      */
     public static void reload() {
+        LynxUI.line();
         LynxFileManager.createFile();
         LynxStorage.loadTasks(LynxFileManager.readFromFile());
+        System.out.println("Load successful!");
         LynxUI.line();
     }
 
@@ -31,8 +33,10 @@ public abstract class LynxGeneral {
      * Attempts to save the task list to the <code>log.txt</code> data file. Creates the file if it does not exist.
      */
     public static void save() {
+        LynxUI.line();
         LynxFileManager.createFile();
         LynxFileManager.writeToFile(LynxStorage.unloadTasks());
+        System.out.println("Save successful!");
         LynxUI.line();
     }
 
