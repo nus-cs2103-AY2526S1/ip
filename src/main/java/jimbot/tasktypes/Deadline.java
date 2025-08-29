@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-
 public class Deadline extends Task {
     protected LocalDateTime dateTime;
     protected boolean isMidnight;
