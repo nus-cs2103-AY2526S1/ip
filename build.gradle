@@ -39,6 +39,6 @@ shadowJar {
     archiveFileName = 'gokschat.jar'
 }
 
-run{
+run {
     standardInput = System.in
 }

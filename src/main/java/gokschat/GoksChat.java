@@ -10,7 +10,7 @@ import gokschat.tasks.Task;
 import java.util.ArrayList;
 import java.util.List;
 
-/// Skeletal Version of gokschat.GoksChat
+/// This is the main class for GoksChat.
 ///
 /// @author Ravichandran Gokul
 public class GoksChat {
@@ -19,6 +19,13 @@ public class GoksChat {
     private InputProcessor inputProcessor;
     private List<Task> listOfTasks;
 
+    /**
+     * Constructs a new {@code gokschat.GoksChat} object with the file path.
+     * This constructor initializes the object's internal state based on the provided parameters.
+     *
+     * @param filePath
+     * @throws BadFileException
+     */
     public GoksChat(String filePath) throws BadFileException {
         ui = new Ui();
         storage = new Storage(filePath);
