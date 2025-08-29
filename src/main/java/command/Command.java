@@ -12,7 +12,7 @@ public abstract class Command {
      * Enumeration of all supported command types.
      */
     public enum CommandType {
-        LIST, EVENT, TODO, DEADLINE, MARK, UNMARK, DELETE, BYE;
+        LIST, EVENT, TODO, DEADLINE, MARK, UNMARK, DELETE, FIND, BYE;
     }
 
     /**

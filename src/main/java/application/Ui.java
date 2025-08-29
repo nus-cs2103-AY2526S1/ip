@@ -76,5 +76,22 @@ public class Ui {
             System.out.println((i + 1) + "." + tasks.get(i).toString());
         }
     }
+    
+    /**
+     * Displays the matching tasks from a search operation.
+     * Shows each matching task with its original index number from the full task list.
+     *
+     * @param matchingTasks The list of indexed tasks that matched the search criteria.
+     */
+    public void printMatchingTasks(ArrayList<TaskList.IndexedTask> matchingTasks) {
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (TaskList.IndexedTask indexedTask : matchingTasks) {
+                System.out.println(indexedTask.getIndex() + "." + indexedTask.getTask().toString());
+            }
+        }
+    }
 }
 
