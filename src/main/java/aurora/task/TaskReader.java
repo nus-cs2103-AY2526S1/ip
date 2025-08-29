@@ -1,5 +1,9 @@
 package aurora.task;
 
+import aurora.util.DateUtil;
+
+import java.time.temporal.Temporal;
+import java.util.Date;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -40,7 +44,7 @@ public class TaskReader {
         if (input.toLowerCase().startsWith("deadline")) {
             m = DEADLINE.matcher(input);
             if (m.matches()) {
-                return new Deadline(m.group(1).trim(), false, m.group(2).trim());
+                return new Deadline(m.group(1).trim(), false, toDate(m.group(2).trim()));
             } else {
                 throw new InvalidTaskException("Invalid deadline format.\n" +
                         "Please enter \"deadline <description> /by: <deadline>\"");
@@ -50,7 +54,8 @@ public class TaskReader {
         if (input.toLowerCase().startsWith("event")) {
             m = EVENT.matcher(input);
             if (m.matches()) {
-                return new Event(m.group(1).trim(), false, m.group(2).trim(), m.group(3).trim());
+                return new Event(m.group(1).trim(), false,
+                        toDate(m.group(2).trim()), toDate(m.group(3).trim()));
             } else {
                 throw new InvalidTaskException("Invalid event format.\n" +
                         "Please enter \"event <description> /from: <start> /to: <end>\"");
@@ -68,8 +73,8 @@ public class TaskReader {
         boolean isDone = values[1].equals("true");
         Task result = switch (values[0]) {
             case "T" -> new Todo(values[2],isDone);
-            case "D" -> new Deadline(values[2], isDone, values[3]);
-            case "E" -> new Event(values[2], isDone, values[3], values[4]);
+            case "D" -> new Deadline(values[2], isDone, toDate(values[3]));
+            case "E" -> new Event(values[2], isDone, toDate(values[3]), toDate(values[4]));
             default -> null;
         };
 
@@ -78,5 +83,13 @@ public class TaskReader {
         }
 
         return result;
+    }
+
+    private static Temporal toDate(String dateString) {
+        try {
+            return DateUtil.readDate(dateString);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidTaskException("Invalid date format. Please try yyyy-MM-dd.");
+        }
     }
 }
