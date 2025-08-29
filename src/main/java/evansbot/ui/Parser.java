@@ -14,7 +14,7 @@ public class Parser {
     /**
      * Parses the user's input and returns the appropriate Command object.
      * Recognizes commands like "bye", "list", "mark", "unmark", "todo",
-     * "deadline", "event", and "delete".
+     * "deadline", "event", "delete" and "find".
      *
      * @param input Raw user input string.
      * @return Command object corresponding to the user's input.
