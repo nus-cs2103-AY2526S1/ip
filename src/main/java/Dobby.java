@@ -1,8 +1,15 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Dobby {
     private static ArrayList<Task> userTasks = new ArrayList<>();
+    private static final Path FILE_PATH = Paths.get("data", "dobby.txt");
+    // OS-independent file path
 
     public static void main(String[] args) throws InvalidTaskException {
         Scanner sc = new Scanner(System.in);
@@ -51,9 +58,10 @@ public class Dobby {
 
     private static void storeTask(Task task) throws InvalidTaskException {
         if (task.getDescription().isEmpty()) {
-            throw new InvalidTaskException("Task desription cannot be empty!");
+            throw new InvalidTaskException("Task description cannot be empty!");
         }
         userTasks.add(task);
+        saveTasksToFile(task); // save to hard disk
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + userTasks.size() + " tasks in the list.\n");
@@ -93,5 +101,18 @@ public class Dobby {
             } catch (Exception e) {
                 System.out.println("Invalid task number.");
         }
+    }
+
+    private static void saveTasksToFile(Task task) {
+        try {
+            File file = FILE_PATH.toFile();
+            file.getParentFile().mkdirs(); // make sure ./data exists
+            FileWriter fw = new FileWriter(file, true); // true = append mode
+            fw.write(task.toString() + System.lineSeparator());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error saving task: " + e.getMessage());
+        }
+
     }
 }
