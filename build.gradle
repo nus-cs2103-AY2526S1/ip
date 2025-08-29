@@ -28,7 +28,16 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("piper.Piper")
+}
+
+jar {
+    manifest {
+        attributes(
+                "Main-Class": application.mainClass.get()
+        )
+    }
+    archiveBaseName.set("CS2103T")
 }
 
 shadowJar {
