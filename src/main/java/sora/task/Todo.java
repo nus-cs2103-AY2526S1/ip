@@ -1,4 +1,6 @@
-public class Todo extends Task{
+package sora.task;
+
+public class Todo extends Task {
     public Todo(String description){
         super(TaskType.TODO, description);
     }

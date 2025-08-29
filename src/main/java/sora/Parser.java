@@ -1,3 +1,12 @@
+package sora;
+
+import sora.task.Deadline;
+import sora.task.Event;
+import sora.task.Task;
+import sora.task.Todo;
+import sora.list.TaskList;
+import sora.storage.Storage;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

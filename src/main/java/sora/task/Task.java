@@ -1,3 +1,5 @@
+package sora.task;
+
 public class Task {
     public enum TaskType {
         TODO,

@@ -5,7 +5,7 @@ Hello from
   ___\ | |__| | | | |_| |
  |____/ \____/|_|  \___/|
 
-Hello! I'm Sora
+Hello! I'm sora.Sora
 What can I do for you?
 Got it. I've added this task:
 [T][ ] borrow book

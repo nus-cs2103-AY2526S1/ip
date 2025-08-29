@@ -1,3 +1,8 @@
+package sora;
+
+import sora.task.Task;
+import sora.list.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -15,7 +20,7 @@ public class Ui {
                 + " |____/ \\____/|_|  \\___/|\n";
         System.out.println("Hello from");
         System.out.println(logo);
-        System.out.println("Hello! I'm Sora");
+        System.out.println("Hello! I'm duke.Sora");
         System.out.println("What can I do for you?");
     }
 
