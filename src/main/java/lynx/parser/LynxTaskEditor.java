@@ -1,6 +1,6 @@
 package lynx.parser;
 
-import lynx.command.LynxCommand2;
+import lynx.command.LynxCommand;
 import lynx.exception.LynxException;
 import lynx.exception.MissingArgumentException;
 import lynx.storage.LynxTaskList;
@@ -29,7 +29,7 @@ public class LynxTaskEditor {
         if (input.length() <= 4 || !input.startsWith("mark")) {
             throw new MissingArgumentException("mark");
         }
-        LynxCommand2 command = new LynxCommand2(input.substring(5).trim());
+        LynxCommand command = new LynxCommand(input.substring(5).trim());
         findTasks(command, LynxTaskList.getAllTasks());
         LynxUI.line();
         System.out.println(String.format("Marked %s", command.getSearchString()));
@@ -50,7 +50,7 @@ public class LynxTaskEditor {
         if (input.length() <= 6 || !input.startsWith("unmark")) {
             throw new MissingArgumentException("unmark");
         }
-        LynxCommand2 command = new LynxCommand2(input.substring(7).trim());
+        LynxCommand command = new LynxCommand(input.substring(7).trim());
         findTasks(command, LynxTaskList.getAllTasks());
         LynxUI.line();
         System.out.println(String.format("Unmarked %s", command.getSearchString()));
@@ -71,10 +71,10 @@ public class LynxTaskEditor {
         if (input.length() <= 6 || !input.startsWith("delete")) {
             throw new MissingArgumentException("delete");
         }
-        LynxCommand2 command = new LynxCommand2(input.substring(7).trim());
+        LynxCommand command = new LynxCommand(input.substring(7).trim());
         findTasks(command, LynxTaskList.getAllTasks());
         LynxUI.line();
-        System.out.println(String.format("Deleted %s", command.getSearchString()));
+        System.out.println(String.format("Removed %s", command.getSearchString()));
         executeOnTasks(delete, command.getSearchResult(), empty);
         System.out.println("You currently have " + LynxTaskList.getCount() + " task(s) in your list.");
         LynxUI.line();
@@ -93,7 +93,7 @@ public class LynxTaskEditor {
         if (input.length() <= 4 || !input.startsWith("list")) {
             throw new MissingArgumentException("list");
         }
-        LynxCommand2 command = new LynxCommand2(input.substring(5).trim());
+        LynxCommand command = new LynxCommand(input.substring(5).trim());
         findTasks(command, LynxTaskList.getAllTasks());
         LynxUI.line();
         System.out.println(String.format("Here are %s", command.getSearchString()));

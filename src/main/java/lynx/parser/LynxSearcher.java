@@ -1,6 +1,6 @@
 package lynx.parser;
 
-import lynx.command.LynxCommand2;
+import lynx.command.LynxCommand;
 import lynx.exception.LynxException;
 import lynx.formatter.LynxDateManager;
 import lynx.storage.LynxTaskList;
@@ -22,7 +22,7 @@ public class LynxSearcher {
      * @return List of tasks fulfilling the search.
      * @throws LynxException If command is of invalid format.
      */
-    public static void findTasks(LynxCommand2 command, Stream<Task> stream) throws LynxException {
+    public static void findTasks(LynxCommand command, Stream<Task> stream) throws LynxException {
         String input = command.getNextCommand();
 
         if (input.isBlank()) {
@@ -42,7 +42,7 @@ public class LynxSearcher {
 
     }
 
-    private static void findTasksById(LynxCommand2 command, Stream<Task> stream) throws LynxException {
+    private static void findTasksById(LynxCommand command, Stream<Task> stream) throws LynxException {
         try {
             String id = command.getNextCommand();
             command.setId(id);
@@ -52,28 +52,28 @@ public class LynxSearcher {
         }
     }
 
-    private static void findTasksByKeyword(LynxCommand2 command, Stream<Task> stream) throws LynxException {
+    private static void findTasksByKeyword(LynxCommand command, Stream<Task> stream) throws LynxException {
         String keyword = command.getNextCommand();
         checkName(keyword);
         command.setKeyword(keyword);
         findTasks(command, LynxTaskList.filterTasksByKeyword(stream, keyword));
     }
 
-    private static void findTasksByDate(LynxCommand2 command, Stream<Task> stream) throws LynxException {
+    private static void findTasksByDate(LynxCommand command, Stream<Task> stream) throws LynxException {
         String date = command.getNextCommand();
         LocalDateTime dateTime = LynxDateManager.parseDateTime(date);
         command.setDate(LynxDateManager.textDateTime(dateTime));
         findTasks(command, LynxTaskList.filterTasksByDate(stream, dateTime));
     }
 
-    private static void findTasksByStatus(LynxCommand2 command, Stream<Task> stream) throws LynxException {
+    private static void findTasksByStatus(LynxCommand command, Stream<Task> stream) throws LynxException {
         String symbol = command.getNextCommand();
         Task.Status status = Task.Status.matchSymbol(symbol);
         command.setStatus(symbol);
         findTasks(command, LynxTaskList.filterTasksByStatus(stream, status));
     }
 
-    private static void findTasksByType(LynxCommand2 command, Stream<Task> stream) throws LynxException {
+    private static void findTasksByType(LynxCommand command, Stream<Task> stream) throws LynxException {
         String symbol = command.getNextCommand();
         Task.TaskType type = Task.TaskType.matchSymbol(symbol);
         command.setType(symbol);

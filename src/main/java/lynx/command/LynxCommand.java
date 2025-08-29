@@ -1,34 +1,97 @@
 package lynx.command;
 
-/**
- * Represents a user command that accepts modifiers.
- * Stores the input and messages for different types of execution.
- */
-public abstract class LynxCommand {
+import lynx.exception.LynxException;
+import lynx.task.Task;
 
-    private String input;
+import java.util.List;
+import java.util.regex.PatternSyntaxException;
 
-    public LynxCommand(String input) {
-        this.input = input;
+public class LynxCommand {
+
+    private final String[] commands;
+    private int index = 0;
+    private String date = "";
+    private String keyword = "";
+    private String id = "";
+    private String status = "";
+    private String type = "";
+    private List<Task> searchResult;
+
+    public void setDate(String date) throws LynxException {
+        if (!this.date.isEmpty()) {
+            throw new LynxException("Only one date can be supplied per search.");
+        }
+        this.date = String.format(" occurring on %s", date);
     }
 
-    public String getInput() {
-        return input;
+    public void setKeyword(String keyword) {
+        if (this.keyword.isEmpty()) {
+            this.keyword = String.format(" containing keyword \"%s\"", keyword);
+        } else {
+            this.keyword = String.format("%s, \"%s\"", this.keyword, keyword);
+        }
     }
 
-    // Header message for case "/all"
-    public abstract String getMessageForAll();
+    public void setId(String id) throws LynxException {
+        if (!this.id.isEmpty()) {
+            throw new LynxException("Only one id can be supplied per search.");
+        }
+        this.id = String.format(" with id %s", id);
+    }
 
-    // Header message for case "/on".
-    public abstract String getMessageByDate();
+    public void setStatus(String status) {
+        if (this.status.isEmpty()) {
+            this.status = String.format(" %s", status);
+        } else {
+            this.status = String.format("%s, %s", this.status, status);
+        }
+    }
 
-    // Header message for case "/id".
-    public abstract String getMessageById();
+    public void setType(String type) {
+        if (this.type.isEmpty()) {
+            this.type = String.format(" %s", type);
+        } else {
+            this.type = String.format("%s, %s", this.type, type);
+        }
+    }
 
-    // Header message for case /status.
-    public abstract String getMessageByStatus();
+    public void setSearchResult(List<Task> searchResult) {
+        this.searchResult = searchResult;
+    }
 
-    // Header message for default case (by keyword).
-    public abstract String getMessageByKeyword();
+    public List<Task> getSearchResult() {
+        return searchResult;
+    }
+
+    public LynxCommand(String input) throws LynxException {
+        if (input.isBlank()) {
+            throw new LynxException("Command cannot be created from blank string.");
+        } else {
+            try {
+                commands = input.trim().split("\\s+");
+            } catch (PatternSyntaxException e) {
+                throw new LynxException("Command must be of appropriate format.");
+            }
+        }
+    }
+
+    public String getNextCommand() {
+        if (index >= commands.length) {
+            return "";
+        } else {
+            String command = commands[index];
+            index++;
+            return command;
+        }
+    }
+
+    public String getSearchString() {
+        String searchString = String.format("all%s%s tasks%s%s%s:", status, type, date, keyword, id);
+        if (searchString.length() > 100) {
+            return "all matching tasks:";
+        } else {
+            return searchString;
+        }
+    }
 
 }

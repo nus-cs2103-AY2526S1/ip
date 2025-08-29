@@ -96,11 +96,11 @@ public abstract class LynxTaskList {
     }
 
     /**
-     * Returns all tasks in a stream with a given keyword in its name.
+     * Returns the task with a given id.
      *
      * @param tasks Stream of tasks to be filtered.
      * @param id Keyword used to filter tasks by name.
-     * @return Task stream filtered by keyword.
+     * @return Stream containing a single task.
      */
     public static Stream<Task> filterTasksById(Stream<Task> tasks, int id) {
         return tasks.filter(task -> task.getId() == id);
@@ -141,11 +141,11 @@ public abstract class LynxTaskList {
     }
 
     /**
-     * Returns all tasks in a stream that match a given status.
+     * Returns all tasks in a stream that match a given type.
      *
      * @param tasks Stream of tasks to be filtered.
-     * @param type <code>Status</code> used to filter tasks.
-     * @return Task stream filtered by status.
+     * @param type <code>TaskType</code> used to filter tasks.
+     * @return Task stream filtered by type.
      */
     public static Stream<Task> filterTasksByType(Stream<Task> tasks, Task.TaskType type) {
         return tasks.filter(task -> task.getType().equals(type));
