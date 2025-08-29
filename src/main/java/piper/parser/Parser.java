@@ -1,4 +1,6 @@
-package piper;
+package piper.parser;
+
+import piper.PiperException;
 
 public final class Parser {
     private Parser() {}
