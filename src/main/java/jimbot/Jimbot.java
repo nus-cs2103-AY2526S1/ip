@@ -123,7 +123,6 @@ public class Jimbot {
                         user.addTask(userEvent, taskCount + 1);
                         userStorage.update(userList);
                     }
-
                 } else if (userInput.startsWith("todo")) {
                     String description = userInput.substring(4).trim();
 

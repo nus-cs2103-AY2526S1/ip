@@ -1,4 +1,3 @@
-//helper class for useful fns
 package jimbot.util;
 
 import java.time.LocalDate;
