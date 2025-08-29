@@ -1,14 +1,27 @@
 package application;
 
+import java.util.ArrayList;
+
+import exception.RomidasException;
 import tasks.DeadlineTask;
 import tasks.Event;
 import tasks.Task;
 import tasks.TodoTask;
-import exception.RomidasException;
 
-import java.util.ArrayList;
-
+/**
+ * Converts between text representations and Task objects for file storage.
+ * Handles the parsing and formatting of task data for persistence.
+ */
 public class TextTaskConverter  {
+    /**
+     * Converts a list of text lines back to Task objects.
+     * Parses each line according to the storage format and creates appropriate Task instances.
+     * Skips empty lines and handles different task types (T, D, E).
+     *
+     * @param lines ArrayList of text lines representing tasks in storage format.
+     * @return ArrayList of reconstructed Task objects.
+     * @throws RomidasException If the text format is invalid or unrecognized task type.
+     */
     public static ArrayList<Task> convertToTask(ArrayList<String> lines) throws RomidasException {
         ArrayList<Task> tasks = new ArrayList<>();
         for (String line : lines){
@@ -30,6 +43,14 @@ public class TextTaskConverter  {
         return tasks;
     }
 
+    /**
+     * Converts a list of Task objects to text lines for storage.
+     * Formats each task using its toText() method for file persistence.
+     *
+     * @param tasks ArrayList of Task objects to convert.
+     * @return ArrayList of text lines representing the tasks.
+     * @throws RomidasException If any task fails to convert to text format.
+     */
     public static ArrayList<String> convertToText(ArrayList<Task> tasks) throws RomidasException {
         ArrayList<String> lines = new ArrayList<>();
         for(Task task : tasks){

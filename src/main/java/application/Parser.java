@@ -11,8 +11,23 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ *Takes in user input that has been collected by ui and processes it to select the appropriate
+ * commands to take
+ */
 public class Parser {
-    
+
+    /**
+     * Parses user input to decide which command should be used
+     *
+     * @param input
+     * @param taskList
+     * @param ui
+     * @param storage
+     * @param dataPath
+     * @return Specific command to execute
+     * @throws RomidasException
+     */
     public static Command parse(String input, TaskList taskList, Ui ui, Storage storage, String dataPath) throws RomidasException {
         String[] words = input.trim().split("\\s+");
         String cmdWord = words[0].toUpperCase();
