@@ -1,0 +1,4 @@
+T | false | Buy groceries
+D | true | Submit report | 15/12/2023 1700
+D | true | Finish chapter | 16/12/2023 2300
+E | false | Birthday party | 16/12/2023 1800 | 17/12/2023 0200

@@ -1,22 +1,29 @@
+package phuc.ui;
+
+import phuc.model.TaskList;
+import phuc.storage.Storage;
+import phuc.exception.PhucException;
+import phuc.model.DeadlineTask;
+import phuc.model.EventTask;
+import phuc.model.ToDoTask;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class UserInterface {
     private static final String line = "____________________________________________________________";
-    private final ArrayList<Task> task;
+    private final TaskList task;
     private Integer count = 0;
     private final Storage storage;
 
     public UserInterface() {
-        this.task = new ArrayList<>(100);
+        this.task = new TaskList();
         this.storage = new Storage();
     }
 
     public void load() throws PhucException {
         try {
             task.clear();
-            task.addAll(storage.load());
+            task.addAll(storage.load().getAllTasks());
             count = task.size();
         } catch (IOException e) {
             throw new PhucException("Failed to load tasks: " + e.getMessage());

@@ -1,3 +1,9 @@
+package phuc;
+
+import phuc.parser.ProcessInput;
+import phuc.exception.PhucException;
+import phuc.ui.UserInterface;
+
 import java.util.Scanner;
 
 public class Phuc {
