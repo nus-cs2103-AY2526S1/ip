@@ -16,8 +16,8 @@ public class Storage {
     public Storage(String filePath){
         this.filePath = filePath;
     }
-    public List<Task> load() throws IOException {
-        List<Task> tasks = new ArrayList<>();
+    public TaskList load() throws IOException {
+        TaskList tasks = new TaskList();
         File file = new File(filePath);
         if(!file.exists()) {
             file.getParentFile().mkdirs();
@@ -37,7 +37,7 @@ public class Storage {
                 if (isDone) {
                     todo.markAsDone();
                 }
-                tasks.add(todo);
+                tasks.addTask(todo);
                 break;
             case "D":
                 LocalDateTime by = LocalDateTime.parse(parts[3], format);
@@ -45,7 +45,7 @@ public class Storage {
                 if (isDone) {
                     deadline.markAsDone();
                 }
-                tasks.add(deadline);
+                tasks.addTask(deadline);
                 break;
             case "E":
                 LocalDateTime from = LocalDateTime.parse(parts[3], format);
@@ -54,7 +54,7 @@ public class Storage {
                 if(isDone) {
                     event.markAsDone();
                 }
-                tasks.add(event);
+                tasks.addTask(event);
                 break;
             default:
                 System.out.println("Invalid line: " + line);
@@ -63,9 +63,9 @@ public class Storage {
         return tasks;
     }
 
-    public void save(ArrayList<Task> tasks) throws IOException {
+    public void save(TaskList tasks) throws IOException {
         FileWriter file = new FileWriter(filePath);
-        for (Task task : tasks) {
+        for (Task task : tasks.getFullTasks()) {
             file.write(task.toFormat() + System.lineSeparator());
         }
         file.close();
