@@ -32,7 +32,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "romidas"
+    archiveFileName = 'romidas.jar'
     archiveClassifier = null
 }
 
