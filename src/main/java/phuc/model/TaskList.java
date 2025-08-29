@@ -43,8 +43,8 @@ public class TaskList {
      * @param index the 0-based index of the task to remove
      * @throws IndexOutOfBoundsException if index is invalid
      */
-    public void remove(int index) {
-        tasks.remove(index);
+    public Task remove(int index) {
+        return tasks.remove(index);
     }
 
     /**
