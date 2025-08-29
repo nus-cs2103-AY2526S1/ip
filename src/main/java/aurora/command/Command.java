@@ -1,5 +1,5 @@
-package command;
-import task.Task;
+package aurora.command;
+import aurora.task.Task;
 import java.util.List;
 
 /**

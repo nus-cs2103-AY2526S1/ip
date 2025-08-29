@@ -1,7 +1,7 @@
-package task;
+package aurora.task;
 
 /**
- * Represents a task with a description and completion status.
+ * Represents a Aurora.task.task with a description and completion status.
  * Abstract base class for all subtasks.
  */
 public abstract class Task {
@@ -11,7 +11,7 @@ public abstract class Task {
     /**
      * Creates a Task with the given description.
      *
-     * @param description The task details.
+     * @param description The Aurora.task.task details.
      */
     public Task(String description) {
         this.description = description;
@@ -19,9 +19,9 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string representation of the task.
+     * Returns a string representation of the Aurora.task.task.
      *
-     * @return A formatted string describing the task and its completion status.
+     * @return A formatted string describing the Aurora.task.task and its completion status.
      */
     @Override
     public String toString() {
@@ -29,12 +29,12 @@ public abstract class Task {
     }
 
     /**
-     * Marks this task as complete.
+     * Marks this Aurora.task.task as complete.
      */
     public abstract void complete();
 
     /**
-     * Returns the description of this task.
+     * Returns the description of this Aurora.task.task.
      *
      * @return The description as a string.
      */

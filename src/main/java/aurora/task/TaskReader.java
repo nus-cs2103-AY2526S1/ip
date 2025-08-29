@@ -1,4 +1,4 @@
-package task;
+package aurora.task;
 import java.util.regex.*;
 
 /**
@@ -18,8 +18,8 @@ public class TaskReader {
      * Reads user input and returns a {@link Task} object.
      *
      * @param input input string from the user
-     * @return the corresponding {@link Task} task, or null if the input
-     *         does not match any known task format
+     * @return the corresponding {@link Task} task
+     * @throws InvalidTaskException if input does not match any known task format
      */
     public static Task read(String input) {
         Matcher m;

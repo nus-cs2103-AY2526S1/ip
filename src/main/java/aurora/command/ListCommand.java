@@ -1,9 +1,9 @@
-package command;
-import task.Task;
+package aurora.command;
+import aurora.task.Task;
 import java.util.List;
 
 /**
- * A command to display all tasks in the list.
+ * Command to display all tasks in the list.
  */
 public class ListCommand implements Command {
     @Override
@@ -12,9 +12,9 @@ public class ListCommand implements Command {
             return "Your list is empty.";
         }
 
-        StringBuilder result = new StringBuilder("Aurora: Here are the tasks in your list:\n");
+        StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < list.size(); i++) {
-            result.append(String.format("%d. %s", i + 1, list.get(i)));
+            result.append(String.format("%d. %s\n", i + 1, list.get(i)));
         }
 
         return result.toString();

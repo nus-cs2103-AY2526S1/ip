@@ -11,8 +11,10 @@ Aurora: Nice! I've marked this task as completed.
 [T][X] Go to the gym
 Aurora: Invalid list command.
 enter "list" to see your added tasks.
-Aurora: Aurora: Here are the tasks in your list:
-1. [T][X] Go to the gym2. [D][X] CourseReg (by: 25th Dec)
+Aurora: Here are the tasks in your list:
+1. [T][X] Go to the gym
+2. [D][X] CourseReg (by: 25th Dec)
+
 Aurora: Invalid help command.
 enter "help" to see all existing commands.
 Aurora: To add a todo, enter "todo <description>"

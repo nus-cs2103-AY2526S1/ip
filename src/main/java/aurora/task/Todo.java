@@ -1,4 +1,4 @@
-package task;
+package aurora.task;
 
 /**
  * Represents a Todo task.

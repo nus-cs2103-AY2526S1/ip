@@ -1,6 +1,8 @@
-import command.Command;
-import command.CommandReader;
-import task.Task;
+package aurora;
+
+import aurora.command.Command;
+import aurora.command.CommandReader;
+import aurora.task.Task;
 
 import java.util.Scanner;
 import java.util.List;
