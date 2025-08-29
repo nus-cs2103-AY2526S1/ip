@@ -1,4 +1,8 @@
+import java.time.LocalDateTime;
+
 public class ErrorHandler {
+    public static final String ERROR_DATE_FORMAT =
+            "Oops! Date format should be like: DD/MM/YYYY HHMM or YYYY-MM-DD HHMM (◕︵◕)";
     public static final String ERROR_INVALID_TASK_NUMBER =
             "Please enter a number between 1 and %d (T_T)";
     public static final String ERROR_EMPTY_DESCRIPTION =
@@ -13,11 +17,9 @@ public class ErrorHandler {
             "Please enter a valid number for the task index (＞﹏＜)";
     public static final String ERROR_EMPTY_COMMAND =
             "Please enter a command (・人・)";
-    public static final String ERROR_UNEXPECTED =
-            "An unexpected error occurred: %s";
 
-    public static void setErrorUnexpected() throws PhucException {
-        throw new PhucException(ERROR_UNEXPECTED);
+    public static void setErrorEmptyCommand() throws PhucException {
+        throw new PhucException(ERROR_EMPTY_COMMAND);
     }
 
     public static void validateTaskIndex(String input, int maxIndex) throws PhucException {
@@ -99,5 +101,13 @@ public class ErrorHandler {
         deadlineParts[1] = deadline;
 
         return deadlineParts;
+    }
+
+    public static LocalDateTime validateAndParseDateTime(String dateTimeStr) throws PhucException {
+        try {
+            return DateTimeProcess.parseDateTime(dateTimeStr);
+        } catch (PhucException e) {
+            throw new PhucException(ERROR_DATE_FORMAT);
+        }
     }
 }
