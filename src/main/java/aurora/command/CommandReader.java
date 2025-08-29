@@ -1,8 +1,11 @@
-package command;
+package aurora.command;
 
-import java.util.regex.*;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
-import task.*;
+import aurora.task.InvalidTaskException;
+import aurora.task.Task;
+import aurora.task.TaskReader;
 
 /**
  * Utility class for reading user input into {@link Command} objects.

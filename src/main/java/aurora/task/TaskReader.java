@@ -1,5 +1,8 @@
-package task;
-import java.util.regex.*;
+package aurora.task;
+
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 
 /**
  * Utility class for reading user input into {@link Task} objects.
@@ -18,8 +21,8 @@ public class TaskReader {
      * Reads user input and returns a {@link Task} object.
      *
      * @param input input string from the user
-     * @return the corresponding {@link Task} task, or null if the input
-     *         does not match any known task format
+     * @return the corresponding {@link Task} task
+     * @throws InvalidTaskException if input does not match any known task format
      */
     public static Task read(String input) {
         Matcher m;
@@ -27,7 +30,7 @@ public class TaskReader {
         if (input.toLowerCase().startsWith("todo")) {
             m = TODO.matcher(input);
             if (m.matches()) {
-                return new Todo(m.group(1).trim());
+                return new Todo(m.group(1).trim(), false);
             } else {
                 throw new InvalidTaskException("Invalid todo format.\n" +
                         "Please enter \"todo <description>\"");
@@ -37,7 +40,7 @@ public class TaskReader {
         if (input.toLowerCase().startsWith("deadline")) {
             m = DEADLINE.matcher(input);
             if (m.matches()) {
-                return new Deadline(m.group(1).trim(), m.group(2).trim());
+                return new Deadline(m.group(1).trim(), false, m.group(2).trim());
             } else {
                 throw new InvalidTaskException("Invalid deadline format.\n" +
                         "Please enter \"deadline <description> /by: <deadline>\"");
@@ -47,7 +50,7 @@ public class TaskReader {
         if (input.toLowerCase().startsWith("event")) {
             m = EVENT.matcher(input);
             if (m.matches()) {
-                return new Event(m.group(1).trim(), m.group(2).trim(), m.group(3).trim());
+                return new Event(m.group(1).trim(), false, m.group(2).trim(), m.group(3).trim());
             } else {
                 throw new InvalidTaskException("Invalid event format.\n" +
                         "Please enter \"event <description> /from: <start> /to: <end>\"");
@@ -55,5 +58,25 @@ public class TaskReader {
         }
 
         throw new InvalidTaskException("Invalid task input. enter \"help\" to see command format.");
+    }
+
+    public static Task fromText(String text) {
+        String[] values = text.split("\\|", -1);
+        if (values.length < 3) {
+            throw new InvalidTaskException("Not enough fields in text line: " + text);
+        }
+        boolean isDone = values[1].equals("true");
+        Task result = switch (values[0]) {
+            case "T" -> new Todo(values[2],isDone);
+            case "D" -> new Deadline(values[2], isDone, values[3]);
+            case "E" -> new Event(values[2], isDone, values[3], values[4]);
+            default -> null;
+        };
+
+        if (result == null) {
+            throw new InvalidTaskException("Invalid task text format.");
+        }
+
+        return result;
     }
 }

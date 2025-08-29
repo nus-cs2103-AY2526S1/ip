@@ -1,4 +1,4 @@
-package task;
+package aurora.task;
 
 /**
  * Represents an Event task.
@@ -12,11 +12,12 @@ public class Event extends Task {
      * Creates a Deadline with the given description and due date.
      *
      * @param description the task details
+     * @param isDone the completion status
      * @param from the task start date
      * @param to the task end date
      */
-    public Event(String description, String from, String to) {
-        super(description);
+    public Event(String description, boolean isDone, String from, String to) {
+        super(description, isDone);
         this.from = from;
         this.to = to;
     }
@@ -29,5 +30,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to +  ")";
+    }
+
+    @Override
+    public String toText() {
+        return "E|" + super.toText() + String.format("|%s|%s\n", from, to);
     }
 }
