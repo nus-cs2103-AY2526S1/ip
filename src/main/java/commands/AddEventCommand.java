@@ -33,7 +33,10 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws RainyException {
+    public void execute(Object... args) throws RainyException {
+        TaskList tasks = (TaskList) args[0];
+        Ui ui = (Ui) args[1];
+        Storage storage = (Storage) args[2];
         Task t = new Event(description, from, to);
         tasks.addTask(t);
         storage.save(tasks.getAllTasks());

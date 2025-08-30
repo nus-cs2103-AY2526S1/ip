@@ -30,7 +30,11 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws RainyException {
+    public void execute(Object... args) throws RainyException {
+        TaskList tasks = (TaskList) args[0];
+        Ui ui = (Ui) args[1];
+        Storage storage = (Storage) args[2];
+
         Task t = new Deadline(description, by);
         tasks.addTask(t);
         storage.save(tasks.getAllTasks());

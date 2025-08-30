@@ -1,7 +1,5 @@
 package commands;
 
-import storage.Storage;
-import tasks.TaskList;
 import ui.Ui;
 
 /**
@@ -16,7 +14,8 @@ public class ErrorCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(Object... args) {
+        Ui ui = (Ui) args[1];
         ui.showError(message);
     }
 

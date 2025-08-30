@@ -26,13 +26,13 @@ public class FindCommand extends Command {
     /**
      * Executes the find command by searching tasks for the keyword
      * and displaying matching tasks.
-     *
-     * @param tasks   the task list
-     * @param ui      the user interface
-     * @param storage the storage handler
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws RainyException {
+    public void execute(Object... args) throws RainyException {
+        TaskList tasks = (TaskList) args[0];
+        Ui ui = (Ui) args[1];
+        Storage storage = (Storage) args[2];
+
         ArrayList<Task> allTasks = tasks.getAllTasks();
         ArrayList<Task> matchingTasks = new ArrayList<>();
 

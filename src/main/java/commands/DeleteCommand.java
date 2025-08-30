@@ -19,7 +19,10 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws RainyException {
+    public void execute(Object... args) throws RainyException {
+        TaskList tasks = (TaskList) args[0];
+        Ui ui = (Ui) args[1];
+        Storage storage = (Storage) args[2];
         Task removedTask = tasks.deleteTask(index);
         storage.save(tasks.getAllTasks());
         ui.showLine();

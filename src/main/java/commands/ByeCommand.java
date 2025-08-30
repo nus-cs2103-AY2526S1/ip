@@ -14,7 +14,10 @@ import ui.Ui;
  */
 public class ByeCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(Object... args) {
+        TaskList tasks = (TaskList) args[0];
+        Ui ui = (Ui) args[1];
+        Storage storage = (Storage) args[2];
         ui.showLine();
         message = ui.showBye();
         ui.showLine();

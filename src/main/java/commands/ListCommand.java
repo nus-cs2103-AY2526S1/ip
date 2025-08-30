@@ -1,7 +1,6 @@
 package commands;
 
 import exception.RainyException;
-import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
 
@@ -12,7 +11,9 @@ import ui.Ui;
  */
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws RainyException {
+    public void execute(Object... args) throws RainyException {
+        Ui ui = (Ui) args[1];
+        TaskList tasks = (TaskList) args[0];
         message = ui.showList(tasks) + "\n";
     }
 }
