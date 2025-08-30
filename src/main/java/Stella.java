@@ -6,7 +6,7 @@ public class Stella {
 
         Scanner scan = new Scanner(System.in);
 
-        ArrayList<Task> lists = DataHandler.readFile();
+        TaskList lists = new TaskList(Storage.readFile());
 
         System.out.println(" > Hello! I am Stella");
         System.out.println(" > What can I do for you?");
@@ -16,22 +16,13 @@ public class Stella {
         while (!user_input.equals("bye")) {
             try {
                 if (user_input.equals(("list"))) {
-                    if (lists.isEmpty()) {
-                        System.out.println("Task list is empty. Add one now: ");
-                    }
-                    for (int i = 1; i <= lists.size(); i = i + 1) {
-                        System.out.println(" > " + i + ". " + lists.get(i-1));
-                    }
+                    lists.printList();
                 } else if (user_input.contains("delete")) {
                     if (user_input.length() <= 7) {
                         throw new IncompleteInstructionException(user_input);
                     }
                     int index = Integer.valueOf(user_input.substring(7)) - 1;
-                    Task temp = lists.remove(index);
-                    System.out.println("I have removed the following: ");
-                    System.out.println("" + temp);
-                    System.out.println(" > Now you have " + lists.size() + " task(s) in the list");
-                    DataHandler.modifyTaskList(lists);
+                    lists.deleteItem(index);
 
                 }
 
@@ -40,22 +31,14 @@ public class Stella {
                         throw new IncompleteInstructionException(user_input);
                     }
                     Integer index = Integer.valueOf(user_input.substring(7)) - 1;
-
-
-                    lists.get(index).markUndone();
-                    System.out.println(" > OK, I've marked this task as not done yet: ");
-                    System.out.println(" > " + lists.get(index));
-                    DataHandler.modifyTaskList(lists);
+                    lists.modifyItem(index, "unmark");
 
                 } else if (user_input.contains("mark")) {
                     if (user_input.length() <= 5) {
                         throw new IncompleteInstructionException(user_input);
                     }
                     Integer index = Integer.valueOf(user_input.substring(5)) - 1;
-                    lists.get(index).markDone();
-                    System.out.println(" > Nice! I've marked this task as done: ");
-                    System.out.println(" > " + lists.get(index));
-                    DataHandler.modifyTaskList(lists);
+                    lists.modifyItem(index, "mark");
 
                 } else if (user_input.contains("todo")) {
                     if (user_input.length() <= 5) {
@@ -63,10 +46,7 @@ public class Stella {
                     }
                     String description = user_input.substring(5);
                     ToDo temp = new ToDo(description);
-                    lists.add(temp);
-                    System.out.println(" > added: " + lists.get(lists.size() - 1));
-                    System.out.println(" > Now you have " + lists.size() + " task(s) in the list");
-                    DataHandler.addTask(temp);
+                    lists.addItem(temp);
 
                 } else if (user_input.contains("deadline")) {
                     if (user_input.length() <= 9) {
@@ -82,11 +62,8 @@ public class Stella {
                     }
 
                     Deadline temp = new Deadline(description, deadline);
-                    lists.add(temp);
-                    System.out.println(" > added: " + lists.get(lists.size() - 1));
+                    lists.addItem(temp);
 
-                    System.out.println(" > Now you have " + lists.size() + " task(s) in the list");
-                    DataHandler.addTask(temp);
 
                 } else if (user_input.contains("event")) {
                     if (user_input.length() <= 6) {
@@ -108,11 +85,7 @@ public class Stella {
                         end = TimeConverter.convertDatewithTime(end);
                     }
                     Event temp = new Event(description, start, end);
-                    lists.add(temp);
-                    System.out.println(" > added: " + lists.get(lists.size() - 1));
-
-                    System.out.println(" > Now you have " + lists.size() + " task(s) in the list");
-                    DataHandler.addTask(temp);
+                    lists.addItem(temp);
 
                 } else {
                     throw new UnknownInstructionException(user_input);

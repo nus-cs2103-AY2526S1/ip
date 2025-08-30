@@ -4,11 +4,10 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.File;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 
-public interface DataHandler {
+public interface Storage {
     public final String DATA_STORAGE_PATH = "../data/stella.txt";
 
     public static Task lineToTask(String description) {
@@ -44,7 +43,7 @@ public interface DataHandler {
                 String task_desription;
                 ArrayList<Task> temp = new ArrayList<>();
                 while ((task_desription = reader.readLine()) != null) {
-                    temp.add(DataHandler.lineToTask(task_desription));
+                    temp.add(Storage.lineToTask(task_desription));
                 }
 
                 return temp;
