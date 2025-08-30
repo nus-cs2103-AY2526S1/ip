@@ -4,29 +4,33 @@ import aurora.command.Command;
 import aurora.command.CommandReader;
 
 import aurora.storage.Storage;
-import aurora.task.Task;
 import aurora.task.TaskList;
 import aurora.ui.Ui;
 
 import java.util.Scanner;
-import java.util.List;
 
 
 /**
  * Aurora is a chatbot that manages tasks.
  */
 public class Aurora {
-    public static void main(String[] args) {
-        Ui ui = new Ui(new Scanner(System.in));
-        Storage storage = new Storage("./data/aurora.txt");
-        TaskList list = storage.load();
+    private final Storage storage;
+    private TaskList list;
+    private final Ui ui;
 
+    public Aurora(String filePath) {
+        this.ui = new Ui(new Scanner(System.in));
+        this.storage = new Storage(filePath);
+        this.list = storage.load();
+    }
+
+    public void run() {
         ui.speakIntro();
-        loop(ui, list, storage);
+        loop();
         ui.speakOutro();
     }
 
-    private static void loop(Ui ui, TaskList list, Storage storage) {
+    private void loop() {
         String input = ui.readInput();
 
         while (!input.equalsIgnoreCase("bye")) {
@@ -35,5 +39,9 @@ public class Aurora {
             storage.save(list);
             input = ui.readInput();
         }
+    }
+
+    public static void main(String[] args) {
+        new Aurora("./data/aurora.txt").run();
     }
 }
