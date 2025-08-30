@@ -28,9 +28,9 @@ public class Storage {
     /**
      * Constructs a Storage for the save file located under savePath.
      *
-     * @param dir the directory that contains the save file, created if missing
-     * @param fileName the save file name
-     * @throws PiperException if the provided path cannot be constructed
+     * @param dir the directory that contains the save file, created if missing.
+     * @param fileName the save file name.
+     * @throws PiperException if the provided path cannot be constructed.
      */
     public Storage(String dir, String fileName) throws PiperException {
         this.savePath = Paths.get(dir, fileName);
@@ -42,8 +42,8 @@ public class Storage {
      * Loads tasks from the save file into a TaskList.
      * If the directory or file does not exist, then they are created and an empty Tasklist is returned.
      *
-     * @return a TaskList populated with tasks read from disk
-     * @throws PiperException if the file cannot be created or read
+     * @return a TaskList populated with tasks read from disk.
+     * @throws PiperException if the file cannot be created or read.
      */
     public TaskList load() throws PiperException {
         try {
@@ -94,8 +94,8 @@ public class Storage {
     /**
      * Converts a Task into its on-disk line representation.
      *
-     * @param task the task to serialize
-     * @return the serialized single-line representation of the task
+     * @param task the task to serialize.
+     * @return the serialized single-line representation of the task.
      */
     private static String serialize(Task task) {
         return task.toSerializedLine();
@@ -104,8 +104,8 @@ public class Storage {
     /**
      * Writes all tasks to the save file, overwriting any existing content.
      *
-     * @param tasks the tasks to save
-     * @throws PiperException if an I/O error prevents writing the file
+     * @param tasks the tasks to save.
+     * @throws PiperException if an I/O error prevents writing the file.
      */
     public void saveAll(TaskList tasks) throws PiperException {
         try {
