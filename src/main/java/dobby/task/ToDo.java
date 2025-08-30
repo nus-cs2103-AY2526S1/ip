@@ -1,5 +1,8 @@
-public class ToDo extends Task{
+package dobby.task;
+
+public class ToDo extends Task {
     protected String by;
+    private TaskType type;
 
     public ToDo(String description) {
         super(description, TaskType.TODO);

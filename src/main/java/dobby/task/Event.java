@@ -1,4 +1,6 @@
-public class Event extends Task{
+package dobby.task;
+
+public class Event extends Task {
     protected String from;
     protected String until;
 
