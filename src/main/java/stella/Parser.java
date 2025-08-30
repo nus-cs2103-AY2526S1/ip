@@ -1,3 +1,4 @@
+package stella;
 public class Parser {
     private TaskList list;
 

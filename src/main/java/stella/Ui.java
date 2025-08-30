@@ -1,3 +1,5 @@
+package stella;
+
 import java.util.Scanner;
 public class Ui {
     private Parser parser;
