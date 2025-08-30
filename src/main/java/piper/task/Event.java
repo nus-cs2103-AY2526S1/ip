@@ -4,6 +4,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A task that spans a start and end date.
+ * The constructor accepts the /from and /to fields as entered by the user.
+ * If given the ISO date format yyyy-MM-dd, the date is displayed as MMM d yyyy.
+ */
 public class Event extends Task {
     protected final String taskType = "E";
     protected String from;
@@ -12,7 +17,13 @@ public class Event extends Task {
     private LocalDate toDate;
     private static final DateTimeFormatter DISPLAYED_DATE = DateTimeFormatter.ofPattern("MMM d yyyy");
 
-
+    /**
+     * Creates an Event.
+     *
+     * @param description task description.
+     * @param from from start text.
+     * @param to to end text.
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;

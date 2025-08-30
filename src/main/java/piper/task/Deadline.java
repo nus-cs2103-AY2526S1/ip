@@ -4,12 +4,23 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A task that must be completed by a specific date.
+ * The constructor accepts the /by field as entered by the user.
+ * If given the ISO date format yyyy-MM-dd, the date is displayed as MMM d yyyy.
+ */
 public class Deadline extends Task {
     protected final String taskType = "D";
     protected String by;
     private LocalDate byDate;
     private static final DateTimeFormatter DISPLAYED_DATE = DateTimeFormatter.ofPattern("MMM d yyyy");
 
+    /**
+     * Creates a Deadline.
+     *
+     * @param description task description.
+     * @param by by deadline text.
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
