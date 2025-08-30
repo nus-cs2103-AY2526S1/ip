@@ -12,7 +12,7 @@ class TaskTodo extends Task {
 
     /**
      * Construct a basic task.
-     * 
+     *
      * @param input Input from user to create a todo task.
      */
     public TaskTodo(String input) {

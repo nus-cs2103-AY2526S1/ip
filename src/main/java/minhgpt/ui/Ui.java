@@ -17,11 +17,11 @@ public class Ui {
      * @param size Number of empty lines to be printed.
      */
     private void padding(int size) {
-        String str = "";
+        String pad = "";
         for (int i = 0; i < size; i++) {
-            str += "\n";
+            pad += "\n";
         }
-        System.out.print(str);
+        System.out.print(pad);
     }
 
     /**

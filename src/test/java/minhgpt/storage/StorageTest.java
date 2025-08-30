@@ -14,7 +14,7 @@ import minhgpt.task.TaskList;
 
 public class StorageTest {
     @Test
-    public void saveLoadTest() {
+    public void saveTasksAndLoadTasks_simpleList() {
         try {
             Task.initialise();
             Storage storage = new Storage();

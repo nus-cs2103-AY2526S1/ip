@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 public class TaskTest {
     @Test
-    public void parseTaskTest() {
+    public void parseTask_allTasks() {
         Task.initialise();
         try {
             assertEquals(Task.parseTask("todo task1") instanceof TaskTodo, true);

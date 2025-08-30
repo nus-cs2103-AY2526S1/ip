@@ -37,7 +37,7 @@ for infile in "$INPUT_DIR"/*; do
     resultfile="$RESULT_DIR/$fname"
 
     # Run your program (replace ./program with your command)
-    java -classpath ../bin MinhGPT --fresh < "$infile" > "$resultfile"
+    java -classpath ../bin minhgpt/MinhGpt --fresh < "$infile" > "$resultfile"
 
     if diff -q "$resultfile" "$outfile" > /dev/null; then
         echo "$fname: PASS"

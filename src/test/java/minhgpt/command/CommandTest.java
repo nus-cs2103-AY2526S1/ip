@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 public class CommandTest {
     @Test
-    public void parseCommandTest() {
+    public void parseCommand_allCommands() {
         Command.initialise();
         assertEquals(Command.parseCommand("bye") instanceof CommandBye, true);
         assertEquals(Command.parseCommand("list") instanceof CommandList, true);

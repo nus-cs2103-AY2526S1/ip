@@ -18,7 +18,7 @@ class TaskEvent extends Task {
 
     /**
      * Construct a basic task.
-     * 
+     *
      * @param input Input from user to create an event task.
      */
     public TaskEvent(String input) {
