@@ -1,8 +1,6 @@
 package aurora.command;
-import aurora.task.Task;
-import aurora.task.TaskList;
 
-import java.util.List;
+import aurora.task.TaskList;
 
 /**
  * Command to display all tasks in the list.

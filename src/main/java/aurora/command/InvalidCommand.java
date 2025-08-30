@@ -1,9 +1,7 @@
 package aurora.command;
 
-import aurora.task.Task;
 import aurora.task.TaskList;
 
-import java.util.List;
 
 /**
  * Command for invalid or unrecognized user input.
