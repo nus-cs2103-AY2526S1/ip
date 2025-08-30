@@ -2,32 +2,69 @@ package piper.parser;
 
 import piper.PiperException;
 
+
+/**
+ * Parses raw user input into commands and structured arguments.
+ * Provides helpers to split the command token from the rest of the input.
+ * Extracts fields for Deadline abd Event classes.
+ */
 public final class Parser {
+    /** Utility class that is not instantiated. */
     private Parser() {}
 
+    /**
+     * Result of splitting a raw input into a command and its argument.
+     */
     public static final class ParsedString {
         public final String cmd;
         public final String arg;
 
+        /**
+         * Creates a ParsedString.
+         *
+         * @param cmd command token.
+         * @param arg remainder of the user input or null if none.
+         */
         public ParsedString(String cmd, String arg) {
             this.cmd = cmd;
             this.arg = arg;
         }
     }
 
+    /**
+     * Structured arguments for a deadline command.
+     */
     public static final class DeadlineArgs {
         public final String description;
         public final String by;
+
+        /**
+         * Creates DeadlineArgs.
+         *
+         * @param description task description.
+         * @param by by deadline text.
+         */
         public DeadlineArgs(String description, String by) {
             this.description = description;
             this.by = by;
         }
     }
 
+    /**
+     * Structured arguments for an event command.
+     */
     public static final class EventArgs {
         public final String description;
         public final String from;
         public final String to;
+
+        /**
+         * Creates EventArgs.
+         *
+         * @param description task description.
+         * @param from start timing text.
+         * @param to end timing text.
+         */
         public EventArgs(String description, String from, String to) {
             this.description = description;
             this.from = from;
@@ -35,6 +72,13 @@ public final class Parser {
         }
     }
 
+    /**
+     * Parses a raw line into a command token and its argument.
+     *
+     * @param userInput trimmed line entered by the user.
+     * @return a ParsedString containing the command and argument or null.
+     * @throws PiperException if the line is empty or the command is invalid or incomplete.
+     */
     public static ParsedString parse(String userInput) throws PiperException {
         if (userInput == null || userInput.isEmpty()) {
             throw new PiperException("CHIRP CHIRP! Don't think you said anything there. Try tweeting a command!");
@@ -63,6 +107,13 @@ public final class Parser {
         return new ParsedString(cmd, arg);
     }
 
+    /**
+     * Parses a 1-based index from user input.
+     *
+     * @param index string containing the index.
+     * @return parsed integer value.
+     * @throws PiperException if the string is not a valid integer.
+     */
     public static int parseIndex(String index) throws PiperException {
         try {
             return Integer.parseInt(index);
@@ -71,6 +122,13 @@ public final class Parser {
         }
     }
 
+    /**
+     * Extracts description and /by fields for a deadline.
+     *
+     * @param arg remainder of the user input after the command token.
+     * @return structured DeadlineArgs.
+     * @throws PiperException if required parts are missing or empty.
+     */
     public static DeadlineArgs parseDeadlineArgs(String arg) throws PiperException {
         try {
             String[] descriptionAndBy = arg.split("/by ", 2);
@@ -88,6 +146,13 @@ public final class Parser {
         }
     }
 
+    /**
+     * Extracts description, /from, and /to fields for an event.
+     *
+     * @param arg remainder of the user input after the command token.
+     * @return structured EventArgs.
+     * @throws PiperException if required parts are missing or empty.
+     */
     public static EventArgs parseEventArgs(String arg) throws PiperException {
         try {
             String[] descriptionAndFrom = arg.split("/from ", 2);
