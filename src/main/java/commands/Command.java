@@ -16,7 +16,11 @@ import ui.Ui;
  * {@link Storage}.</p>
  */
 public abstract class Command {
+    protected String message;
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws RainyException;
+    public String getMessage() {
+        return message;
+    }
     public boolean isExit() {
         return false;
     }

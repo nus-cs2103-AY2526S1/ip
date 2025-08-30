@@ -25,14 +25,26 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the main window of the GUI after all @FXML fields have been injected.
+     * <p>
+     * This method sets up the scroll behavior so that the scroll pane
+     * automatically scrolls to the bottom as new messages are added.
+     * It also displays the welcome message from the Rainy application
+     * in the dialog container when the GUI is first loaded.
+     * </p>
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
-    public void setDuke(Rainy d) {
-        rainy = d;
+    /** Injects the Rainy instance */
+    public void setRainy(Rainy r) {
+        rainy = r;
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(rainy.getWelcomeMessage(), dukeImage)
+        );
     }
 
     /**

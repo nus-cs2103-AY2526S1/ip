@@ -22,7 +22,7 @@ public class UnmarkCommand extends Command {
         tasks.unmarkTask(index);
         storage.save(tasks.getAllTasks());
         ui.showLine();
-        System.out.println("oki, i've marked this task as not done yet:\n  " + tasks.getTask(index));
+        message = "oki, i've marked this task as not done yet:\n  " + tasks.getTask(index);
         ui.showLine();
     }
 }

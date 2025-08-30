@@ -35,8 +35,8 @@ public class AddDeadlineCommand extends Command {
         tasks.addTask(t);
         storage.save(tasks.getAllTasks());
         ui.showLine();
-        System.out.println("oki! i've added this task:\n  " + t
-                + "\nnow you have " + tasks.size() + " tasks left!");
+        message = "oki! i've added this task:\n  " + t
+                + "\nnow you have " + tasks.size() + " tasks left!";
         ui.showLine();
     }
 }

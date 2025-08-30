@@ -32,6 +32,11 @@ public class Rainy {
         this("data/rainy.txt"); // call the existing constructor with default path
     }
 
+    public String getWelcomeMessage() {
+        return ui.showWelcome();
+    }
+
+
     /**
      * Runs the main event loop of the application.
      * Displays the welcome message, continuously reads user input,
@@ -65,6 +70,12 @@ public class Rainy {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+            return c.getMessage();
+        } catch (RainyException e) {
+            return e.getMessage();
+        }
     }
 }

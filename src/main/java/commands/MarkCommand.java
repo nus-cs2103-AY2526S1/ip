@@ -22,7 +22,7 @@ public class MarkCommand extends Command {
         tasks.markTask(index);
         storage.save(tasks.getAllTasks());
         ui.showLine();
-        System.out.println("yay! :D i've marked this task as done:\n  " + tasks.getTask(index));
+        message = "yay! :D i've marked this task as done:\n  " + tasks.getTask(index);
         ui.showLine();
     }
 }

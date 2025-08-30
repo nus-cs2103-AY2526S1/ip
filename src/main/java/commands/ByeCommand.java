@@ -1,5 +1,8 @@
 package commands;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
@@ -12,7 +15,13 @@ import ui.Ui;
 public class ByeCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showBye();
+        ui.showLine();
+        message = ui.showBye();
+        ui.showLine();
+
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
     }
 
     @Override
