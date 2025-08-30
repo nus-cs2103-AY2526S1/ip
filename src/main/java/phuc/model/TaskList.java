@@ -2,6 +2,10 @@ package phuc.model;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks with various operations for task management.
+ * Provides methods to add, remove, and manipulate tasks in the list.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
@@ -14,6 +18,7 @@ public class TaskList {
 
     /**
      * Creates a TaskList from an existing list of tasks
+     *
      * @param tasks the initial list of tasks
      */
     public TaskList(ArrayList<Task> tasks) {
@@ -22,6 +27,7 @@ public class TaskList {
 
     /**
      * Adds a task to the list
+     *
      * @param task the task to add
      */
     public void add(Task task) {
@@ -30,9 +36,9 @@ public class TaskList {
 
     /**
      * Gets a task by index
+     *
      * @param index the 0-based index of the task
      * @return the task at the specified index
-     * @throws IndexOutOfBoundsException if index is invalid
      */
     public Task get(int index) {
         return tasks.get(index);
@@ -40,8 +46,9 @@ public class TaskList {
 
     /**
      * Removes a task by index
+     *
      * @param index the 0-based index of the task to remove
-     * @throws IndexOutOfBoundsException if index is invalid
+     * @return the removed task
      */
     public Task remove(int index) {
         return tasks.remove(index);
@@ -49,6 +56,7 @@ public class TaskList {
 
     /**
      * Gets the number of tasks in the list
+     *
      * @return the number of tasks
      */
     public int size() {
@@ -57,6 +65,7 @@ public class TaskList {
 
     /**
      * Checks if the task list is empty
+     *
      * @return true if the list is empty, false otherwise
      */
     public boolean isEmpty() {
@@ -65,6 +74,7 @@ public class TaskList {
 
     /**
      * Gets all tasks as a list
+     *
      * @return a copy of all tasks
      */
     public ArrayList<Task> getAllTasks() {
@@ -78,6 +88,11 @@ public class TaskList {
         tasks.clear();
     }
 
+    /**
+     * Adds all tasks from another collection to this task list.
+     *
+     * @param tasks the collection of tasks to add
+     */
     public void addAll(ArrayList<Task> tasks) {
         this.tasks.addAll(tasks);
     }

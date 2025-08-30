@@ -13,15 +13,27 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+/**
+ * Handles file storage operations for tasks.
+ * Provides methods to save tasks to file and load tasks from file.
+ */
 public class Storage {
     private static final String DEFAULT_FILE_PATH = "./data/Phuc.txt";
-
     private final String filePath;
 
+    /**
+     * Constructs a Storage instance with the default file path.
+     */
     public Storage() {
         this.filePath = DEFAULT_FILE_PATH;
     }
 
+    /**
+     * Saves all tasks to the storage file.
+     *
+     * @param tasks the TaskList containing tasks to save
+     * @throws IOException if file writing fails
+     */
     public void save(TaskList tasks) throws IOException {
         java.io.File file = new java.io.File(filePath);
         file.getParentFile().mkdirs();
@@ -34,6 +46,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return a TaskList containing the loaded tasks
+     * @throws IOException if file reading fails
+     * @throws PhucException if file format is invalid
+     */
     public TaskList load() throws IOException, PhucException {
         TaskList tasks = new TaskList();
         File file = new File(filePath);
