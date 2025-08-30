@@ -2,6 +2,7 @@ package commands;
 
 import java.util.ArrayList;
 
+import exception.RainyException;
 import storage.Storage;
 import tasks.Task;
 import tasks.TaskList;
@@ -31,7 +32,7 @@ public class FindCommand extends Command {
      * @param storage the storage handler
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws RainyException {
         ArrayList<Task> allTasks = tasks.getAllTasks();
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
@@ -42,16 +43,15 @@ public class FindCommand extends Command {
         }
 
         if (matchingTasks.isEmpty()) {
-            ui.showError("oh no!!! no matching tasks found for: " + keyword);
-            return;
+            throw new RainyException("oh no!!! no matching tasks found for: " + keyword);
         }
 
-        ui.showLine();
-        message = "here are the matching tasks in your list:";
+        StringBuilder sb = new StringBuilder();
+        sb.append("here are the matching tasks in your list:\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.println(" " + (i + 1) + "." + matchingTasks.get(i));
+            sb.append(" ").append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
         }
-        ui.showLine();
+        message = sb.toString().trim();
     }
 
     /**
