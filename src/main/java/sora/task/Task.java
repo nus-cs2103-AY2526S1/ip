@@ -37,20 +37,26 @@ public class Task {
         return "[" + typeIcon + "]" + "[" + this.getStatusIcon() +"] " + description;
     }
 
-    public String toFormat() {
+    public String toFormat() throws UnsupportedOperationException{
         String isDoneNumber = isDone ? "1" : "0";
         switch (type) {
         case TODO :
             return "T " + "| "+ isDoneNumber +" | "+ description;
         case DEADLINE:
+            if (!(this instanceof Deadline)) {
+                throw new UnsupportedOperationException("Not a deadline type");
+            }
             String by = ((Deadline)this).byToFormat();
             return "D " + "| "+ isDoneNumber +" | " +description +" | " +by;
         case EVENT:
+            if (!(this instanceof Event)) {
+                throw new UnsupportedOperationException("Not an event type");
+            }
             String from = ((Event)this).fromToFormat();
             String to = ((Event)this).toToFormat();
             return "E " + "| " + isDoneNumber + " | "+description+" | "+from+" | " + to;
         default:
-            return "";
+            throw new UnsupportedOperationException("Unknown type");
         }
 
     }
