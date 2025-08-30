@@ -3,15 +3,15 @@ package minhgpt;
 import java.util.Scanner;
 
 import minhgpt.command.Command;
+import minhgpt.storage.Storage;
 import minhgpt.task.Task;
 import minhgpt.task.TaskList;
 import minhgpt.ui.Ui;
-import minhgpt.storage.Storage;
 
 /**
  * Main program
  */
-public class MinhGPT {
+public class MinhGpt {
     /**
      * Main entry-point for the program.
      */

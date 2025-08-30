@@ -17,8 +17,8 @@ public abstract class Task {
     private static final HashMap<String, Function<String, Task>> registry = new HashMap<>();
     /** Name of task. */
     private String name;
-    /** If status is true, task is done. Otherwise, task is not done. */
-    private boolean status;
+    /** True if task is done. False otherwise. */
+    private boolean isDone;
 
     // NOTE: PROTECTED
 
@@ -73,32 +73,32 @@ public abstract class Task {
 
     /**
      * Construct a basic task.
-     * 
+     *
      * @param name Name of task to be created.
      */
     public Task(String name) {
         this.name = name;
-        this.status = false;
+        this.isDone = false;
     }
 
     /**
      * Mark the task as done.
      */
     public void markAsDone() {
-        this.status = true;
+        this.isDone = true;
     }
 
     /**
      * Mark the task as undone.
      */
     public void markAsUndone() {
-        this.status = false;
+        this.isDone = false;
     }
 
     /**
-     * Return true if the task name matches 'query'. False otherwise.
+     * Return true if the task name matches regex string 'query'. False otherwise.
      */
-    public boolean match(String query) {
+    public boolean matchRegex(String query) {
         return name.toUpperCase().contains(query.toUpperCase());
     }
 
@@ -108,7 +108,7 @@ public abstract class Task {
     public ArrayList<String> toCommands() {
         ArrayList<String> commands = new ArrayList<>();
         commands.add(name);
-        if (status) {
+        if (isDone) {
             commands.add("mark");
         }
         return commands;
@@ -119,6 +119,6 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%c] %s", this.status ? 'X' : ' ', this.name);
+        return String.format("[%c] %s", this.isDone ? 'X' : ' ', this.name);
     }
 }

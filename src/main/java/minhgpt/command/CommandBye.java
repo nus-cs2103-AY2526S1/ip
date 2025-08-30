@@ -1,8 +1,8 @@
 package minhgpt.command;
 
-import minhgpt.ui.Ui;
 import minhgpt.storage.Storage;
 import minhgpt.task.TaskList;
+import minhgpt.ui.Ui;
 
 /**
  * Encapsulate the bye command.

@@ -16,7 +16,7 @@ class TaskDeadline extends Task {
 
     /**
      * Construct a basic task.
-     * 
+     *
      * @param input Input from user to create a deadline task.
      */
     public TaskDeadline(String input) {
