@@ -17,6 +17,7 @@ public class DateUtil {
             DateTimeFormatter.ofPattern("ddMMyy"),
             DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"),
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"),
             DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
             DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"),

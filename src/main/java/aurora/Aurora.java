@@ -3,6 +3,7 @@ package aurora;
 import aurora.command.Command;
 import aurora.command.CommandReader;
 
+import aurora.storage.Storage;
 import aurora.task.Task;
 import aurora.task.TaskReader;
 
@@ -26,10 +27,11 @@ public class Aurora {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<Task> list = load();
+        Storage storage = new Storage("./data/aurora.txt");
+        List<Task> list = storage.load();
 
         speak(INTRO);
-        loop(scanner, list);
+        loop(scanner, list, storage);
         speak(OUTRO);
         scanner.close();
     }
@@ -38,48 +40,14 @@ public class Aurora {
         System.out.println("Aurora: " + content);
     }
 
-    private static void loop(Scanner s, List<Task> list) {
+    private static void loop(Scanner s, List<Task> list, Storage storage) {
         String input = s.nextLine();
 
         while (!input.equalsIgnoreCase("bye")) {
             Command command = CommandReader.read(input);
             speak(command.execute(list));
-            save(list);
+            storage.save(list);
             input = s.nextLine();
         }
-    }
-
-    private static void save(List<Task> list) {
-        try {
-            File tasks = new File("./data/aurora.txt");
-            File parentDir = tasks.getParentFile();
-
-            if (!parentDir.exists() && !parentDir.mkdirs()) {
-                throw new IOException("Failed to create directory: " + parentDir);
-            }
-
-            try (FileWriter fw = new FileWriter(tasks)) {
-                for (Task task : list) {
-                    fw.write(task.toText());
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static List<Task> load() {
-        List<Task> result = new ArrayList<>();
-        try {
-            File tasks = new File("./data/aurora.txt");
-            Scanner s = new Scanner(tasks);
-            while (s.hasNextLine()) {
-                result.add(TaskReader.fromText(s.nextLine()));
-            }
-        } catch (FileNotFoundException e) {
-            return result;
-        }
-
-        return result;
     }
 }
