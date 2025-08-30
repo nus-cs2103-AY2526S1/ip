@@ -32,8 +32,16 @@ application {
     mainClass.set("sora.Sora")
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': application.mainClass.get()
+        )
+    }
+}
+
 shadowJar {
-    archiveBaseName = "sora"
+    archiveBaseName = "sora.jar"
     archiveClassifier = null
 }
 
