@@ -1,14 +1,15 @@
+package duke;
+
 /**
  * Represents an event task with a specific start and end time.
  * Inherits from Task class and adds event timing information.
  */
-package duke;
 public class Event extends Task {
     /** The start time of the event */
-    public String from;
-    
+    private String from;
+
     /** The end time of the event */
-    public String to;
+    private String to;
 
     /**
      * Creates a new Event task with the given description, start time, and end time.
@@ -21,6 +22,22 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    /**
+     * Gets the start time of the event.
+     * @return The start time
+     */
+    public String getFrom() {
+        return from;
+    }
+
+    /**
+     * Gets the end time of the event.
+     * @return The end time
+     */
+    public String getTo() {
+        return to;
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
     /** The deadline by which the task should be completed */
-    public LocalDate by;
+    private LocalDate by;
 
     /**
      * Creates a new Deadline task with the given description and deadline.
@@ -31,6 +31,14 @@ public class Deadline extends Task {
     public Deadline(String description, String byString) {
         super(description);
         this.by = LocalDate.parse(byString);
+    }
+
+    /**
+     * Gets the deadline date.
+     * @return The deadline date
+     */
+    public LocalDate getBy() {
+        return by;
     }
 
     @Override

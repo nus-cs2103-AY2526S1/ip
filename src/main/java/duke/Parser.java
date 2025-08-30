@@ -1,7 +1,8 @@
+package duke;
+
 /**
  * Deals with making sense of the user command.
  */
-package duke;
 public class Parser {
 
     /**
@@ -15,15 +16,39 @@ public class Parser {
      * Represents a parsed command with its type and relevant data.
      */
     public static class Command {
-        public CommandType type;
-        public String taskNumber;
-        public String description;
-        public String deadline;
-        public String from;
-        public String to;
+        private CommandType type;
+        private String taskNumber;
+        private String description;
+        private String deadline;
+        private String from;
+        private String to;
 
         public Command(CommandType type) {
             this.type = type;
+        }
+
+        public CommandType getType() {
+            return type;
+        }
+
+        public String getTaskNumber() {
+            return taskNumber;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public String getDeadline() {
+            return deadline;
+        }
+
+        public String getFrom() {
+            return from;
+        }
+
+        public String getTo() {
+            return to;
         }
     }
 

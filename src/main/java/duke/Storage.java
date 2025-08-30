@@ -1,10 +1,10 @@
 package duke;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Handles loading tasks from the file and saving tasks to the file.
@@ -97,13 +97,14 @@ public class Storage {
                     taskType = "T";
                 } else if (task instanceof Deadline) {
                     taskType = "D";
-                    additionalInfo = " | " + ((Deadline) task).by.toString();
+                    additionalInfo = " | " + ((Deadline) task).getBy().toString();
                 } else if (task instanceof Event) {
                     taskType = "E";
-                    additionalInfo = " | " + ((Event) task).from + " | " + ((Event) task).to;
+                    additionalInfo = " | " + ((Event) task).getFrom() + " | " + ((Event) task).getTo();
                 }
 
-                content.append(taskType + " | " + (task.getDone() ? "1" : "0") + " | " + task.getDescription() + additionalInfo + "\n");
+                content.append(taskType + " | " + (task.getDone() ? "1" : "0")
+                        + " | " + task.getDescription() + additionalInfo + "\n");
             }
 
             FileWriter fw = new FileWriter(filePath);
