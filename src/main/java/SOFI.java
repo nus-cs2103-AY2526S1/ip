@@ -1,9 +1,9 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class SOFI {
     public static void main(String[] args) {
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         String greet = "____________________________________________________________\n" +
                 "Hello! I'm SOFI\n" +
@@ -27,10 +27,10 @@ public class SOFI {
 
                 if (userInput.equals("list")) {
                     System.out.println("____________________________________________________________");
-                    System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + ". " + tasks[i].toString());
-                    }
+                System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i + 1) + ". " + tasks.get(i).toString());
+                }
                     System.out.println("____________________________________________________________");
                 }
 
@@ -39,10 +39,10 @@ public class SOFI {
                     if (taskDescription.isEmpty()) {
                         throw new SofiException("A todo needs a description. Try: todo read book");
                     }
-                    tasks[taskCount++] = new Todo(taskDescription);
+                    tasks.add(new Todo(taskDescription));
                     System.out.println("____________________________________________________________");
-                    System.out.println("Added this task:\n   " + tasks[taskCount - 1].toString());
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("Added this task:\n   " + tasks.get(tasks.size() - 1).toString());
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 }
 
@@ -59,10 +59,10 @@ public class SOFI {
                     if (by.isEmpty()) {
                         throw new SofiException("The /by time cannot be empty.");
                     }
-                    tasks[taskCount++] = new Deadline(taskDescription, by);
+                    tasks.add(new Deadline(taskDescription, by));
                     System.out.println("____________________________________________________________");
-                    System.out.println("Added this task:\n   " + tasks[taskCount - 1].toString());
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("Added this task:\n   " + tasks.get(tasks.size() - 1).toString());
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 }
 
@@ -82,10 +82,10 @@ public class SOFI {
                     if (from.isEmpty() || to.isEmpty()) {
                         throw new SofiException("Both /from and /to times must be provided.");
                     }
-                    tasks[taskCount++] = new Event(taskDescription, from, to);
+                    tasks.add(new Event(taskDescription, from, to));
                     System.out.println("____________________________________________________________");
-                    System.out.println("Added this task:\n   " + tasks[taskCount - 1].toString());
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("Added this task:\n   " + tasks.get(tasks.size() - 1).toString());
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 }
 
@@ -100,10 +100,10 @@ public class SOFI {
                     } catch (NumberFormatException e) {
                         throw new SofiException("That doesn't look like a number. Try: mark 2");
                     }
-                    if (taskNumber < 0 || taskNumber >= taskCount) {
-                        throw new SofiException("Task number out of range. You have " + taskCount + " task(s).");
+                    if (taskNumber < 0 || taskNumber >= tasks.size()) {
+                        throw new SofiException("Task number out of range. You have " + tasks.size() + " task(s).");
                     }
-                    Task task = tasks[taskNumber];
+                    Task task = tasks.get(taskNumber);
                     task.markAsDone();
                     System.out.println("____________________________________________________________");
                     System.out.println("Nice! I've marked this task as done:\n" + "   " + task.toString());
@@ -121,13 +121,34 @@ public class SOFI {
                     } catch (NumberFormatException e) {
                         throw new SofiException("That doesn't look like a number. Try: unmark 2");
                     }
-                    if (taskNumber < 0 || taskNumber >= taskCount) {
-                        throw new SofiException("Task number out of range. You have " + taskCount + " task(s).");
+                    if (taskNumber < 0 || taskNumber >= tasks.size()) {
+                        throw new SofiException("Task number out of range. You have " + tasks.size() + " task(s).");
                     }
-                    Task task = tasks[taskNumber];
+                    Task task = tasks.get(taskNumber);
                     task.markAsNotDone();
                     System.out.println("____________________________________________________________");
                     System.out.println("OK, I've marked this task as not done yet:\n" + "   " + task.toString());
+                    System.out.println("____________________________________________________________");
+                }
+
+                else if (userInput.startsWith("delete")) {
+                    String[] tokens = userInput.split(" ", 2);
+                    if (tokens.length < 2 || tokens[1].trim().isEmpty()) {
+                        throw new SofiException("Please provide the task number to delete. Example: delete 3");
+                    }
+                    int taskNumber;
+                    try {
+                        taskNumber = Integer.parseInt(tokens[1].trim()) - 1;
+                    } catch (NumberFormatException e) {
+                        throw new SofiException("That doesn't look like a number. Try: delete 3");
+                    }
+                    if (taskNumber < 0 || taskNumber >= tasks.size()) {
+                        throw new SofiException("Task number out of range. You have " + tasks.size() + " task(s).");
+                    }
+                    Task removed = tasks.remove(taskNumber);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Noted. I've removed this task:\n  " + removed.toString());
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 }
 
@@ -140,5 +161,6 @@ public class SOFI {
                 System.out.println("____________________________________________________________");
             }
         }
+        scanner.close();
     }
 }
