@@ -1,9 +1,9 @@
 package tasks;
 
-import exception.RainyException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import exception.RainyException;
 
 /**
  * Represents a task with a deadline.
@@ -30,7 +30,9 @@ public class Deadline extends Task {
             try {
                 parsedDate = LocalDateTime.parse(by.trim(), f);
                 break;
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+                //Intentionally ignored
+            }
         }
 
         if (parsedDate == null) {

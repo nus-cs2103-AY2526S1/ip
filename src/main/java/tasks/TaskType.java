@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * Represents the type of task in the Rainy task management application.
+ */
 public enum TaskType {
     TODO("T"),
     DEADLINE("D"),

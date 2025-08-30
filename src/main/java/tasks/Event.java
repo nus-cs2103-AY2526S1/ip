@@ -1,9 +1,9 @@
 package tasks;
 
-import exception.RainyException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import exception.RainyException;
 
 /**
  * Represents a task that occurs during a time interval (from start to end).
@@ -48,7 +48,9 @@ public class Event extends Task {
         for (DateTimeFormatter f : formatters) {
             try {
                 return LocalDateTime.parse(input.trim(), f);
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+                //Intentionally ignored
+            }
         }
         throw new RainyException("oh no!!! wrong date format... please use yyyy-MM-dd HHmm or d/M/yyyy HHmm.");
     }

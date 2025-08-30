@@ -5,6 +5,11 @@ import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
 
+/**
+ * Represents a command that marks a task in the task list as done.
+ * The {@code MarkCommand} updates the task's status, saves the change
+ * to storage, and notifies the user through the UI.
+ */
 public class MarkCommand extends Command {
     private final int index;
 

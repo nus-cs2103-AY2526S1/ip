@@ -7,10 +7,23 @@ import tasks.Task;
 import tasks.TaskList;
 import ui.Ui;
 
+/**
+ * Represents a command that adds a {@link Deadline} task to the task list.
+ * The {@code AddDeadlineCommand} creates a new deadline task with a
+ * description and due date, adds it to the list, saves the updated list
+ * to storage, and notifies the user through the UI.
+ */
 public class AddDeadlineCommand extends Command {
     private final String description;
     private final String by;
 
+    /**
+     * Creates a new {@code AddDeadlineCommand} with the given description
+     * and due date.
+     *
+     * @param description the description of the deadline task
+     * @param by          the due date/time of the deadline task
+     */
     public AddDeadlineCommand(String description, String by) {
         this.description = description;
         this.by = by;
@@ -22,8 +35,8 @@ public class AddDeadlineCommand extends Command {
         tasks.addTask(t);
         storage.save(tasks.getAllTasks());
         ui.showLine();
-        System.out.println("oki! i've added this task:\n  " + t +
-                "\nnow you have " + tasks.size() + " tasks left!");
+        System.out.println("oki! i've added this task:\n  " + t
+                + "\nnow you have " + tasks.size() + " tasks left!");
         ui.showLine();
     }
 }

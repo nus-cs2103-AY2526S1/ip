@@ -7,6 +7,12 @@ import tasks.TaskList;
 import tasks.Todo;
 import ui.Ui;
 
+/**
+ * Represents a command that adds a {@link Todo} task to the task list.
+ * The {@code AddTodoCommand} creates a new to-do task with a description,
+ * adds it to the list, saves the updated list to storage, and notifies
+ * the user through the UI.
+ */
 public class AddTodoCommand extends Command {
     private final String description;
 
@@ -20,8 +26,8 @@ public class AddTodoCommand extends Command {
         tasks.addTask(t);
         storage.save(tasks.getAllTasks());
         ui.showLine();
-        System.out.println("oki! i've added this task:\n  " + t +
-                "\nnow you have " + tasks.size() + " tasks left!");
+        System.out.println("oki! i've added this task:\n  " + t
+                + "\nnow you have " + tasks.size() + " tasks left!");
         ui.showLine();
     }
 }

@@ -1,8 +1,8 @@
 package tasks;
 
-import exception.RainyException;
-
 import java.util.ArrayList;
+
+import exception.RainyException;
 
 /**
  * Represents a list of tasks and provides methods to manipulate them.

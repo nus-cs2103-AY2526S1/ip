@@ -4,9 +4,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.LocalDateTime;
 
 import tasks.Deadline;
 import tasks.Event;
@@ -68,20 +68,26 @@ public class Storage {
                 switch (type) {
                 case "T":
                     Task todo = new Todo(parts[2]);
-                    if (isDone) todo.markAsDone();
+                    if (isDone) {
+                        todo.markAsDone();
+                    }
                     tasks.add(todo);
                     break;
                 case "D":
                     LocalDateTime by = LocalDateTime.parse(parts[3]);
                     Task deadline = new Deadline(description, by);
-                    if (isDone) deadline.markAsDone();
+                    if (isDone) {
+                        deadline.markAsDone();
+                    }
                     tasks.add(deadline);
                     break;
                 case "E":
                     LocalDateTime from = LocalDateTime.parse(parts[3]);
                     LocalDateTime to = LocalDateTime.parse(parts[4]);
                     Task event = new Event(description, from, to);
-                    if (isDone) event.markAsDone();
+                    if (isDone) {
+                        event.markAsDone();
+                    }
                     tasks.add(event);
                     break;
                 default:

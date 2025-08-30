@@ -6,6 +6,11 @@ import tasks.Task;
 import tasks.TaskList;
 import ui.Ui;
 
+/**
+ * Represents a command that deletes a task from the task list.
+ * The {@code DeleteCommand} removes the task at the specified index,
+ * saves the updated list to storage, and notifies the user through the UI.
+ */
 public class DeleteCommand extends Command {
     private final int index;
 
@@ -18,8 +23,8 @@ public class DeleteCommand extends Command {
         Task removedTask = tasks.deleteTask(index);
         storage.save(tasks.getAllTasks());
         ui.showLine();
-        System.out.println("oki! i've removed this task:\n  " + removedTask +
-                "\nnow you have " + tasks.size() + " tasks left!");
+        System.out.println("oki! i've removed this task:\n  " + removedTask
+                + "\nnow you have " + tasks.size() + " tasks left!");
         ui.showLine();
     }
 }
