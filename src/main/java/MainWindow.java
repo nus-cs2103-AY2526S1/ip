@@ -43,7 +43,7 @@ public class MainWindow extends AnchorPane {
     public void setRainy(Rainy r) {
         rainy = r;
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(rainy.getWelcomeMessage(), dukeImage)
+                DialogBox.getRainyDialog(rainy.getWelcomeMessage(), dukeImage, "SalutationsCommand")
         );
     }
 
@@ -55,9 +55,10 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = rainy.getResponse(input);
+        String commandType = rainy.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getRainyDialog(response, dukeImage, commandType)
         );
         userInput.clear();
     }

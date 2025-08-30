@@ -16,6 +16,7 @@ public class Rainy {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private String commandType;
 
     /**
      * Constructs a Rainy instance with the given file path for persistent storage.
@@ -73,9 +74,14 @@ public class Rainy {
         try {
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
+            commandType = c.getClass().getSimpleName();
             return c.getMessage();
         } catch (RainyException e) {
             return e.getMessage();
         }
+    }
+
+    public String getCommandType() {
+        return commandType;
     }
 }
