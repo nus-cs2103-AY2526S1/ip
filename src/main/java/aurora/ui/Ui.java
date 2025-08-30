@@ -22,6 +22,12 @@ public class Ui {
     }
 
     public String readInput() {
-        return scanner.nextLine();
+        String input = null;
+        while (input == null || input.isEmpty()) {
+            if (scanner.hasNextLine()) {
+                input = scanner.nextLine();
+            }
+        }
+        return input;
     }
 }
