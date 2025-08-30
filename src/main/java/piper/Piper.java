@@ -9,10 +9,21 @@ import piper.task.Todo;
 import piper.task.Deadline;
 import piper.task.Event;
 
+/**
+ * Entry point of the Piper chatbot application.
+ * Initializes the UI, loads tasks from storage, and runs the REPL loop that accepts user commands.
+ * Loop ends when bye is entered by the user.
+ */
 public class Piper { ;
     private static final String DATA_DIR = "data";
     private static final String DATA_FILE = "piper.txt";
 
+    /**
+     * Launches the application.
+     *
+     * @param args command-line arguments.
+     * @throws PiperException if a recoverable application error occurs.
+     */
     public static void main(String[] args) throws PiperException {
         final String CHATBOT_NAME = "Piper";
         Ui ui = new Ui(CHATBOT_NAME);
