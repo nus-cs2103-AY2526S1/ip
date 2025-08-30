@@ -67,6 +67,9 @@ public class DialogBox extends HBox {
         case "FindCommand":
             dialog.getStyleClass().add("find-label");
             break;
+        case "ErrorCommand":
+            dialog.getStyleClass().add("error-label");
+            break;
         default:
             // Do nothing
         }

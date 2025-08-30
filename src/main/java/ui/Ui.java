@@ -31,7 +31,7 @@ public class Ui {
      * Displays the welcome message when the program starts.
      */
     public String showWelcome() {
-        return showLine() + "hi! i'm rainy! :D\nwhat can i do for u?\n" + showLine();
+        return "hi! i'm rainy! :D\nwhat can i do for u?\n";
     }
 
     /**

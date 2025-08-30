@@ -1,3 +1,4 @@
+import exception.RainyException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -23,7 +24,7 @@ public class MainWindow extends AnchorPane {
     private Rainy rainy;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image rainyImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Initializes the main window of the GUI after all @FXML fields have been injected.
@@ -43,7 +44,7 @@ public class MainWindow extends AnchorPane {
     public void setRainy(Rainy r) {
         rainy = r;
         dialogContainer.getChildren().add(
-                DialogBox.getRainyDialog(rainy.getWelcomeMessage(), dukeImage, "SalutationsCommand")
+                DialogBox.getRainyDialog(rainy.getWelcomeMessage(), rainyImage, "")
         );
     }
 
@@ -52,13 +53,14 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws RainyException {
         String input = userInput.getText();
         String response = rainy.getResponse(input);
         String commandType = rainy.getCommandType();
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getRainyDialog(response, dukeImage, commandType)
+                DialogBox.getRainyDialog(response, rainyImage, commandType)
         );
         userInput.clear();
     }

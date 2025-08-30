@@ -1,6 +1,7 @@
 package rainy;
 
 import commands.Command;
+import commands.ErrorCommand;
 import exception.RainyException;
 import parser.Parser;
 import storage.Storage;
@@ -70,14 +71,17 @@ public class Rainy {
     /**
      * Generates a response for the user's chat message.
      */
-    public String getResponse(String input) {
+    public String getResponse(String input) throws RainyException {
         try {
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
             commandType = c.getClass().getSimpleName();
             return c.getMessage();
         } catch (RainyException e) {
-            return e.getMessage();
+            Command c = new ErrorCommand(e.getMessage());
+            c.execute(tasks, ui, storage);
+            commandType = c.getClass().getSimpleName();
+            return c.getMessage();
         }
     }
 
