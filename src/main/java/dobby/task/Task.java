@@ -1,8 +1,4 @@
-public enum TaskType {
-    TODO,
-    DEADLINE,
-    EVENT
-}
+package dobby.task;
 
 public abstract class Task {
     protected String description;

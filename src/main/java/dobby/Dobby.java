@@ -1,10 +1,15 @@
-import java.io.File;
+package dobby;
+import dobby.task.Task;
+import dobby.task.TaskType;
+import dobby.task.Deadline;
+import dobby.task.Event;
+import dobby.task.ToDo;
+import dobby.exceptions.InvalidTaskException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Dobby {
     private static ArrayList<Task> userTasks = new ArrayList<>();
