@@ -1,7 +1,7 @@
 package duke;
 /**
  * Represents an exception specific to Penguin.
- * This exception is thrown when an error occurs during the execution of the application.
+ * Exception thrown when an error occurs during the execution of the application.
  */
 public class PenguinException extends Exception {
     /**
