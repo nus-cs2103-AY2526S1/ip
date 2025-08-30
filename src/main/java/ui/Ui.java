@@ -45,7 +45,7 @@ public class Ui {
      * Displays a horizontal line divider.
      */
     public String showLine() {
-        return "____________________________________________________________\n";
+        return "__________________________________\n";
     }
 
     /**

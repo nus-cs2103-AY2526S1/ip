@@ -14,7 +14,7 @@ public class ListCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws RainyException {
         message = ui.showLine()
-            + ui.showList(tasks)
+            + ui.showList(tasks) + "\n"
             + ui.showLine();
     }
 }
