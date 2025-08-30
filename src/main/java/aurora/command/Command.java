@@ -1,11 +1,11 @@
 package aurora.command;
-import aurora.task.Task;
-import java.util.List;
+
+import aurora.task.TaskList;
 
 /**
  * User command that can be executed by the chatbot.
  * All commands implement this interface and define their own
- * behavior in the {@link #execute(List)} method.
+ * behavior in the {@link #execute(TaskList)} method.
  */
 public interface Command {
 
@@ -14,5 +14,5 @@ public interface Command {
      *
      * @param list list of tasks
      */
-    public String execute(List<Task> list);
+    public String execute(TaskList list);
 }

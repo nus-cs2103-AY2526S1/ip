@@ -1,6 +1,8 @@
 package aurora.command;
 
 import aurora.task.Task;
+import aurora.task.TaskList;
+
 import java.util.List;
 
 /**
@@ -19,7 +21,7 @@ public class AddCommand implements Command {
     }
 
     @Override
-    public String execute(List<Task> list) {
+    public String execute(TaskList list) {
         list.add(task);
         return "Added " + task.getDescription() + " as a task into your list.";
     }

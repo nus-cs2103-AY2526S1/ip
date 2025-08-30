@@ -1,6 +1,8 @@
 package aurora.command;
 
 import aurora.task.Task;
+import aurora.task.TaskList;
+
 import java.util.List;
 
 /**
@@ -20,7 +22,7 @@ public class InvalidCommand implements Command{
     }
 
     @Override
-    public String execute(List<Task> list) {
+    public String execute(TaskList list) {
         return message;
     }
 }

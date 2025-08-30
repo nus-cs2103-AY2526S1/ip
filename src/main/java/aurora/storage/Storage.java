@@ -1,6 +1,7 @@
 package aurora.storage;
 
 import aurora.task.Task;
+import aurora.task.TaskList;
 import aurora.task.TaskReader;
 
 import java.io.File;
@@ -19,7 +20,7 @@ public class Storage {
         this.file = new File(filePath);
     }
 
-    public void save(List<Task> list) {
+    public void save(TaskList list) {
         try {
             File parentDir = file.getParentFile();
 
@@ -28,7 +29,7 @@ public class Storage {
             }
 
             try (FileWriter fw = new FileWriter(file)) {
-                for (Task task : list) {
+                for (Task task : list.getTasks()) {
                     fw.write(task.toText());
                 }
             }
@@ -37,8 +38,8 @@ public class Storage {
         }
     }
 
-    public List<Task> load() {
-        List<Task> result = new ArrayList<>();
+    public TaskList load() {
+        TaskList result = new TaskList();
         try {
             Scanner s = new Scanner(file);
             while (s.hasNextLine()) {

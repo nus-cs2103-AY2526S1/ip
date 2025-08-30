@@ -1,5 +1,7 @@
 package aurora.command;
 import aurora.task.Task;
+import aurora.task.TaskList;
+
 import java.util.List;
 
 /**
@@ -7,7 +9,7 @@ import java.util.List;
  */
 public class ListCommand implements Command {
     @Override
-    public String execute(List<Task> list) {
+    public String execute(TaskList list) {
         if (list.isEmpty()) {
             return "Your list is empty.";
         }

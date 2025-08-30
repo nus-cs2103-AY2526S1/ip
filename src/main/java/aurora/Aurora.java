@@ -5,6 +5,7 @@ import aurora.command.CommandReader;
 
 import aurora.storage.Storage;
 import aurora.task.Task;
+import aurora.task.TaskList;
 import aurora.ui.Ui;
 
 import java.util.Scanner;
@@ -18,14 +19,14 @@ public class Aurora {
     public static void main(String[] args) {
         Ui ui = new Ui(new Scanner(System.in));
         Storage storage = new Storage("./data/aurora.txt");
-        List<Task> list = storage.load();
+        TaskList list = storage.load();
 
         ui.speakIntro();
         loop(ui, list, storage);
         ui.speakOutro();
     }
 
-    private static void loop(Ui ui, List<Task> list, Storage storage) {
+    private static void loop(Ui ui, TaskList list, Storage storage) {
         String input = ui.readInput();
 
         while (!input.equalsIgnoreCase("bye")) {
