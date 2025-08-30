@@ -1,3 +1,9 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -51,6 +57,10 @@ class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    public String toFileString() {
+        return description + "|" + (isDone ? "1" : "0");
+    }
 }
 
 class Todo extends Task {
@@ -61,6 +71,11 @@ class Todo extends Task {
     @Override
     public String toString() {
         return TaskType.TODO.getLabel() + super.toString();
+    }
+
+    @Override
+    public String toFileString() {
+        return "T|" + super.toFileString();
     }
 }
 
@@ -75,6 +90,11 @@ class Deadline extends Task {
     @Override
     public String toString() {
         return TaskType.DEADLINE.getLabel() + super.toString() + " (by: " + by + ")";
+    }
+
+    @Override
+    public String toFileString() {
+        return "D|" + super.toFileString() + "|" + by;
     }
 }
 
@@ -92,13 +112,83 @@ class Event extends Task {
     public String toString() {
         return TaskType.EVENT.getLabel() + super.toString() + " (from: " + from + " to: " + to + ")";
     }
+
+    @Override
+    public String toFileString() {
+        return "E|" + super.toFileString() + "|" + from + "|" + to;
+    }
 }
 
 public class PoopieMeow {
+    private static final String DATA_DIR = "data";
+    private static final String DATA_FILE = "tasks.txt";
+    private static final Path DATA_PATH = Paths.get(DATA_DIR, DATA_FILE);
+
+    private static void saveTasksToFile(ArrayList<Task> tasks) {
+        try {
+            Files.createDirectories(Paths.get(DATA_DIR));
+            FileWriter writer = new FileWriter(DATA_PATH.toFile());
+            for (Task task : tasks) {
+                writer.write(task.toFileString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    private static ArrayList<Task> loadTasksFromFile() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            if (!Files.exists(DATA_PATH)) {
+                return tasks;
+            }
+
+            Scanner fileScanner = new Scanner(new File(DATA_PATH.toString()));
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                try {
+                    String[] parts = line.split("\\|");
+                    if (parts.length < 3) continue;
+
+                    Task task = null;
+                    String type = parts[0];
+                    boolean isDone = parts[1].equals("1");
+                    String description = parts[2];
+
+                    switch (type) {
+                        case "T":
+                            task = new Todo(description);
+                            break;
+                        case "D":
+                            if (parts.length < 4) continue;
+                            task = new Deadline(description, parts[3]);
+                            break;
+                        case "E":
+                            if (parts.length < 5) continue;
+                            task = new Event(description, parts[3], parts[4]);
+                            break;
+                    }
+
+                    if (task != null) {
+                        if (isDone) task.markAsDone();
+                        tasks.add(task);
+                    }
+                } catch (Exception e) {
+                    continue;
+                }
+            }
+            fileScanner.close();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+        return tasks;
+    }
+
     public static void main(String[] args) {
         String input;
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = loadTasksFromFile();
         
         System.out.println("____________________________________________________________");
         System.out.println(" Hello! I'm PoopieMeow");
@@ -124,6 +214,7 @@ public class PoopieMeow {
                 } else if (input.startsWith("mark ")) {
                     int index = Integer.parseInt(input.substring(5)) - 1;
                     tasks.get(index).markAsDone();
+                    saveTasksToFile(tasks);
                     System.out.println("____________________________________________________________");
                     System.out.println(" Nice! I've marked this task as done:");
                     System.out.println("   " + tasks.get(index));
@@ -131,6 +222,7 @@ public class PoopieMeow {
                 } else if (input.startsWith("unmark ")) {
                     int index = Integer.parseInt(input.substring(7)) - 1;
                     tasks.get(index).markAsUndone();
+                    saveTasksToFile(tasks);
                     System.out.println("____________________________________________________________");
                     System.out.println(" OK, I've marked this task as not done yet:");
                     System.out.println("   " + tasks.get(index));
@@ -138,6 +230,7 @@ public class PoopieMeow {
                 } else if (input.startsWith("delete ")) {
                     int index = Integer.parseInt(input.substring(7)) - 1;
                     Task removedTask = tasks.remove(index);
+                    saveTasksToFile(tasks);
                     System.out.println("____________________________________________________________");
                     System.out.println(" Noted. I've removed this task:");
                     System.out.println("   " + removedTask);
@@ -147,6 +240,7 @@ public class PoopieMeow {
                     String description = input.substring(5);
                     Task newTask = new Todo(description);
                     tasks.add(newTask);
+                    saveTasksToFile(tasks);
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + newTask);
@@ -163,6 +257,7 @@ public class PoopieMeow {
                     String by = parts[1];
                     Task newTask = new Deadline(description, by);
                     tasks.add(newTask);
+                    saveTasksToFile(tasks);
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + newTask);
@@ -184,6 +279,7 @@ public class PoopieMeow {
                     String to = secondParts[1];
                     Task newTask = new Event(description, from, to);
                     tasks.add(newTask);
+                    saveTasksToFile(tasks);
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + newTask);
