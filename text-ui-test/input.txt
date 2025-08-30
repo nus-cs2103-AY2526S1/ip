@@ -1,0 +1,12 @@
+list
+todo make notes for CS2103T week 3
+deadline tP: AB3 Initial Experience /by 30 Aug 2359
+todo walk the dog
+list
+event CS1101S RA1 /from 5 Sep 10am /to 5 Sep 12pm
+list
+mark 2
+mark 1
+unmark 2
+list
+bye
