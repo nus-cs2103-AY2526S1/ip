@@ -9,9 +9,16 @@ import piper.task.Task;
  * Provides methods to read user input and print messages.
  */
 public class Ui {
+    /** Chatbot name. */
     private final String chatbotName;
+    /** Scanner used to read from System.in. */
     private final Scanner scanner;
 
+    /**
+     * Creates a Ui bound to System.in and System.out.
+     *
+     * @param chatbotName chatbot name to show in greetings.
+     */
     public Ui(String chatbotName) {
         this.chatbotName = chatbotName;
         this.scanner = new Scanner(System.in);
