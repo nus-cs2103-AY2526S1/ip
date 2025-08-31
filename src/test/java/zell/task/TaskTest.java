@@ -1,13 +1,11 @@
 package zell.task;
 
-import zell.exception.ZellException;
-import zell.task.Task;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import zell.exception.ZellException;
 
 public class TaskTest {
     @Test

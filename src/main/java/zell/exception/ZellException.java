@@ -3,7 +3,7 @@ package zell.exception;
 /**
  * Represents exceptions for the Zell chatbot
  */
-public class ZellException extends Exception{
+public class ZellException extends Exception {
     public ZellException(String message) {
         super(message);
     }

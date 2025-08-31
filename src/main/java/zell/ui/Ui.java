@@ -2,6 +2,9 @@ package zell.ui;
 
 import java.util.Scanner;
 
+/**
+ * Handles user inputs and also the outputs to the user
+ */
 public class Ui {
     private final Scanner scanner;
 
@@ -18,10 +21,10 @@ public class Ui {
     }
 
     private static String formatMessage(String message) {
-        return "________________________________________" +
-                "__________________________________________________\n" +
-                message +
-                "\n__________________________________" +
-                "________________________________________________________\n\n";
+        return "________________________________________"
+                + "__________________________________________________\n"
+                + message
+                + "\n__________________________________"
+                + "________________________________________________________\n\n";
     }
 }

@@ -1,9 +1,9 @@
 package zell;
 
+import zell.exception.ZellException;
 import zell.storage.Storage;
 import zell.task.TaskList;
 import zell.ui.Ui;
-import zell.exception.ZellException;
 
 /**
  * Deals with the chat loop of the Zell chatbot
@@ -21,6 +21,12 @@ public class ChatLoop {
     /** The Ui object used to display messages to the user */
     private final Ui ui;
 
+    /**
+     * Constructors the constructor for ChatLoop
+     * @param taskList The TaskList object.
+     * @param storage The Storage object.
+     * @param ui The Ui object.
+     */
     public ChatLoop(TaskList taskList, Storage storage, Ui ui) {
         this.taskList = taskList;
         this.parser = new Parser();

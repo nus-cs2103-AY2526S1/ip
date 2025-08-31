@@ -1,16 +1,15 @@
 package zell.storage;
 
-import zell.task.Task;
-import zell.exception.ZellException;
-
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import zell.exception.ZellException;
+import zell.task.Task;
 
 /**
  * Represents the class used for local storage of tasks for the Zell chatbot
@@ -31,7 +30,7 @@ public class Storage {
      * @return A list of all the task stored in local storage
      * @throws ZellException if the file does not exist and cannot be created.
      */
-    public List<Task> loadTasks() throws ZellException{
+    public List<Task> loadTasks() throws ZellException {
         List<Task> tasks = new ArrayList<>();
 
         File file = new File(this.filePath);
@@ -39,7 +38,7 @@ public class Storage {
         // Create /data folder if it does not exist
         file.getParentFile().mkdirs();
 
-        try (Scanner scanner = new Scanner(file)){
+        try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
                 tasks.add(Task.stringToTask(scanner.nextLine()));
             }

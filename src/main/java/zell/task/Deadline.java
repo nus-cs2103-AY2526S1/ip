@@ -1,15 +1,20 @@
 package zell.task;
 
-import zell.util.DateOrTime;
 import zell.exception.ZellException;
+import zell.util.DateOrTime;
 
 /**
  * Represents a Deadline task for the Zell chatbot
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     /** A DateOrTime which stores when this deadline is due */
     private final DateOrTime dueBy;
 
+    /**
+     * Constructors the constructor for Deadline
+     * @param name The name of the task.
+     * @param dueBy When this task is due by.
+     */
     public Deadline(String name, String dueBy) throws ZellException {
         super(name);
         this.dueBy = new DateOrTime(dueBy);
