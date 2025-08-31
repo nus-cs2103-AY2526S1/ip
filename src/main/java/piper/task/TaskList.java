@@ -29,4 +29,15 @@ public class TaskList {
         return tasks.remove(index);
     }
 
+    public TaskList find(String keyword) {
+        TaskList matches = new TaskList();
+        String kw = keyword.toLowerCase();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(kw)) {
+                matches.addTask(task);
+            }
+        }
+        return matches;
+    }
+
 }
