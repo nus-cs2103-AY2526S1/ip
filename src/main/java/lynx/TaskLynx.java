@@ -5,6 +5,9 @@ import lynx.parser.LynxScanner;
 import lynx.parser.LynxTaskEditor;
 import lynx.ui.LynxUI;
 
+/**
+ * Main class
+ */
 public class TaskLynx {
 
     /**

@@ -1,10 +1,9 @@
 package lynx.parser;
 
-import lynx.ui.LynxUI;
-
-import objectclasses.exception.LynxException;
-
 import java.util.Scanner;
+
+import lynx.ui.LynxUI;
+import objectclasses.exception.LynxException;
 
 /**
  * Contains the central <code>Scanner</code> object, and the main program loop.
@@ -19,8 +18,8 @@ public abstract class LynxScanner {
      */
     public static void scanForCommands() {
         String input;
-        System.out.println("How can I assist you with your tasks today? " +
-                "\nTasklynx is ready. Type your command:");
+        System.out.println("How can I assist you with your tasks today? "
+                + "\nTasklynx is ready. Type your command:");
 
         while (true) {
             input = SCANNER.nextLine().trim();
@@ -53,8 +52,8 @@ public abstract class LynxScanner {
                 } else if (input.startsWith("event ")) {
                     LynxGeneral.addEvent(input);
                 } else if (!input.isEmpty()) {
-                    throw new LynxException("Sorry, I didn't understand that command. " +
-                            "Please try again or type \"help\" to access the user guide.");
+                    throw new LynxException("Sorry, I didn't understand that command. "
+                            + "Please try again or type \"help\" to access the user guide.");
                 }
             } catch (Exception e) {
                 LynxUI.printBox(e.getMessage());

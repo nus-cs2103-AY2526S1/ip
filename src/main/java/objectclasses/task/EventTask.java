@@ -1,8 +1,8 @@
 package objectclasses.task;
 
-import objectclasses.formatter.LynxDateManager;
-
 import java.time.LocalDateTime;
+
+import objectclasses.formatter.LynxDateManager;
 
 /**
  * Represents a task with a <code>TaskType</code>, <code>Status</code>,

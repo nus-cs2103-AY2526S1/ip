@@ -1,19 +1,18 @@
 package lynx.parser;
 
-import lynx.storage.LynxTaskList;
-import lynx.ui.LynxUI;
-
-import objectclasses.command.LynxCommand;
-import objectclasses.exception.LynxException;
-import objectclasses.exception.MissingArgumentException;
-import objectclasses.task.Task;
+import static lynx.parser.LynxSearcher.findTasks;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-import static lynx.parser.LynxSearcher.findTasks;
+import lynx.storage.LynxTaskList;
+import lynx.ui.LynxUI;
+import objectclasses.command.LynxCommand;
+import objectclasses.exception.LynxException;
+import objectclasses.exception.MissingArgumentException;
+import objectclasses.task.Task;
 
 /**
  * Contains methods to execute commands that act on the tasks within the task list.

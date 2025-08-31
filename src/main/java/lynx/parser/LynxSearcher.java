@@ -1,16 +1,15 @@
 package lynx.parser;
 
-import lynx.storage.LynxTaskList;
-
-import objectclasses.command.LynxCommand;
-import objectclasses.exception.LynxException;
-import objectclasses.formatter.LynxDateManager;
-import objectclasses.task.Task;
+import static lynx.parser.LynxGeneral.checkName;
 
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
-import static lynx.parser.LynxGeneral.checkName;
+import lynx.storage.LynxTaskList;
+import objectclasses.command.LynxCommand;
+import objectclasses.exception.LynxException;
+import objectclasses.formatter.LynxDateManager;
+import objectclasses.task.Task;
 
 /**
  * Contains methods to execute commands that search for tasks in the task list.
@@ -34,13 +33,13 @@ public class LynxSearcher {
         }
 
         switch (input) {
-            case "/all" -> findTasks(command, stream);
-            case "/id" -> findTasksById(command, stream);
-            case "/key" -> findTasksByKeyword(command, stream);
-            case "/on" -> findTasksByDate(command, stream);
-            case "/status" -> findTasksByStatus(command, stream);
-            case "/type" -> findTasksByType(command, stream);
-            default -> throw new LynxException("Non matching command detected.");
+        case "/all" -> findTasks(command, stream);
+        case "/id" -> findTasksById(command, stream);
+        case "/key" -> findTasksByKeyword(command, stream);
+        case "/on" -> findTasksByDate(command, stream);
+        case "/status" -> findTasksByStatus(command, stream);
+        case "/type" -> findTasksByType(command, stream);
+        default -> throw new LynxException("Non matching command detected.");
         }
 
     }

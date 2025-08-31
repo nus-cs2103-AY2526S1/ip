@@ -1,14 +1,13 @@
 package lynx.storage;
 
-import lynx.parser.LynxScanner;
-import lynx.ui.LynxUI;
-import objectclasses.exception.LynxException;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+
+import lynx.parser.LynxScanner;
+import lynx.ui.LynxUI;
 
 /**
  * Contains methods to read and write data to the drive.
