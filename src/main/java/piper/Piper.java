@@ -9,7 +9,7 @@ import piper.task.Todo;
 import piper.task.Deadline;
 import piper.task.Event;
 
-public class Piper { ;
+public class Piper {
     private static final String DATA_DIR = "data";
     private static final String DATA_FILE = "piper.txt";
 
@@ -31,7 +31,8 @@ public class Piper { ;
 
         ui.greetUser();
 
-        while (!exit) { // user is active
+        while (!exit) {
+            // user is active
             String userInput = ui.read();
             userInput = userInput.trim();
 
@@ -41,7 +42,8 @@ public class Piper { ;
                 String arg = ps.arg;
 
                 if (arg == null) {
-                    if (cmd.equals("bye")) { // user is inactive
+                    if (cmd.equals("bye")) {
+                        // user is inactive
                         ui.farewellUser();
                         exit = true;
                     } else if (cmd.equals("list")) {
@@ -51,47 +53,41 @@ public class Piper { ;
                 } else {
                     if (cmd.equals("mark") || cmd.equals("unmark")) {
                         // mark task as done or undone
-
                         try {
                             int taskNumber = Parser.parseIndex(arg);
                             int index = taskNumber - 1; // task list starts from index 1 but array list starts from index 0
                             Task task = tasks.getTask(index);
 
                             switch (cmd) {
-                                case "mark":
-                                    task.markDone();
-                                    break;
-                                case "unmark":
-                                    task.markUndone();
-                                    break;
+                            case "mark":
+                                task.markDone();
+                                break;
+                            case "unmark":
+                                task.markUndone();
+                                break;
                             }
 
                             storage.saveAll(tasks);
                             ui.showTaskStatus(task);
                         } catch (IndexOutOfBoundsException e) {
-                            // task index is outside of array range
-                            throw new PiperException("PEEP! That task flew out of the nest. Please check using 'list' to see which tasks are home!");
+                            throw new PiperException("PEEP! That task flew out of the nest. Please check using 'list' to see which tasks are home!"); // task index is outside of array range
                         }
                     } else if (cmd.equals("delete")) {
                         // delete task
-
                         try {
                             int taskNumber = Parser.parseIndex(arg);
                             int index = taskNumber - 1;
                             Task task = tasks.getTask(index);
 
                             tasks.deleteTask(index);
-
                             storage.saveAll(tasks);
-
                             ui.showDeletedTask(task);
-                            ui.getTasksSize(tasks);
+                            ui.showTasksSize(tasks);
                         } catch (IndexOutOfBoundsException e) {
                             throw new PiperException("PEEP! Bad egg. Please check using 'list' to see which tasks are home!");
                         }
                     } else if (cmd.equals("todo") || cmd.equals("deadline") || cmd.equals("event")) {
                         // add new task
-
                         Task task = null;
 
                         switch (cmd) {
@@ -111,10 +107,9 @@ public class Piper { ;
                         tasks.addTask(task);
                         storage.saveAll(tasks);
                         ui.showAddedTask(task);
-                        ui.getTasksSize(tasks);
+                        ui.showTasksSize(tasks);
                     } else {
-                        // unrecognisable string
-                        throw new PiperException("CHEEP CHEEP! I can't quite sing along with '" + userInput + "'. Wanna try another command?");
+                        throw new PiperException("CHEEP CHEEP! I can't quite sing along with '" + userInput + "'. Wanna try another command?"); // user input is an unrecognisable string
                     }
                 }
             } catch (PiperException e) {
