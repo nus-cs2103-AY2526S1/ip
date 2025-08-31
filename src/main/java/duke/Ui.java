@@ -50,7 +50,8 @@ public class Ui {
      * @param taskCount The total number of tasks
      */
     public void showTaskAdded(Task task, int taskCount) {
-        System.out.println("Got it. I've added this task:\n  " + task + "\nNow you have " + taskCount + " tasks in the list.");
+        System.out.println("Got it. I've added this task:\n  " + task
+                + "\nNow you have " + taskCount + " tasks in the list.");
     }
 
     /**
