@@ -1,7 +1,6 @@
 package lynx.storage;
 
-import lynx.parser.LynxScanner;
-import lynx.ui.LynxUI;
+import lynx.exception.LynxException;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,7 +23,7 @@ public abstract class LynxFileManager {
      * <p>
      * Skips if directory / file already exists.
      */
-    public static void createFile() {
+    public static void createFile() throws LynxException {
         try {
             // Ensure directory exists
             if (!Files.exists(FILEPATH.getParent())) {
@@ -35,8 +34,7 @@ public abstract class LynxFileManager {
                 Files.createFile(FILEPATH);
             }
         } catch (IOException e) {
-            LynxUI.line();
-            System.out.println("⚠️ Warning: Lynx couldn't set up your data file!\n"
+            throw new LynxException("⚠️ Warning: Lynx couldn't set up your data file!\n"
                     + "Details: " + e.getMessage() + "\n"
                     + "Your tasks may not be saved. Please check your file permissions or disk space.");
         }
@@ -47,15 +45,14 @@ public abstract class LynxFileManager {
      *
      * @return File contents as list of strings.
      */
-    public static List<String> readFromFile() {
+    public static List<String> readFromFile() throws LynxException {
         try {
-            return Files.readAllLines(FILEPATH);
+            //return Files.readAllLines(FILEPATH);
+            throw new IOException();
         } catch (IOException e) {
-            LynxUI.line();
-            System.out.println("⚠️ Oops! Lynx couldn't read your data file.\n"
+            throw new LynxException("⚠️ Oops! Lynx couldn't read your data file.\n"
                     + "Details: " + e.getMessage() + "\n"
                     + "Your tasks could not be loaded. Starting with an empty list.");
-            return List.of();
         }
     }
 
@@ -64,19 +61,14 @@ public abstract class LynxFileManager {
      *
      * @param text Lines of text to be written.
      */
-    public static void writeToFile(List<String> text) {
+    public static void writeToFile(List<String> text) throws LynxException {
         try {
-            Files.write(FILEPATH, text);
+            throw new IOException();
+            // Files.write(FILEPATH, text);
         } catch (IOException e) {
-            LynxUI.printBox("⚠️ Oops! Lynx couldn't save your tasks.\n"
+            throw new LynxException("⚠️ Oops! Lynx couldn't save your tasks.\n"
                     + "Details: " + e.getMessage() + "\n"
                     + "Any changes made during this session may not be saved.");
-
-            System.out.println("Would you like to try saving again? (yes/no)");
-            String input = LynxScanner.SCANNER.nextLine().trim();
-            if (input.equalsIgnoreCase("yes")) {
-                writeToFile(text);
-            }
         }
     }
 
