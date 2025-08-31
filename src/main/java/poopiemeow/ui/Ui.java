@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import poopiemeow.task.Deadline;
 import poopiemeow.task.Event;
 import poopiemeow.task.Task;
@@ -194,6 +195,24 @@ public class Ui {
         }
         if (count == 0) {
             System.out.println(" No tasks found on this date.");
+        }
+        System.out.println(LINE);
+    }
+
+    /**
+     * Displays the matching tasks found by a search operation.
+     * 
+     * @param matchingTasks the list of tasks that match the search criteria
+     */
+    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
+        System.out.println(LINE);
+        if (matchingTasks.isEmpty()) {
+            System.out.println(" No matching tasks found.");
+        } else {
+            System.out.println(" Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println(" " + (i + 1) + "." + matchingTasks.get(i));
+            }
         }
         System.out.println(LINE);
     }

@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
+
 import poopiemeow.exception.EmptyDescriptionException;
 import poopiemeow.parser.Parser;
 import poopiemeow.storage.Storage;
@@ -77,6 +79,14 @@ public class PoopieMeow {
                     throw new EmptyDescriptionException("The description cannot be empty!");
                 } else if (input.startsWith("show ")) {
                     handleShowCommand(input);
+                } else if (input.startsWith("find ")) {
+                    String keyword = input.substring(5).trim();
+                    if (keyword.isEmpty()) {
+                        ui.showError("Please provide a keyword to search for.");
+                    } else {
+                        ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
+                        ui.showMatchingTasks(matchingTasks);
+                    }
                 } else if (input.trim().isEmpty()) {
                     throw new EmptyDescriptionException("Please enter a command!");
                 } else {
