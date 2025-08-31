@@ -10,11 +10,11 @@ import piper.task.Deadline;
 import piper.task.Event;
 
 /**
- * Entry point of the Piper chatbot application.
- * Initializes the UI, loads tasks from storage, and runs the REPL loop that accepts user commands.
- * Loop ends when bye is entered by the user.
+ * Entry point of the Piper application.
+ * Initializes the UI, loads tasks from storage, and runs the REPL loop.
+ * REPL loop accepts user commands until bye is entered.
  */
-public class Piper { ;
+public class Piper {
     private static final String DATA_DIR = "data";
     private static final String DATA_FILE = "piper.txt";
 
@@ -42,7 +42,8 @@ public class Piper { ;
 
         ui.greetUser();
 
-        while (!exit) { // user is active
+        while (!exit) {
+            // user is active
             String userInput = ui.read();
             userInput = userInput.trim();
 
@@ -52,7 +53,8 @@ public class Piper { ;
                 String arg = ps.arg;
 
                 if (arg == null) {
-                    if (cmd.equals("bye")) { // user is inactive
+                    if (cmd.equals("bye")) {
+                        // user is inactive
                         ui.farewellUser();
                         exit = true;
                     } else if (cmd.equals("list")) {
@@ -62,7 +64,6 @@ public class Piper { ;
                 } else {
                     if (cmd.equals("mark") || cmd.equals("unmark")) {
                         // mark task as done or undone
-
                         try {
                             int taskNumber = Parser.parseIndex(arg);
                             int index = taskNumber - 1; // task list starts from index 1 but array list starts from index 0
@@ -85,16 +86,13 @@ public class Piper { ;
                         }
                     } else if (cmd.equals("delete")) {
                         // delete task
-
                         try {
                             int taskNumber = Parser.parseIndex(arg);
                             int index = taskNumber - 1;
                             Task task = tasks.getTask(index);
 
                             tasks.deleteTask(index);
-
                             storage.saveAll(tasks);
-
                             ui.showDeletedTask(task);
                             ui.getTasksSize(tasks);
                         } catch (IndexOutOfBoundsException e) {
@@ -102,7 +100,6 @@ public class Piper { ;
                         }
                     } else if (cmd.equals("todo") || cmd.equals("deadline") || cmd.equals("event")) {
                         // add new task
-
                         Task task = null;
 
                         switch (cmd) {
