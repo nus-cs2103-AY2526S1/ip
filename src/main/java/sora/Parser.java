@@ -10,6 +10,7 @@ import sora.storage.Storage;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
@@ -38,6 +39,13 @@ public class Parser {
             ui.showGoodbye();
         } else {
             switch (startWord) {
+            case "find" :
+                if (description.isEmpty()) {
+                    throw new SoraException("Lack of keyword");
+                }
+                ArrayList<Task> foundTask = tasks.findTasks(description);
+                ui.showFoundTask(foundTask);
+                break;
             case "list" :
                 if (description.isEmpty()) {
                     ui.showTaskList(tasks);
