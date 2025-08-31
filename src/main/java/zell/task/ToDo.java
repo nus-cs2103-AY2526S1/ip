@@ -26,7 +26,7 @@ public class ToDo extends Task{
      */
     @Override
     public String taskToString() {
-        return String.format("%s | %b | %s", "T", getDone(), getName());
+        return String.format("%s | %b | %s", "T", isDone(), getName());
     }
 
     /**

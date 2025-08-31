@@ -17,14 +17,14 @@ import zell.exception.ZellException;
  */
 public class Parser {
     /** Indicates if the chatbot should terminate */
-    private boolean endProgram;
+    private boolean hasProgramEnded;
 
     public Parser() {
-        endProgram = false;
+        hasProgramEnded = false;
     }
 
-    public boolean getEndProgram() {
-        return endProgram;
+    public boolean hasProgramEnded() {
+        return hasProgramEnded;
     }
 
     /**
@@ -217,7 +217,7 @@ public class Parser {
 
     /**
      * Deals with the bye command.
-     * Here the instance variable {@link #endProgram} is set to true to indicate we should terminate the program
+     * Here the instance variable {@link #hasProgramEnded} is set to true to indicate we should terminate the program
      * <p>
      * Exceptions are checked using checkIfCommandHasSpaces
      * </p>
@@ -229,7 +229,7 @@ public class Parser {
      */
     public String handleBye(int firstSpaceIndex, String command) throws ZellException {
         checkIfCommandHasSpaces(command, firstSpaceIndex);
-        endProgram = true;
+        hasProgramEnded = true;
         return ZellMessage.GOODBYE.message();
     }
 
@@ -398,7 +398,7 @@ public class Parser {
      * @throws ZellException If an invalid task number is provided.
      */
     public void checkForInvalidTaskNumber(int index, TaskList taskList) throws ZellException {
-        if (!taskList.checkIfTaskExists(index)) {
+        if (!taskList.doesTaskExist(index)) {
             String formatMessage = String.format("Task %d does not exist, please indicate a "
                     + "task number from 1 to %d", index, taskList.getNumberOfTask());
             throw new ZellException(formatMessage);

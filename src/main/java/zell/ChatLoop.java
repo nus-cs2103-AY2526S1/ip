@@ -41,11 +41,11 @@ public class ChatLoop {
      * </p>
      */
     public void run() {
-        boolean endProgram = false;
+        boolean hasProgramEnded = false;
 
         ui.showMessage(ZellMessage.WELCOME_MESSAGE.message());
 
-        while (!endProgram) {
+        while (!hasProgramEnded) {
             String userInput = ui.readInput();
 
             String output;
@@ -58,7 +58,7 @@ public class ChatLoop {
 
             ui.showMessage(output);
 
-            endProgram = parser.getEndProgram();
+            hasProgramEnded = parser.hasProgramEnded();
         }
     }
 }

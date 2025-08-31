@@ -78,7 +78,7 @@ public class TaskList {
         return tasks;
     }
 
-    public boolean checkIfTaskExists(int index) {
+    public boolean doesTaskExist(int index) {
         return index > 0 && index <= getNumberOfTask();
     }
 

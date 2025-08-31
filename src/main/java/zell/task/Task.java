@@ -1,7 +1,6 @@
 package zell.task;
 
 import zell.exception.ZellException;
-import zell.storage.Storage;
 
 /**
  * Represents a task for the Zell chatbot
@@ -76,7 +75,7 @@ public abstract class Task {
         return this.name;
     }
 
-    public boolean getDone() {
+    public boolean isDone() {
         return this.isDone;
     }
 
