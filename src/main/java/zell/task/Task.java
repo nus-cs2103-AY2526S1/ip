@@ -11,6 +11,10 @@ public abstract class Task {
     /** Indicates whether a task is completed */
     private boolean isDone;
 
+    /**
+     * Constructors the constructor for Task
+     * @param name The name of the task.
+     */
     public Task(String name) {
         this.name = name;
         this.isDone = false;
@@ -27,7 +31,7 @@ public abstract class Task {
      * @return The correct Task based on the task string.
      * @throws ZellException If an invalid task string is provided (wrong format).
      */
-    public static Task stringToTask(String stringTask) throws ZellException{
+    public static Task stringToTask(String stringTask) throws ZellException {
         String[] components = stringTask.split(" \\| ");
 
         if (components.length < 1) {

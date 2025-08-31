@@ -1,14 +1,23 @@
 package zell.task;
 
-import zell.util.DateOrTime;
 import zell.exception.ZellException;
+import zell.util.DateOrTime;
 
-public class Event extends Task{
+/**
+ * Represents an Event task for the Zell chatbot
+ */
+public class Event extends Task {
     /** A DateOrTime which stores when this event starts */
     private final DateOrTime start;
     /** A DateOrTime which stores when this event ends */
     private final DateOrTime end;
 
+    /**
+     * Constructors the constructor for Event.
+     * @param name The name of the task.
+     * @param start When this task starts.
+     * @param end When this task ends.
+     */
     public Event(String name, String start, String end) throws ZellException {
         super(name);
         this.start = new DateOrTime(start);
@@ -16,12 +25,12 @@ public class Event extends Task{
     }
 
     /**
-     * Overloads the constructor which we primarily use for creating an Event task from the local storage
+     * Overloads the constructor which we primarily use for creating an Event task from the local storage.
      *
      * @param name The name of the Event task
      * @param start The string representation of the date or datetime of the starting
      * @param end The string representation of the date or datetime of the ending
-     * @param isDone Indicates if a Event task is done
+     * @param isDone Indicates if an Event task is done
      */
     public Event(String name, String start, String end, boolean isDone) throws ZellException {
         this(name, start, end);

@@ -1,9 +1,11 @@
 package zell.task;
 
-import java.util.List;
 import java.util.ArrayList;
-import java.lang.StringBuilder;
+import java.util.List;
 
+/**
+ * Represents the TaskList which stores tasks
+ */
 public class TaskList {
     private List<Task> tasks;
 
@@ -35,6 +37,10 @@ public class TaskList {
         this.tasks.remove(index - 1);
     }
 
+    /**
+     * Returns all tasks as a string which is properly formatted.
+     * @return A string of all tasks.
+     */
     public String listAllTasks() {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -46,6 +52,11 @@ public class TaskList {
         return stringBuilder.toString();
     }
 
+    /**
+     * Returns all tasks as a string which is properly formatted that contains the word
+     * @param word The word to match.
+     * @return A string of all that contains the word.
+     */
     public String listAllTasksContainingWord(String word) {
         StringBuilder stringBuilder = new StringBuilder();
         int count = 0;

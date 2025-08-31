@@ -1,12 +1,12 @@
 package zell;
 
+import zell.exception.ZellException;
 import zell.storage.Storage;
+import zell.task.Deadline;
+import zell.task.Event;
 import zell.task.Task;
 import zell.task.TaskList;
 import zell.task.ToDo;
-import zell.task.Deadline;
-import zell.task.Event;
-import zell.exception.ZellException;
 
 /**
  * Deals with the parsing of the user's input and executes
@@ -107,7 +107,7 @@ public class Parser {
      * @param storage The {@link zell.storage.Storage} object which deals with local storage.
      * @return The task messages to be printed.
      * @throws ZellException If the task commands format is invalid.
-     * @see #createTask(String, String, int).
+     * @see #createTask(String, String, int)
      */
     public String handleTaskCommands(String userInput, String command, int firstSpaceIndex,
             TaskList taskList, Storage storage) throws ZellException {
@@ -286,6 +286,16 @@ public class Parser {
         return stringBuilder.toString();
     }
 
+    /**
+     * Deals with the find command.
+     *
+     * @param command The command to be executed.
+     * @param userInput The user's input.
+     * @param firstSpaceIndex The index of the first space in the user's input.
+     * @param taskList The {@link zell.task.TaskList} object which stores tasks.
+     * @return The task messages to be printed.
+     * @throws ZellException If the find command format is invalid.
+     */
     public String handleFind(String userInput, String command, int firstSpaceIndex,
             TaskList taskList) throws ZellException {
 

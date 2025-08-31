@@ -3,7 +3,7 @@ package zell.task;
 /**
  * Represents a ToDo task for the Zell chatbot
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
     public ToDo(String name) {
         super(name);
     }
