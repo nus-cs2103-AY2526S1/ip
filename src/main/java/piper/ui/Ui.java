@@ -168,6 +168,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays tasks that contain the keyword of a find command.
+     *
+     * @param matches list of tasks that contain the keyword.
+     */
     public void displayMatchingTasks(TaskList matches) {
         if (matches.getSize() == 0) {
             System.out.println("PEEP! Don't think that's in the nest!");

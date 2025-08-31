@@ -53,6 +53,14 @@ public class TaskList {
         return tasks.remove(index);
     }
 
+    /**
+     * Returns all tasks whose description contains the given keyword.
+     * The search is case-insensitive and matches if the keyword appears anywhere within the task description.
+     * The order of tasks returned is the same as in the original task list.
+     *
+     * @param keyword keyword to search for.
+     * @return a list of tasks whose description contains the keyword.
+     */
     public TaskList find(String keyword) {
         TaskList matches = new TaskList();
         String kw = keyword.toLowerCase();

@@ -122,6 +122,7 @@ public class Piper {
                         ui.showAddedTask(task);
                         ui.showTasksSize(tasks);
                     } else if (cmd.equals("find")) {
+                        // find tasks that contain keyword
                         String keyword = arg;
                         TaskList matches = tasks.find(keyword);
                         ui.displayMatchingTasks(matches);
