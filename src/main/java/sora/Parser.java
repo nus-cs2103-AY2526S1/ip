@@ -12,10 +12,23 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ * The {@code Parser} class handles the parsing and execution of user commands.
+ * It interprets user input and modifies the {@code TaskList} accordingly.
+ */
 public class Parser {
     private static final DateTimeFormatter format =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm", Locale.ENGLISH);
 
+    /**
+     * Parses and executes the given user command.
+     *
+     * @param command the raw user input string.
+     * @param tasks the current {@code TaskList} to modify.
+     * @param ui the {@code Ui} instance to handle interactions.
+     * @param storage the {@code Storage} used for saving/loading tasks.
+     * @throws SoraException if the command is invalid or malformed.
+     */
     public static void parse(String command, TaskList tasks, Ui ui,
                              Storage storage) throws SoraException {
         String[] parts = command.split(" ",2);
