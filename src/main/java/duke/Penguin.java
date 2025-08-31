@@ -65,6 +65,10 @@ public class Penguin {
                         handleEventCommand(command.description, command.from, command.to);
                         break;
                         
+                    case FIND:
+                        handleFindCommand(command.description);
+                        break;
+                        
                     case INVALID:
                         ui.showInvalidTask();
                         break;
@@ -165,6 +169,19 @@ public class Penguin {
         tasks.add(task);
         storage.save(tasks.getTasks());
         ui.showTaskAdded(task, tasks.size());
+    }
+
+    /**
+     * Handles the find command.
+     * @param keyword The keyword to search for
+     * @throws PenguinException if there's an error
+     */
+    private void handleFindCommand(String keyword) throws PenguinException {
+        if (keyword.isEmpty()) {
+            throw new PenguinException("The keyword for find cannot be empty.");
+        }
+        TaskList matchingTasks = tasks.findTasks(keyword);
+        ui.showMatchingTasks(matchingTasks);
     }
 
     /**
