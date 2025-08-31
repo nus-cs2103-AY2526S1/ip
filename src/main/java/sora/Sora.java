@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ * The {@code Sora} class is the main entry point of the Sora chatbot application.
+ */
 public class Sora {
     private Storage storage;
     private TaskList tasks;
@@ -15,6 +18,11 @@ public class Sora {
     private static final DateTimeFormatter format =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm",Locale.ENGLISH);
 
+    /**
+     * Constructs a new instance of {@code Sora}.
+     *
+     * @param filePath the file path to the data storage file.
+     */
     public Sora(String filePath) {
         this.ui = new Ui();
         storage = new Storage(filePath);
@@ -26,6 +34,9 @@ public class Sora {
         }
     }
 
+    /**
+     * Runs the main loop of the application.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -41,6 +52,12 @@ public class Sora {
             }
         }
     }
+
+    /**
+     * The main entry point of the application.
+     *
+     * @param args command-line arguments.
+     */
     public static void main(String[] args) {
         new Sora("./data/sora.txt").run();
     }

@@ -14,14 +14,35 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Scanner;
 
+/**
+ * Handles the loading and saving of tasks to a file.
+ * <p>
+ * This class is responsible for reading tasks from a file into a {@link TaskList}
+ * and saving tasks from a {@link TaskList} back to the file.
+ */
 public class Storage {
     private String filePath;
     DateTimeFormatter format =
             DateTimeFormatter.ofPattern("MMM dd yyyy HHmm", Locale.ENGLISH);
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath the path to the file for storing tasks.
+     */
     public Storage(String filePath){
         this.filePath = filePath;
     }
+
+    /**
+     * Loads tasks from the storage file.
+     * <p>
+     * If the file or its parent directories do not exist, they will be created,
+     * and an empty {@link TaskList} is returned.
+     *
+     * @return a {@link TaskList} containing all tasks loaded from the file.
+     * @throws IOException if an I/O error occurs while reading the file.
+     */
     public TaskList load() throws IOException {
         TaskList tasks = new TaskList();
         File file = new File(filePath);
@@ -69,6 +90,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the given list of tasks to the storage file.
+     *
+     * @param tasks the {@link TaskList} containing tasks to save.
+     * @throws IOException if an I/O error occurs while writing to the file.
+     */
     public void save(TaskList tasks) throws IOException {
         FileWriter file = new FileWriter(filePath);
         for (Task task : tasks.getFullTasks()) {
