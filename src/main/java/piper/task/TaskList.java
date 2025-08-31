@@ -47,7 +47,7 @@ public class TaskList {
      * Removes and returns the task at the given index.
      *
      * @param index position in the list.
-     * @return removed task.
+     * @return deleted task.
      */
     public Task deleteTask(int index) {
         return tasks.remove(index);

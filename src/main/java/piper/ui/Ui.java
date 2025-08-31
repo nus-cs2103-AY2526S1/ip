@@ -1,10 +1,13 @@
 package piper.ui;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 import piper.task.TaskList;
 import piper.task.Task;
 
+/**
+ * Handles user interaction via the console.
+ * Provides methods to read user input and print messages.
+ */
 public class Ui {
     private final String chatbotName;
     private final Scanner scanner;
@@ -14,7 +17,13 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-    // scanner helper functions
+    // Scanner helpers
+
+    /**
+     * Reads a line of user input.
+     *
+     * @return the next input line, or null if no input is available.
+     */
     public String read() {
         if (!scanner.hasNextLine()) {
             return null;
@@ -22,13 +31,18 @@ public class Ui {
         return scanner.nextLine();
     }
 
+    /**
+     * Closes the scanner.
+     */
     public void close() {
         try {
             scanner.close();
         } catch (IllegalStateException ignored) { }
     }
 
-    // ascii art
+    // ASCII art
+
+    /** ASCII art used in the greeting. */
     final String ascii_Greet =
             " _______\n" +
                     "|_   __ \\ ( ) .\\\n" +
@@ -43,6 +57,8 @@ public class Ui {
                     "            [___/        (  (_\\.&\n" +
                     "--------------------<>----''--\\\\---------\n" +
                     "                                \\\n";
+
+    /** ASCII art used in the farewell. */
     final String ascii_Exit =
             "             ______         ___,\n" +
                     "              `--- \\   _))/.--`\n" +
@@ -51,6 +67,11 @@ public class Ui {
                     "                  '.__.'\n" +
                     "                   ' '\n";
 
+    // High-level messages
+
+    /**
+     * Prints the greeting banner and welcome text.
+     */
     public void greetUser() {
         System.out.println(
                 ascii_Greet +
@@ -59,21 +80,39 @@ public class Ui {
         );
     }
 
+    /**
+     * Echoes a line back to the output.
+     *
+     * @param userInput text to print.
+     */
     public void echoUser(String userInput) {
         System.out.println(userInput);
     }
 
+    /**
+     * Prints the farewell banner and exit text.
+     */
     public void farewellUser() {
         System.out.println(
                 "Til next time!\n" + ascii_Exit
         );
     }
 
+    /**
+     * Prints a confirmation after adding a task.
+     *
+     * @param task added task.
+     */
     public void showAddedTask(Task task) {
         System.out.println(
                 "TWEET! I've tucked this task into the nest:\n" + task);
     }
 
+    /**
+     * Prints the current status of a task.
+     *
+     * @param task task whose status changed.
+     */
     public void showTaskStatus(Task task) {
         System.out.println(
                 ((task.getStatusIcon()).equals("X")
@@ -83,12 +122,22 @@ public class Ui {
         );
     }
 
+    /**
+     * Prints the current number of tasks in the list.
+     *
+     * @param tasks task list whose size will be printed.
+     */
     public void getTasksSize(TaskList tasks) {
         System.out.println(
                 "Now you have " + tasks.getSize() + " tasks in the list."
         );
     }
 
+    /**
+     * Prints all tasks in the list with 1-based indexing.
+     *
+     * @param tasks task list to display.
+     */
     public void displayTasks(TaskList tasks) {
         if (tasks.getSize() == 0) {
             System.out.println("CHIRRUP! The task list is empty.");
@@ -103,10 +152,20 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints an error message verbatim.
+     *
+     * @param message error message to print.
+     */
     public void showError(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Prints a confirmation after deleting a task.
+     *
+     * @param task deleted task.
+     */
     public void showDeletedTask(Task task) {
         System.out.println("TWEET! I've removed this task:\n" + task);
     }
