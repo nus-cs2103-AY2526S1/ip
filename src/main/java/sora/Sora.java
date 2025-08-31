@@ -15,7 +15,7 @@ public class Sora {
     private static final DateTimeFormatter format =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm",Locale.ENGLISH);
 
-    public Sora(String filePath){
+    public Sora(String filePath) {
         this.ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -32,7 +32,7 @@ public class Sora {
         while(!isExit) {
             try {
                 String command = ui.readCommand();
-                if(command.equals("bye")) {
+                if (command.equals("bye")) {
                     isExit = true;
                 }
                 Parser.parse(command, tasks, ui, storage);

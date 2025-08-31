@@ -61,7 +61,7 @@ public class Ui {
         System.out.println(task);
     }
 
-    public String readCommand(){
+    public String readCommand() {
         return scanner.nextLine();
     }
 }

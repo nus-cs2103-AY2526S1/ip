@@ -20,13 +20,13 @@ public class Parser {
                              Storage storage) throws SoraException {
         String[] parts = command.split(" ",2);
         String startWord = parts[0];
-        String description = parts.length == 1 ? "" :parts[1];
+        String description = parts.length == 1 ? "" : parts[1];
         if (command.equals("bye")) {
             ui.showGoodbye();
-        } else{
+        } else {
             switch (startWord) {
             case "list" :
-                if (description.isEmpty()){
+                if (description.isEmpty()) {
                     ui.showTaskList(tasks);
                     break;
                 }
@@ -36,7 +36,7 @@ public class Parser {
                 ui.showMarkedTask(tasks.getTask(x-1));
                 try {
                     storage.save(tasks);
-                } catch (IOException e){
+                } catch (IOException e) {
                     System.out.println("Can not save! " +e.getMessage());
                 }
                 break;
@@ -46,7 +46,7 @@ public class Parser {
                 ui.showUnmarkedTask(tasks.getTask(y-1));
                 try {
                     storage.save(tasks);
-                } catch (IOException e){
+                } catch (IOException e) {
                     System.out.println("Can not save! " +e.getMessage());
                 }
                 break;
@@ -56,12 +56,12 @@ public class Parser {
                 ui.showDeletedTask(deleted, tasks.size());
                 try {
                     storage.save(tasks);
-                } catch (IOException e){
+                } catch (IOException e) {
                     System.out.println("Can not save! " +e.getMessage());
                 }
                 break;
             case "todo" :
-                if(description.isEmpty()){
+                if (description.isEmpty()) {
                     throw new SoraException("Cannot todo nothing");
                 }
                 else {
@@ -71,11 +71,11 @@ public class Parser {
                 }
                 break;
             case "deadline" :
-                if(description.isEmpty()){
+                if (description.isEmpty()) {
                     throw new SoraException("Invalid deadline");
                 }
                 else {
-                    if(!description.contains("/by")){
+                    if (!description.contains("/by")) {
                         throw new SoraException("Lack of deadline time!");
                     }
                     String[] time = description.split(" /by ");
@@ -86,15 +86,15 @@ public class Parser {
                 }
                 break;
             case "event" :
-                if(description.isEmpty()){
+                if (description.isEmpty()) {
                     throw new SoraException("Invalid event");
                 }
                 else {
-                    if(!description.contains("/from")){
+                    if (!description.contains("/from")) {
                         throw new SoraException("Lack of start time!");
                     }
                     String[] time = description.split(" /from ");
-                    if(!time[1].contains("/to")){
+                    if (!time[1].contains("/to")) {
                         throw new SoraException("Lack of end time!");
                     }
                     String[] range  = time[1].split(" /to ");
