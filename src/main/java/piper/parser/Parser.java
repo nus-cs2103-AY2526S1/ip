@@ -65,7 +65,7 @@ public final class Parser {
 
     public static int parseIndex(String index) throws PiperException {
         try {
-            return Integer.parseInt(index);
+            return Integer.parseInt(index.trim());
         } catch (Exception e) {
             throw new PiperException("PEEP! Please give me a numeric task index!");
         }
