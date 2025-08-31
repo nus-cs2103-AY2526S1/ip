@@ -1,4 +1,8 @@
 package stella;
+
+/**
+ *  Responsible for initialising the Stella application
+ */
 public class Stella {
     public static void main(String[] args) {
         TaskList lists = new TaskList(Storage.readFile());

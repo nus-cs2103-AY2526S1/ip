@@ -1,8 +1,8 @@
 package stella;
-import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -12,13 +12,12 @@ public class ParserTest {
         try {
             new Parser(new TaskList(new ArrayList<>())).identifyCommand("hi");
             fail();
-        }
-        catch (UnknownInstructionException e) {
+        } catch (UnknownInstructionException e) {
             assertEquals("hi",e.getMessage());
         } catch (IncompleteInstructionException e) {
-            fail(); // wrong exception thrown
+            // wrong exception thrown
+            fail();
         }
-
     }
 
     @Test
@@ -26,11 +25,11 @@ public class ParserTest {
         try {
             new Parser(new TaskList(new ArrayList<>())).identifyCommand("mark");
             fail();
-        }
-        catch (IncompleteInstructionException e) {
+        } catch (IncompleteInstructionException e) {
             assertEquals("mark",e.getMessage());
         } catch (UnknownInstructionException e) {
-            fail(); // wrong exception thrown
+            // wrong exception thrown
+            fail();
         }
     }
 }
