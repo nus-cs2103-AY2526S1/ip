@@ -7,13 +7,28 @@ public class Parser {
     }
 
     public void identifyCommand(String description) throws IncompleteInstructionException, UnknownInstructionException {
-
             if (description.equals(("list"))) {
                 this.list.printList();
-            } else if (description.contains("delete")) {
-                int index = findIndexForModification("delete", description
+            } else if (description.contains("find")) {
+                if (description.length() <= 5) {
+                    throw new IncompleteInstructionException(description);
+                }
 
-                );
+                String keyword = "";
+                if (description.length() == 6) {
+                    keyword = keyword + String.valueOf(description.charAt(5));
+                }
+                keyword = keyword + description.substring(6);
+
+                TaskList temp = list.findItem(keyword);
+                if (temp.getList().isEmpty()) {
+                    System.out.println("No items found");
+                }
+                else {
+                    temp.printList();
+                }
+            } else if (description.contains("delete")) {
+                int index = findIndexForModification("delete", description);
                 list.deleteItem(index);
             } else if (description.contains("unmark")) {
                 int index = findIndexForModification("unmark", description);

@@ -47,5 +47,29 @@ public class TaskList {
         Storage.addTask(task);
     }
 
+    public ArrayList<Task> getList() {
+        return list;
+    }
+
+    /**
+     * Search for all the tasks whose description matches the identifier
+     * @param identifier A keyword that find tasks whose description matches the identifier
+     * @return A TaskList with tasks whose description matches the identifier
+     */
+    public TaskList findItem(String identifier) {
+        TaskList result = new TaskList(new ArrayList<>());
+        if (this.list.isEmpty()) {
+            return result;
+        }
+        for (int i = 1; i <= list.size(); i = i + 1) {
+            if (list.get(i - 1).getDescription().contains(identifier)) {
+                result.list.add(list.get(i - 1));
+            }
+        }
+        return result;
+    }
+
+
+
 
 }
