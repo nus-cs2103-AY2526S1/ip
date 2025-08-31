@@ -132,7 +132,7 @@ class ParserTest {
         // Test midnight
         Task midnightTask = Parser.parseTask("deadline Midnight task /by 2023-12-25 0000");
         assertTrue(midnightTask instanceof Deadline);
-        
+
         // Test end of day
         Task endOfDayTask = Parser.parseTask("deadline End of day task /by 2023-12-25 2359");
         assertTrue(endOfDayTask instanceof Deadline);
@@ -143,7 +143,7 @@ class ParserTest {
         // Test all-day event
         Task allDayEvent = Parser.parseTask("event All day event /from 2023-12-25 0000 /to 2023-12-25 2359");
         assertTrue(allDayEvent instanceof Event);
-        
+
         // Test very short event
         Task shortEvent = Parser.parseTask("event Quick call /from 2023-12-25 1200 /to 2023-12-25 1201");
         assertTrue(shortEvent instanceof Event);
@@ -154,13 +154,13 @@ class ParserTest {
         Task todo = Parser.parseTask("todo Test todo");
         assertTrue(todo instanceof Todo);
         assertEquals("Test todo", todo.toString().substring(4)); // Remove "[ ] " prefix
-        
+
         Task deadline = Parser.parseTask("deadline Submit report /by 2023-12-25 1430");
         assertTrue(deadline instanceof Deadline);
         assertTrue(deadline.toString().contains("Submit report"));
-        
+
         Task event = Parser.parseTask("event Team meeting /from 2023-12-25 1400 /to 2023-12-25 1600");
         assertTrue(event instanceof Event);
         assertTrue(event.toString().contains("Team meeting"));
     }
-} 
+}

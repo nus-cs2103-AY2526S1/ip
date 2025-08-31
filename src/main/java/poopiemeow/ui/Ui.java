@@ -8,9 +8,35 @@ import poopiemeow.task.Deadline;
 import poopiemeow.task.Event;
 import poopiemeow.task.Task;
 
+/**
+ * User interface component for the PoopieMeow application.
+ * This class handles all user interaction, including displaying messages,
+ * reading user input, and formatting task information for display.
+ *
+ * <p>The UI provides a consistent visual style with decorative lines and
+ * clear formatting for different types of messages. It supports displaying:</p>
+ * <ul>
+ *   <li>Welcome and goodbye messages</li>
+ *   <li>Task lists with numbered items</li>
+ *   <li>Success and error messages</li>
+ *   <li>Task status updates (marked/unmarked, added, deleted)</li>
+ *   <li>Date-specific task filtering</li>
+ * </ul>
+ *
+ * <p>All output is formatted with consistent spacing and decorative borders
+ * to provide a clean, professional appearance.</p>
+ *
+ * @author tch1001
+ * @version 1.0
+ */
 public class Ui {
+    /** Decorative line used to separate different sections of output */
     private static final String LINE = "____________________________________________________________";
-    
+
+    /**
+     * Displays the welcome message when the application starts.
+     * Shows the application name and prompts the user for input.
+     */
     public void showWelcome() {
         System.out.println(LINE);
         System.out.println(" Hello! I'm PoopieMeow");
@@ -18,30 +44,61 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Displays a decorative line separator.
+     * Useful for creating visual breaks between different sections of output.
+     */
     public void showLine() {
         System.out.println(LINE);
     }
 
+    /**
+     * Reads a command from the user via the provided scanner.
+     * This method handles the input reading and returns the user's command.
+     *
+     * @param sc the Scanner object to read input from
+     * @return the user's input command as a string
+     */
     public String readCommand(Scanner sc) {
         return sc.nextLine();
     }
 
+    /**
+     * Displays an error message to the user.
+     * The message is formatted with decorative borders and clearly marked as an error.
+     *
+     * @param message the error message to display
+     */
     public void showError(String message) {
         System.out.println(LINE);
         System.out.println(" Oops! " + message);
         System.out.println(LINE);
     }
 
+    /**
+     * Displays an error message when tasks cannot be loaded from file.
+     * This is a special error case that doesn't use the standard error formatting.
+     */
     public void showLoadingError() {
         System.out.println("Error loading tasks from file.");
     }
 
+    /**
+     * Displays the goodbye message when the application is exiting.
+     * Shows a friendly farewell message to the user.
+     */
     public void showGoodbye() {
         System.out.println(LINE);
         System.out.println("   Bye. Hope to see you again soon!");
         System.out.println(LINE);
     }
 
+    /**
+     * Displays the complete list of tasks to the user.
+     * Each task is numbered and displayed with its current status and description.
+     *
+     * @param tasks the list of tasks to display
+     */
     public void showTaskList(ArrayList<Task> tasks) {
         System.out.println(LINE);
         System.out.println(" Here are the tasks in your list:");
@@ -51,6 +108,12 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Displays a confirmation message when a task is marked as done.
+     * Shows the task that was marked and confirms the action.
+     *
+     * @param task the task that was marked as done
+     */
     public void showTaskMarked(Task task) {
         System.out.println(LINE);
         System.out.println(" Nice! I've marked this task as done:");
@@ -58,6 +121,12 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Displays a confirmation message when a task is marked as not done.
+     * Shows the task that was unmarked and confirms the action.
+     *
+     * @param task the task that was marked as not done
+     */
     public void showTaskUnmarked(Task task) {
         System.out.println(LINE);
         System.out.println(" OK, I've marked this task as not done yet:");
@@ -65,6 +134,13 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Displays a confirmation message when a task is deleted.
+     * Shows the deleted task and reports the new total count of remaining tasks.
+     *
+     * @param task the task that was deleted
+     * @param remainingTasks the number of tasks remaining in the list
+     */
     public void showTaskDeleted(Task task, int remainingTasks) {
         System.out.println(LINE);
         System.out.println(" Noted. I've removed this task:");
@@ -73,6 +149,13 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Displays a confirmation message when a new task is added.
+     * Shows the new task and reports the new total count of tasks.
+     *
+     * @param task the task that was added
+     * @param totalTasks the total number of tasks in the list
+     */
     public void showTaskAdded(Task task, int totalTasks) {
         System.out.println(LINE);
         System.out.println(" Got it. I've added this task:");
@@ -81,6 +164,16 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Displays tasks that occur on a specific date.
+     * This method filters tasks by date and shows only those that are relevant
+     * to the specified date. For deadlines, it checks if the deadline falls on
+     * the specified date. For events, it checks if the event starts or ends on
+     * the specified date.
+     *
+     * @param tasks the complete list of tasks to filter
+     * @param date the date to filter tasks by
+     */
     public void showTasksOnDate(ArrayList<Task> tasks, LocalDateTime date) {
         System.out.println(LINE);
         System.out.println(" Here are the tasks on " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ":");
@@ -93,7 +186,7 @@ public class Ui {
                 }
             } else if (task instanceof Event) {
                 Event event = (Event) task;
-                if (event.getStartTime().toLocalDate().equals(date.toLocalDate()) || 
+                if (event.getStartTime().toLocalDate().equals(date.toLocalDate()) ||
                     event.getEndTime().toLocalDate().equals(date.toLocalDate())) {
                     System.out.println(" " + (++count) + "." + task);
                 }

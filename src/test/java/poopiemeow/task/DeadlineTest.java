@@ -48,7 +48,7 @@ class DeadlineTest {
     void testDeadlineToFileString() throws EmptyDescriptionException {
         Deadline deadline = new Deadline("Test deadline", "2023-12-25 1430");
         assertEquals("D|0|Test deadline|2023-12-25 1430", deadline.toFileString());
-        
+
         deadline.markAsDone();
         assertEquals("D|1|Test deadline|2023-12-25 1430", deadline.toFileString());
     }
@@ -60,7 +60,7 @@ class DeadlineTest {
         String actual = deadline.toString();
         // Use case-insensitive comparison for AM/PM
         assertEquals(expected.toLowerCase(), actual.toLowerCase());
-        
+
         deadline.markAsDone();
         String expectedDone = "[D][X] Test deadline (by: Dec 25 2023, 2:30 PM)";
         String actualDone = deadline.toString();
@@ -79,7 +79,7 @@ class DeadlineTest {
         Deadline deadline = new Deadline("Test deadline", "2023-12-25 1430");
         assertFalse(deadline.isDone);
         assertEquals(" ", deadline.getStatusIcon());
-        
+
         deadline.markAsDone();
         assertTrue(deadline.isDone);
         assertEquals("X", deadline.getStatusIcon());
@@ -90,7 +90,7 @@ class DeadlineTest {
         Deadline deadline = new Deadline("Test deadline", "2023-12-25 1430");
         deadline.markAsDone();
         assertTrue(deadline.isDone);
-        
+
         deadline.markAsUndone();
         assertFalse(deadline.isDone);
         assertEquals(" ", deadline.getStatusIcon());
@@ -101,13 +101,13 @@ class DeadlineTest {
         // Test midnight
         Deadline midnight = new Deadline("Midnight task", "2023-12-25 0000");
         assertEquals(LocalDateTime.of(2023, 12, 25, 0, 0), midnight.getDeadline());
-        
+
         // Test noon
         Deadline noon = new Deadline("Noon task", "2023-12-25 1200");
         assertEquals(LocalDateTime.of(2023, 12, 25, 12, 0), noon.getDeadline());
-        
+
         // Test end of day
         Deadline endOfDay = new Deadline("End of day task", "2023-12-25 2359");
         assertEquals(LocalDateTime.of(2023, 12, 25, 23, 59), endOfDay.getDeadline());
     }
-} 
+}

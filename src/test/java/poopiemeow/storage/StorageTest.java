@@ -20,7 +20,7 @@ class StorageTest {
 
     @TempDir
     Path tempDir;
-    
+
     private Storage storage;
     private Path testFilePath;
 
@@ -38,10 +38,10 @@ class StorageTest {
     @Test
     void testSaveAndLoadEmptyTaskList() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
-        
+
         storage.save(tasks);
         assertTrue(Files.exists(testFilePath));
-        
+
         ArrayList<Task> loadedTasks = storage.load();
         assertEquals(0, loadedTasks.size());
     }
@@ -51,9 +51,9 @@ class StorageTest {
         ArrayList<Task> tasks = new ArrayList<>();
         Todo todo = new Todo("Test todo");
         tasks.add(todo);
-        
+
         storage.save(tasks);
-        
+
         ArrayList<Task> loadedTasks = storage.load();
         assertEquals(1, loadedTasks.size());
         assertTrue(loadedTasks.get(0) instanceof Todo);
@@ -66,9 +66,9 @@ class StorageTest {
         ArrayList<Task> tasks = new ArrayList<>();
         Deadline deadline = new Deadline("Test deadline", "2023-12-25 1430");
         tasks.add(deadline);
-        
+
         storage.save(tasks);
-        
+
         ArrayList<Task> loadedTasks = storage.load();
         assertEquals(1, loadedTasks.size());
         assertTrue(loadedTasks.get(0) instanceof Deadline);
@@ -81,9 +81,9 @@ class StorageTest {
         ArrayList<Task> tasks = new ArrayList<>();
         Event event = new Event("Test event", "2023-12-25 1400", "2023-12-25 1600");
         tasks.add(event);
-        
+
         storage.save(tasks);
-        
+
         ArrayList<Task> loadedTasks = storage.load();
         assertEquals(1, loadedTasks.size());
         assertTrue(loadedTasks.get(0) instanceof Event);
@@ -98,12 +98,12 @@ class StorageTest {
         tasks.add(new Deadline("Deadline 1", "2023-12-25 1430"));
         tasks.add(new Event("Event 1", "2023-12-25 1400", "2023-12-25 1600"));
         tasks.add(new Todo("Todo 2"));
-        
+
         storage.save(tasks);
-        
+
         ArrayList<Task> loadedTasks = storage.load();
         assertEquals(4, loadedTasks.size());
-        
+
         assertTrue(loadedTasks.get(0) instanceof Todo);
         assertTrue(loadedTasks.get(1) instanceof Deadline);
         assertTrue(loadedTasks.get(2) instanceof Event);
@@ -116,13 +116,13 @@ class StorageTest {
         Todo todo = new Todo("Test todo");
         todo.markAsDone();
         tasks.add(todo);
-        
+
         Deadline deadline = new Deadline("Test deadline", "2023-12-25 1430");
         deadline.markAsDone();
         tasks.add(deadline);
-        
+
         storage.save(tasks);
-        
+
         ArrayList<Task> loadedTasks = storage.load();
         assertEquals(2, loadedTasks.size());
         assertTrue(loadedTasks.get(0).getStatusIcon().equals("X"));
@@ -139,7 +139,7 @@ class StorageTest {
     void testLoadCorruptedFile() throws IOException {
         // Create a corrupted file
         Files.write(testFilePath, "Invalid format line\n".getBytes());
-        
+
         ArrayList<Task> loadedTasks = storage.load();
         assertEquals(0, loadedTasks.size());
     }
@@ -148,7 +148,7 @@ class StorageTest {
     void testLoadFileWithIncompleteLines() throws IOException {
         // Create file with incomplete task data
         Files.write(testFilePath, "T|0|Test todo\nD|0|Incomplete deadline\n".getBytes());
-        
+
         ArrayList<Task> loadedTasks = storage.load();
         assertEquals(1, loadedTasks.size()); // Only the todo should be loaded
         assertTrue(loadedTasks.get(0) instanceof Todo);
@@ -163,10 +163,10 @@ class StorageTest {
                         "E|0|Incomplete event\n" +
                         "E|0|Valid event|2023-12-25 1400|2023-12-25 1600\n";
         Files.write(testFilePath, content.getBytes());
-        
+
         ArrayList<Task> loadedTasks = storage.load();
         assertEquals(3, loadedTasks.size()); // Should load 3 valid tasks
-        
+
         assertTrue(loadedTasks.get(0) instanceof Todo);
         assertTrue(loadedTasks.get(1) instanceof Deadline);
         assertTrue(loadedTasks.get(2) instanceof Event);
@@ -176,13 +176,13 @@ class StorageTest {
     void testSaveCreatesParentDirectories() throws IOException, EmptyDescriptionException {
         Path nestedPath = tempDir.resolve("nested").resolve("deep").resolve("tasks.txt");
         Storage nestedStorage = new Storage(nestedPath.toString());
-        
+
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new Todo("Test todo"));
-        
+
         nestedStorage.save(tasks);
         assertTrue(Files.exists(nestedPath));
-        
+
         ArrayList<Task> loadedTasks = nestedStorage.load();
         assertEquals(1, loadedTasks.size());
     }
@@ -193,16 +193,16 @@ class StorageTest {
         tasks.add(new Todo("Test todo"));
         tasks.add(new Deadline("Test deadline", "2023-12-25 1430"));
         tasks.add(new Event("Test event", "2023-12-25 1400", "2023-12-25 1600"));
-        
+
         storage.save(tasks);
-        
+
         // Read the raw file content
         String fileContent = Files.readString(testFilePath);
         String[] lines = fileContent.trim().split("\n");
-        
+
         assertEquals(3, lines.length);
         assertEquals("T|0|Test todo", lines[0]);
         assertEquals("D|0|Test deadline|2023-12-25 1430", lines[1]);
         assertEquals("E|0|Test event|2023-12-25 1400|2023-12-25 1600", lines[2]);
     }
-} 
+}
