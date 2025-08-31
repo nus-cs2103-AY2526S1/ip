@@ -64,18 +64,19 @@ public class Piper {
                 } else {
                     if (cmd.equals("mark") || cmd.equals("unmark")) {
                         // mark task as done or undone
+
                         try {
                             int taskNumber = Parser.parseIndex(arg);
                             int index = taskNumber - 1; // task list starts from index 1 but array list starts from index 0
                             Task task = tasks.getTask(index);
 
                             switch (cmd) {
-                                case "mark":
-                                    task.markDone();
-                                    break;
-                                case "unmark":
-                                    task.markUndone();
-                                    break;
+                            case "mark":
+                                task.markDone();
+                                break;
+                            case "unmark":
+                                task.markUndone();
+                                break;
                             }
 
                             storage.saveAll(tasks);
@@ -94,7 +95,7 @@ public class Piper {
                             tasks.deleteTask(index);
                             storage.saveAll(tasks);
                             ui.showDeletedTask(task);
-                            ui.getTasksSize(tasks);
+                            ui.showTasksSize(tasks);
                         } catch (IndexOutOfBoundsException e) {
                             throw new PiperException("PEEP! Bad egg. Please check using 'list' to see which tasks are home!");
                         }
@@ -119,9 +120,9 @@ public class Piper {
                         tasks.addTask(task);
                         storage.saveAll(tasks);
                         ui.showAddedTask(task);
-                        ui.getTasksSize(tasks);
+                        ui.showTasksSize(tasks);
                     } else {
-                        // unrecognisable string
+                        // user input is an unrecognisable string
                         throw new PiperException("CHEEP CHEEP! I can't quite sing along with '" + userInput + "'. Wanna try another command?");
                     }
                 }
