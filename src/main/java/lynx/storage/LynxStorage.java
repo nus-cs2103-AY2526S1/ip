@@ -1,18 +1,17 @@
 package lynx.storage;
 
-import lynx.ui.LynxUI;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.PatternSyntaxException;
 
+import lynx.ui.LynxUI;
 import objectclasses.exception.LynxException;
 import objectclasses.formatter.LynxDateManager;
 import objectclasses.task.DeadlineTask;
 import objectclasses.task.EventTask;
 import objectclasses.task.Task;
 import objectclasses.task.TodoTask;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.PatternSyntaxException;
 
 /**
  * Contains methods for loading and unloading tasks in the task list, using a string representation.
@@ -69,10 +68,10 @@ public abstract class LynxStorage {
                 String[] parts = task.split("\\|");
                 String type = parts[0];
                 switch (type) {
-                    case "TODO" -> loadTodo(parts);
-                    case "DEADLINE" -> loadDeadline(parts);
-                    case "EVENT" -> loadEvent(parts);
-                    default -> errorCount++;
+                case "TODO" -> loadTodo(parts);
+                case "DEADLINE" -> loadDeadline(parts);
+                case "EVENT" -> loadEvent(parts);
+                default -> errorCount++;
                 }
             } catch (PatternSyntaxException | ArrayIndexOutOfBoundsException | LynxException e) {
                 errorCount++;
@@ -96,7 +95,8 @@ public abstract class LynxStorage {
         if (parts.length < 4) {
             throw new LynxException("");
         }
-        String status = parts[1], name = parts[3];
+        String status = parts[1];
+        String name = parts[3];
         Task task = new TodoTask(name);
         if (status.equals("COMPLETE")) {
             task.setComplete();
@@ -114,7 +114,8 @@ public abstract class LynxStorage {
         if (parts.length < 5) {
             throw new LynxException("");
         }
-        String status = parts[1], name = parts[3];
+        String status = parts[1];
+        String name = parts[3];
         LocalDateTime by = LynxDateManager.parseDateTime(parts[4].replace("by:", ""));
         Task task = new DeadlineTask(name, by);
         if (status.equals("COMPLETE")) {
@@ -133,9 +134,10 @@ public abstract class LynxStorage {
         if (parts.length < 6) {
             throw new LynxException("");
         }
-        String status = parts[1], name = parts[3];
-        LocalDateTime from = LynxDateManager.parseDateTime(parts[4].replace("from:", "")),
-                to = LynxDateManager.parseDateTime(parts[5].replace("to:", ""));
+        String status = parts[1];
+        String name = parts[3];
+        LocalDateTime from = LynxDateManager.parseDateTime(parts[4].replace("from:", ""));
+        LocalDateTime to = LynxDateManager.parseDateTime(parts[5].replace("to:", ""));
         Task task = new EventTask(name, from, to);
         if (status.equals("COMPLETE")) {
             task.setComplete();

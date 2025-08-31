@@ -29,8 +29,8 @@ public abstract class LynxUI {
      * Prints a greeting.
      */
     public static void hello() {
-        System.out.println("Hello! I'm Tasklynx. \n" +
-                "Your dependable assistant for tracking tasks, managing deadlines, and keeping your work organized.");
+        System.out.println("Hello! I'm Tasklynx. \n"
+                + "Your dependable assistant for tracking tasks, managing deadlines, and keeping your work organized.");
         line();
     }
 

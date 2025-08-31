@@ -1,11 +1,10 @@
 package lynxgui.storage;
 
-import objectclasses.task.Task;
-
 import java.time.LocalDateTime;
-
 import java.util.ArrayList;
 import java.util.stream.Stream;
+
+import objectclasses.task.Task;
 
 /**
  * Contains methods that directly access the task list.

@@ -1,17 +1,16 @@
 package lynxgui.parser;
 
+import java.time.LocalDateTime;
+
 import lynxgui.storage.LynxFileManager;
 import lynxgui.storage.LynxStorage;
 import lynxgui.storage.LynxTaskList;
-
 import objectclasses.exception.LynxException;
 import objectclasses.exception.MissingArgumentException;
 import objectclasses.formatter.LynxDateManager;
 import objectclasses.task.DeadlineTask;
 import objectclasses.task.EventTask;
 import objectclasses.task.TodoTask;
-
-import java.time.LocalDateTime;
 
 /**
  * Contains methods to execute general commands.
@@ -27,7 +26,7 @@ public abstract class LynxGeneral {
     public static String reloadGui() throws LynxException {
         LynxFileManager.createFile();
         LynxStorage.loadTasks(LynxFileManager.readFromFile());
-        return  "Load successful!";
+        return "Load successful!";
     }
 
     /**

@@ -1,12 +1,11 @@
 package lynx.storage;
 
-import lynx.ui.LynxUI;
-
-import objectclasses.task.Task;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.stream.Stream;
+
+import lynx.ui.LynxUI;
+import objectclasses.task.Task;
 
 /**
  * Contains methods that directly access the task list.
@@ -41,8 +40,8 @@ public abstract class LynxTaskList {
     public static void clearTasks(boolean dialogue) {
         COMMANDS.clear();
         if (dialogue) {
-            LynxUI.printBox("Removed all tasks." +
-                    "\nNow you have " + getCount() + " task(s) in your list.");
+            LynxUI.printBox("Removed all tasks."
+                    + "\nNow you have " + getCount() + " task(s) in your list.");
         }
     }
 
@@ -55,8 +54,8 @@ public abstract class LynxTaskList {
     public static void addTask(Task task, boolean dialogue) {
         COMMANDS.add(task);
         if (dialogue) {
-            LynxUI.printBox("Added:\n     " + task +
-                    "\nYou currently have " + getCount() + " task(s) in your list.");
+            LynxUI.printBox("Added:\n     " + task
+                    + "\nYou currently have " + getCount() + " task(s) in your list.");
         }
     }
 
@@ -69,8 +68,8 @@ public abstract class LynxTaskList {
     public static void removeTask(Task task, boolean dialogue) {
         COMMANDS.remove(task);
         if (dialogue) {
-            LynxUI.printBox("Removed:\n     " + task +
-                    "\nYou currently have " + getCount() + " task(s) in your list.");
+            LynxUI.printBox("Removed:\n     " + task
+                    + "\nYou currently have " + getCount() + " task(s) in your list.");
         }
     }
 

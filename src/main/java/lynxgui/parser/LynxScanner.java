@@ -1,7 +1,6 @@
 package lynxgui.parser;
 
 import lynxgui.ui.LynxUI;
-
 import objectclasses.exception.LynxException;
 
 /**
@@ -9,7 +8,8 @@ import objectclasses.exception.LynxException;
  */
 public abstract class LynxScanner {
 
-    /** Parses and executes an input command.
+    /**
+     * Parses and executes an input command.
      *
      * @param input Input command.
      * @return Response from executing the command.
@@ -41,8 +41,8 @@ public abstract class LynxScanner {
             } else if (input.startsWith("event ")) {
                 return LynxGeneral.addEventGui(input);
             } else if (!input.isEmpty()) {
-                throw new LynxException("Sorry, I didn't understand that command. " +
-                        "Please try again or type \"help\" to access the user guide.");
+                throw new LynxException("Sorry, I didn't understand that command. "
+                        + "Please try again or type \"help\" to access the user guide.");
             }
         } catch (Exception e) {
             return (e.getMessage());

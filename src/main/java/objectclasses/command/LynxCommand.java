@@ -1,10 +1,10 @@
 package objectclasses.command;
 
-import objectclasses.exception.LynxException;
-import objectclasses.task.Task;
-
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
+
+import objectclasses.exception.LynxException;
+import objectclasses.task.Task;
 
 /**
  * Represents a string of search modifiers and stores its search results.
@@ -19,6 +19,24 @@ public class LynxCommand {
     private String status = "";
     private String type = "";
     private List<Task> searchResult;
+
+    /**
+     * Takes in a string containing search modifiers and parses it into separate components.
+     *
+     * @param input String of search modifiers.
+     * @throws LynxException If input is of invalid format and cannot be parsed.
+     */
+    public LynxCommand(String input) throws LynxException {
+        if (input.isBlank()) {
+            throw new LynxException("Command cannot be created from blank string.");
+        } else {
+            try {
+                commands = input.trim().split("\\s+");
+            } catch (PatternSyntaxException e) {
+                throw new LynxException("Command must be of appropriate format.");
+            }
+        }
+    }
 
     /**
      * Stores a date as specified by a "/on" search modifier.
@@ -75,7 +93,7 @@ public class LynxCommand {
     /**
      * Stores a type as specified by a "/type" search modifier.
      *
-     * @param type Type of a task.
+     * @param type Type of task.
      */
     public void setType(String type) {
         if (this.type.isEmpty()) {
@@ -91,24 +109,6 @@ public class LynxCommand {
 
     public List<Task> getSearchResult() {
         return searchResult;
-    }
-
-    /**
-     * Takes in a string containing search modifiers and parses it into separate components.
-     *
-     * @param input String of search modifiers.
-     * @throws LynxException If input is of invalid format and cannot be parsed.
-     */
-    public LynxCommand(String input) throws LynxException {
-        if (input.isBlank()) {
-            throw new LynxException("Command cannot be created from blank string.");
-        } else {
-            try {
-                commands = input.trim().split("\\s+");
-            } catch (PatternSyntaxException e) {
-                throw new LynxException("Command must be of appropriate format.");
-            }
-        }
     }
 
     /**

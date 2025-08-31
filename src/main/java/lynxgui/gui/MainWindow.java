@@ -1,9 +1,5 @@
 package lynxgui.gui;
 
-import lynxgui.TaskLynxGui;
-
-import objectclasses.exception.LynxException;
-
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -13,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import lynxgui.TaskLynxGui;
+import objectclasses.exception.LynxException;
 
 /**
  * Controller for the main GUI.

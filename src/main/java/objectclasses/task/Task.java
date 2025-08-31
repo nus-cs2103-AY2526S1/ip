@@ -1,8 +1,8 @@
 package objectclasses.task;
 
-import objectclasses.exception.LynxException;
-
 import java.time.LocalDateTime;
+
+import objectclasses.exception.LynxException;
 
 /**
  * Represents a task with a <code>TaskType</code>, <code>Status</code>, name and id for tracking.
@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
  */
 public abstract class Task {
 
+    /**
+     * Represents the three type of tasks.
+     */
     public enum TaskType {
 
         TODO("[T]"),
@@ -36,23 +39,26 @@ public abstract class Task {
          */
         public static TaskType matchSymbol(String symbol) throws LynxException {
             switch (symbol.toLowerCase()) {
-                case "todo" -> {
-                    return TODO;
-                }
-                case "deadline" -> {
-                    return DEADLINE;
-                }
-                case "event" -> {
-                    return EVENT;
-                }
-                default -> {
-                    throw new LynxException("Invalid type.");
-                }
+            case "todo" -> {
+                return TODO;
+            }
+            case "deadline" -> {
+                return DEADLINE;
+            }
+            case "event" -> {
+                return EVENT;
+            }
+            default -> {
+                throw new LynxException("Invalid type.");
+            }
             }
         }
 
     }
 
+    /**
+     * Represents the three type of statuses.
+     */
     public enum Status {
 
         COMPLETE("[C]"),
@@ -78,18 +84,18 @@ public abstract class Task {
          */
         public static Status matchSymbol(String symbol) throws LynxException {
             switch (symbol.toLowerCase()) {
-                case "complete" -> {
-                    return COMPLETE;
-                }
-                case "incomplete" -> {
-                    return INCOMPLETE;
-                }
-                case "expired" -> {
-                    return EXPIRED;
-                }
-                default -> {
-                    throw new LynxException("Invalid status.");
-                }
+            case "complete" -> {
+                return COMPLETE;
+            }
+            case "incomplete" -> {
+                return INCOMPLETE;
+            }
+            case "expired" -> {
+                return EXPIRED;
+            }
+            default -> {
+                throw new LynxException("Invalid status.");
+            }
             }
         }
 
@@ -101,6 +107,11 @@ public abstract class Task {
     private Status status = Status.INCOMPLETE;
     private TaskType type;
 
+    /**
+     * Creates a task with a name and type.
+     * @param name Name of the task.
+     * @param type Type of task.
+     */
     public Task(String name, TaskType type) {
         currId += 1;
         id = currId;

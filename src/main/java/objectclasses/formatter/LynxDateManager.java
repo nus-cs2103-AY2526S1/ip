@@ -1,10 +1,10 @@
 package objectclasses.formatter;
 
-import objectclasses.exception.LynxException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import objectclasses.exception.LynxException;
 
 /**
  * Contains methods for parsing date / time representations.
