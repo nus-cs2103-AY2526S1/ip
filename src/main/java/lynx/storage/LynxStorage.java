@@ -1,6 +1,5 @@
 package lynx.storage;
 
-import lynx.storage.LynxTaskList;
 import lynx.ui.LynxUI;
 
 import objectclasses.exception.LynxException;

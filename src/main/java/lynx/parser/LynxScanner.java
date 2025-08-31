@@ -1,10 +1,8 @@
 package lynx.parser;
 
-import objectclasses.exception.LynxException;
-
-import lynx.parser.LynxGeneral;
-import lynx.parser.LynxTaskEditor;
 import lynx.ui.LynxUI;
+
+import objectclasses.exception.LynxException;
 
 import java.util.Scanner;
 
