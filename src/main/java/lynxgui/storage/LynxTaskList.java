@@ -45,13 +45,13 @@ public abstract class LynxTaskList {
      * Adds a task to the task list.
      *
      * @param task Task to be added.
+     * @return String representing the task added.
      */
     public static String addTaskGui(Task task) {
         COMMANDS.add(task);
         return String.format("Added:%n     %s%nYou currently have %d task(s) in your list.",
                 task, getCount());
     }
-
 
     /**
      * Removes a task from the task list.

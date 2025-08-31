@@ -1,7 +1,6 @@
-package lynx.formatter;
+package objectclasses.formatter;
 
 import objectclasses.exception.LynxException;
-import objectclasses.formatter.LynxDateManager;
 
 import java.time.LocalDateTime;
 

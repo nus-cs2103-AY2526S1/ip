@@ -24,12 +24,8 @@ public abstract class LynxGeneral {
      */
     public static void reload() {
         LynxUI.line();
-        try {
-            LynxFileManager.createFile();
-            LynxStorage.loadTasks(LynxFileManager.readFromFile());
-        } catch (LynxException e) {
-            System.out.println(e.getMessage());
-        }
+        LynxFileManager.createFile();
+        LynxStorage.loadTasks(LynxFileManager.readFromFile());
         System.out.println("Load successful!");
         LynxUI.line();
     }
@@ -39,12 +35,8 @@ public abstract class LynxGeneral {
      */
     public static void save() {
         LynxUI.line();
-        try {
-            LynxFileManager.createFile();
-            LynxFileManager.writeToFile(LynxStorage.unloadTasks());
-        } catch (LynxException e) {
-            System.out.println(e.getMessage());
-        }
+        LynxFileManager.createFile();
+        LynxFileManager.writeToFile(LynxStorage.unloadTasks());
         System.out.println("Save successful!");
         LynxUI.line();
     }

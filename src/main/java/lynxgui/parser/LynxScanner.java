@@ -5,21 +5,21 @@ import lynxgui.ui.LynxUI;
 import objectclasses.exception.LynxException;
 
 /**
- * Contains the central <code>Scanner</code> object, and the main program loop.
+ * Contains the main parser method.
  */
 public abstract class LynxScanner {
 
+    /** Parses and executes an input command.
+     *
+     * @param input Input command.
+     * @return Response from executing the command.
+     */
     public static String scanForCommandsGui(String input) {
         if (input.length() > 300) {
             return "Sorry, commands cannot exceed 200 characters in length.%n";
         }
 
         try {
-            /*
-            if (input.trim().equals("bye")) {
-                break;
-            } else
-            */
             if (input.trim().equals("reload")) {
                 return LynxGeneral.reloadGui();
             } else if (input.trim().equals("save")) {

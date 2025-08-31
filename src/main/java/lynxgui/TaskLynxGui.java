@@ -9,6 +9,9 @@ import objectclasses.exception.LynxException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Main interface between the application frontend and backend.
+ */
 public class TaskLynxGui {
 
     public String load() throws LynxException {

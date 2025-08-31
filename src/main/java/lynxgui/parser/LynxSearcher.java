@@ -1,11 +1,11 @@
 package lynxgui.parser;
 
+import lynxgui.storage.LynxTaskList;
+
 import objectclasses.command.LynxCommand;
 import objectclasses.exception.LynxException;
 import objectclasses.formatter.LynxDateManager;
 import objectclasses.task.Task;
-
-import lynxgui.storage.LynxTaskList;
 
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
@@ -40,7 +40,8 @@ public class LynxSearcher {
             case "/on" -> findTasksByDate(command, stream);
             case "/status" -> findTasksByStatus(command, stream);
             case "/type" -> findTasksByType(command, stream);
-            default -> throw new LynxException("Non matching command detected.");
+            default -> throw new LynxException("Non matching command detected. " +
+                    "Please try again or type \"help\" to access the user guide.");
         }
 
     }

@@ -1,5 +1,9 @@
 package lynxgui.gui;
 
+import lynxgui.TaskLynxGui;
+
+import objectclasses.exception.LynxException;
+
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -8,10 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import javafx.util.Duration;
-import objectclasses.exception.LynxException;
-import lynxgui.TaskLynxGui;
 
 /**
  * Controller for the main GUI.
@@ -25,6 +26,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
 
     private TaskLynxGui taskLynx;
+
+    // Boolean to indicate application is about to close and TaskLynx should no longer respond to the user.
     private boolean isExiting = false;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
@@ -35,32 +38,42 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /**
+     * Injects the TaskLynx instance and loads its contents from the data file.
+     */
     public void setTaskLynx(TaskLynxGui taskLynx) {
         this.taskLynx = taskLynx;
         try {
             taskLynx.load();
         } catch (LynxException e) {
-            dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(e.getMessage(), lynxImage));
+            dialogContainer.getChildren().addAll(DialogBox.getLynxDialog(e.getMessage(), lynxImage));
         }
         greet();
     }
 
+    /**
+     * Greets the user.
+     */
     public void greet() {
         for (String greeting : taskLynx.getGreetings()) {
-            dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(greeting, lynxImage));
+            dialogContainer.getChildren().addAll(DialogBox.getLynxDialog(greeting, lynxImage));
         }
     }
 
+    /**
+     * Attempts to save the contents of the task list and close the application.
+     * </p>
+     * Aborts if save fails.
+     */
     public void farewell() {
         for (String farewell : taskLynx.getFarewells()) {
-            dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(farewell, lynxImage));
+            dialogContainer.getChildren().addAll(DialogBox.getLynxDialog(farewell, lynxImage));
         }
         try {
             taskLynx.save();
         } catch (LynxException e) {
             String warning = String.format("%s%nUse \"save\" to resave or \"bye!\" to force quit.", e.getMessage());
-            dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(warning, lynxImage));
+            dialogContainer.getChildren().addAll(DialogBox.getLynxDialog(warning, lynxImage));
             return;
         }
         isExiting = true;
@@ -70,7 +83,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Lynx's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -94,7 +107,7 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getDukeDialog(lynxText, lynxImage)
+                DialogBox.getLynxDialog(lynxText, lynxImage)
         );
         userInput.clear();
     }

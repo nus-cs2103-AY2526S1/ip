@@ -1,7 +1,6 @@
 package lynxgui.parser;
 
 import lynxgui.storage.LynxTaskList;
-import lynxgui.ui.LynxUI;
 
 import objectclasses.command.LynxCommand;
 import objectclasses.exception.LynxException;
@@ -24,6 +23,7 @@ public class LynxTaskEditor {
      * Marks tasks in the task list as specified by the input command.
      *
      * @param input Command staring with "mark".
+     * @return String representing tasks marked.
      * @throws LynxException If command is invalid.
      */
     public static String markTasksGui(String input) throws LynxException {
@@ -46,6 +46,7 @@ public class LynxTaskEditor {
      * Unmarks tasks in the task list as specified by the input command.
      *
      * @param input Command staring with "unmark".
+     * @return String representing tasks unmarked.
      * @throws LynxException If command is invalid.
      */
     public static String unmarkTasksGui(String input) throws LynxException {
@@ -68,6 +69,7 @@ public class LynxTaskEditor {
      * Removes tasks from the task list as specified by the input command.
      *
      * @param input Command staring with "delete".
+     * @return String representing tasks deleted.
      * @throws LynxException If command is invalid.
      */
     public static String deleteTasksGui(String input) throws LynxException {
@@ -91,6 +93,7 @@ public class LynxTaskEditor {
      * Prints tasks in the task list as specified by the input command.
      *
      * @param input Command staring with "list".
+     * @return String representing tasks to list.
      * @throws LynxException If command is invalid.
      */
     public static String listTasksGui(String input) throws LynxException {
@@ -115,6 +118,7 @@ public class LynxTaskEditor {
      * @param consumer <code>Consumer</code> containing the action to execute on each task.
      * @param tasks List of tasks to perform action on.
      * @param empty String to be printed instead if list is empty.
+     * @return String representing tasks acted on.
      */
     private static String executeOnTasksGui(Consumer<Task> consumer, List<Task> tasks, String empty) {
         int count = 0;
@@ -131,7 +135,9 @@ public class LynxTaskEditor {
     }
 
     /**
-     * Prints all urgent (incomplete) tasks today, if any. Uses the system clock.
+     * Returns all urgent (incomplete) tasks today, if any. Uses the system clock.
+     *
+     * @return String representation of notice.
      */
     public static String tasksTodayGui() {
         LocalDateTime today = LocalDateTime.now();
@@ -149,7 +155,9 @@ public class LynxTaskEditor {
     }
 
     /**
-     * Prints all incomplete tasks from today onwards. Uses the system clock.
+     * Returns all incomplete tasks from today onwards. Uses the system clock.
+     *
+     * @return String representation of notice.
      */
     public static String tasksFromTodayGui() {
         List<Task> tasks = LynxTaskList.filterTasksByStatus(

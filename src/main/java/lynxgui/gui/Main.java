@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import lynxgui.TaskLynxGui;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for TaskLynx using FXML.
  */
 public class Main extends Application {
 

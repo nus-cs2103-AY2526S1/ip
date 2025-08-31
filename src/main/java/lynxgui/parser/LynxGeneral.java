@@ -20,6 +20,9 @@ public abstract class LynxGeneral {
 
     /**
      * Attempts to create the <code>log.txt</code> data file or load its contents if it exists.
+     *
+     * @return Message representing reload status.
+     * @throws LynxException If reload is unsuccessful.
      */
     public static String reloadGui() throws LynxException {
         LynxFileManager.createFile();
@@ -29,6 +32,9 @@ public abstract class LynxGeneral {
 
     /**
      * Attempts to save the task list to the <code>log.txt</code> data file. Creates the file if it does not exist.
+     *
+     * @return Message representing save status.
+     * @throws LynxException If save is unsuccessful.
      */
     public static String saveGui() throws LynxException {
         LynxFileManager.createFile();

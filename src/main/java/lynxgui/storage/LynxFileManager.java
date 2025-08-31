@@ -22,6 +22,7 @@ public abstract class LynxFileManager {
      * Creates a directory <code>data</code> and a file <code>log.txt</code>.
      * <p>
      * Skips if directory / file already exists.
+     * @throws LynxException If file cannot be located or created.
      */
     public static void createFile() throws LynxException {
         try {
@@ -44,6 +45,7 @@ public abstract class LynxFileManager {
      * Reads all lines from the file <code>log.txt</code>.
      *
      * @return File contents as list of strings.
+     * @throws LynxException If file cannot be read.
      */
     public static List<String> readFromFile() throws LynxException {
         try {
@@ -59,6 +61,7 @@ public abstract class LynxFileManager {
      * Writes to the file <code>log.txt</code>.
      *
      * @param text Lines of text to be written.
+     * @throws LynxException If file cannot be written.
      */
     public static void writeToFile(List<String> text) throws LynxException {
         try {
