@@ -1,7 +1,6 @@
 package piper.ui;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 import piper.task.TaskList;
 import piper.task.Task;
 
@@ -29,7 +28,7 @@ public class Ui {
     }
 
     // ascii art
-    final String ascii_Greet =
+    private static final String ASCII_GREET =
             " _______\n" +
                     "|_   __ \\ ( ) .\\\n" +
                     "  | |__) |__  | ''\\   .---.  _ .--.\n" +
@@ -43,7 +42,7 @@ public class Ui {
                     "            [___/        (  (_\\.&\n" +
                     "--------------------<>----''--\\\\---------\n" +
                     "                                \\\n";
-    final String ascii_Exit =
+    private static final String ASCII_EXIT =
             "             ______         ___,\n" +
                     "              `--- \\   _))/.--`\n" +
                     "            ,__`--. \\/  '>--`\n" +
@@ -53,7 +52,7 @@ public class Ui {
 
     public void greetUser() {
         System.out.println(
-                ascii_Greet +
+                ASCII_GREET +
                         "Hi! " + chatbotName + " here.\n" +
                         "What shall we do today?\n"
         );
@@ -65,7 +64,7 @@ public class Ui {
 
     public void farewellUser() {
         System.out.println(
-                "Til next time!\n" + ascii_Exit
+                "Til next time!\n" + ASCII_EXIT
         );
     }
 
@@ -83,7 +82,7 @@ public class Ui {
         );
     }
 
-    public void getTasksSize(TaskList tasks) {
+    public void showTasksSize(TaskList tasks) {
         System.out.println(
                 "Now you have " + tasks.getSize() + " tasks in the list."
         );
