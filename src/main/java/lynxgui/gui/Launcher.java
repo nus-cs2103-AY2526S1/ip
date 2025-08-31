@@ -1,4 +1,4 @@
-package lynx.gui;
+package lynxgui.gui;
 
 import javafx.application.Application;
 

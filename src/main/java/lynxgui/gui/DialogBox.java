@@ -1,4 +1,4 @@
-package lynx.gui;
+package lynxgui.gui;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import lynx.gui.MainWindow;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face

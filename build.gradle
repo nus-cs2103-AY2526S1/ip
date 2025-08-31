@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("lynx.gui.Launcher")
+    mainClass.set("lynxgui.gui.Launcher")
 }
 
 shadowJar {

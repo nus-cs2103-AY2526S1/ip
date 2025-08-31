@@ -1,7 +1,4 @@
-package lynx.storage;
-
-import lynx.storage.LynxTaskList;
-import lynx.ui.LynxUI;
+package lynxgui.storage;
 
 import objectclasses.exception.LynxException;
 import objectclasses.formatter.LynxDateManager;
@@ -81,7 +78,6 @@ public abstract class LynxStorage {
         }
 
         if (errorCount > 0) {
-            LynxUI.line();
             System.out.println("⚠️ Lynx skipped " + errorCount + " invalid task(s) during loading.");
         }
         return errorCount;
@@ -102,7 +98,7 @@ public abstract class LynxStorage {
         if (status.equals("COMPLETE")) {
             task.setComplete();
         }
-        LynxTaskList.addTask(task, false);
+        LynxTaskList.addTaskGui(task);
     }
 
     /**
@@ -121,7 +117,7 @@ public abstract class LynxStorage {
         if (status.equals("COMPLETE")) {
             task.setComplete();
         }
-        LynxTaskList.addTask(task, false);
+        LynxTaskList.addTaskGui(task);
     }
 
     /**
@@ -141,7 +137,7 @@ public abstract class LynxStorage {
         if (status.equals("COMPLETE")) {
             task.setComplete();
         }
-        LynxTaskList.addTask(task, false);
+        LynxTaskList.addTaskGui(task);
     }
 
 }

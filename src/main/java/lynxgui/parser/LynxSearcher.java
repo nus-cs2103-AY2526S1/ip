@@ -1,16 +1,16 @@
-package lynx.parser;
-
-import lynx.storage.LynxTaskList;
+package lynxgui.parser;
 
 import objectclasses.command.LynxCommand;
 import objectclasses.exception.LynxException;
 import objectclasses.formatter.LynxDateManager;
 import objectclasses.task.Task;
 
+import lynxgui.storage.LynxTaskList;
+
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
-import static lynx.parser.LynxGeneral.checkName;
+import static lynxgui.parser.LynxGeneral.checkName;
 
 /**
  * Contains methods to execute commands that search for tasks in the task list.

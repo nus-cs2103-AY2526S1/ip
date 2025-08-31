@@ -1,12 +1,14 @@
-package lynx.storage;
+package lynxgui.storage;
 
 import objectclasses.exception.LynxException;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import java.util.List;
+
+import java.io.IOException;
 
 /**
  * Contains methods to read and write data to the drive.

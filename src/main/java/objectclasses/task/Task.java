@@ -1,6 +1,6 @@
-package lynx.task;
+package objectclasses.task;
 
-import lynx.exception.LynxException;
+import objectclasses.exception.LynxException;
 
 import java.time.LocalDateTime;
 

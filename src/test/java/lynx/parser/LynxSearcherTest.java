@@ -1,12 +1,13 @@
 package lynx.parser;
 
-import lynx.command.LynxCommand;
-import lynx.exception.LynxException;
 import lynx.storage.LynxTaskList;
-import lynx.task.DeadlineTask;
-import lynx.task.EventTask;
-import lynx.task.Task;
-import lynx.task.TodoTask;
+
+import objectclasses.command.LynxCommand;
+import objectclasses.exception.LynxException;
+import objectclasses.task.DeadlineTask;
+import objectclasses.task.EventTask;
+import objectclasses.task.Task;
+import objectclasses.task.TodoTask;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;

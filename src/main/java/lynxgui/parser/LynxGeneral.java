@@ -1,9 +1,8 @@
-package lynx.parser;
+package lynxgui.parser;
 
-import lynx.storage.LynxFileManager;
-import lynx.storage.LynxStorage;
-import lynx.storage.LynxTaskList;
-import lynx.ui.LynxUI;
+import lynxgui.storage.LynxFileManager;
+import lynxgui.storage.LynxStorage;
+import lynxgui.storage.LynxTaskList;
 
 import objectclasses.exception.LynxException;
 import objectclasses.exception.MissingArgumentException;
@@ -22,41 +21,29 @@ public abstract class LynxGeneral {
     /**
      * Attempts to create the <code>log.txt</code> data file or load its contents if it exists.
      */
-    public static void reload() {
-        LynxUI.line();
-        try {
-            LynxFileManager.createFile();
-            LynxStorage.loadTasks(LynxFileManager.readFromFile());
-        } catch (LynxException e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println("Load successful!");
-        LynxUI.line();
+    public static String reloadGui() throws LynxException {
+        LynxFileManager.createFile();
+        LynxStorage.loadTasks(LynxFileManager.readFromFile());
+        return  "Load successful!";
     }
 
     /**
      * Attempts to save the task list to the <code>log.txt</code> data file. Creates the file if it does not exist.
      */
-    public static void save() {
-        LynxUI.line();
-        try {
-            LynxFileManager.createFile();
-            LynxFileManager.writeToFile(LynxStorage.unloadTasks());
-        } catch (LynxException e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println("Save successful!");
-        LynxUI.line();
+    public static String saveGui() throws LynxException {
+        LynxFileManager.createFile();
+        LynxFileManager.writeToFile(LynxStorage.unloadTasks());
+        return "Save successful!";
     }
 
     /**
      * Creates a <code>TodoTask</code> and adds it to the task list.
      *
      * @param input User command in the form "todo [name]".
-     * @return <code>TodoTask</code> that is created.
+     * @return String to indicate the task added.
      * @throws LynxException If command or name is invalid.
      */
-    public static TodoTask addTodo(String input) throws LynxException {
+    public static String addTodoGui(String input) throws LynxException {
         if (input.length() <= 4) {
             throw new MissingArgumentException("todo");
         }
@@ -67,18 +54,17 @@ public abstract class LynxGeneral {
         checkName(name);
 
         TodoTask task = new TodoTask(name);
-        LynxTaskList.addTask(task, true);
-        return task;
+        return LynxTaskList.addTaskGui(task);
     }
 
     /**
      * Creates a <code>DeadlineTask</code> and adds it to the task list.
      *
      * @param input User command in the form "deadline [name] /by [date]".
-     * @return <code>DeadlineTask</code> that is created.
+     * @return String to indicate the task added.
      * @throws LynxException If command, name or date is invalid.
      */
-    public static DeadlineTask addDeadline(String input) throws LynxException {
+    public static String addDeadlineGui(String input) throws LynxException {
         if (input.length() <= 8) {
             throw new MissingArgumentException("deadline");
         }
@@ -94,18 +80,17 @@ public abstract class LynxGeneral {
 
         LocalDateTime by = LynxDateManager.parseDateTime(parts[1].trim());
         DeadlineTask task = new DeadlineTask(name, by);
-        LynxTaskList.addTask(task, true);
-        return task;
+        return LynxTaskList.addTaskGui(task);
     }
 
     /**
      * Creates a <code>EventTask</code> and adds it to the task list.
      *
      * @param input User command in the form "event [name] /from [start] /to [end]".
-     * @return <code>EventTask</code> that is created.
+     * @return String to indicate the task added.
      * @throws LynxException If command, name or date is invalid.
      */
-    public static EventTask addEvent(String input) throws LynxException {
+    public static String addEventGui(String input) throws LynxException {
         if (input.length() <= 5) {
             throw new MissingArgumentException("event");
         }
@@ -130,8 +115,7 @@ public abstract class LynxGeneral {
             throw new LynxException("The start date/time cannot be after the end date/time.");
         }
         EventTask task = new EventTask(name, from, to);
-        LynxTaskList.addTask(task, true);
-        return task;
+        return LynxTaskList.addTaskGui(task);
     }
 
     /**

@@ -1,9 +1,10 @@
-package lynx;
+package lynxgui;
 
-import lynx.exception.LynxException;
-import lynx.parser.LynxGeneral;
-import lynx.parser.LynxScanner;
-import lynx.parser.LynxTaskEditor;
+import lynxgui.parser.LynxGeneral;
+import lynxgui.parser.LynxScanner;
+import lynxgui.parser.LynxTaskEditor;
+
+import objectclasses.exception.LynxException;
 
 import java.util.ArrayList;
 import java.util.List;

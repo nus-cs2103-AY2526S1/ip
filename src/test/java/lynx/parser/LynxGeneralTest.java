@@ -1,9 +1,9 @@
 package lynx.parser;
 
-import lynx.exception.LynxException;
-import lynx.task.DeadlineTask;
-import lynx.task.EventTask;
-import lynx.task.TodoTask;
+import objectclasses.exception.LynxException;
+import objectclasses.task.DeadlineTask;
+import objectclasses.task.EventTask;
+import objectclasses.task.TodoTask;
 
 import java.time.LocalDateTime;
 

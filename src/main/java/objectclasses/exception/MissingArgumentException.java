@@ -1,4 +1,4 @@
-package lynx.exception;
+package objectclasses.exception;
 
 /**
  * Represents an invalid command that is missing an argument.

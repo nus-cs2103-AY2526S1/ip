@@ -1,4 +1,4 @@
-package lynx.gui;
+package lynxgui.gui;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import lynx.TaskLynxGui;
+import lynxgui.TaskLynxGui;
 
 /**
  * A GUI for Duke using FXML.
