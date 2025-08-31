@@ -11,13 +11,14 @@ import minhgpt.ui.Ui;
  * Encapsulate an user command and what to be executed.
  */
 public abstract class Command {
+
     /** Map command regex String to constructor of the corresponding command. */
     private static final HashMap<String, Supplier<Command>> registry = new HashMap<>();
 
     /**
      * Put mapping into 'registry'.
      *
-     * @param regex Regex that the command matches.
+     * @param regex    Regex that the command matches.
      * @param supplier Constructor for the command.
      */
     protected static void register(String regex, Supplier<Command> supplier) {
@@ -27,12 +28,13 @@ public abstract class Command {
     /**
      * Execute the program logic for the command.
      *
-     * @param input Input from user.
-     * @param taskList program's list of tasks.
-     * @param ui program's ui drawer.
-     * @param storage program's storage handler.
+     * @param input    Input from user.
+     * @param taskList Program's list of tasks.
+     * @param ui       Program's ui drawer.
+     * @param storage  Program's storage handler.
+     * @return Response to the command.
      */
-    public abstract void execute(String input, TaskList taskList, Ui ui, Storage storage);
+    public abstract String execute(String input, TaskList taskList, Ui ui, Storage storage);
 
     /**
      * Initialise the mapping in 'registry'.
@@ -60,12 +62,5 @@ public abstract class Command {
         }
 
         return new CommandAdd();
-    }
-
-    /**
-     * Return true if 'command' is a CommandBye. False otherwise.
-     */
-    public static boolean isCommandBye(Command command) {
-        return command instanceof CommandBye;
     }
 }
