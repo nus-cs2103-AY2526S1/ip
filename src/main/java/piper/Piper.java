@@ -121,6 +121,10 @@ public class Piper {
                         storage.saveAll(tasks);
                         ui.showAddedTask(task);
                         ui.showTasksSize(tasks);
+                    } else if (cmd.equals("find")) {
+                        String keyword = arg;
+                        TaskList matches = tasks.find(keyword);
+                        ui.displayMatchingTasks(matches);
                     } else {
                         // user input is an unrecognisable string
                         throw new PiperException("CHEEP CHEEP! I can't quite sing along with '" + userInput + "'. Wanna try another command?");

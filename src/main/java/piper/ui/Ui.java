@@ -116,6 +116,15 @@ public class Ui {
     }
 
     /**
+     * Prints a confirmation after deleting a task.
+     *
+     * @param task deleted task.
+     */
+    public void showDeletedTask(Task task) {
+        System.out.println("TWEET! I've removed this task:\n" + task);
+    }
+
+    /**
      * Prints the current status of a task.
      *
      * @param task task whose status changed.
@@ -159,6 +168,17 @@ public class Ui {
         }
     }
 
+    public void displayMatchingTasks(TaskList matches) {
+        if (matches.getSize() == 0) {
+            System.out.println("PEEP! Don't think that's in the nest!");
+        } else {
+            System.out.println("Any of these the task you're looking for?");
+            for (int i = 0; i < matches.getSize(); i++) {
+                System.out.println((i + 1) + "." + matches.getTask(i));
+            }
+        }
+    }
+
     /**
      * Prints an error message verbatim.
      *
@@ -168,12 +188,4 @@ public class Ui {
         System.out.println(message);
     }
 
-    /**
-     * Prints a confirmation after deleting a task.
-     *
-     * @param task deleted task.
-     */
-    public void showDeletedTask(Task task) {
-        System.out.println("TWEET! I've removed this task:\n" + task);
-    }
 }

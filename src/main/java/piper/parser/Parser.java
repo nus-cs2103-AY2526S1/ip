@@ -87,13 +87,14 @@ public final class Parser {
         String cmd = substrings[0];
 
         if (substrings.length < 2) {
-            if (cmd.equals("bye")) {
-                return new ParsedString(cmd, null);
-            } else if (cmd.equals("list")) {
+            if (cmd.equals("bye") || cmd.equals("list")) {
                 return new ParsedString(cmd, null);
             } else if (cmd.equals("todo") || cmd.equals("deadline") || cmd.equals("event")) {
                 // missing task description
                 throw new PiperException("TWEET TWEET! What are we supposed to do? Please specify the description!");
+            } else if (cmd.equals("find")) {
+                // missing keyword
+                throw new PiperException("TWEET TWEET! What should we look for? Please specify a keyword!");
             } else if (cmd.equals("mark") || cmd.equals("unmark") || cmd.equals("delete")) {
                 // missing task index
                 throw new PiperException("CHIRRUP! Which task should I peck at? Please give me the task index!");
