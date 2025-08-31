@@ -74,6 +74,10 @@ public class Ui {
                 "TWEET! I've tucked this task into the nest:\n" + task);
     }
 
+    public void showDeletedTask(Task task) {
+        System.out.println("TWEET! I've removed this task:\n" + task);
+    }
+
     public void showTaskStatus(Task task) {
         System.out.println(
                 ((task.getStatusIcon()).equals("X")
@@ -103,11 +107,19 @@ public class Ui {
         }
     }
 
+    public void displayMatchingTasks(TaskList matches) {
+        if (matches.getSize() == 0) {
+            System.out.println("PEEP! Don't think that's in the nest!");
+        } else {
+            System.out.println("Any of these the task you're looking for?");
+            for (int i = 0; i < matches.getSize(); i++) {
+                System.out.println((i + 1) + "." + matches.getTask(i));
+            }
+        }
+    }
+
     public void showError(String message) {
         System.out.println(message);
     }
 
-    public void showDeletedTask(Task task) {
-        System.out.println("TWEET! I've removed this task:\n" + task);
-    }
 }
