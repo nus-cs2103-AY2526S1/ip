@@ -36,8 +36,6 @@ public class Storage {
         this.savePath = Paths.get(dir, fileName);
     }
 
-    TaskList tasks = new TaskList();
-
     /**
      * Loads tasks from the save file into a TaskList.
      * If the directory or file does not exist, then they are created and an empty Tasklist is returned.
@@ -46,6 +44,7 @@ public class Storage {
      * @throws PiperException if the file cannot be created or read
      */
     public TaskList load() throws PiperException {
+        TaskList tasks = new TaskList();
         try {
             Path dir = savePath.getParent();
             if (dir != null && !Files.exists(dir)) {
@@ -68,15 +67,17 @@ public class Storage {
 
                 Task task = null;
                 switch (taskType) {
-                    case "T":
-                        task = new Todo(description);
-                        break;
-                    case "D":
-                        task = new Deadline(description, substrings[3]);
-                        break;
-                    case "E":
-                        task = new Event(description, substrings[3], substrings[4]);
-                        break;
+                case "T":
+                    task = new Todo(description);
+                    break;
+                case "D":
+                    task = new Deadline(description, substrings[3]);
+                    break;
+                case "E":
+                    task = new Event(description, substrings[3], substrings[4]);
+                    break;
+                default:
+                    throw new PiperException("Unknown task type in storage: " + taskType);
                 }
 
                 if (isDone) {
