@@ -1,7 +1,5 @@
 package minhgpt;
 
-import java.util.Scanner;
-
 import minhgpt.command.Command;
 import minhgpt.storage.Storage;
 import minhgpt.task.Task;
@@ -9,39 +7,32 @@ import minhgpt.task.TaskList;
 import minhgpt.ui.Ui;
 
 /**
- * Main program
+ * Main logic for the program.
  */
 public class MinhGpt {
-    /**
-     * Main entry-point for the program.
-     */
-    public static void main(String[] args) {
-        // Get all flags
-        boolean isFresh = args.length > 0 && args[0].equals("--fresh");
+    private TaskList taskList;
+    private Storage storage;
+    private Ui ui;
 
-        // Initialisation
+    /**
+     * Initialise an instance of MinhGpt.
+     *
+     * @param isFresh If true, the program will skip reading from memory.
+     */
+    public MinhGpt(boolean isFresh) {
         Task.initialise();
         Command.initialise();
-        Scanner scanner = new Scanner(System.in);
-        Ui ui = new Ui();
-        Storage storage = new Storage();
-        TaskList taskList = isFresh ? new TaskList() : storage.loadTasks();
-        ui.printWelcome();
+        this.storage = new Storage();
+        this.taskList = isFresh ? new TaskList() : storage.loadTasks();
+        this.ui = new Ui();
+    }
 
-        // Main program loop
-        while (true) {
-            ui.printNext();
-            String input = scanner.nextLine().trim();
-            ui.printSeperate();
-
-            Command cmd = Command.parseCommand(input);
-            cmd.execute(input, taskList, ui, storage);
-            if (Command.isCommandBye(cmd)) {
-                break;
-            }
-        }
-
-        // Cleaning up resources and exit
-        scanner.close();
+    /**
+     * Return a response given an user input 'input'.
+     */
+    public String getResponse(String input) {
+        input = input.trim();
+        Command cmd = Command.parseCommand(input);
+        return cmd.execute(input, taskList, ui, storage);
     }
 }

@@ -16,7 +16,7 @@ class CommandFind extends Command {
     }
 
     @Override
-    public void execute(String input, TaskList taskList, Ui ui, Storage storage) {
+    public String execute(String input, TaskList taskList, Ui ui, Storage storage) {
         String query = input.split("\\s+", 2)[1];
         ArrayList<Task> match = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {
@@ -24,6 +24,6 @@ class CommandFind extends Command {
                 match.add(taskList.get(i));
             }
         }
-        ui.printFind(match);
+        return ui.findResponse(match);
     }
 }

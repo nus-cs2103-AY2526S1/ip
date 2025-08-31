@@ -13,7 +13,7 @@ class CommandList extends Command {
     }
 
     @Override
-    public void execute(String input, TaskList taskList, Ui ui, Storage storage) {
-        ui.printList(taskList);
+    public String execute(String input, TaskList taskList, Ui ui, Storage storage) {
+        return ui.listResponse(taskList);
     }
 }
