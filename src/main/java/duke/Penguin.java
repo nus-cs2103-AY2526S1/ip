@@ -35,44 +35,48 @@ public class Penguin {
             try {
                 String input = ui.readCommand();
                 Parser.Command command = Parser.parse(input);
-                
-                switch (command.type) {
-                    case BYE:
-                        ui.showGoodbye();
-                        ui.close();
-                        return;
-                        
-                    case LIST:
-                        ui.showTaskList(tasks);
-                        break;
-                        
-                    case MARK:
-                        handleMarkCommand(command.taskNumber);
-                        break;
-                        
-                    case UNMARK:
-                        handleUnmarkCommand(command.taskNumber);
-                        break;
-                        
-                    case TODO:
-                        handleTodoCommand(command.description);
-                        break;
-                        
-                    case DEADLINE:
-                        handleDeadlineCommand(command.description, command.deadline);
-                        break;
-                        
-                    case EVENT:
-                        handleEventCommand(command.description, command.from, command.to);
-                        break;
-                        
-                    case FIND:
-                        handleFindCommand(command.description);
-                        break;
-                        
-                    case INVALID:
-                        ui.showInvalidTask();
-                        break;
+
+                switch (command.getType()) {
+                case BYE:
+                    ui.showGoodbye();
+                    ui.close();
+                    return;
+
+                case LIST:
+                    ui.showTaskList(tasks);
+                    break;
+
+                case MARK:
+                    handleMarkCommand(command.getTaskNumber());
+                    break;
+
+                case UNMARK:
+                    handleUnmarkCommand(command.getTaskNumber());
+                    break;
+
+                case TODO:
+                    handleTodoCommand(command.getDescription());
+                    break;
+
+                case DEADLINE:
+                    handleDeadlineCommand(command.getDescription(), command.getDeadline());
+                    break;
+
+                case EVENT:
+                    handleEventCommand(command.getDescription(), command.getFrom(), command.getTo());
+                    break;
+
+                case FIND:
+                    handleFindCommand(command.getDescription());
+                    break;
+
+                case INVALID:
+                    ui.showInvalidTask();
+                    break;
+
+                default:
+                    ui.showInvalidTask();
+                    break;
                 }
             } catch (PenguinException e) {
                 ui.showError(e.getMessage());
