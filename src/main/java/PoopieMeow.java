@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -80,42 +83,59 @@ class Todo extends Task {
 }
 
 class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime by;
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
 
-    public Deadline(String description, String by) throws EmptyDescriptionException {
+    public Deadline(String description, String by) throws EmptyDescriptionException, DateTimeParseException {
         super(description);
-        this.by = by;
+        this.by = LocalDateTime.parse(by, INPUT_FORMAT);
+    }
+
+    public LocalDateTime getDeadline() {
+        return by;
     }
 
     @Override
     public String toString() {
-        return TaskType.DEADLINE.getLabel() + super.toString() + " (by: " + by + ")";
+        return TaskType.DEADLINE.getLabel() + super.toString() + " (by: " + by.format(OUTPUT_FORMAT) + ")";
     }
 
     @Override
     public String toFileString() {
-        return "D|" + super.toFileString() + "|" + by;
+        return "D|" + super.toFileString() + "|" + by.format(INPUT_FORMAT);
     }
 }
 
 class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
 
-    public Event(String description, String from, String to) throws EmptyDescriptionException {
+    public Event(String description, String from, String to) throws EmptyDescriptionException, DateTimeParseException {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from, INPUT_FORMAT);
+        this.to = LocalDateTime.parse(to, INPUT_FORMAT);
+    }
+
+    public LocalDateTime getStartTime() {
+        return from;
+    }
+
+    public LocalDateTime getEndTime() {
+        return to;
     }
 
     @Override
     public String toString() {
-        return TaskType.EVENT.getLabel() + super.toString() + " (from: " + from + " to: " + to + ")";
+        return TaskType.EVENT.getLabel() + super.toString() + " (from: " + from.format(OUTPUT_FORMAT) + 
+               " to: " + to.format(OUTPUT_FORMAT) + ")";
     }
 
     @Override
     public String toFileString() {
-        return "E|" + super.toFileString() + "|" + from + "|" + to;
+        return "E|" + super.toFileString() + "|" + from.format(INPUT_FORMAT) + "|" + to.format(INPUT_FORMAT);
     }
 }
 
@@ -185,6 +205,30 @@ public class PoopieMeow {
         return tasks;
     }
 
+    private static void printTasksOnDate(ArrayList<Task> tasks, LocalDateTime date) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Here are the tasks on " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ":");
+        int count = 0;
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.getDeadline().toLocalDate().equals(date.toLocalDate())) {
+                    System.out.println(" " + (++count) + "." + task);
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (event.getStartTime().toLocalDate().equals(date.toLocalDate()) || 
+                    event.getEndTime().toLocalDate().equals(date.toLocalDate())) {
+                    System.out.println(" " + (++count) + "." + task);
+                }
+            }
+        }
+        if (count == 0) {
+            System.out.println(" No tasks found on this date.");
+        }
+        System.out.println("____________________________________________________________");
+    }
+
     public static void main(String[] args) {
         String input;
         Scanner sc = new Scanner(System.in);
@@ -251,7 +295,7 @@ public class PoopieMeow {
                 } else if (input.startsWith("deadline ")) {
                     String[] parts = input.split(" /by ");
                     if (parts.length != 2) {
-                        continue;
+                        throw new EmptyDescriptionException("Please provide a deadline in the format: deadline <description> /by yyyy-MM-dd HHmm");
                     }
                     String description = parts[0].substring(9);
                     String by = parts[1];
@@ -268,11 +312,11 @@ public class PoopieMeow {
                 } else if (input.startsWith("event ")) {
                     String[] parts = input.split(" /from ");
                     if (parts.length != 2) {
-                        continue;
+                        throw new EmptyDescriptionException("Please provide event times in the format: event <description> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm");
                     }
                     String[] secondParts = parts[1].split(" /to ");
                     if (secondParts.length != 2) {
-                        continue;
+                        throw new EmptyDescriptionException("Please provide event times in the format: event <description> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm");
                     }
                     String description = parts[0].substring(6);
                     String from = secondParts[0];
@@ -287,6 +331,16 @@ public class PoopieMeow {
                     System.out.println("____________________________________________________________");
                 } else if (input.equals("event")) {
                     throw new EmptyDescriptionException("The description of an event cannot be empty!");
+                } else if (input.startsWith("show ")) {
+                    String dateStr = input.substring(5);
+                    try {
+                        LocalDateTime date = LocalDateTime.parse(dateStr + " 0000", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        printTasksOnDate(tasks, date);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println(" Please provide date in the format: yyyy-mm-dd");
+                        System.out.println("____________________________________________________________");
+                    }
                 } else if (input.trim().isEmpty()) {
                     throw new EmptyDescriptionException("Please enter a command!");
                 } else {
@@ -297,6 +351,11 @@ public class PoopieMeow {
             } catch (EmptyDescriptionException e) {
                 System.out.println("____________________________________________________________");
                 System.out.println(" Oops! " + e.getMessage());
+                System.out.println("____________________________________________________________");
+            } catch (DateTimeParseException e) {
+                System.out.println("____________________________________________________________");
+                System.out.println(" Invalid format, use the format yyyy-mm-dd hhmm for dates and times!");
+                System.out.println(" For example: 2023-10-15 1430");
                 System.out.println("____________________________________________________________");
             }
         }
