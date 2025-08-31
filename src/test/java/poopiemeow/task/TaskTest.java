@@ -33,7 +33,7 @@ class TaskTest {
     void testToString() {
         Task task = new TestTask("Test task");
         assertEquals("[ ] Test task", task.toString());
-        
+
         task.markAsDone();
         assertEquals("[X] Test task", task.toString());
     }
@@ -49,4 +49,4 @@ class TaskTest {
             return "TEST|" + (isDone ? "1" : "0") + "|" + description;
         }
     }
-} 
+}

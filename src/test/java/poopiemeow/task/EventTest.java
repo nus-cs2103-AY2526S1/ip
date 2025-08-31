@@ -49,7 +49,7 @@ class EventTest {
     void testEventToFileString() throws EmptyDescriptionException {
         Event event = new Event("Test event", "2023-12-25 1400", "2023-12-25 1600");
         assertEquals("E|0|Test event|2023-12-25 1400|2023-12-25 1600", event.toFileString());
-        
+
         event.markAsDone();
         assertEquals("E|1|Test event|2023-12-25 1400|2023-12-25 1600", event.toFileString());
     }
@@ -61,7 +61,7 @@ class EventTest {
         String actual = event.toString();
         // Use case-insensitive comparison for AM/PM
         assertEquals(expected.toLowerCase(), actual.toLowerCase());
-        
+
         event.markAsDone();
         String expectedDone = "[E][X] Test event (from: Dec 25 2023, 2:00 PM to: Dec 25 2023, 4:00 PM)";
         String actualDone = event.toString();
@@ -87,7 +87,7 @@ class EventTest {
         Event event = new Event("Test event", "2023-12-25 1400", "2023-12-25 1600");
         assertFalse(event.isDone);
         assertEquals(" ", event.getStatusIcon());
-        
+
         event.markAsDone();
         assertTrue(event.isDone);
         assertEquals("X", event.getStatusIcon());
@@ -98,7 +98,7 @@ class EventTest {
         Event event = new Event("Test event", "2023-12-25 1400", "2023-12-25 1600");
         event.markAsDone();
         assertTrue(event.isDone);
-        
+
         event.markAsUndone();
         assertFalse(event.isDone);
         assertEquals(" ", event.getStatusIcon());
@@ -110,7 +110,7 @@ class EventTest {
         Event allDay = new Event("All day event", "2023-12-25 0000", "2023-12-25 2359");
         assertEquals(LocalDateTime.of(2023, 12, 25, 0, 0), allDay.getStartTime());
         assertEquals(LocalDateTime.of(2023, 12, 25, 23, 59), allDay.getEndTime());
-        
+
         // Test short event
         Event shortEvent = new Event("Short event", "2023-12-25 1200", "2023-12-25 1201");
         assertEquals(LocalDateTime.of(2023, 12, 25, 12, 0), shortEvent.getStartTime());
@@ -123,4 +123,4 @@ class EventTest {
         assertEquals(LocalDateTime.of(2023, 12, 25, 23, 0), crossDay.getStartTime());
         assertEquals(LocalDateTime.of(2023, 12, 26, 1, 0), crossDay.getEndTime());
     }
-} 
+}
