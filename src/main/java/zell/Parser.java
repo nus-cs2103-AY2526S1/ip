@@ -148,7 +148,7 @@ public class Parser {
 
         checkNoSpacesInCommand(command, firstSpaceIndex);
 
-        int index = parseIndex(command, userInput, firstSpaceIndex, taskList);
+        int index = getIndexFromUserInput(command, userInput, firstSpaceIndex, taskList);
 
         stringBuilder.append(taskList.getTask(index));
 
@@ -268,7 +268,7 @@ public class Parser {
      */
     public String handleMarkOrUnMark(String command, String userInput,
             int firstSpaceIndex, TaskList taskList) throws ZellException {
-        int index = parseIndex(command, userInput, firstSpaceIndex, taskList);
+        int index = getIndexFromUserInput(command, userInput, firstSpaceIndex, taskList);
 
         Task currentTask = taskList.getTask(index);
         StringBuilder stringBuilder = new StringBuilder();
@@ -314,7 +314,7 @@ public class Parser {
      * @throws ZellException If a non-number was provided for the index
      * @see #checkForInvalidTaskNumber
      */
-    public int parseIndex(String command, String userInput, int firstSpaceIndex,
+    public int getIndexFromUserInput(String command, String userInput, int firstSpaceIndex,
             TaskList taskList) throws ZellException {
         checkNoSpacesInCommand(command, firstSpaceIndex);
 
