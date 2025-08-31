@@ -1,4 +1,4 @@
-package lynx.task;
+package objectclasses.task;
 
 import java.time.LocalDateTime;
 

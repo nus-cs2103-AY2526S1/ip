@@ -1,7 +1,7 @@
-package lynx.command;
+package objectclasses.command;
 
-import lynx.exception.LynxException;
-import lynx.task.Task;
+import objectclasses.exception.LynxException;
+import objectclasses.task.Task;
 
 import java.util.List;
 import java.util.regex.PatternSyntaxException;

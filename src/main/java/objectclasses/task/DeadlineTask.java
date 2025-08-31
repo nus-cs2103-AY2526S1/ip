@@ -1,6 +1,6 @@
-package lynx.task;
+package objectclasses.task;
 
-import lynx.formatter.LynxDateManager;
+import objectclasses.formatter.LynxDateManager;
 
 import java.time.LocalDateTime;
 

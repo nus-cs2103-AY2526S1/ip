@@ -1,9 +1,9 @@
 package lynx.storage;
 
-import lynx.task.DeadlineTask;
-import lynx.task.EventTask;
-import lynx.task.Task;
-import lynx.task.TodoTask;
+import objectclasses.task.DeadlineTask;
+import objectclasses.task.EventTask;
+import objectclasses.task.Task;
+import objectclasses.task.TodoTask;
 
 import java.time.LocalDateTime;
 
