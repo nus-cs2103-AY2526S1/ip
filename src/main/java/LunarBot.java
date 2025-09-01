@@ -1,21 +1,119 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
+
 public class LunarBot {
     public static final String LINE = "__________________________________________";
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         System.out.println("Hello from LunarBot!\n");
+        File saveFile = loadFile();
+        if (saveFile == null) {
+            System.out.println("Error occurred... exiting!");
+            System.exit(1);
+        }
         System.out.println("Nice to meet you! What can I do for you?\n" + LINE);
-        echo();
+        writeFile(saveFile, echo(loadData(saveFile)));
         System.out.println(LINE);
         System.out.println("Hope to see you soon!\n");
 
     }
 
-    public static void echo() {
+    /**
+     * Loads the file at ./data/LunarBot.csv and creates it if it does not exist
+     *
+     * @return File object of the file stored at the location
+     */
+    public static File loadFile() {
+        try {
+            new File("./data/").mkdirs();
+            File file = new File("./data/LunarBot.csv");
+            if (file.createNewFile()) {
+                System.out.println("Creating new save data: " + file.getName());
+            } else {
+                System.out.println("Saved data already exists! " +
+                        "Loading from hard disk!");
+            }
+            return file;
+        } catch (IOException exception) {
+            System.out.println(exception.toString());
+            return null;
+        }
+    }
+
+    /**
+     * Reads the input file and returns the saved data as a list of tasks
+     *
+     * @param file Input file
+     * @return List of tasks
+     */
+    public static List<Task> loadData(File file) {
+        try {
+            List<Task> data = new ArrayList<>();
+            Scanner sc = new Scanner(file);
+
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                String[] values = line.split(",");
+                System.out.println(values[0]);
+                switch (values[0]) {
+                case "X":
+                    System.out.println(line);
+                    data.add(new Task(values[2], values[1].equals("true")));
+                    break;
+                case "T":
+                    System.out.println(line);
+                    data.add(new Todo(values[2], values[1].equals("true")));
+                    break;
+                case "D":
+                    System.out.println(line);
+                    data.add(new Deadline(values[2], values[1].equals("true"), values[3]));
+                    break;
+                case "E":
+                    System.out.println(line);
+                    data.add(new Event(values[2], values[1].equals("true"), values[3], values[4]));
+                    break;
+                default:
+                    System.out.println("Something wrong occurred... irregular occurrence in saved data");
+                }
+            }
+
+            return data;
+        } catch (IOException exception) {
+            System.out.println(exception.toString());
+            return null;
+        }
+    }
+
+    /**
+     * Writes the new data into the save file
+     *
+     * @param file file to save the data to
+     * @param saveData data to save to the file
+     */
+    public static void writeFile(File file, List<Task> saveData) {
+        try (FileWriter writer = new FileWriter(file)) {
+            for (Task data : saveData) {
+                writer.write(data.getAsCsv() + "\n");
+            }
+        } catch (IOException exception) {
+            System.out.println(exception.toString());
+        }
+    }
+
+    /**
+     * Main loop of the function. Uses user input to create a task sheet
+     *
+     * @param saveData loaded data from save file
+     * @return list of tasks
+     */
+    public static List<Task> echo(List<Task> saveData) {
         Scanner sc = new Scanner(System.in);
-        List<Task> tasks = new ArrayList<>();
+        List<Task> tasks = saveData;
 
         while (true) {
             System.out.print("Input: ");
@@ -26,7 +124,7 @@ public class LunarBot {
             // Bye
             if (input.equals("bye")) {
                 // exit
-                break;
+                return tasks;
             }
             // List
             else if (input.equals("list")) {

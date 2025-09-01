@@ -9,8 +9,20 @@ public class Event extends Task {
         this.from = from;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String print() {
         return "[E] [" + (this.completed ? "X" : " ") + "] " + this.name +
                 " (from: " + this.from + " to: " + this.to + ")";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getAsCsv() {
+        return "E," + this.completed.toString() + "," + this.name + "," + this.from + "," + this.to;
     }
 }
