@@ -94,6 +94,7 @@ public class MainWindow extends AnchorPane {
             Platform.exit();
         }
         if (userText.trim().equals("bye")) {
+            dialogContainer.getChildren().addAll(DialogBox.getUserDialog(userText, userImage));
             farewell();
             userInput.clear();
             return;
