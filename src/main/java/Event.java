@@ -7,9 +7,9 @@ public class Event extends Task {
         this.to = to;
     }
 
-    @Override 
+    @Override
     protected String kind() {
-        return "[E]"; 
+        return "[E]";
     }
 
     private final LocalDateTime from, to;

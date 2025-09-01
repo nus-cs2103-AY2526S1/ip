@@ -6,12 +6,12 @@ public class Deadline extends Task {
         this.by = parseDateTime(by);
     }
 
-    @Override 
-    protected String kind() { 
-        return "[D]"; 
+    @Override
+    protected String kind() {
+        return "[D]";
     }
 
-    @Override 
+    @Override
     public String toString() {
         String formatted = (by != null) ? by.format(OUTPUT_FORMAT).replace(":00AM", "am").replace(":00PM", "pm") : "invalid date";
         return kind() + status() + " " + super.description + " (by: " + formatted + ")";
