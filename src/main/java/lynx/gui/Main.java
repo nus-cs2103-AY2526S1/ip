@@ -1,4 +1,4 @@
-package lynxgui.gui;
+package lynx.gui;
 
 import java.io.IOException;
 
@@ -7,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lynxgui.TaskLynxGui;
+import lynx.TaskLynxGui;
 
 /**
  * A GUI for TaskLynx using FXML.

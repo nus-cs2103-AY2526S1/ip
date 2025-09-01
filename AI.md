@@ -5,7 +5,7 @@ Week 1 (L0 - L6)
 "this chatbot aims to assist the user in logging and managing tasks in work."
 "Come up with a name, personality and a greeting dialogue to fit this personality."
 
-"Hello! I’m lynxgui.TaskLynx."
+"Hello! I’m lynx.TaskLynx."
 "Your dependable assistant for tracking tasks, managing deadlines, and keeping your work organized."
 
 What I asked AI:

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
-import lynx.ui.LynxUI;
 import objectclasses.exception.LynxException;
 import objectclasses.formatter.LynxDateManager;
 import objectclasses.task.DeadlineTask;
@@ -54,9 +53,9 @@ public abstract class LynxStorage {
      * Default value of completion status is <code>INCOMPLETE</code>.
      *
      * @param tasks List of tasks represented as strings, in the format "type|status|id|name|...".
-     * @return Number of errors / unloaded tasks.
+     * @throws LynxException If errors occurred during task loading.
      */
-    public static int loadTasks(List<String> tasks) {
+    public static void loadTasks(List<String> tasks) throws LynxException {
         LynxTaskList.clearTasks(false);
         int errorCount = 0;
 
@@ -79,10 +78,8 @@ public abstract class LynxStorage {
         }
 
         if (errorCount > 0) {
-            LynxUI.line();
-            System.out.println("⚠️ Lynx skipped " + errorCount + " invalid task(s) during loading.");
+            throw new LynxException("⚠️ Lynx skipped " + errorCount + " invalid task(s) during loading.");
         }
-        return errorCount;
     }
 
     /**
@@ -101,7 +98,7 @@ public abstract class LynxStorage {
         if (status.equals("COMPLETE")) {
             task.setComplete();
         }
-        LynxTaskList.addTask(task, false);
+        LynxTaskList.addTask(task);
     }
 
     /**
@@ -121,7 +118,7 @@ public abstract class LynxStorage {
         if (status.equals("COMPLETE")) {
             task.setComplete();
         }
-        LynxTaskList.addTask(task, false);
+        LynxTaskList.addTask(task);
     }
 
     /**
@@ -142,7 +139,7 @@ public abstract class LynxStorage {
         if (status.equals("COMPLETE")) {
             task.setComplete();
         }
-        LynxTaskList.addTask(task, false);
+        LynxTaskList.addTask(task);
     }
 
 }

@@ -1,5 +1,5 @@
 ____________________________________________________________
-Hello! I'm lynxgui.TaskLynx.
+Hello! I'm lynx.TaskLynx.
 Your dependable assistant for tracking tasks, managing deadlines, and keeping your work organized.
 ____________________________________________________________
 How can I assist you with your tasks today?
@@ -69,7 +69,7 @@ ____________________________________________________________
 Sorry, no task at that position.
 ____________________________________________________________
 ____________________________________________________________
-lynxgui.task.Task not found.
+lynx.task.Task not found.
 ____________________________________________________________
 ____________________________________________________________
 Excellent! Marked as done:

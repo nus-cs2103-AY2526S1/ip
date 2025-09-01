@@ -39,7 +39,8 @@ public class LynxSearcher {
         case "/on" -> findTasksByDate(command, stream);
         case "/status" -> findTasksByStatus(command, stream);
         case "/type" -> findTasksByType(command, stream);
-        default -> throw new LynxException("Non matching command detected.");
+        default -> throw new LynxException("Non matching command detected. "
+                + "Please try again or type \"help\" to access the user guide.");
         }
 
     }
