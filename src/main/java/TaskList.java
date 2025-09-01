@@ -11,25 +11,10 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public TaskList(List<Task> tasks) {
-        this.tasks = new ArrayList<>(tasks);
-    }
-
     public void add(Task task) {
         this.tasks.add(task);
     }
 
-    public void delete(int i) {
-        this.tasks.remove(i - 1);
-    }
-
-    public void mark(int i) {
-        this.tasks.get(i - 1).markTask();
-    }
-
-    public void unmark(int i) {
-        this.tasks.get(i - 1).unmarkTask();
-    }
 
     public Task get(int i) {
         // Get the ith Task in the list
