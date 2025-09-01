@@ -1,7 +1,7 @@
 package aurora.command;
 
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import aurora.task.InvalidTaskException;
 import aurora.task.Task;
@@ -29,8 +29,8 @@ public class CommandReader {
             if (input.equalsIgnoreCase("list")) {
                 return new ListCommand();
             } else {
-                return new InvalidCommand("Invalid list command.\n" +
-                        "enter \"list\" to see your added tasks.");
+                return new InvalidCommand("Invalid list command.\n"
+                        + "enter \"list\" to see your added tasks.");
             }
         }
 
@@ -38,8 +38,8 @@ public class CommandReader {
             if (input.equalsIgnoreCase("help")) {
                 return new HelpCommand();
             } else {
-                return new InvalidCommand("Invalid help command.\n" +
-                        "enter \"help\" to see all existing commands.");
+                return new InvalidCommand("Invalid help command.\n"
+                        + "enter \"help\" to see all existing commands.");
             }
         }
 
@@ -49,8 +49,8 @@ public class CommandReader {
                 int index = Integer.parseInt(matcher.group(1));
                 return new MarkCommand(index);
             } else {
-                return new InvalidCommand("Invalid mark command.\n" +
-                        "enter \"mark <task number>\" to mark tasks as complete.");
+                return new InvalidCommand("Invalid mark command.\n"
+                        + "enter \"mark <task number>\" to mark tasks as complete.");
             }
         }
 
@@ -60,8 +60,8 @@ public class CommandReader {
                 int index = Integer.parseInt(matcher.group(1));
                 return new DeleteCommand(index);
             } else {
-                return new InvalidCommand("Invalid delete command.\n" +
-                        "enter \"delete <task number>\" to remove task from list.");
+                return new InvalidCommand("Invalid delete command.\n"
+                        + "enter \"delete <task number>\" to remove task from list.");
             }
         }
 

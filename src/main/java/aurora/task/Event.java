@@ -1,8 +1,8 @@
 package aurora.task;
 
-import aurora.util.DateUtil;
-
 import java.time.temporal.Temporal;
+
+import aurora.util.DateUtil;
 
 /**
  * Represents an Event task.
@@ -33,8 +33,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() +
-                " (from: " + DateUtil.prettierDate(from) + " to: " + DateUtil.prettierDate(to) +  ")";
+        return "[E]" + super.toString()
+                + " (from: " + DateUtil.prettierDate(from) + " to: " + DateUtil.prettierDate(to) + ")";
     }
 
     @Override

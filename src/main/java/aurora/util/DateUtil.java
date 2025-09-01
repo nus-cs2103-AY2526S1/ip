@@ -1,11 +1,10 @@
 package aurora.util;
 
-import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.Temporal;
-
 import java.time.temporal.TemporalAccessor;
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +30,9 @@ public class DateUtil {
             } catch (DateTimeParseException e2) {
                 try {
                     return LocalDate.parse(input, formatter);
-                } catch (DateTimeParseException ignored) {}
+                } catch (DateTimeParseException ignored) {
+                    // Exception ignored
+                }
             }
         }
 

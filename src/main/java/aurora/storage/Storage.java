@@ -1,15 +1,14 @@
 package aurora.storage;
 
-import aurora.task.Task;
-import aurora.task.TaskList;
-import aurora.task.TaskReader;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.Scanner;
+
+import aurora.task.Task;
+import aurora.task.TaskList;
+import aurora.task.TaskReader;
 
 public class Storage {
     private final File file;

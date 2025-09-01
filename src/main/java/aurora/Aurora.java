@@ -1,14 +1,12 @@
 package aurora;
 
+import java.util.Scanner;
+
 import aurora.command.Command;
 import aurora.command.CommandReader;
-
 import aurora.storage.Storage;
 import aurora.task.TaskList;
 import aurora.ui.Ui;
-
-import java.util.Scanner;
-
 
 /**
  * Aurora is a chatbot that manages tasks.

@@ -1,8 +1,8 @@
 package aurora.task;
 
-import aurora.util.DateUtil;
-
 import java.time.temporal.Temporal;
+
+import aurora.util.DateUtil;
 
 /**
  * Represents a Deadline task.
