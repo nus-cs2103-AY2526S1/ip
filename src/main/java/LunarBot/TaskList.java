@@ -31,4 +31,12 @@ public class TaskList {
     public int size() {
         return this.tasks.size();
     }
+
+    /**
+     * Returns a list of all tasks
+     * @return list of all tasks
+     */
+    public List<Task> all() {
+        return this.tasks;
+    }
 }
