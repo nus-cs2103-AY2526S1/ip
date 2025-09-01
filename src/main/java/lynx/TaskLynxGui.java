@@ -1,24 +1,24 @@
-package lynxgui;
+package lynx;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import lynxgui.parser.LynxGeneral;
-import lynxgui.parser.LynxScanner;
-import lynxgui.parser.LynxTaskEditor;
+import lynx.parser.LynxGeneral;
+import lynx.parser.LynxScanner;
+import lynx.parser.LynxTaskEditor;
 import objectclasses.exception.LynxException;
 
 /**
- * Main interface between the application frontend and backend.
+ * Main class for the GUI application.
  */
 public class TaskLynxGui {
 
     public String load() throws LynxException {
-        return LynxGeneral.reloadGui();
+        return LynxGeneral.reload();
     }
 
     public String save() throws LynxException {
-        return LynxGeneral.saveGui();
+        return LynxGeneral.save();
     }
 
     public String getCommandResponse(String input) {
@@ -29,13 +29,13 @@ public class TaskLynxGui {
         List<String> greetings = new ArrayList<>();
         greetings.add("Hello! I'm Tasklynx. \n"
                 + "Your dependable assistant for tracking tasks, managing deadlines, and keeping your work organized.");
-        greetings.add(LynxTaskEditor.tasksTodayGui());
+        greetings.add(LynxTaskEditor.tasksToday());
         return greetings;
     }
 
     public List<String> getFarewells() {
         List<String> farewells = new ArrayList<>();
-        farewells.add(LynxTaskEditor.tasksFromTodayGui());
+        farewells.add(LynxTaskEditor.tasksFromToday());
         farewells.add("Goodbye. I'll be here whenever you need to stay on track. (Exiting in 5 seconds)");
         return farewells;
     }

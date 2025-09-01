@@ -10,7 +10,13 @@ public abstract class LynxUI {
      */
     private static final String LINE = "____________________________________________________________";
 
-    public static void line() {
+    /**
+     * Prints a line after a message.
+     *
+     * @param message Message to be printed.
+     */
+    public static void printLineAfter(String message) {
+        System.out.println(message);
         System.out.println(LINE);
     }
 
@@ -26,68 +32,66 @@ public abstract class LynxUI {
     }
 
     /**
-     * Prints a greeting.
+     * Returns a greeting.
      */
-    public static void hello() {
-        System.out.println("Hello! I'm Tasklynx. \n"
-                + "Your dependable assistant for tracking tasks, managing deadlines, and keeping your work organized.");
-        line();
+    public static String hello() {
+        return "Hello! I'm Tasklynx. \n"
+                + "Your dependable assistant for tracking tasks, managing deadlines, and keeping your work organized.";
     }
 
     /**
-     * Prints a farewell.
+     * Returns a farewell.
      */
-    public static void bye() {
-        System.out.println("Goodbye. I'll be here whenever you need to stay on track.");
-        line();
+    public static String bye() {
+        return "Goodbye. I'll be here whenever you need to stay on track.";
     }
 
     /**
-     * Prints the TaskLynx user guide.
+     * Returns the TaskLynx user guide as a string.
      */
-    public static void printHelp() {
-        LynxUI.line();
-        System.out.println("TaskLynx User Guide:");
-        System.out.println();
-        System.out.println("General commands:");
-        System.out.println("     reload                    - Load tasks from data file to task list (destructively)");
-        System.out.println("     save                      - Save task list to date file (destructively)");
-        System.out.println("     bye                       - Save and exit the program");
-        System.out.println("     * Creates a data file first if not found");
-        System.out.println();
-        System.out.println("Task creation:");
-        System.out.println("     todo [name]");
-        System.out.println("     deadline [name] /by [date]");
-        System.out.println("     event [name] /from [date] /to [date]");
-        System.out.println("     * Date format: yyyy-mm-dd, yyyy-mm-dd-hh, or yyyy-mm-dd-hh-mm");
-        System.out.println();
-        System.out.println("Task actions (requires one or more search modifier(s)):");
-        System.out.println("     list                      - Show task(s)");
-        System.out.println("     mark                      - Mark task(s) as done");
-        System.out.println("     unmark                    - Unmark task(s) as not done");
-        System.out.println("     delete                    - Remove task(s)");
-        System.out.println();
-        System.out.println("Search modifiers:");
-        System.out.println("     /key [keyword]            - Tasks with names containing the keyword");
-        System.out.println("     /on [date]                - Tasks occurring on a specific date");
-        System.out.println("     /status [status]          - Tasks with matching status");
-        System.out.println("     /type [type]              - Tasks with matching type");
-        System.out.println("     /id [id]                  - Task with matching id");
-        System.out.println("     /all                      - All tasks in the task list");
-        System.out.println("     * Arguments must not contain blank characters, keywords included");
-        System.out.println();
-        System.out.println("Example usage:");
-        System.out.println("     list /key meeting         - Show all tasks containing 'meeting'");
-        System.out.println("     list /on 2025-09-01       - Show tasks occurring on 1st September 2025");
-        System.out.println("     delete /status complete   - Delete all tasks marked as completed");
-        System.out.println("     delete /type todo         - Delete all todo tasks");
-        System.out.println("     mark /id 3                - Mark the task with id 3 as done");
-        System.out.println("     unmark /all               - Unmark all tasks as not done");
-        System.out.println();
-        System.out.println("Advanced usage (chaining):");
-        System.out.println("     list /type deadline /status incomplete /on 2025-09-01 /key attendacodingcourse");
-        System.out.println("     * [D][I] Attend a Coding Course by John (by: Sep 1 2025 00:00) (id:1)");
-        LynxUI.line();
+    public static String printHelpGui() {
+        return """
+                TaskLynx User Guide:
+                
+                General commands:
+                     reload                    - Load tasks from data file to task list (destructively)
+                     save                      - Save task list to date file (destructively)
+                     bye                       - Save and exit the program
+                     * Creates a data file first if not found
+                
+                Task creation:
+                     todo [name]
+                     deadline [name] /by [date]
+                     event [name] /from [date] /to [date]
+                     * Date format: yyyy-mm-dd, yyyy-mm-dd-hh, or yyyy-mm-dd-hh-mm
+                
+                Task actions (requires one or more search modifier(s)):
+                     list                      - Show task(s)
+                     mark                      - Mark task(s) as done
+                     unmark                    - Unmark task(s) as not done
+                     delete                    - Remove task(s)
+                
+                Search modifiers:
+                     /key [keyword]            - Tasks with names containing the keyword
+                     /on [date]                - Tasks occurring on a specific date
+                     /status [status]          - Tasks with matching status
+                     /type [type]              - Tasks with matching type
+                     /id [id]                  - Task with matching id
+                     /all                      - All tasks in the task list
+                     * Arguments must not contain blank characters, keywords included
+                
+                Example usage:
+                     list /key meeting         - Show all tasks containing 'meeting'
+                     list /on 2025-09-01       - Show tasks occurring on 1st September 2025
+                     delete /status complete   - Delete all tasks marked as completed
+                     delete /type todo         - Delete all todo tasks
+                     mark /id 3                - Mark the task with id 3 as done
+                     unmark /all               - Unmark all tasks as not done
+                
+                Advanced usage (chaining):
+                     list /type deadline /status incomplete /on 2025-09-01 /key attendacodingcourse
+                     * [D][I] Attend a Coding Course by John (by: Sep 1 2025 00:00) (id:1)
+                """;
     }
 
 }

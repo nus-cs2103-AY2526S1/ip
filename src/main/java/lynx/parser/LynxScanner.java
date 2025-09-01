@@ -6,7 +6,7 @@ import lynx.ui.LynxUI;
 import objectclasses.exception.LynxException;
 
 /**
- * Contains the central <code>Scanner</code> object, and the main program loop.
+ * Contains the main parser method.
  */
 public abstract class LynxScanner {
 
@@ -14,50 +14,70 @@ public abstract class LynxScanner {
     public static final Scanner SCANNER = new Scanner(System.in);
 
     /**
-     * Interprets and responds to user input until the "bye" command is called.
+     * Parses and executes an input command.
+     *
+     * @param input Input command.
+     * @return Response from executing the command.
+     */
+    public static String scanForCommandsGui(String input) {
+        if (input.length() > 300) {
+            return "Sorry, commands cannot exceed 300 characters in length.%n";
+        }
+
+        try {
+            if (input.trim().equals("reload")) {
+                return LynxGeneral.reload();
+            } else if (input.trim().equals("save")) {
+                return LynxGeneral.save();
+            } else if (input.trim().equals("help")) {
+                return LynxUI.printHelpGui();
+            } else if (input.startsWith("list ")) {
+                return LynxTaskEditor.listTasks(input);
+            } else if (input.startsWith("mark ")) {
+                return LynxTaskEditor.markTasks(input);
+            } else if (input.startsWith("unmark ")) {
+                return LynxTaskEditor.unmarkTasks(input);
+            } else if (input.startsWith("delete ")) {
+                return LynxTaskEditor.deleteTasks(input);
+            } else if (input.startsWith("todo ")) {
+                return LynxGeneral.addTodo(input);
+            } else if (input.startsWith("deadline ")) {
+                return LynxGeneral.addDeadline(input);
+            } else if (input.startsWith("event ")) {
+                return LynxGeneral.addEvent(input);
+            } else if (!input.isEmpty()) {
+                throw new LynxException("Sorry, I didn't understand that command. "
+                        + "Please try again or type \"help\" to access the user guide.");
+            }
+        } catch (Exception e) {
+            return (e.getMessage());
+        }
+        return "";
+    }
+
+    /**
+     * Scans, parses and executes input commands.
      */
     public static void scanForCommands() {
         String input;
-        System.out.println("How can I assist you with your tasks today? "
-                + "\nTasklynx is ready. Type your command:");
-
         while (true) {
             input = SCANNER.nextLine().trim();
-            if (input.length() > 300) {
-                LynxUI.printBox("Sorry, commands cannot exceed 200 characters in length.");
-                continue;
+
+            if (input.trim().equals("bye!")) {
+                break;
             }
 
-            try {
-                if (input.trim().equals("bye")) {
+            if (input.trim().equals("bye")) {
+                try {
+                    LynxUI.printBox(LynxGeneral.save());
                     break;
-                } else if (input.trim().equals("reload")) {
-                    LynxGeneral.reload();
-                } else if (input.trim().equals("save")) {
-                    LynxGeneral.save();
-                } else if (input.trim().equals("help")) {
-                    LynxUI.printHelp();
-                } else if (input.startsWith("list ")) {
-                    LynxTaskEditor.listTasks(input);
-                } else if (input.startsWith("mark ")) {
-                    LynxTaskEditor.markTasks(input);
-                } else if (input.startsWith("unmark ")) {
-                    LynxTaskEditor.unmarkTasks(input);
-                } else if (input.startsWith("delete ")) {
-                    LynxTaskEditor.deleteTasks(input);
-                } else if (input.startsWith("todo ")) {
-                    LynxGeneral.addTodo(input);
-                } else if (input.startsWith("deadline ")) {
-                    LynxGeneral.addDeadline(input);
-                } else if (input.startsWith("event ")) {
-                    LynxGeneral.addEvent(input);
-                } else if (!input.isEmpty()) {
-                    throw new LynxException("Sorry, I didn't understand that command. "
-                            + "Please try again or type \"help\" to access the user guide.");
+                } catch (LynxException e) {
+                    LynxUI.printBox(e.getMessage() + "\nUse \"save\" to resave or \"bye!\" to force quit.");
+                    continue;
                 }
-            } catch (Exception e) {
-                LynxUI.printBox(e.getMessage());
             }
+
+            LynxUI.printBox(scanForCommandsGui(input));
         }
     }
 

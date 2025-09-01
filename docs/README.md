@@ -1,4 +1,4 @@
-# lynxgui.TaskLynx User Guide
+# lynx.TaskLynx User Guide
 
 // Update the title above to match the actual product name
 

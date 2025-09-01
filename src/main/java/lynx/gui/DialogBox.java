@@ -1,4 +1,4 @@
-package lynxgui.gui;
+package lynx.gui;
 
 import java.io.IOException;
 import java.util.Collections;

@@ -8,7 +8,6 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import lynx.storage.LynxTaskList;
-import lynx.ui.LynxUI;
 import objectclasses.command.LynxCommand;
 import objectclasses.exception.LynxException;
 import objectclasses.exception.MissingArgumentException;
@@ -23,9 +22,10 @@ public class LynxTaskEditor {
      * Marks tasks in the task list as specified by the input command.
      *
      * @param input Command staring with "mark".
+     * @return String representing tasks marked.
      * @throws LynxException If command is invalid.
      */
-    public static void markTasks(String input) throws LynxException {
+    public static String markTasks(String input) throws LynxException {
         Consumer<Task> mark = Task::setComplete;
         String empty = "     (No tasks found or marked)";
 
@@ -34,19 +34,21 @@ public class LynxTaskEditor {
         }
         LynxCommand command = new LynxCommand(input.substring(5).trim());
         findTasks(command, LynxTaskList.getAllTasks());
-        LynxUI.line();
-        System.out.println(String.format("Marked %s", command.getSearchString()));
-        executeOnTasks(mark, command.getSearchResult(), empty);
-        LynxUI.line();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(String.format("Marked %s", command.getSearchString()));
+        stringBuilder.append(executeOnTasks(mark, command.getSearchResult(), empty));
+        return stringBuilder.toString();
     }
 
     /**
      * Unmarks tasks in the task list as specified by the input command.
      *
      * @param input Command staring with "unmark".
+     * @return String representing tasks unmarked.
      * @throws LynxException If command is invalid.
      */
-    public static void unmarkTasks(String input) throws LynxException {
+    public static String unmarkTasks(String input) throws LynxException {
         Consumer<Task> unmark = Task::setIncomplete;
         String empty = "     (No tasks found or unmarked)";
 
@@ -55,19 +57,21 @@ public class LynxTaskEditor {
         }
         LynxCommand command = new LynxCommand(input.substring(7).trim());
         findTasks(command, LynxTaskList.getAllTasks());
-        LynxUI.line();
-        System.out.println(String.format("Unmarked %s", command.getSearchString()));
-        executeOnTasks(unmark, command.getSearchResult(), empty);
-        LynxUI.line();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(String.format("Unmarked %s", command.getSearchString()));
+        stringBuilder.append(executeOnTasks(unmark, command.getSearchResult(), empty));
+        return stringBuilder.toString();
     }
 
     /**
      * Removes tasks from the task list as specified by the input command.
      *
      * @param input Command staring with "delete".
+     * @return String representing tasks deleted.
      * @throws LynxException If command is invalid.
      */
-    public static void deleteTasks(String input) throws LynxException {
+    public static String deleteTasks(String input) throws LynxException {
         Consumer<Task> delete = task -> LynxTaskList.removeTask(task, false);
         String empty = "     (No tasks found or deleted)";
 
@@ -76,20 +80,22 @@ public class LynxTaskEditor {
         }
         LynxCommand command = new LynxCommand(input.substring(7).trim());
         findTasks(command, LynxTaskList.getAllTasks());
-        LynxUI.line();
-        System.out.println(String.format("Removed %s", command.getSearchString()));
-        executeOnTasks(delete, command.getSearchResult(), empty);
-        System.out.println("You currently have " + LynxTaskList.getCount() + " task(s) in your list.");
-        LynxUI.line();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(String.format("Removed %s", command.getSearchString()));
+        stringBuilder.append(executeOnTasks(delete, command.getSearchResult(), empty));
+        stringBuilder.append(String.format("You currently have %d task(s) in your list.%n", LynxTaskList.getCount()));
+        return stringBuilder.toString();
     }
 
     /**
      * Prints tasks in the task list as specified by the input command.
      *
      * @param input Command staring with "list".
+     * @return String representing tasks to list.
      * @throws LynxException If command is invalid.
      */
-    public static void listTasks(String input) throws LynxException {
+    public static String listTasks(String input) throws LynxException {
         Consumer<Task> list = task -> {};
         String empty = "     (No tasks yet)";
 
@@ -98,10 +104,11 @@ public class LynxTaskEditor {
         }
         LynxCommand command = new LynxCommand(input.substring(5).trim());
         findTasks(command, LynxTaskList.getAllTasks());
-        LynxUI.line();
-        System.out.println(String.format("Here are %s", command.getSearchString()));
-        executeOnTasks(list, command.getSearchResult(), empty);
-        LynxUI.line();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(String.format("Here are %s", command.getSearchString()));
+        stringBuilder.append(executeOnTasks(list, command.getSearchResult(), empty));
+        return stringBuilder.toString();
     }
 
     /**
@@ -110,52 +117,59 @@ public class LynxTaskEditor {
      * @param consumer <code>Consumer</code> containing the action to execute on each task.
      * @param tasks List of tasks to perform action on.
      * @param empty String to be printed instead if list is empty.
+     * @return String representing tasks acted on.
      */
-    private static void executeOnTasks(Consumer<Task> consumer, List<Task> tasks, String empty) {
+    private static String executeOnTasks(Consumer<Task> consumer, List<Task> tasks, String empty) {
         int count = 0;
+        StringBuilder stringBuilder = new StringBuilder();
         for (Task task : tasks) {
             count++;
             consumer.accept(task);
-            System.out.println("     " + count + "." + task);
+            stringBuilder.append(String.format("%n     %d.%s", count, task));
         }
         if (count == 0) {
-            System.out.println(empty);
+            stringBuilder.append(String.format("%n%s", empty));
         }
+        return stringBuilder.toString();
     }
 
     /**
-     * Prints all urgent (incomplete) tasks today, if any. Uses the system clock.
+     * Returns all urgent (incomplete) tasks today, if any. Uses the system clock.
+     *
+     * @return String representation of notice.
      */
-    public static void tasksToday() {
+    public static String tasksToday() {
         LocalDateTime today = LocalDateTime.now();
         Stream<Task> tasks = LynxTaskList.filterTasksByDate(LynxTaskList.getAllTasks(), today);
         List<Task> tasks1 = LynxTaskList.filterTasksByStatus(tasks, Task.Status.INCOMPLETE).toList();
 
         if (tasks1.isEmpty()) {
-            System.out.println("You have cleared all tasks today. Good job!");
-            LynxUI.line();
-            return;
+            return "You have cleared all tasks today. Good job!";
         }
-        System.out.println("Here are the tasks requiring completion today:");
-        executeOnTasks(task -> {}, tasks1, "");
-        LynxUI.line();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Here are the tasks requiring completion today:");
+        stringBuilder.append(executeOnTasks(task -> {}, tasks1, ""));
+        return stringBuilder.toString();
     }
 
     /**
-     * Prints all incomplete tasks from today onwards. Uses the system clock.
+     * Returns all incomplete tasks from today onwards. Uses the system clock.
+     *
+     * @return String representation of notice.
      */
-    public static void tasksFromToday() {
+    public static String tasksFromToday() {
         List<Task> tasks = LynxTaskList.filterTasksByStatus(
                 LynxTaskList.getAllTasks(), Task.Status.INCOMPLETE).toList();
 
         if (tasks.isEmpty()) {
-            System.out.println("You have no outstanding tasks. Good job!");
-            LynxUI.line();
-            return;
+            return "You have no outstanding tasks. Good job!";
         }
-        System.out.println("Reminder for your outstanding tasks:");
-        executeOnTasks(task -> {}, tasks, "");
-        LynxUI.line();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Reminder for your outstanding tasks:");
+        stringBuilder.append(executeOnTasks(task -> {}, tasks, ""));
+        return stringBuilder.toString();
     }
 
 }

@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-import lynx.ui.LynxUI;
 import objectclasses.task.Task;
 
 /**
@@ -39,24 +38,18 @@ public abstract class LynxTaskList {
      */
     public static void clearTasks(boolean dialogue) {
         COMMANDS.clear();
-        if (dialogue) {
-            LynxUI.printBox("Removed all tasks."
-                    + "\nNow you have " + getCount() + " task(s) in your list.");
-        }
     }
 
     /**
      * Adds a task to the task list.
      *
      * @param task Task to be added.
-     * @param dialogue Option to print a dialogue.
+     * @return String representing the task added.
      */
-    public static void addTask(Task task, boolean dialogue) {
+    public static String addTask(Task task) {
         COMMANDS.add(task);
-        if (dialogue) {
-            LynxUI.printBox("Added:\n     " + task
-                    + "\nYou currently have " + getCount() + " task(s) in your list.");
-        }
+        return String.format("Added:%n     %s%nYou currently have %d task(s) in your list.",
+                task, getCount());
     }
 
     /**
@@ -67,10 +60,6 @@ public abstract class LynxTaskList {
      */
     public static void removeTask(Task task, boolean dialogue) {
         COMMANDS.remove(task);
-        if (dialogue) {
-            LynxUI.printBox("Removed:\n     " + task
-                    + "\nYou currently have " + getCount() + " task(s) in your list.");
-        }
     }
 
     /**
