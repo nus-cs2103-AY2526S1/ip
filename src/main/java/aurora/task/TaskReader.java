@@ -64,6 +64,14 @@ public class TaskReader {
         throw new InvalidTaskException("Invalid task input. enter \"help\" to see command format.");
     }
 
+    /**
+     * Constructs a {@link Task} object from a text representation.
+     *
+     * @param text the string representing the task
+     * @return the {@link Task} object represented by the input text
+     * @throws InvalidTaskException if the input text does not have enough fields,
+     *                              or if the task type is invalid
+     */
     public static Task fromText(String text) {
         String[] values = text.split("\\|", -1);
         if (values.length < 3) {
