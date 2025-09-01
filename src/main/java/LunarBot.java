@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,9 +5,15 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.io.FileNotFoundException;
+
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class LunarBot {
     public static final String LINE = "__________________________________________";
+    public static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     public static void main(String[] args) throws FileNotFoundException {
         System.out.println("Hello from LunarBot!\n");
         File saveFile = loadFile();
@@ -20,7 +25,6 @@ public class LunarBot {
         writeFile(saveFile, echo(loadData(saveFile)));
         System.out.println(LINE);
         System.out.println("Hope to see you soon!\n");
-
     }
 
     /**
@@ -59,23 +63,20 @@ public class LunarBot {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
                 String[] values = line.split(",");
-                System.out.println(values[0]);
                 switch (values[0]) {
                 case "X":
-                    System.out.println(line);
                     data.add(new Task(values[2], values[1].equals("true")));
                     break;
                 case "T":
-                    System.out.println(line);
                     data.add(new Todo(values[2], values[1].equals("true")));
                     break;
                 case "D":
-                    System.out.println(line);
-                    data.add(new Deadline(values[2], values[1].equals("true"), values[3]));
+                    data.add(new Deadline(values[2], values[1].equals("true"),
+                            LocalDateTime.parse(values[3], SAVE_FORMAT)));
                     break;
                 case "E":
-                    System.out.println(line);
-                    data.add(new Event(values[2], values[1].equals("true"), values[3], values[4]));
+                    data.add(new Event(values[2], values[1].equals("true"),
+                            LocalDateTime.parse(values[3], SAVE_FORMAT), LocalDateTime.parse(values[4], SAVE_FORMAT)));
                     break;
                 default:
                     System.out.println("Something wrong occurred... irregular occurrence in saved data");
@@ -193,7 +194,7 @@ public class LunarBot {
                 }
                 System.out.println("Okay! I'll add this to your deadlines~");
                 tasks.add(new Deadline(input.substring(input.indexOf(" ") + 1, input.indexOf("/") - 1),
-                        false, input.split("/by ")[1]));
+                        false, LocalDateTime.parse(input.split("/by ")[1], SAVE_FORMAT)));
             }
             // Events
             else if (tmp[0].equals("event")) {
@@ -214,8 +215,8 @@ public class LunarBot {
                 }
                 String[] tmp2 = input.split("/from ")[1].split(" /to ");
                 System.out.println("Okay! I'll add this to your events!");
-                tasks.add(new Event(input.substring(input.indexOf(" ") + 1, input.indexOf("/") - 1),
-                        false, tmp2[0], tmp2[1]));
+                tasks.add(new Event(input.substring(input.indexOf(" ") + 1, input.indexOf("/") - 1), false,
+                        LocalDateTime.parse(tmp2[0], SAVE_FORMAT), LocalDateTime.parse(tmp2[1], SAVE_FORMAT)));
             }
             // Delete
             else if (tmp[0].equals("delete") && tmp.length > 1){

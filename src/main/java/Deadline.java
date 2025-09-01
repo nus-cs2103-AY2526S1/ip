@@ -1,8 +1,14 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    String by;
+    LocalDateTime by;
+
+    private static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mma");
+    private static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     // Deadlines
-    Deadline(String name, Boolean completed, String by) {
+    Deadline(String name, Boolean completed, LocalDateTime by) {
         super(name, completed);
         this.by = by;
     }
@@ -13,7 +19,7 @@ public class Deadline extends Task {
     @Override
     public String print() {
         return "[D] [" + (this.completed ? "X" : " ") + "] " + this.name +
-                " (by: " + this.by + ")";
+                " (by: " + this.by.format(FORMAT) + ")";
     }
 
     /**
@@ -21,6 +27,6 @@ public class Deadline extends Task {
      */
     @Override
     public String getAsCsv() {
-        return "D," + this.completed.toString() + "," + this.name + "," + this.by;
+        return "D," + this.completed.toString() + "," + this.name + "," + this.by.format(SAVE_FORMAT);
     }
 }
