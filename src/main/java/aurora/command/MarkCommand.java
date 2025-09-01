@@ -6,7 +6,7 @@ import aurora.task.TaskList;
 /**
  * Command to mark specified task as complete.
  */
-public class MarkCommand implements Command{
+public class MarkCommand implements Command {
     private final int index;
 
     /**

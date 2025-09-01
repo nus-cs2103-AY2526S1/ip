@@ -26,6 +26,6 @@ public class DeleteCommand implements Command {
 
         Task task = list.remove(index - 1);
         int len = list.size();
-        return "Noted. I've removed this task:\n" + task +"\nNow you have " + len + " tasks in your list.";
+        return "Noted. I've removed this task:\n" + task + "\nNow you have " + len + " tasks in your list.";
     }
 }

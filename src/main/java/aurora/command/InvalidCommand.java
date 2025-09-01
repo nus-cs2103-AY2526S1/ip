@@ -6,7 +6,7 @@ import aurora.task.TaskList;
 /**
  * Command for invalid or unrecognized user input.
  */
-public class InvalidCommand implements Command{
+public class InvalidCommand implements Command {
 
     private final String message;
 

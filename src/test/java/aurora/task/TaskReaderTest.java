@@ -1,8 +1,12 @@
 package aurora.task;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class TaskReaderTest {
     @Test
@@ -15,8 +19,7 @@ public class TaskReaderTest {
 
     @Test
     void read_invalidTodo_throwsException() {
-        Exception e = assertThrows(InvalidTaskException.class,
-                () -> TaskReader.read("TODO"));
+        Exception e = assertThrows(InvalidTaskException.class, () -> TaskReader.read("TODO"));
         assertTrue(e.getMessage().contains("Invalid todo format"));
     }
 
@@ -30,8 +33,7 @@ public class TaskReaderTest {
 
     @Test
     void read_invalidDeadline_throwsException() {
-        Exception e = assertThrows(InvalidTaskException.class,
-                () -> TaskReader.read("DEADLINE project 2025"));
+        Exception e = assertThrows(InvalidTaskException.class, () -> TaskReader.read("DEADLINE project 2025"));
         assertTrue(e.getMessage().contains("Invalid deadline format"));
     }
 
@@ -45,21 +47,18 @@ public class TaskReaderTest {
 
     @Test
     void read_invalidEvent_throwsException() {
-        Exception e = assertThrows(InvalidTaskException.class,
-                () -> TaskReader.read("Event lecture from today to tomorrow"));
+        Exception e = assertThrows(InvalidTaskException.class, () -> TaskReader.read("Event lecture"));
         assertTrue(e.getMessage().contains("Invalid event format"));
     }
 
     @Test
     void read_invalidInput_throwsException() {
-        assertThrows(InvalidTaskException.class,
-                () -> TaskReader.read("No task."));
+        assertThrows(InvalidTaskException.class, () -> TaskReader.read("No task."));
     }
 
     @Test
     void read_invalidDate_throwsException() {
-        assertThrows(InvalidTaskException.class,
-                () -> TaskReader.read("deadline report /by: invalid-date"));
+        assertThrows(InvalidTaskException.class, () -> TaskReader.read("deadline report /by: invalid-date"));
     }
 
     @Test
@@ -88,13 +87,11 @@ public class TaskReaderTest {
 
     @Test
     void fromText_invalidType_throwsException() {
-        assertThrows(InvalidTaskException.class,
-                () -> TaskReader.fromText("X|false|fake task"));
+        assertThrows(InvalidTaskException.class, () -> TaskReader.fromText("X|false|fake task"));
     }
 
     @Test
     void fromText_notEnoughFields_throwsException() {
-        assertThrows(InvalidTaskException.class,
-                () -> TaskReader.fromText("T|true"));
+        assertThrows(InvalidTaskException.class, () -> TaskReader.fromText("T|true"));
     }
 }

@@ -8,7 +8,7 @@ import aurora.task.TaskList;
 public class HelpCommand implements Command {
     @Override
     public String execute(TaskList list) {
-        return """               
+        return """
                 To add a todo, enter "todo <description>"
                 To add a deadline, enter "deadline <description> /by: <deadline>"
                 To add an event, enter "event <description> /from: <start> /to: <end>"

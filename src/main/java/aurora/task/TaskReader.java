@@ -1,10 +1,10 @@
 package aurora.task;
 
-import aurora.util.DateUtil;
-
 import java.time.temporal.Temporal;
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import aurora.util.DateUtil;
 
 
 /**
@@ -35,8 +35,8 @@ public class TaskReader {
             if (m.matches()) {
                 return new Todo(m.group(1).trim(), false);
             } else {
-                throw new InvalidTaskException("Invalid todo format.\n" +
-                        "Please enter \"todo <description>\"");
+                throw new InvalidTaskException("Invalid todo format.\n"
+                        + "Please enter \"todo <description>\"");
             }
         }
 
@@ -45,8 +45,8 @@ public class TaskReader {
             if (m.matches()) {
                 return new Deadline(m.group(1).trim(), false, toDate(m.group(2).trim()));
             } else {
-                throw new InvalidTaskException("Invalid deadline format.\n" +
-                        "Please enter \"deadline <description> /by: <deadline>\"");
+                throw new InvalidTaskException("Invalid deadline format.\n"
+                        + "Please enter \"deadline <description> /by: <deadline>\"");
             }
         }
 
@@ -56,14 +56,22 @@ public class TaskReader {
                 return new Event(m.group(1).trim(), false,
                         toDate(m.group(2).trim()), toDate(m.group(3).trim()));
             } else {
-                throw new InvalidTaskException("Invalid event format.\n" +
-                        "Please enter \"event <description> /from: <start> /to: <end>\"");
+                throw new InvalidTaskException("Invalid event format.\n"
+                        + "Please enter \"event <description> /from: <start> /to: <end>\"");
             }
         }
 
         throw new InvalidTaskException("Invalid task input. enter \"help\" to see command format.");
     }
 
+    /**
+     * Constructs a {@link Task} object from a text representation.
+     *
+     * @param text the string representing the task
+     * @return the {@link Task} object represented by the input text
+     * @throws InvalidTaskException if the input text does not have enough fields,
+     *                              or if the task type is invalid
+     */
     public static Task fromText(String text) {
         String[] values = text.split("\\|", -1);
         if (values.length < 3) {
@@ -71,10 +79,10 @@ public class TaskReader {
         }
         boolean isDone = values[1].equals("true");
         Task result = switch (values[0]) {
-            case "T" -> new Todo(values[2],isDone);
-            case "D" -> new Deadline(values[2], isDone, toDate(values[3]));
-            case "E" -> new Event(values[2], isDone, toDate(values[3]), toDate(values[4]));
-            default -> null;
+        case "T" -> new Todo(values[2], isDone);
+        case "D" -> new Deadline(values[2], isDone, toDate(values[3]));
+        case "E" -> new Event(values[2], isDone, toDate(values[3]), toDate(values[4]));
+        default -> null;
         };
 
         if (result == null) {
