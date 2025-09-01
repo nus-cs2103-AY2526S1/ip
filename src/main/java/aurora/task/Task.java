@@ -51,4 +51,13 @@ public abstract class Task {
     public String getDescription() {
         return description;
     }
+
+    /**
+     * Returns the completion status of this task.
+     *
+     * @return A boolean representing the task completion status.
+     */
+    public boolean isDone() {
+        return isDone;
+    }
 }
