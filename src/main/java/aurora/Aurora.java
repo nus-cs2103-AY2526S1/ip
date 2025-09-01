@@ -11,19 +11,36 @@ import java.util.Scanner;
 
 
 /**
- * Aurora is a chatbot that manages tasks.
+ * Aurora is a simple task management chatbot that runs on the command line.
+ * <p>
+ * It allows user to add, list, mark as done, and delete tasks.
+ * Saving and loading between sessions is supported and tasks are stored in a text file on disk.
+ * </p>
  */
 public class Aurora {
     private final Storage storage;
-    private TaskList list;
+    private final TaskList list;
     private final Ui ui;
 
+
+    /**
+     * Constructs a new Aurora chatbot.
+     *
+     * @param filePath path to the file used for saving and loading tasks
+     */
     public Aurora(String filePath) {
         this.ui = new Ui(new Scanner(System.in));
         this.storage = new Storage(filePath);
         this.list = storage.load();
     }
 
+    /**
+     * Runs the chatbot session.
+     * <p>
+     * Displays a greeting, enter a command loop,
+     * and display a goodbye message when loop terminates.
+     * </p>
+     */
     public void run() {
         ui.speakIntro();
         loop();
@@ -41,6 +58,11 @@ public class Aurora {
         }
     }
 
+    /**
+     * Entry point of the program.
+     *
+     * @param args command-line arguments (unused)
+     */
     public static void main(String[] args) {
         new Aurora("./data/aurora.txt").run();
     }
