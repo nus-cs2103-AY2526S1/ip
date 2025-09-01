@@ -1,4 +1,4 @@
-# Leo User Guide
+# leo User Guide
 
 // Update the title above to match the actual product name
 

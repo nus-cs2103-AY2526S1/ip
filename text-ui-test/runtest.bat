@@ -3,7 +3,7 @@
 REM create bin directory if it doesn't exist
 if not exist ..\bin mkdir ..\bin
 
-REM clear Leo.txt before testing to avoid errors
+REM clear leo.txt before testing to avoid errors
 echo.> ..\.data\Leo.txt
 
 REM Solution adapted from https://www.perplexity.ai/search/change-branch-name-in-local-an-Fkk8ZHiwSyOZ4IElmJrh_g#11
@@ -25,7 +25,7 @@ REM clear sources.txt
 echo.> sources.txt
 
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin Leo.Leo < input.txt > ACTUAL.TXT
+java -classpath ..\bin leo.Leo < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT

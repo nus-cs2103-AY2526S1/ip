@@ -1,3 +1,6 @@
-ToDo | X | return book
+ToDo | X | read book
 Deadline |   | return book | Jan 12 2025, 2000
-Event |   | project meeting | Mar 02 2024, 1000-Mar 02 2024, 1030
+ToDo |   | join sports club
+ToDo | X | borrow book
+Deadline |   | return book | Jun 20 2025, 2100
+Event |   | team dinner | Jun 08 2025, 1800-Jun 08 2025, 2000
