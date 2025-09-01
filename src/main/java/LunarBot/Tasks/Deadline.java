@@ -1,3 +1,5 @@
+package LunarBot.Tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -8,7 +10,7 @@ public class Deadline extends Task {
     private static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     // Deadlines
-    Deadline(String name, Boolean completed, LocalDateTime by) {
+    public Deadline(String name, Boolean completed, LocalDateTime by) {
         super(name, completed);
         this.by = by;
     }

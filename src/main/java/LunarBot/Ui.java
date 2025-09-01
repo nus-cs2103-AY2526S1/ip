@@ -1,3 +1,5 @@
+package LunarBot;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -14,7 +16,7 @@ public class Ui {
     }
 
     public void greeting() {
-        System.out.println("Hello from LunarBot!\n");
+        System.out.println("Hello from LunarBot.LunarBot!\n");
         System.out.println("Nice to meet you! What can I do for you?\n" + LINE);
     }
 

@@ -1,3 +1,10 @@
+package LunarBot;
+
+import LunarBot.Tasks.Deadline;
+import LunarBot.Tasks.Event;
+import LunarBot.Tasks.Task;
+import LunarBot.Tasks.Todo;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -5,7 +12,6 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
-import java.io.FileNotFoundException;
 
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;

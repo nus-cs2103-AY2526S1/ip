@@ -1,3 +1,9 @@
+package LunarBot.Command;
+
+import LunarBot.Tasks.Deadline;
+import LunarBot.TaskList;
+import LunarBot.Ui;
+
 import java.time.LocalDateTime;
 
 public class DeadlineCommand extends Command {

@@ -1,7 +1,12 @@
+package LunarBot.Command;
+
+import LunarBot.TaskList;
+import LunarBot.Ui;
+
 public class DeleteCommand extends Command {
     private final int index;
 
-    DeleteCommand(int i) {
+    public DeleteCommand(int i) {
         this.index = i;
     }
 

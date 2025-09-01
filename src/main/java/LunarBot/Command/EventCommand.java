@@ -1,3 +1,9 @@
+package LunarBot.Command;
+
+import LunarBot.Tasks.Event;
+import LunarBot.TaskList;
+import LunarBot.Ui;
+
 import java.time.LocalDateTime;
 
 public class EventCommand extends Command {

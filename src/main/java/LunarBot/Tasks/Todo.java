@@ -1,6 +1,8 @@
+package LunarBot.Tasks;
+
 public class Todo extends Task {
     // Todos
-    Todo(String name, Boolean completed) {
+    public Todo(String name, Boolean completed) {
         super(name, completed);
     }
 

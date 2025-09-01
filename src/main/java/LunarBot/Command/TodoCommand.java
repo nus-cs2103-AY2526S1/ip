@@ -1,3 +1,9 @@
+package LunarBot.Command;
+
+import LunarBot.TaskList;
+import LunarBot.Tasks.Todo;
+import LunarBot.Ui;
+
 public class TodoCommand extends Command {
     private final String description;
 

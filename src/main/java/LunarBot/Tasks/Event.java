@@ -1,3 +1,5 @@
+package LunarBot.Tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -9,7 +11,7 @@ public class Event extends Task {
     private static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     // Events
-    Event(String name, Boolean completed, LocalDateTime from, LocalDateTime to) {
+    public Event(String name, Boolean completed, LocalDateTime from, LocalDateTime to) {
         super(name, completed);
         this.to = to;
         this.from = from;

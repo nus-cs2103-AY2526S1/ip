@@ -1,4 +1,4 @@
-Hello from LunarBot!
+Hello from LunarBot.LunarBot!
 
 Nice to meet you! What can I do for you?
 __________________________________________
@@ -6,17 +6,17 @@ Input: Operation not possible! TODO's descriptor cannot be empty!
 __________________________________________
 Input: Okay! I'll add this to your TODOs
 __________________________________________
-Input: Operation not possible! Deadline's descriptor cannot be empty!
+Input: Operation not possible! LunarBot.Tasks.Deadline's descriptor cannot be empty!
 __________________________________________
-Input: Operation not possible! Deadline's end time cannot be empty!
+Input: Operation not possible! LunarBot.Tasks.Deadline's end time cannot be empty!
 __________________________________________
 Input: Okay! I'll add this to your deadlines~
 __________________________________________
-Input: Operation not possible! Event's descriptor cannot be empty!
+Input: Operation not possible! LunarBot.Tasks.Event's descriptor cannot be empty!
 __________________________________________
-Input: Operation not possible! Event's start time cannot be empty!
+Input: Operation not possible! LunarBot.Tasks.Event's start time cannot be empty!
 __________________________________________
-Input: Operation not possible! Event's end time cannot be empty!
+Input: Operation not possible! LunarBot.Tasks.Event's end time cannot be empty!
 __________________________________________
 Input: Okay! I'll add this to your events!
 __________________________________________

@@ -1,7 +1,12 @@
+package LunarBot.Command;
+
+import LunarBot.TaskList;
+import LunarBot.Ui;
+
 public class UnmarkCommand extends Command {
     private final int index;
 
-    UnmarkCommand(int i) {
+    public UnmarkCommand(int i) {
         this.index = i;
     }
 

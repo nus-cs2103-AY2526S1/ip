@@ -1,8 +1,10 @@
-class Task {
+package LunarBot.Tasks;
+
+public class Task {
     String name;
     Boolean completed;
 
-    Task(String name, Boolean completed) {
+    public Task(String name, Boolean completed) {
         this.name = name;
         this.completed = completed;
     }

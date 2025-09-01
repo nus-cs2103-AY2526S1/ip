@@ -1,3 +1,7 @@
+package LunarBot;
+
+import LunarBot.Tasks.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 

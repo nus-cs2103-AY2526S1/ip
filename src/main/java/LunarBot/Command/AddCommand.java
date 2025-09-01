@@ -1,3 +1,9 @@
+package LunarBot.Command;
+
+import LunarBot.Tasks.Task;
+import LunarBot.TaskList;
+import LunarBot.Ui;
+
 public class AddCommand extends Command {
     private final String description;
 
