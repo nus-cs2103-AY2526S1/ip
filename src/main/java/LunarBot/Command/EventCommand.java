@@ -17,6 +17,9 @@ public class EventCommand extends Command {
         this.to = to;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute(Ui ui, TaskList taskList) {
         ui.showMessage("Okay! I'll add this to your events!");
