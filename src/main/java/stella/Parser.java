@@ -6,10 +6,10 @@ package stella;
  * by the user to a more human-readable format
  */
 public class Parser {
-    private TaskList list;
+    private TaskList tasks;
 
-    public Parser(TaskList list) {
-        this.list = list;
+    public Parser(TaskList tasks) {
+        this.tasks = tasks;
     }
 
     /**
@@ -22,7 +22,7 @@ public class Parser {
     public void identifyCommand(String description) throws IncompleteInstructionException,
             UnknownInstructionException {
         if (description.equals(("list"))) {
-            this.list.printList();
+            this.tasks.printList();
         } else if (description.contains("find")) {
             if (description.length() <= 5) {
                 throw new IncompleteInstructionException(description);
@@ -34,21 +34,21 @@ public class Parser {
             }
             keyword = keyword + description.substring(6);
 
-            TaskList temp = list.findItem(keyword);
-            if (temp.getList().isEmpty()) {
+            TaskList temp = tasks.findItem(keyword);
+                if (temp.getList().isEmpty()) {
                     System.out.println("No items found");
                 } else {
                     temp.printList();
                 }
             } else if (description.contains("delete")) {
                 int index = findIndexForModification("delete", description);
-                list.deleteItem(index);
+                tasks.deleteItem(index);
             } else if (description.contains("unmark")) {
                 int index = findIndexForModification("unmark", description);
-                list.modifyItem(index, "unmark");
+                tasks.modifyItem(index, "unmark");
             } else if (description.contains("mark")) {
                 int index = findIndexForModification("mark", description);
-                list.modifyItem(index, "mark");
+                tasks.modifyItem(index, "mark");
             } else if (description.contains("todo")) {
                 if (description.length() <= 5) {
                     throw new IncompleteInstructionException(description);
@@ -56,7 +56,7 @@ public class Parser {
 
                 String details = description.substring(5);
                 ToDo temp = new ToDo(details);
-                list.addItem(temp);
+                tasks.addItem(temp);
             } else if (description.contains("deadline")) {
                 if (description.length() <= 9) {
                     throw new IncompleteInstructionException(description);
@@ -66,7 +66,7 @@ public class Parser {
                 String deadline = description.substring(description.indexOf('/') + 1);
                 deadline = this.formatTime(deadline);
                 Deadline temp = new Deadline(details, deadline);
-                list.addItem(temp);
+                tasks.addItem(temp);
             } else if (description.contains("event")) {
                 if (description.length() <= 6) {
                     throw new IncompleteInstructionException(description);
@@ -79,7 +79,7 @@ public class Parser {
                 start = this.formatTime(start);
                 end = this.formatTime(end);
                 Event temp = new Event(details, start, end);
-                list.addItem(temp);
+                tasks.addItem(temp);
             } else {
                 throw new UnknownInstructionException(description);
             }

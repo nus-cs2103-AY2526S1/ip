@@ -59,13 +59,13 @@ public interface Storage {
             try {
                 BufferedReader reader = new BufferedReader(new FileReader((DATA_STORAGE_PATH)));
                 String taskDescription;
-                ArrayList<Task> temp = new ArrayList<>();
+                ArrayList<Task> tasks = new ArrayList<>();
 
                 while ((taskDescription = reader.readLine()) != null) {
-                    temp.add(Storage.createTask(taskDescription));
+                    tasks.add(Storage.createTask(taskDescription));
                 }
 
-                return temp;
+                return tasks;
             } catch (FileNotFoundException e) {
                 File folder = new File("../data");
                 folder.mkdirs();
