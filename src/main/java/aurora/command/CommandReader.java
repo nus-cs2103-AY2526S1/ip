@@ -16,6 +16,7 @@ public class CommandReader {
 
     private static final Pattern MARK = Pattern.compile("^mark\\s+(\\d+)$", Pattern.CASE_INSENSITIVE);
     private static final Pattern DELETE = Pattern.compile("^delete\\s+(\\d+)$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern FIND = Pattern.compile("^find\\s+(.+)$", Pattern.CASE_INSENSITIVE);
 
     /**
      * Reads user input and returns a {@link Command} object.
@@ -62,6 +63,17 @@ public class CommandReader {
             } else {
                 return new InvalidCommand("Invalid delete command.\n" +
                         "enter \"delete <task number>\" to remove task from list.");
+            }
+        }
+
+        if (input.toLowerCase().startsWith("find")) {
+            Matcher matcher = FIND.matcher(input);
+            if (matcher.matches()) {
+                String search = matcher.group(1);
+                return new FindCommand(search);
+            } else {
+                return new InvalidCommand("Invalid find command.\n" +
+                        "enter \"find <content>\" to find task from list.");
             }
         }
 
