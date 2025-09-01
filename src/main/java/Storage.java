@@ -8,20 +8,23 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Storage {
-    private static final String FILE_PATH = "./data/duke.txt";
+    private final String filePath;
 
-    public Storage() {
-        File folder = new File("./data");
-        if (!folder.exists()) {
-            if (!folder.mkdirs()) {
-                System.out.println("Error: Could not create data folder.");
+    public Storage(String filePath) {
+        this.filePath = filePath;
+
+        // create directory if it does not exist
+        File parentFile = new File(filePath).getParentFile();
+        if (!parentFile.exists()) {
+            if (!parentFile.mkdirs()) {
+                System.out.println("Error: Could not create folder.");
             }
         }
     }
 
-    public TaskList loadTasks() {
+    public TaskList loadTasks() throws PaulException {
         TaskList tasks = new TaskList();
-        File file = new File(FILE_PATH);
+        File file = new File(filePath);
 
         if (!file.exists()) {
             return tasks;
@@ -29,7 +32,7 @@ public class Storage {
 
         try (Scanner sc = new Scanner(file)) {
             while (sc.hasNextLine()) {
-                String line = sc.nextLine();
+                String line = sc.nextLine().trim();
                 String[] parts = line.split(" \\| ");
                 String type = parts[0]; // T, D, E
                 boolean isDone = parts[1].equals("1");
@@ -42,7 +45,8 @@ public class Storage {
                     case "E" -> task = new Event(
                             description, LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
                     default -> {
-                        continue; // skip unknown line
+                        System.out.println("Unknown task type in file, skipping: " + type);
+                        continue;
                     }
                 }
 
@@ -53,7 +57,7 @@ public class Storage {
                 tasks.add(task);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Error: File not found: " + e.getMessage());
+            throw new PaulException("Error: File not found: " + e.getMessage());
         }
 
         return tasks;
@@ -66,7 +70,7 @@ public class Storage {
         }
 
         try {
-            File file = new File(FILE_PATH);
+            File file = new File(filePath);
 
             // Write to file
             FileWriter fw = new FileWriter(file);

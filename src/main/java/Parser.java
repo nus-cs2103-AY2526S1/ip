@@ -11,7 +11,7 @@ public class Parser {
         UNKNOWN
     }
 
-    public static CommandType getCommandType(String input) {
+    public CommandType getCommandType(String input) {
         String[] words = input.split(" ", 2);
         String commandWord = words[0].toLowerCase();
 
@@ -26,5 +26,30 @@ public class Parser {
             case "bye" -> CommandType.BYE;
             default -> CommandType.UNKNOWN;
         };
+    }
+
+    public void parse(String fullCommand, TaskList tasks, Storage storage, Ui ui) throws PaulException {
+        String[] parseCommand = fullCommand.split(" ", 2);
+        CommandType command = getCommandType(parseCommand[0]);
+
+        switch (command) {
+        case TODO, DEADLINE, EVENT:
+            tasks.addTask(parseCommand, storage, ui);
+            break;
+        case LIST:
+            ui.showTasks(tasks);
+            break;
+        case MARK, UNMARK:
+            tasks.markTask(parseCommand, storage, ui);
+            break;
+        case DELETE:
+            tasks.deleteTask(parseCommand, storage, ui);
+            break;
+        case BYE:
+            ui.byeUser();
+            break;
+        case UNKNOWN:
+            throw new PaulException("Sorry! I do not know what that means :(");
+        }
     }
 }
