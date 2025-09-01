@@ -1,10 +1,10 @@
 package lynx.parser;
 
-import objectclasses.exception.LynxException;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import objectclasses.exception.LynxException;
 
 // The main purpose of this test is to check that the parsing works as intended
 // Since all 4 action commands follow the same structure, testing one is enough
@@ -47,7 +47,7 @@ public class LynxTaskEditorTest {
                                 LynxTaskEditor.listTasks("list /key a b");
                                 fail();
                             } catch (LynxException e6) {
-
+                                return;
                             }
                         }
                     }

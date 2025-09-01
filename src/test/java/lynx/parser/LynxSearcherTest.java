@@ -1,18 +1,18 @@
 package lynx.parser;
 
-import lynx.storage.LynxTaskList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
+
+import lynx.storage.LynxTaskList;
 import objectclasses.command.LynxCommand;
 import objectclasses.exception.LynxException;
 import objectclasses.task.DeadlineTask;
 import objectclasses.task.EventTask;
 import objectclasses.task.Task;
 import objectclasses.task.TodoTask;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
 
 public class LynxSearcherTest {
 
@@ -42,15 +42,15 @@ public class LynxSearcherTest {
                 LocalDateTime.of(2025, 12, 13, 0, 0));
         testTaskG.setComplete();
 
-        LynxTaskList.addTask(testTaskA, true);
-        LynxTaskList.addTask(testTaskB, true);
-        LynxTaskList.addTask(testTaskC, true);
-        LynxTaskList.addTask(testTaskD, true);
-        LynxTaskList.addTask(testTaskE, true);
-        LynxTaskList.addTask(testTaskF, true);
-        LynxTaskList.addTask(testTaskG, true);
-        LynxTaskList.addTask(testTaskH, true);
-        LynxTaskList.addTask(testTaskI, true);
+        LynxTaskList.addTask(testTaskA);
+        LynxTaskList.addTask(testTaskB);
+        LynxTaskList.addTask(testTaskC);
+        LynxTaskList.addTask(testTaskD);
+        LynxTaskList.addTask(testTaskE);
+        LynxTaskList.addTask(testTaskF);
+        LynxTaskList.addTask(testTaskG);
+        LynxTaskList.addTask(testTaskH);
+        LynxTaskList.addTask(testTaskI);
 
         LynxCommand testCommandA = new LynxCommand("/key a /key b");
         LynxCommand testCommandB = new LynxCommand("/type deadline /status complete /key c");
