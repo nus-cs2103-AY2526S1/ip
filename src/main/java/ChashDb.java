@@ -118,7 +118,7 @@ public class ChashDb {
     }
 
     public void writeDb(ArrayList<Task> tasks) throws IOException {
-        //Java try-with-resource technique
+        //Java try-with-resource technique requires the method to implement AutoCloseable
         try {
             //Check if file and intermediate directories exists and create if needed
             fileExistsElseCreate();

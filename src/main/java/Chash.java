@@ -127,7 +127,16 @@ public class Chash {
         //Work loop vars
         Scanner scanStdin = new Scanner(System.in);
         boolean exitFlag = false;
-        ArrayList<Task> chatHist = new ArrayList<Task>();
+        ChashDb chashDb = new ChashDb();
+        ArrayList<Task> chatHist;
+        try {
+            chatHist = chashDb.loadDb();
+        } catch (IOException ex) {
+            System.err.println(
+                "Error accessing CHASHDB, all data in memory will be lost on exit"
+            );
+            chatHist = new ArrayList<Task>();
+        }
         
         //Work loop
         while (!exitFlag) {
@@ -186,6 +195,15 @@ public class Chash {
                                 chatHist.size()
                             ));
                         }
+
+                        //Update ChashDb
+                        try {
+                            chashDb.writeDb(chatHist);
+                        } catch (IOException ex) {
+                            System.err.println(
+                                "Error accessing CHASHDB, all data in memory will be lost on exit"
+                            );
+                        }
                     } catch (ArrayIndexOutOfBoundsException ex) {
                         chatPrint("No item requested");
                     } catch (NumberFormatException ex) {
@@ -214,6 +232,15 @@ public class Chash {
                             task,
                             chatHist.size()
                         ));
+
+                        //Update ChashDb
+                        try {
+                            chashDb.writeDb(chatHist);
+                        } catch (IOException ex) {
+                            System.err.println(
+                                "Error accessing CHASHDB, all data in memory will be lost on exit"
+                            );
+                        }
                     } catch (ArrayIndexOutOfBoundsException ex) {
                         chatPrint("No details provided");
                     } catch (ChashException ex) {
