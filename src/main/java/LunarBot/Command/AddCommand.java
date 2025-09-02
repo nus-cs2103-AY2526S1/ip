@@ -11,6 +11,9 @@ public class AddCommand extends Command {
         this.description = description;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute(Ui ui, TaskList taskList) {
         ui.showMessage("added: " + description);

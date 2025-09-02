@@ -4,6 +4,9 @@ import LunarBot.TaskList;
 import LunarBot.Ui;
 
 public class ByeCommand extends Command {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute(Ui ui, TaskList taskList) {
         ui.goodbye();

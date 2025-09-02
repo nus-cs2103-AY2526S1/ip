@@ -16,18 +16,36 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Add task to taskList
+     * @param task task to be added
+     */
     public void add(Task task) {
         this.tasks.add(task);
     }
 
+    /**
+     * Delete task at index i
+     * @param i index to delete from taskList
+     * @return returns task deleted
+     */
     public Task delete(int i) {
         return this.tasks.remove(i);
     }
 
+    /**
+     * Returns the task at index i
+     * @param i index to get from taskList
+     * @return returns task at index i
+     */
     public Task get(int i) {
         return this.tasks.get(i);
     }
 
+    /**
+     * Returns size of taskList
+     * @return returns the size of taskList
+     */
     public int size() {
         return this.tasks.size();
     }

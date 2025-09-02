@@ -38,7 +38,7 @@ java {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "LunarBot"
     archiveClassifier = null
 }
 

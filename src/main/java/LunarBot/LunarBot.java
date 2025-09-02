@@ -16,7 +16,11 @@ public class LunarBot {
         }
     }
 
+    /**
+     * Main loop of the function
+     */
     public void run() {
+        ui.greeting();
         while(true) {
             if (ui.isBye()) {
                 break;
