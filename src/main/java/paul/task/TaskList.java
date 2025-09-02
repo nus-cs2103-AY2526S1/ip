@@ -10,27 +10,54 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A list that contains multiple tasks for Paul.
+ */
 public class TaskList {
     private final List<Task> tasks;
 
+    /**
+     * Initialises the TaskList with an empty ArrayList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Adds a task into the TaskList.
+     *
+     * @param task The task to add.
+     */
     public void add(Task task) {
         this.tasks.add(task);
     }
 
-
+    /**
+     * Gets the ith task from the TaskList.
+     *
+     * @param i The ith task to get (1-indexed).
+     */
     public Task get(int i) {
         // Get the ith Task in the list
         return this.tasks.get(i - 1);
     }
 
+    /**
+     * Returns the number of tasks in the TaskList.
+     *
+     * @return The size of the TaskList.
+     */
     public int size() {
         return this.tasks.size();
     }
 
+    /**
+     * Adds a task to the TaskList based on the user's command and saves it in the storage.
+     * @param parsedCommand The String array after parsing the command.
+     * @param storage Storage to save the new task.
+     * @param ui Ui to handle user's input.
+     * @throws PaulException if there is an error in the command.
+     */
     public void addTask(String[] parsedCommand, Storage storage, Ui ui) throws PaulException {
         String commandType = parsedCommand[0];
         if (parsedCommand.length < 2) {
@@ -80,6 +107,13 @@ public class TaskList {
         ui.showTaskAdded(newTask, tasks.size());
     }
 
+    /**
+     * Deletes a task from TaskList based on the user's command and save the changes in the storage.
+     * @param parsedCommand The String array after parsing the command.
+     * @param storage Storage to record the changes after deleting the task.
+     * @param ui Ui to handle user's input.
+     * @throws PaulException if there is an error in the command.
+     */
     public void deleteTask(String[] parsedCommand, Storage storage, Ui ui) throws PaulException {
         if (parsedCommand.length < 2) {
             throw new PaulException("The description of a delete cannot be empty!");
@@ -98,6 +132,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks or unmarks a task from TaskList based on the user's command and save the changes in the storage.
+     * @param parsedCommand The String array after parsing the command.
+     * @param storage Storage to record the changes after marking/unmarking the task.
+     * @param ui Ui to handle user's input.
+     * @throws PaulException if there is an error in the command.
+     */
     public void markTask(String[] parsedCommand, Storage storage, Ui ui) throws PaulException {
         String commandType = parsedCommand[0];
         if (parsedCommand.length < 2) {
@@ -134,6 +175,11 @@ public class TaskList {
         storage.saveTasks(this);
     }
 
+    /**
+     * Lists out all tasks in the TaskList.
+     *
+     * @return The string representation of all tasks in the TaskList.
+     */
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
