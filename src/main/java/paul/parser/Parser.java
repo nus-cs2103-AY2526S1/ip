@@ -1,3 +1,10 @@
+package paul.parser;
+
+import paul.exception.PaulException;
+import paul.task.TaskList;
+import paul.storage.Storage;
+import paul.ui.Ui;
+
 public class Parser {
     public enum CommandType {
         TODO,

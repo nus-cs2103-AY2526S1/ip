@@ -1,3 +1,9 @@
+package paul.task;
+
+import paul.exception.PaulException;
+import paul.storage.Storage;
+import paul.ui.Ui;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -81,7 +87,7 @@ public class TaskList {
 
         try {
             int index = Integer.parseInt(parsedCommand[1]);
-            Task task = tasks.get(index - 1);
+            Task task = this.get(index);
             tasks.remove(index - 1);
             storage.saveTasks(this);
             ui.showTaskDeleted(task, tasks.size());

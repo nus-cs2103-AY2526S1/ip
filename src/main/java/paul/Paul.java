@@ -1,3 +1,11 @@
+package paul;
+
+import paul.exception.PaulException;
+import paul.parser.Parser;
+import paul.task.TaskList;
+import paul.storage.Storage;
+import paul.ui.Ui;
+
 public class Paul {
     private final Ui ui;
     private TaskList tasks;

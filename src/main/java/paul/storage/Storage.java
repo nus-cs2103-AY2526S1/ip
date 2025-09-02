@@ -1,3 +1,12 @@
+package paul.storage;
+
+import paul.exception.PaulException;
+import paul.task.Deadline;
+import paul.task.Event;
+import paul.task.Task;
+import paul.task.TaskList;
+import paul.task.ToDo;
+
 import java.io.File;
 import java.io.FileWriter;
 
