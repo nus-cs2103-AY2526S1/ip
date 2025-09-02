@@ -7,9 +7,9 @@ import beebong.util.StringUtil;
  * Represents a generic task with a name and completion status.
  */
 public abstract class Task {
+    protected static String saveDelimiter = " ";
     private String name;
     private boolean isCompleted;
-    protected static String SAVE_DELIMITER = " ";
 
     /**
      * Creates a task with the given name.
@@ -50,7 +50,7 @@ public abstract class Task {
      * @return Serialized task string.
      */
     public String serializeTask() {
-        return ((isCompleted()) ? "1" : "0") + SAVE_DELIMITER + StringUtil.encode(this.getName());
+        return ((isCompleted()) ? "1" : "0") + saveDelimiter + StringUtil.encode(this.getName());
     };
 
     /**
@@ -81,6 +81,6 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + ((this.isCompleted) ? "X" : " " ) + "] " + this.name;
+        return "[" + ((this.isCompleted) ? "X" : " ") + "] " + this.name;
     }
 }

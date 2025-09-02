@@ -7,18 +7,18 @@ import java.time.format.DateTimeParseException;
 import beebong.command.AddDeadlineTaskCommand;
 import beebong.command.AddEventTaskCommand;
 import beebong.command.AddToDoTaskCommand;
-import beebong.command.DeleteTaskCommand;
-import beebong.command.FindTaskCommand;
-import beebong.command.MarkTaskAsCommand;
-import beebong.command.CommandKeyword;
 import beebong.command.Command;
+import beebong.command.CommandKeyword;
+import beebong.command.DeleteTaskCommand;
 import beebong.command.ExitCommand;
+import beebong.command.FindTaskCommand;
 import beebong.command.HelpCommand;
 import beebong.command.ListAllTasksCommand;
+import beebong.command.MarkTaskAsCommand;
 import beebong.command.NullCommand;
 // Import Exceptions
-import beebong.exception.InvalidTaskDetailsException;
 import beebong.exception.InvalidDateException;
+import beebong.exception.InvalidTaskDetailsException;
 import beebong.exception.UnknownCommandException;
 // Import Utils
 import beebong.util.DateTimeUtil;
@@ -40,7 +40,8 @@ public class Parser {
      * @throws InvalidTaskDetailsException If input does not contain valid details for the command.
      * @throws InvalidDateException If input does not provide properly formatted dates.
      */
-    public Command parseCommand(String input) throws UnknownCommandException, InvalidTaskDetailsException, InvalidDateException {
+    public Command parseCommand(String input) throws UnknownCommandException,
+            InvalidTaskDetailsException, InvalidDateException {
         // Check for Commands
         String[] commandParts = input.split(" ", 2);
         CommandKeyword command;

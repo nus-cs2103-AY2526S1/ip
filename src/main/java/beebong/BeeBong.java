@@ -15,12 +15,18 @@ import beebong.task.TaskList;
 // Import UI
 import beebong.ui.UI;
 
+/**
+ * Represents my chatbot
+ */
 public class BeeBong {
     private TaskList taskList;
     private final Storage storage;
     private final UI ui;
     private final Parser parser;
 
+    /**
+     * Constructs a new BeeBong chatbot.
+     */
     public BeeBong() {
         this.ui = new UI();
         this.storage = new Storage("bbongSave.txt");
@@ -36,7 +42,7 @@ public class BeeBong {
         }
     }
 
-    public void start() {
+    private void start() {
         this.ui.showGreetingMessage();
         this.ui.showCommands();
 

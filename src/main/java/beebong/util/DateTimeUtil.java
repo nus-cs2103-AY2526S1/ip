@@ -14,9 +14,11 @@ public class DateTimeUtil {
     private static final DateTimeFormatter DATE_FORMATTER_PARSER = DateTimeFormatter.ofPattern("d/M/yyyy");
     private static final DateTimeFormatter DATE_TIME_FORMATTER_PARSER = DateTimeFormatter.ofPattern("d/M/yyyy H:mm");
     private static final DateTimeFormatter DATE_FORMATTER_STRING = DateTimeFormatter.ofPattern("dd MMM yyyy");
-    private static final DateTimeFormatter DATE_TIME_FORMATTER_STRING = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER_STRING = DateTimeFormatter.ofPattern(
+            "dd MMM yyyy HH:mm");
     private static final DateTimeFormatter DATE_FORMATTER_SERIALIZE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private static final DateTimeFormatter DATE_TIME_FORMATTER_SERIALIZE = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER_SERIALIZE = DateTimeFormatter.ofPattern(
+            "dd/MM/yyyy HH:mm");
 
     /**
      * Parses a date-time string into a {@link LocalDateTime}.

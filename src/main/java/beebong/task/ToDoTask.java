@@ -28,7 +28,7 @@ public class ToDoTask extends Task {
      */
     @Override
     public String serializeTask() {
-        return "T" + Task.SAVE_DELIMITER + super.serializeTask();
+        return "T" + Task.saveDelimiter + super.serializeTask();
     }
 
     /**
@@ -40,7 +40,7 @@ public class ToDoTask extends Task {
      */
     public static ToDoTask deserializeTask(String taskStr) throws InvalidSerializedTaskDataException {
         // -1 limit allows for empty strings
-        String[] taskData = taskStr.split(SAVE_DELIMITER, -1);
+        String[] taskData = taskStr.split(saveDelimiter, -1);
         if (taskData.length != 3) {
             throw new InvalidSerializedTaskDataException();
         }

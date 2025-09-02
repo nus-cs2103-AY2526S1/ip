@@ -1,25 +1,25 @@
 package beebong.parser;
 
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
 // Import Commands
 import beebong.command.AddDeadlineTaskCommand;
 import beebong.command.AddEventTaskCommand;
 import beebong.command.AddToDoTaskCommand;
-import beebong.command.DeleteTaskCommand;
-import beebong.command.MarkTaskAsCommand;
 import beebong.command.Command;
+import beebong.command.DeleteTaskCommand;
 import beebong.command.ExitCommand;
 import beebong.command.HelpCommand;
 import beebong.command.ListAllTasksCommand;
+import beebong.command.MarkTaskAsCommand;
 // Import Exceptions
 import beebong.exception.BBongException;
 import beebong.exception.InvalidDateException;
 import beebong.exception.InvalidTaskDetailsException;
 import beebong.exception.UnknownCommandException;
-
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ParserTest {
     private final Parser parser = new Parser();
@@ -72,8 +72,7 @@ public class ParserTest {
 
     @Test
     public void parseCommand_deadlineTaskWithInvalidDate_throwsInvalidTaskDetailsException() {
-        assertThrows(InvalidDateException.class,
-                () -> parser.parseCommand("deadline return book /by hi"));
+        assertThrows(InvalidDateException.class, () -> parser.parseCommand("deadline return book /by hi"));
     }
 
     // Event Command
@@ -85,14 +84,14 @@ public class ParserTest {
 
     @Test
     public void parseCommand_eventTaskWithInvalidDatesStartDateAfterEndDate_throwsInvalidTaskDetailsException() {
-        assertThrows(InvalidDateException.class,
-                () -> parser.parseCommand("event hackathon /from 22/08/2025 18:00 /to 22/08/2025 16:00"));
+        assertThrows(InvalidDateException.class, () -> parser.parseCommand(
+                "event hackathon /from 22/08/2025 18:00 /to 22/08/2025 16:00"));
     }
 
     @Test
     public void parseCommand_eventTaskWithInvalidDates_throwsInvalidTaskDetailsException() {
-        assertThrows(InvalidDateException.class,
-                () -> parser.parseCommand("event party /from hi /to hi again"));
+        assertThrows(InvalidDateException.class, () -> parser.parseCommand(
+                "event party /from hi /to hi again"));
     }
 
     // Mark/Unmark Command

@@ -57,9 +57,9 @@ public class EventTask extends Task {
      */
     @Override
     public String serializeTask() {
-        return "E" + SAVE_DELIMITER + super.serializeTask()
-                + SAVE_DELIMITER + StringUtil.encode(DateTimeUtil.toSerializedString(this.startDate))
-                + SAVE_DELIMITER + StringUtil.encode(DateTimeUtil.toSerializedString(this.endDate));
+        return "E" + saveDelimiter + super.serializeTask()
+                + saveDelimiter + StringUtil.encode(DateTimeUtil.toSerializedString(this.startDate))
+                + saveDelimiter + StringUtil.encode(DateTimeUtil.toSerializedString(this.endDate));
     }
 
     /**
@@ -71,7 +71,7 @@ public class EventTask extends Task {
      */
     public static EventTask deserializeTask(String taskStr) throws InvalidSerializedTaskDataException {
         // -1 limit allows for empty strings
-        String[] taskData = taskStr.split(SAVE_DELIMITER, -1);
+        String[] taskData = taskStr.split(saveDelimiter, -1);
         if (taskData.length != 5) {
             throw new InvalidSerializedTaskDataException();
         }
@@ -79,7 +79,8 @@ public class EventTask extends Task {
         // ["E", "0", "NAME", "START", "END]
         String name = StringUtil.decode(taskData[2]);
         boolean isCompleted = taskData[1].equals("1");
-        LocalDateTime startDate, endDate;
+        LocalDateTime startDate;
+        LocalDateTime endDate;
         try {
             startDate = DateTimeUtil.parseDateTime(StringUtil.decode(taskData[3]));
             endDate = DateTimeUtil.parseDateTime(StringUtil.decode(taskData[4]));

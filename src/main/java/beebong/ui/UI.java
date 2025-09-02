@@ -9,8 +9,8 @@ public class UI {
      * Prints out the message border line for the chatbot messages.
      */
     public void printBorder() {
-        String BORDER = "____________________________________________________________";
-        System.out.println(BORDER);
+        String border = "____________________________________________________________";
+        System.out.println(border);
     }
 
     /**

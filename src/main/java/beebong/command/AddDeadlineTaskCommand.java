@@ -2,8 +2,8 @@ package beebong.command;
 
 import java.time.LocalDateTime;
 
-import beebong.task.Task;
 import beebong.task.DeadlineTask;
+import beebong.task.Task;
 
 /**
  * Represents a Command for adding a new {@link DeadlineTask} to the task list.

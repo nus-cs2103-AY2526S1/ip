@@ -17,6 +17,6 @@ public class InvalidSerializedTaskDataException extends BBongException {
      * @param message the detail message to describe the cause of the exception.
      */
     public InvalidSerializedTaskDataException(String message) {
-    super(message);
-  }
+        super(message);
+    }
 }
