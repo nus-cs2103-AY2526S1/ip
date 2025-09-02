@@ -105,6 +105,19 @@ public class Ui {
     }
 
     /**
+     * Shows a message with the all tasks found using the find method.
+     *
+     * @param list The TaskList containing the tasks found.
+     */
+    public void showTaskFound(TaskList list) {
+        if (list.size() == 0) {
+            printOutput("There are no matches found!");
+        } else {
+            printOutput("Here are the matching tasks in your list:\n" + list);
+        }
+    }
+
+    /**
      * Shows a message when there is an error loading tasks.
      */
     public void showLoadingError() {

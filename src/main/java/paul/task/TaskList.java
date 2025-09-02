@@ -178,6 +178,28 @@ public class TaskList {
     }
 
     /**
+     * Finds tasks that contain the given keyword in their description based on the user's command.
+     *
+     * @param parsedCommand The String array after parsing the command.
+     * @return A list of found tasks.
+     * @throws PaulException if there is an error in the command.
+     */
+    public TaskList findTasks(String[] parsedCommand) throws PaulException {
+        if (parsedCommand.length < 2) {
+            throw new PaulException("The description of a find cannot be empty!");
+        }
+
+        TaskList foundTasks = new TaskList();
+        String keyword = parsedCommand[1];
+        for (Task task : tasks) {
+            if (task.description.toLowerCase().contains(keyword.toLowerCase())) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
+    }
+
+    /**
      * Lists out all tasks in the TaskList.
      *
      * @return The string representation of all tasks in the TaskList.
