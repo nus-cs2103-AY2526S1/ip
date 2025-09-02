@@ -23,7 +23,6 @@ public class UI {
      */
     public void getUserInput(Functions functions) {
         this.func = functions;
-        Messages.greetings();
 
         //Solution of using equalsIgnoreCase() suggested by IntelliJ code completion
         String callFunction = "";
@@ -48,5 +47,32 @@ public class UI {
         }
 
         scanner.close();
+    }
+
+    /**
+     * Gets the response from the chatbot based on the user input.
+     *
+     * @param functions An object that contains the possible functions of the chatbot.
+     * @param userInput Text containing the user input.
+     * @return Output string of the selected function.
+     */
+    public String getLeoResponse(Functions functions, String userInput) {
+        this.func = functions;
+        String returnString = "";
+
+        try {
+            returnString = func.searchFunctionsReturnOutput(userInput);
+        } catch (ZeroLengthException
+                 | IndexOutOfBoundsException
+                 | IOException
+                 | DateTimeException
+                 | NumberFormatException
+                e) {
+            System.out.println("\t"
+                            + e.getMessage()
+            );
+        }
+
+        return returnString;
     }
 }

@@ -51,4 +51,52 @@ public class Find {
             System.out.println("\tNo related task in the list.");
         }
     }
+
+    /**
+     * Searches for the tasks that contain the specified keyword.
+     *
+     * @param userInput String containing the user input.
+     * @param listItems List of tasks.
+     * @return String containing the output.
+     * @throws ArrayIndexOutOfBoundsException If the user input is in the wrong format.
+     */
+    public static String findReturnOutput(String userInput, TaskList listItems) throws ArrayIndexOutOfBoundsException {
+        StringBuilder returnString = new StringBuilder();
+        String[] userInputList = userInput.split("find");
+
+        if (userInputList.length < 2) {
+            throw new ArrayIndexOutOfBoundsException(
+                    "The keyword to search for is missing!"
+                            + "\n\tMake sure it is in this format:"
+                            + "\n\t\tfind <keyword>"
+            );
+        }
+
+        String keyword = userInputList[1].trim();
+        if (keyword.isEmpty()) {
+            throw new ArrayIndexOutOfBoundsException(
+                    "The keyword to search for is missing!"
+                            + "\n\tMake sure it is in this format:"
+                            + "\n\t\tfind <keyword>"
+            );
+        }
+
+        int outputListIndex = 1;
+        for (int i = 0; i < listItems.getSize(); i++) {
+            String taskInfo = listItems.getItemAtIndex(i).toString();
+            if (taskInfo.contains(keyword)) {
+                returnString.append("\t"
+                        + outputListIndex
+                        + ". "
+                        + taskInfo);
+                outputListIndex++;
+            }
+        }
+
+        if (outputListIndex == 1) {
+            returnString.append("\tNo related task in the list.");
+        }
+
+        return returnString.toString();
+    }
 }
