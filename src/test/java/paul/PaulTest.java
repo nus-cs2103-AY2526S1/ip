@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PaulTest {
     @Test
     public void dummyTest(){
-        assertEquals(2, 2);
+        assertEquals(2, 1 + 1);
     }
 
     @Test
     public void anotherDummyTest(){
-        assertEquals(4, 4);
+        assertEquals(4, 2 + 2);
     }
 }
