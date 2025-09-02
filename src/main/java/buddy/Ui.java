@@ -29,6 +29,14 @@ public class Ui {
     public void showLine() {
         System.out.println("____________________________________________________________");
     }
+
+    public void showMessages(String... messages) {
+        showLine();
+        for (String message : messages) {
+            System.out.println(" " + message);
+        }
+        showLine();
+    }
     
     public void showTaskAdded(Task task, int taskCount) {
         showLine();
@@ -79,7 +87,7 @@ public class Ui {
         System.out.println("Error loading tasks from file. Starting with empty task list.");
     }
     
-    public void showFoundTasks(Task[] foundTasks) {
+    public void showFoundTasks(Task... foundTasks) {
         showLine();
         if (foundTasks.length == 0) {
             System.out.println(" No matching tasks found in your list.");
