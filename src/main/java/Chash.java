@@ -95,6 +95,7 @@ public class Chash {
     }
 
     private static Event createEvent(String taskDetail) {
+        //Note: User has to specify /from first, /to next, at the end of the line
         String[] tmp = taskDetail.split(" /from ", 2);
 
         //Sanity check
