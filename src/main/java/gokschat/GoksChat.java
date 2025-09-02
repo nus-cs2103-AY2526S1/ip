@@ -24,9 +24,8 @@ public class GoksChat {
      * This constructor initializes the object's internal state based on the provided parameters.
      *
      * @param filePath
-     * @throws BadFileException
      */
-    public GoksChat(String filePath) throws BadFileException {
+    public GoksChat(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -71,7 +70,7 @@ public class GoksChat {
         ui.printGoodbyeMessage();
     }
 
-    public static void main(String[] args) throws InvalidPromptException, TodoException, BadFileException {
+    public static void main(String[] args) {
         GoksChat goks = new GoksChat("src/data/gokschat.txt");
         goks.run();
     }
