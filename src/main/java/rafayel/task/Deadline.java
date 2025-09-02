@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
 
     /* Stores the date/time of the Deadline task */
-    LocalDateTime deadlineDate;
+    protected LocalDateTime deadlineDate;
 
     /**
      * Constructs a new Deadline task with the given description and Deadline Date.

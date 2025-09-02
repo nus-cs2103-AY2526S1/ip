@@ -1,4 +1,10 @@
-package rafayel;
+package rafayel.storage;
+
+import rafayel.RafayelException;
+import rafayel.task.Deadline;
+import rafayel.task.Event;
+import rafayel.task.Task;
+import rafayel.task.Todo;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,11 +15,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
-import rafayel.task.Deadline;
-import rafayel.task.Event;
-import rafayel.task.Task;
-import rafayel.task.Todo;
 
 /**
  * Storage class handles all file operations for the Rafayel chatbot.

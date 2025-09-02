@@ -11,9 +11,9 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
 
     /* The date that the Event task starts */
-    LocalDateTime startDate;
+    protected LocalDateTime startDate;
     /* The date that the Event task ends */
-    LocalDateTime endDate;
+    protected LocalDateTime endDate;
 
     /**
      * Constructs a new Event with the given description, start date and end date.

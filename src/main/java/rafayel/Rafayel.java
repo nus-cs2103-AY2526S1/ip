@@ -1,23 +1,19 @@
-package rafayel.ui;
+package rafayel;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import rafayel.RafayelException;
-import rafayel.Storage;
 import rafayel.command.Parser;
-// import rafayel.command.Parser.Command;
+import rafayel.storage.Storage;
 import rafayel.task.Deadline;
 import rafayel.task.Event;
 import rafayel.task.Task;
 import rafayel.task.TaskList;
 import rafayel.task.Todo;
+import rafayel.ui.Ui;
 
-// import java.time.LocalDate;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-// import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Chatbot named Rafayel that manages a task list.
@@ -35,7 +31,7 @@ public class Rafayel {
     private final Ui ui;
 
     /* Standardised formatting of the LocalDateTime object */
-    DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+    private DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
     /**
      * Handles marking or unmarking a task as done/not done.
@@ -133,8 +129,7 @@ public class Rafayel {
     public static LocalDateTime handleReadDate(String input) {
         // check if valid format
         DateTimeFormatter[] differentTimeFormatters = new DateTimeFormatter[] {
-                DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"),
-                DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"),
+                DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"), DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"),
                 DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm") };
 
         for (DateTimeFormatter formatter : differentTimeFormatters) {
