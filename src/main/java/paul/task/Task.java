@@ -22,16 +22,22 @@ public class Task {
     /**
      * Returns the status icon of the task.
      *
-     * @return "X" if the task is completed.
+     * @return "X" if the task is completed, " " otherwise.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Marks this task as completed.
+     */
     public void markTask() {
         this.isDone = true;
     }
 
+    /**
+     * Marks this task as not completed.
+     */
     public void unmarkTask() {
         this.isDone = false;
     }

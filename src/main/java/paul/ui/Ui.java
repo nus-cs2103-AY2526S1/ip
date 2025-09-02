@@ -17,6 +17,8 @@ public class Ui {
                 |  __/ ___ \\ |_| | |___
                 |_| /_/   \\_\\___/|_____|
                 """;
+
+    // Scanner to read user input
     private final Scanner sc = new Scanner(System.in);
 
     /**
@@ -33,14 +35,14 @@ public class Ui {
     /**
      * Reads a line of input from the user, removing any whitespace.
      *
-     * @return The string of the user input.
+     * @return The trimmed user input.
      */
     public String readCommand() {
         return sc.nextLine().trim();
     }
 
     /**
-     * Greets user with a welcome message.
+     * Greets user with a welcome message and logo.
      */
     public void greetUser() {
         printOutput("Hello I'm\n" + LOGO + "\nWhat can I do for you?");
@@ -56,7 +58,7 @@ public class Ui {
     /**
      * Displays all the tasks currently in the TaskList.
      *
-     * @param tasks The TaskList to print.
+     * @param tasks The TaskList to display.
      */
     public void showTasks(TaskList tasks) {
         printOutput("Here are the tasks in your list:\n" + tasks);

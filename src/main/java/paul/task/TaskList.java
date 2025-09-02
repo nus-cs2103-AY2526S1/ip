@@ -1,6 +1,7 @@
 package paul.task;
 
 import paul.exception.PaulException;
+import paul.parser.Parser;
 import paul.storage.Storage;
 import paul.ui.Ui;
 
@@ -36,6 +37,7 @@ public class TaskList {
      * Gets the ith task from the TaskList.
      *
      * @param i The ith task to get (1-indexed).
+     * @return The task at position i.
      */
     public Task get(int i) {
         // Get the ith Task in the list
@@ -59,7 +61,7 @@ public class TaskList {
      * @throws PaulException if there is an error in the command.
      */
     public void addTask(String[] parsedCommand, Storage storage, Ui ui) throws PaulException {
-        String commandType = parsedCommand[0];
+        Parser.CommandType commandType = Parser.getCommandType(parsedCommand[0]);
         if (parsedCommand.length < 2) {
             throw new PaulException("The description of a " + commandType + " cannot be empty!");
         }
@@ -67,10 +69,10 @@ public class TaskList {
         Task newTask;
 
         switch (commandType) {
-        case "todo":
+        case TODO:
             newTask = new ToDo(description);
             break;
-        case "deadline":
+        case DEADLINE:
             String[] deadlineStr = description.split(" /by ");
 
             if (deadlineStr.length < 2 || deadlineStr[0].isBlank() || deadlineStr[1].isBlank()) {
@@ -84,7 +86,7 @@ public class TaskList {
                 throw new PaulException("/by must be in yyyy-mm-dd format! (e.g., 2019-10-15)");
             }
             break;
-        case "event":
+        case EVENT:
             String[] eventStr = description.split(" /from | /to ");
 
             if (eventStr.length < 3 || eventStr[0].isBlank() || eventStr[1].isBlank() || eventStr[2].isBlank()) {
@@ -140,14 +142,14 @@ public class TaskList {
      * @throws PaulException if there is an error in the command.
      */
     public void markTask(String[] parsedCommand, Storage storage, Ui ui) throws PaulException {
-        String commandType = parsedCommand[0];
+        Parser.CommandType commandType = Parser.getCommandType(parsedCommand[0]);
         if (parsedCommand.length < 2) {
             throw new PaulException("The description of a " + commandType + " cannot be empty!");
         }
         String input = parsedCommand[1];
 
         switch (commandType) {
-        case "mark":
+        case MARK:
             try {
                 int index = Integer.parseInt(input);
                 Task task = this.get(index);
@@ -159,7 +161,7 @@ public class TaskList {
                 throw new PaulException("Please input a valid task number!");
             }
             break;
-        case "unmark":
+        case UNMARK:
             try {
                 int index = Integer.parseInt(input);
                 Task task = this.get(index);
