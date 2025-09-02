@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * An event task for Paul.
- * Includes a from date and to date, in MMM dd yy format.
+ * Includes a from date and to date, in MMM dd yyyy format.
  */
 public class Event extends Task {
 
@@ -13,11 +13,11 @@ public class Event extends Task {
     protected LocalDate to;
 
     /**
-     * Creates a deadline task from the description and by date.
+     * Creates an event task from the description, from date and to date.
      *
      * @param description The description of the task.
-     * @param from The from date in yyyy-mm-dd format.
-     * @param to The to date in yyyy-mm-dd format.
+     * @param from The start date in yyyy-mm-dd format.
+     * @param to The end date in yyyy-mm-dd format.
      */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);

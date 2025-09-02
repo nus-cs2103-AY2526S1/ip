@@ -19,7 +19,7 @@ public class Parser {
      * @param input User input.
      * @return The command type corresponding to the user's input.
      */
-    public CommandType getCommandType(String input) {
+    public static CommandType getCommandType(String input) {
         String[] words = input.split(" ", 2);
         String commandWord = words[0].toLowerCase();
 

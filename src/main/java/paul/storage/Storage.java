@@ -17,12 +17,19 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
- * Handles reading from and writing to the storage file
+ * Handles reading from and writing to the storage file,
  * which keeps track of tasks.
  */
 public class Storage {
+    // Path to the storage file
     private final String filePath;
 
+    /**
+     * Creates a Storage instance with the given file path.
+     * Creates the directory if it does not exist.
+     *
+     * @param filePath The path to the storage file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
 
@@ -36,7 +43,7 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the file into a TaskList
+     * Loads tasks from the file into a TaskList.
      *
      * @return Tasklist containing the tasks from the storage.
      * @throws PaulException if the file is not found.
