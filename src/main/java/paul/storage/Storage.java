@@ -16,6 +16,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * Handles reading from and writing to the storage file
+ * which keeps track of tasks.
+ */
 public class Storage {
     private final String filePath;
 
@@ -31,6 +35,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file into a TaskList
+     *
+     * @return Tasklist containing the tasks from the storage.
+     * @throws PaulException if the file is not found.
+     */
     public TaskList loadTasks() throws PaulException {
         TaskList tasks = new TaskList();
         File file = new File(filePath);
@@ -72,6 +82,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the tasks from the TaskList into the storage file.
+     *
+     * @param taskList TaskList containing the tasks to save.
+     */
     public void saveTasks(TaskList taskList) {
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= taskList.size(); i++) {
