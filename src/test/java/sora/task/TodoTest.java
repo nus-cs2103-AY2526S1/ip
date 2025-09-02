@@ -1,8 +1,8 @@
 package sora.task;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class TodoTest {
 
@@ -21,7 +21,7 @@ public class TodoTest {
 
     @Test
     public void toFormat_todoTask_returnsCorrectFormat() {
-        Todo todo = new Todo( "Do something");
+        Todo todo = new Todo("Do something");
         assertEquals("T | 0 | Do something", todo.toFormat());
     }
 

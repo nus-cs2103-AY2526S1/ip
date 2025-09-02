@@ -1,11 +1,10 @@
 package sora;
 
+import java.io.IOException;
+
 import sora.list.TaskList;
 import sora.storage.Storage;
 
-import java.io.IOException;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 /**
  * The {@code Sora} class is the main entry point of the Sora chatbot application.
@@ -14,9 +13,6 @@ public class Sora {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
-    private static final DateTimeFormatter format =
-            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm",Locale.ENGLISH);
 
     /**
      * Constructs a new instance of {@code Sora}.
@@ -30,7 +26,7 @@ public class Sora {
             tasks = new TaskList(storage.load().getFullTasks());
         } catch (IOException e) {
             ui.showError("Cannot load storage tasks");
-            tasks =new TaskList();
+            tasks = new TaskList();
         }
     }
 
@@ -40,7 +36,7 @@ public class Sora {
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
-        while(!isExit) {
+        while (!isExit) {
             try {
                 String command = ui.readCommand();
                 if (command.equals("bye")) {

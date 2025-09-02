@@ -1,11 +1,5 @@
 package sora.storage;
 
-import sora.task.Deadline;
-import sora.task.Event;
-import sora.task.Task;
-import sora.task.Todo;
-import sora.list.TaskList;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,6 +7,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Scanner;
+
+import sora.list.TaskList;
+import sora.task.Deadline;
+import sora.task.Event;
+import sora.task.Task;
+import sora.task.Todo;
 
 /**
  * Handles the loading and saving of tasks to a file.
@@ -22,7 +22,7 @@ import java.util.Scanner;
  */
 public class Storage {
     private String filePath;
-    DateTimeFormatter format =
+    private final DateTimeFormatter format =
             DateTimeFormatter.ofPattern("MMM dd yyyy HHmm", Locale.ENGLISH);
 
     /**
@@ -30,7 +30,7 @@ public class Storage {
      *
      * @param filePath the path to the file for storing tasks.
      */
-    public Storage(String filePath){
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
@@ -46,7 +46,7 @@ public class Storage {
     public TaskList load() throws IOException {
         TaskList tasks = new TaskList();
         File file = new File(filePath);
-        if(!file.exists()) {
+        if (!file.exists()) {
             file.getParentFile().mkdirs();
             file.createNewFile();
             return tasks;
@@ -68,7 +68,7 @@ public class Storage {
                 break;
             case "D":
                 LocalDateTime by = LocalDateTime.parse(parts[3], format);
-                Deadline deadline =new Deadline(description,by);
+                Deadline deadline = new Deadline(description, by);
                 if (isDone) {
                     deadline.markAsDone();
                 }
@@ -77,8 +77,8 @@ public class Storage {
             case "E":
                 LocalDateTime from = LocalDateTime.parse(parts[3], format);
                 LocalDateTime to = LocalDateTime.parse(parts[4], format);
-                Event event = new Event(description,from,to);
-                if(isDone) {
+                Event event = new Event(description, from, to);
+                if (isDone) {
                     event.markAsDone();
                 }
                 tasks.addTask(event);

@@ -1,10 +1,10 @@
 package sora;
 
-import sora.task.Task;
-import sora.list.TaskList;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import sora.list.TaskList;
+import sora.task.Task;
 
 /**
  * The {@code Ui} class handles all interactions with the user.
@@ -120,8 +120,7 @@ public class Ui {
     public void showFoundTask(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println("Oh no, there is not any task with this keyword in the list");
-        }
-        else {
+        } else {
             System.out.println("Here are the matching tasks in your list:");
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println((i + 1) + "." + tasks.get(i));

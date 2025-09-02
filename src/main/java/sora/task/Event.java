@@ -20,7 +20,7 @@ public class Event extends Task {
      * @param from the start time of the event.
      * @param to the end time of the event.
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to) { 
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(TaskType.EVENT, description);
         this.from = from;
         this.to = to;

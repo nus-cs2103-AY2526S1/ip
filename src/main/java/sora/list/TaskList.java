@@ -1,8 +1,8 @@
 package sora.list;
 
-import sora.task.Task;
-
 import java.util.ArrayList;
+
+import sora.task.Task;
 
 /**
  * Represents a list of tasks and provides methods to manipulate them.
@@ -13,7 +13,7 @@ public class TaskList {
     /**
      * Constructs an empty TaskList.
      */
-    public TaskList(){
+    public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
@@ -100,7 +100,7 @@ public class TaskList {
     public ArrayList<Task> findTasks(String keyword) {
         ArrayList<Task> check = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)){
+            if (task.getDescription().contains(keyword)) {
                 check.add(task);
             }
         }
