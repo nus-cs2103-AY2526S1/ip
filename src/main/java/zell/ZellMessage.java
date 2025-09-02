@@ -8,7 +8,7 @@ public enum ZellMessage {
     UNKNOWN_COMMAND(" is an unknown command. Please try again with a valid command"),
     TASK_ADDED("Noted. The following task has been added:\n "),
     TASK_REMOVED("Noted. The following task has been removed:\n "),
-    GOODBYE("Goodbye. Hope to see you again soon!"),
+    GOODBYE("Goodbye hope to see you again soon!\nClosing in 5 seconds..."),
     LIST("Currently you have added this tasks to your list:\n"),
     TASK_MARKED("Nice! I've marked this task as done:\n "),
     TASK_UNMARKED("OK, I've marked this task as not done yet:\n "),

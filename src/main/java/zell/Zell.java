@@ -1,16 +1,12 @@
 package zell;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import zell.exception.ZellException;
 import zell.storage.Storage;
@@ -24,99 +20,37 @@ public class Zell extends Application {
     /** Path to the local storage file */
     private static final String FILE_PATH = "./data/Zell.txt";
 
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
-    public static void main(String[] args) {
-        Storage storage = new Storage(FILE_PATH);
-        Ui ui = new Ui();
-        TaskList taskList;
-
-        try {
-            taskList = new TaskList(storage.loadTasks());
-        } catch (ZellException ze) {
-            ui.showMessage(ze.toString());
-            taskList = new TaskList(new ArrayList<>());
-        }
-
-        ChatLoop chatLoop = new ChatLoop(taskList , storage, ui);
-        chatLoop.run();
-
-    }
-
+    /**
+     * Starts the Zell chatbot using JavaFX.
+     *
+     * @param stage The stage for JavaFx.
+     */
     @Override
     public void start(Stage stage) {
-        //Setting up required components
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Zell.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane anchorPane = fxmlLoader.load();
+            Scene scene = new Scene(anchorPane);
+            stage.setScene(scene);
 
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
+            Ui ui = new Ui();
+            Storage storage = new Storage(FILE_PATH);
+            Parser parser = new Parser();
+            TaskList taskList;
 
-        userInput = new TextField();
-        sendButton = new Button("Send");
-        scrollPane.setContent(dialogContainer);
-        AnchorPane anchorPane = new AnchorPane();
-        anchorPane.getChildren().addAll(scrollPane, userInput, sendButton);
+            try {
+                taskList = new TaskList(storage.loadTasks());
+            } catch (ZellException ze) {
+                // ui.showMessage(ze.toString());
+                taskList = new TaskList(new ArrayList<>());
+            }
 
-        //Formatting the window to look as expected
-        stage.setTitle("Duke");
-        stage.setResizable(true);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
+            fxmlLoader.<Ui>getController().setFields(taskList, storage, parser);
+            stage.show();
 
-        anchorPane.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput, 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
-        scene = new Scene(anchorPane);
-        stage.setScene(scene);
-        stage.show();
-
-        //More code to be added here later
-    }
-
-    /**
-     * Creates a dialog box containing user input, and appends it to
-     * the dialog container. Clears the user input after processing.
-     */
-    private void handleUserInput() {
-        String userText = userInput.getText();
-        String zellText = String.format("So you said: %s?", userInput.getText());
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getDukeDialog(zellText, dukeImage)
-        );
-        userInput.clear();
+            fxmlLoader.<Ui>getController().showMessage(ZellMessage.WELCOME_MESSAGE.message());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
