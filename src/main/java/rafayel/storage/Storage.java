@@ -1,3 +1,4 @@
+
 package rafayel.storage;
 
 import rafayel.RafayelException;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 public class Storage {
 
     /* String to store the path to the data/files */
-    String filePath;
+    protected String filePath;
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -39,9 +40,9 @@ public class Storage {
      * Each task is converted to a string representation and written to the file.
      *
      * @param tasks list of tasks to be saved.
-     * @throws Exception if an error occurs during file writing.
+     * @throws RafayelException if an error occurs during file writing.
      */
-    public void save(ArrayList<Task> tasks) throws Exception {
+    public void save(ArrayList<Task> tasks) throws RafayelException {
         try {
             FileWriter fw = new FileWriter(filePath);
             for (Task task : tasks) {
@@ -53,7 +54,6 @@ public class Storage {
             System.out.println("An error occurred while saving file.");
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -61,7 +61,6 @@ public class Storage {
      * Creates directories and file if they don't exist.
      *
      * @throws RafayelException if directory or file creation fails.
-     * @throws IOException if an I/O error occurs.
      */
     private void ensureFileExists() throws RafayelException, IOException {
         File file = new File(filePath);
@@ -103,16 +102,11 @@ public class Storage {
             String line;
 
             while ((line = bufferedReader.readLine()) != null) {
-                // System.out.println(line);
                 if (line.trim().isEmpty()) {
                     continue;
                 }
 
                 String[] parts = line.split(" \\| ");
-                // for (int i = 0; i < parts.length; i++) {
-                // System.out.println(parts[i]);
-                // }
-                // System.out.println(parts);
                 if (parts.length < 2) {
                     continue;
                 }
@@ -140,6 +134,8 @@ public class Storage {
                         task = new Event(description, from, to);
                     }
                     break;
+                default:
+                    throw new RafayelException("Unknown task type imported!");
                 }
                 if (task != null) {
                     if (isDone) {
@@ -152,7 +148,7 @@ public class Storage {
             reader.close();
 
         } catch (IOException e) {
-            System.out.println("Error");
+            System.out.println("Error importing file!");
         }
 
         return tasks;
@@ -166,11 +162,11 @@ public class Storage {
      */
     public static LocalDateTime handleReadDate(String input) {
         // check if valid format
-        DateTimeFormatter[] differenTimeFormatters = new DateTimeFormatter[] {
+        DateTimeFormatter[] differentTimeFormatters = new DateTimeFormatter[] {
                 DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"), DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"),
                 DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm") };
 
-        for (DateTimeFormatter formatter : differenTimeFormatters) {
+        for (DateTimeFormatter formatter : differentTimeFormatters) {
             try {
                 return LocalDateTime.parse(input, formatter);
             } catch (Exception ignore) {
@@ -178,9 +174,9 @@ public class Storage {
             }
         }
 
-        System.out.println("Please use one of: MMM d yyyy HH:mm | yyyy/MM/dd HH:mm | dd-MM-yyyy HH:mm");
+        // System.out.println("Please use one of: MMM d yyyy HH:mm | yyyy/MM/dd HH:mm | dd-MM-yyyy HH:mm");
 
-        return null;
+        return null; // Error
     }
 
 }

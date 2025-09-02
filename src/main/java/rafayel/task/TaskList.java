@@ -1,9 +1,9 @@
+
 package rafayel.task;
 
 import java.util.ArrayList;
 
 import rafayel.RafayelException;
-//import rafayel.storage.Storage;
 
 /**
  * ArrayList that stores a list of tasks.
@@ -111,16 +111,21 @@ public class TaskList {
      * Tasks are displayed with their position number (starting from 1).
      *  1. [task]
      *  2. [task]
+     * @return 
      */
-    public void getTaskList() {
+    public String getTaskList() {
         if (this.getSize() == 0) {
-            System.out.println("There's nothing in the list.");
+            // System.out.println("There's nothing in the list.");
+            return "There's nothing in the list.";
         } else {
-            System.out.println("Here are the tasks in your list:");
+            // System.out.println("Here are the tasks in your list:");
+            String result = "Here are the tasks in your list:\n";
             for (int i = 0; i < this.getSize(); i++) {
-                System.out.println(i + 1 + "." + tasks.get(i).toString());
-                // System.out.println(String.format("%d. %s", i + 1, data[i]));
+                // System.out.println(i + 1 + "." + tasks.get(i).toString());
+                String temp = i + 1 + "." + tasks.get(i).toString() + "\n";
+                result += temp;
             }
+            return result;
         }
     }
 
