@@ -1,10 +1,11 @@
-# Duke User Guide
-
-// Update the title above to match the actual product name
+# Rafayel User Guide
 
 // Product screenshot goes here
 
-// Product intro goes here
+> "Your mind is for having ideas, not holding them." - David Allen
+
+Rafayel helps free your mind from remembering every little task.  
+It’s designed to be **simple**, **efficient** and **fast**, so you can focus on what truly matters.
 
 ## Adding deadlines
 
@@ -21,10 +22,10 @@ expected output
 ```
 
 ## Feature ABC
-
-// Feature details
+1. `List` - list all the tasks that has been saved
+2. `Mark [task number]` - mark the task as done
+3. `Unmark [task number]` - unmark the task
 
 
 ## Feature XYZ
-
 // Feature details

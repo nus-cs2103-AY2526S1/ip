@@ -1,3 +1,6 @@
+
+import java.util.Objects;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -5,7 +8,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 import rafayel.Rafayel;
+import rafayel.RafayelException;
+
 
 /**
  * Controller for the main GUI.
@@ -22,8 +28,10 @@ public class MainWindow extends AnchorPane {
 
     private Rafayel rafayel;
 
-    // private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image rafayelImage = new Image(this.getClass().getResourceAsStream("/images/RafayelIcon.png"));
+    private final Image userIcon = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/UserIcon.png")));
+    private final Image rafayelIcon = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/RafayelIcon.png")));
 
     @FXML
     public void initialize() {
@@ -40,11 +48,11 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws RafayelException {
         String input = userInput.getText();
         String response = rafayel.getResponse(input);
-        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, rafayelImage),
-                DialogBox.getRafayelDialog(response, rafayelImage));
+        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userIcon),
+                DialogBox.getRafayelDialog(response, rafayelIcon));
         userInput.clear();
     }
 }

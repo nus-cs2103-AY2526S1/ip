@@ -1,3 +1,4 @@
+
 package rafayel.ui;
 
 import rafayel.RafayelException;
@@ -8,41 +9,38 @@ import rafayel.RafayelException;
  */
 public class Ui {
     /* Default messages to send */
-    String LINE = "____________________________________________________________";
-    String START_MSG = LINE + "\n" + " Hello! I'm Rafayel ^-^\n" + " What can I do for you?\n" + LINE;
-    String END_MSG = " Bye. Hope to see you again soon!\n" + LINE;
+    private final String LINE = "____________________________________________________________";
+    private final String START_MSG = LINE + "\n" + " Hello! I'm Rafayel ^-^\n" + " What can I do for you?\n" + LINE;
+    private final String END_MSG = " Bye. Hope to see you again soon!\n" + LINE;
 
     /**
      * Displays a horizontal line to separate different sections of the output.
      */
-    public void showLine() {
-        System.out.println(LINE);
+    public String showLine() {
+        return LINE;
     }
 
     /**
      * Displays the welcome message when the chatbot starts.
      */
-    public void showWelcome() {
-        System.out.println(START_MSG);
+    public String showWelcome() {
+        return START_MSG;
     }
 
     /**
      * Displays the exit message when the chatbot is closing.
      */
-    public void showExit() {
-        System.out.println(END_MSG);
+    public String showExit() {
+        return END_MSG;
     }
 
     /**
      * Displays a loading error message when there is an issue loading tasks from storage.
      */
-    public void showLoadingError() {
-        // Rafayel Error
-        System.out.println("Loading error!");
+    public String showLoadingError() {
+        return "Loading error!";
 
     }
-
-    // printNewTaskString
 
     /**
      * Displays an error message to the user and throws a RafayelException.
@@ -51,7 +49,6 @@ public class Ui {
      * @throws RafayelException with the provided error message.
      */
     public void showError(String e) throws RafayelException {
-        // System.out.println("Error!");
         throw new RafayelException("Error!\n" + e);
     }
 

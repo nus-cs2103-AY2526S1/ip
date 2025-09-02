@@ -1,3 +1,4 @@
+
 package rafayel.command;
 
 /**
@@ -9,7 +10,7 @@ public class Parser {
     /**
      * Enumeration of all possible commands that can be recognised by the application.
      */
-    public enum Command {
+    public enum CommandType {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, UNKNOWN;
 
         /**
@@ -18,7 +19,7 @@ public class Parser {
          * @param input input string to be parsed.
          * @return the corresponding Command enum value.
          */
-        public static Command parseCommand(String input) {
+        public static CommandType parseCommand(String input) {
             if (input.equals("bye")) {
                 return BYE;
             }
@@ -54,9 +55,9 @@ public class Parser {
      * Parses the user input and returns the corresponding command type.
      *
      * @param input user input string to be parsed.
-     * @return the corresponding Command enum value.
+     * @return the corresponding CommandType enum value.
      */
-    public static Command parse(String input) {
-        return Command.parseCommand(input);
+    public static CommandType parse(String input) {
+        return CommandType.parseCommand(input);
     }
 }
