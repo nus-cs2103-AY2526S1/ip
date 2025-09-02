@@ -16,17 +16,6 @@ import zell.task.ToDo;
  * It also keeps track of whether the chatbot should terminate.
  */
 public class Parser {
-    /** Indicates if the chatbot should terminate */
-    private boolean hasProgramEnded;
-
-    public Parser() {
-        hasProgramEnded = false;
-    }
-
-    public boolean hasProgramEnded() {
-        return hasProgramEnded;
-    }
-
     /**
      * Processes user input and extracts the command to be executed.
      * It also calls the method to execute the command.
@@ -217,7 +206,6 @@ public class Parser {
 
     /**
      * Deals with the bye command.
-     * Here the instance variable {@link #hasProgramEnded} is set to true to indicate we should terminate the program
      * <p>
      * Exceptions are checked using checkIfCommandHasSpaces
      * </p>
@@ -229,7 +217,6 @@ public class Parser {
      */
     public String handleBye(int firstSpaceIndex, String command) throws ZellException {
         checkIfCommandHasSpaces(command, firstSpaceIndex);
-        hasProgramEnded = true;
         return ZellMessage.GOODBYE.message();
     }
 
