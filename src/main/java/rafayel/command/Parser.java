@@ -19,24 +19,33 @@ public class Parser {
          * @return the corresponding Command enum value.
          */
         public static Command parseCommand(String input) {
-            if (input.equals("bye"))
+            if (input.equals("bye")) {
                 return BYE;
-            if (input.equals("list"))
+            }
+            if (input.equals("list")) {
                 return LIST;
-            if (input.startsWith("mark"))
+            }
+            if (input.startsWith("mark")) {
                 return MARK;
-            if (input.startsWith("unmark"))
+            }
+            if (input.startsWith("unmark")) {
                 return UNMARK;
-            if (input.startsWith("todo"))
+            }
+            if (input.startsWith("todo")) {
                 return TODO;
-            if (input.startsWith("deadline"))
+            }
+            if (input.startsWith("deadline")) {
                 return DEADLINE;
-            if (input.startsWith("event"))
+            }
+            if (input.startsWith("event")) {
                 return EVENT;
-            if (input.startsWith("delete"))
+            }
+            if (input.startsWith("delete")) {
                 return DELETE;
-            if (input.startsWith("find"))
+            }
+            if (input.startsWith("find")) {
                 return FIND;
+            }
             return UNKNOWN;
         }
     }

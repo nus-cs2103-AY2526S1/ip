@@ -31,7 +31,7 @@ public class Rafayel {
     private final Ui ui;
 
     /* Standardised formatting of the LocalDateTime object */
-    private DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+    // private DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
     /**
      * Handles marking or unmarking a task as done/not done.
@@ -189,6 +189,18 @@ public class Rafayel {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+    }
+
+    public Rafayel() {
+        this.storage = null;
+        this.ui = new Ui();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Rafayel heard: " + input;
     }
 
     /**

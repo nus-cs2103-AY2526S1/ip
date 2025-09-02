@@ -3,7 +3,7 @@ package rafayel.task;
 import java.util.ArrayList;
 
 import rafayel.RafayelException;
-import rafayel.storage.Storage;
+//import rafayel.storage.Storage;
 
 /**
  * ArrayList that stores a list of tasks.
@@ -20,7 +20,7 @@ import rafayel.storage.Storage;
 public class TaskList {
 
     /* ArrayList that stores a list of tasks */
-    ArrayList<Task> tasks;
+    protected ArrayList<Task> tasks;
 
     /**
      * Constructs a TaskList with the specified list of tasks.
