@@ -7,15 +7,7 @@ import paul.ui.Ui;
 
 public class Parser {
     public enum CommandType {
-        TODO,
-        DEADLINE,
-        EVENT,
-        LIST,
-        MARK,
-        UNMARK,
-        DELETE,
-        BYE,
-        UNKNOWN
+        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE, UNKNOWN
     }
 
     public CommandType getCommandType(String input) {
