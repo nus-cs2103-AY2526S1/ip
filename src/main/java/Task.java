@@ -23,6 +23,15 @@ public abstract class Task {
         return this;
     }
 
+    //Note: This string may have to be base64 encoded to avoid possible delimiter issues
+    public String exportString() {
+        return String.format(
+            "%d | %s",
+            (this.isDone) ? 1 : 0,
+            this.description
+        );
+    }
+
     @Override
     public String toString() {
         return String.format(
