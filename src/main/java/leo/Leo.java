@@ -28,6 +28,7 @@ public class Leo {
         this.fileHandler = new FileHandler(filePath);
 
         try {
+            Messages.greetings();
             this.tasks = new TaskList(fileHandler.loadFile());
         } catch (IOException e) {
             throw new IOException("File not found and failed to create.");
@@ -44,6 +45,17 @@ public class Leo {
     public void run() {
         this.functions = new Functions(this.tasks);
         this.ui.getUserInput(this.functions);
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     *
+     * @param userInput Text containing the user input into the application.
+     * @return String containing the response from the chatbot.
+     */
+    public String getResponse(String userInput) {
+        this.functions = new Functions(this.tasks);
+        return this.ui.getLeoResponse(this.functions, userInput);
     }
 
     /**
