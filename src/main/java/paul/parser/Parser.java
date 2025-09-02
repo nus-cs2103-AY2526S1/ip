@@ -10,7 +10,7 @@ import paul.ui.Ui;
  */
 public class Parser {
     public enum CommandType {
-        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE, UNKNOWN
+        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, FIND, BYE, UNKNOWN
     }
 
     /**
@@ -31,6 +31,7 @@ public class Parser {
             case "mark" -> CommandType.MARK;
             case "unmark" -> CommandType.UNMARK;
             case "delete" -> CommandType.DELETE;
+            case "find" -> CommandType.FIND;
             case "bye" -> CommandType.BYE;
             default -> CommandType.UNKNOWN;
         };
@@ -46,21 +47,25 @@ public class Parser {
      * @throws PaulException if the command is unknown.
      */
     public void parse(String fullCommand, TaskList tasks, Storage storage, Ui ui) throws PaulException {
-        String[] parseCommand = fullCommand.split(" ", 2);
-        CommandType command = getCommandType(parseCommand[0]);
+        String[] parsedCommand = fullCommand.split(" ", 2);
+        CommandType command = getCommandType(parsedCommand[0]);
 
         switch (command) {
         case TODO, DEADLINE, EVENT:
-            tasks.addTask(parseCommand, storage, ui);
+            tasks.addTask(parsedCommand, storage, ui);
             break;
         case LIST:
             ui.showTasks(tasks);
             break;
         case MARK, UNMARK:
-            tasks.markTask(parseCommand, storage, ui);
+            tasks.markTask(parsedCommand, storage, ui);
             break;
         case DELETE:
-            tasks.deleteTask(parseCommand, storage, ui);
+            tasks.deleteTask(parsedCommand, storage, ui);
+            break;
+        case FIND:
+            TaskList foundTasks = tasks.findTasks(parsedCommand);
+            ui.showTaskFound(foundTasks);
             break;
         case BYE:
             ui.byeUser();
