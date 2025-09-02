@@ -31,6 +31,7 @@ public class Parser {
         case "unmark" -> new UnmarkCommand(Integer.valueOf(tmp[1]) - 1);
         case "delete" -> new DeleteCommand(Integer.valueOf(tmp[1]) - 1);
         case "bye" -> new ByeCommand();
+        case "find" -> new FindCommand(input.substring(input.indexOf(" ") + 1));
         default -> new AddCommand(input.substring(input.indexOf(" ") + 1));
         };
     }

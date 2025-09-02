@@ -35,4 +35,13 @@ public class Task {
     public String getAsCsv() {
         return "X," + this.completed.toString() + "," + this.name;
     }
+
+    /**
+     * Returns name of Task
+     *
+     * @return name of task
+     */
+    public String getName() {
+        return this.name;
+    }
 }
