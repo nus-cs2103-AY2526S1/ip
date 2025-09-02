@@ -1,5 +1,5 @@
 public class Deadline extends Task {
-    private static final String TASKTYPE = "D";
+    public static final String TASKTYPE = "D";
     private final String endtime;
 
     public Deadline(String description, String endtime) {

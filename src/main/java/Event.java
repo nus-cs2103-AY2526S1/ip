@@ -1,5 +1,5 @@
 public class Event extends Task {
-    private static final String TASKTYPE = "E";
+    public static final String TASKTYPE = "E";
     private final String starttime;
     private final String endtime;
 
