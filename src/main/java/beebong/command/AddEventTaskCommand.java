@@ -2,8 +2,9 @@ package beebong.command;
 
 import java.time.LocalDateTime;
 
-import beebong.task.Task;
 import beebong.task.EventTask;
+import beebong.task.Task;
+
 /**
  * Represents a Command for adding a new {@link EventTask} to the task list.
  */

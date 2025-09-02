@@ -45,8 +45,8 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String serializeTask() {
-        return "D" + Task.SAVE_DELIMITER + super.serializeTask()
-                + Task.SAVE_DELIMITER + StringUtil.encode(DateTimeUtil.toSerializedString(this.deadline));
+        return "D" + Task.saveDelimiter + super.serializeTask()
+                + Task.saveDelimiter + StringUtil.encode(DateTimeUtil.toSerializedString(this.deadline));
     }
 
     /**
@@ -58,7 +58,7 @@ public class DeadlineTask extends Task {
      */
     public static DeadlineTask deserializeTask(String taskStr) throws InvalidSerializedTaskDataException {
         // -1 limit allows for empty strings
-        String[] taskData = taskStr.split(Task.SAVE_DELIMITER, -1);
+        String[] taskData = taskStr.split(Task.saveDelimiter, -1);
         if (taskData.length != 4) {
             throw new InvalidSerializedTaskDataException();
         }
