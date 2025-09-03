@@ -1,7 +1,8 @@
 //Imports
-import java.util.Scanner;
-import java.util.List;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
 /*
@@ -96,6 +97,7 @@ public class Chash {
 
     private static Event createEvent(String taskDetail) {
         //Note: User has to specify /from first, /to next, at the end of the line
+        //Consider using regex to perform advanced splits
         String[] tmp = taskDetail.split(" /from ", 2);
 
         //Sanity check
