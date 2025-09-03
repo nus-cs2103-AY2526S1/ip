@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'application'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 repositories {
@@ -28,13 +28,13 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("Sam")
 }
 
-// Shadow plugin configuration for v8.x and Gradle 9
+// Shadow plugin configuration for v7.x and Gradle 7+
 // If you need to customize the jar name, use the following:
 // tasks.named('shadowJar') {
-//     archiveBaseName.set('duke')
+//     archiveBaseName.set('sam')
 //     archiveClassifier.set('')
 // }
 

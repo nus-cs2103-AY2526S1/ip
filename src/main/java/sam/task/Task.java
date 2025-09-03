@@ -1,5 +1,6 @@
 package sam.task;
 
+
 public class Task {
     protected final String description;
     private boolean isDone;
@@ -14,6 +15,10 @@ public class Task {
     }
     public void unmark() {
          this.isDone = false; 
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 
     protected String kind() {

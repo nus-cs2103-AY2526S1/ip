@@ -1,6 +1,6 @@
 package sam.ui;
 
-import sam.Task;
+import sam.task.Task;
 
 public class Ui {
     public void showWelcome() {
