@@ -13,11 +13,11 @@ public abstract class Command {
      * Executes the logic associated with this Command.
      *
      * @param taskList the task list to operate on.
-     * @param ui the user interface for displaying messages.
      * @param storage the storage handler for saving tasks.
+     * @return a String result for the user.
      * @throws BBongException if an error occurs during execution.
      */
-    public abstract void execute(TaskList taskList, UI ui, Storage storage) throws BBongException;
+    public abstract String execute(TaskList taskList, Storage storage) throws BBongException;
 
     /**
      * Returns a boolean signifying whether this command should terminate the chatbot.

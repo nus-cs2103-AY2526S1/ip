@@ -13,7 +13,7 @@ public class NullCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws BBongException {
-        ui.showErrorMessage("Something went boom in B. Bong’s circuits.");
+    public String execute(TaskList taskList, Storage storage) throws BBongException {
+        return "Something went boom in B. Bong’s circuits.";
     }
 }
