@@ -55,6 +55,16 @@ public class ByteBot {
     }
 
     /**
+     * Gets a response from the ByteBot.
+     *
+     * @param input User input
+     * @return Response from ByteBot
+     */
+    public String getResponse(String input) {
+        return "You said: " + input;
+    }
+
+    /**
      * Application entry point.
      *
      * @param args CLI arguments
