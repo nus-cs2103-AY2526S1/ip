@@ -1,0 +1,20 @@
+todo read book
+deadline return book /by 12/01/2025 2000
+list
+mark 1
+list
+event project meeting /from 02/03/2024 1000 /to 02/03/2024 1030
+mark 2
+list
+unmark 2
+todo join sports club
+todo borrow book
+list
+deadline return book /by 20/06/2025 2100
+event team dinner /from 08/06/2025 1800 /to 08/06/2025 2000
+list
+mark 5
+list
+delete 3
+list
+bye
