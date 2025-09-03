@@ -23,15 +23,15 @@ public class Task {
     /**
      * Marks the task as done.
      */
-    public void markDone() { 
-        this.isDone = true; 
+    public void markDone() {
+        this.isDone = true;
     }
-    
+
     /**
      * Marks the task as not done.
      */
     public void unmark() {
-         this.isDone = false; 
+        this.isDone = false;
     }
 
     /**
@@ -47,7 +47,8 @@ public class Task {
      * Returns a string representation of the task type.
      * Subclasses should override this to provide their specific type indicator.
      * 
-     * @return A string representing the task type (empty string for base Task class)
+     * @return A string representing the task type (empty string for base Task
+     *         class)
      */
     protected String kind() {
         return "";

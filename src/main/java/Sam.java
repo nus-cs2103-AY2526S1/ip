@@ -9,14 +9,15 @@ import sam.task.Event;
 
 /**
  * Represents the main application class for Sam, a task management application.
- * This class handles the main program loop, user input processing, and coordinates
+ * This class handles the main program loop, user input processing, and
+ * coordinates
  * between different components like UI, Parser, TaskList, and Storage.
  */
 public class Sam {
     /**
      * Parses a task index from user input and validates it.
      * 
-     * @param arg The string argument containing the task number
+     * @param arg  The string argument containing the task number
      * @param size The total number of tasks in the list
      * @return The parsed and validated task index (0-based)
      * @throws SamException If the argument is invalid or the index is out of bounds
@@ -24,7 +25,8 @@ public class Sam {
     private static int parseIndex(String arg, int size) throws SamException {
         int n = Integer.parseInt(arg);
         int idx = n - 1;
-        if (idx < 0 || idx >= size) throw new SamException("OOPS!!! Invalid task number.");
+        if (idx < 0 || idx >= size)
+            throw new SamException("OOPS!!! Invalid task number.");
         return idx;
     }
 
@@ -102,7 +104,8 @@ public class Sam {
                     }
 
                     case TODO: {
-                        if (rest.isEmpty()) throw new EmptyDescriptionException("todo");
+                        if (rest.isEmpty())
+                            throw new EmptyDescriptionException("todo");
                         tasks.add(new Todo(rest));
                         storage.save(tasks.getTasks());
                         ui.printAdded(tasks.get(tasks.size() - 1), tasks.size());
@@ -133,6 +136,26 @@ public class Sam {
                         tasks.add(new Event(descr, from, to));
                         storage.save(tasks.getTasks());
                         ui.printAdded(tasks.get(tasks.size() - 1), tasks.size());
+                        break;
+                    }
+
+                    case FIND: {
+                        if (rest.isEmpty())
+                            throw new SamException("OOPS!!! Please provide a keyword to search for.");
+                        ui.showLine();
+                        System.out.println(" Here are the matching tasks in your list:");
+                        int matchCount = 0;
+                        for (int i = 0; i < tasks.size(); i++) {
+                            Task task = tasks.get(i);
+                            if (task.toString().toLowerCase().contains(rest.toLowerCase())) {
+                                matchCount++;
+                                System.out.println(" " + matchCount + "." + task);
+                            }
+                        }
+                        if (matchCount == 0) {
+                            System.out.println(" No tasks found matching '" + rest + "'.");
+                        }
+                        ui.showLine();
                         break;
                     }
 
