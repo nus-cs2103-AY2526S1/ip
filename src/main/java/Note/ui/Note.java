@@ -1,4 +1,4 @@
-package ip;
+package Note.ui;
 
 import java.util.ArrayList;
 import java.util.List;

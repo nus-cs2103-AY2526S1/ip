@@ -1,7 +1,7 @@
 package Note.ui;
 
-public class NoteException extends RuntimeException {
-  public NoteException(String message) {
-    super(message);
-  }
+public class NoteException extends Exception {
+    public NoteException(String message) {
+        super(message);
+    }
 }
