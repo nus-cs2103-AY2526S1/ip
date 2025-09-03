@@ -116,6 +116,25 @@ public class Sam {
                         break;
                     }
 
+                    case FIND: {
+                        if (rest.isEmpty()) throw new SamException("OOPS!!! Please provide a keyword to search for.");
+                        ui.showLine();
+                        System.out.println(" Here are the matching tasks in your list:");
+                        int matchCount = 0;
+                        for (int i = 0; i < tasks.size(); i++) {
+                            Task task = tasks.get(i);
+                            if (task.toString().toLowerCase().contains(rest.toLowerCase())) {
+                                matchCount++;
+                                System.out.println(" " + matchCount + "." + task);
+                            }
+                        }
+                        if (matchCount == 0) {
+                            System.out.println(" No tasks found matching '" + rest + "'.");
+                        }
+                        ui.showLine();
+                        break;
+                    }
+
                     case UNKNOWN:
                         throw new UnknownCommandException();
                 }

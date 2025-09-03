@@ -1,5 +1,5 @@
 public enum Command {
-    BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN;
+    BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND, UNKNOWN;
 
     public static Command of(String verb) {
         switch (verb) {
@@ -11,6 +11,7 @@ public enum Command {
             case "todo": return TODO;
             case "deadline": return DEADLINE;
             case "event": return EVENT;
+            case "find": return FIND;
             default: return UNKNOWN;
         }
     }
