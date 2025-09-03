@@ -1,8 +1,11 @@
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
     public static final String TASKTYPE = "E";
+    private static final DateTimeFormatter DATE_PRINTFORMAT = 
+        DateTimeFormatter.ofPattern("MMM d yyyy");
     private final String starttime;
     private final String endtime;
     private final LocalDateTime parsedStartTime;
@@ -36,11 +39,13 @@ public class Event extends Task {
 
     //Note: consider using interface as both Event and Deadline fulfills this contract
     private String getStartTime() {
-        return (parsedStartTime != null) ? parsedStartTime.toString() : starttime;
+        return (this.parsedStartTime != null) ? 
+            this.parsedStartTime.format(Event.DATE_PRINTFORMAT) : this.starttime;
     }
 
     private String getEndTime() {
-        return (parsedEndTime != null) ? parsedEndTime.toString() : endtime;
+        return (this.parsedEndTime != null) ? 
+            this.parsedEndTime.format(Event.DATE_PRINTFORMAT) : this.endtime;
     }
 
     @Override
@@ -49,8 +54,8 @@ public class Event extends Task {
             "%s | %s | %s | %s",
             Event.TASKTYPE,
             super.exportString(),
-            getStartTime(),
-            getEndTime()
+            this.starttime,
+            this.endtime
         );
     }
 
