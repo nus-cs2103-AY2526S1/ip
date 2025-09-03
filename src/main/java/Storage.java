@@ -6,13 +6,29 @@ import sam.task.Todo;
 import sam.task.Deadline;
 import sam.task.Event;
 
+/**
+ * Handles the storage and retrieval of tasks from a file.
+ * This class provides methods to load tasks from a file and save tasks to a file,
+ * supporting persistence of the task list between application sessions.
+ */
 public class Storage {
     private final Path filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     * 
+     * @param filePath The path to the file where tasks will be stored
+     */
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath);
     }
 
+    /**
+     * Loads tasks from the storage file.
+     * If the file doesn't exist, it creates the file and returns an empty task list.
+     * 
+     * @return An ArrayList containing all loaded tasks
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         if (!Files.exists(filePath)) {
@@ -33,6 +49,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the current task list to the storage file.
+     * This method ensures the file and its parent directory exist before writing.
+     * 
+     * @param tasks The ArrayList of tasks to be saved
+     */
     public void save(ArrayList<Task> tasks) {
         createFileAndParent();
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {

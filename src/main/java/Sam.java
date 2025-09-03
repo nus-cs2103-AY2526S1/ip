@@ -7,7 +7,20 @@ import sam.task.Todo;
 import sam.task.Deadline;
 import sam.task.Event;
 
+/**
+ * Represents the main application class for Sam, a task management application.
+ * This class handles the main program loop, user input processing, and coordinates
+ * between different components like UI, Parser, TaskList, and Storage.
+ */
 public class Sam {
+    /**
+     * Parses a task index from user input and validates it.
+     * 
+     * @param arg The string argument containing the task number
+     * @param size The total number of tasks in the list
+     * @return The parsed and validated task index (0-based)
+     * @throws SamException If the argument is invalid or the index is out of bounds
+     */
     private static int parseIndex(String arg, int size) throws SamException {
         int n = Integer.parseInt(arg);
         int idx = n - 1;
@@ -15,10 +28,17 @@ public class Sam {
         return idx;
     }
 
+    /**
+     * Main method that runs the Sam task management application.
+     * Initializes the application components and runs the main program loop
+     * to process user commands until the user chooses to exit.
+     * 
+     * @param args Command line arguments (not used)
+     */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Ui ui = new Ui();
-        Storage storage = new Storage("./data/duke.txt");
+        Storage storage = new Storage("./data/sam.txt");
         TaskList tasks = new TaskList(storage.load());
 
         ui.showWelcome();
