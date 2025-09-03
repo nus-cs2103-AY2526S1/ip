@@ -1,19 +1,19 @@
 package bytebot.command;
 
-import bytebot.ByteException;
-import bytebot.storage.Storage;
-import bytebot.task.Task;
-import bytebot.task.TaskList;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+import bytebot.ByteException;
+import bytebot.storage.Storage;
+import bytebot.task.Task;
+import bytebot.task.TaskList;
 
 public class TaskCommandTest {
 

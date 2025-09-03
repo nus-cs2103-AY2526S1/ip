@@ -1,7 +1,7 @@
 package bytebot.command;
 
-import bytebot.ui.Ui;
 import bytebot.storage.Storage;
+import bytebot.ui.Ui;
 
 /**
  * Lists all tasks currently stored.

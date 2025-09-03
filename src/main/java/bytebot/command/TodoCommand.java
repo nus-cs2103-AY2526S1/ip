@@ -1,10 +1,10 @@
 package bytebot.command;
 
 import bytebot.ByteException;
-import bytebot.ui.Ui;
 import bytebot.storage.Storage;
 import bytebot.task.Task;
 import bytebot.task.Todo;
+import bytebot.ui.Ui;
 
 /**
  * Adds a Todo task without time information.
@@ -22,7 +22,7 @@ public class TodoCommand extends Command {
     }
 
     /**
-     * Validates input, creates the to-do, persists it, and shows feedback.
+     * Validates input, creates the to-do, and display feedback.
      */
     @Override
     public void execute(Ui ui, Storage storage) throws ByteException {

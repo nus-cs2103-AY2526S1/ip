@@ -1,13 +1,5 @@
 package bytebot.storage;
 
-import bytebot.ByteException;
-import bytebot.task.Deadline;
-import bytebot.task.Event;
-import bytebot.task.Status;
-import bytebot.task.Task;
-import bytebot.task.TaskList;
-import bytebot.task.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,6 +10,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import bytebot.ByteException;
+import bytebot.task.Deadline;
+import bytebot.task.Event;
+import bytebot.task.Status;
+import bytebot.task.Task;
+import bytebot.task.TaskList;
+import bytebot.task.Todo;
 
 /**
  * Handles saving and loading tasks to/from a file.
@@ -126,7 +126,6 @@ public class Storage {
         return taskList.size();
     }
 
-
     /**
      * Gets a task at the specified index.
      *
@@ -203,7 +202,6 @@ public class Storage {
         }
     }
 
-
     /**
      * Parses a task from its file string representation.
      *
@@ -218,33 +216,33 @@ public class Storage {
         String taskString = tokens[1];
 
         Task task = switch (taskString.substring(1, 2)) {
-            case "T" -> {
-                String description = taskString.substring(taskString.indexOf("] ") + 2);
-                yield new Todo(description);
-            }
-            case "D" -> {
-                int byStart = taskString.indexOf("(by: ") + 5;
-                int byEnd = taskString.indexOf(")");
+        case "T" -> {
+            String description = taskString.substring(taskString.indexOf("] ") + 2);
+            yield new Todo(description);
+        }
+        case "D" -> {
+            int byStart = taskString.indexOf("(by: ") + 5;
+            int byEnd = taskString.indexOf(")");
 
-                String by = taskString.substring(byStart, byEnd);
-                String description = taskString.substring(taskString.indexOf("] ") + 2, taskString.indexOf(" (by:"));
-                String convertedBy = convertDisplayToInput(by);
-                yield new Deadline(description, convertedBy);
-            }
-            case "E" -> {
-                int fromStart = taskString.indexOf("(from: ") + 7;
-                int fromEnd = taskString.indexOf(" to:");
-                int toStart = taskString.indexOf("to: ") + 4;
-                int toEnd = taskString.indexOf(")");
+            String by = taskString.substring(byStart, byEnd);
+            String description = taskString.substring(taskString.indexOf("] ") + 2, taskString.indexOf(" (by:"));
+            String convertedBy = convertDisplayToInput(by);
+            yield new Deadline(description, convertedBy);
+        }
+        case "E" -> {
+            int fromStart = taskString.indexOf("(from: ") + 7;
+            int fromEnd = taskString.indexOf(" to:");
+            int toStart = taskString.indexOf("to: ") + 4;
+            int toEnd = taskString.indexOf(")");
 
-                String from = taskString.substring(fromStart, fromEnd);
-                String to = taskString.substring(toStart, toEnd);
-                String description = taskString.substring(taskString.indexOf("] ") + 2, taskString.indexOf(" (from:"));
-                String convertedFrom = convertDisplayToInput(from);
-                String convertedTo = convertDisplayToInput(to);
-                yield new Event(description, convertedFrom, convertedTo);
-            }
-            default -> throw new ByteException("Unknown task type in string: " + taskString);
+            String from = taskString.substring(fromStart, fromEnd);
+            String to = taskString.substring(toStart, toEnd);
+            String description = taskString.substring(taskString.indexOf("] ") + 2, taskString.indexOf(" (from:"));
+            String convertedFrom = convertDisplayToInput(from);
+            String convertedTo = convertDisplayToInput(to);
+            yield new Event(description, convertedFrom, convertedTo);
+        }
+        default -> throw new ByteException("Unknown task type in string: " + taskString);
         };
 
         if (status == Status.DONE) {

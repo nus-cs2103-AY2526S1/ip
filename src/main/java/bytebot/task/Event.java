@@ -1,20 +1,22 @@
 package bytebot.task;
 
-import bytebot.ByteException;
-import bytebot.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import bytebot.ByteException;
 
 /**
  * Represents a task that has a start and end time.
  */
 public class Event extends Task {
+    private static final DateTimeFormatter INPUT_FORMATTER =
+            DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter DISPLAY_FORMATTER =
+            DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+
     private final LocalDateTime from;
     private final LocalDateTime to;
-    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
 
     /**
      * Creates an event task.
@@ -41,7 +43,8 @@ public class Event extends Task {
         try {
             return LocalDateTime.parse(dateTimeString, INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new ByteException("Invalid date format. Please use format: dd/MM/yyyy HHmm (e.g., 2/12/2019 1800)");
+            throw new ByteException(
+                    "Invalid date format. Please use format: dd/MM/yyyy HHmm (e.g., 2/12/2019 1800)");
         }
     }
 
@@ -59,7 +62,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(DISPLAY_FORMATTER) + " to: " + to.format(DISPLAY_FORMATTER) + ")";
+        return "[E]" + super.toString()
+                + " (from: " + from.format(DISPLAY_FORMATTER)
+                + " to: " + to.format(DISPLAY_FORMATTER) + ")";
     }
 }
 

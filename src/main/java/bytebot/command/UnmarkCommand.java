@@ -1,8 +1,8 @@
 package bytebot.command;
 
 import bytebot.ByteException;
-import bytebot.ui.Ui;
 import bytebot.storage.Storage;
+import bytebot.ui.Ui;
 
 /**
  * Marks a task as not done.

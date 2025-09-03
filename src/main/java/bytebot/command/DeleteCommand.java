@@ -1,9 +1,9 @@
 package bytebot.command;
 
 import bytebot.ByteException;
-import bytebot.ui.Ui;
 import bytebot.storage.Storage;
 import bytebot.task.Task;
+import bytebot.ui.Ui;
 
 /**
  * Deletes a task by index

@@ -3,11 +3,10 @@ package bytebot.command;
 import bytebot.ByteException;
 import bytebot.storage.Storage;
 import bytebot.ui.Ui;
-import bytebot.task.Task;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Finds tasks whose description a key word
+ */
 public class FindCommand extends Command {
     private final String keyword;
 

@@ -1,13 +1,12 @@
 package bytebot;
 
-import bytebot.ui.Ui;
-import bytebot.storage.Storage;
-import bytebot.parser.Parser;
-import bytebot.command.Command;
-import bytebot.task.TaskList;
-import bytebot.ByteException;
-
 import java.io.IOException;
+
+import bytebot.command.Command;
+import bytebot.parser.Parser;
+import bytebot.storage.Storage;
+import bytebot.task.TaskList;
+import bytebot.ui.Ui;
 
 /**
  * Entry point for the ByteBot application.
@@ -19,9 +18,8 @@ public class ByteBot {
     private final Ui ui;
     private final Storage storage;
 
-
     /**
-     * Creates a new Bytebot instance, initializing the UI and 
+     * Creates a new Bytebot instance, initializing the UI and
      * storage.
      */
     public ByteBot() {
@@ -34,7 +32,6 @@ public class ByteBot {
             storage.initializeWithTaskList(new TaskList());
             ui.showError("Could not load tasks from file: " + e.getMessage());
         }
-
     }
 
     /**
@@ -60,7 +57,7 @@ public class ByteBot {
     /**
      * Application entry point.
      *
-     * @param args CLI arguments 
+     * @param args CLI arguments
      */
     public static void main(String[] args) {
         new ByteBot().run();
