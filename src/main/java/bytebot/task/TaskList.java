@@ -1,12 +1,11 @@
 package bytebot.task;
 
-import bytebot.ByteException;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import bytebot.ByteException;
 
 /**
  * List of tasks with basic operations and persistence.
@@ -40,7 +39,7 @@ public class TaskList {
     }
 
     /**
-     * Returns the under lying list
+     * Returns the underlying list
      *
      * @return List of tasks
      */

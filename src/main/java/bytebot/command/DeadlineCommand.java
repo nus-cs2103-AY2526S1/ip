@@ -1,10 +1,10 @@
 package bytebot.command;
 
 import bytebot.ByteException;
-import bytebot.ui.Ui;
 import bytebot.storage.Storage;
 import bytebot.task.Deadline;
 import bytebot.task.Task;
+import bytebot.ui.Ui;
 
 /**
  * Adds a Deadline task.

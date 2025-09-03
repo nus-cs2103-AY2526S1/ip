@@ -1,15 +1,15 @@
 package bytebot.command;
 
 import bytebot.ByteException;
-import bytebot.ui.Ui;
 import bytebot.storage.Storage;
+import bytebot.ui.Ui;
 
 /**
  * Base class for all user commands.
  * Concrete subclasses implement execute
  */
 public abstract class Command {
-    
+
     /**
      * Executes the command with access to the UI and storage
      * @param ui UI instance for interacting with the user
@@ -17,7 +17,6 @@ public abstract class Command {
      * @throws ByteException If the command cannot be executed
      */
     public abstract void execute(Ui ui, Storage storage) throws ByteException;
-
 
     /**
      * Indicates whether executing this command should exit the app.

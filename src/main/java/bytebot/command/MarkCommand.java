@@ -1,8 +1,8 @@
 package bytebot.command;
 
 import bytebot.ByteException;
-import bytebot.ui.Ui;
 import bytebot.storage.Storage;
+import bytebot.ui.Ui;
 
 /**
  * Marks a task as completed.
@@ -20,7 +20,7 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Marks the task and confirms.
+     * Marks the task and show confirmation
      */
     @Override
     public void execute(Ui ui, Storage storage) throws ByteException {

@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import bytebot.task.Task;
 
-
 /**
  * Handles all user-facing input and output
  */
@@ -24,14 +23,18 @@ public class Ui {
      * Shows the greeting banner.
      */
     public void showGreeting() {
-        System.out.println(line + "Hello! I'm Byte.\nWhat can I do for you?\n" + line);
+        System.out.println(line
+                + "Hello! I'm Byte.\nWhat can I do for you?\n"
+                + line);
     }
 
     /**
      * Shows the farewell banner.
      */
     public void showFarewell() {
-        System.out.println("\t" + line + "\t" + "Bye, hope to see you again soon!\n" + "\t" + line);
+        System.out.println("\t" + line
+                + "\t" + "Bye, hope to see you again soon!\n"
+                + "\t" + line);
     }
 
     /**
@@ -40,7 +43,9 @@ public class Ui {
      * @param message Error to display
      */
     public void showError(String message) {
-        System.out.println("\t" + line + "\t" + message + "\n" + "\t" + line);
+        System.out.println("\t" + line
+                + "\t" + message + "\n"
+                + "\t" + line);
     }
 
     /**
@@ -52,18 +57,29 @@ public class Ui {
         StringBuilder output = new StringBuilder();
         output.append("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            output.append("\n\t").append(i + 1).append(".").append(tasks.get(i).toString());
+            output.append("\n\t").append(i + 1).append(".")
+                    .append(tasks.get(i).toString());
         }
-        System.out.println("\t" + line + "\t" + output + "\n" + "\t" + line);
+        System.out.println("\t" + line
+                + "\t" + output + "\n"
+                + "\t" + line);
     }
 
+    /**
+     * Displays tasks that match a search term.
+     *
+     * @param tasks Tasks matching the search
+     */
     public void showMatching(List<Task> tasks) {
         StringBuilder output = new StringBuilder();
         output.append("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            output.append("\n\t").append(i + 1).append(".").append(tasks.get(i).toString());
+            output.append("\n\t").append(i + 1).append(".")
+                  .append(tasks.get(i).toString());
         }
-        System.out.println("\t" + line + "\t" + output + "\n" + "\t" + line);
+        System.out.println("\t" + line
+                + "\t" + output + "\n"
+                + "\t" + line);
     }
 
     /**
@@ -73,7 +89,12 @@ public class Ui {
      * @param total Total number of tasks after addition
      */
     public void showAddedTask(Task task, int total) {
-        System.out.println("\t" + line + "\t" + "Got it, I've added this task:\n\t  " + task + "\n\tNow you have " + total + " tasks in the list." + "\n" + "\t" + line);
+        System.out.println(
+                "\t" + line
+                + "\t" + "Got it, I've added this task:\n\t  " + task
+                + "\n\tNow you have " + total + " tasks in the list."
+                + "\n" + "\t" + line
+        );
     }
 
     /**
@@ -82,7 +103,11 @@ public class Ui {
      * @param task The task that was marked done
      */
     public void showMarked(Task task) {
-        System.out.println("\t" + line + "\t" + "Nice! I've marked this task as done:\n\t  " + task + "\n" + "\t" + line);
+        System.out.println(
+                "\t" + line
+                + "\t" + "Nice! I've marked this task as done:\n\t  " + task
+                + "\n" + "\t" + line
+        );
     }
 
     /**
@@ -91,7 +116,11 @@ public class Ui {
      * @param task The task that was unmarked
      */
     public void showUnmarked(Task task) {
-        System.out.println("\t" + line + "\t" + "OK, I've marked this task as not done yet:\n\t  " + task + "\n" + "\t" + line);
+        System.out.println(
+                "\t" + line
+                + "\t" + "OK, I've marked this task as not done yet:\n\t  " + task
+                + "\n" + "\t" + line
+        );
     }
 
     /**
@@ -101,7 +130,12 @@ public class Ui {
      * @param total Total number of tasks after deletion
      */
     public void showDeleted(Task removed, int total) {
-        System.out.println("\t" + line + "\t" + "I have removed this task:\n\t  " + removed + "\n\tNow you have " + total + " tasks in the list." + "\n" + "\t" + line);
+        System.out.println(
+                "\t" + line
+                + "\t" + "I have removed this task:\n\t  " + removed
+                + "\n\tNow you have " + total + " tasks in the list."
+                + "\n" + "\t" + line
+        );
     }
 
     /**
@@ -119,7 +153,6 @@ public class Ui {
     public void closeScanner() {
         scanner.close();
     }
-
 }
 
 

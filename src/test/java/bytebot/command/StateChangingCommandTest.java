@@ -1,21 +1,21 @@
 package bytebot.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import bytebot.ByteException;
 import bytebot.storage.Storage;
 import bytebot.task.Task;
 import bytebot.task.TaskList;
 import bytebot.task.Todo;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class StateChangingCommandTest {
 

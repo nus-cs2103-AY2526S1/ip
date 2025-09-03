@@ -1,13 +1,13 @@
 package bytebot.command;
 
 import bytebot.ByteException;
-import bytebot.ui.Ui;
 import bytebot.storage.Storage;
 import bytebot.task.Event;
 import bytebot.task.Task;
+import bytebot.ui.Ui;
 
 /**
- * Adds an Event task with a start and end time.
+ * Adds an Event with a start and end time.
  */
 public class EventCommand extends Command {
     private final String description;
@@ -15,7 +15,7 @@ public class EventCommand extends Command {
     private final String to;
 
     /**
-     * Constructs an event command.
+     * Constructs an event command
      *
      * @param description Description of the event
      * @param from Start time in input format (d/M/yyyy HHmm)
