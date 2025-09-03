@@ -32,11 +32,11 @@ public abstract class AddTaskCommand extends Command {
     protected abstract Task createTask();
 
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws BBongException {
+    public String execute(TaskList taskList, Storage storage) throws BBongException {
         // Create new Task
         Task newTask = createTask();
         taskList.addTask(newTask);
-        ui.showMessage("Bing! Task added to my list:\n" + newTask + "\nYou now have "
-                + taskList.length() + " task(s) " + "buzzing around in the list.");
+        return "Bing! Task added to my list:\n" + newTask + "\nYou now have "
+                + taskList.length() + " task(s) " + "buzzing around in the list.";
     }
 }

@@ -13,7 +13,7 @@ public class HelpCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws BBongException {
-        ui.showCommands();
+    public String execute(TaskList taskList, Storage storage) throws BBongException {
+        return UI.commands;
     }
 }

@@ -3,6 +3,7 @@ package beebong.task;
 import java.util.ArrayList;
 import java.util.List;
 
+import beebong.exception.BBongException;
 import beebong.storage.Storage;
 
 /**
@@ -77,7 +78,7 @@ public class TaskList {
      *
      * @param storage the {@link Storage} instance used by the chatbot.
      */
-    public void writeTasksToFile(Storage storage) {
+    public void writeTasksToFile(Storage storage) throws BBongException {
         storage.writeTasksToFile(tasks);
     }
 

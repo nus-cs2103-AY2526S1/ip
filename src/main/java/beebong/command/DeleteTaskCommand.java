@@ -30,15 +30,15 @@ public class DeleteTaskCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws BBongException {
+    public String execute(TaskList taskList, Storage storage) throws BBongException {
         // Check for valid task number
         if (taskNum < 0 || taskNum >= taskList.length()) {
             throw new InvalidTaskDetailsException("That task number doesn’t exist. Try a real one!");
         }
         // Delete Task
         Task removedTask = taskList.deleteTask(taskNum);
-        ui.showMessage("Bing! This task has been removed:\n"
+        return "Bing! This task has been removed:\n"
                 + removedTask + "\nYou now have " + taskList.length()
-                + " task(s) buzzing around in the list.");
+                + " task(s) buzzing around in the list.";
     }
 }

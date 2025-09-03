@@ -13,11 +13,16 @@ public class ExitCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws BBongException {
+    public String execute(TaskList taskList, Storage storage) throws BBongException {
+        String res = "BeeBong signing off! Bing back soon for more chats!\n\n";
         // Try to save tasks to file before exiting
-        taskList.writeTasksToFile(storage);
-        ui.showMessage("Bing Bing! Tasks saved successfully!");
-        ui.showExitMessage();
+        try {
+            taskList.writeTasksToFile(storage);
+            res = "Bing Bing! Tasks saved successfully!\n\n" + res;
+        } catch (BBongException e) {
+            res = "Bong Alert! - Existing Tasks were not saved!\n\n" + res;
+        }
+        return res + "Chat closing in 3 seconds...";
     }
 
     /**

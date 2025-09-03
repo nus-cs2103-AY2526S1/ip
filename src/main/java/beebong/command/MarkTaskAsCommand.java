@@ -33,14 +33,14 @@ public class MarkTaskAsCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws BBongException {
+    public String execute(TaskList taskList, Storage storage) throws BBongException {
         // Check for valid task number
         if (taskNum < 0 || taskNum >= taskList.length()) {
             throw new InvalidTaskDetailsException("That task number doesn’t exist. Try a real one!");
         }
         // Mark Task as Completed/Incomplete
         taskList.markTaskAs(taskNum, isComplete);
-        ui.showMessage("Bing! Task #" + (taskNum + 1) + " marked as "
-                + ((isComplete) ? "complete" : "incomplete") + "!");
+        return "Bing! Task #" + (taskNum + 1) + " marked as "
+                + ((isComplete) ? "complete" : "incomplete") + "!";
     }
 }
