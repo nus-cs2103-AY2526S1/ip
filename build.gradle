@@ -29,6 +29,11 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
 
+application {
+    mainClass.set("Launcher")
+//    mainClass.set("beebong.BeeBong")
+}
+
 test {
     useJUnitPlatform()
 
@@ -47,9 +52,6 @@ checkstyle {
     toolVersion = '11.0.0'
 }
 
-application {
-    mainClass.set("beebong.BeeBong")
-}
 
 shadowJar {
     archiveBaseName = "beeBong"
