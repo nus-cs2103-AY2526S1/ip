@@ -23,9 +23,9 @@ public class UnmarkCommand extends Command {
      * Unmarks the task and confirms.
      */
     @Override
-    public void execute(Ui ui, Storage storage) throws ByteException {
+    public String execute(Ui ui, Storage storage) throws ByteException {
         storage.unmarkTask(index);
-        ui.showUnmarked(storage.getTask(index));
+        return ui.showUnmarked(storage.getTask(index));
     }
 }
 

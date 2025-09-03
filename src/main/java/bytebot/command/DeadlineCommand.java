@@ -28,7 +28,7 @@ public class DeadlineCommand extends Command {
      * Validates description and /by, creates the deadline, persists it, and shows feedback.
      */
     @Override
-    public void execute(Ui ui, Storage storage) throws ByteException {
+    public String execute(Ui ui, Storage storage) throws ByteException {
         if (description == null || description.trim().isEmpty()) {
             throw new ByteException("The description of a deadline cant be empty");
         }
@@ -37,7 +37,7 @@ public class DeadlineCommand extends Command {
         }
         Task task = new Deadline(description, by);
         storage.addTask(task);
-        ui.showAddedTask(task, storage.getSize());
+        return ui.showAddedTask(task, storage.getSize());
     }
 }
 

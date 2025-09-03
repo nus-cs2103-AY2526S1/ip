@@ -26,7 +26,7 @@ public class Main extends Application {
 
         MainWindow controller = fxmlLoader.getController();
         controller.setImages(userImage, byteImage);
-        controller.setByteBot(new ByteBot());
+        controller.setByteBot(new ByteBot(true));
 
         stage.show();
     }

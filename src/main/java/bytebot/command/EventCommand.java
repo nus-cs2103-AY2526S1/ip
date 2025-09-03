@@ -31,7 +31,7 @@ public class EventCommand extends Command {
      * Validates description, from and to, creates the event, and shows feedback.
      */
     @Override
-    public void execute(Ui ui, Storage storage) throws ByteException {
+    public String execute(Ui ui, Storage storage) throws ByteException {
         if (description == null || description.trim().isEmpty()) {
             throw new ByteException("The description of an event cant be empty");
         }
@@ -43,7 +43,7 @@ public class EventCommand extends Command {
         }
         Task task = new Event(description, from, to);
         storage.addTask(task);
-        ui.showAddedTask(task, storage.getSize());
+        return ui.showAddedTask(task, storage.getSize());
     }
 }
 
