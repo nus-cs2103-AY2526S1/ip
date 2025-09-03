@@ -85,7 +85,10 @@ public class Find {
         for (int i = 0; i < listItems.getSize(); i++) {
             String taskInfo = listItems.getItemAtIndex(i).toString();
             if (taskInfo.contains(keyword)) {
-                returnString.append("\t"
+                if (outputListIndex == 1) {
+                    returnString.append("Here's the tasks with the word '" + keyword + "':");
+                }
+                returnString.append("\n\t"
                         + outputListIndex
                         + ". "
                         + taskInfo);
