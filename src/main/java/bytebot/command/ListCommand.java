@@ -11,8 +11,8 @@ public class ListCommand extends Command {
      * Displays tasks using the UI.
      */
     @Override
-    public void execute(Ui ui, Storage storage) {
-        ui.showTasks(storage.getAllTasks());
+    public String execute(Ui ui, Storage storage) {
+        return ui.showTasks(storage.getAllTasks());
     }
 }
 

@@ -23,9 +23,9 @@ public class MarkCommand extends Command {
      * Marks the task and show confirmation
      */
     @Override
-    public void execute(Ui ui, Storage storage) throws ByteException {
+    public String execute(Ui ui, Storage storage) throws ByteException {
         storage.markTask(index);
-        ui.showMarked(storage.getTask(index));
+        return ui.showMarked(storage.getTask(index));
     }
 }
 

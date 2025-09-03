@@ -6,6 +6,7 @@ import bytebot.command.Command;
 import bytebot.parser.Parser;
 import bytebot.storage.Storage;
 import bytebot.task.TaskList;
+import bytebot.ui.GuiUi;
 import bytebot.ui.Ui;
 
 /**
@@ -17,13 +18,29 @@ import bytebot.ui.Ui;
 public class ByteBot {
     private final Ui ui;
     private final Storage storage;
+    private final boolean isGuiMode;
 
     /**
      * Creates a new Bytebot instance, initializing the UI and
      * storage.
      */
     public ByteBot() {
-        this.ui = new Ui();
+        this(false);
+    }
+
+    /**
+     * Creates a new Bytebot instance, initializing the UI and
+     * storage.
+     *
+     * @param isGuiMode Whether this instance is running in GUI mode
+     */
+    public ByteBot(boolean isGuiMode) {
+        this.isGuiMode = isGuiMode;
+        if (isGuiMode) {
+            this.ui = new GuiUi();
+        } else {
+            this.ui = new Ui();
+        }
         this.storage = new Storage();
 
         try {
@@ -52,6 +69,28 @@ public class ByteBot {
             }
         }
         ui.closeScanner();
+    }
+
+    /**
+     * Gets a response from the ByteBot.
+     *
+     * @param input User input
+     * @return Response from ByteBot
+     */
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            String response = c.execute(ui, storage);
+
+            if (c.isExit()) {
+                return "Bye, hope to see you again soon!";
+            }
+
+            return response;
+
+        } catch (ByteException e) {
+            return ui.showError(e.getMessage());
+        }
     }
 
     /**

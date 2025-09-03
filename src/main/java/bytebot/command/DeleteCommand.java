@@ -25,9 +25,9 @@ public class DeleteCommand extends Command {
      * Removes the specified task and confirms.
      */
     @Override
-    public void execute(Ui ui, Storage storage) throws ByteException {
+    public String execute(Ui ui, Storage storage) throws ByteException {
         Task removed = storage.deleteTask(index);
-        ui.showDeleted(removed, storage.getSize());
+        return ui.showDeleted(removed, storage.getSize());
     }
 }
 

@@ -11,8 +11,8 @@ public class ExitCommand extends Command {
      * Executes the exit command by displaying a farewell message.
      */
     @Override
-    public void execute(Ui ui, Storage storage) {
-        ui.showFarewell();
+    public String execute(Ui ui, Storage storage) {
+        return ui.showFarewell();
     }
 
     /**

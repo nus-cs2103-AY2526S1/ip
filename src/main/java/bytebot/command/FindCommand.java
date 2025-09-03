@@ -15,12 +15,12 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage) throws ByteException {
+    public String execute(Ui ui, Storage storage) throws ByteException {
         if (keyword.isEmpty()) {
             throw new ByteException("Invalid keyword");
         }
 
-        ui.showMatching(storage.findTasksByKeyword(keyword));
+        return ui.showMatching(storage.findTasksByKeyword(keyword));
     }
 }
 
