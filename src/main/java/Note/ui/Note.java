@@ -1,185 +1,146 @@
 package Note.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * The Note class represents a simple command-line task manager chatbot.
- * Users can add todos, deadlines, and events, mark/unmark tasks as done,
- * delete tasks, find tasks by keyword, and save/load tasks from a file.
+ * Delegates responsibilities to Ui, TaskList, Parser, and Storage.
  */
 public class Note {
     private static final String FILE_PATH = "data/duke.txt";
-    private Storage storage;
-    private List<Task> tasks;
 
-    /**
-     * Main entry point for the Note application.
-     *
-     * @param args command-line arguments (not used)
-     */
-    public static void main(String[] args) {
-        new Note().run();
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Note() {
+        ui = new Ui();
+        storage = new Storage(FILE_PATH);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (IOException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
     }
 
-    /**
-     * Runs the main program loop.
-     * Handles user input commands such as todo, deadline, event, list, mark,
-     * unmark, delete, find, and bye. Loads tasks from storage on start and
-     * saves tasks to storage after modifications.
-     */
     public void run() {
-        Scanner sc = new Scanner(System.in);
-        storage = new Storage(FILE_PATH);
-
-        // Load existing tasks
-        try {
-            tasks = storage.load();
-        } catch (IOException e) {
-            System.out.println("Could not load tasks: " + e.getMessage());
-            tasks = new ArrayList<>();
-        }
-
-        // Print welcome message
-        String logo =
-                " _   _       _        \n"
-                        + "| \\ | | ___ | |_ ___  \n"
-                        + "|  \\| |/ _ \\| __/ _ \\ \n"
-                        + "| |\\  | (_) | || (_) |\n"
-                        + "|_| \\_|\\___/ \\__\\___/ \n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Note");
-        System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
+        ui.showWelcome();
 
         while (true) {
-            String input = sc.nextLine();
-            System.out.println("____________________________________________________________");
+            String input = ui.readCommand();
+            String command = Parser.getCommand(input);
+            String arguments = Parser.getArguments(input);
 
             try {
-                if (input.equals("bye")) {
-                    System.out.println(" Bye. Hope to see you again soon!");
-                    System.out.println("____________________________________________________________");
-                    break;
-                } else if (input.equals("list")) {
-                    if (tasks.isEmpty()) {
-                        System.out.println(" No tasks yet.");
-                    } else {
-                        System.out.println(" Here are the tasks in your list:");
-                        for (int i = 0; i < tasks.size(); i++) {
-                            System.out.println(" " + (i + 1) + "." + tasks.get(i));
+                switch (command) {
+                    case "bye":
+                        ui.showGoodbye();
+                        return;
+
+                    case "list":
+                        List<Task> allTasks = tasks.getAllTasks();
+                        if (allTasks.isEmpty()) {
+                            ui.showMessage("No tasks yet.");
+                        } else {
+                            StringBuilder sb = new StringBuilder("Here are the tasks in your list:");
+                            for (int i = 0; i < allTasks.size(); i++) {
+                                sb.append("\n ").append(i + 1).append(".").append(allTasks.get(i));
+                            }
+                            ui.showMessage(sb.toString());
                         }
-                    }
-                } else if (input.startsWith("mark ")) {
-                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                    if (index < 0 || index >= tasks.size()) {
-                        throw new NoteException("Invalid task number to mark!");
-                    }
-                    tasks.get(index).markAsDone();
-                    saveTasks();
-                    System.out.println(" Nice! I've marked this task as done:");
-                    System.out.println("   " + tasks.get(index));
-                } else if (input.startsWith("unmark ")) {
-                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                    if (index < 0 || index >= tasks.size()) {
-                        throw new NoteException("Invalid task number to unmark!");
-                    }
-                    tasks.get(index).markAsNotDone();
-                    saveTasks();
-                    System.out.println(" OK, I've marked this task as not done yet:");
-                    System.out.println("   " + tasks.get(index));
-                } else if (input.startsWith("delete ")) {
-                    try {
-                        int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                        if (index < 0 || index >= tasks.size()) {
-                            throw new NoteException("Invalid task number to delete!");
-                        }
-                        Task removedTask = tasks.remove(index);
+                        break;
+
+                    case "mark":
+                        int markIndex = Integer.parseInt(arguments) - 1;
+                        Task markTask = tasks.getTask(markIndex);
+                        markTask.markAsDone();
                         saveTasks();
-                        System.out.println(" Noted. I've removed this task:");
-                        System.out.println("   " + removedTask);
-                        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-                    } catch (NumberFormatException e) {
-                        throw new NoteException("Please specify a valid task number to delete.");
-                    }
-                } else if (input.startsWith("todo ")) {
-                    String desc = input.substring(5).trim();
-                    if (desc.isEmpty()) {
-                        throw new NoteException("The description of a todo cannot be empty.");
-                    }
-                    Task t = new Todo(desc);
-                    tasks.add(t);
-                    saveTasks();
-                    System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + t);
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-                } else if (input.startsWith("deadline ")) {
-                    String[] parts = input.substring(9).split(" /by ", 2);
-                    if (parts.length < 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
-                        throw new NoteException("Deadline must have a description and a /by date/time.");
-                    }
-                    Task t = new Deadline(parts[0], parts[1]);
-                    tasks.add(t);
-                    saveTasks();
-                    System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + t);
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-                } else if (input.startsWith("event ")) {
-                    String[] parts = input.substring(6).split(" /from | /to ", 3);
-                    if (parts.length < 3 || parts[0].isEmpty() || parts[1].isEmpty() || parts[2].isEmpty()) {
-                        throw new NoteException("Event must have a description, /from and /to fields.");
-                    }
-                    Task t = new Event(parts[0], parts[1], parts[2]);
-                    tasks.add(t);
-                    saveTasks();
-                    System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + t);
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-                } else if (input.startsWith("find ")) {
-                    String keyword = input.substring(5).trim(); // get the keyword after "find "
-                    if (keyword.isEmpty()) {
-                        throw new NoteException("Please provide a keyword to search for.");
-                    }
+                        ui.showMessage("Nice! I've marked this task as done:\n  " + markTask);
+                        break;
 
-                    List<Task> matchingTasks = new ArrayList<>();
-                    for (Task t : tasks) {
-                        if (t.getDescription().contains(keyword)) {
-                            matchingTasks.add(t);
-                        }
-                    }
+                    case "unmark":
+                        int unmarkIndex = Integer.parseInt(arguments) - 1;
+                        Task unmarkTask = tasks.getTask(unmarkIndex);
+                        unmarkTask.markAsNotDone();
+                        saveTasks();
+                        ui.showMessage("OK, I've marked this task as not done yet:\n  " + unmarkTask);
+                        break;
 
-                    if (matchingTasks.isEmpty()) {
-                        System.out.println(" No matching tasks found.");
-                    } else {
-                        System.out.println(" Here are the matching tasks in your list:");
-                        for (int i = 0; i < matchingTasks.size(); i++) {
-                            System.out.println(" " + (i + 1) + "." + matchingTasks.get(i));
+                    case "delete":
+                        int delIndex = Integer.parseInt(arguments) - 1;
+                        Task removed = tasks.deleteTask(delIndex);
+                        saveTasks();
+                        ui.showMessage("Noted. I've removed this task:\n  " + removed +
+                                "\nNow you have " + tasks.size() + " tasks in the list.");
+                        break;
+
+                    case "todo":
+                        if (arguments.isEmpty()) throw new NoteException("The description of a todo cannot be empty.");
+                        Task todo = new Todo(arguments);
+                        tasks.addTask(todo);
+                        saveTasks();
+                        ui.showMessage("Got it. I've added this task:\n  " + todo +
+                                "\nNow you have " + tasks.size() + " tasks in the list.");
+                        break;
+
+                    case "deadline":
+                        String[] deadlineParts = arguments.split(" /by ", 2);
+                        if (deadlineParts.length < 2) throw new NoteException("Deadline must have a description and a /by date/time.");
+                        Task deadline = new Deadline(deadlineParts[0], deadlineParts[1]);
+                        tasks.addTask(deadline);
+                        saveTasks();
+                        ui.showMessage("Got it. I've added this task:\n  " + deadline +
+                                "\nNow you have " + tasks.size() + " tasks in the list.");
+                        break;
+
+                    case "event":
+                        String[] eventParts = arguments.split(" /from | /to ", 3);
+                        if (eventParts.length < 3) throw new NoteException("Event must have a description, /from and /to fields.");
+                        Task event = new Event(eventParts[0], eventParts[1], eventParts[2]);
+                        tasks.addTask(event);
+                        saveTasks();
+                        ui.showMessage("Got it. I've added this task:\n  " + event +
+                                "\nNow you have " + tasks.size() + " tasks in the list.");
+                        break;
+
+                    case "find":
+                        if (arguments.isEmpty()) throw new NoteException("Please provide a keyword to search for.");
+                        List<Task> matching = tasks.getAllTasks().stream()
+                                .filter(t -> t.getDescription().contains(arguments))
+                                .toList();
+                        if (matching.isEmpty()) {
+                            ui.showMessage("No matching tasks found.");
+                        } else {
+                            StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:");
+                            for (int i = 0; i < matching.size(); i++) {
+                                sb.append("\n ").append(i + 1).append(".").append(matching.get(i));
+                            }
+                            ui.showMessage(sb.toString());
                         }
-                    }
-                } else {
-                    throw new NoteException("I'm sorry, but I don't know what that means :-(");
+                        break;
+
+                    default:
+                        throw new NoteException("I'm sorry, but I don't know what that means :-(");
                 }
-
             } catch (NoteException e) {
-                System.out.println(" OOPS!!! " + e.getMessage());
+                ui.showMessage("OOPS!!! " + e.getMessage());
+            } catch (NumberFormatException e) {
+                ui.showMessage("OOPS!!! Please provide a valid number.");
             }
-
-            System.out.println("____________________________________________________________");
         }
     }
 
-    /**
-     * Saves the current list of tasks to storage.
-     * If an IOException occurs, it prints an error message.
-     */
     private void saveTasks() {
         try {
-            storage.save(tasks);
+            storage.save(tasks.getAllTasks());
         } catch (IOException e) {
-            System.out.println(" Error saving tasks: " + e.getMessage());
+            ui.showMessage("Error saving tasks: " + e.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+        new Note().run();
     }
 }
