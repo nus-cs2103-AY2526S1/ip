@@ -4,7 +4,7 @@ package evansbot.Exceptions;
  * Represents an InvalidTaskIndex exception that occurs when an invalid Task Index is given.
  */
 public class InvalidTaskIndexException extends EvansBotException {
-    private int maxIndex;
+    private final int maxIndex;
 
     /**
      * Constructs an Invalid TaskIndex Exception with the specified error message.

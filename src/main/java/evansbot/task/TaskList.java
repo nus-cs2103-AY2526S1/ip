@@ -1,17 +1,17 @@
 package evansbot.task;
 
-import evansbot.Exceptions.InvalidTaskIndexException;
-
 import java.io.IOException;
 import java.util.ArrayList;
+
+import evansbot.Exceptions.InvalidTaskIndexException;
 
 /**
  * Represents a list of tasks that can be added, listed, marked as done, unmarked, or deleted.
  * Handles saving the task list to persistent storage after each modification.
  */
 public class TaskList {
-    private ArrayList<Task> tasks;
-    private Storage storage;
+    private final ArrayList<Task> tasks;
+    private final Storage storage;
 
     /**
      * Constructs an empty TaskList with a given storage.
@@ -125,7 +125,8 @@ public class TaskList {
         return tasks.size();
     }
 
-    /**Returns the list of tasks in an ArrayList.
+    /**
+     * Returns the list of tasks in an ArrayList.
      *
      * @return The list of tasks in an ArrayList.
      */

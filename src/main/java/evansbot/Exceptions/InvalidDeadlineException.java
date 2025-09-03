@@ -8,7 +8,7 @@ public class InvalidDeadlineException extends EvansBotException {
      * Constructs an Invalid Deadline Exception with the specified error message.
      */
     public InvalidDeadlineException() {
-        super("Please give the deadline in the format of 'deadline (description) /by (date)'" +
-                " for example: deadline return book /by Sunday");
+        super("Please give the deadline in the format of 'deadline (description) /by (date)'"
+               + " for example: deadline return book /by Sunday");
     }
 }

@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
  * Represents a deadline task with a description and a due date.
  * The due date can be either a valid LocalDate or a raw string if parsing fails.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected LocalDate byDate;
     protected String byRaw;
 

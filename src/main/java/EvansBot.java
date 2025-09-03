@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
-import evansbot.Exceptions.*;
+import evansbot.Exceptions.EvansBotException;
 import evansbot.command.Command;
 import evansbot.task.Storage;
 import evansbot.task.Task;

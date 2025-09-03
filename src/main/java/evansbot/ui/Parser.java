@@ -4,7 +4,16 @@ import evansbot.Exceptions.EvansBotException;
 import evansbot.Exceptions.InvalidCommandException;
 import evansbot.Exceptions.InvalidDeadlineException;
 import evansbot.Exceptions.InvalidEventException;
-import evansbot.command.*;
+import evansbot.command.AddDeadlineCommand;
+import evansbot.command.AddEventCommand;
+import evansbot.command.AddTodoCommand;
+import evansbot.command.Command;
+import evansbot.command.DeleteCommand;
+import evansbot.command.ExitCommand;
+import evansbot.command.FindCommand;
+import evansbot.command.ListCommand;
+import evansbot.command.MarkCommand;
+import evansbot.command.UnmarkCommand;
 
 /**
  * Parses user input strings into corresponding Command objects for EvansBot.
@@ -58,7 +67,7 @@ public class Parser {
         } else if (trimmed.startsWith("delete ")) {
             int index = Integer.parseInt(trimmed.split(" ")[1]);
             return new DeleteCommand(index);
-        } else if (trimmed.startsWith("find ")){
+        } else if (trimmed.startsWith("find ")) {
             String keyword = trimmed.substring(5).trim();
             if (keyword.isEmpty()) {
                 throw new InvalidCommandException("Please provide a keyword to search for.");

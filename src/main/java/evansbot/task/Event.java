@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
  * Represents a Event task with a description and a due date.
  * The due date can be either a valid LocalDate or a raw string if parsing fails.
  */
-public class Event extends Task{
+public class Event extends Task {
     protected LocalDate fromDate;
     protected String fromRaw;
     protected LocalDate toDate;

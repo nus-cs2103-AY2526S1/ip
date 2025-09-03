@@ -7,7 +7,7 @@ import java.util.Scanner;
  * Responsible for reading user input, displaying messages, and showing errors.
  */
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
 
 
     /**

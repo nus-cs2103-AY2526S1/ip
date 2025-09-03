@@ -1,10 +1,10 @@
 package evansbot.task;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.File;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Handles reading and writing tasks to and from persistent storage.

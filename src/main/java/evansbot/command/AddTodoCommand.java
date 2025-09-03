@@ -4,8 +4,9 @@ import evansbot.Exceptions.EvansBotException;
 import evansbot.Exceptions.InvalidTodoException;
 import evansbot.task.Storage;
 import evansbot.task.TaskList;
-import evansbot.ui.Ui;
 import evansbot.task.ToDo;
+import evansbot.ui.Ui;
+
 
 /**
  * Represents a command to add a ToDo task to the task list.

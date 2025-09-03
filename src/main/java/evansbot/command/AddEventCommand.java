@@ -2,10 +2,11 @@ package evansbot.command;
 
 import evansbot.Exceptions.EvansBotException;
 import evansbot.Exceptions.InvalidEventException;
+import evansbot.task.Event;
 import evansbot.task.Storage;
 import evansbot.task.TaskList;
 import evansbot.ui.Ui;
-import evansbot.task.Event;
+
 
 /**
  * Represents a command to add an event task to the task list.

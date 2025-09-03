@@ -1,6 +1,5 @@
 package evansbot.command;
 
-import evansbot.Exceptions.EvansBotException;
 import evansbot.Exceptions.InvalidTaskIndexException;
 import evansbot.task.Storage;
 import evansbot.task.TaskList;
