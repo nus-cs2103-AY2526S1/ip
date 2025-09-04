@@ -54,6 +54,8 @@ public class ChashDb {
                     try {
                         tasks.add(TaskParser.fromExportString(dataline));
                     } catch (ChashException ex) {
+                        //note: could not think of a better way to print these logs
+                        //other than passing the ui object
                         ui.printErr("CHASHDB: Line " + i + " Invalid");
                     }
                 }

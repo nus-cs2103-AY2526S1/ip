@@ -1,3 +1,12 @@
+/*
+Enum reference
+https://stackoverflow.com/a/3978690
+https://stackoverflow.com/a/604426
+https://stackoverflow.com/a/59608518
+https://stackoverflow.com/a/26118954
+https://stackoverflow.com/a/23128025
+*/
+
 public enum CommandTypeEnum {
     BYE,
     LIST,
