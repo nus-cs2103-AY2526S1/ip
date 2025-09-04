@@ -10,12 +10,12 @@ import java.time.format.DateTimeParseException;
  * If given the ISO date format yyyy-MM-dd, the date is displayed as MMM d yyyy.
  */
 public class Event extends Task {
+    private static final DateTimeFormatter DISPLAYED_DATE = DateTimeFormatter.ofPattern("MMM d yyyy");
     protected final String taskType = "E";
     protected String from;
     protected String to;
     private LocalDate fromDate;
     private LocalDate toDate;
-    private static final DateTimeFormatter DISPLAYED_DATE = DateTimeFormatter.ofPattern("MMM d yyyy");
 
     /**
      * Creates an Event.
@@ -55,7 +55,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[" + this.taskType + "]" + super.toString() + " (from: " + this.formatFromDate() + " to: " + this.formatToDate() + ")";
+        return "[" + this.taskType + "]" + super.toString() +
+                " (from: " + this.formatFromDate() + " to: " + this.formatToDate() + ")";
     }
 
     @Override
