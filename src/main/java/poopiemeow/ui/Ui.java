@@ -14,18 +14,22 @@ import poopiemeow.task.Task;
  * This class handles all user interaction, including displaying messages,
  * reading user input, and formatting task information for display.
  *
- * <p>The UI provides a consistent visual style with decorative lines and
- * clear formatting for different types of messages. It supports displaying:</p>
+ * <p>
+ * The UI provides a consistent visual style with decorative lines and
+ * clear formatting for different types of messages. It supports displaying:
+ * </p>
  * <ul>
- *   <li>Welcome and goodbye messages</li>
- *   <li>Task lists with numbered items</li>
- *   <li>Success and error messages</li>
- *   <li>Task status updates (marked/unmarked, added, deleted)</li>
- *   <li>Date-specific task filtering</li>
+ * <li>Welcome and goodbye messages</li>
+ * <li>Task lists with numbered items</li>
+ * <li>Success and error messages</li>
+ * <li>Task status updates (marked/unmarked, added, deleted)</li>
+ * <li>Date-specific task filtering</li>
  * </ul>
  *
- * <p>All output is formatted with consistent spacing and decorative borders
- * to provide a clean, professional appearance.</p>
+ * <p>
+ * All output is formatted with consistent spacing and decorative borders
+ * to provide a clean, professional appearance.
+ * </p>
  *
  * @author tch1001
  * @version 1.0
@@ -66,7 +70,8 @@ public class Ui {
 
     /**
      * Displays an error message to the user.
-     * The message is formatted with decorative borders and clearly marked as an error.
+     * The message is formatted with decorative borders and clearly marked as an
+     * error.
      *
      * @param message the error message to display
      */
@@ -139,7 +144,7 @@ public class Ui {
      * Displays a confirmation message when a task is deleted.
      * Shows the deleted task and reports the new total count of remaining tasks.
      *
-     * @param task the task that was deleted
+     * @param task           the task that was deleted
      * @param remainingTasks the number of tasks remaining in the list
      */
     public void showTaskDeleted(Task task, int remainingTasks) {
@@ -154,7 +159,7 @@ public class Ui {
      * Displays a confirmation message when a new task is added.
      * Shows the new task and reports the new total count of tasks.
      *
-     * @param task the task that was added
+     * @param task       the task that was added
      * @param totalTasks the total number of tasks in the list
      */
     public void showTaskAdded(Task task, int totalTasks) {
@@ -173,7 +178,7 @@ public class Ui {
      * the specified date.
      *
      * @param tasks the complete list of tasks to filter
-     * @param date the date to filter tasks by
+     * @param date  the date to filter tasks by
      */
     public void showTasksOnDate(ArrayList<Task> tasks, LocalDateTime date) {
         System.out.println(LINE);
@@ -188,7 +193,7 @@ public class Ui {
             } else if (task instanceof Event) {
                 Event event = (Event) task;
                 if (event.getStartTime().toLocalDate().equals(date.toLocalDate()) ||
-                    event.getEndTime().toLocalDate().equals(date.toLocalDate())) {
+                        event.getEndTime().toLocalDate().equals(date.toLocalDate())) {
                     System.out.println(" " + (++count) + "." + task);
                 }
             }
@@ -215,5 +220,69 @@ public class Ui {
             }
         }
         System.out.println(LINE);
+    }
+
+    public String getTaskListString(ArrayList<Task> tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(" ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
+        }
+        return sb.toString().trim();
+    }
+
+    public String getTaskMarkedString(Task task) {
+        return "Nice! I've marked this task as done:\n   " + task;
+    }
+
+    public String getTaskUnmarkedString(Task task) {
+        return "OK, I've marked this task as not done yet:\n   " + task;
+    }
+
+    public String getTaskDeletedString(Task task, int remainingTasks) {
+        return "Noted. I've removed this task:\n   " + task + "\nNow you have " + remainingTasks
+                + " tasks in the list.";
+    }
+
+    public String getTaskAddedString(Task task, int totalTasks) {
+        return "Got it. I've added this task:\n   " + task + "\nNow you have " + totalTasks + " tasks in the list.";
+    }
+
+    public String getTasksOnDateString(ArrayList<Task> tasks, LocalDateTime date) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks on ").append(date.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
+                .append(":\n");
+        int count = 0;
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.getDeadline().toLocalDate().equals(date.toLocalDate())) {
+                    sb.append(" ").append(++count).append(".").append(task).append("\n");
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (event.getStartTime().toLocalDate().equals(date.toLocalDate()) ||
+                        event.getEndTime().toLocalDate().equals(date.toLocalDate())) {
+                    sb.append(" ").append(++count).append(".").append(task).append("\n");
+                }
+            }
+        }
+        if (count == 0) {
+            sb.append(" No tasks found on this date.");
+        }
+        return sb.toString().trim();
+    }
+
+    public String getMatchingTasksString(ArrayList<Task> matchingTasks) {
+        StringBuilder sb = new StringBuilder();
+        if (matchingTasks.isEmpty()) {
+            sb.append("No matching tasks found.");
+        } else {
+            sb.append("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                sb.append(" ").append(i + 1).append(".").append(matchingTasks.get(i)).append("\n");
+            }
+        }
+        return sb.toString().trim();
     }
 }
