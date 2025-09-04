@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-//    id 'checkstyle'
+    id 'checkstyle'
 }
 
 repositories {
@@ -31,7 +31,6 @@ dependencies {
 
 application {
     mainClass.set("Launcher")
-//    mainClass.set("beebong.BeeBong")
 }
 
 test {
@@ -48,9 +47,9 @@ test {
     }
 }
 
-//checkstyle {
-//    toolVersion = '11.0.0'
-//}
+checkstyle {
+    toolVersion = '11.0.0'
+}
 
 shadowJar {
     archiveBaseName = "beeBong"
