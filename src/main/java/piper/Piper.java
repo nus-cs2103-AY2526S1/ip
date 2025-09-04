@@ -2,12 +2,12 @@ package piper;
 
 import piper.parser.Parser;
 import piper.storage.Storage;
-import piper.ui.Ui;
-import piper.task.TaskList;
-import piper.task.Task;
-import piper.task.Todo;
 import piper.task.Deadline;
 import piper.task.Event;
+import piper.task.Task;
+import piper.task.TaskList;
+import piper.task.Todo;
+import piper.ui.Ui;
 
 /**
  * Entry point of the Piper application.
@@ -17,6 +17,7 @@ import piper.task.Event;
 public class Piper {
     private static final String DATA_DIR = "data";
     private static final String DATA_FILE = "piper.txt";
+    private static final String CHATBOT_NAME = "Piper";
 
     /**
      * Launches the application.
@@ -25,7 +26,6 @@ public class Piper {
      * @throws PiperException if a recoverable application error occurs.
      */
     public static void main(String[] args) throws PiperException {
-        final String CHATBOT_NAME = "Piper";
         Ui ui = new Ui(CHATBOT_NAME);
         TaskList tasks;
         boolean exit = false;
@@ -67,7 +67,7 @@ public class Piper {
 
                         try {
                             int taskNumber = Parser.parseIndex(arg);
-                            int index = taskNumber - 1; // task list starts from index 1 but array list starts from index 0
+                            int index = taskNumber - 1; // task list starts from idx 1 but array list starts from idx 0
                             Task task = tasks.getTask(index);
 
                             switch (cmd) {
@@ -83,7 +83,10 @@ public class Piper {
                             ui.showTaskStatus(task);
                         } catch (IndexOutOfBoundsException e) {
                             // task index is outside of array range
-                            throw new PiperException("PEEP! That task flew out of the nest. Please check using 'list' to see which tasks are home!");
+                            throw new PiperException(
+                                    "PEEP! That task flew out of the nest. " +
+                                            "Please check using 'list' to see which tasks are home!"
+                            );
                         }
                     } else if (cmd.equals("delete")) {
                         // delete task
@@ -97,7 +100,9 @@ public class Piper {
                             ui.showDeletedTask(task);
                             ui.showTasksSize(tasks);
                         } catch (IndexOutOfBoundsException e) {
-                            throw new PiperException("PEEP! Bad egg. Please check using 'list' to see which tasks are home!");
+                            throw new PiperException(
+                                    "PEEP! Bad egg. Please check using 'list' to see which tasks are home!"
+                            );
                         }
                     } else if (cmd.equals("todo") || cmd.equals("deadline") || cmd.equals("event")) {
                         // add new task
@@ -115,6 +120,8 @@ public class Piper {
                             Parser.EventArgs ea = Parser.parseEventArgs(arg);
                             task = new Event(ea.description, ea.from, ea.to);
                             break;
+                        default:
+                            break;
                         }
 
                         tasks.addTask(task);
@@ -128,7 +135,10 @@ public class Piper {
                         ui.displayMatchingTasks(matches);
                     } else {
                         // user input is an unrecognisable string
-                        throw new PiperException("CHEEP CHEEP! I can't quite sing along with '" + userInput + "'. Wanna try another command?");
+                        throw new PiperException(
+                                "CHEEP CHEEP! I can't quite sing along with '" + userInput +
+                                        "'. Wanna try another command?"
+                        );
                     }
                 }
             } catch (PiperException e) {
