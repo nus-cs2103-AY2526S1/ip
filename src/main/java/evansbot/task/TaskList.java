@@ -38,6 +38,7 @@ public class TaskList {
      * Adds a task to the task list and saves the updated list.
      *
      * @param task Task to be added.
+     * @return String of Task added.
      */
     public String addTask(Task task) {
         tasks.add(task);
@@ -50,7 +51,7 @@ public class TaskList {
     /**
      * Lists all tasks in the task list to the user.
      *
-     * @return
+     * @return String list of tasks.
      */
     public String listTasks() {
         StringBuilder sb = new StringBuilder();
@@ -65,6 +66,7 @@ public class TaskList {
      * Marks a task as done based on the provided 1-based index.
      *
      * @param index 1-based index of the task to mark as done.
+     * @return String with the marked task.
      * @throws InvalidTaskIndexException If the index is out of range.
      */
     public String markTask(int index) throws InvalidTaskIndexException {
@@ -82,6 +84,7 @@ public class TaskList {
      * Unmarks a task as done based on the provided 1-based index.
      *
      * @param index 1-based index of the task to unmark.
+     * @return String with the unmark task.
      * @throws InvalidTaskIndexException If the index is out of range.
      */
     public String unmarkTask(int index) throws InvalidTaskIndexException {
@@ -100,6 +103,7 @@ public class TaskList {
      * and saves the updated list.
      *
      * @param index 1-based index of the task to delete.
+     * @return String of the deleted task.
      */
     public String deleteTask(int index) {
         Task task = tasks.get(index - 1);

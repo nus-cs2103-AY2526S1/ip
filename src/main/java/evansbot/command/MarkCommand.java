@@ -23,6 +23,7 @@ public class MarkCommand extends Command {
      * @param tasks TaskList in which the new task will be added.
      * @param ui User interface to interact with the user.
      * @param storage Storage used to save the updated task list.
+     * @return String of Mark command.
      * @throws InvalidTaskIndexException If the index provided is invalid.
      */
     @Override

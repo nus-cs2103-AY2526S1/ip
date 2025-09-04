@@ -14,6 +14,7 @@ public class ExitCommand extends Command {
      * @param tasks TaskList in which the new task will be added.
      * @param ui User interface to interact with the user.
      * @param storage Storage used to save the updated task list.
+     * @return String of Exit command.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
