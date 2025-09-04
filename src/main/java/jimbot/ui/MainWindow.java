@@ -38,7 +38,7 @@ public class MainWindow extends AnchorPane {
         jimbot = j;
 
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(UI.hello("Jimbot"), jimbotImage)
+                DialogBox.getJimbotDialog(UI.hello("Jimbot"), jimbotImage, "hello")
         );
 
     }
@@ -51,11 +51,13 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = jimbot.getResponse(input);
+        String commandType = jimbot.getCommandType();
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, jimbotImage)
+                DialogBox.getJimbotDialog(response, jimbotImage, commandType)
         );
+
         userInput.clear();
 
         // Close GUI if special exit signal is received

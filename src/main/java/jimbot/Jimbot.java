@@ -23,6 +23,7 @@ public class Jimbot {
     private final Storage userStorage;
     private final TaskList userList;
     private final UI user;
+    private String commandType;
 
     public Jimbot(String filePath) {
         user = new UI();
@@ -33,6 +34,7 @@ public class Jimbot {
     }
 
     public String getResponse(String userInput) {
+        commandType = userInput.split(" ")[0];
         try {
             int taskCount = userList.getTaskCount();
             if (userInput.toLowerCase().matches(".*\\b(bye|goodbye)\\b.*")) {
@@ -162,5 +164,9 @@ public class Jimbot {
                  | NoSuchTaskException | InvalidToDoException | TaskLimitException e) {
             return e.getMessage();
         }
+    }
+
+    public String getCommandType() {
+        return commandType;
     }
 }

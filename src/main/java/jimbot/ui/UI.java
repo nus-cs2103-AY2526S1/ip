@@ -30,14 +30,14 @@ public class UI {
 
     public String addTask(Task task, int taskCount) {
         String header = "  Got it. I've added this task: \n    ";
-        String closer = "  Now you have " + taskCount + " tasks in the list!\n  (─.─)ゞ";
+        String closer = "\n  Now you have " + taskCount + " tasks in the list!\n  (￣^￣)ゞ";
 
         return header + task + closer;
     }
 
     public String deleteTask(Task task, int taskCount) {
         String header = "  Noted. I've removed this task:\n    ";
-        String closer = "  Now you have " + taskCount + " tasks in the list! \n  (─.─)ゞ";
+        String closer = "\n  Now you have " + taskCount + " tasks in the list! \n  (─.─)ゞ";
 
         return header + task + closer;
     }
@@ -45,13 +45,12 @@ public class UI {
     public String printList(List<Task> list) {
         int taskCount = list.size();
 
-        String listContent = "";
+        String listContent = "\n                ノ( ゜-゜ノ)";
         for (int i = 0; i < taskCount; i++) {
             Task task = list.get(i);
             listContent += "\n    " + (i + 1) + ". " + task;
         }
-        listContent += "        ノ( ゜-゜ノ)";
-        String header = "  Here are the tasks in your list: \n";
+        String header = "  Here are the tasks in your list: ";
         return header + listContent;
     }
 
@@ -106,20 +105,19 @@ public class UI {
      */
     public String commandList() {
         return """
-                                        _(•̀ω•́ 」∠)_
-                              Here are the commands you can use:
-                              
-                                (input date in dd/mm/yyyy)
-                                bye/goodbye
-                                deadline
-                                delete
-                                event
-                                find
-                                list
-                                mark
-                                today
-                                todo
-                               unmark 
-                            """;
+                            _(•̀ω•́ 」∠)_
+                  Here are the commands you can use:
+                    (input date in dd/mm/yyyy)
+                    bye/goodbye
+                    deadline
+                    delete
+                    event
+                    find
+                    list
+                    mark
+                    today
+                    todo
+                    unmark
+                """;
     }
 }
