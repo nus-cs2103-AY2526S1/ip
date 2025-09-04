@@ -5,7 +5,6 @@ import beebong.exception.InvalidTaskDetailsException;
 import beebong.storage.Storage;
 import beebong.task.Task;
 import beebong.task.TaskList;
-import beebong.ui.UI;
 
 /**
  * Represents a Command that deletes a task from the task list.

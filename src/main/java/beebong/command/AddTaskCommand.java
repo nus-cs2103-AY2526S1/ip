@@ -4,7 +4,6 @@ import beebong.exception.BBongException;
 import beebong.storage.Storage;
 import beebong.task.Task;
 import beebong.task.TaskList;
-import beebong.ui.UI;
 
 /**
  * Represents an abstract Command for adding a new {@link Task} to the task list.

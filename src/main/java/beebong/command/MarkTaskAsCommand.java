@@ -4,7 +4,6 @@ import beebong.exception.BBongException;
 import beebong.exception.InvalidTaskDetailsException;
 import beebong.storage.Storage;
 import beebong.task.TaskList;
-import beebong.ui.UI;
 
 /**
  * Represents a Command that marks a task as either complete or incomplete.

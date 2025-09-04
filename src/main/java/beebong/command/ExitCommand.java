@@ -3,7 +3,6 @@ package beebong.command;
 import beebong.exception.BBongException;
 import beebong.storage.Storage;
 import beebong.task.TaskList;
-import beebong.ui.UI;
 
 /**
  * Represents a Command that tells the chatbot to terminate.

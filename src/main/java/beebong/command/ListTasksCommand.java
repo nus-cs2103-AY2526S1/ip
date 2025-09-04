@@ -3,8 +3,6 @@ package beebong.command;
 import beebong.exception.BBongException;
 import beebong.storage.Storage;
 import beebong.task.TaskList;
-import beebong.ui.UI;
-
 /**
  * Represents an abstract Command for listing tasks from the task list.
  */
