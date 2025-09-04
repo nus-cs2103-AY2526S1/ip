@@ -17,15 +17,15 @@ public class ChashUi {
 
     //Output
 
-    public static void printLine(String line) {
+    public void printLine(String line) {
         System.out.println(ChashUi.LINEINDENT + line);
     }
 
-    public static void printLineSeparator() {
+    public void printLineSeparator() {
         printLine(ChashUi.LINESEP);
     }
 
-    public static void printMsg(String txt) {
+    public void printMsg(String txt) {
         //todo: does not check for empty txt string
         //does not enforce print line max length
         Stream<String> lineStream = Stream.<String>of(txt.split("\n"));
@@ -36,13 +36,13 @@ public class ChashUi {
 
     //Error
 
-    public static void printErr(String txt) {
+    public void printErr(String txt) {
         System.err.println(txt);
     }
 
     //CHASH default messages
 
-    public static void printWelcome() {
+    public void printWelcome() {
         printMsg("Hello! I'm Crysis Heir Activity Sentre Hepdesk (CHASH)." + 
             "\n" + "What can I do for you?");
     }
