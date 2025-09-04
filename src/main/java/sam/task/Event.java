@@ -11,7 +11,7 @@ public class Event extends Task {
     /**
      * Constructs a new Event task with the given description, start time, and end time.
      * The task is initially marked as not done.
-     * 
+     *
      * @param description The description of the event task
      * @param from The start time of the event
      * @param to The end time of the event
@@ -24,7 +24,7 @@ public class Event extends Task {
 
     /**
      * Constructs a new Event task with the given description, completion status, start time, and end time.
-     * 
+     *
      * @param description The description of the event task
      * @param isDone The initial completion status of the task
      * @param from The start time of the event
@@ -39,17 +39,17 @@ public class Event extends Task {
 
     /**
      * Returns the type indicator for Event tasks.
-     * 
+     *
      * @return The string "[E]" representing an Event task
      */
-    @Override 
+    @Override
     protected String kind() {
-        return "[E]"; 
+        return "[E]";
     }
 
     /**
      * Returns a string representation of the event task.
-     * 
+     *
      * @return A string containing the task type, status, description, start time, and end time
      */
     @Override
@@ -59,16 +59,16 @@ public class Event extends Task {
 
     /**
      * Returns the raw start time string for storage purposes.
-     * 
+     *
      * @return The start time string as stored internally
      */
     public String getFromRaw() {
         return from;
     }
-    
+
     /**
      * Returns the raw end time string for storage purposes.
-     * 
+     *
      * @return The end time string as stored internally
      */
     public String getToRaw() {

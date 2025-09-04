@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskTest {
-    
+
     @Test
     public void testTaskCreation() {
         Task task = new Task("Test task");
@@ -13,12 +13,12 @@ public class TaskTest {
         assertEquals("Test task", description);
         assertFalse(task.isDone());
     }
-    
+
     @Test
     public void testMarkDone() {
         Task task = new Task("Test task");
         assertFalse(task.isDone());
-        
+
         task.markDone();
         assertTrue(task.isDone());
     }

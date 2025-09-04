@@ -12,7 +12,7 @@ public class Task {
     /**
      * Constructs a new Task with the given description.
      * The task is initially marked as not done.
-     * 
+     *
      * @param description The description of the task
      */
     public Task(String description) {
@@ -36,7 +36,7 @@ public class Task {
 
     /**
      * Returns whether the task is marked as done.
-     * 
+     *
      * @return true if the task is done, false otherwise
      */
     public boolean isDone() {
@@ -46,7 +46,7 @@ public class Task {
     /**
      * Returns a string representation of the task type.
      * Subclasses should override this to provide their specific type indicator.
-     * 
+     *
      * @return A string representing the task type (empty string for base Task
      *         class)
      */
@@ -56,7 +56,7 @@ public class Task {
 
     /**
      * Returns a string representation of the task's completion status.
-     * 
+     *
      * @return A string in the format "[X]" for done tasks or "[ ]" for undone tasks
      */
     protected String status() {
@@ -65,7 +65,7 @@ public class Task {
 
     /**
      * Returns a string representation of the task.
-     * 
+     *
      * @return A string containing the task type, status, and description
      */
     @Override

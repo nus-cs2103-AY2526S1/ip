@@ -10,7 +10,7 @@ public class Parser {
      * Parses user input by splitting it into a command verb and arguments.
      * The input is split at the first whitespace, with the first part becoming the verb
      * and the remaining part becoming the arguments.
-     * 
+     *
      * @param input The raw user input string to be parsed
      * @return A String array where index 0 contains the command verb and index 1 contains the arguments
      */

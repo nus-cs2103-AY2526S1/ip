@@ -17,17 +17,18 @@ import sam.ui.Ui;
 public class Sam {
     /**
      * Parses a task index from user input and validates it.
-     * 
+     *
      * @param arg  The string argument containing the task number
      * @param size The total number of tasks in the list
      * @return The parsed and validated task index (0-based)
      * @throws SamException If the argument is invalid or the index is out of bounds
      */
-    private static int parseIndex(String arg, int size) throws SamException {
+    private static int parseIndex(final String arg, final int size) throws SamException {
         int n = Integer.parseInt(arg);
         int idx = n - 1;
-        if (idx < 0 || idx >= size)
+        if (idx < 0 || idx >= size) {
             throw new SamException("OOPS!!! Invalid task number.");
+        }
         return idx;
     }
 
@@ -35,10 +36,10 @@ public class Sam {
      * Main method that runs the Sam task management application.
      * Initializes the application components and runs the main program loop
      * to process user commands until the user chooses to exit.
-     * 
+     *
      * @param args Command line arguments (not used)
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         Scanner sc = new Scanner(System.in);
         Ui ui = new Ui();
         Storage storage = new Storage("./data/sam.txt");

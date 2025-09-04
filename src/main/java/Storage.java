@@ -18,7 +18,7 @@ import sam.task.Todo;
  */
 public class Storage {
     private final Path filePath;
-    
+
     // Constants for parsing task data
     private static final int TASK_TYPE_INDEX = 0;
     private static final int TASK_STATUS_INDEX = 1;
@@ -28,7 +28,7 @@ public class Storage {
 
     /**
      * Constructs a Storage object with the specified file path.
-     * 
+     *
      * @param filePath The path to the file where tasks will be stored
      */
     public Storage(final String filePath) {
@@ -38,7 +38,7 @@ public class Storage {
     /**
      * Loads tasks from the storage file.
      * If the file doesn't exist, it creates the file and returns an empty task list.
-     * 
+     *
      * @return An ArrayList containing all loaded tasks
      */
     public ArrayList<Task> load() {
@@ -64,7 +64,7 @@ public class Storage {
     /**
      * Saves the current task list to the storage file.
      * This method ensures the file and its parent directory exist before writing.
-     * 
+     *
      * @param tasks The ArrayList of tasks to be saved
      */
     public void save(final ArrayList<Task> tasks) {

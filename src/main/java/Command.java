@@ -10,7 +10,7 @@ public enum Command {
     /**
      * Converts a string verb to the corresponding Command enum value.
      * The comparison is case-insensitive.
-     * 
+     *
      * @param verb The string representation of the command
      * @return The corresponding Command enum value, or UNKNOWN if no match is found
      */

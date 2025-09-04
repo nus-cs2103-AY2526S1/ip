@@ -11,7 +11,7 @@ public class Deadline extends Task {
     /**
      * Constructs a new Deadline task with the given description and due date.
      * The task is initially marked as not done.
-     * 
+     *
      * @param description The description of the deadline task
      * @param by The due date/time for the task
      */
@@ -22,7 +22,7 @@ public class Deadline extends Task {
 
     /**
      * Constructs a new Deadline task with the given description, completion status, and due date.
-     * 
+     *
      * @param description The description of the deadline task
      * @param isDone The initial completion status of the task
      * @param by The due date/time for the task
@@ -35,7 +35,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the type indicator for Deadline tasks.
-     * 
+     *
      * @return The string "[D]" representing a Deadline task
      */
     @Override
@@ -45,7 +45,7 @@ public class Deadline extends Task {
 
     /**
      * Returns a string representation of the deadline task.
-     * 
+     *
      * @return A string containing the task type, status, description, and due date
      */
     @Override
@@ -55,7 +55,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the raw due date/time string for storage purposes.
-     * 
+     *
      * @return The due date/time string as stored internally
      */
     public String getByRaw() {
