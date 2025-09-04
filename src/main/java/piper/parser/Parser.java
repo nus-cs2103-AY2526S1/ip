@@ -100,7 +100,9 @@ public final class Parser {
                 throw new PiperException("CHIRRUP! Which task should I peck at? Please give me the task index!");
             } else {
                 // unrecognisable command
-                throw new PiperException("CHIRP CHIRP! I don't recognise the tune called '" + cmd + "'. Try another command?");
+                throw new PiperException(
+                        "CHIRP CHIRP! I don't recognise the tune called '" + cmd + "'. Try another command?"
+                );
             }
         }
 
@@ -143,7 +145,9 @@ public final class Parser {
             }
             return new DeadlineArgs(description, by);
         } catch (Exception e) {
-            throw new PiperException("OOPS! That deadline's off key. Please format the task as 'deadline (description) /by (deadline)'!");
+            throw new PiperException(
+                    "OOPS! That deadline's off key. Please format the task as 'deadline (description) /by (deadline)'!"
+            );
         }
     }
 
@@ -172,7 +176,10 @@ public final class Parser {
             }
             return new EventArgs(description, from, to);
         } catch (Exception e) {
-            throw new PiperException("EEP! Your event's missing a few notes. Please format the event as 'event (description) /from (start time) /to (end time)'!");
+            throw new PiperException(
+                    "EEP! Your event's missing a few notes. " +
+                            "Please format the event as 'event (description) /from (start time) /to (end time)'!"
+            );
         }
     }
 }
