@@ -1,12 +1,5 @@
 package piper.storage;
 
-import piper.PiperException;
-import piper.task.TaskList;
-import piper.task.Task;
-import piper.task.Todo;
-import piper.task.Deadline;
-import piper.task.Event;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -14,6 +7,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import piper.PiperException;
+import piper.task.Deadline;
+import piper.task.Event;
+import piper.task.Task;
+import piper.task.TaskList;
+import piper.task.Todo;
 
 /**
  * Handles storage of tasks from a UTF-8 text file.
