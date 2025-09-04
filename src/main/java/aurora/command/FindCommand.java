@@ -3,9 +3,17 @@ package aurora.command;
 import aurora.task.Task;
 import aurora.task.TaskList;
 
+/**
+ * Command to find matching tasks from task list with given String input.
+ */
 public class FindCommand implements Command {
     private final String search;
 
+    /**
+     * Creates a new {@code FindCommand}.
+     *
+     * @param search String to search the task list.
+     */
     public FindCommand(String search) {
         this.search = search;
     }

@@ -72,8 +72,8 @@ public class CommandReader {
                 String search = matcher.group(1);
                 return new FindCommand(search);
             } else {
-                return new InvalidCommand("Invalid find command.\n" +
-                        "enter \"find <content>\" to find task from list.");
+                return new InvalidCommand("Invalid find command.\n"
+                        + "enter \"find <content>\" to find task from list.");
             }
         }
 
