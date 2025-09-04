@@ -19,7 +19,7 @@ public class Aurora {
     private final Storage storage;
     private final TaskList list;
     private final Ui ui;
-
+    private String commandType;
 
     /**
      * Constructs a new Aurora chatbot.
@@ -29,6 +29,15 @@ public class Aurora {
     public Aurora(String filePath) {
         this.ui = new Ui(new Scanner(System.in));
         this.storage = new Storage(filePath);
+        this.list = storage.load();
+    }
+
+    /**
+     * Constructs a new Aurora chatbot.
+     */
+    public Aurora() {
+        this.ui = new Ui(new Scanner(System.in));
+        this.storage = new Storage("");
         this.list = storage.load();
     }
 
@@ -63,5 +72,18 @@ public class Aurora {
      */
     public static void main(String[] args) {
         new Aurora("./data/aurora.txt").run();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        Command c = CommandReader.read(input);
+        commandType = c.getClass().getSimpleName();
+        return c.execute(list);
+    }
+
+    public String getCommandType() {
+        return commandType;
     }
 }
