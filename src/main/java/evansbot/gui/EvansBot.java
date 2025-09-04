@@ -1,5 +1,4 @@
-import java.io.IOException;
-import java.util.ArrayList;
+package evansbot.gui;
 
 import evansbot.Exceptions.EvansBotException;
 import evansbot.command.Command;
@@ -8,6 +7,9 @@ import evansbot.task.Task;
 import evansbot.task.TaskList;
 import evansbot.ui.Parser;
 import evansbot.ui.Ui;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Main class for the EvansBot application.
@@ -47,18 +49,27 @@ public class EvansBot {
 
         while (!isExit) {
             try {
-                String fullCommand = ui.readCommand(); // read user input
+                String fullCommand = ui.readCommand();
                 Command command = Parser.parse(fullCommand);
-                command.execute(tasks, ui, storage);
+                String response = command.execute(tasks, ui, storage); // now returns a String
                 isExit = command.isExit();
             } catch (EvansBotException e) {
                 ui.showError(e.getMessage());
             }
         }
 
-        ui.close(); // close scanner
+        ui.close();
     }
 
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            String response = command.execute(tasks, ui, storage);
+            return response;
+        } catch (EvansBotException e) {
+            return e.getMessage();
+        }
+    }
     /**
      * Main entry point of the EvansBot application.
      * Creates an EvansBot instance and runs it.

@@ -23,14 +23,15 @@ public class MarkCommand extends Command {
      * @param tasks TaskList in which the new task will be added.
      * @param ui User interface to interact with the user.
      * @param storage Storage used to save the updated task list.
+     * @return String of Mark command.
      * @throws InvalidTaskIndexException If the index provided is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidTaskIndexException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidTaskIndexException {
         try {
-            tasks.markTask(index);
+            return tasks.markTask(index);
         } catch (InvalidTaskIndexException e) {
-            ui.showError("Invalid task number! Please enter a number between 1 and " + e.getMaxIndex());
+            return ui.showError("Invalid task number! Please enter a number between 1 and " + e.getMaxIndex());
         }
     }
 }

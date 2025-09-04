@@ -37,13 +37,14 @@ public class AddEventCommand extends Command {
      * @param tasks TaskList in which the new task will be added.
      * @param ui User interface to interact with the user (not used in this command).
      * @param storage Storage used to save the updated task list.
+     * @return String of that AddEventCommand.
      * @throws EvansBotException If the description or from or to is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EvansBotException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws EvansBotException {
         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new InvalidEventException();
         }
-        tasks.addTask(new Event(description, from, to));
+        return tasks.addTask(new Event(description, from, to));
     }
 }

@@ -22,11 +22,12 @@ public class DeleteCommand extends Command {
      * @param tasks TaskList in which the new task will be added.
      * @param ui User interface to interact with the user (not used in this command).
      * @param storage Storage used to save the updated task list.
+     * @return String of Delete command.
      * @throws InvalidTaskIndexException If task index is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidTaskIndexException {
-        tasks.deleteTask(index);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidTaskIndexException {
+        return tasks.deleteTask(index);
     }
 }
 

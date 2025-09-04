@@ -20,19 +20,15 @@ public class Ui {
     /**
      * Displays a greeting message to the user.
      */
-    public void greet() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm EvansBot");
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+    public String greet() {
+        return "Hello! I'm EvansBot \n"
+             + "What can I do for you?";
     }
     /**
      * Displays a farewell message to the user.
      */
-    public void sayBye() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+    public String sayBye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -40,8 +36,8 @@ public class Ui {
      *
      * @param message The error message to display.
      */
-    public void showError(String message) {
-        System.out.println(message);
+    public String showError(String message) {
+        return message;
     }
 
     /**

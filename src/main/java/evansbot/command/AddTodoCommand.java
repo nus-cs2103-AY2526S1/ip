@@ -32,13 +32,14 @@ public class AddTodoCommand extends Command {
      * @param tasks TaskList in which the new task will be added.
      * @param ui User interface to interact with the user (not used in this command).
      * @param storage Storage used to save the updated task list.
+     * @return String of that AddToDoCommand.
      * @throws EvansBotException If the description is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EvansBotException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws EvansBotException {
         if (description.isEmpty()) {
             throw new InvalidTodoException();
         }
-        tasks.addTask(new ToDo(description));
+        return tasks.addTask(new ToDo(description));
     }
 }

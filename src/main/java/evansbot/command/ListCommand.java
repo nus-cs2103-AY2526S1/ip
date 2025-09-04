@@ -15,9 +15,10 @@ public class ListCommand extends Command {
      * @param tasks TaskList in which the new task will be added.
      * @param ui User interface to interact with the user (not used in this command).
      * @param storage Storage used to save the updated task list.
+     * @return String of list command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.listTasks();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.listTasks();
     }
 }
