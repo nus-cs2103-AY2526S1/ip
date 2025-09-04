@@ -5,6 +5,15 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+plugins {
+    id 'checkstyle'
+    // other plugins
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
 repositories {
     mavenCentral()
 }
