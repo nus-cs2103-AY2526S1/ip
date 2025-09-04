@@ -22,12 +22,12 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         if (isMidnight) {
-            return "[D]" + super.toString() + " (BY: " +
-                    dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+            return "[D]" + super.toString() + " (BY: "
+                    + dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
 
         } else {
-            return "[D]" + super.toString() + " (BY: " +
-                    dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm")) + ")";
+            return "[D]" + super.toString() + " (BY: "
+                    + dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm")) + ")";
         }
     }
 }

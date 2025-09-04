@@ -8,16 +8,16 @@ import java.util.Scanner;
 import jimbot.exceptions.InvalidDateTimeException;
 import jimbot.exceptions.InvalidDeadlineException;
 import jimbot.exceptions.InvalidEventException;
-import jimbot.exceptions.NoSuchTaskException;
 import jimbot.exceptions.InvalidToDoException;
+import jimbot.exceptions.NoSuchTaskException;
 import jimbot.exceptions.TaskLimitException;
 import jimbot.storage.Storage;
-import jimbot.ui.UI;
 import jimbot.tasktypes.Deadline;
 import jimbot.tasktypes.Event;
 import jimbot.tasktypes.Task;
 import jimbot.tasktypes.TaskList;
 import jimbot.tasktypes.ToDo;
+import jimbot.ui.UI;
 import jimbot.util.Parser;
 
 public class Jimbot {
@@ -154,7 +154,7 @@ public class Jimbot {
                     LocalDate date = LocalDate.now();
 
                     if (!userInput.equals("today")) {
-                         date = Parser.parseDate(userInput);
+                        date = Parser.parseDate(userInput);
                     }
 
                     List<Task> tasks = userList.findTasksAtDate(date).getTaskList();
@@ -166,8 +166,8 @@ public class Jimbot {
                 } else {
                     user.respond(userInput);
                 }
-            } catch (InvalidDateTimeException | InvalidDeadlineException | InvalidEventException |
-                     NoSuchTaskException | InvalidToDoException | TaskLimitException e) {
+            } catch (InvalidDateTimeException | InvalidDeadlineException | InvalidEventException
+                     | NoSuchTaskException | InvalidToDoException | TaskLimitException e) {
                 System.out.println(e.getMessage());
             }
         }

@@ -25,7 +25,7 @@ public class TaskList {
     }
 
     /**
-     * Returns the list of tasks as a  List<Task>.
+     * Returns the list of tasks as a List<Task>.
      */
     public List<Task> getTaskList() {
         return listOfTasks;
@@ -55,7 +55,8 @@ public class TaskList {
         return listOfTasks.get(index);
     }
 
-    /** Removes a specific task from the list of tasks.
+    /**
+     * Removes a specific task from the list of tasks.
      *
      * @param task Task to be removed.
      */
@@ -100,7 +101,7 @@ public class TaskList {
             }
         }
 
-        if  (result.isEmpty()) {
+        if (result.isEmpty()) {
             throw new NoSuchTaskException();
         } else {
             return new TaskList(result);
@@ -123,8 +124,8 @@ public class TaskList {
                     result.add(task);
                 }
             } else if (task instanceof Event event) {
-                if ((event.getFrom().equals(date) || date.isAfter(event.getFrom())) &&
-                        (event.getTo().equals(date) || date.isBefore(event.getTo()))) {
+                if ((event.getFrom().equals(date) || date.isAfter(event.getFrom()))
+                        && (event.getTo().equals(date) || date.isBefore(event.getTo()))) {
                     result.add(task);
                 }
             }

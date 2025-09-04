@@ -56,12 +56,12 @@ public class Parser {
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HHmm");
 
         try {
-            if (input.contains(" ")) {  // input has both date + time
+            if (input.contains(" ")) { // input has both date + time
                 return LocalDateTime.parse(input, dtFormat);
             } else if (input.contains("/")) { // input only has date
                 LocalDate date = LocalDate.parse(input, dateFormat);
                 return date.atStartOfDay();
-            } else {    // input only has time
+            } else { // input only has time
                 LocalTime time = LocalTime.parse(input, timeFormat);
 
                 return time.atDate(LocalDate.now());

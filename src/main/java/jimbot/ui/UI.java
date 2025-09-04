@@ -1,11 +1,11 @@
 package jimbot.ui;
 
+import java.util.List;
+
 import jimbot.tasktypes.Task;
 import jimbot.tasktypes.TaskList;
 
-import java.util.List;
-
- /**
+/**
   * Class that handles the UI of programs' responses to user.
   *
   * @author limjimin-nus
@@ -24,7 +24,7 @@ public class UI {
             maxLength = inputLength;
         }
 
-        for (int i = 0; i < maxLength + 6 ; i++) {
+        for (int i = 0; i < maxLength + 6; i++) {
             box += "─";
         }
 
@@ -59,7 +59,7 @@ public class UI {
             maxLength = inputLength;
         }
 
-        for (int i = 0; i < maxLength + 6 ; i++) {
+        for (int i = 0; i < maxLength + 6; i++) {
             box += "─";
         }
 
@@ -92,7 +92,7 @@ public class UI {
             maxLength = taskLength;
         }
 
-        for (int i = 0; i < maxLength + 6 ; i++) {
+        for (int i = 0; i < maxLength + 6; i++) {
             box += "─";
         }
 
@@ -125,7 +125,7 @@ public class UI {
         System.out.println(topBorder + header + padding1 + "│\n"
                 + "     │     " + task + padding2 + "│\n"
                 + closer + padding3 + "│\n"
-                + bottomBorder  + " (￣^￣)ゞ ╯");
+                + bottomBorder + " (￣^￣)ゞ ╯");
     }
 
     public void deleteTask(Task task, int taskCount) {
@@ -137,7 +137,7 @@ public class UI {
             maxLength = taskLength;
         }
 
-        for (int i = 0; i < maxLength + 6 ; i++) {
+        for (int i = 0; i < maxLength + 6; i++) {
             box += "─";
         }
         String topBorder = "     ┌" + box + "┐\n";
@@ -157,7 +157,7 @@ public class UI {
         }
 
         if (taskCount >= 10) {
-            for (int i = 0; i < maxLength - 30; i++){
+            for (int i = 0; i < maxLength - 30; i++) {
                 padding3 += " ";
             }
         } else {
@@ -286,11 +286,11 @@ public class UI {
     public void hello(String name) {
         int length = name.length();
         int maxLength = 26;
-        String textBox =  "─";
+        String textBox = "─";
         String padding1 = "";
         String padding2 = "";
 
-        if  (length > 12) {
+        if (length > 12) {
             maxLength = length + 13;
         }
 
@@ -307,8 +307,8 @@ public class UI {
         }
 
         System.out.println("          ┌" + textBox + "┐\n"
-                        + "          │ Hello! I'm " + name +"!" + padding1 + "│\n"
-                        + "          │ What can I do for you?"  + padding2 + "│\n"
+                        + "          │ Hello! I'm " + name + "!" + padding1 + "│\n"
+                        + "          │ What can I do for you?" + padding2 + "│\n"
                         + " (^з^)-☆ ─┴" + textBox + "┘");
     }
 
@@ -326,7 +326,7 @@ public class UI {
     public void respond(String userInput) {
         int maxLength = 46;
         int length = userInput.length();
-        String textBox =  "─";
+        String textBox = "─";
         String padding1 = "";
         String padding2 = "";
         String padding3 = "";
@@ -354,7 +354,7 @@ public class UI {
         System.out.println("                     ┌" + textBox + "┐\n"
                 + "                     │ Sorry I don't recognize this command: " + padding1 + "│ \n"
                 + "                     │   \"" + userInput + "\"" + padding2 + "│\n"
-                + "                     │ Type \"help\" for the list possible commands."+ padding3 + "│ \n "
+                + "                     │ Type \"help\" for the list possible commands." + padding3 + "│ \n "
                 + " ʕ •ᴥ•ʔ     ʕ•ᴥ• ʔ ─┴" + textBox + "┘");
     }
 

@@ -1,7 +1,7 @@
 package jimbot.exceptions;
 
 public class TaskLimitException extends JimbotException {
-    public TaskLimitException(){
+    public TaskLimitException() {
         super("""
                          ┌────────────────────┐
                          │ Too many tasks!!!  │
