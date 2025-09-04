@@ -3,3 +3,4 @@ public class SamException extends Exception {
         super(msg);
     }
 }
+

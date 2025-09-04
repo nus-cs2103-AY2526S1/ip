@@ -106,8 +106,9 @@ public class Sam {
                     }
 
                     case TODO: {
-                        if (rest.isEmpty())
+                        if (rest.isEmpty()) {
                             throw new EmptyDescriptionException("todo");
+                        }
                         tasks.add(new Todo(rest));
                         storage.save(tasks.getTasks());
                         ui.printAdded(tasks.get(tasks.size() - 1), tasks.size());
@@ -115,12 +116,14 @@ public class Sam {
                     }
 
                     case DEADLINE: {
-                        if (rest.isEmpty() || !rest.contains("/by"))
+                        if (rest.isEmpty() || !rest.contains("/by")) {
                             throw new SamException("OOPS!!! Use: deadline <description> /by <time>");
+                        }
                         String[] a = rest.split("/by", 2);
                         String descr = a[0].trim(), by = a[1].trim();
-                        if (descr.isEmpty() || by.isEmpty())
+                        if (descr.isEmpty() || by.isEmpty()) {
                             throw new SamException("OOPS!!! Use: deadline <description> /by <time>");
+                        }
                         tasks.add(new Deadline(descr, by));
                         storage.save(tasks.getTasks());
                         ui.printAdded(tasks.get(tasks.size() - 1), tasks.size());
@@ -128,13 +131,15 @@ public class Sam {
                     }
 
                     case EVENT: {
-                        if (rest.isEmpty() || !rest.contains("/from") || !rest.contains("/to"))
+                        if (rest.isEmpty() || !rest.contains("/from") || !rest.contains("/to")) {
                             throw new SamException("OOPS!!! Use: event <description> /from <start> /to <end>");
+                        }
                         String[] p1 = rest.split("/from", 2);
                         String[] p2 = p1[1].split("/to", 2);
                         String descr = p1[0].trim(), from = p2[0].trim(), to = p2[1].trim();
-                        if (descr.isEmpty() || from.isEmpty() || to.isEmpty())
+                        if (descr.isEmpty() || from.isEmpty() || to.isEmpty()) {
                             throw new SamException("OOPS!!! Use: event <description> /from <start> /to <end>");
+                        }
                         tasks.add(new Event(descr, from, to));
                         storage.save(tasks.getTasks());
                         ui.printAdded(tasks.get(tasks.size() - 1), tasks.size());
@@ -142,8 +147,9 @@ public class Sam {
                     }
 
                     case FIND: {
-                        if (rest.isEmpty())
+                        if (rest.isEmpty()) {
                             throw new SamException("OOPS!!! Please provide a keyword to search for.");
+                        }
                         ui.showLine();
                         System.out.println(" Here are the matching tasks in your list:");
                         int matchCount = 0;
