@@ -24,7 +24,9 @@ public class Task {
      *
      * @return task type identifier.
      */
-    public String getTaskType() { return null; }
+    public String getTaskType() {
+        return null;
+    }
 
     /**
      * Returns a status icon used in UI printing.
@@ -38,7 +40,7 @@ public class Task {
     /**
      * Marks the task as done.
      */
-    public void markDone () {
+    public void markDone() {
         this.isDone = true;
     }
 
@@ -54,7 +56,9 @@ public class Task {
      *
      * @return task description.
      */
-    public String getDescription() { return this.description; }
+    public String getDescription() {
+        return this.description;
+    }
 
     @Override
     public String toString() {
