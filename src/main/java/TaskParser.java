@@ -1,5 +1,16 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class TaskParser {
-    public static Task fromString(String line) throws ChashException {
+    //todo borrow book (does not need a pattern)
+    //deadline return book /by Sunday
+    private static final Pattern REGEX_DEADLINE =
+        Pattern.compile("^(.+?)\\s+/by\\s+(.+)$");
+    //event project meeting /from Mon 2pm /to 4pm
+    private static final Pattern REGEX_EVENT =
+        Pattern.compile("^(.+?)\\s+/from\\s+(.+?)\\s+/to\\s+(.+)$");
+
+    public static Task fromExportString(String line) throws ChashException {
         String[] parts = line.split(" \\| ");
         //Sanity check
         if (parts.length < 3) {
@@ -41,5 +52,32 @@ public class TaskParser {
         }
 
         return task.setDone(isDone);
+    }
+
+    public static Task fromChashString(CommandTypeEnum type, String args) throws ChashException {
+        Matcher m;
+        switch (type) {
+        case CommandTypeEnum.TODO:
+            return new Todo(args);
+
+        case CommandTypeEnum.DEADLINE:
+            m = TaskParser.REGEX_DEADLINE.matcher(args);
+            if (m.matches()) {
+                return new Deadline(m.group(1), m.group(2));
+            } else {
+                throw new ChashException("Invalid deadline arguments");
+            }
+
+        case CommandTypeEnum.EVENT:
+            m = TaskParser.REGEX_EVENT.matcher(args);
+            if (m.matches()) {
+                return new Event(m.group(1), m.group(2), m.group(3));
+            } else {
+                throw new ChashException("Invalid event arguments");
+            }
+
+        default:
+            throw new ChashException("Invalid command type: " + type.toString());
+        }
     }
 }

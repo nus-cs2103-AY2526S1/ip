@@ -36,7 +36,7 @@ public class ChashDb {
         return false;
     }
 
-    public ArrayList<Task> loadDb() throws IOException {
+    public ArrayList<Task> loadDb(ChashUi ui) throws IOException {
         try {
             //Check if file and intermediate directories exists
             if (!fileExistsElseCreate()) {
@@ -52,9 +52,9 @@ public class ChashDb {
                 //Process line if not blank
                 if (!dataline.isBlank()) {
                     try {
-                        tasks.add(TaskParser.fromString(dataline));
+                        tasks.add(TaskParser.fromExportString(dataline));
                     } catch (ChashException ex) {
-                        ChashUi.printErr("CHASHDB: Line " + i + " Invalid");
+                        ui.printErr("CHASHDB: Line " + i + " Invalid");
                     }
                 }
             }

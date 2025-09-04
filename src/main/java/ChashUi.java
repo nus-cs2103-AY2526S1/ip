@@ -17,11 +17,11 @@ public class ChashUi {
 
     //Output
 
-    public void printLine(String line) {
+    private void printLine(String line) {
         System.out.println(ChashUi.LINEINDENT + line);
     }
 
-    public void printLineSeparator() {
+    private void printLineSeparator() {
         printLine(ChashUi.LINESEP);
     }
 
