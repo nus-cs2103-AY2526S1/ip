@@ -12,6 +12,15 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+
+    def javaFxVersion = '17.0.7'
+    def platform = org.gradle.internal.os.OperatingSystem.current().isWindows() ? 'win' :
+            org.gradle.internal.os.OperatingSystem.current().isMacOsX() ? 'mac' : 'linux'
+
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:${platform}"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:${platform}"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:${platform}"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:${platform}"
 }
 
 test {
@@ -29,7 +38,7 @@ test {
 }
 
 application {
-    mainClass.set("aurora.Aurora")
+    mainClass.set("aurora.Launcher")
 }
 
 shadowJar {
