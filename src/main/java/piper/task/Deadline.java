@@ -10,10 +10,10 @@ import java.time.format.DateTimeParseException;
  * If given the ISO date format yyyy-MM-dd, the date is displayed as MMM d yyyy.
  */
 public class Deadline extends Task {
+    private static final DateTimeFormatter DISPLAYED_DATE = DateTimeFormatter.ofPattern("MMM d yyyy");
     protected final String taskType = "D";
     protected String by;
     private LocalDate byDate;
-    private static final DateTimeFormatter DISPLAYED_DATE = DateTimeFormatter.ofPattern("MMM d yyyy");
 
     /**
      * Creates a Deadline.
@@ -50,6 +50,5 @@ public class Deadline extends Task {
         String doneField = getStatusIcon().equals("X") ? "1" : "0";
         return "D | " + doneField + " | " + this.getDescription() + " | " + this.by;
     }
-
 
 }
