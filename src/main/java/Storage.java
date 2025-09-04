@@ -1,10 +1,15 @@
-import java.io.*;
-import java.nio.file.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import sam.task.Task;
-import sam.task.Todo;
+
 import sam.task.Deadline;
 import sam.task.Event;
+import sam.task.Task;
+import sam.task.Todo;
 
 /**
  * Handles the storage and retrieval of tasks from a file.
@@ -13,13 +18,20 @@ import sam.task.Event;
  */
 public class Storage {
     private final Path filePath;
+    
+    // Constants for parsing task data
+    private static final int TASK_TYPE_INDEX = 0;
+    private static final int TASK_STATUS_INDEX = 1;
+    private static final int TASK_DESCRIPTION_INDEX = 2;
+    private static final int TASK_EXTRA_INFO_INDEX = 3;
+    private static final int TASK_SECOND_EXTRA_INFO_INDEX = 4;
 
     /**
      * Constructs a Storage object with the specified file path.
      * 
      * @param filePath The path to the file where tasks will be stored
      */
-    public Storage(String filePath) {
+    public Storage(final String filePath) {
         this.filePath = Paths.get(filePath);
     }
 
@@ -55,7 +67,7 @@ public class Storage {
      * 
      * @param tasks The ArrayList of tasks to be saved
      */
-    public void save(ArrayList<Task> tasks) {
+    public void save(final ArrayList<Task> tasks) {
         createFileAndParent();
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
             for (Task task : tasks) {
@@ -80,19 +92,19 @@ public class Storage {
         }
     }
 
-    private Task parseTask(String line) {
+    private Task parseTask(final String line) {
         // Example: T | 1 | read book
         // Implement parsing logic based on your Task/Deadline/Event/Todo classes
         String[] parts = line.split(" \\| ");
         try {
-            switch (parts[0]) {
+            switch (parts[TASK_TYPE_INDEX]) {
                 case "T":
-                    return new Todo(parts[2], parts[1].equals("1"));
+                    return new Todo(parts[TASK_DESCRIPTION_INDEX], parts[TASK_STATUS_INDEX].equals("1"));
                 case "D":
-                    return new Deadline(parts[2], parts[1].equals("1"), parts[3]);
+                    return new Deadline(parts[TASK_DESCRIPTION_INDEX], parts[TASK_STATUS_INDEX].equals("1"), parts[TASK_EXTRA_INFO_INDEX]);
                 case "E":
                     // For Event, expect: E | 1 | description | from | to
-                    return new Event(parts[2], parts[1].equals("1"), parts[3], parts[4]);
+                    return new Event(parts[TASK_DESCRIPTION_INDEX], parts[TASK_STATUS_INDEX].equals("1"), parts[TASK_EXTRA_INFO_INDEX], parts[TASK_SECOND_EXTRA_INFO_INDEX]);
                 default:
                     return null;
             }
@@ -102,7 +114,7 @@ public class Storage {
         }
     }
 
-    private String formatTask(Task task) {
+    private String formatTask(final Task task) {
         String status = task.isDone() ? "1" : "0";
         if (task instanceof Todo) {
             return "T | " + status + " | " + task.toString().substring(task.toString().indexOf(" ") + 1);

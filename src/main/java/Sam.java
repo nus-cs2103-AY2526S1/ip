@@ -1,11 +1,12 @@
 import java.util.Scanner;
-import sam.ui.Ui;
+
 import sam.parser.Parser;
-import sam.task.TaskList;
-import sam.task.Task;
-import sam.task.Todo;
 import sam.task.Deadline;
 import sam.task.Event;
+import sam.task.Task;
+import sam.task.TaskList;
+import sam.task.Todo;
+import sam.ui.Ui;
 
 /**
  * Represents the main application class for Sam, a task management application.
