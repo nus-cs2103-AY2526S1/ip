@@ -25,8 +25,8 @@ public class DeleteCommand extends Command {
      * @throws InvalidTaskIndexException If task index is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidTaskIndexException {
-        tasks.deleteTask(index);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidTaskIndexException {
+        return tasks.deleteTask(index);
     }
 }
 

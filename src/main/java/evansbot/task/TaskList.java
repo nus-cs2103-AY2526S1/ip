@@ -39,26 +39,26 @@ public class TaskList {
      *
      * @param task Task to be added.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         tasks.add(task);
         save();
-        System.out.println("############################################################");
-        System.out.println("Got it. I have added this task:");
-        System.out.println("    " + task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list");
-        System.out.println("############################################################");
+        return "Got it. I have added this task: \n"
+             + " " + task + "\n"
+             + "Now you have " + tasks.size() + " tasks in the list";
     }
 
     /**
      * Lists all tasks in the task list to the user.
+     *
+     * @return
      */
-    public void listTasks() {
-        System.out.println("############################################################");
-        System.out.println("Here are the tasks in your list");
+    public String listTasks() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the tasks in your list \n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
-        System.out.println("############################################################");
+        return sb.toString();
     }
 
     /**
@@ -67,17 +67,15 @@ public class TaskList {
      * @param index 1-based index of the task to mark as done.
      * @throws InvalidTaskIndexException If the index is out of range.
      */
-    public void markTask(int index) throws InvalidTaskIndexException {
+    public String markTask(int index) throws InvalidTaskIndexException {
         if (index < 1 || index > tasks.size()) {
             throw new InvalidTaskIndexException(tasks.size());
         }
         Task task = tasks.get(index - 1);
         task.markAsDone();
         save();
-        System.out.println("############################################################");
-        System.out.println("Good Job! I have marked this task as done:");
-        System.out.println(" " + task.toString());
-        System.out.println("############################################################");
+        return "Good Job! I have marked this task as done: \n"
+             + " " + task.toString();
     }
 
     /**
@@ -86,17 +84,15 @@ public class TaskList {
      * @param index 1-based index of the task to unmark.
      * @throws InvalidTaskIndexException If the index is out of range.
      */
-    public void unmarkTask(int index) throws InvalidTaskIndexException {
+    public String unmarkTask(int index) throws InvalidTaskIndexException {
         if (index < 1 || index > tasks.size()) {
             throw new InvalidTaskIndexException(tasks.size());
         }
         Task task = tasks.get(index - 1);
         task.unmarkDone();
         save();
-        System.out.println("############################################################");
-        System.out.println("Oh no! I have unmarked this task for now:");
-        System.out.println(" " + task.toString());
-        System.out.println("############################################################");
+        return "Oh no! I have unmarked this task for now: \n"
+             + " " + task.toString();
     }
 
     /**
@@ -105,15 +101,13 @@ public class TaskList {
      *
      * @param index 1-based index of the task to delete.
      */
-    public void deleteTask(int index) {
+    public String deleteTask(int index) {
         Task task = tasks.get(index - 1);
-        System.out.println("############################################################");
-        System.out.println("Okay! I will remove this task: ");
-        System.out.println(" " + task.toString());
-        System.out.println("Now there is " + (tasks.size() - 1) + " tasks in the list!");
-        System.out.println("############################################################");
         tasks.remove(index - 1);
         save();
+        return "Okay! I will remove this task: \n"
+             + " " + task.toString()
+             + "Now there is " + (tasks.size()) + " tasks in the list!";
     }
 
     /**

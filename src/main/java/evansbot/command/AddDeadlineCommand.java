@@ -34,13 +34,14 @@ public class AddDeadlineCommand extends Command {
      * @param tasks TaskList in which the new task will be added.
      * @param ui User interface to interact with the user (not used in this command).
      * @param storage Storage used to save the updated task list.
+     * @return String of that AddDeadlineCommand.
      * @throws EvansBotException If the description or due date is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EvansBotException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws EvansBotException {
         if (description.isEmpty() || by.isEmpty()) {
             throw new InvalidDeadlineException();
         }
-        tasks.addTask(new Deadline(description, by));
+        return tasks.addTask(new Deadline(description, by));
     }
 }

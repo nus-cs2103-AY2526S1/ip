@@ -33,7 +33,7 @@ public class FindCommand extends Command {
      * @param storage Storage instance used for persisting tasks (not modified here).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> allTasks = tasks.getTasks();
         ArrayList<Task> matched = new ArrayList<>();
 
@@ -44,12 +44,14 @@ public class FindCommand extends Command {
         }
 
         if (matched.isEmpty()) {
-            System.out.println("No matching tasks found for \"" + keyword + "\".");
+            return "No matching tasks found for \"" + keyword + "\".";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder sb = new StringBuilder();
+            sb.append("Here are the matching tasks in your list:");
             for (int i = 0; i < matched.size(); i++) {
-                System.out.println((i + 1) + "." + matched.get(i));
+                sb.append((i + 1)).append(".").append(matched.get(i)).append("\n");
             }
+            return sb.toString();
         }
     }
 }
