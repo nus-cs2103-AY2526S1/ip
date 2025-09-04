@@ -14,7 +14,7 @@ public enum Command {
      * @param verb The string representation of the command
      * @return The corresponding Command enum value, or UNKNOWN if no match is found
      */
-    public static Command of(String verb) {
+    public static Command of(final String verb) {
         switch (verb) {
             case "bye":
                 return BYE;

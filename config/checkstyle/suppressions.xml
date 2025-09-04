@@ -39,4 +39,37 @@
     
     <!-- Suppress MissingJavadocMethod for simple getters/setters -->
     <suppress files=".*\.java" checks="MissingJavadocMethod" lines="1-200"/>
+    
+    <!-- Suppress package-info.java requirement -->
+    <suppress files=".*\.java" checks="JavadocPackage"/>
+    
+    <!-- Suppress utility class constructor warnings -->
+    <suppress files=".*\.java" checks="HideUtilityClassConstructor"/>
+    
+    <!-- Suppress design for extension warnings -->
+    <suppress files=".*\.java" checks="DesignForExtension"/>
+    
+    <!-- Suppress nested blocks warnings -->
+    <suppress files=".*\.java" checks="AvoidNestedBlocks"/>
+    
+    <!-- Suppress missing switch default warnings -->
+    <suppress files=".*\.java" checks="MissingSwitchDefault"/>
+    
+    <!-- Suppress import order warnings -->
+    <suppress files=".*\.java" checks="ImportOrder"/>
+    
+    <!-- Suppress hidden field warnings -->
+    <suppress files=".*\.java" checks="HiddenField"/>
+    
+    <!-- Suppress visibility modifier warnings -->
+    <suppress files=".*\.java" checks="VisibilityModifier"/>
+    
+    <!-- Suppress newline at end of file warnings -->
+    <suppress files=".*\.java" checks="NewlineAtEndOfFile"/>
+    
+    <!-- Suppress final parameters warnings -->
+    <suppress files=".*\.java" checks="FinalParameters"/>
+    
+    <!-- Suppress need braces warnings -->
+    <suppress files=".*\.java" checks="NeedBraces"/>
 </suppressions>

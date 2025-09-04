@@ -14,13 +14,13 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
-    public void showError(String message) {
+    public void showError(final String message) {
         System.out.println("____________________________________________________________");
         System.out.println(" " + message);
         System.out.println("____________________________________________________________");
     }
 
-    public void printAdded(Task t, int count) {
+    public void printAdded(final Task t, final int count) {
         System.out.println("____________________________________________________________");
         System.out.println(" Got it. I've added this task:");
         System.out.println(" " + t);

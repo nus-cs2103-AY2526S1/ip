@@ -16,7 +16,7 @@ public class Event extends Task {
      * @param from The start time of the event
      * @param to The end time of the event
      */
-    public Event(String description, String from, String to) {
+    public Event(final String description, final String from, final String to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -30,9 +30,11 @@ public class Event extends Task {
      * @param from The start time of the event
      * @param to The end time of the event
      */
-    public Event(String description, boolean isDone, String from, String to) {
+    public Event(final String description, final boolean isDone, final String from, final String to) {
         super(description);
-        if (isDone) this.markDone();
+        if (isDone) {
+            this.markDone();
+        }
         this.from = from;
         this.to = to;
     }

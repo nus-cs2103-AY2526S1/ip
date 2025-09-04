@@ -14,7 +14,7 @@ public class Parser {
      * @param input The raw user input string to be parsed
      * @return A String array where index 0 contains the command verb and index 1 contains the arguments
      */
-    public static String[] parse(String input) {
+    public static String[] parse(final String input) {
         String[] parts = input.trim().split("\\s+", 2);
         String verb = parts[0].toLowerCase();
         String rest = (parts.length > 1) ? parts[1].trim() : "";

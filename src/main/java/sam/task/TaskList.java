@@ -22,7 +22,7 @@ public class TaskList {
      *
      * @param tasks The initial list of tasks to populate the TaskList
      */
-    public TaskList(ArrayList<Task> tasks) {
+    public TaskList(final ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
@@ -40,7 +40,7 @@ public class TaskList {
      *
      * @param task The task to be added to the list
      */
-    public void add(Task task) {
+    public void add(final Task task) {
         tasks.add(task);
     }
 
@@ -50,7 +50,7 @@ public class TaskList {
      * @param index The index of the task to be removed
      * @return The removed task
      */
-    public Task remove(int index) {
+    public Task remove(final int index) {
         return tasks.remove(index);
     }
 
@@ -60,7 +60,7 @@ public class TaskList {
      * @param index The index of the task to be retrieved
      * @return The task at the specified index
      */
-    public Task get(int index) {
+    public Task get(final int index) {
         return tasks.get(index);
     }
 
