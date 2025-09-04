@@ -1,3 +1,5 @@
+package chash.task;
+
 import java.util.ArrayList;
 import java.util.List;
 

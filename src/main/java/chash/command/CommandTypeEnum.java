@@ -1,3 +1,5 @@
+package chash.command;
+
 /*
 Enum reference
 https://stackoverflow.com/a/3978690

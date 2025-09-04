@@ -1,3 +1,9 @@
+package chash.command;
+
+import chash.storage.ChashDb;
+import chash.task.TaskList;
+import chash.ui.ChashUi;
+
 public class ExitCommand extends Command {
     public ExitCommand() {}
 

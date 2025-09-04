@@ -1,3 +1,5 @@
+package chash.task;
+
 //Although there is no abstract methods, this class is meant to be inherited from
 public abstract class Task {
     private String description;

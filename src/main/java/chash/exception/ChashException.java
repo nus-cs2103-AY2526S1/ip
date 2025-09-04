@@ -1,3 +1,5 @@
+package chash.exception;
+
 public class ChashException extends RuntimeException {
     public ChashException(String msg) {
         super(msg);

@@ -1,3 +1,10 @@
+package chash.command;
+
+import chash.storage.ChashDb;
+import chash.task.Task;
+import chash.task.TaskList;
+import chash.ui.ChashUi;
+
 import java.io.IOException;
 
 public class MarkCommand extends Command {

@@ -1,3 +1,7 @@
+package chash.parser;
+
+import chash.exception.ChashException;
+
 /** CHASH user data parser */
 public class CommandParser {
     /**

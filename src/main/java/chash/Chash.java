@@ -1,3 +1,12 @@
+package chash;
+
+import chash.command.Command;
+import chash.command.CommandParser;
+import chash.exception.ChashException;
+import chash.storage.ChashDb;
+import chash.task.TaskList;
+import chash.ui.ChashUi;
+
 //Imports
 import java.io.IOException;
 

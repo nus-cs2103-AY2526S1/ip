@@ -1,3 +1,5 @@
+package chash.ui;
+
 import java.util.Scanner;
 import java.util.stream.Stream;
 

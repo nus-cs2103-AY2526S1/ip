@@ -1,3 +1,12 @@
+package chash.command;
+
+import chash.exception.ChashException;
+import chash.parser.TaskParser;
+import chash.storage.ChashDb;
+import chash.task.Task;
+import chash.task.TaskList;
+import chash.ui.ChashUi;
+
 import java.io.IOException;
 
 public class AddCommand extends Command {
