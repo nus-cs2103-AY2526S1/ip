@@ -29,6 +29,6 @@ public class CommandParser {
         case CommandTypeEnum.EVENT -> new AddCommand(cmd, args);
         case CommandTypeEnum.DELETE -> new DeleteCommand(args);
         default -> throw new ChashException("Unsupported command");
-        }
+        };
     }
 }

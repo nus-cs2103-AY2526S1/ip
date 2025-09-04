@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class ChashUi {
     private static final String LINEINDENT = "    ";
@@ -37,7 +38,7 @@ public class ChashUi {
     //Error
 
     public void printErr(String txt) {
-        System.err.println(txt);
+        System.err.println(ChashUi.LINEINDENT + txt);
     }
 
     //CHASH default messages

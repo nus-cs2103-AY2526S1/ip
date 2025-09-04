@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class MarkCommand extends Command {
     private final String index;
     private final boolean mark;
@@ -14,7 +16,7 @@ public class MarkCommand extends Command {
             Task task = tasks.get(Integer.parseInt(this.index) - 1).setDone(this.mark);
 
             //Write DB changes
-            db.writeDb(tasks);
+            db.writeDb(tasks.getAll());
 
             //Print mark or unmark message
             ui.printMsg(

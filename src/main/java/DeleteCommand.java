@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class DeleteCommand extends Command {
     private final String index;
 
@@ -12,7 +14,7 @@ public class DeleteCommand extends Command {
             Task task = tasks.remove(Integer.parseInt(this.index) - 1);
 
             //Write DB changes
-            db.writeDb(tasks);
+            db.writeDb(tasks.getAll());
 
             ui.printMsg(String.format(
                 "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.",

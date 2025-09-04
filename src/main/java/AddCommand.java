@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class AddCommand extends Command {
     private final CommandTypeEnum type;
     private final String args;
@@ -23,7 +25,7 @@ public class AddCommand extends Command {
 
         //Write db
         try {
-            db.writeDb(tasks);
+            db.writeDb(tasks.getAll());
         } catch (IOException ex) {
             ui.printErr("Error accessing CHASHDB, all data in memory will be lost on exit");
         }

@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ChashDb {
@@ -71,7 +72,7 @@ public class ChashDb {
         }
     }
 
-    public void writeDb(ArrayList<Task> tasks) throws IOException {
+    public void writeDb(List<Task> tasks) throws IOException {
         //Java try-with-resource technique requires the method to implement AutoCloseable
         try {
             //Check if file and intermediate directories exists and create if needed
