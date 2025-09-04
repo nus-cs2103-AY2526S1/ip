@@ -98,8 +98,7 @@ public class Parser {
                 } catch (DateTimeParseException e) {
                     throw new RomidasException("deadline should follow the format: yyyy-MM-dd");
                 }
-                Task deadlineTask = new DeadlineTask(partsDeadline[0] + " (by: " 
-                        + partsDeadline[1] + ")", partsDeadline[1]);
+                Task deadlineTask = new DeadlineTask(partsDeadline[0], partsDeadline[1]);
                 return new AddCommand(deadlineTask);
 
             case EVENT:
@@ -123,8 +122,7 @@ public class Parser {
                     throw new RomidasException("event tasks should follow the format: "
                             + "event <event name> /from <date/time> /to <date/time>");
                 }
-                Task eventTask = new Event(partsEvent[0] + " (from: " + timeParts[0] 
-                        + " to: " + timeParts[1] + ")", timeParts[0], timeParts[1]);
+                Task eventTask = new Event(partsEvent[0], timeParts[0], timeParts[1]);
                 return new AddCommand(eventTask);
 
             case DELETE:

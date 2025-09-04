@@ -87,6 +87,34 @@ public class Romidas {
     }
 
     /**
+     * Returns input in the GUI
+     * @param input
+     * @return String response to be shown
+     */
+    public String getResponse(String input) {
+        try {
+            GuiUi guiUi = new GuiUi();
+            
+            if (input.trim().equalsIgnoreCase("bye")) {
+                return "Bye. Hope to see you again soon!";
+            }
+            
+            Command c = Parser.parse(input, taskList, guiUi, storage, DATA_PATH);
+            
+            c.execute(taskList, guiUi, storage);
+            
+            return guiUi.getOutput();
+            
+        } catch (NumberFormatException e) {
+            return "Task number must be an integer.";
+        } catch (IllegalArgumentException e) {
+            return "I'm sorry, I don't recognise that command. Try one of list, event, todo, deadline, mark, unmark, delete, find";
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
+    /**
      * Main entry point for the Romidas application.
      * Creates and runs the application instance.
      *

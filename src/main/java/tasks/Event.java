@@ -65,4 +65,16 @@ public class Event extends Task {
     public String getStatus() {
         return "[E]";
     }
+
+    /**
+     * Returns a string representation of this event task including its status,
+     * completion icon, description, and time range.
+     *
+     * @return The complete string representation of this event task.
+     */
+    @Override
+    public String toString() {
+        return this.getStatus() + this.getStatusIcon() + " " + this.getDescription() 
+                + " (from: " + this.from + " to: " + this.to + ")";
+    }
 }

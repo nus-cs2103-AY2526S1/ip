@@ -80,4 +80,16 @@ public class DeadlineTask extends Task {
     public String getStatus() {
         return "[D]";
     }
+
+    /**
+     * Returns a string representation of this deadline task including its status,
+     * completion icon, description, and deadline date.
+     *
+     * @return The complete string representation of this deadline task.
+     */
+    @Override
+    public String toString() {
+        return this.getStatus() + this.getStatusIcon() + " " + this.getDescription() 
+                + " (by: " + this.deadline + ")";
+    }
 }
