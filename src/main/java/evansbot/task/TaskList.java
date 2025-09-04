@@ -111,7 +111,7 @@ public class TaskList {
         save();
         return "Okay! I will remove this task: \n"
              + " " + task.toString()
-             + "Now there is " + (tasks.size()) + " tasks in the list!";
+             + " \nNow there is " + (tasks.size()) + " tasks in the list!";
     }
 
     /**

@@ -48,7 +48,7 @@ public class FindCommand extends Command {
             return "No matching tasks found for \"" + keyword + "\".";
         } else {
             StringBuilder sb = new StringBuilder();
-            sb.append("Here are the matching tasks in your list:");
+            sb.append("Here are the matching tasks in your list: \n");
             for (int i = 0; i < matched.size(); i++) {
                 sb.append((i + 1)).append(".").append(matched.get(i)).append("\n");
             }
