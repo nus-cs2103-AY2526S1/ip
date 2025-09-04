@@ -20,50 +20,6 @@ public class ChashDb {
         this.fileLocation = "./ChashData/chashdb.txt";
     }
 
-    private static Task parseTask(String line) throws ChashException {
-        String[] tmp = line.split(" \\| ", 2);
-        //Sanity check
-        if (tmp.length != 2) {
-            throw new ChashException("Invalid line");
-        }
-
-        Task task;
-        switch (tmp[0]) {
-        case Todo.TASKTYPE:
-            tmp = tmp[1].split(" \\| ", 2);
-            //Sanity check
-            if (tmp.length != 2) {
-                throw new ChashException("Todo task invalid");
-            }
-            task = new Todo(tmp[1]);
-            break;
-
-        case Deadline.TASKTYPE:
-            tmp = tmp[1].split(" \\| ", 3);
-            //Sanity check
-            if (tmp.length != 3) {
-                throw new ChashException("Deadline task invalid");
-            }
-            task = new Deadline(tmp[1], tmp[2]);
-            break;
-
-        case Event.TASKTYPE:
-            tmp = tmp[1].split(" \\| ", 4);
-            //Sanity check
-            if (tmp.length != 4) {
-                throw new ChashException("Event task invalid");
-            }
-            task = new Event(tmp[1], tmp[2], tmp[3]);
-            break;
-        
-        default:
-            throw new ChashException("Invalid task type");
-        }
-
-        //Check if task was saved as done and toggle if necessary
-        return (tmp[0].equals("1")) ? task.toggleDone() : task;
-    }
-
     private boolean fileExistsElseCreate() throws IOException {
         Path path = Paths.get(this.fileLocation);
 
@@ -71,13 +27,10 @@ public class ChashDb {
         if (Files.exists(path)) {
             return true;
         }
-
         //Check intermediate directories if exist
         if (path.getParent() != null) {
             Files.createDirectories(path.getParent());
         }
-
-        //Create file
         Files.createFile(path);
 
         return false;
@@ -96,15 +49,13 @@ public class ChashDb {
             Scanner scanner = new Scanner(path);
             for (int i = 1; scanner.hasNextLine(); i += 1) {
                 String dataline = scanner.nextLine();
-                //Check for last line (assumed empty) and break
-                if (dataline.isEmpty()) {
-                    break;
-                }
-
-                try {
-                    tasks.add(ChashDb.parseTask(dataline));
-                } catch (ChashException ex) {
-                    System.err.println("CHASHDB: Line " + i + " Invalid");
+                //Process line if not blank
+                if (!dataline.isBlank()) {
+                    try {
+                        tasks.add(TaskParser.fromString(dataline));
+                    } catch (ChashException ex) {
+                        System.err.println("CHASHDB: Line " + i + " Invalid");
+                    }
                 }
             }
             scanner.close();
@@ -135,8 +86,8 @@ public class ChashDb {
             );
             //BufferedWriter writer = new BufferedWriter(new FileWriter(this.fileLocation));
 
-            for (Task task : tasks) {
-                writer.write(task.exportString() + "\n");
+            for (Task t : tasks) {
+                writer.write(t.exportString() + "\n");
             }
             writer.close();
         } catch (IOException ex) {
