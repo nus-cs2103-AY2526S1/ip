@@ -26,10 +26,6 @@ public class Task {
         return this.description;
     }
 
-    public Boolean getIsMarked() {
-        return this.isMarked;
-    }
-
     /**
      * Checks if the task's description contains the exact keyword.
      * Splits the description by spaces and matches whole words.
