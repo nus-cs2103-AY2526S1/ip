@@ -58,6 +58,8 @@ public class UI {
      * @param targetTask The task that has been marked as done.
      */
     public String markTaskMessage(int indx, Task targetTask) {
+        assert targetTask != null
+                : "TargetTask in markTaskMessage is null!";
         String curTask = String.format(
                 "%d. %s\n",
                 indx,
@@ -79,6 +81,8 @@ public class UI {
      * @param targetTask The task that has been unmarked.
      */
     public String unmarkTaskMessage(int indx, Task targetTask) {
+        assert targetTask != null
+                : "TargetTask in unmarkTaskMessage is null!";
         String curTask = String.format(
                 "%d. %s\n",
                 indx,
@@ -101,7 +105,8 @@ public class UI {
      * @param num  The new total number of tasks in the list.
      */
     public String addTaskMessage(Task task, int num) {
-
+        assert task != null
+                : "task in addTaskMessage is null!";
         String s = String.format("""
                 Got it. I've added this task:
                 %s
@@ -119,6 +124,8 @@ public class UI {
      * @param taskSize   The new total number of tasks in the list.
      */
     public String deleteMessage(Task targetTask, int taskSize) {
+        assert targetTask != null
+                : "targetTask in deleteMessage is null!";
         String output = String.format("""
                         Noted. I've removed this task:
                         %s
@@ -153,6 +160,8 @@ public class UI {
      * @param e The error message to display.
      */
     public String generateErrorMsg(String e) {
+        assert !e.trim().isEmpty()
+                : "Error message cannot be empty!";
 
         String s = String.format("""
                 OOPS!!! %s
