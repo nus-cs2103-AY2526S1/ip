@@ -6,12 +6,18 @@ import rafayel.task.Task;
 import rafayel.task.TaskList;
 
 /**
- *
+ * Delete Command that deleted
  */
 public class DeleteCommand extends Command {
     private final int taskNumber;
 
+    /**
+     * Constructor for deleting tasks.
+     *
+     * @param taskNumber the task number to delete from the list of tasks.
+     */
     public DeleteCommand(int taskNumber) {
+        super(Parser.CommandType.DELETE);
         this.taskNumber = taskNumber;
     }
 

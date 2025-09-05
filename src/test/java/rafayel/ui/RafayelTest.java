@@ -1,14 +1,12 @@
 package rafayel.ui;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import rafayel.Rafayel;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-import rafayel.Rafayel;
-import rafayel.RafayelException;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RafayelTest {
     @Test

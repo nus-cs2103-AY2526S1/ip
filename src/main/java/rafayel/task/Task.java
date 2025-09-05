@@ -87,4 +87,15 @@ public abstract class Task {
     public boolean findSubstring(String substring) {
         return this.description.contains(substring);
     }
+
+    /**
+     * Test for Varargs -- will implement with output lines
+     */
+    public String combineStrings(String... strings) {
+        StringBuilder result = new StringBuilder();
+        for (String str : strings) {
+            result.append(str);
+        }
+        return result.toString();
+    }
 }

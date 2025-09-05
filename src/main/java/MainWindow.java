@@ -8,10 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import rafayel.Rafayel;
 import rafayel.RafayelException;
-
 
 /**
  * Controller for the main GUI.
@@ -28,10 +26,8 @@ public class MainWindow extends AnchorPane {
 
     private Rafayel rafayel;
 
-    private final Image userIcon = new Image(Objects.requireNonNull(
-            this.getClass().getResourceAsStream("/images/UserIcon.png")));
-    private final Image rafayelIcon = new Image(Objects.requireNonNull(
-            this.getClass().getResourceAsStream("/images/RafayelIcon.png")));
+    private Image userIcon = new Image(this.getClass().getResourceAsStream("/images/UserIcon.jpeg"));
+    private Image rafayelIcon = new Image(this.getClass().getResourceAsStream("/images/RafayelIcon.png"));
 
     @FXML
     public void initialize() {
@@ -44,7 +40,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Rafayel's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
