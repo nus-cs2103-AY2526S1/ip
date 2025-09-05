@@ -56,7 +56,7 @@ public class Deadline extends Task {
     public String getData() {
         String deadlineOutput = this.deadline.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         return String.format("D|%s|%s|%s",
-                super.getDescription(), super.checked(), deadlineOutput);
+                super.getDescription(), super.getMarkedStatus(), deadlineOutput);
     }
 
 }

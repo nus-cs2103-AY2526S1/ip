@@ -53,6 +53,6 @@ public class Event extends bobbywasabi.tasks.Task {
     @Override
     public String getData() {
         return String.format("E|%s|%s|%s|%s",
-                super.getDescription(), super.checked(), this.start, this.end);
+                super.getDescription(), super.getMarkedStatus(), this.start, this.end);
     }
 }

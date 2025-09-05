@@ -64,6 +64,7 @@ public class BobbyWasabi {
     public BobbyWasabi() {
         this.ui = new UI();
         this.storage = new Storage("./data/BobbyWasabiTasks.txt", "./data");
+
         try {
             this.storage.createDataStorage();
             this.taskList = new TaskList(storage.load());
