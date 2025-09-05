@@ -18,14 +18,15 @@ public class DialogBox extends HBox{
      * @param profileImage
      */
     public DialogBox(String message, Image profileImage) {
+        text = new Label(message);
+        displayPicture = new ImageView(profileImage);
+
         //Styling the dialog box
         text.setWrapText(true);
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
         this.setAlignment(Pos.TOP_RIGHT);
 
-        text = new Label(message);
-        displayPicture = new ImageView(profileImage);
         this.getChildren().addAll(text, displayPicture);
     }
 }
