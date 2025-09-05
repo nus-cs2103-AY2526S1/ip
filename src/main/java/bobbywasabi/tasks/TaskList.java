@@ -1,6 +1,8 @@
 package bobbywasabi.tasks;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Represents a list of Task objects with utility methods to manipulate and query tasks.
@@ -62,15 +64,12 @@ public class TaskList {
      * @return A formatted string containing all matching tasks.
      */
     public String findTasksThatMatchKeyword(String keyword) {
-        ArrayList<Task> tasks = new ArrayList<>();
-        for (int i = 0; i < this.tasks.size(); i++) {
-            Task cur = this.tasks.get(i);
-            if (cur.find(keyword)) {
-                tasks.add(cur);
-            }
-        }
+        ArrayList<Task> matchingTasks = this.tasks
+                .stream()
+                .filter(task -> task.find(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
 
-        return this.convertTasksToString(tasks);
+        return this.convertTasksToString(matchingTasks);
     }
 
     /**
@@ -93,10 +92,15 @@ public class TaskList {
      */
     public String convertTasksToString(ArrayList<Task> tasks) {
         StringBuilder textList = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            Task cur = tasks.get(i);
-            textList.append(convertTaskToString(i + 1, cur));
-        }
+
+        // iterate over the tasks to add their string representations to the textList
+        IntStream
+                .range(0, tasks.size())
+                .forEach(i -> {
+                    Task task = tasks.get(i);
+                    textList.append(convertTaskToString(i + 1, task));
+                });
+
         return textList.toString();
     }
 
