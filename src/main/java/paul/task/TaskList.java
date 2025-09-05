@@ -36,12 +36,12 @@ public class TaskList {
     /**
      * Gets the ith task from the TaskList.
      *
-     * @param i The ith task to get (1-indexed).
+     * @param index The ith task to get (1-indexed).
      * @return The task at position i.
      */
-    public Task get(int i) {
+    public Task get(int index) {
         // Get the ith Task in the list
-        return this.tasks.get(i - 1);
+        return this.tasks.get(index - 1);
     }
 
     /**

@@ -66,14 +66,19 @@ public class Storage {
 
                 Task task;
                 switch (type) {
-                    case "T" -> task = new ToDo(description);
-                    case "D" -> task = new Deadline(description, LocalDate.parse(parts[3]));
-                    case "E" -> task = new Event(
+                case "T":
+                    task = new ToDo(description);
+                    break;
+                case "D":
+                    task = new Deadline(description, LocalDate.parse(parts[3]));
+                    break;
+                case "E":
+                    task = new Event(
                             description, LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
-                    default -> {
-                        System.out.println("Unknown task type in file, skipping: " + type);
-                        continue;
-                    }
+                    break;
+                default:
+                    System.out.println("Unknown task type in file, skipping: " + type);
+                    continue;
                 }
 
                 if (isDone) {
