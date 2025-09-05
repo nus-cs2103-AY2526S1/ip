@@ -26,10 +26,6 @@ public class Task {
         return this.description;
     }
 
-    public Boolean getIsMarked() {
-        return this.isMarked;
-    }
-
     /**
      * Checks if the task's description contains the exact keyword.
      * Splits the description by spaces and matches whole words.
@@ -53,7 +49,7 @@ public class Task {
      *
      * @return Mark/Unmarked Checkbox.
      */
-    public String checked() {
+    public String getMarkedStatus() {
         if (this.isMarked) {
             return "[X]";
         } else {
@@ -68,7 +64,7 @@ public class Task {
      * @return String representation of task.
      */
     public String toString() {
-        return this.checked() + " " + this.description;
+        return this.getMarkedStatus() + " " + this.description;
     }
 
     /**

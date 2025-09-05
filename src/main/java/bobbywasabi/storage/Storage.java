@@ -109,7 +109,6 @@ public class Storage {
         String description = infos[1];
         boolean isMarked = infos[2].equals("[X]");
 
-
         if (type.equals("T")) {
             return new ToDo(description, isMarked);
         } else if (type.equals("D")) {
@@ -119,10 +118,10 @@ public class Storage {
 
         } else if (type.equals("E")) {
             return new Event(description, isMarked, infos[3], infos[4]);
+        } else {
+            return null;
         }
 
-
-        return null;
     }
 
     /**
@@ -134,7 +133,7 @@ public class Storage {
      */
     public void updateDataFileFromTasks(TaskList tasks) throws BobbyWasabiException {
         try {
-            // clear the current data file
+            // clear the current data file to prevent duplication when writing
             PrintWriter writer = new PrintWriter(this.filepath);
             writer.print("");
             writer.close();
