@@ -65,6 +65,9 @@ public class Storage {
             }
         }
 
+        assert file.exists();
+        assert folder.exists();
+
     }
 
 
@@ -100,6 +103,7 @@ public class Storage {
      */
     public Task taskParser(String line) throws BobbyWasabiException {
         String[] infos = line.split("\\|");
+        assert infos.length >= 3 : "Task line does not contain enough fields: " + line;
 
         String type = infos[0];
         String description = infos[1];
@@ -116,6 +120,7 @@ public class Storage {
         } else if (type.equals("E")) {
             return new Event(description, isMarked, infos[3], infos[4]);
         }
+
 
         return null;
     }
@@ -155,6 +160,8 @@ public class Storage {
      * @throws BobbyWasabiException If the file cannot be written to.
      */
     public void fileWrite(String line) throws BobbyWasabiException {
+        assert line != null && !line.trim().isEmpty(): "Attempting to write an empty task line";
+
         try {
             FileWriter filewriter = new FileWriter(this.filepath);
             filewriter.write(line);
