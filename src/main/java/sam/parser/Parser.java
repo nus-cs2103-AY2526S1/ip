@@ -23,4 +23,19 @@ public class Parser {
         String rest = (parts.length > 1) ? parts[1].trim() : "";
         return new String[] { verb, rest };
     }
+
+    /**
+     * Parses multiple user inputs using varargs and returns an array of parsed results.
+     * Each input is processed individually using the standard parse method.
+     * 
+     * @param inputs Variable number of input strings to be parsed
+     * @return A 2D String array where each row contains [verb, arguments] for each input
+     */
+    public static String[][] parseMultiple(final String... inputs) {
+        String[][] results = new String[inputs.length][];
+        for (int i = 0; i < inputs.length; i++) {
+            results[i] = parse(inputs[i]);
+        }
+        return results;
+    }
 }
