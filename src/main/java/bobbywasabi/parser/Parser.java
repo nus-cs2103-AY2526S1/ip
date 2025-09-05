@@ -25,13 +25,12 @@ public class Parser {
     public static boolean isValidInteger(String s, int arrLen) throws BobbyWasabiException {
         String[] wordList = s.split(" ");
 
-        // not valid command length
+        // checks if command length is valid to ensure necessary inputs are given
         if (wordList.length != 2) {
             throw new BobbyWasabiException("We only accept two inputs - the command and the integer");
         }
 
-
-        // not a valid integer
+        // checks if integer is valid for acessing array
         try {
             int indx = Integer.parseInt(wordList[1]);
             if (indx > arrLen) {
