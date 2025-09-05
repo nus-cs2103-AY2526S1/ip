@@ -20,6 +20,19 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Shows an error message with multiple lines using varargs.
+     * 
+     * @param messages Variable number of message lines to display
+     */
+    public void showError(final String... messages) {
+        System.out.println("____________________________________________________________");
+        for (String message : messages) {
+            System.out.println(" " + message);
+        }
+        System.out.println("____________________________________________________________");
+    }
+
     public void printAdded(final Task t, final int count) {
         System.out.println("____________________________________________________________");
         System.out.println(" Got it. I've added this task:");
@@ -29,6 +42,8 @@ public class Ui {
     }
 
     public String readCommand() {
-        return new java.util.Scanner(System.in).nextLine();
+        try (java.util.Scanner scanner = new java.util.Scanner(System.in)) {
+            return scanner.nextLine();
+        }
     }
 }
