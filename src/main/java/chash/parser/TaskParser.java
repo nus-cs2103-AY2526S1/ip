@@ -66,10 +66,10 @@ public class TaskParser {
     public static Task fromChashString(CommandTypeEnum type, String args) throws ChashException {
         Matcher m;
         switch (type) {
-        case CommandTypeEnum.TODO:
+        case TODO:
             return new Todo(args);
 
-        case CommandTypeEnum.DEADLINE:
+        case DEADLINE:
             m = TaskParser.REGEX_DEADLINE.matcher(args);
             if (m.matches()) {
                 return new Deadline(m.group(1), m.group(2));
@@ -77,7 +77,7 @@ public class TaskParser {
                 throw new ChashException("Invalid deadline arguments");
             }
 
-        case CommandTypeEnum.EVENT:
+        case EVENT:
             m = TaskParser.REGEX_EVENT.matcher(args);
             if (m.matches()) {
                 return new Event(m.group(1), m.group(2), m.group(3));

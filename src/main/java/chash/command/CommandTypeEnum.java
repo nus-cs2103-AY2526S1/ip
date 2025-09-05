@@ -18,4 +18,5 @@ public enum CommandTypeEnum {
     DEADLINE,
     EVENT,
     DELETE;
+    //Consider adding help command
 }

@@ -30,15 +30,16 @@ public class CommandParser {
         String args = (tmp.length > 1) ? tmp[1] : "";
 
         //Switch expression supported from Java 14>
+        //Cannot use qualified name for switch with enum
         return switch (cmd) {
-        case CommandTypeEnum.BYE -> new ExitCommand();
-        case CommandTypeEnum.LIST -> new ListCommand();
-        case CommandTypeEnum.MARK -> new MarkCommand(args, true);
-        case CommandTypeEnum.UNMARK -> new MarkCommand(args, false);
-        case CommandTypeEnum.TODO -> new AddCommand(cmd, args);
-        case CommandTypeEnum.DEADLINE -> new AddCommand(cmd, args);
-        case CommandTypeEnum.EVENT -> new AddCommand(cmd, args);
-        case CommandTypeEnum.DELETE -> new DeleteCommand(args);
+        case BYE -> new ExitCommand();
+        case LIST -> new ListCommand();
+        case MARK -> new MarkCommand(args, true);
+        case UNMARK -> new MarkCommand(args, false);
+        case TODO -> new AddCommand(cmd, args);
+        case DEADLINE -> new AddCommand(cmd, args);
+        case EVENT -> new AddCommand(cmd, args);
+        case DELETE -> new DeleteCommand(args);
         default -> throw new ChashException("Unsupported command");
         };
     }
