@@ -1,17 +1,25 @@
 package dobby.task;
 
-public class Event extends Task {
-    protected String from;
-    protected String until;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String from, String until) {
+public class Event extends Task {
+    protected LocalDateTime start;
+    protected LocalDateTime end;
+
+    public Event(String description, String fromStr, String untilStr) {
         super(description, TaskType.EVENT);
-        this.from = from;
-        this.until = until;
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        this.start = LocalDateTime.parse(fromStr, inputFormatter);
+        this.end = LocalDateTime.parse(untilStr, inputFormatter);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + this.from + " to: " + this.until + ")";
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
+        return "[E] " + super.toString() +
+                " (from: " + start.format(outputFormatter) +
+                " to: " + end.format(outputFormatter) + ")";
     }
 }
+
