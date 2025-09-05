@@ -25,12 +25,10 @@ public class Parser {
     public static boolean isValidInteger(String s, int arrLen) throws BobbyWasabiException {
         String[] wordList = s.split(" ");
 
-        // checks if command length is valid to ensure necessary inputs are given
         if (wordList.length != 2) {
             throw new BobbyWasabiException("We only accept two inputs - the command and the integer");
         }
 
-        // checks if integer is valid for acessing array
         try {
             int indx = Integer.parseInt(wordList[1]);
             if (indx > arrLen) {
@@ -54,13 +52,13 @@ public class Parser {
      * @throws BobbyWasabiException If the index is invalid or out of range.
      */
     public static int parseCommandIndex(String userInput, int taskSize) throws BobbyWasabiException {
-        if (Parser.isValidInteger(userInput, taskSize)) {
-            String[] wordList = userInput.split(" ");
-            int indx = Integer.parseInt(wordList[1]);
-            return indx;
-        } else {
+        if (!Parser.isValidInteger(userInput, taskSize)) {
             throw new BobbyWasabiException("Not valid index given as argument!");
         }
+
+        String[] wordList = userInput.split(" ");
+        int indx = Integer.parseInt(wordList[1]);
+        return indx;
     }
 
     /**
@@ -72,6 +70,7 @@ public class Parser {
      */
     public static String parseFindCommand(String userInput) throws BobbyWasabiException {
         String[] wordList = userInput.split(" ");
+
         if (wordList.length > 2) {
             throw new BobbyWasabiException("Please input a single keyword!");
         }
@@ -102,12 +101,11 @@ public class Parser {
             throw new BobbyWasabiException("Please provide a description for todo");
         }
 
-        String description = descriptions[1]; //
+        String description = descriptions[1];
 
         if (description.trim().isEmpty()) {
             throw new BobbyWasabiException("Please provide a description for todo");
         }
-
 
         return description;
 
@@ -158,19 +156,18 @@ public class Parser {
 
         String[] fromSplit = userInput.split("/from", 2);
 
-        // there was no /from command
+        // Check if there is no /from command to ensure start time is given
         if (fromSplit.length < 2) {
             throw new BobbyWasabiException("You did not provide the start duration!");
         }
 
         String[] toSplit = fromSplit[1].split("/to", 2);
 
-        // there was no /to command
+        // Check if there is no /to command to ensure end time is given
         if (toSplit.length < 2) {
             throw new BobbyWasabiException("You did not provide the end duration!");
         }
 
-        // starting description is empty
         if (toSplit[0].trim().isEmpty()) {
             throw new BobbyWasabiException("Your starting duration is blank!");
         } else if (toSplit[1].trim().isEmpty()) {
@@ -182,7 +179,6 @@ public class Parser {
         if (descriptions.length < 2) {
             throw new BobbyWasabiException("The event description cannot be blank!");
         }
-
 
         if (descriptions[1].trim().isEmpty()) {
             throw new BobbyWasabiException("You did not provide a description of your event!");
