@@ -1,3 +1,9 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -6,7 +12,12 @@ import java.util.List;
 public class John {
     private static final List<Task> tasks = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        try {
+            readFromFile();
+        } catch (IOException e) {
+            System.out.println("Unable to read file. Reason: " + e.getMessage());
+        }
         command(new String[] {"start"});
         try (Scanner listen = new Scanner(System.in)) {
             while (true) {
@@ -16,6 +27,89 @@ public class John {
                 command(cmd);
                 if (cmd[0].equals("bye")) break;
             }
+        }
+        writeToFile("src/data/data.txt");
+    }
+
+    private static void readFromFile() throws IOException {
+        File file = new File("src/data/data.txt");
+        if (!file.exists()) {
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getAbsolutePath());
+            } else {
+                System.out.println("Failed to create file.");
+            }
+            return;
+        }
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            StringBuilder sb = new StringBuilder();
+
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split("\\|");
+
+                if (parts.length == 0) continue;
+
+                // Use the first argument as command
+                String command = parts[0].trim();
+
+                switch (parts[0].trim().toUpperCase()) {
+                    case "T":
+                        if (parts.length >= 3) {
+                            String title = parts[2].trim();
+                            Task todo = new Todo(title);
+
+                            if (parts[1].trim().equals("1")) {
+                                todo.markAsComplete();
+                            }
+
+                            tasks.add(todo);
+                        }
+                        break;
+
+                    case "D":
+                        if (parts.length >= 4) {
+                            String title = parts[2].trim();
+                            String deadline = parts[3].trim();
+                            Task deadlineTask = new Deadline(title, deadline);
+
+                            if (parts[1].trim().equals("1")) {
+                                deadlineTask.markAsComplete();
+                            }
+
+                            tasks.add(deadlineTask);
+                        }
+                        break;
+
+                    case "E":
+                        if (parts.length >= 5) {
+                            String title = parts[2].trim();
+                            String from = parts[3].trim();
+                            String to = parts[4].trim();
+                            Task eventTask = new Event(title, from, to);
+
+                            if (parts[1].trim().equals("1")) {
+                                eventTask.markAsComplete();
+                            }
+
+                            tasks.add(eventTask);
+                        }
+                        break;
+
+                    default:
+                        System.out.println("Unknown task type: " + parts[0]);
+                }
+            }
+        }
+    }
+
+    private static void writeToFile(String filePath) {
+        try (FileWriter writer = new FileWriter(filePath)) {
+            for (Task task: tasks) {
+                writer.write(task.serialise() + System.lineSeparator());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
