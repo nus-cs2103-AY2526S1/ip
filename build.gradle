@@ -10,6 +10,14 @@ repositories {
 }
 
 dependencies {
+    String javaFxVersion = '17.0.7'
+    
+    // JavaFX modules
+    implementation "org.openjfx:javafx-base:${javaFxVersion}"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}"
+    
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
@@ -29,7 +37,7 @@ test {
 }
 
 application {
-    mainClass.set("Sam")
+    mainClass.set("Launcher")
 }
 
 // Shadow JAR configuration
