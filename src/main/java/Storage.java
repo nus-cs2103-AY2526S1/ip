@@ -79,6 +79,27 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves multiple task lists to the storage file using varargs.
+     * This method combines all tasks from multiple lists and saves them.
+     * 
+     * @param taskLists Variable number of task lists to be saved
+     */
+    @SafeVarargs
+    public final void saveAll(final ArrayList<Task>... taskLists) {
+        createFileAndParent();
+        try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
+            for (ArrayList<Task> tasks : taskLists) {
+                for (Task task : tasks) {
+                    writer.write(formatTask(task));
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing file: " + e.getMessage());
+        }
+    }
+
     private void createFileAndParent() {
         try {
             if (!Files.exists(filePath.getParent())) {
