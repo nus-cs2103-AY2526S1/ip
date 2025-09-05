@@ -19,6 +19,7 @@ public class Main extends Application {
     private Scene scene;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/6F52D14B-E85E-4746-AAA4-B31068596FC5.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/A4616380-3FD9-4567-9B1E-8E52C8C4D52C.png"));
+    private GoksChat goksChat = new GoksChat();
 
     @Override
     public void start(Stage stage) {
@@ -87,7 +88,12 @@ public class Main extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), userImage));
+        String userText = userInput.getText();
+        String dukeText = goksChat.getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                new DialogBox(userText, userImage),
+                new DialogBox(dukeText, dukeImage)
+        );
         userInput.clear();
     }
 }

@@ -37,6 +37,13 @@ public class GoksChat {
         inputProcessor = new InputProcessor(ui, storage, listOfTasks);
     }
 
+    /**
+     * Overloaded constructor taking in no arguments
+     */
+    public GoksChat() {
+        this("src/data/gokschat.txt");
+    }
+
     public void run() {
         ui.printWelcomeMessage();
 
@@ -71,7 +78,13 @@ public class GoksChat {
     }
 
     public static void main(String[] args) {
-        GoksChat goks = new GoksChat("src/data/gokschat.txt");
-        goks.run();
+        System.out.println("Hello!");
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
     }
 }
