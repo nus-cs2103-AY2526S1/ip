@@ -1,5 +1,12 @@
 package chash.parser;
 
+import chash.command.AddCommand;
+import chash.command.Command;
+import chash.command.CommandTypeEnum;
+import chash.command.DeleteCommand;
+import chash.command.ExitCommand;
+import chash.command.ListCommand;
+import chash.command.MarkCommand;
 import chash.exception.ChashException;
 
 /** CHASH user data parser */

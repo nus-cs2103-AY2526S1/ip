@@ -40,7 +40,9 @@ public class ChashUi {
     //Error
 
     public void printErr(String txt) {
+        printLineSeparator();
         System.err.println(ChashUi.LINEINDENT + txt);
+        printLineSeparator();
     }
 
     //CHASH default messages

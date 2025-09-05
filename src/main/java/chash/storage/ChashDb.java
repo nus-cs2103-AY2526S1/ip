@@ -20,11 +20,12 @@ import java.util.Scanner;
 public class ChashDb {
     private final String fileLocation;
 
-    ChashDb(String fileLocation) {
+    //Required public to be used outside package
+    public ChashDb(String fileLocation) {
         this.fileLocation = fileLocation;
     }
 
-    ChashDb() {
+    public ChashDb() {
         this.fileLocation = "./ChashData/chashdb.txt";
     }
 
