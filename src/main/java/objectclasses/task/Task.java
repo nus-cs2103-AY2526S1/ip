@@ -119,6 +119,24 @@ public abstract class Task {
         this.type = type;
     }
 
+    /**
+     * Checks that a task name is not blank, does not contain the "/" character, and does not exceed 150 characters.
+     *
+     * @param name Name of the task to be checked.
+     * @throws LynxException If task name is invalid.
+     */
+    public static void checkName(String name) throws LynxException {
+        if (name.isBlank()) {
+            throw new LynxException("Task name cannot be blank.");
+        }
+        if (name.contains("/")) {
+            throw new LynxException("Task name cannot contain the \"/\" character.");
+        }
+        if (name.length() > 150) {
+            throw new LynxException("Task name cannot exceed 150 characters.");
+        }
+    }
+
     public int getId() {
         return id;
     }
