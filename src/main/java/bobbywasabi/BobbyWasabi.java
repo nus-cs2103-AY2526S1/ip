@@ -81,6 +81,9 @@ public class BobbyWasabi {
 
         Command command = Parser.parseCommand(userInput);
 
+        assert command != null
+                : "Command cannot be null!";
+
         switch (command) {
         case BYE:
             return ui.farewellUser();
@@ -90,6 +93,10 @@ public class BobbyWasabi {
             try {
 
                 int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
+
+                assert indx > 0 && indx < this.taskList.size()
+                        : "Index in MARK command is out of bounds!";
+
                 Task targetTask = this.taskList.get(indx - 1);
                 targetTask.setIsMarked(true);
 
@@ -103,6 +110,10 @@ public class BobbyWasabi {
             try {
 
                 int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
+
+                assert indx > 0 && indx < this.taskList.size()
+                        : "Index in MARK command is out of bounds!";
+
                 Task targetTask = this.taskList.get(indx - 1);
                 targetTask.setIsMarked(false);
 
@@ -128,6 +139,10 @@ public class BobbyWasabi {
         case DEADLINE:
             try {
                 String[] details = Parser.parseDeadline(userInput);
+
+                assert details.length >= 2
+                        : "Details in DEADLINE command is insufficient!";
+
                 String description = details[0];
                 String deadline = details[1];
 
@@ -146,6 +161,10 @@ public class BobbyWasabi {
         case EVENT:
             try {
                 String[] details = Parser.parseEvent(userInput);
+
+                assert details.length >= 2
+                        : "Details in DEADLINE command is insufficient!";
+
                 String description = details[0];
                 String start = details[1];
                 String end = details[2];
@@ -162,6 +181,10 @@ public class BobbyWasabi {
         case DELETE:
             try {
                 int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
+
+                assert indx > 0 && indx < this.taskList.size()
+                        : "Index in DELETE command is out of bounds!";
+
                 Task targetTask = this.taskList.get(indx - 1);
                 this.taskList.remove(indx - 1);
 
