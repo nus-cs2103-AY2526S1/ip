@@ -2,6 +2,8 @@ package objectclasses.task;
 
 import java.time.LocalDateTime;
 
+import objectclasses.exception.LynxException;
+import objectclasses.exception.MissingArgumentException;
 import objectclasses.formatter.LynxDateManager;
 
 /**
@@ -22,13 +24,68 @@ public class EventTask extends Task {
      * @param start Start date of the task.
      * @param end End date of the task.
      */
-    public EventTask(String name, LocalDateTime start, LocalDateTime end) {
+    private EventTask(String name, LocalDateTime start, LocalDateTime end) {
         super(name, TaskType.EVENT);
         this.start = start;
         this.end = end;
         if (end.isBefore(LocalDateTime.now())) {
             setExpired();
         }
+    }
+
+    /**
+     * Creates an <code>EventTask</code> and returns it.
+     *
+     * @param parts Parsed representation of an <code>EventTask</code>.
+     * @return <code>EventTask</code> created.
+     * @throws LynxException If input is of invalid format or start / end is invalid.
+     */
+    public static Task of(String[] parts) throws LynxException {
+        if (parts.length < 6) {
+            throw new LynxException("");
+        }
+        String status = parts[1];
+        String name = parts[3];
+        LocalDateTime from = LynxDateManager.parseDateTime(parts[4].replace("from:", ""));
+        LocalDateTime to = LynxDateManager.parseDateTime(parts[5].replace("to:", ""));
+        Task task = new EventTask(name, from, to);
+        if (status.equals("COMPLETE")) {
+            task.setComplete();
+        }
+        return task;
+    }
+
+    /**
+     * Creates a <code>EventTask</code> and returns it.
+     *
+     * @param input User command in the form "event [name] /from [start] /to [end]".
+     * @return <code>EventTask</code> created.
+     * @throws LynxException If command, name or date is invalid.
+     */
+    public static Task of(String input) throws LynxException {
+        if (input.length() <= 5) {
+            throw new MissingArgumentException("event");
+        }
+        String[] parts = input.substring(5).split(" /from ", 2);
+        if (parts.length < 2) {
+            throw new LynxException("Please specify a start time using ' /from '.");
+        }
+        String[] timeSplit = parts[1].split(" /to ", 2);
+        if (timeSplit.length < 2) {
+            throw new LynxException("Please specify an end time using ' /to '.");
+        }
+        String name = parts[0].trim();
+        if (name.isEmpty()) {
+            throw new LynxException("Please specify a task name.");
+        }
+
+        checkName(name);
+        LocalDateTime from = LynxDateManager.parseDateTime(timeSplit[0].trim());
+        LocalDateTime to = LynxDateManager.parseDateTime(timeSplit[1].trim());
+        if (from.isAfter(to)) {
+            throw new LynxException("The start date/time cannot be after the end date/time.");
+        }
+        return new EventTask(name, from, to);
     }
 
     public LocalDateTime getStart() {
