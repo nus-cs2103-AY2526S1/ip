@@ -24,7 +24,7 @@ public class EventTask extends Task {
      * @param start Start date of the task.
      * @param end End date of the task.
      */
-    private EventTask(String name, LocalDateTime start, LocalDateTime end) {
+    public EventTask(String name, LocalDateTime start, LocalDateTime end) {
         super(name, TaskType.EVENT);
         this.start = start;
         this.end = end;

@@ -17,7 +17,7 @@ public class TodoTask extends Task {
      *
      * @param name Name of the task.
      */
-    private TodoTask(String name) {
+    public TodoTask(String name) {
         super(name, TaskType.TODO);
     }
 

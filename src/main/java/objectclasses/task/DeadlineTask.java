@@ -21,7 +21,7 @@ public class DeadlineTask extends Task {
      * @param name Name of the task.
      * @param deadline Deadline of the task.
      */
-    private DeadlineTask(String name, LocalDateTime deadline) {
+    public DeadlineTask(String name, LocalDateTime deadline) {
         super(name, TaskType.DEADLINE);
         this.deadline = deadline;
         if (deadline.isBefore(LocalDateTime.now())) {

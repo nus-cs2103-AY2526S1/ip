@@ -55,7 +55,7 @@ public abstract class LynxUI {
                 
                 General commands:
                      reload                    - Load tasks from data file to task list (destructively)
-                     save                      - Save task list to date file (destructively)
+                     save                      - Save task list to data file (destructively)
                      bye                       - Save and exit the program
                      * Creates a data file first if not found
                 

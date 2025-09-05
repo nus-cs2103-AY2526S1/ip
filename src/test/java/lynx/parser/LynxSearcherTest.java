@@ -16,6 +16,8 @@ import objectclasses.task.TodoTask;
 
 public class LynxSearcherTest {
 
+    private final LynxTaskList taskList = new LynxTaskList();
+
     @Test
     public void testFindTasks() throws LynxException {
         Task testTaskA = new TodoTask("ab");
@@ -42,15 +44,15 @@ public class LynxSearcherTest {
                 LocalDateTime.of(2025, 12, 13, 0, 0));
         testTaskG.setComplete();
 
-        LynxTaskList.addTask(testTaskA);
-        LynxTaskList.addTask(testTaskB);
-        LynxTaskList.addTask(testTaskC);
-        LynxTaskList.addTask(testTaskD);
-        LynxTaskList.addTask(testTaskE);
-        LynxTaskList.addTask(testTaskF);
-        LynxTaskList.addTask(testTaskG);
-        LynxTaskList.addTask(testTaskH);
-        LynxTaskList.addTask(testTaskI);
+        taskList.addTask(testTaskA);
+        taskList.addTask(testTaskB);
+        taskList.addTask(testTaskC);
+        taskList.addTask(testTaskD);
+        taskList.addTask(testTaskE);
+        taskList.addTask(testTaskF);
+        taskList.addTask(testTaskG);
+        taskList.addTask(testTaskH);
+        taskList.addTask(testTaskI);
 
         LynxCommand testCommandA = new LynxCommand("/key a /key b");
         LynxCommand testCommandB = new LynxCommand("/type deadline /status complete /key c");
@@ -62,15 +64,15 @@ public class LynxSearcherTest {
         LynxCommand testCommandH = new LynxCommand("/all");
         LynxCommand testCommandI = new LynxCommand("/key a /on 2025-11-11 /status incomplete");
 
-        LynxSearcher.findTasks(testCommandA, LynxTaskList.getAllTasks());
-        LynxSearcher.findTasks(testCommandB, LynxTaskList.getAllTasks());
-        LynxSearcher.findTasks(testCommandC, LynxTaskList.getAllTasks());
-        LynxSearcher.findTasks(testCommandD, LynxTaskList.getAllTasks());
-        LynxSearcher.findTasks(testCommandE, LynxTaskList.getAllTasks());
-        LynxSearcher.findTasks(testCommandF, LynxTaskList.getAllTasks());
-        LynxSearcher.findTasks(testCommandG, LynxTaskList.getAllTasks());
-        LynxSearcher.findTasks(testCommandH, LynxTaskList.getAllTasks());
-        LynxSearcher.findTasks(testCommandI, LynxTaskList.getAllTasks());
+        LynxSearcher.findTasks(testCommandA, taskList.getAllTasks());
+        LynxSearcher.findTasks(testCommandB, taskList.getAllTasks());
+        LynxSearcher.findTasks(testCommandC, taskList.getAllTasks());
+        LynxSearcher.findTasks(testCommandD, taskList.getAllTasks());
+        LynxSearcher.findTasks(testCommandE, taskList.getAllTasks());
+        LynxSearcher.findTasks(testCommandF, taskList.getAllTasks());
+        LynxSearcher.findTasks(testCommandG, taskList.getAllTasks());
+        LynxSearcher.findTasks(testCommandH, taskList.getAllTasks());
+        LynxSearcher.findTasks(testCommandI, taskList.getAllTasks());
 
         assertEquals(2, testCommandA.getSearchResult().size());
         assertEquals(1, testCommandB.getSearchResult().size());

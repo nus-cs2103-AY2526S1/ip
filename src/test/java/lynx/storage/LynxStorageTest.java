@@ -18,6 +18,8 @@ import objectclasses.task.TodoTask;
 
 public class LynxStorageTest {
 
+    private final LynxTaskList taskList = new LynxTaskList();
+
     // This test checks the correctness of parsing, ensuring that different forms
     // of erroneous parsing are correctly detected. The first 3 strings are control parses.
     // Note that loadTasks returns the error count.
@@ -34,7 +36,7 @@ public class LynxStorageTest {
         tasks.add("DEADLINE|INCOMPLETE|7|by:2025-11-11|g");
         tasks.add("EVENT|COMPLETE|8|h|to:2025-11-12|from:2025-11-11");
         try {
-            LynxStorage.loadTasks(tasks);
+            LynxStorage.loadTasks(tasks, taskList);
         } catch (LynxException e) {
             assertTrue(e.getMessage().contains("5"));
         }
@@ -53,21 +55,21 @@ public class LynxStorageTest {
                 LocalDateTime.of(2025, 11, 12, 0, 0),
                 LocalDateTime.of(2025, 11, 13, 0, 0));
 
-        LynxTaskList.clearTasks(false);
-        LynxTaskList.addTask(testTaskA);
-        LynxTaskList.addTask(testTaskB);
-        LynxTaskList.addTask(testTaskC);
+        taskList.clearTasks(false);
+        taskList.addTask(testTaskA);
+        taskList.addTask(testTaskB);
+        taskList.addTask(testTaskC);
 
-        List<String> tasks = LynxStorage.unloadTasks();
-        LynxTaskList.clearTasks(false);
-        assertEquals(0, LynxTaskList.getCount());
+        List<String> tasks = LynxStorage.unloadTasks(taskList);
+        taskList.clearTasks(false);
+        assertEquals(0, taskList.getCount());
 
         try {
-            LynxStorage.loadTasks(tasks);
+            LynxStorage.loadTasks(tasks, taskList);
         } catch (LynxException e) {
             fail();
         }
-        assertEquals(3, LynxTaskList.getCount());
+        assertEquals(3, taskList.getCount());
     }
 
 }

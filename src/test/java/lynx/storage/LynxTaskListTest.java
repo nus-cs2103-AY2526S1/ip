@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
+import lynx.parser.LynxSorter;
 import objectclasses.exception.LynxException;
 import objectclasses.task.DeadlineTask;
 import objectclasses.task.EventTask;
@@ -14,92 +15,94 @@ import objectclasses.task.TodoTask;
 
 public class LynxTaskListTest {
 
+    private final LynxTaskList taskList = new LynxTaskList();
+
     @Test
     public void testFilterTasksById() throws LynxException {
-        LynxTaskList.clearTasks(false);
+        taskList.clearTasks(false);
         TodoTask testTask = new TodoTask("a");
-        LynxTaskList.addTask(testTask);
+        taskList.addTask(testTask);
         int id = testTask.getId();
-        assertEquals(id, LynxTaskList.filterTasksById(LynxTaskList.getAllTasks(), id)
+        assertEquals(id, LynxSorter.filterTasksById(taskList.getAllTasks(), id)
                 .findFirst().get().getId());
     }
 
     @Test
     public void testFilterTasksByKeyword() throws LynxException {
-        LynxTaskList.clearTasks(false);
-        LynxTaskList.addTask(new TodoTask("A aaa test BBB"));
-        LynxTaskList.addTask(new TodoTask("BAAA,AtestBB"));
+        taskList.clearTasks(false);
+        taskList.addTask(new TodoTask("A aaa test BBB"));
+        taskList.addTask(new TodoTask("BAAA,AtestBB"));
 
-        assertEquals(2, LynxTaskList.filterTasksByKeyword(
-                LynxTaskList.getAllTasks(), "a").count());
-        assertEquals(2, LynxTaskList.filterTasksByKeyword(
-                LynxTaskList.getAllTasks(), "AAA").count());
-        assertEquals(2, LynxTaskList.filterTasksByKeyword(
-                LynxTaskList.getAllTasks(), "test").count());
-        assertEquals(1, LynxTaskList.filterTasksByKeyword(
-                LynxTaskList.getAllTasks(), "a,aTEST").count());
-        assertEquals(1, LynxTaskList.filterTasksByKeyword(
-                LynxTaskList.getAllTasks(), "bbb").count());
-        assertEquals(2, LynxTaskList.filterTasksByKeyword(
-                LynxTaskList.getAllTasks(), "ate").count());
-        assertEquals(1, LynxTaskList.filterTasksByKeyword(
-                LynxTaskList.getAllTasks(), "aaaa").count());
+        assertEquals(2, LynxSorter.filterTasksByKeyword(
+                taskList.getAllTasks(), "a").count());
+        assertEquals(2, LynxSorter.filterTasksByKeyword(
+                taskList.getAllTasks(), "AAA").count());
+        assertEquals(2, LynxSorter.filterTasksByKeyword(
+                taskList.getAllTasks(), "test").count());
+        assertEquals(1, LynxSorter.filterTasksByKeyword(
+                taskList.getAllTasks(), "a,aTEST").count());
+        assertEquals(1, LynxSorter.filterTasksByKeyword(
+                taskList.getAllTasks(), "bbb").count());
+        assertEquals(2, LynxSorter.filterTasksByKeyword(
+                taskList.getAllTasks(), "ate").count());
+        assertEquals(1, LynxSorter.filterTasksByKeyword(
+                taskList.getAllTasks(), "aaaa").count());
     }
 
     @Test
     public void testFilterTasksByDate() throws LynxException {
-        LynxTaskList.clearTasks(false);
-        LynxTaskList.addTask(new DeadlineTask("a", LocalDateTime.of(
+        taskList.clearTasks(false);
+        taskList.addTask(new DeadlineTask("a", LocalDateTime.of(
                 2025, 11, 11, 0, 0)));
-        LynxTaskList.addTask(new DeadlineTask("a", LocalDateTime.of(
+        taskList.addTask(new DeadlineTask("a", LocalDateTime.of(
                 2025, 11, 12, 0, 0)));
-        LynxTaskList.addTask(new EventTask("a",
+        taskList.addTask(new EventTask("a",
                 LocalDateTime.of(2025, 11, 12, 0, 0),
                 LocalDateTime.of(2025, 11, 13, 0, 0)));
 
-        assertEquals(1, LynxTaskList.filterTasksByDate(LynxTaskList.getAllTasks(),
+        assertEquals(1, LynxSorter.filterTasksByDate(taskList.getAllTasks(),
                 LocalDateTime.of(2025, 11, 11, 0, 0)).count());
-        assertEquals(2, LynxTaskList.filterTasksByDate(LynxTaskList.getAllTasks(),
+        assertEquals(2, LynxSorter.filterTasksByDate(taskList.getAllTasks(),
                 LocalDateTime.of(2025, 11, 12, 6, 0)).count());
-        assertEquals(0, LynxTaskList.filterTasksByDate(LynxTaskList.getAllTasks(),
+        assertEquals(0, LynxSorter.filterTasksByDate(taskList.getAllTasks(),
                 LocalDateTime.of(2025, 11, 13, 6, 0)).count());
     }
 
     @Test
     public void testFilterTasksByStatus() throws LynxException {
-        LynxTaskList.clearTasks(false);
-        LynxTaskList.addTask(new DeadlineTask("a", LocalDateTime.of(
+        taskList.clearTasks(false);
+        taskList.addTask(new DeadlineTask("a", LocalDateTime.of(
                 1925, 11, 11, 0, 0)));
-        LynxTaskList.addTask(new DeadlineTask("a", LocalDateTime.of(
+        taskList.addTask(new DeadlineTask("a", LocalDateTime.of(
                 2025, 11, 12, 0, 0)));
         DeadlineTask testTask = new DeadlineTask("b", LocalDateTime.of(
                 2025, 11, 12, 0, 0));
         testTask.setComplete();
-        LynxTaskList.addTask(testTask);
+        taskList.addTask(testTask);
 
-        assertEquals(1, LynxTaskList.filterTasksByStatus(LynxTaskList.getAllTasks(),
+        assertEquals(1, LynxSorter.filterTasksByStatus(taskList.getAllTasks(),
                 Task.Status.COMPLETE).count());
-        assertEquals(1, LynxTaskList.filterTasksByStatus(LynxTaskList.getAllTasks(),
+        assertEquals(1, LynxSorter.filterTasksByStatus(taskList.getAllTasks(),
                 Task.Status.INCOMPLETE).count());
-        assertEquals(1, LynxTaskList.filterTasksByStatus(LynxTaskList.getAllTasks(),
+        assertEquals(1, LynxSorter.filterTasksByStatus(taskList.getAllTasks(),
                 Task.Status.EXPIRED).count());
     }
 
     @Test
     public void testFilterTasksByType() throws LynxException {
-        LynxTaskList.clearTasks(false);
-        LynxTaskList.addTask(new TodoTask("a"));
-        LynxTaskList.addTask(new DeadlineTask("a", LocalDateTime.of(
+        taskList.clearTasks(false);
+        taskList.addTask(new TodoTask("a"));
+        taskList.addTask(new DeadlineTask("a", LocalDateTime.of(
                 2025, 11, 11, 0, 0)));
-        LynxTaskList.addTask(new EventTask("a",
+        taskList.addTask(new EventTask("a",
                 LocalDateTime.of(2025, 11, 12, 0, 0),
                 LocalDateTime.of(2025, 11, 13, 0, 0)));
 
-        assertEquals(1, LynxTaskList.filterTasksByType(LynxTaskList.getAllTasks(),
+        assertEquals(1, LynxSorter.filterTasksByType(taskList.getAllTasks(),
                 Task.TaskType.TODO).count());
-        assertEquals(1, LynxTaskList.filterTasksByType(LynxTaskList.getAllTasks(),
+        assertEquals(1, LynxSorter.filterTasksByType(taskList.getAllTasks(),
                 Task.TaskType.DEADLINE).count());
-        assertEquals(1, LynxTaskList.filterTasksByType(LynxTaskList.getAllTasks(),
+        assertEquals(1, LynxSorter.filterTasksByType(taskList.getAllTasks(),
                 Task.TaskType.EVENT).count());
     }
 
