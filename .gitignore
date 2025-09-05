@@ -23,4 +23,3 @@ text-ui-test/EXPECTED-UNIX.TXT
 *.class
 *.old
 /**/ChashData/*
-PR.md
