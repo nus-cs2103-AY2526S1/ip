@@ -81,6 +81,7 @@ public class TaskList {
      * @return A formatted string representing the task.
      */
     public String convertTaskToString(int index, Task task) {
+        assert index < tasks.size() : "Invalid index being converted to task string!";
         return String.format("%d. %s\n",
                 index, task);
     }
