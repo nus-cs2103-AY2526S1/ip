@@ -1,50 +1,47 @@
 package Note.ui;
 
-/**
- * Represents a task with a deadline.
- * A Deadline has a description and a due date or time.
- */
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
-    private String by;
+    private LocalDateTime by;
 
-    /**
-     * Constructs a new Deadline task.
-     *
-     * @param description the description of the task
-     * @param by the due date or time for the task
-     */
-    public Deadline(String description, String by) {
+    // Input formatter: accepts d/M/yyyy HHmm (24-hour)
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    // Output formatter: displays as MMM d yyyy, h:mm a (12-hour with AM/PM)
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
+
+    public Deadline(String description, String byStr) {
         super(description);
-        this.by = by;
+        this.by = parseDateTime(byStr);
     }
 
-    /**
-     * Returns the due date or time of this Deadline.
-     *
-     * @return the due date or time as a String
-     */
+    private LocalDateTime parseDateTime(String dateTimeStr) {
+        try {
+            return LocalDateTime.parse(dateTimeStr, INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException(
+                    "Invalid date format. Use d/M/yyyy HHmm, e.g., 2/12/2019 1800", e);
+        }
+    }
+
     public String getBy() {
-        return by;
+        return by.format(OUTPUT_FORMATTER);
     }
 
-    /**
-     * Returns the type icon of this task.
-     *
-     * @return "D" for Deadline
-     */
     @Override
     public String getTypeIcon() {
         return "D";
     }
 
-    /**
-     * Returns a string representation of the Deadline task, including
-     * its type, status, description, and due date.
-     *
-     * @return a string representation of the task
-     */
     @Override
     public String toString() {
-        return "[" + getTypeIcon() + "][" + getStatusIcon() + "] " + description + " (by: " + by + ")";
+        return "[" + getTypeIcon() + "][" + getStatusIcon() + "] "
+                + description + " (by: " + getBy() + ")";
+    }
+
+    public LocalDateTime getByDateTime() {
+        return by; // for comparisons or filtering
     }
 }

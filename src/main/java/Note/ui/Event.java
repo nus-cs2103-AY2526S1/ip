@@ -1,63 +1,55 @@
 package Note.ui;
 
-/**
- * Represents a task that occurs within a specific time frame.
- * An Event has a description, a start time, and an end time.
- */
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
-    /**
-     * Constructs a new Event task.
-     *
-     * @param description the description of the event
-     * @param from the start time or date of the event
-     * @param to the end time or date of the event
-     */
-    public Event(String description, String from, String to) {
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
+
+    public Event(String description, String fromStr, String toStr) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = parseDateTime(fromStr);
+        this.to = parseDateTime(toStr);
     }
 
-    /**
-     * Returns the start time or date of the event.
-     *
-     * @return the start time or date as a String
-     */
+    private LocalDateTime parseDateTime(String dateTimeStr) {
+        try {
+            return LocalDateTime.parse(dateTimeStr, INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException(
+                    "Invalid date format. Use d/M/yyyy HHmm, e.g., 2/12/2019 1800", e);
+        }
+    }
+
     public String getFrom() {
-        return from;
+        return from.format(OUTPUT_FORMATTER);
     }
 
-    /**
-     * Returns the end time or date of the event.
-     *
-     * @return the end time or date as a String
-     */
     public String getTo() {
-        return to;
+        return to.format(OUTPUT_FORMATTER);
     }
 
-    /**
-     * Returns the type icon of this task.
-     *
-     * @return "E" for Event
-     */
     @Override
     public String getTypeIcon() {
         return "E";
     }
 
-    /**
-     * Returns a string representation of the Event task, including
-     * its type, status, description, start time, and end time.
-     *
-     * @return a string representation of the task
-     */
     @Override
     public String toString() {
-        return "[" + getTypeIcon() + "][" + getStatusIcon() + "] " + description
-                + " (from: " + from + " to: " + to + ")";
+        return "[" + getTypeIcon() + "][" + getStatusIcon() + "] "
+                + description + " (from: " + getFrom() + " to: " + getTo() + ")";
+    }
+
+    public LocalDateTime getFromDateTime() {
+        return from;
+    }
+
+    public LocalDateTime getToDateTime() {
+        return to;
     }
 }

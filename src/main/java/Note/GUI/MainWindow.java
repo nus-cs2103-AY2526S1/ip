@@ -67,20 +67,26 @@ public class MainWindow {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        if (input == null || input.isBlank()) {
-            return;
-        }
+        if (input == null || input.isBlank()) return;
 
-        // Add user dialog
+        // show user dialog
         dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
 
-        // Get response from Note
-        String response = note.processInput(input);
+        try {
+            // process input via Note
+            String response = note.processInput(input);
+            dialogContainer.getChildren().add(DialogBox.getBotDialog(response, botImage));
+        } catch (IllegalArgumentException e) {
+            // show bot response for invalid date/time or other bad input
+            dialogContainer.getChildren().add(DialogBox.getBotDialog(
+                    "Oops! Invalid date and time format. Use d/M/yyyy HHmm, e.g., 2/12/2019 1800.", botImage));
+        } catch (Exception e) {
+            // generic fallback for unexpected exceptions
+            dialogContainer.getChildren().add(DialogBox.getBotDialog(
+                    "Something went wrong: " + e.getMessage(), botImage));
+        }
 
-        // Add bot dialog
-        dialogContainer.getChildren().add(DialogBox.getBotDialog(response, botImage));
-
-        // Clear input
         userInput.clear();
     }
+
 }

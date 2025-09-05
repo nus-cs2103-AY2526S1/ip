@@ -69,39 +69,43 @@ public class Storage {
     public List<Task> load() throws IOException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
-        if (!file.exists()) {
-            return tasks; // no file yet, return empty list
-        }
+        if (!file.exists()) return tasks;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" \\| ");
-                String type = parts[0];
-                boolean isDone = parts[1].equals("1");
-                String desc = parts[2];
+                try { // catch parsing exceptions per line
+                    String[] parts = line.split(" \\| ");
+                    String type = parts[0];
+                    boolean isDone = parts[1].equals("1");
+                    String desc = parts[2];
 
-                switch (type) {
-                    case "T":
-                        Todo todo = new Todo(desc);
-                        if (isDone) todo.markAsDone();
-                        tasks.add(todo);
-                        break;
-                    case "D":
-                        Deadline deadline = new Deadline(desc, parts[3]);
-                        if (isDone) deadline.markAsDone();
-                        tasks.add(deadline);
-                        break;
-                    case "E":
-                        String[] fromTo = parts[3].split(" to ");
-                        Event event = new Event(desc, fromTo[0], fromTo[1]);
-                        if (isDone) event.markAsDone();
-                        tasks.add(event);
-                        break;
+                    switch (type) {
+                        case "T":
+                            Todo todo = new Todo(desc);
+                            if (isDone) todo.markAsDone();
+                            tasks.add(todo);
+                            break;
+                        case "D":
+                            Deadline deadline = new Deadline(desc, parts[3]);
+                            if (isDone) deadline.markAsDone();
+                            tasks.add(deadline);
+                            break;
+                        case "E":
+                            String[] fromTo = parts[3].split(" to ");
+                            Event event = new Event(desc, fromTo[0], fromTo[1]);
+                            if (isDone) event.markAsDone();
+                            tasks.add(event);
+                            break;
+                    }
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Skipping invalid task in storage: " + line);
+                    // optionally show GUI message or log somewhere
                 }
             }
         }
 
         return tasks;
     }
+
 }
