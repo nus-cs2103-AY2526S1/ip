@@ -137,7 +137,7 @@ public class TaskList {
      */
     private void save() {
         try {
-            storage.save(tasks);
+            storage.saveTasks(tasks);
         } catch (IOException e) {
             System.out.println("Could not save tasks: " + e.getMessage());
         }

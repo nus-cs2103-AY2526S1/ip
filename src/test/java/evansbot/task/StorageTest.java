@@ -32,8 +32,8 @@ public class StorageTest {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new ToDo("read book", true));
 
-        storage.save(tasks);
-        ArrayList<Task> loaded = storage.load();
+        storage.saveTasks(tasks);
+        ArrayList<Task> loaded = storage.loadTasks();
 
         assertEquals(1, loaded.size());
         assertTrue(loaded.get(0) instanceof ToDo);
@@ -46,8 +46,8 @@ public class StorageTest {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new Deadline("submit report", "2025-08-30"));
 
-        storage.save(tasks);
-        ArrayList<Task> loaded = storage.load();
+        storage.saveTasks(tasks);
+        ArrayList<Task> loaded = storage.loadTasks();
 
         assertEquals(1, loaded.size());
         assertTrue(loaded.get(0) instanceof Deadline);
@@ -61,8 +61,8 @@ public class StorageTest {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new Event("team meeting", "2025-08-28", "2025-08-29"));
 
-        storage.save(tasks);
-        ArrayList<Task> loaded = storage.load();
+        storage.saveTasks(tasks);
+        ArrayList<Task> loaded = storage.loadTasks();
 
         assertEquals(1, loaded.size());
         assertTrue(loaded.get(0) instanceof Event);
@@ -74,7 +74,7 @@ public class StorageTest {
 
     @Test
     public void testLoad_EmptyFile() throws IOException {
-        ArrayList<Task> loaded = storage.load();
+        ArrayList<Task> loaded = storage.loadTasks();
         assertTrue(loaded.isEmpty());
     }
 

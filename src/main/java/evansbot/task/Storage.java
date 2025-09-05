@@ -29,7 +29,7 @@ public class Storage {
      * @return ArrayList of tasks loaded from storage.
      * @throws IOException If an I/O error occurs while reading the file.
      */
-    public ArrayList<Task> load() throws IOException {
+    public ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
@@ -82,7 +82,7 @@ public class Storage {
      * @param tasks ArrayList of tasks to save.
      * @throws IOException If an I/O error occurs while writing to the file.
      */
-    public void save(ArrayList<Task> tasks) throws IOException {
+    public void saveTasks(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task task : tasks) {
             fw.write(formatTask(task) + System.lineSeparator());

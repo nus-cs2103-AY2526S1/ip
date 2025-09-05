@@ -1,4 +1,6 @@
 package evansbot.gui;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import evansbot.Exceptions.EvansBotException;
 import evansbot.command.Command;
@@ -8,8 +10,6 @@ import evansbot.task.TaskList;
 import evansbot.ui.Parser;
 import evansbot.ui.Ui;
 
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Main class for the EvansBot application.
@@ -30,7 +30,7 @@ public class EvansBot {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            ArrayList<Task> loadedTasks = storage.load();
+            ArrayList<Task> loadedTasks = storage.loadTasks();
             tasks = new TaskList(storage, loadedTasks);
         } catch (IOException e) {
             ui.showError("Could not load save file, starting with empty list.");
