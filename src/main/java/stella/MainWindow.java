@@ -33,6 +33,9 @@ public class MainWindow extends AnchorPane {
     /** Injects the Stella instance */
     public void setStella(Stella s) {
         stella = s;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getStellaDialog("Hello! I am Stella. How can I help you? ", stellaImage)
+        );
     }
 
     /**

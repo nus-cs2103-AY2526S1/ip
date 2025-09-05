@@ -8,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
     @Test
-    public void identifyCommand_unknownInstruction_exceptionThrown() {
+    public void findCommand_unknownInstruction_exceptionThrown() {
         try {
-            new Parser(new TaskList(new ArrayList<>())).identifyCommand("hi");
+            new Parser(new TaskList(new ArrayList<>())).findCommand("hi");
             fail();
         } catch (UnknownInstructionException e) {
             assertEquals("hi",e.getMessage());
@@ -21,9 +21,9 @@ public class ParserTest {
     }
 
     @Test
-    public void identifyCommand_incompleteInstruction_exceptionThrown() {
+    public void findCommand_incompleteInstruction_exceptionThrown() {
         try {
-            new Parser(new TaskList(new ArrayList<>())).identifyCommand("mark");
+            new Parser(new TaskList(new ArrayList<>())).findCommand("mark");
             fail();
         } catch (IncompleteInstructionException e) {
             assertEquals("mark",e.getMessage());

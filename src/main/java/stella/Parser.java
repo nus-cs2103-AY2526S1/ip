@@ -16,13 +16,14 @@ public class Parser {
      * Craft Stella's response based on user's command
      *
      * @param description A String consisting of user's command
+     * @return Stella's response
      * @throws IncompleteInstructionException If command contain insufficient information
      * @throws UnknownInstructionException If no such command exists
      */
-    public void identifyCommand(String description) throws IncompleteInstructionException,
+    public String findCommand(String description) throws IncompleteInstructionException,
             UnknownInstructionException {
         if (description.equals(("list"))) {
-            this.tasks.printList();
+            return this.tasks.printList();
         } else if (description.contains("find")) {
             if (description.length() <= 5) {
                 throw new IncompleteInstructionException(description);
@@ -35,54 +36,54 @@ public class Parser {
             keyword = keyword + description.substring(6);
 
             TaskList temp = tasks.findItem(keyword);
-                if (temp.getList().isEmpty()) {
-                    System.out.println("No items found");
-                } else {
-                    temp.printList();
-                }
-            } else if (description.contains("delete")) {
-                int index = findIndexForModification("delete", description);
-                tasks.deleteItem(index);
-            } else if (description.contains("unmark")) {
-                int index = findIndexForModification("unmark", description);
-                tasks.modifyItem(index, "unmark");
-            } else if (description.contains("mark")) {
-                int index = findIndexForModification("mark", description);
-                tasks.modifyItem(index, "mark");
-            } else if (description.contains("todo")) {
-                if (description.length() <= 5) {
-                    throw new IncompleteInstructionException(description);
-                }
-
-                String details = description.substring(5);
-                ToDo temp = new ToDo(details);
-                tasks.addItem(temp);
-            } else if (description.contains("deadline")) {
-                if (description.length() <= 9) {
-                    throw new IncompleteInstructionException(description);
-                }
-
-                String details = description.substring(9, description.indexOf('/'));
-                String deadline = description.substring(description.indexOf('/') + 1);
-                deadline = this.formatTime(deadline);
-                Deadline temp = new Deadline(details, deadline);
-                tasks.addItem(temp);
-            } else if (description.contains("event")) {
-                if (description.length() <= 6) {
-                    throw new IncompleteInstructionException(description);
-                }
-
-                String details = description.substring(6, description.indexOf('/'));
-                String start = description.substring(description.indexOf('/') + 1,
-                        description.lastIndexOf('/'));
-                String end = description.substring(description.lastIndexOf('/') + 1);
-                start = this.formatTime(start);
-                end = this.formatTime(end);
-                Event temp = new Event(details, start, end);
-                tasks.addItem(temp);
+            if (temp.getList().isEmpty()) {
+                return "No items found";
             } else {
-                throw new UnknownInstructionException(description);
+                return temp.printList();
             }
+        } else if (description.contains("delete")) {
+            int index = findIndexForModification("delete", description);
+            return tasks.deleteItem(index);
+        } else if (description.contains("unmark")) {
+            int index = findIndexForModification("unmark", description);
+            return tasks.modifyItem(index, "unmark");
+        } else if (description.contains("mark")) {
+            int index = findIndexForModification("mark", description);
+            return tasks.modifyItem(index, "mark");
+        } else if (description.contains("todo")) {
+            if (description.length() <= 5) {
+                throw new IncompleteInstructionException(description);
+            }
+
+            String details = description.substring(5);
+            ToDo temp = new ToDo(details);
+            return tasks.addItem(temp);
+        } else if (description.contains("deadline")) {
+            if (description.length() <= 9) {
+                throw new IncompleteInstructionException(description);
+            }
+
+            String details = description.substring(9, description.indexOf('/'));
+            String deadline = description.substring(description.indexOf('/') + 1);
+            deadline = this.formatTime(deadline);
+            Deadline temp = new Deadline(details, deadline);
+            return tasks.addItem(temp);
+        } else if (description.contains("event")) {
+            if (description.length() <= 6) {
+                throw new IncompleteInstructionException(description);
+            }
+
+            String details = description.substring(6, description.indexOf('/'));
+            String start = description.substring(description.indexOf('/') + 1,
+                    description.lastIndexOf('/'));
+            String end = description.substring(description.lastIndexOf('/') + 1);
+            start = this.formatTime(start);
+            end = this.formatTime(end);
+            Event temp = new Event(details, start, end);
+            return tasks.addItem(temp);
+        } else {
+            throw new UnknownInstructionException(description);
+        }
 
     }
 

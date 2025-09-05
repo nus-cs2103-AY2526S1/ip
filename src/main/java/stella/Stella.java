@@ -4,10 +4,25 @@ package stella;
  *  Responsible for initialising the Stella application
  */
 public class Stella {
-    public static void main(String[] args) {
-        TaskList tasks = new TaskList(Storage.readFile());
-        Parser parser = new Parser(tasks);
-        Ui ui = new Ui(parser);
-        ui.callInteraction();
+    private TaskList tasks;
+    private Parser parser;
+    private Ui ui;
+
+
+    public Stella() {
+        tasks = new TaskList(Storage.readFile());
+        parser = new Parser(tasks);
+        ui = new Ui(parser);
+    }
+
+
+    /**
+     * Generate Stella's response based on User's response
+     *
+     * @param input User's response
+     * @return Stella's response
+     */
+    public String getResponse(String input) {
+        return ui.callInteraction(input);
     }
 }

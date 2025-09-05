@@ -41,7 +41,7 @@ public interface Storage {
                     description.substring(pointer2 + 7, description.length() - 1));
         }
 
-        if (description.charAt(7) == 'X') {
+        if (description.charAt(4) == 'X') {
             newTask.markDone();
         }
 
@@ -102,6 +102,7 @@ public interface Storage {
         try {
             FileWriter writer = new FileWriter(DATA_STORAGE_PATH, false);
             for (int i = 0 ; i < list.size(); i++) {
+                System.out.println(list.get(i).toString());
                 writer.write(list.get(i).toString());
                 writer.write(System.lineSeparator());
             }

@@ -13,34 +13,27 @@ public class Ui {
     }
 
     /**
-     * Greet and interact with user, while catching exceptions
+     * Interact with user, while catching exceptions
      * when user provide unexpected reply
+     *
+     * @param userInput user's command
+     * @return Stella's response
      */
-    public void callInteraction() {
-        Scanner scan = new Scanner(System.in);
-        System.out.println(" > Hello! I am Stella");
-        System.out.println(" > What can I do for you?");
-        String userInput = scan.nextLine();
-
-        while (!userInput.equals("bye")) {
-            try {
-                parser.identifyCommand(userInput);
-                userInput = scan.nextLine();
-            } catch (UnknownInstructionException e) {
-                System.out.println(e.getMessage() + " is invalid. Type new message: ");
-                userInput = scan.nextLine();
-            } catch (IncompleteInstructionException e) {
-                System.out.println(e.getMessage() + " is incomplete. Type new message: ");
-                userInput = scan.nextLine();
-            } catch (NullPointerException e) {
-                System.out.println("Invalid value. Type new message: ");
-                userInput = scan.nextLine();
-            } catch (Exception e) {
-                System.out.println("Did you key in the correct message? Type new message: ");
-                userInput = scan.nextLine();
+    public String callInteraction(String userInput) {
+        try {
+            if (userInput.equals("bye")) {
+                return "GoodBye!";
             }
+            else {
+                return parser.findCommand(userInput);
+            }
+        } catch (UnknownInstructionException e) {
+            return e.getMessage() + " is invalid. Type new message: ";
+        } catch (IncompleteInstructionException e) {
+            return e.getMessage() + " is incomplete. Type new message: ";
+        } catch (Exception e) {
+            return "Did you key in the correct message? Type new message: ";
         }
-        System.out.println(" > Goodbye!");
     }
 }
 
