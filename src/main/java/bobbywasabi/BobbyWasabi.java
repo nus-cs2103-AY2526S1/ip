@@ -78,6 +78,10 @@ public class BobbyWasabi {
         try {
 
             int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
+
+            assert indx > 0 && indx < this.taskList.size()
+                    : "Index in MARK command is out of bounds!";
+
             Task targetTask = this.taskList.get(indx - 1);
             targetTask.setIsMarked(true);
 
@@ -94,6 +98,10 @@ public class BobbyWasabi {
         try {
 
             int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
+
+            assert indx > 0 && indx < this.taskList.size()
+                    : "Index in MARK command is out of bounds!";
+
             Task targetTask = this.taskList.get(indx - 1);
             targetTask.setIsMarked(false);
 
@@ -124,6 +132,10 @@ public class BobbyWasabi {
     public String processDeadlineCommand(String userInput) {
         try {
             String[] details = Parser.parseDeadline(userInput);
+
+            assert details.length >= 2
+                    : "Details in DEADLINE command is insufficient!";
+
             String description = details[0];
             String deadline = details[1];
             LocalDateTime dateTime = Parser.parseDateString(deadline);
@@ -143,6 +155,10 @@ public class BobbyWasabi {
     public String processEventCommand(String userInput) {
         try {
             String[] details = Parser.parseEvent(userInput);
+
+            assert details.length >= 2
+                    : "Details in DEADLINE command is insufficient!";
+
             String description = details[0];
             String start = details[1];
             String end = details[2];
@@ -162,6 +178,10 @@ public class BobbyWasabi {
         try {
 
             int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
+
+            assert indx > 0 && indx < this.taskList.size()
+                    : "Index in DELETE command is out of bounds!";
+
             Task targetTask = this.taskList.get(indx - 1);
             this.taskList.remove(indx - 1);
 
@@ -206,6 +226,9 @@ public class BobbyWasabi {
     public String getResponse(String userInput) {
 
         Command command = Parser.parseCommand(userInput);
+
+        assert command != null
+                : "Command cannot be null!";
 
         switch (command) {
         case BYE:
