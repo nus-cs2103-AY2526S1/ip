@@ -1,6 +1,7 @@
 package sam.task;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Manages a collection of tasks in the task management system.
@@ -42,6 +43,15 @@ public class TaskList {
      */
     public void add(final Task task) {
         tasks.add(task);
+    }
+
+    /**
+     * Adds multiple tasks to the task list using varargs.
+     * 
+     * @param tasksToAdd Variable number of tasks to be added to the list
+     */
+    public void addAll(final Task... tasksToAdd) {
+        Collections.addAll(tasks, tasksToAdd);
     }
 
     /**
