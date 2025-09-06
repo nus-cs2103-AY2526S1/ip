@@ -8,6 +8,7 @@ import king.KingException;
 public abstract class Task {
     private String description;
     private boolean complete;
+    private Priority priority;
 
     /**
      * Enumeration of possible task types
@@ -16,6 +17,18 @@ public abstract class Task {
         TODO,
         DEADLINE,
         EVENT
+    }
+
+    /**
+     * Enumeration of possible task priorities
+     */
+    public enum Priority {
+        NA,
+        VERY_LOW,
+        LOW,
+        MEDIUM,
+        HIGH,
+        VERY_HIGH;
     }
 
     /**
@@ -31,6 +44,7 @@ public abstract class Task {
         } else {
             this.description = description;
             this.complete = false;
+            this.priority = Priority.NA;
         }
     }
 
@@ -57,6 +71,15 @@ public abstract class Task {
      */
     public boolean getComplete() {
         return this.complete;
+    }
+
+    /**
+     * Returns the priority of the task.
+     *
+     * @return Priority level of the task.
+     */
+    public Priority getPriority() {
+        return this.priority;
     }
 
     /**
