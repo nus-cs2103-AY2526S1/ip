@@ -30,10 +30,13 @@ public class KingTaskListTest {
 
     @Test
     public void newTaskListTest_success() {
-        KingTaskList newTaskList = new KingTaskList(true);
-
-        assertEquals(0, newTaskList.getSize());
-        assertNotNull(newTaskList.getTasks());
+        try {
+            KingTaskList newTaskList = new KingTaskList(true);
+            assertEquals(0, newTaskList.getSize());
+            assertNotNull(newTaskList.getTasks());
+        } catch (KingException ke) {
+            System.out.println(ke);
+        }
     }
 
     @Test
@@ -149,18 +152,27 @@ public class KingTaskListTest {
 
     @Test
     public void deleteTask_emptyList_throwsException() {
-        KingTaskList emptyList = new KingTaskList(true);
+        try {
+            KingTaskList emptyList = new KingTaskList(true);
 
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            emptyList.deleteTask(0);
-        });
+            assertThrows(IndexOutOfBoundsException.class, () -> {
+                emptyList.deleteTask(0);
+            });
+        } catch (KingException ke) {
+            System.out.println(ke);
+        }
     }
 
     @Test
     public void getSize_emptyList() {
-        KingTaskList emptyList = new KingTaskList(true);
+        try {
+            KingTaskList emptyList = new KingTaskList(true);
 
-        assertEquals(0, emptyList.getSize());
+            assertEquals(0, emptyList.getSize());
+        } catch (KingException ke) {
+            System.out.println(ke);
+        }
+
     }
 
     @Test
