@@ -27,7 +27,9 @@ public class TaskList {
      * @param task The task to add
      */
     public void add(Task task) {
+        assert task != null : "Task to add cannot be null";
         tasks.add(task);
+        assert tasks.size() > 0 : "Task list should not be empty after adding a task";
     }
 
     /**
@@ -74,8 +76,10 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if the index is invalid
      */
     public Task markTask(int index) {
+        assert isValidIndex(index) : "Index must be valid before marking task";
         Task task = tasks.get(index);
         task.setDone(true);
+        assert task.getDone() : "Task should be marked as done after calling markTask";
         return task;
     }
 
@@ -86,8 +90,10 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if the index is invalid
      */
     public Task unmarkTask(int index) {
+        assert isValidIndex(index) : "Index must be valid before unmarking task";
         Task task = tasks.get(index);
         task.setDone(false);
+        assert !task.getDone() : "Task should be marked as not done after calling unmarkTask";
         return task;
     }
 
