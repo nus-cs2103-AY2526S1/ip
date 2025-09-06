@@ -47,7 +47,9 @@ public class OutputCapture {
         System.setOut(originalOut);
         captureStream.flush();
         try {
-            return outputStream.toString(StandardCharsets.UTF_8.name());
+            String temp = outputStream.toString(StandardCharsets.UTF_8.name());
+            temp = temp.substring(41, temp.length() - 41);
+            return temp;
         } catch (UnsupportedEncodingException e) {
             return outputStream.toString();
         }

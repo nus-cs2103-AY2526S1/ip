@@ -1,8 +1,7 @@
 T | false | Buy groceries
 D | true | Submit report | 15/12/2023 1700
-E | false | Team meeting | 15/12/2023 1400 | 15/12/2023 1600
-D | true | Finish chapter | 16/12/2023 2300
 E | false | Birthday party | 16/12/2023 1800 | 17/12/2023 0200
 T | true | Booking hotel
 D | true | Buy book | 12/1/2005 0000
 E | false | Pay book | 3/6/1990 0000 | 5/8/2000 0000
+T | false | booking hotel

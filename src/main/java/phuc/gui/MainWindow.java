@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import phuc.Phuc;
-import phuc.ui.UserInterface;
 
 /**
  * Controller for the main GUI.
@@ -37,11 +36,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        String welcomeMessage = UserInterface.LINE
-                + "\nHello! I'm Phuc \uD83D\uDE03\uD83D\uDD90\uFE0F\nWhat can I do for you?\n"
-                + UserInterface.LINE;
+        String welcomeMessage = "Hello! I'm Phuc \uD83D\uDE03\uD83D\uDD90\uFE0F\nWhat can I do for you?";
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(welcomeMessage, phucImage)
+                DialogBox.getDukeDialog(welcomeMessage, phucImage, "greeting")
         );
     }
 
@@ -58,8 +55,11 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        String command = "";
         try {
             String input = userInput.getText();
+            String[] parts = input.split(" ");
+            command = parts[0];
             Boolean isEnd = false;
 
             if (input.equals("bye")) {
@@ -67,25 +67,23 @@ public class MainWindow extends AnchorPane {
             }
 
             String response = phuc.getResponse(input);
-            input = UserInterface.LINE + "\n"
-                    + input + "\n" + UserInterface.LINE;
 
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response, phucImage)
+                    DialogBox.getDukeDialog(response, phucImage, command)
             );
 
             if (isEnd) {
                 userInput.setDisable(true);
                 sendButton.setDisable(true);
 
-                PauseTransition delay = new PauseTransition(Duration.millis(300));
+                PauseTransition delay = new PauseTransition(Duration.millis(500));
                 delay.setOnFinished(e -> Platform.exit());
                 delay.play();
             }
         } catch (Exception e) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getDukeDialog(e.getMessage(), phucImage)
+                    DialogBox.getDukeDialog(e.getMessage(), phucImage, command)
             );
         } finally {
             userInput.clear();

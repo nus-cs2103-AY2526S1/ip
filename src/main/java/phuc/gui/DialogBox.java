@@ -24,6 +24,13 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructs a DialogBox with specified text and image.
+     * Loads FXML layout and initializes UI components.
+     *
+     * @param text the message text to display
+     * @param img  the avatar image to show
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -45,6 +52,7 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
+        dialog.getStyleClass().add("reply-label");
         setAlignment(Pos.TOP_LEFT);
     }
 
@@ -66,9 +74,47 @@ public class DialogBox extends HBox {
      * @param img Duke's avatar image
      * @return a DialogBox configured for Duke messages
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getDukeDialog(String text, Image img, String commandType) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.changeDialogStyle(commandType);
         return db;
+    }
+
+    private void changeDialogStyle(String commandType) {
+        switch(commandType) {
+        case "list":
+            dialog.getStyleClass().add("list-label");
+            break;
+        case "mark":
+            dialog.getStyleClass().add("marked-label");
+            break;
+        case "delete":
+            dialog.getStyleClass().add("delete-label");
+            break;
+        case "greeting":
+            dialog.getStyleClass().add("greeting-label");
+            break;
+        case "todo":
+            dialog.getStyleClass().add("add-label");
+            break;
+        case "deadline":
+            dialog.getStyleClass().add("add-label");
+            break;
+        case "event":
+            dialog.getStyleClass().add("add-label");
+            break;
+        case "unmark":
+            dialog.getStyleClass().add("marked-label");
+            break;
+        case "find":
+            dialog.getStyleClass().add("find-label");
+            break;
+        case "bye":
+            dialog.getStyleClass().add("bye-label");
+            break;
+        default:
+            dialog.getStyleClass().add("error-label");
+        }
     }
 }
