@@ -26,7 +26,7 @@ public class DisplayCommand extends Command {
     }
 
     @Override
-    public void execute() {
-        this.ui.displayList(this.listOfTasks);
+    public String execute() {
+        return this.ui.displayList(this.listOfTasks);
     }
 }

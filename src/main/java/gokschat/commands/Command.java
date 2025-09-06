@@ -4,5 +4,5 @@ package gokschat.commands;
 ///
 /// @author Ravichandran Gokul
 abstract public class Command {
-    public abstract void execute();
+    public abstract String execute();
 }

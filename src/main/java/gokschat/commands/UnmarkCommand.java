@@ -29,9 +29,9 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         Task task = listOfTasks.get(index - 1);
         task.unmarkTask();
-        this.ui.unmarkTaskMessage(task);
+        return this.ui.unmarkTaskMessage(task);
     }
 }

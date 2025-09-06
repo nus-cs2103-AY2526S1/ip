@@ -19,8 +19,6 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String nameOfTask, String deadline) {
         super(nameOfTask);
-        LocalDate date = LocalDate.parse(deadline);
-        deadline = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         this.deadline = deadline;
     }
 

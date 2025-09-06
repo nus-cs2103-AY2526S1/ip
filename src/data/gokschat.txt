@@ -1,1 +1,2 @@
-E | 0 | project meeting | from 2025-10-26 | to 2025-10-27
+E | 1 | project meeting | from 2025-10-26 | to 2025-10-27
+D | 0 | do cs2100 assignment | by 2025-10-25
