@@ -7,15 +7,26 @@ import chash.ui.ChashUi;
 
 import java.io.IOException;
 
+/** Command to mark or unmark a task. */
 public class MarkCommand extends Command {
     private final String index;
     private final boolean mark;
 
+    /**
+     * Creates a new mark/unmark command.
+     *
+     * @param index Task index (starts from 1, not 0 like arrays)
+     * @param mark {@code true} to mark done, {@code false} to unmark
+     */
     public MarkCommand(String index, boolean mark) {
         this.index = index;
         this.mark = mark;
     }
 
+    /**
+     * {@inheritDoc}
+     * Mark/Unmark the indicated task and write updated tasklist to the db
+     */
     @Override
     public void execute(TaskList tasks, ChashUi ui, ChashDb db) {
         try {

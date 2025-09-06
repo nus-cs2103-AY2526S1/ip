@@ -5,9 +5,14 @@ import chash.task.Task;
 import chash.task.TaskList;
 import chash.ui.ChashUi;
 
+/** Command to list all tasks. */
 public class ListCommand extends Command {
     public ListCommand() {}
 
+    /**
+     * {@inheritDoc}
+     * Prints all tasks in {@code TaskList} through {@code ChashUi}
+     */
     @Override
     public void execute(TaskList tasks, ChashUi ui, ChashDb db) {
         if (tasks.size() == 0) {

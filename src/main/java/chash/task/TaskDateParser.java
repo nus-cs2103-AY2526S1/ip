@@ -4,10 +4,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/** Utility class for parsing and formatting task dates. */
 public class TaskDateParser {
     private static final DateTimeFormatter PRINT_FORMAT = 
         DateTimeFormatter.ofPattern("MMM d yyyy");
 
+    /**
+     * Attempts to parse a date-time string in ISO-8601 format.
+     *
+     * @param input Input string
+     * @return Parsed {@code LocalDateTime}, or {@code null} if parsing fails
+     */
     public static LocalDateTime tryParse(String input) {
         try {
             return LocalDateTime.parse(input);
@@ -18,6 +25,13 @@ public class TaskDateParser {
         }
     }
 
+    /**
+     * Formats a date-time into a human-readable string, or returns fallback text if null.
+     *
+     * @param dateTime Parsed {@code LocalDateTime}, may be {@code null}
+     * @param dateStr Original raw date string
+     * @return Formatted string
+     */
     public static String format(LocalDateTime dateTime, String dateStr) {
         return (dateTime != null) ? dateTime.format(TaskDateParser.PRINT_FORMAT) :
             dateStr;
