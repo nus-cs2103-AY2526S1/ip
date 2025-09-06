@@ -28,7 +28,7 @@ public class Piper {
     public static void main(String[] args) throws PiperException {
         Ui ui = new Ui(CHATBOT_NAME);
         TaskList tasks;
-        boolean exit = false;
+        boolean isExit = false;
 
         Storage storage = null;
         try {
@@ -42,7 +42,7 @@ public class Piper {
 
         ui.greetUser();
 
-        while (!exit) {
+        while (!isExit) {
             // user is active
             String userInput = ui.read();
             userInput = userInput.trim();
@@ -56,7 +56,7 @@ public class Piper {
                     if (cmd.equals("bye")) {
                         // user is inactive
                         ui.farewellUser();
-                        exit = true;
+                        isExit = true;
                     } else if (cmd.equals("list")) {
                         // list all tasks
                         ui.displayTasks(tasks);
