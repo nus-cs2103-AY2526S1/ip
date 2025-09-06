@@ -195,6 +195,7 @@ public class Penguin {
      * @return The response from Penguin
      */
     public String getResponse(String input) {
+        assert input != null : "User input should not be null";
         try {
             Parser.Command command = Parser.parse(input);
 
