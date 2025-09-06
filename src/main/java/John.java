@@ -13,7 +13,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 public class John {
-    private static final List<Task> tasks = new ArrayList<>();
+    private Storage storage;
+    private static final TaskList tasks = new TaskList();
+    private Ui ui;
 
     public static void main(String[] args) throws IOException {
         try {
@@ -109,7 +111,8 @@ public class John {
 
     private static void writeToFile(String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
-            for (Task task : tasks) {
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
                 writer.write(task.serialise() + System.lineSeparator());
             }
         } catch (IOException e) {
