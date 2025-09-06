@@ -17,7 +17,10 @@ public class ExitCommand extends Command {
         ui.printMsg("Bye. Hope to see you again soon!");
     }
 
-    /** {@inheritDoc} */
+    /** 
+     * {@inheritDoc}
+     * Returns {@code true} to signal to stop execution
+     */
     @Override
     public boolean isExit() {
         return true;
