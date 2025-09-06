@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     private boolean completed = false;
     private final String title;
@@ -36,5 +39,10 @@ public abstract class Task {
             sb.append(" | ").append(extra == null ? "" : extra);
         }
         return sb.toString();
+    }
+
+    protected String formatTime(LocalDateTime ldt) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        return ldt.format(formatter);
     }
 }

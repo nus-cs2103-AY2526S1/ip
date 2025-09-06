@@ -1,8 +1,10 @@
-public class Event extends Task{
-    private final String from;
-    private final String to;
+import java.time.LocalDateTime;
 
-    public Event(String title, String from, String to) {
+public class Event extends Task{
+    private final LocalDateTime from;
+    private final LocalDateTime to;
+
+    public Event(String title, LocalDateTime from, LocalDateTime to) {
         super(title);
         this.from = from;
         this.to = to;
@@ -10,11 +12,11 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + formatTime(from) + " to: " + formatTime(to) + ")";
     }
 
     @Override
     public String serialise() {
-        return baseSerialize("E", this.from, this.to);
+        return baseSerialize("E", formatTime(from), formatTime(to));
     }
 }
