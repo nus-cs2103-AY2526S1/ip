@@ -1,7 +1,5 @@
 package paul.ui;
 
-import java.util.Scanner;
-
 import paul.task.Task;
 import paul.task.TaskList;
 
@@ -9,7 +7,6 @@ import paul.task.TaskList;
  * Handles user interaction for Paul.
  */
 public class Ui {
-    private static final String LINE = "____________________________________________________________";
     private static final String LOGO = """
                  ____   _   _   _ _
                 |  _ \\ / \\ | | | | |
@@ -18,50 +15,32 @@ public class Ui {
                 |_| /_/   \\_\\___/|_____|
                 """;
 
-    // Scanner to read user input
-    private final Scanner sc = new Scanner(System.in);
-
-    /**
-     * Prints the output with a line surrounding it.
-     *
-     * @param output The message to print.
-     */
-    public void printOutput(String output) {
-        System.out.println(LINE);
-        System.out.println(output);
-        System.out.println(LINE);
-    }
-
-    /**
-     * Reads a line of input from the user, removing any whitespace.
-     *
-     * @return The trimmed user input.
-     */
-    public String readCommand() {
-        return sc.nextLine().trim();
-    }
-
     /**
      * Greets user with a welcome message and logo.
+     *
+     * @return The welcome message.
      */
-    public void greetUser() {
-        printOutput("Hello I'm\n" + LOGO + "\nWhat can I do for you?");
+    public String greetUser() {
+        return "Hello I'm\n" + LOGO + "\nWhat can I do for you?";
     }
 
     /**
      * Says goodbye to the user before exiting the program.
+     *
+     * @return The goodbye message.
      */
-    public void byeUser() {
-        printOutput("Goodbye! Paul will miss you :(");
+    public String byeUser() {
+        return "Goodbye! Paul will miss you :(";
     }
 
     /**
-     * Displays all the tasks currently in the TaskList.
+     * Returns all the tasks currently in the TaskList.
      *
      * @param tasks The TaskList to display.
+     * @return The tasks in the TaskList.
      */
-    public void showTasks(TaskList tasks) {
-        printOutput("Here are the tasks in your list:\n" + tasks);
+    public String showTasks(TaskList tasks) {
+        return "Here are the tasks in your list:\n" + tasks;
     }
 
     /**
@@ -69,28 +48,31 @@ public class Ui {
      *
      * @param task The task to add.
      * @param total The total number of tasks after adding.
+     * @return The added task message.
      */
-    public void showTaskAdded(Task task, int total) {
-        printOutput("Got it. I've added this task:\n" + task
-                + "\nNow you have " + total + " tasks in the list.");
+    public String showTaskAdded(Task task, int total) {
+        return "Got it. I've added this task:\n" + task
+                + "\nNow you have " + total + " tasks in the list.";
     }
 
     /**
      * Shows a message when a task is marked.
      *
      * @param task The task to mark.
+     * @return The marked task message.
      */
-    public void showTaskMarked(Task task) {
-        printOutput("Nice! I've marked this task as done:\n" + task);
+    public String showTaskMarked(Task task) {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
      * Shows a message when a task is unmarked.
      *
      * @param task The task to unmark.
+     * @return The unmarked task message.
      */
-    public void showTaskUnmarked(Task task) {
-        printOutput("OK, I've marked this task as not done yet:\n" + task);
+    public String showTaskUnmarked(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + task;
     }
 
     /**
@@ -98,38 +80,32 @@ public class Ui {
      *
      * @param task The task to delete.
      * @param total The total number of tasks after deleting.
+     * @return The deleted task message.
      */
-    public void showTaskDeleted(Task task, int total) {
-        printOutput("Noted. I've removed this task:\n" + task
-                + "\nNow you have " + total + " tasks in the list.");
+    public String showTaskDeleted(Task task, int total) {
+        return "Noted. I've removed this task:\n" + task
+                + "\nNow you have " + total + " tasks in the list.";
     }
 
     /**
      * Shows a message with the all tasks found using the find method.
      *
      * @param list The TaskList containing the tasks found.
+     * @return All tasks found from the keyword.
      */
-    public void showTaskFound(TaskList list) {
+    public String showTaskFound(TaskList list) {
         if (list.size() == 0) {
-            printOutput("There are no matches found!");
+            return "There are no matches found!";
         } else {
-            printOutput("Here are the matching tasks in your list:\n" + list);
+            return "Here are the matching tasks in your list:\n" + list;
         }
     }
 
     /**
      * Shows a message when there is an error loading tasks.
+     * @return The error message when loading tasks.
      */
-    public void showLoadingError() {
-        printOutput("Error in Loading Tasks!");
-    }
-
-    /**
-     * Show a custom message when there is an error.
-     *
-     * @param message The message to print.
-     */
-    public void showError(String message) {
-        printOutput(message);
+    public String showLoadingError() {
+        return "Error in Loading Tasks!";
     }
 }

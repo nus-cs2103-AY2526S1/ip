@@ -7,8 +7,6 @@ import java.util.List;
 
 import paul.exception.PaulException;
 import paul.parser.Parser;
-import paul.storage.Storage;
-import paul.ui.Ui;
 
 
 
@@ -58,11 +56,9 @@ public class TaskList {
     /**
      * Adds a task to the TaskList based on the user's command and saves it in the storage.
      * @param parsedCommand The String array after parsing the command.
-     * @param storage Storage to save the new task.
-     * @param ui Ui to handle user's input.
      * @throws PaulException if there is an error in the command.
      */
-    public void addTask(String[] parsedCommand, Storage storage, Ui ui) throws PaulException {
+    public Task addTask(String[] parsedCommand) throws PaulException {
         Parser.CommandType commandType = Parser.getCommandType(parsedCommand[0]);
         if (parsedCommand.length < 2) {
             throw new PaulException("The description of a " + commandType + " cannot be empty!");
@@ -106,79 +102,75 @@ public class TaskList {
         default:
             newTask = null;
         }
-        tasks.add(newTask);
-        storage.saveTasks(this);
-        ui.showTaskAdded(newTask, tasks.size());
+        return newTask;
     }
 
     /**
      * Deletes a task from TaskList based on the user's command and save the changes in the storage.
      * @param parsedCommand The String array after parsing the command.
-     * @param storage Storage to record the changes after deleting the task.
-     * @param ui Ui to handle user's input.
      * @throws PaulException if there is an error in the command.
      */
-    public void deleteTask(String[] parsedCommand, Storage storage, Ui ui) throws PaulException {
+    public Task deleteTask(String[] parsedCommand) throws PaulException {
         if (parsedCommand.length < 2) {
             throw new PaulException("The description of a delete cannot be empty!");
         }
-
+        Task task;
         try {
             int index = Integer.parseInt(parsedCommand[1]);
-            Task task = this.get(index);
+            task = this.get(index);
             tasks.remove(index - 1);
-            storage.saveTasks(this);
-            ui.showTaskDeleted(task, tasks.size());
         } catch (IndexOutOfBoundsException e) {
             throw new PaulException("Oops! Invalid task number for delete command.");
         } catch (NumberFormatException e) {
             throw new PaulException("Please input a valid task number!");
         }
+        return task;
     }
 
     /**
-     * Marks or unmarks a task from TaskList based on the user's command and save the changes in the storage.
+     * Marks a task from TaskList and save the changes in the storage.
      * @param parsedCommand The String array after parsing the command.
-     * @param storage Storage to record the changes after marking/unmarking the task.
-     * @param ui Ui to handle user's input.
      * @throws PaulException if there is an error in the command.
      */
-    public void markTask(String[] parsedCommand, Storage storage, Ui ui) throws PaulException {
-        Parser.CommandType commandType = Parser.getCommandType(parsedCommand[0]);
+    public Task markTask(String[] parsedCommand) throws PaulException {
         if (parsedCommand.length < 2) {
-            throw new PaulException("The description of a " + commandType + " cannot be empty!");
+            throw new PaulException("The description of a mark cannot be empty!");
         }
         String input = parsedCommand[1];
-
-        switch (commandType) {
-        case MARK:
-            try {
-                int index = Integer.parseInt(input);
-                Task task = this.get(index);
-                task.markTask();
-                ui.showTaskMarked(task);
-            } catch (IndexOutOfBoundsException e) {
-                throw new PaulException("Oops! Invalid task number for mark command.");
-            } catch (NumberFormatException e) {
-                throw new PaulException("Please input a valid task number!");
-            }
-            break;
-        case UNMARK:
-            try {
-                int index = Integer.parseInt(input);
-                Task task = this.get(index);
-                task.unmarkTask();
-                ui.showTaskUnmarked(task);
-            } catch (IndexOutOfBoundsException e) {
-                throw new PaulException("Oops! Invalid task number for unmark command.");
-            } catch (NumberFormatException e) {
-                throw new PaulException("Please input a valid task number!");
-            }
-            break;
-        default:
-            throw new PaulException("Error! Not a valid command for marking tasks."); // Should not reach here
+        Task task;
+        try {
+            int index = Integer.parseInt(input);
+            task = this.get(index);
+            task.markTask();
+        } catch (IndexOutOfBoundsException e) {
+            throw new PaulException("Oops! Invalid task number for mark command.");
+        } catch (NumberFormatException e) {
+            throw new PaulException("Please input a valid task number!");
         }
-        storage.saveTasks(this);
+        return task;
+    }
+
+    /**
+     * Unmarks a task from TaskList and save the changes in the storage.
+     * @param parsedCommand The String array after parsing the command.
+     * @throws PaulException if there is an error in the command.
+     */
+    public Task unmarkTask(String[] parsedCommand) throws PaulException {
+        if (parsedCommand.length < 2) {
+            throw new PaulException("The description of an unmark cannot be empty!");
+        }
+        String input = parsedCommand[1];
+        Task task;
+        try {
+            int index = Integer.parseInt(input);
+            task = this.get(index);
+            task.unmarkTask();
+        } catch (IndexOutOfBoundsException e) {
+            throw new PaulException("Oops! Invalid task number for mark command.");
+        } catch (NumberFormatException e) {
+            throw new PaulException("Please input a valid task number!");
+        }
+        return task;
     }
 
     /**
