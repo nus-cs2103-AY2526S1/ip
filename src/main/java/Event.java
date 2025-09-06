@@ -12,4 +12,12 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + getStatusIcon() + " " + description + " (from: " + from + " to: " + to + ")";
     }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
 }

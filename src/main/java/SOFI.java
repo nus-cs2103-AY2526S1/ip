@@ -1,9 +1,19 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 
 public class SOFI {
     public static void main(String[] args) {
         ArrayList<Task> tasks = new ArrayList<>();
+        Storage storage = new Storage("." + File.separator + "data" + File.separator + "duke.txt");
+        try {
+            tasks = storage.load();
+        } catch (IOException e) {
+            System.out.println("____________________________________________________________");
+            System.out.println("Couldn't load previous tasks. Starting fresh.");
+            System.out.println("____________________________________________________________");
+        }
 
         String greet = "____________________________________________________________\n" +
                 "Hello! I'm SOFI\n" +
@@ -40,6 +50,7 @@ public class SOFI {
                         throw new SofiException("A todo needs a description. Try: todo read book");
                     }
                     tasks.add(new Todo(taskDescription));
+                    try { storage.save(tasks); } catch (IOException ignore) {}
                     System.out.println("____________________________________________________________");
                     System.out.println("Added this task:\n   " + tasks.get(tasks.size() - 1).toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -60,6 +71,7 @@ public class SOFI {
                         throw new SofiException("The /by time cannot be empty.");
                     }
                     tasks.add(new Deadline(taskDescription, by));
+                    try { storage.save(tasks); } catch (IOException ignore) {}
                     System.out.println("____________________________________________________________");
                     System.out.println("Added this task:\n   " + tasks.get(tasks.size() - 1).toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -83,6 +95,7 @@ public class SOFI {
                         throw new SofiException("Both /from and /to times must be provided.");
                     }
                     tasks.add(new Event(taskDescription, from, to));
+                    try { storage.save(tasks); } catch (IOException ignore) {}
                     System.out.println("____________________________________________________________");
                     System.out.println("Added this task:\n   " + tasks.get(tasks.size() - 1).toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -105,6 +118,7 @@ public class SOFI {
                     }
                     Task task = tasks.get(taskNumber);
                     task.markAsDone();
+                    try { storage.save(tasks); } catch (IOException ignore) {}
                     System.out.println("____________________________________________________________");
                     System.out.println("Nice! I've marked this task as done:\n" + "   " + task.toString());
                     System.out.println("____________________________________________________________");
@@ -126,6 +140,7 @@ public class SOFI {
                     }
                     Task task = tasks.get(taskNumber);
                     task.markAsNotDone();
+                    try { storage.save(tasks); } catch (IOException ignore) {}
                     System.out.println("____________________________________________________________");
                     System.out.println("OK, I've marked this task as not done yet:\n" + "   " + task.toString());
                     System.out.println("____________________________________________________________");
@@ -146,6 +161,7 @@ public class SOFI {
                         throw new SofiException("Task number out of range. You have " + tasks.size() + " task(s).");
                     }
                     Task removed = tasks.remove(taskNumber);
+                    try { storage.save(tasks); } catch (IOException ignore) {}
                     System.out.println("____________________________________________________________");
                     System.out.println("Noted. I've removed this task:\n  " + removed.toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
