@@ -190,6 +190,152 @@ public class Penguin {
     }
 
     /**
+     * Generates a response for the user's chat message.
+     * @param input The user input
+     * @return The response from Penguin
+     */
+    public String getResponse(String input) {
+        try {
+            Parser.Command command = Parser.parse(input);
+
+            switch (command.getType()) {
+            case BYE:
+                return "Bye. Hope to see you again soon!";
+            case LIST:
+                return getTaskListString();
+            case MARK:
+                return handleMarkCommandGui(command.getTaskNumber());
+            case UNMARK:
+                return handleUnmarkCommandGui(command.getTaskNumber());
+            case TODO:
+                return handleTodoCommandGui(command.getDescription());
+            case DEADLINE:
+                return handleDeadlineCommandGui(command.getDescription(), command.getDeadline());
+            case EVENT:
+                return handleEventCommandGui(command.getDescription(), command.getFrom(), command.getTo());
+            case FIND:
+                return handleFindCommandGui(command.getDescription());
+            case INVALID:
+                return "OOPS!!! I'm sorry, but I don't know what that means :-(";
+            default:
+                return "OOPS!!! I'm sorry, but I don't know what that means :-(";
+            }
+        } catch (Exception e) {
+            return "OOPS!!! " + e.getMessage();
+        }
+    }
+
+    private String getTaskListString() {
+        if (tasks.size() == 0) {
+            return "No tasks in your list.";
+        }
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append((i + 1) + ". " + tasks.get(i) + "\n");
+        }
+        return sb.toString();
+    }
+
+    private String handleMarkCommandGui(String taskNumber) {
+        try {
+            int idx = Integer.parseInt(taskNumber) - 1;
+            if (tasks.isValidIndex(idx)) {
+                Task task = tasks.markTask(idx);
+                storage.save(tasks.getTasks());
+                return "Nice! I've marked this task as done:\n" + task;
+            } else {
+                return "OOPS!!! Invalid task number.";
+            }
+        } catch (NumberFormatException e) {
+            return "OOPS!!! Please provide a valid task number.";
+        } catch (PenguinException e) {
+            return "OOPS!!! " + e.getMessage();
+        }
+    }
+
+    private String handleUnmarkCommandGui(String taskNumber) {
+        try {
+            int idx = Integer.parseInt(taskNumber) - 1;
+            if (tasks.isValidIndex(idx)) {
+                Task task = tasks.unmarkTask(idx);
+                storage.save(tasks.getTasks());
+                return "Nice! I've marked this task as not done yet:\n" + task;
+            } else {
+                return "OOPS!!! Invalid task number.";
+            }
+        } catch (NumberFormatException e) {
+            return "OOPS!!! Please provide a valid task number.";
+        } catch (PenguinException e) {
+            return "OOPS!!! " + e.getMessage();
+        }
+    }
+
+    private String handleTodoCommandGui(String description) {
+        try {
+            if (description.isEmpty()) {
+                throw new PenguinException("The description of a todo cannot be empty.");
+            }
+            Task task = new Todo(description);
+            tasks.add(task);
+            storage.save(tasks.getTasks());
+            return "Got it. I've added this task:\n  " + task
+                + "\nNow you have " + tasks.size() + " tasks in the list.";
+        } catch (PenguinException e) {
+            return "OOPS!!! " + e.getMessage();
+        }
+    }
+
+    private String handleDeadlineCommandGui(String description, String deadline) {
+        try {
+            if (description.isEmpty()) {
+                throw new PenguinException("The description of a deadline cannot be empty.");
+            }
+            Task task = new Deadline(description, deadline);
+            tasks.add(task);
+            storage.save(tasks.getTasks());
+            return "Got it. I've added this task:\n  " + task
+                + "\nNow you have " + tasks.size() + " tasks in the list.";
+        } catch (Exception e) {
+            return "OOPS!!! Please use the date format yyyy-mm-dd (e.g., 2019-12-02)";
+        }
+    }
+
+    private String handleEventCommandGui(String description, String from, String to) {
+        try {
+            if (description.isEmpty()) {
+                throw new PenguinException("The description of an event cannot be empty.");
+            }
+            Task task = new Event(description, from, to);
+            tasks.add(task);
+            storage.save(tasks.getTasks());
+            return "Got it. I've added this task:\n  " + task
+                + "\nNow you have " + tasks.size() + " tasks in the list.";
+        } catch (PenguinException e) {
+            return "OOPS!!! " + e.getMessage();
+        }
+    }
+
+    private String handleFindCommandGui(String keyword) {
+        try {
+            if (keyword.isEmpty()) {
+                throw new PenguinException("The keyword for find cannot be empty.");
+            }
+            TaskList matchingTasks = tasks.findTasks(keyword);
+            if (matchingTasks.size() == 0) {
+                return "No matching tasks found.";
+            } else {
+                StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
+                for (int i = 0; i < matchingTasks.size(); i++) {
+                    sb.append((i + 1) + "." + matchingTasks.get(i) + "\n");
+                }
+                return sb.toString();
+            }
+        } catch (PenguinException e) {
+            return "OOPS!!! " + e.getMessage();
+        }
+    }
+
+    /**
      * Entry point of the Penguin chatbot application.
      * @param args Command-line arguments (not used)
      */
