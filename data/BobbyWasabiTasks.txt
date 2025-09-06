@@ -1,1 +1,1 @@
-T|hello|[ ]
+E|start|[ ]|end|end

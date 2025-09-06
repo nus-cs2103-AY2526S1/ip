@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import bobbywasabi.client.Client;
+import bobbywasabi.client.ClientList;
 import bobbywasabi.exceptions.BobbyWasabiException;
 import bobbywasabi.parser.Parser;
 import bobbywasabi.tasks.Deadline;
@@ -18,32 +20,62 @@ import bobbywasabi.tasks.TaskList;
 import bobbywasabi.tasks.ToDo;
 
 /**
- * Handles the loading, saving, and creation of data storage for tasks.
+ * Handles loading, saving, and managing persistent storage for tasks and clients.
+ * <p>
+ * Provides methods to create storage files, parse stored data into objects, and
+ * write updates back to the file system. Supports separate storage for tasks
+ * and clients.
  */
 public class Storage {
-    private String filepath;
-    private String folderpath;
+    private String taskListFilePath;
+    private String folderPath;
+    private String clientListFilePath;
 
-    /**
-     * Constructs a Storage object with the given file and folder paths.
-     *
-     * @param filepath   Path to the data file (e.g., "./data/BobbyWasabiTasks.txt")
-     * @param folderpath Path to the folder containing the data file (e.g., "./data")
-     */
-    public Storage(String filepath, String folderpath) {
-        this.filepath = filepath;
-        this.folderpath = folderpath;
+    /** Specifies the type of storage to use in file operations. */
+    public enum StorageType {
+        CLIENTLIST,
+        TASKLIST;
     }
 
     /**
-     * Checks if the data folder and file exist. If not, creates them.
-     * End result: "./data/BobbyWasabiTasks.txt" will be present.
+     * Constructs a Storage object with specified file paths.
      *
-     * @throws BobbyWasabiException If the folder or file could not be created.
+     * @param folderPath         Path to the folder where storage files reside.
+     * @param taskListFilePath   Path to the task list file.
+     * @param clientListFilePath Path to the client list file.
+     */
+    public Storage(String folderPath, String taskListFilePath, String clientListFilePath) {
+        this.folderPath = folderPath;
+        this.taskListFilePath = taskListFilePath;
+        this.clientListFilePath = clientListFilePath;
+    }
+
+    /**
+     * Returns the file path corresponding to the given storage type.
+     *
+     * @param storageType The type of storage (TASKLIST or CLIENTLIST).
+     * @return Path to the corresponding file as a String.
+     */
+    public String getFilePath(StorageType storageType) {
+        switch (storageType) {
+        case TASKLIST:
+            return this.taskListFilePath;
+        case CLIENTLIST:
+            return this.clientListFilePath;
+        default:
+            return "";
+        }
+    }
+
+    /**
+     * Ensures that the data folder and required files exist. Creates them if they do not exist.
+     *
+     * @throws BobbyWasabiException If the folder or files could not be created.
      */
     public void createDataStorage() throws BobbyWasabiException {
-        File folder = new File(this.folderpath);
-        File file = new File(this.filepath);
+        File folder = new File(this.folderPath);
+        File taskListFile = new File(this.taskListFilePath);
+        File clientListFile = new File(this.clientListFilePath);
 
         // check if folder exists
         if (!folder.exists()) {
@@ -53,35 +85,49 @@ public class Storage {
             }
         }
 
-        // check if the file exists
-        if (!file.exists()) {
-            // create the file if it does not exist
+        // check if the taskListFile exists to prevent duplicate creation
+        if (!taskListFile.exists()) {
+            // create the taskListFile if it does not exist
             try {
-                if (!file.createNewFile()) {
-                    throw new BobbyWasabiException("Could not create the file!");
+                if (!taskListFile.createNewFile()) {
+                    throw new BobbyWasabiException("Could not create the task file!");
                 }
             } catch (IOException e) {
-                throw new BobbyWasabiException("Could not create the file!");
+                throw new BobbyWasabiException("Could not create the task file!");
             }
         }
 
-        assert file.exists();
-        assert folder.exists();
+        // check if clientListFile exists to prevent duplicate creation
+        if (!clientListFile.exists()) {
+            // create the clientListFile if it does not exist
+            try {
+                if (!clientListFile.createNewFile()) {
+                    throw new BobbyWasabiException("Could not create the client file!");
+                }
+            } catch (IOException e) {
+                throw new BobbyWasabiException("Could not create the client file!");
+            }
+        }
 
+
+        assert clientListFile.exists();
+        assert taskListFile.exists();
+        assert folder.exists();
     }
 
 
     /**
-     * Loads tasks from the data file and returns them as a list.
+     * Loads tasks from the task list file.
      *
-     * @return ArrayList of tasks loaded from the data file.
-     * @throws BobbyWasabiException If the file cannot be found or read.
+     * @return A TaskList containing all tasks stored in the file.
+     * @throws BobbyWasabiException If the file cannot be found or a task cannot be parsed.
      */
-    public ArrayList<Task> load() throws BobbyWasabiException {
+    public TaskList loadTaskList() throws BobbyWasabiException {
         try {
-            ArrayList<Task> tasks = new ArrayList<>();
+            TaskList tasks = new TaskList();
 
-            File file = new File(this.filepath);
+            File file = new File(this.taskListFilePath);
+
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 Task task = taskParser(scanner.nextLine());
@@ -90,15 +136,63 @@ public class Storage {
 
             return tasks;
         } catch (FileNotFoundException e) {
-            throw new BobbyWasabiException("File not found!");
+            throw new BobbyWasabiException("Task file not found!");
         }
     }
 
     /**
-     * Parses a string line from the data file into a Task object.
+     * Loads clients from the client list file.
      *
-     * @param line String representing a task (e.g., "T|read book|[X]")
-     * @return Task created from the parsed string.
+     * @return A ClientList containing all clients stored in the file.
+     * @throws BobbyWasabiException If the file cannot be found or a client cannot be parsed.
+     */
+    public ClientList loadClientList() throws BobbyWasabiException {
+        try {
+            ClientList clients = new ClientList();
+
+            File file = new File(this.clientListFilePath);
+
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                Client client = clientParser(scanner.nextLine());
+                clients.add(client);
+            }
+
+            return clients;
+        } catch (FileNotFoundException e) {
+            throw new BobbyWasabiException("Client file not found!");
+        }
+    }
+
+    /**
+     * Parses a line from the client file into a Client object.
+     *
+     * @param line String representing a client (fields separated by "|").
+     * @return Client object created from the line.
+     * @throws BobbyWasabiException If age is not a valid integer or line format is invalid.
+     */
+    public Client clientParser(String line) throws BobbyWasabiException {
+        String[] infos = line.split("\\|", -1);
+        assert infos.length == 5 : "Client line does not contain enough fields: " + line;
+
+        try {
+            String name = infos[0];
+            String contactNumber = infos[1];
+            int age = Integer.parseInt(infos[2]);
+            String occupation = infos[3];
+            String currentPolicies = infos[4];
+            return new Client(name, contactNumber, age, occupation, currentPolicies);
+        } catch (NumberFormatException e) {
+            throw new BobbyWasabiException("Not a valid age!");
+        }
+
+    }
+
+    /**
+     * Parses a line from the task file into a Task object.
+     *
+     * @param line String representing a task (fields separated by "|").
+     * @return Task object created from the line.
      * @throws BobbyWasabiException If the line cannot be parsed into a valid Task.
      */
     public Task taskParser(String line) throws BobbyWasabiException {
@@ -125,16 +219,15 @@ public class Storage {
     }
 
     /**
-     * Saves the current list of tasks to the data file.
-     * First clears the file, then writes each task in the list.
+     * Writes all tasks in the TaskList to the task file.
      *
-     * @param tasks TaskList containing the tasks to be written to file.
+     * @param tasks TaskList containing tasks to save.
      * @throws BobbyWasabiException If writing to the file fails.
      */
     public void updateDataFileFromTasks(TaskList tasks) throws BobbyWasabiException {
         try {
             // clear the current data file to prevent duplication when writing
-            PrintWriter writer = new PrintWriter(this.filepath);
+            PrintWriter writer = new PrintWriter(this.taskListFilePath);
             writer.print("");
             writer.close();
 
@@ -142,7 +235,7 @@ public class Storage {
             for (int i = 0; i < tasks.size(); i++) {
                 Task cur = tasks.get(i);
                 String line = cur.getData();
-                fileWrite(line);
+                fileWrite(line, StorageType.TASKLIST);
             }
 
         } catch (FileNotFoundException | BobbyWasabiException e) {
@@ -152,18 +245,44 @@ public class Storage {
     }
 
     /**
-     * Writes a single line (representing a task) to the data file.
-     * Overwrites existing file content each time.
+     * Writes all clients in the ClientList to the client file.
      *
-     * @param line Line to be written to the data file.
-     * @throws BobbyWasabiException If the file cannot be written to.
+     * @param clients ClientList containing clients to save.
+     * @throws BobbyWasabiException If writing to the file fails.
      */
-    public void fileWrite(String line) throws BobbyWasabiException {
-        assert line != null && !line.trim().isEmpty(): "Attempting to write an empty task line";
-
+    public void updateDataFileFromClients(ClientList clients) throws BobbyWasabiException {
         try {
-            FileWriter filewriter = new FileWriter(this.filepath);
-            filewriter.write(line);
+            // clear the current data file to prevent duplication when writing
+            PrintWriter writer = new PrintWriter(this.taskListFilePath);
+            writer.print("");
+            writer.close();
+
+            // update the fresh data file with current tasks
+            for (int i = 0; i < clients.size(); i++) {
+                Client cur = clients.get(i);
+                String line = cur.getData();
+                fileWrite(line, StorageType.CLIENTLIST);
+            }
+
+        } catch (FileNotFoundException | BobbyWasabiException e) {
+            throw new BobbyWasabiException(e.getMessage());
+        }
+
+    }
+
+    /**
+     * Writes a single line to the specified storage file.
+     *
+     * @param line        The line to write (cannot be null or empty).
+     * @param storageType Type of storage (TASKLIST or CLIENTLIST) to write to.
+     * @throws BobbyWasabiException If writing fails.
+     */
+    public void fileWrite(String line, StorageType storageType) throws BobbyWasabiException {
+        assert line != null && !line.trim().isEmpty(): "Attempting to write an empty task line";
+        String filePath = this.getFilePath(storageType);
+        try {
+            FileWriter filewriter = new FileWriter(filePath, true);
+            filewriter.write(line + System.lineSeparator());
             filewriter.close();
         } catch (IOException e) {
             throw new BobbyWasabiException(e.getMessage());

@@ -1,47 +1,99 @@
 package bobbywasabi.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
+import bobbywasabi.client.Client;
 import bobbywasabi.exceptions.BobbyWasabiException;
 
-public class ParserTest {
+class ParserTest {
 
     @Test
-    public void isValidInteger_wrongCommandInputs_exceptionThrown() {
-        try {
-            assertEquals(false,
-                    Parser.isValidInteger("mark 3 seventeen", 1));
-            fail();
-        } catch (BobbyWasabiException e) {
-            assertEquals("We only accept two inputs - the command and the integer",
-                    e.getMessage());
-        }
+    void testParseTodo_validTodo_success() throws BobbyWasabiException {
+        String input = "todo, read book";
+        String desc = Parser.parseTodo(input);
+        assertEquals("read book", desc);
     }
 
     @Test
-    public void isValidInteger_indexOutOfBounds_exceptionThrown() {
-        try {
-            assertEquals(false,
-                    Parser.isValidInteger("mark 17", 1));
-            fail();
-        } catch (BobbyWasabiException e) {
-            assertEquals("Index given in input is out of range, "
-                    + "please try an index within the range of your list", e.getMessage());
-        }
+    void testParseTodo_missingDescription_throwsException() {
+        String input = "todo ";
+        assertThrows(BobbyWasabiException.class, () -> Parser.parseTodo(input));
     }
 
     @Test
-    public void isValidInteger_notValidNumber_exceptionThrown() {
-        try {
-            assertEquals(false,
-                    Parser.isValidInteger("mark 17silk", 1));
-            fail();
-        } catch (BobbyWasabiException e) {
-            assertEquals("Please input an index following your command", e.getMessage());
-        }
+    void testParseDeadline_validDeadline_success() throws BobbyWasabiException {
+        String input = "deadline,submit report ,30/8/2025 1800";
+        String[] result = Parser.parseDeadline(input);
+        assertEquals("submit report", result[0]);
+        assertEquals("30/8/2025 1800", result[1]);
     }
 
+    @Test
+    void testParseEvent_validEvent_success() throws BobbyWasabiException {
+        String input = "event,   project meeting , 29/8/2025 1200  ,29/8/2025 1400";
+        String[] result = Parser.parseEvent(input);
+        assertEquals("project meeting", result[0]);
+        assertEquals("29/8/2025 1200", result[1]);
+        assertEquals("29/8/2025 1400", result[2]);
+    }
+
+    @Test
+    void testParseAddClient_validClient_success() throws BobbyWasabiException {
+        String input = "ADDCLIENT, John Doe, 91234567, 30, Engineer, LifeInsurance";
+        Client client = Parser.parseAddClient(input);
+        assertEquals("John Doe", client.getName());
+        assertEquals("91234567", client.getContactNumber());
+        assertEquals(30, client.getAge());
+        assertEquals("Engineer", client.getOccupation());
+        assertEquals("LifeInsurance", client.getCurrentPolicies());
+    }
+
+    @Test
+    void testParseAddClient_missingAge_throwsException() {
+        String input = "ADDCLIENT  ,John Doe, 91234567, , Engineer, LifeInsurance";
+        assertThrows(BobbyWasabiException.class, () -> Parser.parseAddClient(input));
+    }
+
+    @Test
+    void testParseEditClient_validEdit_success() throws BobbyWasabiException {
+        String input = "EDItCLIENT, 1,name,Jane Doe";
+        String[] result = Parser.parseEditClient(input, 2);
+        assertEquals("1", result[0]);
+        assertEquals("NAME", result[1]);
+        assertEquals("Jane Doe", result[2]);
+    }
+
+    @Test
+    void testParseCommandIndex_validDeleteIndex_success() throws BobbyWasabiException {
+        String input = "delete, 2";
+        int idx = Parser.parseCommandIndex(input, 5);
+        assertEquals(2, idx);
+    }
+
+    @Test
+    void testParseCommandIndex_outOfRange_throwsException() {
+        String input = "delete, 10";
+        assertThrows(BobbyWasabiException.class, () -> Parser.parseCommandIndex(input, 5));
+    }
+
+    @Test
+    void testParseDateString_validDateString_success() throws BobbyWasabiException {
+        String dateStr = "22/8/2025 1930";
+        LocalDateTime dt = Parser.parseDateString(dateStr);
+        assertEquals(2025, dt.getYear());
+        assertEquals(8, dt.getMonthValue());
+        assertEquals(22, dt.getDayOfMonth());
+        assertEquals(19, dt.getHour());
+        assertEquals(30, dt.getMinute());
+    }
+
+    @Test
+    void testParseDateString_invalidFormat_throwsException() {
+        String dateStr = "2025-08-22 1930";
+        assertThrows(BobbyWasabiException.class, () -> Parser.parseDateString(dateStr));
+    }
 }

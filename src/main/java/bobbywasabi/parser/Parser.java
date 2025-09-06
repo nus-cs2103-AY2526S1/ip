@@ -5,33 +5,38 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import bobbywasabi.BobbyWasabi;
+import bobbywasabi.client.Client;
 import bobbywasabi.exceptions.BobbyWasabiException;
 
 
 /**
- * Utility class for parsing user input into structured commands
- * and extracting relevant details like descriptions, dates, and indices.
+ * Utility class for parsing user input into structured commands, task data, and client information.
+ * <p>
+ * Provides methods to extract descriptions, dates, indices, keywords, and client fields from user commands.
  */
 public class Parser {
 
     /**
-     * Validates whether the given input string contains a valid integer within the range of the task list.
+     * Checks whether a user input contains a valid integer index within the specified range.
      *
-     * @param s       The full user input string (e.g. "mark 2").
-     * @param arrLen  The length of the current task list, used for bounds checking.
-     * @return        True if the input contains a valid integer within range.
-     * @throws BobbyWasabiException If the input format is invalid or the index is out of range.
+     * @param s       The full input string (e.g., "mark,2").
+     * @param arrLen  The maximum valid index (usually the size of the list).
+     * @return        {@code true} if the input contains a valid integer within range.
+     * @throws BobbyWasabiException if the input format is invalid, missing, or the index is out of range.
      */
     public static boolean isValidInteger(String s, int arrLen) throws BobbyWasabiException {
-        String[] wordList = s.split(" ");
+        String[] wordList = s.split(",");
 
         if (wordList.length != 2) {
             throw new BobbyWasabiException("We only accept two inputs - the command and the integer");
         }
 
         try {
-            int indx = Integer.parseInt(wordList[1]);
+            int indx = Integer.parseInt(wordList[1].trim());
             if (indx > arrLen) {
+                throw new BobbyWasabiException("Index given in input is out of range, "
+                        + "please try an index within the range of your list");
+            } else if (indx <= 0) {
                 throw new BobbyWasabiException("Index given in input is out of range, "
                         + "please try an index within the range of your list");
             }
@@ -44,32 +49,32 @@ public class Parser {
     }
 
     /**
-     * Parses and returns the integer index from the user's command input.
+     * Parses and returns the integer index from a command input.
      *
-     * @param userInput The full input string containing a command and an index (e.g. "delete 3").
-     * @param taskSize  The size of the current task list.
+     * @param userInput The full input string containing a command and an index (e.g., "delete,3").
+     * @param taskSize  The maximum valid index (usually the size of the list).
      * @return          The parsed index as an integer.
-     * @throws BobbyWasabiException If the index is invalid or out of range.
+     * @throws BobbyWasabiException if the input format is invalid or the index is out of range.
      */
     public static int parseCommandIndex(String userInput, int taskSize) throws BobbyWasabiException {
         if (!Parser.isValidInteger(userInput, taskSize)) {
             throw new BobbyWasabiException("Not valid index given as argument!");
         }
 
-        String[] wordList = userInput.split(" ");
-        int indx = Integer.parseInt(wordList[1]);
+        String[] wordList = userInput.split(",");
+        int indx = Integer.parseInt(wordList[1].trim());
         return indx;
     }
 
     /**
-     * Parses and returns the keyword from a "find" command input.
+     * Extracts the keyword from a "find" command input.
      *
-     * @param userInput The full input string (e.g. "find book").
-     * @return          The keyword to search for.
-     * @throws BobbyWasabiException If the command is malformed or no keyword is provided.
+     * @param userInput The full input string (e.g., "find,book").
+     * @return          The keyword to search for, trimmed of whitespace.
+     * @throws BobbyWasabiException if the command is malformed, missing, or contains multiple keywords.
      */
     public static String parseFindCommand(String userInput) throws BobbyWasabiException {
-        String[] wordList = userInput.split(" ");
+        String[] wordList = userInput.split(",");
 
         if (wordList.length > 2) {
             throw new BobbyWasabiException("Please input a single keyword!");
@@ -88,117 +93,236 @@ public class Parser {
     }
 
     /**
-     * Extracts the task description from a "todo" command input.
+     * Extracts the task description from a "todo" command.
      *
-     * @param userInput The full input string (e.g. "todo read book").
-     * @return          The extracted task description.
-     * @throws BobbyWasabiException If the description is missing or blank.
+     * @param userInput The full input string (e.g., "todo read book").
+     * @return          The task description, trimmed of whitespace.
+     * @throws BobbyWasabiException if the description is missing or blank.
      */
     public static String parseTodo(String userInput) throws BobbyWasabiException {
-        String[] descriptions = userInput.split("todo ");
+        String description = userInput.substring("TODO".length() + 1).trim();
 
-        if (descriptions.length <= 1) {
-            throw new BobbyWasabiException("Please provide a description for todo");
-        }
-
-        String description = descriptions[1];
-
-        if (description.trim().isEmpty()) {
+        if (description.isEmpty()) {
             throw new BobbyWasabiException("Please provide a description for todo");
         }
 
         return description;
-
     }
 
     /**
-     * Extracts the task description and deadline from a "deadline" command.
+     * Parses a "deadline" command into description and deadline string.
      *
-     * @param userInput The full input string (e.g. "deadline submit report /by 30/8/2025 1800").
-     * @return          A string array with two elements: [description, deadline string].
-     * @throws BobbyWasabiException If required components are missing or blank.
+     * @param userInput The full input string (e.g., "deadline submit report,30/8/2025 1800").
+     * @return          A string array of length 2: [task description, deadline string], both trimmed.
+     * @throws BobbyWasabiException if the description or deadline is missing, blank, or malformed.
      */
     public static String[] parseDeadline(String userInput) throws BobbyWasabiException {
-        String[] bySplit = userInput.split("/by", 2);
+        String arguments = userInput.substring("DEADLINE".length() + 1).trim();
+        String[] details = arguments.split(",");
 
-        if (bySplit.length < 2) {
-            throw new BobbyWasabiException("You did not provide the deadline!");
+        if (details.length != 2) {
+            throw new BobbyWasabiException("Please provide correct arguments for deadline task!");
         }
 
-        String[] descriptions = bySplit[0].split("deadline ");
+        String description = details[0].trim();
+        String deadline = details[1].trim();
 
-        if (descriptions.length < 2) {
+        if (description.isEmpty()) {
             throw new BobbyWasabiException("The deadline task description cannot be blank!");
         }
 
-        if (descriptions[1].trim().isEmpty()) {
-            throw new BobbyWasabiException("The deadline task description cannot be blank!");
-        }
-
-        String deadline = bySplit[1];
-
-        if (deadline.trim().isEmpty()) {
+        if (deadline.isEmpty()) {
             throw new BobbyWasabiException("The deadline cannot be blank!");
         }
 
-        return new String[] {descriptions[1], deadline};
+        return new String[] {description, deadline};
 
     }
 
     /**
-     * Extracts the task description, start time, and end time from an "event" command.
+     * Parses an "event" command into description, start time, and end time.
      *
-     * @param userInput The full input string (e.g. "event project meeting /from 29/8/2025 1200 /to 29/8/2025 1400").
-     * @return          A string array with three elements: [description, start time, end time].
-     * @throws BobbyWasabiException If required parts of the command are missing or blank.
+     * @param userInput The full input string (e.g., "event,project meeting,29/8/2025 1200,29/8/2025 1400").
+     * @return          A string array of length 3: [description, start time, end time], all trimmed.
+     * @throws BobbyWasabiException if description, start time, or end time is missing, blank, or malformed.
      */
     public static String[] parseEvent(String userInput) throws BobbyWasabiException {
+        String arguments = userInput.substring("EVENT".length() + 1).trim();
+        String[] details = arguments.split(",");
 
-        String[] fromSplit = userInput.split("/from", 2);
-
-        // Check if there is no /from command to ensure start time is given
-        if (fromSplit.length < 2) {
-            throw new BobbyWasabiException("You did not provide the start duration!");
+        if (details.length != 3) {
+            throw new BobbyWasabiException("Please provide the correct number of arguments for event task!");
         }
 
-        String[] toSplit = fromSplit[1].split("/to", 2);
+        String description = details[0].trim();
+        String eventStart = details[1].trim();
+        String eventEnd = details[2].trim();
 
-        // Check if there is no /to command to ensure end time is given
-        if (toSplit.length < 2) {
-            throw new BobbyWasabiException("You did not provide the end duration!");
-        }
-
-        if (toSplit[0].trim().isEmpty()) {
+        if (description.isEmpty()) {
+            throw new BobbyWasabiException("Your event description is blank!");
+        } else if (eventStart.isEmpty()) {
             throw new BobbyWasabiException("Your starting duration is blank!");
-        } else if (toSplit[1].trim().isEmpty()) {
+        } else if (eventEnd.isEmpty()) {
             throw new BobbyWasabiException("Your ending duration is blank!");
         }
 
-        String[] descriptions = fromSplit[0].split("event ");
-
-        if (descriptions.length < 2) {
-            throw new BobbyWasabiException("The event description cannot be blank!");
-        }
-
-        if (descriptions[1].trim().isEmpty()) {
-            throw new BobbyWasabiException("You did not provide a description of your event!");
-        }
-
         return new String[] {
-                descriptions[1],
-                toSplit[0],
-                toSplit[1]
+                description,
+                eventStart,
+                eventEnd
         };
 
     }
 
     /**
-     * Parses a string representation of a date into a {@link LocalDateTime} object.
-     * The expected format is "d/M/yyyy HHmm" (e.g. "22/8/2025 1930").
+     * Parses an "ADDCLIENT" command into a {@link Client} object.
      *
-     * @param date The input string representing the date and time.
-     * @return     A {@link LocalDateTime} object parsed from the input string.
-     * @throws BobbyWasabiException If the date format is incorrect or parsing fails.
+     * @param userInput The full input string (e.g., "ADDCLIENT John Doe,12345678,30,Engineer,Life Insurance").
+     * @return          A {@link Client} object with the parsed fields.
+     * @throws BobbyWasabiException if required fields are missing, blank, or invalid (e.g., non-numeric age/contact).
+     */
+    public static Client parseAddClient(String userInput) throws BobbyWasabiException {
+        String arguments = userInput.substring("ADDCLIENT".length() + 1).trim();
+        String[] details = arguments.split(",");
+
+        // check if number of arguments given is valid
+        if (details.length != 4 && details.length != 5) {
+            throw new BobbyWasabiException("Wrong number of arguments for ADDCLIENT command!");
+        }
+
+        String name = details[0].trim();
+        String contactNumber = details[1].trim();
+        String age = details[2].trim();
+        String occupation = details[3].trim();
+        String currentPolicies = details.length == 5
+                ? details[4].trim()
+                : "";
+
+        // check if contact is valid
+        if (!Parser.isStringAValidInteger(contactNumber)) {
+            throw new BobbyWasabiException("Please provide a valid contact number for client!");
+        }
+
+        // check if age is valid
+        if (!Parser.isStringAValidInteger(age)) {
+            throw new BobbyWasabiException("Please provide a valid age for client!");
+        }
+
+        // check if name is not empty
+        if (name.trim().isEmpty()) {
+            throw new BobbyWasabiException("Please provide an actual name!");
+        }
+
+        // check if occupation is not empty
+        if (occupation.trim().isEmpty()) {
+            throw new BobbyWasabiException("Please provide an actual occupation!");
+        }
+
+        return new Client(name, contactNumber,
+                Parser.getIntegerFromString(age),
+                occupation, currentPolicies);
+    }
+
+    /**
+     * Parses an "EDITCLIENT" command to extract the client index, field to edit, and new value.
+     *
+     * @param userInput  The full input string (e.g., "EDITCLIENT 1,name,Jane Doe").
+     * @param clientSize The number of clients in the list (for index validation).
+     * @return           A string array of length 3: [client index, field name (uppercased), new field value].
+     * @throws BobbyWasabiException if the index, field, or value is invalid, out of range, or empty.
+     */
+    public static String[] parseEditClient(String userInput, int clientSize) throws BobbyWasabiException {
+        String arguments = userInput.substring("EDITCLIENT".length() + 1).trim();
+        String[] details = arguments.split(",");
+
+        // check if number of arguments given is valid
+        if (details.length != 3) {
+            throw new BobbyWasabiException("Wrong number of arguments for EDITCLIENT command!");
+        }
+
+        int index = Parser.getIntegerFromString(details[0]) - 1;
+        String field = details[1].trim().toUpperCase();
+        String newFieldContent = details[2].trim();
+
+        // check if index has a valid range
+        if (index >= clientSize) {
+            throw new BobbyWasabiException("List index for clients is out of range!");
+        } else if (index < 0) {
+            throw new BobbyWasabiException("List index for clients is out of range!");
+        }
+
+        // check if given argument is valid in accordance with field
+        switch (field) {
+        case ("CONTACTNUMBER"):
+            if (!isStringAValidInteger(newFieldContent)) {
+                throw new BobbyWasabiException("Please provide a valid contact number!");
+            }
+            break;
+        case ("AGE"):
+            if (!isStringAValidInteger(newFieldContent)) {
+                throw new BobbyWasabiException("Please provide a valid age!");
+            }
+            break;
+        case ("NAME"):
+            if (newFieldContent.trim().isEmpty()) {
+                throw new BobbyWasabiException("Name given is empty!");
+            }
+            break;
+        case ("OCCUPATION"):
+            if (newFieldContent.trim().isEmpty()) {
+                throw new BobbyWasabiException("Occupation given is empty!");
+            }
+        case ("CURRENTPOLICIES"):
+            break;
+        default:
+            throw new BobbyWasabiException("This is not a valid field to change for client!");
+        }
+
+        return new String[] {
+                details[0],
+                field,
+                newFieldContent
+        };
+
+    }
+
+    /**
+     * Checks if a string represents a valid integer.
+     *
+     * @param input The string to check.
+     * @return      {@code true} if the string can be parsed as an integer, {@code false} otherwise.
+     */
+    public static boolean isStringAValidInteger(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Converts a string to an integer.
+     *
+     * @param input The string to convert.
+     * @return      The integer value if parseable, or 0 if invalid.
+     */
+    public static int getIntegerFromString(String input) {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    /**
+     * Parses a date string into a {@link LocalDateTime} object.
+     * <p>
+     * Expected format: "d/M/yyyy HHmm" (e.g., "22/8/2025 1930"). Leading/trailing whitespace is ignored.
+     *
+     * @param date The date string to parse.
+     * @return     The corresponding {@link LocalDateTime} object.
+     * @throws BobbyWasabiException if the date format is invalid or parsing fails.
      */
     public static LocalDateTime parseDateString(String date) throws BobbyWasabiException {
         try {
@@ -211,16 +335,17 @@ public class Parser {
     }
 
     /**
-     * Extracts and converts the first word in the user's input into a {@link BobbyWasabi.Command}.
+     * Parses the first word of user input as a {@link BobbyWasabi.Command} enum.
+     * <p>
+     * Input is trimmed of whitespace and converted to uppercase before mapping to a command.
      *
-     * @param userInput The full command input string (e.g. "todo read book").
-     * @return          The corresponding {@link BobbyWasabi.Command} enum value.
+     * @param userInput The full input string (e.g., "todo read book").
+     * @return          The corresponding {@link BobbyWasabi.Command}. Returns {@link BobbyWasabi.Command#OTHERS}
+     *                  if the input does not match any known command.
      */
     public static BobbyWasabi.Command parseCommand(String userInput) {
-        return BobbyWasabi.Command.toCommand(userInput.split(" ")[0]);
+        return BobbyWasabi.Command.toCommand(userInput.split(",")[0]);
     }
-
-
 
 
 }

@@ -43,6 +43,10 @@ application {
     mainClass.set("bobbywasabi.Main")
 }
 
+tasks.named('run', JavaExec) {
+    jvmArgs = ['-ea']
+}
+
 shadowJar {
     archiveFileName = 'BobbyWasabi.jar'
     archiveBaseName = "bobbywasabi"

@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import bobbywasabi.client.ClientList;
+import bobbywasabi.client.Client;
 import bobbywasabi.exceptions.BobbyWasabiException;
 import bobbywasabi.parser.Parser;
 import bobbywasabi.storage.Storage;
@@ -35,6 +37,10 @@ public class BobbyWasabi {
         DEADLINE,
         EVENT,
         FIND,
+        CLIENTS,
+        ADDCLIENT,
+        EDITCLIENT,
+        DELETECLIENT,
         OTHERS;
 
         /**
@@ -52,6 +58,7 @@ public class BobbyWasabi {
         }
     }
 
+    private ClientList clientList;
     private TaskList taskList;
     private Storage storage;
     private UI ui;
@@ -63,14 +70,16 @@ public class BobbyWasabi {
      */
     public BobbyWasabi() {
         this.ui = new UI();
-        this.storage = new Storage("./data/BobbyWasabiTasks.txt", "./data");
+        this.storage = new Storage("./data", "./data/BobbyWasabiTasks.txt",
+                "./data/BobbyWasabiClients.txt");
 
         try {
             this.storage.createDataStorage();
-            this.taskList = new TaskList(storage.load());
+            this.taskList = storage.loadTaskList();
+            this.clientList = storage.loadClientList();
         } catch (BobbyWasabiException e) {
             ui.generateErrorMsg(e.getMessage());
-            this.taskList = new TaskList(new ArrayList<>());
+            this.taskList = new TaskList();
         }
     }
 
@@ -79,7 +88,7 @@ public class BobbyWasabi {
 
             int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
 
-            assert indx > 0 && indx < this.taskList.size()
+            assert indx > 0 && indx <= this.taskList.size()
                     : "Index in MARK command is out of bounds!";
 
             Task targetTask = this.taskList.get(indx - 1);
@@ -99,7 +108,7 @@ public class BobbyWasabi {
 
             int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
 
-            assert indx > 0 && indx < this.taskList.size()
+            assert indx > 0 && indx <= this.taskList.size()
                     : "Index in MARK command is out of bounds!";
 
             Task targetTask = this.taskList.get(indx - 1);
@@ -120,7 +129,7 @@ public class BobbyWasabi {
             Task todo = new ToDo(description, false);
             this.taskList.add(todo);
 
-            storage.fileWrite(todo.getData());
+            storage.fileWrite(todo.getData(), Storage.StorageType.TASKLIST);
 
             return ui.addTaskMessage(todo, this.taskList.size());
 
@@ -133,7 +142,7 @@ public class BobbyWasabi {
         try {
             String[] details = Parser.parseDeadline(userInput);
 
-            assert details.length >= 2
+            assert details.length == 2
                     : "Details in DEADLINE command is insufficient!";
 
             String description = details[0];
@@ -143,7 +152,7 @@ public class BobbyWasabi {
             Task deadlineTask = new Deadline(description, false, dateTime);
             this.taskList.add(deadlineTask);
 
-            storage.fileWrite(deadlineTask.getData());
+            storage.fileWrite(deadlineTask.getData(), Storage.StorageType.TASKLIST);
 
             return ui.addTaskMessage(deadlineTask, this.taskList.size());
 
@@ -166,7 +175,7 @@ public class BobbyWasabi {
             Task eventTask = new Event(description, false, start, end);
             this.taskList.add(eventTask);
 
-            storage.fileWrite(eventTask.getData());
+            storage.fileWrite(eventTask.getData(), Storage.StorageType.TASKLIST);
             return ui.addTaskMessage(eventTask, this.taskList.size());
 
         } catch (BobbyWasabiException e) {
@@ -207,15 +216,72 @@ public class BobbyWasabi {
         }
     }
 
-    public String processByeCommand(String userInput) {
+
+    //edit clients -> 1 name/contact/age/occupation/currentpolicies what you want to replace
+    public String processEditClient(String userInput) {
+        try {
+            String[] details = Parser.parseEditClient(userInput, this.clientList.size());
+
+            int index = Parser.getIntegerFromString(details[0]) - 1;
+            String field = details[1];
+            String newFieldContent = details[2];
+            Client targetClient = this.clientList.get(index);
+
+            this.clientList.updateClientField(index, field, newFieldContent);
+
+            this.storage.updateDataFileFromClients(this.clientList);
+
+            return ui.editClientMessage(targetClient);
+        } catch (BobbyWasabiException e) {
+            return ui.generateErrorMsg(e.getMessage());
+        }
+    }
+
+
+    public String processDeleteClient(String userInput) {
+        try {
+
+            int indx = Parser.parseCommandIndex(userInput, this.clientList.size());
+
+            assert indx > 0 && indx <= this.clientList.size()
+                    : "Index in DELETE command is out of bounds!";
+
+            Client targetClient = this.clientList.get(indx - 1);
+            this.clientList.remove(indx - 1);
+
+            storage.updateDataFileFromClients(this.clientList);
+
+            return ui.deleteClientMessage(targetClient, this.clientList.size());
+
+        } catch (BobbyWasabiException e) {
+            return ui.generateErrorMsg(e.getMessage());
+        }
+    }
+
+    public String processAddClient(String userInput) {
+        try {
+            Client client = Parser.parseAddClient(userInput);
+            this.clientList.add(client);
+            storage.fileWrite(client.getData(), Storage.StorageType.CLIENTLIST);
+            return ui.addClientMessage(client, this.clientList.size());
+        } catch (BobbyWasabiException e) {
+            return ui.generateErrorMsg(e.getMessage());
+        }
+    }
+
+    public String processClientsCommand() {
+        return ui.clientsMessage(this.clientList);
+    }
+
+    public String processByeCommand() {
         return this.ui.farewellUser();
     }
 
-    public String processListCommand(String userInput) {
+    public String processListCommand() {
         return ui.listMessage(this.taskList);
     }
 
-    public String processDefaultCommand(String userInput) {
+    public String processDefaultCommand() {
         return ui.invalidMessage();
     }
 
@@ -232,9 +298,9 @@ public class BobbyWasabi {
 
         switch (command) {
         case BYE:
-            return this.processByeCommand(userInput);
+            return this.processByeCommand();
         case LIST:
-            return this.processListCommand(userInput);
+            return this.processListCommand();
         case MARK:
             return this.processMarkCommand(userInput);
         case UNMARK:
@@ -249,8 +315,16 @@ public class BobbyWasabi {
             return this.processDeleteCommand(userInput);
         case FIND:
             return this.processFindCommand(userInput);
+        case CLIENTS:
+            return this.processClientsCommand();
+        case ADDCLIENT:
+            return this.processAddClient(userInput);
+        case DELETECLIENT:
+            return this.processDeleteClient(userInput);
+        case EDITCLIENT:
+            return  this.processEditClient(userInput);
         default:
-            return this.processDefaultCommand(userInput);
+            return this.processDefaultCommand();
         }
     }
 
