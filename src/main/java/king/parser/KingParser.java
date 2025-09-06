@@ -195,7 +195,7 @@ public class KingParser {
     }
 
     private boolean checkUnmark() throws KingException {
-        if (unmarkMatcher.matches()) {
+        if (!unmarkMatcher.matches()) {
             return false;
         }
         if (unmarkMatcher.group(1) == null) {
@@ -205,7 +205,7 @@ public class KingParser {
     }
 
     private boolean checkDelete() throws KingException {
-        if (deleteMatcher.matches()) {
+        if (!deleteMatcher.matches()) {
             return false;
         }
         if (deleteMatcher.group(1) == null) {

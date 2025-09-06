@@ -2,6 +2,7 @@ package king.task;
 
 import java.util.ArrayList;
 
+import king.KingException;
 import king.storage.KingStorage;
 
 /**
@@ -14,7 +15,7 @@ public class KingTaskList {
     /**
      * Instantiates a task list with data loaded from the database
      */
-    public KingTaskList() {
+    public KingTaskList() throws KingException {
         ArrayList<Task> tasks = kingStorage.loadFile();
         if (tasks == null) {
             this.tasks = new ArrayList<>();
@@ -28,7 +29,7 @@ public class KingTaskList {
      *
      * @param reset If reset is true, reset the database.
      */
-    public KingTaskList(boolean reset) {
+    public KingTaskList(boolean reset) throws KingException {
         this();
         if (reset) {
             resetList();
@@ -61,6 +62,7 @@ public class KingTaskList {
      * @return Task at index
      */
     public Task getTask(int idx) {
+        assert tasks != null;
         return tasks.get(idx);
     }
 
@@ -70,6 +72,7 @@ public class KingTaskList {
      * @param idx Index to get task
      */
     public void markDone(int idx) {
+        assert tasks != null;
         tasks.get(idx).markDone();
         kingStorage.markDone(idx);
     }
@@ -80,6 +83,7 @@ public class KingTaskList {
      * @param idx Index to get task
      */
     public void unmarkDone(int idx) {
+        assert tasks != null;
         tasks.get(idx).unmarkDone();
         kingStorage.unmarkDone(idx);
     }
@@ -90,6 +94,7 @@ public class KingTaskList {
      * @param idx Index to get task
      */
     public Task deleteTask(int idx) {
+        assert tasks != null;
         Task deletedTask = tasks.remove(idx);
         kingStorage.remove(idx);
         return deletedTask;
@@ -99,6 +104,7 @@ public class KingTaskList {
      * Resets the task list in the database and array
      */
     private void resetList() {
+        assert tasks != null;
         tasks.clear();
         kingStorage.resetFile();
     }
@@ -109,6 +115,7 @@ public class KingTaskList {
      * @return Size of task list
      */
     public int getSize() {
+        assert tasks != null;
         return tasks.size();
     }
 }
