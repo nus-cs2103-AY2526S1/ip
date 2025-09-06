@@ -17,12 +17,12 @@ public class Event extends Task {
      * @param starttime Raw start time string
      * @param endtime Raw end time string
      */
-    public Event(String description, String starttime, String endtime) {
+    public Event(String description, String startTime, String endTime) {
         super(description);
-        this.rawStart = starttime;
-        this.rawEnd = endtime;
-        this.parsedStart = TaskDateParser.tryParse(starttime);
-        this.parsedEnd = TaskDateParser.tryParse(endtime);
+        this.rawStart = startTime;
+        this.rawEnd = endTime;
+        this.parsedStart = TaskDateParser.tryParse(startTime);
+        this.parsedEnd = TaskDateParser.tryParse(endTime);
     }
 
     /** {@inheritDoc} */
