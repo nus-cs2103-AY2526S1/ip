@@ -7,13 +7,23 @@ import chash.ui.ChashUi;
 
 import java.io.IOException;
 
+/** Command to delete a task. */
 public class DeleteCommand extends Command {
     private final String index;
 
+    /**
+     * Creates a delete command for a given index.
+     *
+     * @param index Task index (starts from 1, not 0 like arrays)
+     */
     public DeleteCommand(String index) {
         this.index = index;
     }
 
+    /**
+     * {@inheritDoc}
+     * Delete the indicated task and write updated tasklist to the db
+     */
     @Override
     public void execute(TaskList tasks, ChashUi ui, ChashDb db) {
         try {

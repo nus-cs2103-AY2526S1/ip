@@ -5,7 +5,6 @@ import chash.parser.TaskParser;
 import chash.task.Task;
 import chash.ui.ChashUi;
 
-//Imports
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -17,14 +16,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/** Handles reading/writing CHASH tasks to disk. */
 public class ChashDb {
     private final String fileLocation;
 
     //Required public to be used outside package
+    /** 
+     * Creates a database object with a custom file location. 
+     *
+     * @param fileLocation Path to DB file
+     */
     public ChashDb(String fileLocation) {
         this.fileLocation = fileLocation;
     }
 
+    /** Creates a database object with the default file location. */
     public ChashDb() {
         this.fileLocation = "./ChashData/chashdb.txt";
     }
@@ -45,6 +51,13 @@ public class ChashDb {
         return false;
     }
 
+    /**
+     * Loads tasks from the database file.
+     *
+     * @param ui UI for error reporting
+     * @return List of loaded tasks
+     * @throws IOException If file cannot be read
+     */
     public ArrayList<Task> loadDb(ChashUi ui) throws IOException {
         try {
             //Check if file and intermediate directories exists
@@ -80,6 +93,12 @@ public class ChashDb {
         }
     }
 
+    /**
+     * Writes tasks to the database file.
+     *
+     * @param tasks Tasks to save
+     * @throws IOException If file cannot be written
+     */
     public void writeDb(List<Task> tasks) throws IOException {
         //Java try-with-resource technique requires the method to implement AutoCloseable
         try {
@@ -107,6 +126,11 @@ public class ChashDb {
         }
     }
 
+    /** 
+     * Returns a string representation of the database. 
+     *
+     * @return Database location
+     */
     @Override
     public String toString() {
         return "CHASHDB @ " + this.fileLocation;

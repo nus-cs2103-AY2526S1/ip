@@ -10,6 +10,7 @@ import chash.task.Todo;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/** Parses tasks from CHASH-specific formats. */
 public class TaskParser {
     //todo borrow book (does not need a pattern)
     //deadline return book /by Sunday
@@ -19,6 +20,13 @@ public class TaskParser {
     private static final Pattern REGEX_EVENT =
         Pattern.compile("^(.+?)\\s+/from\\s+(.+?)\\s+/to\\s+(.+)$");
 
+    /**
+     * Reconstructs a task from its export string.
+     * 
+     * @param line Export string
+     * @return Task instance
+     * @throws ChashException If string format is invalid
+     */
     public static Task fromExportString(String line) throws ChashException {
         String[] parts = line.split(" \\| ");
         //Sanity check
@@ -63,6 +71,14 @@ public class TaskParser {
         return task.setDone(isDone);
     }
 
+    /**
+     * Creates a task from a command type and argument string.
+     *
+     * @param type Command type
+     * @param args Argument string
+     * @return Task instance
+     * @throws ChashException If arguments are invalid
+     */
     public static Task fromChashString(CommandTypeEnum type, String args) throws ChashException {
         Matcher m;
         switch (type) {

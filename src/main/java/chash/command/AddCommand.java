@@ -9,15 +9,26 @@ import chash.ui.ChashUi;
 
 import java.io.IOException;
 
+/** Command to add a new task. */
 public class AddCommand extends Command {
     private final CommandTypeEnum type;
     private final String args;
 
+    /**
+     * Creates a new add command.
+     *
+     * @param type Command type (TODO/DEADLINE/EVENT)
+     * @param args Task arguments (e.g. description, by, from, to)
+     */
     public AddCommand(CommandTypeEnum type, String args) {
         this.type = type;
         this.args = args;
     }
 
+    /**
+     * {@inheritDoc}
+     * Add the indicated task and write updated tasklist to the db
+     */
     @Override
     public void execute(TaskList tasks, ChashUi ui, ChashDb db) {
         //Create task

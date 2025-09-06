@@ -9,14 +9,15 @@ import chash.command.ListCommand;
 import chash.command.MarkCommand;
 import chash.exception.ChashException;
 
-/** CHASH user data parser */
+/** Parses user input into {@link Command} objects. */
 public class CommandParser {
     /**
-     * todo
-     * 
-     * @param fullCommand desc
-     * @return desc
-     * @throws ChashException desc
+     * Parses a full user command string into a {@code Command}.
+     *
+     * @param fullCommand Raw user input
+     * @return Corresponding {@code Command}
+     * @throws ChashException If input is invalid
+     * @see chash.command.AddCommand#AddCommand(chash.command.CommandTypeEnum, String)
      */
     public static Command parse(String fullCommand) throws ChashException {
         String[] tmp = fullCommand.split(" ", 2);

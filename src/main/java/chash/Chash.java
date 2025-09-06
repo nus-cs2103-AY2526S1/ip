@@ -7,7 +7,6 @@ import chash.storage.ChashDb;
 import chash.task.TaskList;
 import chash.ui.ChashUi;
 
-//Imports
 import java.io.IOException;
 
 /*
@@ -22,8 +21,13 @@ CommandParser.java
 Chash.java
 */
 
+/** Main entry point for CHASH application. */
 public class Chash {
-    //Entrypoint
+    /** 
+     * Application entry point.
+     *
+     * @param args Command-line arguments
+     */
     public static void main(String[] args) {
         //Startup
         ChashUi ui = new ChashUi();

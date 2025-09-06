@@ -9,6 +9,7 @@ https://stackoverflow.com/a/26118954
 https://stackoverflow.com/a/23128025
 */
 
+/** Enumeration of supported CHASH command types. */
 public enum CommandTypeEnum {
     BYE,
     LIST,
