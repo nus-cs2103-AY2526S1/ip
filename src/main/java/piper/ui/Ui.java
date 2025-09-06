@@ -80,11 +80,10 @@ public class Ui {
     /**
      * Prints the greeting banner and welcome text.
      */
-    public void greetUser() {
-        System.out.println(
-                ASCII_GREET + "Hi! " + chatbotName + " here.\n"
-                        + "What shall we do today?\n"
-        );
+    public String greetUser() {
+        return ASCII_GREET
+                + "Hi! " + chatbotName + " here.\n"
+                + "What shall we do today?\n";
     }
 
     /**
@@ -92,102 +91,116 @@ public class Ui {
      *
      * @param userInput text to print.
      */
-    public void echoUser(String userInput) {
-        System.out.println(userInput);
+    public String echoUser(String userInput) {
+        return userInput;
     }
 
     /**
      * Prints the farewell banner and exit text.
+     *
+     * @return
      */
-    public void farewellUser() {
-        System.out.println(
-                "Til next time!\n" + ASCII_EXIT
-        );
+    public String farewellUser() {
+        return "Til next time!\n" + ASCII_EXIT;
     }
 
     /**
      * Prints a confirmation after adding a task.
      *
      * @param task added task.
+     * @return
      */
-    public void showAddedTask(Task task) {
-        System.out.println(
-                "TWEET! I've tucked this task into the nest:\n" + task);
+    public String showAddedTask(Task task) {
+        return "TWEET! I've tucked this task into the nest:\n" + task;
     }
 
     /**
      * Prints a confirmation after deleting a task.
      *
      * @param task deleted task.
+     * @return
      */
-    public void showDeletedTask(Task task) {
-        System.out.println("TWEET! I've removed this task:\n" + task);
+    public String showDeletedTask(Task task) {
+        return "TWEET! I've removed this task:\n" + task;
     }
 
     /**
      * Prints the current status of a task.
      *
      * @param task task whose status changed.
+     * @return
      */
-    public void showTaskStatus(Task task) {
-        System.out.println(((task.getStatusIcon()).equals("X")
-                        ? "SWEET! I've marked this task as done:\n"
-                        : "ALRIGHTY, I've marked this task as not done yet:\n"
-                ) + task
-        );
+    public String showTaskStatus(Task task) {
+        return ((task.getStatusIcon()).equals("X")
+                ? "SWEET! I've marked this task as done:\n"
+                : "ALRIGHTY, I've marked this task as not done yet:\n"
+        ) + task;
     }
 
     /**
      * Prints the current number of tasks in the list.
      *
      * @param tasks task list whose size will be printed.
+     * @return
      */
-    public void showTasksSize(TaskList tasks) {
-        System.out.println(
-                "Now you have " + tasks.getSize() + " tasks in the list."
-        );
+    public String showTasksSize(TaskList tasks) {
+        return "Now you have " + tasks.getSize() + " tasks in the list.";
     }
 
     /**
      * Prints all tasks in the list with 1-based indexing.
      *
      * @param tasks task list to display.
+     * @return
      */
-    public void displayTasks(TaskList tasks) {
+    public String displayTasks(TaskList tasks) {
+        StringBuilder sb = new StringBuilder();
         if (tasks.getSize() == 0) {
-            System.out.println("CHIRRUP! The task list is empty.");
+            sb.append("CHIRRUP! The task list is empty.");
         } else {
-            System.out.println("CHIRP CHIRP! Let's get to work!");
+            sb.append("CHIRP CHIRP! Let's get to work!").append(System.lineSeparator());
+            for (int i = 0; i < tasks.getSize(); i++) {
+                Task task = tasks.getTask(i);
+                sb.append(i + 1).append(". ").append(task);
+                if (i < tasks.getSize() - 1) {
+                    sb.append(System.lineSeparator());
+                }
+            }
         }
-        for (int i = 0; i < tasks.getSize(); i++) {
-            Task task = tasks.getTask(i);
-            System.out.println((i + 1) + "." + task);
-        }
+        return sb.toString();
     }
+
 
     /**
      * Displays tasks that contain the keyword of a find command.
      *
      * @param matches list of tasks that contain the keyword.
+     * @return
      */
-    public void displayMatchingTasks(TaskList matches) {
+    public String displayMatchingTasks(TaskList matches) {
+        StringBuilder sb = new StringBuilder();
         if (matches.getSize() == 0) {
-            System.out.println("PEEP! Don't think that's in the nest!");
+            sb.append("PEEP! Don't think that's in the nest!");
         } else {
-            System.out.println("Any of these the task you're looking for?");
+            sb.append("Any of these the task you're looking for?").append(System.lineSeparator());
             for (int i = 0; i < matches.getSize(); i++) {
-                System.out.println((i + 1) + "." + matches.getTask(i));
+                sb.append(i + 1).append(". ").append(matches.getTask(i));
+                if (i < matches.getSize() - 1) {
+                    sb.append(System.lineSeparator());
+                }
             }
         }
+        return sb.toString();
     }
 
     /**
      * Prints an error message verbatim.
      *
      * @param message error message to print.
+     * @return
      */
-    public void showError(String message) {
-        System.out.println(message);
+    public String showError(String message) {
+        return message;
     }
 
 }

@@ -19,136 +19,149 @@ public class Piper {
     private static final String DATA_FILE = "piper.txt";
     private static final String CHATBOT_NAME = "Piper";
 
-    /**
-     * Launches the application.
-     *
-     * @param args command-line arguments.
-     * @throws PiperException if a recoverable application error occurs.
-     */
-    public static void main(String[] args) throws PiperException {
-        Ui ui = new Ui(CHATBOT_NAME);
-        TaskList tasks;
-        boolean isExit = false;
+    private final Ui ui = new Ui(CHATBOT_NAME);
+    private TaskList tasks;
+    private Storage storage;
+    private boolean isExit = false;
 
-        Storage storage = null;
+    /** Constructor for GUI */
+    public Piper() {
         try {
-            storage = new Storage(DATA_DIR, DATA_FILE);
-            tasks = storage.load();
+            this.storage = new Storage(DATA_DIR, DATA_FILE);
+            this.tasks = storage.load();
         } catch (PiperException e) {
-            ui = new Ui(CHATBOT_NAME);
             ui.showError(e.getMessage());
-            tasks = new TaskList();
+            this.tasks = new TaskList();
         }
+    }
 
-        ui.greetUser();
+    /**
+     * Processes a single line of user input and generates an appropriate response.
+     * Acts as the central command handler for the Piper chatbot.
+     * If the input is invalid or an error occurs, a descriptive error message is returned instead.
+     *
+     * @param userInput the raw user input string
+     * @return a string containing Piper's reply, including task updates and error messages
+     */
+    public String run(String userInput) {
+        String trimmed = userInput == null ? "" : userInput.trim();
+        StringBuilder reply = new StringBuilder();
+        try {
+            Parser.ParsedString ps = Parser.parse(trimmed);
+            String cmd = ps.cmd;
+            String arg = ps.arg;
 
-        while (!isExit) {
-            // user is active
-            String userInput = ui.read();
-            userInput = userInput.trim();
-
-            try {
-                Parser.ParsedString ps = Parser.parse(userInput);
-                String cmd = ps.cmd;
-                String arg = ps.arg;
-
-                if (arg == null) {
-                    if (cmd.equals("bye")) {
-                        // user is inactive
-                        ui.farewellUser();
-                        isExit = true;
-                    } else if (cmd.equals("list")) {
-                        // list all tasks
-                        ui.displayTasks(tasks);
-                    }
+            if (arg == null) {
+                if ("bye".equals(cmd)) {
+                    isExit = true;
+                    reply.append(ui.farewellUser());
+                } else if ("list".equals(cmd)) {
+                    reply.append(ui.displayTasks(tasks));
                 } else {
-                    if (cmd.equals("mark") || cmd.equals("unmark")) {
-                        // mark task as done or undone
-
-                        try {
-                            int taskNumber = Parser.parseIndex(arg);
-                            int index = taskNumber - 1; // task list starts from idx 1 but array list starts from idx 0
-                            Task task = tasks.getTask(index);
-
-                            switch (cmd) {
-                            case "mark":
-                                task.markDone();
-                                break;
-                            case "unmark":
-                                task.markUndone();
-                                break;
-                            default:
-                                break;
-                            }
-
-                            storage.saveAll(tasks);
-                            ui.showTaskStatus(task);
-                        } catch (IndexOutOfBoundsException e) {
-                            // task index is outside of array range
-                            throw new PiperException(
-                                    "PEEP! That task flew out of the nest. "
-                                            + "Please check using 'list' to see which tasks are home!"
-                            );
-                        }
-                    } else if (cmd.equals("delete")) {
-                        // delete task
-                        try {
-                            int taskNumber = Parser.parseIndex(arg);
-                            int index = taskNumber - 1;
-                            Task task = tasks.getTask(index);
-
-                            tasks.deleteTask(index);
-                            storage.saveAll(tasks);
-                            ui.showDeletedTask(task);
-                            ui.showTasksSize(tasks);
-                        } catch (IndexOutOfBoundsException e) {
-                            throw new PiperException(
-                                    "PEEP! Bad egg. Please check using 'list' to see which tasks are home!"
-                            );
-                        }
-                    } else if (cmd.equals("todo") || cmd.equals("deadline") || cmd.equals("event")) {
-                        // add new task
-                        Task task = null;
-
-                        switch (cmd) {
-                        case "todo":
-                            task = new Todo(arg);
-                            break;
-                        case "deadline":
-                            Parser.DeadlineArgs da = Parser.parseDeadlineArgs(arg);
-                            task = new Deadline(da.description, da.by);
-                            break;
-                        case "event":
-                            Parser.EventArgs ea = Parser.parseEventArgs(arg);
-                            task = new Event(ea.description, ea.from, ea.to);
-                            break;
-                        default:
-                            break;
-                        }
-
-                        tasks.addTask(task);
-                        storage.saveAll(tasks);
-                        ui.showAddedTask(task);
-                        ui.showTasksSize(tasks);
-                    } else if (cmd.equals("find")) {
-                        // find tasks that contain keyword
-                        String keyword = arg;
-                        TaskList matches = tasks.find(keyword);
-                        ui.displayMatchingTasks(matches);
-                    } else {
-                        // user input is an unrecognisable string
-                        throw new PiperException(
-                                "CHEEP CHEEP! I can't quite sing along with '"
-                                        + userInput
-                                        + "'. Wanna try another command?"
-                        );
-                    }
+                    throw new PiperException(
+                            "CHEEP CHEEP! I can't quite sing along with '"
+                                    + trimmed + "'. Wanna try another command?");
                 }
-            } catch (PiperException e) {
-                ui.showError(e.getMessage());
+            } else {
+                switch (cmd) {
+                case "mark":
+                case "unmark": {
+                    try {
+                        int taskNumber = Parser.parseIndex(arg);
+                        int index = taskNumber - 1;
+                        Task task = tasks.getTask(index);
+                        if ("mark".equals(cmd)) {
+                            task.markDone();
+                        } else {
+                            task.markUndone();
+                        }
+                        if (storage != null) {
+                            storage.saveAll(tasks);
+                        }
+                        reply.append(ui.showTaskStatus(task));
+                    } catch (IndexOutOfBoundsException ex) {
+                        throw new PiperException(
+                                "PEEP! That task flew out of the nest. "
+                                        + "Please check using 'list' to see which tasks are home!");
+                    }
+                    break;
+                }
+                case "delete": {
+                    try {
+                        int taskNumber = Parser.parseIndex(arg);
+                        int index = taskNumber - 1;
+                        Task task = tasks.getTask(index);
+                        tasks.deleteTask(index);
+                        if (storage != null) {
+                            storage.saveAll(tasks);
+                        }
+                        reply.append(ui.showDeletedTask(task))
+                                .append(System.lineSeparator())
+                                .append(ui.showTasksSize(tasks));
+                    } catch (IndexOutOfBoundsException ex) {
+                        throw new PiperException(
+                                "PEEP! Bad egg. Please check using 'list' to see which tasks are home!");
+                    }
+                    break;
+                }
+                case "todo": {
+                    Task task = new Todo(arg);
+                    tasks.addTask(task);
+                    if (storage != null) {
+                        storage.saveAll(tasks);
+                    }
+                    reply.append(ui.showAddedTask(task))
+                            .append(System.lineSeparator())
+                            .append(ui.showTasksSize(tasks));
+                    break;
+                }
+                case "deadline": {
+                    Parser.DeadlineArgs da = Parser.parseDeadlineArgs(arg);
+                    Task task = new Deadline(da.description, da.by);
+                    tasks.addTask(task);
+                    if (storage != null) {
+                        storage.saveAll(tasks);
+                    }
+                    reply.append(ui.showAddedTask(task))
+                            .append(System.lineSeparator())
+                            .append(ui.showTasksSize(tasks));
+                    break;
+                }
+                case "event": {
+                    Parser.EventArgs ea = Parser.parseEventArgs(arg);
+                    Task task = new Event(ea.description, ea.from, ea.to);
+                    tasks.addTask(task);
+                    if (storage != null) {
+                        storage.saveAll(tasks);
+                    }
+                    reply.append(ui.showAddedTask(task))
+                            .append(System.lineSeparator())
+                            .append(ui.showTasksSize(tasks));
+                    break;
+                }
+                case "find": {
+                    TaskList matches = tasks.find(arg);
+                    reply.append(ui.displayMatchingTasks(matches));
+                    break;
+                }
+                default:
+                    throw new PiperException(
+                            "CHEEP CHEEP! I can't quite sing along with '"
+                                    + trimmed + "'. Wanna try another command?");
+                }
             }
+        } catch (PiperException e) {
+            reply.append(ui.showError(e.getMessage()));
         }
-        ui.close();
+        return reply.toString();
+    }
+
+    public String getGreeting() {
+        return ui.greetUser();
+    }
+
+    public boolean isExit() {
+        return isExit;
     }
 
 }
