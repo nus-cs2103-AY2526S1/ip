@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Storage {
     private final String filePath;
+    private static final DateTimeFormatter STORAGE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -81,10 +83,10 @@ public class Storage {
             return "T | " + (task.getStatusIcon().equals("[X]") ? "1" : "0") + " | " + escape(task.description);
         } else if (task instanceof Deadline) {
             Deadline d = (Deadline) task;
-            return "D | " + (task.getStatusIcon().equals("[X]") ? "1" : "0") + " | " + escape(task.description) + " | " + escape(d.by);
+            return "D | " + (task.getStatusIcon().equals("[X]") ? "1" : "0") + " | " + escape(task.description) + " | " + escape(d.getBy().format(STORAGE_FORMAT));
         } else if (task instanceof Event) {
             Event e = (Event) task;
-            return "E | " + (task.getStatusIcon().equals("[X]") ? "1" : "0") + " | " + escape(task.description) + " | " + escape(e.getFrom()) + " | " + escape(e.getTo());
+            return "E | " + (task.getStatusIcon().equals("[X]") ? "1" : "0") + " | " + escape(task.description) + " | " + escape(e.getFrom().format(STORAGE_FORMAT)) + " | " + escape(e.getTo().format(STORAGE_FORMAT));
         }
         return "";
     }
