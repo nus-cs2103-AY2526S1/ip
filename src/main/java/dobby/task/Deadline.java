@@ -8,8 +8,7 @@ public class Deadline extends Task {
 
     public Deadline(String description, LocalDateTime by) {
         super(description, TaskType.DEADLINE);
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        this.by = LocalDateTime.parse(byStr, inputFormatter);
+        this.by = by;
     }
 
     @Override
