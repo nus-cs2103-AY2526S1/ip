@@ -44,39 +44,6 @@ public class GoksChat {
         this("src/data/gokschat.txt");
     }
 
-    public void run() {
-        ui.printWelcomeMessage();
-
-        // Get user input
-        String userInput = ui.readUserInput();
-
-        // Print according to what the user input is
-        while (!userInput.equals("bye")) {
-            try {
-                Command c = inputProcessor.processInput(userInput);
-                c.execute();
-            } catch (TodoException e) {
-                ui.exceptionMessage(e);
-            } catch (InvalidPromptException e) {
-                ui.exceptionMessage(e);
-            } catch (DeadlineException e) {
-                ui.exceptionMessage(e);
-            } finally {
-                // Get user input again
-                userInput = ui.readUserInput();
-            }
-        }
-
-        try {
-            storage.updateFile(listOfTasks);
-        } catch (BadFileException e) {
-            ui.exceptionMessage(e);
-            listOfTasks = new ArrayList<>();
-        }
-
-        ui.printGoodbyeMessage();
-    }
-
     public static void main(String[] args) {
         System.out.println("Hello!");
     }
@@ -85,6 +52,19 @@ public class GoksChat {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            Command c = inputProcessor.processInput(input);
+            String s = c.execute();
+            storage.updateFile(listOfTasks);
+            return s;
+        } catch (TodoException e) {
+            return ui.exceptionMessage(e);
+        } catch (InvalidPromptException e) {
+            return ui.exceptionMessage(e);
+        } catch (DeadlineException e) {
+            return ui.exceptionMessage(e);
+        } catch (BadFileException e) {
+            return ui.exceptionMessage(e);
+        }
     }
 }

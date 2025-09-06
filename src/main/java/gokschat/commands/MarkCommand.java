@@ -29,9 +29,9 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         Task task = listOfTasks.get(index - 1);
         task.markAsDone();
-        ui.markTaskMessage(task);
+        return ui.markTaskMessage(task);
     }
 }

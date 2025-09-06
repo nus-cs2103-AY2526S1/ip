@@ -34,7 +34,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         Task newTask;
         if (taskType.equals("todo")) {
             newTask = new Task(taskName);
@@ -54,6 +54,6 @@ public class AddCommand extends Command {
         }
 
         listOfTasks.add(newTask);
-        ui.addTaskMessage(newTask, listOfTasks);
+        return ui.addTaskMessage(newTask, listOfTasks);
     }
 }

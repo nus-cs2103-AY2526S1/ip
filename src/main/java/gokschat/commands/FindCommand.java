@@ -30,11 +30,11 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         List<Task> filteredTasks = listOfTasks.stream()
                 .filter(task -> task.getNameOfTask().toLowerCase().contains(keyword.toLowerCase()))
                 .toList();
 
-        ui.displayList(filteredTasks);
+        return ui.displayList(filteredTasks);
     }
 }
