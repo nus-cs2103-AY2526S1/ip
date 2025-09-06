@@ -18,6 +18,7 @@ import java.util.Scanner;
 
 /** Handles reading/writing CHASH tasks to disk. */
 public class ChashDb {
+    private static final String DEFAULT_DB_LOC = "./ChashData/chashdb.txt";
     private final String fileLocation;
 
     //Required public to be used outside package
@@ -32,7 +33,7 @@ public class ChashDb {
 
     /** Creates a database object with the default file location. */
     public ChashDb() {
-        this.fileLocation = "./ChashData/chashdb.txt";
+        this.fileLocation = ChashDb.DEFAULT_DB_LOC;
     }
 
     private boolean fileExistsElseCreate() throws IOException {

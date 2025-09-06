@@ -27,7 +27,7 @@ public class TaskList {
      * @param task Task to add
      */
     public void add(Task task) {
-        tasks.add(task);
+        this.tasks.add(task);
     }
 
     /** 
@@ -37,7 +37,7 @@ public class TaskList {
      * @return Task at index
      */
     public Task get(int index) {
-        return tasks.get(index);
+        return this.tasks.get(index);
     }
 
     /** 
@@ -47,7 +47,7 @@ public class TaskList {
      * @return Removed task
      */
     public Task remove(int index) {
-        return tasks.remove(index);
+        return this.tasks.remove(index);
     }
 
     /** 
@@ -56,7 +56,7 @@ public class TaskList {
      * @return List size
      */
     public int size() {
-        return tasks.size();
+        return this.tasks.size();
     }
 
     /** 
@@ -65,6 +65,6 @@ public class TaskList {
      * @return List of tasks
      */
     public List<Task> getAll() {
-        return tasks;
+        return this.tasks;
     }
 }
