@@ -49,4 +49,8 @@ public class Paul {
     public String getCommandType() {
         return commandType;
     }
+
+    public Ui getUi() {
+        return ui;
+    }
 }

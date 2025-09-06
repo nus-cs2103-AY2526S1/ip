@@ -2,6 +2,7 @@ package paul.gui;
 
 import java.util.Objects;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -28,8 +29,8 @@ public class MainWindow extends AnchorPane {
 
     private final Image userImage = new Image(
             Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private final Image dukeImage = new Image(
-            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
+    private final Image paulImage = new Image(
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/Paul.png")));
 
     @FXML
     public void initialize() {
@@ -37,8 +38,11 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Paul instance */
-    public void setPaul(Paul paul) {
-        this.paul = paul;
+    public void setPaul(Paul p) {
+        paul = p;
+        dialogContainer.getChildren().add(
+                DialogBox.getPaulDialog(paul.getUi().greetUser(), paulImage, "Greeting")
+        );
     }
 
     /**
@@ -52,8 +56,14 @@ public class MainWindow extends AnchorPane {
         String commandType = paul.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getPaulDialog(response, dukeImage, commandType)
+                DialogBox.getPaulDialog(response, paulImage, commandType)
         );
         userInput.clear();
+
+        // Exit when user says bye
+        if (paul.getCommandType().equals("BYE")) {
+            Platform.exit();
+            System.exit(0);
+        }
     }
 }

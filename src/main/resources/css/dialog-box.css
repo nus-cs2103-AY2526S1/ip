@@ -4,11 +4,13 @@
     -fx-border-width: 2px;
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
+    -fx-font-family: "Consolas", "Courier New", monospace;
 }
 
 .reply-label {
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
+    -fx-font-family: "Consolas", "Courier New", monospace;
 }
 
 /* Paste this below reply-label */

@@ -1,7 +1,5 @@
 package paul.ui;
 
-import java.util.Scanner;
-
 import paul.task.Task;
 import paul.task.TaskList;
 
