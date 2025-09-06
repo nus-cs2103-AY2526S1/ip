@@ -20,7 +20,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setPiper(piper);  // inject the Piper instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
