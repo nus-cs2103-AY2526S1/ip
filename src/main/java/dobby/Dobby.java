@@ -11,6 +11,9 @@ import java.util.Scanner;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Dobby {
     private static ArrayList<Task> userTasks = new ArrayList<>();
     private static final Path FILE_PATH = Paths.get("data", "dobby.txt");
@@ -49,16 +52,32 @@ public class Dobby {
             } else if (input.startsWith("deadline")) {
                 String[] parts = input.substring(9).split("/by");
                 if (parts.length == 2) {
-                    storeTask(new Deadline(parts[0].trim(), parts[1].trim()));
+                    try {
+                        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                        LocalDateTime by = LocalDateTime.parse(parts[1].trim(), inputFormatter);
+                        storeTask(new Deadline(parts[0].trim(), by));
+                    } catch (Exception e) {
+                        System.out.println("Invalid date format. Use: yyyy-MM-dd HHmm");
+                    }
+                } else {
+                    System.out.println("Invalid deadline format. Use: deadline <task> /by yyyy-MM-dd HHmm");
                 }
             } else if (input.startsWith("event")) {
                 String[] parts = input.substring(5).split("/from|/to");
                 if (parts.length == 3) {
-                    storeTask(new Event(parts[0].trim(), parts[1].trim(), parts[2].trim()));
+                    try {
+                        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                        LocalDateTime from = LocalDateTime.parse(parts[1].trim(), inputFormatter);
+                        LocalDateTime to = LocalDateTime.parse(parts[2].trim(), inputFormatter);
+                        storeTask(new Event(parts[0].trim(), from, to));
+                    } catch (Exception e) {
+                        System.out.println("Invalid date format. Use: yyyy-MM-dd HHmm");
+                    }
                 } else {
-                    System.out.println("Invalid event format. Use: event <task> /from <start> /to <end>");
+                    System.out.println("Invalid event format. Use: event <task> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm");
                 }
             }
+
         }
     }
 

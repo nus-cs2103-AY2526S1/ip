@@ -7,11 +7,10 @@ public class Event extends Task {
     protected LocalDateTime start;
     protected LocalDateTime end;
 
-    public Event(String description, String fromStr, String untilStr) {
+    public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description, TaskType.EVENT);
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        this.start = LocalDateTime.parse(fromStr, inputFormatter);
-        this.end = LocalDateTime.parse(untilStr, inputFormatter);
+        this.start = start;
+        this.end = end;
     }
 
     @Override
@@ -22,4 +21,3 @@ public class Event extends Task {
                 " to: " + end.format(outputFormatter) + ")";
     }
 }
-
