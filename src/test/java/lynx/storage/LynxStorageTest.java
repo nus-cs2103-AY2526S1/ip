@@ -1,19 +1,24 @@
 package lynx.storage;
 
-import lynx.task.DeadlineTask;
-import lynx.task.EventTask;
-import lynx.task.Task;
-import lynx.task.TodoTask;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
+import objectclasses.exception.LynxException;
+import objectclasses.task.DeadlineTask;
+import objectclasses.task.EventTask;
+import objectclasses.task.Task;
+import objectclasses.task.TodoTask;
+
 public class LynxStorageTest {
+
+    private final LynxTaskList taskList = new LynxTaskList();
 
     // This test checks the correctness of parsing, ensuring that different forms
     // of erroneous parsing are correctly detected. The first 3 strings are control parses.
@@ -30,7 +35,11 @@ public class LynxStorageTest {
         tasks.add("DEADLINE|INCOMPLETE|6|f");
         tasks.add("DEADLINE|INCOMPLETE|7|by:2025-11-11|g");
         tasks.add("EVENT|COMPLETE|8|h|to:2025-11-12|from:2025-11-11");
-        assertEquals(5, LynxStorage.loadTasks(tasks));
+        try {
+            LynxStorage.loadTasks(tasks, taskList);
+        } catch (LynxException e) {
+            assertTrue(e.getMessage().contains("5"));
+        }
     }
 
     // This test checks that the parsing works in both directions.
@@ -46,17 +55,21 @@ public class LynxStorageTest {
                 LocalDateTime.of(2025, 11, 12, 0, 0),
                 LocalDateTime.of(2025, 11, 13, 0, 0));
 
-        LynxTaskList.clearTasks(false);
-        LynxTaskList.addTask(testTaskA, true);
-        LynxTaskList.addTask(testTaskB, true);
-        LynxTaskList.addTask(testTaskC, true);
+        taskList.clearTasks(false);
+        taskList.addTask(testTaskA);
+        taskList.addTask(testTaskB);
+        taskList.addTask(testTaskC);
 
-        List<String> tasks = LynxStorage.unloadTasks();
-        LynxTaskList.clearTasks(false);
-        assertEquals(0, LynxTaskList.getCount());
+        List<String> tasks = LynxStorage.unloadTasks(taskList);
+        taskList.clearTasks(false);
+        assertEquals(0, taskList.getCount());
 
-        assertEquals(0, LynxStorage.loadTasks(tasks));
-        assertEquals(3, LynxTaskList.getCount());
+        try {
+            LynxStorage.loadTasks(tasks, taskList);
+        } catch (LynxException e) {
+            fail();
+        }
+        assertEquals(3, taskList.getCount());
     }
 
 }

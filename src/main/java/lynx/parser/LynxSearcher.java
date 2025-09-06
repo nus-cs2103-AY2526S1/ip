@@ -1,20 +1,17 @@
 package lynx.parser;
 
-import lynx.command.LynxCommand;
-import lynx.exception.LynxException;
-import lynx.formatter.LynxDateManager;
-import lynx.storage.LynxTaskList;
-import lynx.task.Task;
-
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
-import static lynx.parser.LynxGeneral.checkName;
+import objectclasses.command.LynxCommand;
+import objectclasses.exception.LynxException;
+import objectclasses.formatter.LynxDateManager;
+import objectclasses.task.Task;
 
 /**
- * Contains methods to execute commands that search for tasks in the task list.
+ * Contains methods for executing search and return commands on a task stream.
  */
-public class LynxSearcher {
+public abstract class LynxSearcher {
 
     /**
      * Filters a task stream as specified by a <code>LynxCommand</code> object.
@@ -33,15 +30,15 @@ public class LynxSearcher {
         }
 
         switch (input) {
-            case "/all" -> findTasks(command, stream);
-            case "/id" -> findTasksById(command, stream);
-            case "/key" -> findTasksByKeyword(command, stream);
-            case "/on" -> findTasksByDate(command, stream);
-            case "/status" -> findTasksByStatus(command, stream);
-            case "/type" -> findTasksByType(command, stream);
-            default -> throw new LynxException("Non matching command detected.");
+        case "/all" -> findTasks(command, stream);
+        case "/id" -> findTasksById(command, stream);
+        case "/key" -> findTasksByKeyword(command, stream);
+        case "/on" -> findTasksByDate(command, stream);
+        case "/status" -> findTasksByStatus(command, stream);
+        case "/type" -> findTasksByType(command, stream);
+        default -> throw new LynxException("Non matching command detected. "
+                + "Please try again or type \"help\" to access the user guide.");
         }
-
     }
 
     /**
@@ -55,7 +52,7 @@ public class LynxSearcher {
         try {
             String id = command.getNextCommand();
             command.setId(id);
-            findTasks(command, LynxTaskList.filterTasksById(stream, Integer.parseInt(id)));
+            findTasks(command, LynxSorter.filterTasksById(stream, Integer.parseInt(id)));
         } catch (NumberFormatException e) {
             throw new LynxException("Sorry, that isn't a valid ID.");
         }
@@ -70,9 +67,9 @@ public class LynxSearcher {
      */
     private static void findTasksByKeyword(LynxCommand command, Stream<Task> stream) throws LynxException {
         String keyword = command.getNextCommand();
-        checkName(keyword);
+        Task.checkName(keyword);
         command.setKeyword(keyword);
-        findTasks(command, LynxTaskList.filterTasksByKeyword(stream, keyword));
+        findTasks(command, LynxSorter.filterTasksByKeyword(stream, keyword));
     }
 
     /**
@@ -86,7 +83,7 @@ public class LynxSearcher {
         String date = command.getNextCommand();
         LocalDateTime dateTime = LynxDateManager.parseDateTime(date);
         command.setDate(LynxDateManager.textDateTime(dateTime));
-        findTasks(command, LynxTaskList.filterTasksByDate(stream, dateTime));
+        findTasks(command, LynxSorter.filterTasksByDate(stream, dateTime));
     }
 
     /**
@@ -100,7 +97,7 @@ public class LynxSearcher {
         String symbol = command.getNextCommand();
         Task.Status status = Task.Status.matchSymbol(symbol);
         command.setStatus(symbol);
-        findTasks(command, LynxTaskList.filterTasksByStatus(stream, status));
+        findTasks(command, LynxSorter.filterTasksByStatus(stream, status));
     }
 
     /**
@@ -114,7 +111,7 @@ public class LynxSearcher {
         String symbol = command.getNextCommand();
         Task.TaskType type = Task.TaskType.matchSymbol(symbol);
         command.setType(symbol);
-        findTasks(command, LynxTaskList.filterTasksByType(stream, type));
+        findTasks(command, LynxSorter.filterTasksByType(stream, type));
     }
 
 }

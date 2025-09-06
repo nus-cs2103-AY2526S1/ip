@@ -1,4 +1,4 @@
-package lynx.exception;
+package objectclasses.exception;
 
 /**
  * Represents an error identified by the program itself.

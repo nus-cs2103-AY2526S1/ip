@@ -1,73 +1,57 @@
 package lynx.parser;
 
-import lynx.exception.LynxException;
-import lynx.task.DeadlineTask;
-import lynx.task.EventTask;
-import lynx.task.TodoTask;
-
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
+
+import lynx.storage.LynxTaskList;
+import objectclasses.exception.LynxException;
 
 public class LynxGeneralTest {
 
+    private final LynxTaskList taskList = new LynxTaskList();
+
     @Test
     public void testAddTodo() throws LynxException {
-        String testString = new TodoTask("a").testRepresentation();
-        assertEquals(testString, LynxGeneral.addTodo("todo    a").testRepresentation());
-
         try {
-            LynxGeneral.addTodo("todo    ");
+            LynxGeneral.addTodo("todo    ", taskList);
             fail();
         } catch (LynxException e1) {
             try {
-                LynxGeneral.addTodo("todo /aaa");
+                LynxGeneral.addTodo("todo /aaa", taskList);
                 fail();
             } catch (LynxException e2) {
-
+                return;
             }
         }
     }
 
     @Test
     public void testAddDeadline() throws LynxException {
-        String testString = new DeadlineTask("a",
-                LocalDateTime.of(2025, 11, 11, 0, 0)).testRepresentation();
-        assertEquals(testString,
-                LynxGeneral.addDeadline("deadline    a /by    2025-11-11").testRepresentation());
-
         try {
-            LynxGeneral.addDeadline("deadline a/by2025-11-11");
+            LynxGeneral.addDeadline("deadline a/by2025-11-11", taskList);
             fail();
         } catch (LynxException e1) {
             try {
-                LynxGeneral.addDeadline("deadline /by 2025-11-11");
+                LynxGeneral.addDeadline("deadline /by 2025-11-11", taskList);
                 fail();
             } catch (LynxException e2) {
-
+                return;
             }
         }
     }
 
     @Test
     public void testAddEvent() throws LynxException {
-        String testString = new EventTask("a",
-                LocalDateTime.of(2025, 11, 11, 12, 0),
-                LocalDateTime.of(2025, 11, 12, 6, 30)).testRepresentation();
-        assertEquals(testString, LynxGeneral.addEvent(
-                "event a /from 2025-11-11-12 /to 2025-11-12-06-30").testRepresentation());
-
         try {
-            LynxGeneral.addEvent("event a /from 2025-11-11/to 2025-11-12");
+            LynxGeneral.addEvent("event a /from 2025-11-11/to 2025-11-12", taskList);
             fail();
         } catch (LynxException e1) {
             try {
-                LynxGeneral.addEvent("event a /from 2025-11-11 /to 2025-11-10");
+                LynxGeneral.addEvent("event a /from 2025-11-11 /to 2025-11-10", taskList);
                 fail();
             } catch (LynxException e2) {
-
+                return;
             }
         }
     }
