@@ -30,13 +30,13 @@ public class Parser {
      * @param storage the {@code Storage} used for saving/loading tasks.
      * @throws SoraException if the command is invalid or malformed.
      */
-    public static void parse(String command, TaskList tasks, Ui ui,
+    public static String parse(String command, TaskList tasks, Ui ui,
                              Storage storage) throws SoraException {
         String[] parts = command.split(" ", 2);
         String startWord = parts[0];
         String description = parts.length == 1 ? "" : parts[1];
         if (command.equals("bye")) {
-            ui.showGoodbye();
+            return ui.showGoodbye();
         } else {
             switch (startWord) {
             case "find":
@@ -44,52 +44,46 @@ public class Parser {
                     throw new SoraException("Lack of keyword");
                 }
                 ArrayList<Task> foundTask = tasks.findTasks(description);
-                ui.showFoundTask(foundTask);
-                break;
+                return ui.showFoundTask(foundTask);
             case "list":
                 if (description.isEmpty()) {
-                    ui.showTaskList(tasks);
+                    return ui.showTaskList(tasks);
                 }
-                break;
             case "mark":
                 int x = Integer.parseInt(description);
                 tasks.getTask(x - 1).markAsDone();
-                ui.showMarkedTask(tasks.getTask(x - 1));
                 try {
                     storage.save(tasks);
                 } catch (IOException e) {
                     System.out.println("Can not save! " + e.getMessage());
                 }
-                break;
+                return ui.showMarkedTask(tasks.getTask(x - 1));
             case "unmark":
                 int y = Integer.parseInt(description);
                 tasks.getTask(y - 1).markAsNotDone();
-                ui.showUnmarkedTask(tasks.getTask(y - 1));
                 try {
                     storage.save(tasks);
                 } catch (IOException e) {
                     System.out.println("Can not save! " + e.getMessage());
                 }
-                break;
+                return ui.showUnmarkedTask(tasks.getTask(y - 1));
             case "delete":
                 int z = Integer.parseInt(description);
                 Task deleted = tasks.deleteTask(z - 1);
-                ui.showDeletedTask(deleted, tasks.size());
                 try {
                     storage.save(tasks);
                 } catch (IOException e) {
                     System.out.println("Can not save! " + e.getMessage());
                 }
-                break;
+                return ui.showDeletedTask(deleted, tasks.size());
             case "todo":
                 if (description.isEmpty()) {
                     throw new SoraException("Cannot todo nothing");
                 } else {
                     Task todo = new Todo(description);
                     tasks.addTask(todo);
-                    ui.showAddedTask(todo, tasks.size());
+                    return ui.showAddedTask(todo, tasks.size());
                 }
-                break;
             case "deadline":
                 if (description.isEmpty()) {
                     throw new SoraException("Invalid deadline");
@@ -101,9 +95,8 @@ public class Parser {
                     LocalDateTime by = LocalDateTime.parse(time[1], format);
                     Task deadline = new Deadline(time[0], by);
                     tasks.addTask(deadline);
-                    ui.showAddedTask(deadline, tasks.size());
+                    return ui.showAddedTask(deadline, tasks.size());
                 }
-                break;
             case "event":
                 if (description.isEmpty()) {
                     throw new SoraException("Invalid event");
@@ -120,9 +113,8 @@ public class Parser {
                     LocalDateTime to = LocalDateTime.parse(range[1], format);
                     Task event = new Event(time[0], from, to);
                     tasks.addTask(event);
-                    ui.showAddedTask(event, tasks.size());
+                    return ui.showAddedTask(event, tasks.size());
                 }
-                break;
             default:
                 throw new SoraException("Not a valid input");
             }

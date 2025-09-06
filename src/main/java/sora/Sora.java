@@ -10,9 +10,9 @@ import sora.storage.Storage;
  * The {@code Sora} class is the main entry point of the Sora chatbot application.
  */
 public class Sora {
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    private static Storage storage;
+    private static TaskList tasks;
+    private static Ui ui;
 
     /**
      * Constructs a new instance of {@code Sora}.
@@ -25,7 +25,7 @@ public class Sora {
         try {
             tasks = new TaskList(storage.load().getFullTasks());
         } catch (IOException e) {
-            ui.showError("Cannot load storage tasks");
+            System.out.print(ui.showError("Cannot load storage tasks"));
             tasks = new TaskList();
         }
     }
@@ -34,7 +34,7 @@ public class Sora {
      * Runs the main loop of the application.
      */
     public void run() {
-        ui.showWelcome();
+        System.out.print(ui.showWelcome());
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -42,9 +42,10 @@ public class Sora {
                 if (command.equals("bye")) {
                     isExit = true;
                 }
-                Parser.parse(command, tasks, ui, storage);
+                String output = Parser.parse(command, tasks, ui, storage);
+                System.out.print(output);
             } catch (SoraException e) {
-                ui.showError(e.getMessage());
+                System.out.print(ui.showError(e.getMessage()));
             }
         }
     }
@@ -56,5 +57,16 @@ public class Sora {
      */
     public static void main(String[] args) {
         new Sora("./data/sora.txt").run();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public static String getResponse(String input) {
+        try {
+            return Parser.parse(input, tasks, ui, storage);
+        } catch (SoraException e) {
+            return e.getMessage();
+        }
     }
 }
