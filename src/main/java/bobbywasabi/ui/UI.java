@@ -1,37 +1,27 @@
 package bobbywasabi.ui;
 
-import java.util.Scanner;
-
+import bobbywasabi.client.ClientList;
+import bobbywasabi.client.Client;
 import bobbywasabi.tasks.Task;
 import bobbywasabi.tasks.TaskList;
 
 /**
  * Handles user interaction through the console.
- * Provides methods to read user input and display messages.
+ * Provides methods to format and display messages for tasks, clients, and general responses.
  */
 public class UI {
 
     /**
-     * Constructs a new UI instance and initializes the input scanner.
+     * Constructs a new UI instance.
      */
     public UI() {
     }
 
     /**
-     * Prints a greeting message to the user when the bot starts.
-     */
-    public String greetUser() {
-        String botGreet = """
-                 Hello! I'm Bobby Wasabi
-                 What can I do for you?
-                """;
-        return botGreet;
-    }
-
-    /**
-     * Displays the current list of tasks to the user.
+     * Returns a formatted message listing all tasks in the task list.
      *
-     * @param tasks The BobbyWasabi.BobbyWasabi.TaskList containing all current tasks.
+     * @param tasks The TaskList containing all tasks.
+     * @return A String listing the tasks.
      */
     public String listMessage(TaskList tasks) {
         String listOutput = "Here are the tasks in your list:\n" + tasks;
@@ -39,9 +29,21 @@ public class UI {
     }
 
     /**
-     * Displays the search results for tasks matching a query.
+     * Returns a formatted message listing all clients.
      *
-     * @param tasks A formatted string representation of matching tasks.
+     * @param clients The ClientList containing all clients.
+     * @return A String listing the clients.
+     */
+    public String clientsMessage(ClientList clients) {
+        String clientOutput = "Here are your clients:\n" + clients;
+        return clientOutput;
+    }
+
+    /**
+     * Returns a formatted message for tasks matching a search query.
+     *
+     * @param tasks A formatted string of matching tasks.
+     * @return A String displaying search results or a message if no matches are found.
      */
     public String findMessage(String tasks) {
         String output = tasks.isEmpty()
@@ -52,10 +54,11 @@ public class UI {
     }
 
     /**
-     * Displays a confirmation message after marking a task as completed.
+     * Returns a confirmation message after marking a task as completed.
      *
-     * @param indx       The task number shown to the user (1-based index).
-     * @param targetTask The task that has been marked as done.
+     * @param indx       1-based index of the task in the list.
+     * @param targetTask The Task object that was marked.
+     * @return A String confirming the task has been marked.
      */
     public String markTaskMessage(int indx, Task targetTask) {
         assert targetTask != null
@@ -75,10 +78,11 @@ public class UI {
     }
 
     /**
-     * Displays a confirmation message after marking a task as not done.
+     * Returns a confirmation message after unmarking a task.
      *
-     * @param indx       The task number shown to the user (1-based index).
-     * @param targetTask The task that has been unmarked.
+     * @param indx       1-based index of the task in the list.
+     * @param targetTask The Task object that was unmarked.
+     * @return A String confirming the task has been unmarked.
      */
     public String unmarkTaskMessage(int indx, Task targetTask) {
         assert targetTask != null
@@ -99,10 +103,11 @@ public class UI {
 
 
     /**
-     * Displays a confirmation message after a task is added to the task list.
+     * Returns a confirmation message after adding a task.
      *
-     * @param task The task that was added.
-     * @param num  The new total number of tasks in the list.
+     * @param task The Task object that was added.
+     * @param num  Total number of tasks after addition.
+     * @return A String confirming the task addition.
      */
     public String addTaskMessage(Task task, int num) {
         assert task != null
@@ -118,10 +123,11 @@ public class UI {
     }
 
     /**
-     * Displays a confirmation message after a task is removed from the task list.
+     * Returns a confirmation message after deleting a task.
      *
-     * @param targetTask The task that was deleted.
-     * @param taskSize   The new total number of tasks in the list.
+     * @param targetTask The Task object that was deleted.
+     * @param taskSize   Total number of tasks remaining.
+     * @return A String confirming the task deletion.
      */
     public String deleteMessage(Task targetTask, int taskSize) {
         assert targetTask != null
@@ -137,7 +143,67 @@ public class UI {
     }
 
     /**
-     * Displays a generic message prompting the user to enter a valid command.
+     * Returns a confirmation message after deleting a client.
+     *
+     * @param targetClient The Client object that was deleted.
+     * @param clientSize   Total number of clients remaining.
+     * @return A String confirming the client deletion.
+     */
+    public String deleteClientMessage(Client targetClient, int clientSize) {
+        assert targetClient != null
+                : "targetClient in deleteClientMessage is null!";
+        String output = String.format("""
+                        Noted. I've removed this client:
+                        %s
+                        Now you have %d clients in your contacts
+                        """,
+                targetClient, clientSize);
+
+        return output;
+    }
+
+    /**
+     * Returns a confirmation message after adding a client.
+     *
+     * @param client     The Client object that was added.
+     * @param clientSize Total number of clients after addition.
+     * @return A String confirming the client addition.
+     */
+    public String addClientMessage(Client client, int clientSize) {
+        assert client != null
+                : "client in addClientMessage is null!";
+
+        return String.format("""
+                        I have added this client:
+                        %s
+                        Now you have %d clients in your contacts
+                        """,
+                client, clientSize);
+
+    }
+
+    /**
+     * Returns a confirmation message after editing a client.
+     *
+     * @param client The updated Client object.
+     * @return A String confirming the client update.
+     */
+    public String editClientMessage(Client client) {
+        assert client != null
+                : "client in editClientMessage is null!";
+
+        return String.format("""
+                Client has been updated as follows:
+                %s
+                """,
+                client);
+
+    }
+
+    /**
+     * Returns a generic error message prompting the user to enter a valid command.
+     *
+     * @return A String indicating invalid command input.
      */
     public String invalidMessage() {
 
@@ -145,7 +211,9 @@ public class UI {
     }
 
     /**
-     * Prints a farewell message and exits the program by closing the input scanner.
+     * Returns a farewell message when the bot exits.
+     *
+     * @return A String containing the farewell message.
      */
     public String farewellUser() {
         return """
@@ -155,9 +223,10 @@ public class UI {
 
 
     /**
-     * Displays an error message wrapped in a decorative format.
+     * Formats a custom error message for display.
      *
-     * @param e The error message to display.
+     * @param e The error message content.
+     * @return A String containing the formatted error message.
      */
     public String generateErrorMsg(String e) {
         assert !e.trim().isEmpty()
