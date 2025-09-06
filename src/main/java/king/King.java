@@ -14,10 +14,23 @@ import king.ui.KingUI;
  * King bot class that manages the parser, task list and UI
  */
 public class King {
-    // Initialise UI, Storage, Parser and TaskList
-    private KingUI kingUI = new KingUI();
-    private KingParser kingParser = new KingParser("");
-    private KingTaskList kingTaskList = new KingTaskList();
+    private KingUI kingUI;
+    private KingParser kingParser;
+    private KingTaskList kingTaskList;
+
+    /**
+     * Instantiates the King bot to handle user messages
+     */
+    public King() {
+        try {
+            // Initialise UI, Storage, Parser and TaskList
+            kingUI = new KingUI();
+            kingParser = new KingParser("");
+            kingTaskList = new KingTaskList();
+        } catch (KingException e) {
+            System.out.println(e);
+        }
+    }
 
     /**
      * Generates a bot introduction

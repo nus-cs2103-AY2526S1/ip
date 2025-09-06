@@ -2,19 +2,20 @@ package king.task;
 
 import java.util.ArrayList;
 
+import king.KingException;
 import king.storage.KingStorage;
 
 /**
  * Tasklist for the King to help with task management and storage
  */
 public class KingTaskList {
-    private ArrayList<Task> tasks;
-    private KingStorage kingStorage = new KingStorage();
+    private final ArrayList<Task> tasks;
+    private final KingStorage kingStorage = new KingStorage();
 
     /**
      * Instantiates a task list with data loaded from the database
      */
-    public KingTaskList() {
+    public KingTaskList() throws KingException {
         ArrayList<Task> tasks = kingStorage.loadFile();
         if (tasks == null) {
             this.tasks = new ArrayList<>();
@@ -28,7 +29,7 @@ public class KingTaskList {
      *
      * @param reset If reset is true, reset the database.
      */
-    public KingTaskList(boolean reset) {
+    public KingTaskList(boolean reset) throws KingException {
         this();
         if (reset) {
             resetList();
