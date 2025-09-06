@@ -1,4 +1,4 @@
-package paul;
+package paul.gui;
 
 import javafx.application.Application;
 

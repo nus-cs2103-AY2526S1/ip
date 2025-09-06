@@ -14,6 +14,7 @@ public class Paul {
     private TaskList tasks;
     private final Storage storage;
     private final Parser parser;
+    private String commandType;
 
     /**
      * Constructor for Paul with a file path for task storage.
@@ -28,33 +29,24 @@ public class Paul {
         try {
             tasks = storage.loadTasks();
         } catch (PaulException e) {
-            ui.showLoadingError();
+            System.out.println(ui.showLoadingError());
             tasks = new TaskList();
         }
     }
 
     /**
-     * Runs Paul. It reads user input, parses commands, and executes them until the user exits.
+     * Generates a response for the user's chat message.
      */
-    public void run() {
-        ui.greetUser();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String command = ui.readCommand();
-                parser.parse(command, tasks, storage, ui);
-
-                if (command.equalsIgnoreCase("bye")) {
-                    isExit = true;
-                }
-            } catch (PaulException e) {
-                ui.showError(e.getMessage());
-            }
+    public String getResponse(String input) {
+        try {
+            commandType = Parser.getCommandType(input).toString();
+            return parser.parseAndExecute(input, tasks, storage, ui);
+        } catch (PaulException e) {
+            return "Error: " + e.getMessage();
         }
     }
 
-    public static void main(String[] args) {
-        new Paul("data/paul.txt").run();
+    public String getCommandType() {
+        return commandType;
     }
 }

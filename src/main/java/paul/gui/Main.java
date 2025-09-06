@@ -1,4 +1,4 @@
-package paul;
+package paul.gui;
 
 import java.io.IOException;
 
@@ -7,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import paul.gui.MainWindow;
+import paul.Paul;
 
 /**
  * A GUI for Duke using FXML.

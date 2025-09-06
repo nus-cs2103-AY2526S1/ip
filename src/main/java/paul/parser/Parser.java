@@ -2,6 +2,7 @@ package paul.parser;
 
 import paul.exception.PaulException;
 import paul.storage.Storage;
+import paul.task.Task;
 import paul.task.TaskList;
 import paul.ui.Ui;
 
@@ -51,30 +52,35 @@ public class Parser {
      * @param ui Ui object for interacting with the user.
      * @throws PaulException if the command is unknown.
      */
-    public void parse(String fullCommand, TaskList tasks, Storage storage, Ui ui) throws PaulException {
+    public String parseAndExecute(String fullCommand, TaskList tasks, Storage storage, Ui ui) throws PaulException {
         String[] parsedCommand = fullCommand.split(" ", 2);
         CommandType command = getCommandType(parsedCommand[0]);
 
         switch (command) {
         case TODO, DEADLINE, EVENT:
-            tasks.addTask(parsedCommand, storage, ui);
-            break;
+            Task newTask = tasks.addTask(parsedCommand);
+            tasks.add(newTask);
+            storage.saveTasks(tasks);
+            return ui.showTaskAdded(newTask, tasks.size());
         case LIST:
-            ui.showTasks(tasks);
-            break;
-        case MARK, UNMARK:
-            tasks.markTask(parsedCommand, storage, ui);
-            break;
+            return ui.showTasks(tasks);
+        case MARK:
+            Task markedTask = tasks.markTask(parsedCommand);
+            storage.saveTasks(tasks);
+            return ui.showTaskMarked(markedTask);
+        case UNMARK:
+            Task unmarkedTask = tasks.unmarkTask(parsedCommand);
+            storage.saveTasks(tasks);
+            return ui.showTaskUnmarked(unmarkedTask);
         case DELETE:
-            tasks.deleteTask(parsedCommand, storage, ui);
-            break;
+            Task deletedTask = tasks.deleteTask(parsedCommand);
+            storage.saveTasks(tasks);
+            return ui.showTaskDeleted(deletedTask, tasks.size());
         case FIND:
             TaskList foundTasks = tasks.findTasks(parsedCommand);
-            ui.showTaskFound(foundTasks);
-            break;
+            return ui.showTaskFound(foundTasks);
         case BYE:
-            ui.byeUser();
-            break;
+            return ui.byeUser();
         case UNKNOWN:
             throw new PaulException("Sorry! I do not know what that means :(");
         default:
