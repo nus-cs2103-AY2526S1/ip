@@ -5,6 +5,8 @@ import chash.command.Command;
 import chash.command.CommandTypeEnum;
 import chash.command.DeleteCommand;
 import chash.command.ExitCommand;
+import chash.command.FindCommand;
+import chash.command.HelpCommand;
 import chash.command.ListCommand;
 import chash.command.MarkCommand;
 import chash.exception.ChashException;
@@ -40,6 +42,8 @@ public class CommandParser {
         case DEADLINE -> new AddCommand(cmd, args);
         case EVENT -> new AddCommand(cmd, args);
         case DELETE -> new DeleteCommand(args);
+        case FIND -> new FindCommand(args);
+        case HELP -> new HelpCommand();
         default -> throw new ChashException("Unsupported command");
         };
     }
