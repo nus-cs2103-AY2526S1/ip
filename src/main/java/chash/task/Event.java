@@ -9,12 +9,12 @@ public class Event extends Task {
     private final LocalDateTime parsedStart;
     private final LocalDateTime parsedEnd;
 
-    public Event(String description, String starttime, String endtime) {
+    public Event(String description, String startTime, String endTime) {
         super(description);
-        this.rawStart = starttime;
-        this.rawEnd = endtime;
-        this.parsedStart = TaskDateParser.tryParse(starttime);
-        this.parsedEnd = TaskDateParser.tryParse(endtime);
+        this.rawStart = startTime;
+        this.rawEnd = endTime;
+        this.parsedStart = TaskDateParser.tryParse(startTime);
+        this.parsedEnd = TaskDateParser.tryParse(endTime);
     }
 
     @Override
