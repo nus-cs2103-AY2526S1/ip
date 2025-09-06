@@ -35,53 +35,65 @@ public class Penguin {
             try {
                 String input = ui.readCommand();
                 Parser.Command command = Parser.parse(input);
-
-                switch (command.getType()) {
-                case BYE:
-                    ui.showGoodbye();
-                    ui.close();
-                    return;
-
-                case LIST:
-                    ui.showTaskList(tasks);
-                    break;
-
-                case MARK:
-                    handleMarkCommand(command.getTaskNumber());
-                    break;
-
-                case UNMARK:
-                    handleUnmarkCommand(command.getTaskNumber());
-                    break;
-
-                case TODO:
-                    handleTodoCommand(command.getDescription());
-                    break;
-
-                case DEADLINE:
-                    handleDeadlineCommand(command.getDescription(), command.getDeadline());
-                    break;
-
-                case EVENT:
-                    handleEventCommand(command.getDescription(), command.getFrom(), command.getTo());
-                    break;
-
-                case FIND:
-                    handleFindCommand(command.getDescription());
-                    break;
-
-                case INVALID:
-                    ui.showInvalidTask();
-                    break;
-
-                default:
-                    ui.showInvalidTask();
-                    break;
-                }
+                executeCommand(command);
             } catch (PenguinException e) {
                 ui.showError(e.getMessage());
             }
         }
+    }
+
+    private void executeCommand(Parser.Command command) throws PenguinException {
+        switch (command.getType()) {
+        case BYE:
+            handleByeCommand();
+            break;
+
+        case LIST:
+            handleListCommand();
+            break;
+
+        case MARK:
+            handleMarkCommand(command.getTaskNumber());
+            break;
+
+        case UNMARK:
+            handleUnmarkCommand(command.getTaskNumber());
+            break;
+
+        case TODO:
+            handleTodoCommand(command.getDescription());
+            break;
+
+        case DEADLINE:
+            handleDeadlineCommand(command.getDescription(), command.getDeadline());
+            break;
+
+        case EVENT:
+            handleEventCommand(command.getDescription(), command.getFrom(), command.getTo());
+            break;
+
+        case FIND:
+            handleFindCommand(command.getDescription());
+            break;
+
+        case INVALID:
+        default:
+            handleInvalidCommand();
+            break;
+        }
+    }
+
+    private void handleByeCommand() {
+        ui.showGoodbye();
+        ui.close();
+    }
+
+    private void handleListCommand() {
+        ui.showTaskList(tasks);
+    }
+
+    private void handleInvalidCommand() {
+        ui.showInvalidTask();
     }
 
     /**
