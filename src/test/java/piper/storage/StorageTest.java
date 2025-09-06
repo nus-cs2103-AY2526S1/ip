@@ -1,14 +1,18 @@
 package piper.storage;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-import piper.PiperException;
-import piper.task.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import piper.PiperException;
+import piper.task.Deadline;
+import piper.task.Event;
+import piper.task.TaskList;
+import piper.task.Todo;
 
 class StorageTest {
 

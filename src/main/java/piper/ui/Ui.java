@@ -1,16 +1,46 @@
 package piper.ui;
 
 import java.util.Scanner;
-import piper.task.TaskList;
+
 import piper.task.Task;
+import piper.task.TaskList;
 
 /**
  * Handles user interaction via the console.
  * Provides methods to read user input and print messages.
  */
 public class Ui {
+
+    // ASCII art
+
+    /** ASCII art used in the greeting. */
+    private static final String ASCII_GREET =
+            " _______\n"
+                    + "|_   __ \\ ( ) .\\\n"
+                    + "  | |__) |__  | ''\\   .---.  _ .--.\n"
+                    + "  |  ___/[  | | /'\\\\ / /__\\\\[  /''\\|\n"
+                    + " _| |_    | | | \\_/ || \\__.'| |\n"
+                    + "|_____|  [___]| |\\_/  \\___/[___]\n"
+                    + "           / /| | \\\n"
+                    + "           [ \\] |  ]\n"
+                    + "            \\__ __/      (l_\n"
+                    + "              | |        <'  }\n"
+                    + "            [___/        (  (_\\.&\n"
+                    + "--------------------<>----''--\\\\---------\n"
+                    + "                                \\\n";
+
+    /** ASCII art used in the farewell. */
+    private static final String ASCII_EXIT =
+            "             ______         ___,\n"
+                    + "              `--- \\   _))/.--`\n"
+                    + "            ,__`--. \\/  '>--`\n"
+                    + "----------- `._.-.      /``----------------\n"
+                    + "                  '.__.'\n"
+                    + "                   ' '\n";
+
     /** Chatbot name. */
     private final String chatbotName;
+
     /** Scanner used to read from System.in. */
     private final Scanner scanner;
 
@@ -42,37 +72,8 @@ public class Ui {
      * Closes the scanner.
      */
     public void close() {
-        try {
-            scanner.close();
-        } catch (IllegalStateException ignored) { }
+        scanner.close();
     }
-
-    // ASCII art
-
-    /** ASCII art used in the greeting. */
-    private static final String ASCII_GREET =
-            " _______\n" +
-                    "|_   __ \\ ( ) .\\\n" +
-                    "  | |__) |__  | ''\\   .---.  _ .--.\n" +
-                    "  |  ___/[  | | /'\\\\ / /__\\\\[  /''\\|\n" +
-                    " _| |_    | | | \\_/ || \\__.'| |\n" +
-                    "|_____|  [___]| |\\_/  \\___/[___]\n" +
-                    "           / /| | \\\n" +
-                    "           [ \\] |  ]\n" +
-                    "            \\__ __/      (l_\n" +
-                    "              | |        <'  }\n" +
-                    "            [___/        (  (_\\.&\n" +
-                    "--------------------<>----''--\\\\---------\n" +
-                    "                                \\\n";
-
-    /** ASCII art used in the farewell. */
-    private static final String ASCII_EXIT =
-            "             ______         ___,\n" +
-                    "              `--- \\   _))/.--`\n" +
-                    "            ,__`--. \\/  '>--`\n" +
-                    "----------- `._.-.      /``----------------\n" +
-                    "                  '.__.'\n" +
-                    "                   ' '\n";
 
     // High-level messages
 
@@ -81,9 +82,8 @@ public class Ui {
      */
     public void greetUser() {
         System.out.println(
-                ASCII_GREET +
-                        "Hi! " + chatbotName + " here.\n" +
-                        "What shall we do today?\n"
+                ASCII_GREET + "Hi! " + chatbotName + " here.\n"
+                        + "What shall we do today?\n"
         );
     }
 
@@ -130,11 +130,10 @@ public class Ui {
      * @param task task whose status changed.
      */
     public void showTaskStatus(Task task) {
-        System.out.println(
-                ((task.getStatusIcon()).equals("X")
+        System.out.println(((task.getStatusIcon()).equals("X")
                         ? "SWEET! I've marked this task as done:\n"
-                        : "ALRIGHTY, I've marked this task as not done yet:\n") +
-                        task
+                        : "ALRIGHTY, I've marked this task as not done yet:\n"
+                ) + task
         );
     }
 
@@ -162,9 +161,7 @@ public class Ui {
         }
         for (int i = 0; i < tasks.getSize(); i++) {
             Task task = tasks.getTask(i);
-            System.out.println(
-                    (i + 1) + "." + task
-            );
+            System.out.println((i + 1) + "." + task);
         }
     }
 

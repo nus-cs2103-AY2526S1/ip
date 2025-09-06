@@ -1,10 +1,11 @@
 package piper.parser;
 
-import org.junit.jupiter.api.Test;
-import piper.PiperException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import piper.PiperException;
 
 class ParserTest {
 
@@ -16,7 +17,7 @@ class ParserTest {
     }
 
     @Test
-    void parse_EmptyInput_exceptionThrown() {
+    void parse_emptyInput_exceptionThrown() {
         PiperException e = assertThrows(PiperException.class, () -> Parser.parse(""));
         assertEquals("CHIRP CHIRP! Don't think you said anything there. Try tweeting a command!", e.getMessage());
     }

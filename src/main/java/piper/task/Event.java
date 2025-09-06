@@ -55,8 +55,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[" + this.taskType + "]" + super.toString() +
-                " (from: " + this.formatFromDate() + " to: " + this.formatToDate() + ")";
+        return "[" + this.taskType + "]" + super.toString()
+                + " (from: " + this.formatFromDate() + " to: " + this.formatToDate() + ")";
     }
 
     @Override

@@ -77,6 +77,8 @@ public class Piper {
                             case "unmark":
                                 task.markUndone();
                                 break;
+                            default:
+                                break;
                             }
 
                             storage.saveAll(tasks);
@@ -84,8 +86,8 @@ public class Piper {
                         } catch (IndexOutOfBoundsException e) {
                             // task index is outside of array range
                             throw new PiperException(
-                                    "PEEP! That task flew out of the nest. " +
-                                            "Please check using 'list' to see which tasks are home!"
+                                    "PEEP! That task flew out of the nest. "
+                                            + "Please check using 'list' to see which tasks are home!"
                             );
                         }
                     } else if (cmd.equals("delete")) {
@@ -136,8 +138,9 @@ public class Piper {
                     } else {
                         // user input is an unrecognisable string
                         throw new PiperException(
-                                "CHEEP CHEEP! I can't quite sing along with '" + userInput +
-                                        "'. Wanna try another command?"
+                                "CHEEP CHEEP! I can't quite sing along with '"
+                                        + userInput
+                                        + "'. Wanna try another command?"
                         );
                     }
                 }

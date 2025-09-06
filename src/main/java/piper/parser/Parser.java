@@ -177,8 +177,8 @@ public final class Parser {
             return new EventArgs(description, from, to);
         } catch (Exception e) {
             throw new PiperException(
-                    "EEP! Your event's missing a few notes. " +
-                            "Please format the event as 'event (description) /from (start time) /to (end time)'!"
+                    "EEP! Your event's missing a few notes. "
+                            + "Please format the event as 'event (description) /from (start time) /to (end time)'!"
             );
         }
     }
