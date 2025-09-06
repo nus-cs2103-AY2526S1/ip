@@ -7,7 +7,7 @@ import king.KingException;
  */
 public abstract class Task {
     private String description;
-    private boolean complete;
+    private boolean isComplete;
     private Priority priority;
 
     /**
@@ -43,7 +43,7 @@ public abstract class Task {
             throw new KingException(KingException.ErrorMessage.MISSING_TASK_DESCRIPTION);
         } else {
             this.description = description;
-            this.complete = false;
+            this.isComplete = false;
             this.priority = Priority.NA;
         }
     }
@@ -70,7 +70,7 @@ public abstract class Task {
      * @return If task is complete return true, else false.
      */
     public boolean getComplete() {
-        return this.complete;
+        return this.isComplete;
     }
 
     /**
@@ -88,7 +88,7 @@ public abstract class Task {
      * @return If task is complete return "X", else " ".
      */
     public String getStatusIcon() {
-        return (complete ? "X" : " ");
+        return (isComplete ? "X" : " ");
     }
 
     /**
@@ -104,14 +104,14 @@ public abstract class Task {
      * Sets the task to complete.
      */
     public void markDone() {
-        this.complete = true;
+        this.isComplete = true;
     }
 
     /**
      * Sets the task to incomplete.
      */
     public void unmarkDone() {
-        this.complete = false;
+        this.isComplete = false;
     }
 
     /**

@@ -27,11 +27,11 @@ public class KingTaskList {
     /**
      * Instantiates an empty task list with the data from the database reset
      *
-     * @param reset If reset is true, reset the database.
+     * @param needsReset If reset is true, reset the database.
      */
-    public KingTaskList(boolean reset) throws KingException {
+    public KingTaskList(boolean needsReset) throws KingException {
         this();
-        if (reset) {
+        if (needsReset) {
             resetList();
         }
     }
