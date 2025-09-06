@@ -1,3 +1,5 @@
+package piper;
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -5,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import piper.ui.MainWindow;
 
 /**
  * A GUI for Piper using FXML.
@@ -20,7 +23,9 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setPiper(piper);  // inject the Piper instance
+            MainWindow controller = fxmlLoader.getController();
+            controller.setPiper(piper);
+            controller.showGreeting(piper.getGreeting());
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

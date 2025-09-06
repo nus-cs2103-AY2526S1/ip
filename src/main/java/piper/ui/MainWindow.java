@@ -1,3 +1,5 @@
+package piper.ui;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -5,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import piper.Piper;
+
 /**
  * Controller for the main GUI.
  */
@@ -39,12 +43,41 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
-        String response = piper.getResponse(input);
+        final String input = userInput.getText();
+        if (input == null || input.isBlank()) {
+            return;
+        }
+
+        String reply;
+        try {
+            if (piper == null) {
+                reply = "Piper has flown out for the time being. Please try again in a moment.";
+            } else {
+                reply = piper.run(input);
+            }
+        } catch (Exception e) {
+            // Never let exceptions bubble to JavaFX
+            reply = e.getMessage() != null ? e.getMessage() : "Something went wrong.";
+        }
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getPiperDialog(response, piperImage)
+                DialogBox.getPiperDialog(reply, piperImage)
         );
+
         userInput.clear();
+
+        // Close window if backend signalled exit (e.g., after "bye").
+        if (piper != null && piper.isExit()) {
+            // Hides the window without System.exit (friendlier to tests/gradle).
+            getScene().getWindow().hide();
+        }
     }
+
+    public void showGreeting(String message) {
+        dialogContainer.getChildren().add(
+                DialogBox.getPiperDialog(message, piperImage)
+        );
+    }
+
 }

@@ -98,7 +98,7 @@ public class Ui {
     /**
      * Prints the farewell banner and exit text.
      *
-     * @return
+     * @return farewell message.
      */
     public String farewellUser() {
         return "Til next time!\n" + ASCII_EXIT;
@@ -108,7 +108,7 @@ public class Ui {
      * Prints a confirmation after adding a task.
      *
      * @param task added task.
-     * @return
+     * @return task addition message.
      */
     public String showAddedTask(Task task) {
         return "TWEET! I've tucked this task into the nest:\n" + task;
@@ -118,7 +118,7 @@ public class Ui {
      * Prints a confirmation after deleting a task.
      *
      * @param task deleted task.
-     * @return
+     * @return task deletion message.
      */
     public String showDeletedTask(Task task) {
         return "TWEET! I've removed this task:\n" + task;
@@ -128,7 +128,7 @@ public class Ui {
      * Prints the current status of a task.
      *
      * @param task task whose status changed.
-     * @return
+     * @return task status update message.
      */
     public String showTaskStatus(Task task) {
         return ((task.getStatusIcon()).equals("X")
@@ -141,7 +141,7 @@ public class Ui {
      * Prints the current number of tasks in the list.
      *
      * @param tasks task list whose size will be printed.
-     * @return
+     * @return size of task list.
      */
     public String showTasksSize(TaskList tasks) {
         return "Now you have " + tasks.getSize() + " tasks in the list.";
@@ -151,7 +151,7 @@ public class Ui {
      * Prints all tasks in the list with 1-based indexing.
      *
      * @param tasks task list to display.
-     * @return
+     * @return task list.
      */
     public String displayTasks(TaskList tasks) {
         StringBuilder sb = new StringBuilder();
@@ -175,7 +175,7 @@ public class Ui {
      * Displays tasks that contain the keyword of a find command.
      *
      * @param matches list of tasks that contain the keyword.
-     * @return
+     * @return tasks that contain the keyword.
      */
     public String displayMatchingTasks(TaskList matches) {
         StringBuilder sb = new StringBuilder();
@@ -197,7 +197,7 @@ public class Ui {
      * Prints an error message verbatim.
      *
      * @param message error message to print.
-     * @return
+     * @return error message.
      */
     public String showError(String message) {
         return message;
