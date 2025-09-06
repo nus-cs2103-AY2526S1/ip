@@ -9,6 +9,9 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 public class John {
     private static final List<Task> tasks = new ArrayList<>();
 
@@ -18,7 +21,7 @@ public class John {
         } catch (IOException e) {
             System.out.println("Unable to read file. Reason: " + e.getMessage());
         }
-        command(new String[] {"start"});
+        command(new String[]{"start"});
         try (Scanner listen = new Scanner(System.in)) {
             while (true) {
                 String line = listen.nextLine().trim();
@@ -71,7 +74,7 @@ public class John {
                         if (parts.length >= 4) {
                             String title = parts[2].trim();
                             String deadline = parts[3].trim();
-                            Task deadlineTask = new Deadline(title, deadline);
+                            Task deadlineTask = new Deadline(title, DateTimeParser.parseDateTime(deadline));
 
                             if (parts[1].trim().equals("1")) {
                                 deadlineTask.markAsComplete();
@@ -86,7 +89,8 @@ public class John {
                             String title = parts[2].trim();
                             String from = parts[3].trim();
                             String to = parts[4].trim();
-                            Task eventTask = new Event(title, from, to);
+                            Task eventTask = new Event(title, DateTimeParser.parseDateTime(from),
+                                    DateTimeParser.parseDateTime(to));
 
                             if (parts[1].trim().equals("1")) {
                                 eventTask.markAsComplete();
@@ -105,7 +109,7 @@ public class John {
 
     private static void writeToFile(String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
-            for (Task task: tasks) {
+            for (Task task : tasks) {
                 writer.write(task.serialise() + System.lineSeparator());
             }
         } catch (IOException e) {
@@ -147,9 +151,15 @@ public class John {
                     break;
 
                 case "mark": {
-                    if (cmd.length < 2) { System.out.println("Usage: mark <task-number>"); break; }
+                    if (cmd.length < 2) {
+                        System.out.println("Usage: mark <task-number>");
+                        break;
+                    }
                     Integer idx = parseIndex(cmd[1]);
-                    if (idx == null) { System.out.println("Please provide a valid task number between 1 and " + tasks.size() + "."); break; }
+                    if (idx == null) {
+                        System.out.println("Please provide a valid task number between 1 and " + tasks.size() + ".");
+                        break;
+                    }
                     tasks.get(idx).markAsComplete();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(tasks.get(idx));
@@ -157,9 +167,15 @@ public class John {
                 }
 
                 case "unmark": {
-                    if (cmd.length < 2) { System.out.println("Usage: unmark <task-number>"); break; }
+                    if (cmd.length < 2) {
+                        System.out.println("Usage: unmark <task-number>");
+                        break;
+                    }
                     Integer idx = parseIndex(cmd[1]);
-                    if (idx == null) { System.out.println("Please provide a valid task number between 1 and " + tasks.size() + "."); break; }
+                    if (idx == null) {
+                        System.out.println("Please provide a valid task number between 1 and " + tasks.size() + ".");
+                        break;
+                    }
                     tasks.get(idx).markAsIncomplete();
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(tasks.get(idx));
@@ -167,9 +183,15 @@ public class John {
                 }
 
                 case "delete": {
-                    if (cmd.length < 2) { System.out.println("Usage: delete <task-number>"); break; }
+                    if (cmd.length < 2) {
+                        System.out.println("Usage: delete <task-number>");
+                        break;
+                    }
                     Integer idx = parseIndex(cmd[1]);
-                    if (idx == null) { System.out.println("Please provide a valid task number between 1 and " + tasks.size() + "."); break; }
+                    if (idx == null) {
+                        System.out.println("Please provide a valid task number between 1 and " + tasks.size() + ".");
+                        break;
+                    }
                     Task removed = tasks.remove((int) idx);
                     System.out.println("Noted. I've removed this task:");
                     System.out.println(removed);
@@ -178,7 +200,10 @@ public class John {
                 }
 
                 case "todo": {
-                    if (cmd.length < 2) { System.out.println("Usage: todo <description>"); break; }
+                    if (cmd.length < 2) {
+                        System.out.println("Usage: todo <description>");
+                        break;
+                    }
                     String todoDesc = String.join(" ", Arrays.copyOfRange(cmd, 1, cmd.length)).trim();
                     tasks.add(new Todo(todoDesc));
                     System.out.println("added: " + todoDesc);
@@ -187,14 +212,36 @@ public class John {
                 }
 
                 case "deadline": {
-                    if (cmd.length < 2) { System.out.println("Usage: deadline <description> /by <when>"); break; }
+                    if (cmd.length < 2) {
+                        System.out.println("Usage: deadline <description> /by <when>");
+                        break;
+                    }
                     String dFull = String.join(" ", Arrays.copyOfRange(cmd, 1, cmd.length)).trim();
                     int byPos = dFull.lastIndexOf(" /by ");
-                    if (byPos == -1) { System.out.println("Usage: deadline <description> /by <when>"); break; }
+                    if (byPos == -1) {
+                        System.out.println("Usage: deadline <description> /by <when>");
+                        break;
+                    }
+
                     String dDesc = dFull.substring(0, byPos).trim();
                     String dWhen = dFull.substring(byPos + 5).trim();
-                    if (dDesc.isEmpty() || dWhen.isEmpty()) { System.out.println("Usage: deadline <description> /by <when>"); break; }
-                    tasks.add(new Deadline(dDesc, dWhen));
+
+                    if (dDesc.isEmpty() || dWhen.isEmpty()) {
+                        System.out.println("Usage: deadline <description> /by <when>");
+                        break;
+                    }
+
+                    LocalDateTime deadline;
+                    try {
+                        deadline = DateTimeParser.parseDateTime(dWhen);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid date/time: '" + dWhen + "'.");
+                        System.out.println("Expected format: " + DateTimeParser.HUMAN_PATTERN);
+                        System.out.println("Example: deadline Submit report /by 05/09/2025 16:30:45");
+                        break;
+                    }
+
+                    tasks.add(new Deadline(dDesc, deadline));
                     System.out.println("Got it. I've added this task:");
                     System.out.println(tasks.get(tasks.size() - 1));
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -202,16 +249,44 @@ public class John {
                 }
 
                 case "event": {
-                    if (cmd.length < 2) { System.out.println("Usage: event <description> /from <start> /to <end>"); break; }
+                    if (cmd.length < 2) {
+                        System.out.println("Usage: event <description> /from <start> /to <end>");
+                        break;
+                    }
                     String eFull = String.join(" ", Arrays.copyOfRange(cmd, 1, cmd.length)).trim();
                     int fromPos = eFull.lastIndexOf(" /from ");
-                    int toPos = eFull.lastIndexOf(" /to ");
-                    if (fromPos == -1 || toPos == -1 || toPos <= fromPos) { System.out.println("Usage: event <description> /from <start> /to <end>"); break; }
+                    int toPos   = eFull.lastIndexOf(" /to ");
+                    if (fromPos == -1 || toPos == -1 || toPos <= fromPos) {
+                        System.out.println("Usage: event <description> /from <start> /to <end>");
+                        break;
+                    }
+
                     String eDesc = eFull.substring(0, fromPos).trim();
                     String eFrom = eFull.substring(fromPos + 7, toPos).trim();
-                    String eTo = eFull.substring(toPos + 5).trim();
-                    if (eDesc.isEmpty() || eFrom.isEmpty() || eTo.isEmpty()) { System.out.println("Usage: event <description> /from <start> /to <end>"); break; }
-                    tasks.add(new Event(eDesc, eFrom, eTo));
+                    String eTo   = eFull.substring(toPos + 5).trim();
+
+                    if (eDesc.isEmpty() || eFrom.isEmpty() || eTo.isEmpty()) {
+                        System.out.println("Usage: event <description> /from <start> /to <end>");
+                        break;
+                    }
+
+                    LocalDateTime from, to;
+                    try {
+                        from = DateTimeParser.parseDateTime(eFrom);
+                        to   = DateTimeParser.parseDateTime(eTo);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid date/time. Expected: " + DateTimeParser.HUMAN_PATTERN);
+                        System.out.println("Example: event Team sync /from 05/09/2025 14:00:00 /to 05/09/2025 15:00:00");
+                        break;
+                    }
+
+                    if (to.isBefore(from)) {
+                        System.out.println("End time must be after start time.");
+                        System.out.println("Example: /from 05/09/2025 14:00:00 /to 05/09/2025 15:00:00");
+                        break;
+                    }
+
+                    tasks.add(new Event(eDesc, from, to));
                     System.out.println("Got it. I've added this task:");
                     System.out.println(tasks.get(tasks.size() - 1));
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
