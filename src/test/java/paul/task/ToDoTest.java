@@ -1,12 +1,19 @@
 package paul.task;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
+/**
+ * Contains tests for the To Do class
+ */
 public class ToDoTest {
 
+    /**
+     * Tests that the markTask() correctly sets the isDone field to true.
+     */
     @Test
     public void markAsDone_shouldSetIsDoneTrue() {
         ToDo todo = new ToDo("Finish homework");
@@ -18,6 +25,9 @@ public class ToDoTest {
         assertTrue(todo.isDone, "Todo should be marked as done");
     }
 
+    /**
+     * Tests that the toString() returns the correct format based on the completion status.
+     */
     @Test
     public void toString_shouldShowCorrectFormat() {
         ToDo todo = new ToDo("Finish homework");

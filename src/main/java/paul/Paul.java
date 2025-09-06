@@ -2,8 +2,8 @@ package paul;
 
 import paul.exception.PaulException;
 import paul.parser.Parser;
-import paul.task.TaskList;
 import paul.storage.Storage;
+import paul.task.TaskList;
 import paul.ui.Ui;
 
 /**

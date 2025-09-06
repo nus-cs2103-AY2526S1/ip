@@ -1,14 +1,18 @@
 package paul.parser;
 
 import paul.exception.PaulException;
-import paul.task.TaskList;
 import paul.storage.Storage;
+import paul.task.TaskList;
 import paul.ui.Ui;
 
 /**
  * Parses user commands and delegates actions to TaskList, Storage, and Ui.
  */
 public class Parser {
+
+    /**
+     * Represents the different types of commands a user can make.
+     */
     public enum CommandType {
         TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, FIND, BYE, UNKNOWN
     }
@@ -22,7 +26,7 @@ public class Parser {
     public static CommandType getCommandType(String input) {
         String[] words = input.split(" ", 2);
         String commandWord = words[0].toLowerCase();
-
+        //CHECKSTYLE.OFF: Indentation
         return switch (commandWord) {
             case "todo" -> CommandType.TODO;
             case "deadline" -> CommandType.DEADLINE;
@@ -35,6 +39,7 @@ public class Parser {
             case "bye" -> CommandType.BYE;
             default -> CommandType.UNKNOWN;
         };
+        //CHECKSTYLE.ON: Indentation
     }
 
     /**
@@ -72,6 +77,8 @@ public class Parser {
             break;
         case UNKNOWN:
             throw new PaulException("Sorry! I do not know what that means :(");
+        default:
+            throw new PaulException("Error! Not a valid command for parsing."); // Should not reach here
         }
     }
 }

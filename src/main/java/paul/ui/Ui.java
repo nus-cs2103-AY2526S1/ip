@@ -1,9 +1,9 @@
 package paul.ui;
 
+import java.util.Scanner;
+
 import paul.task.Task;
 import paul.task.TaskList;
-
-import java.util.Scanner;
 
 /**
  * Handles user interaction for Paul.
@@ -71,8 +71,8 @@ public class Ui {
      * @param total The total number of tasks after adding.
      */
     public void showTaskAdded(Task task, int total) {
-        printOutput("Got it. I've added this task:\n" + task +
-                "\nNow you have " + total + " tasks in the list.");
+        printOutput("Got it. I've added this task:\n" + task
+                + "\nNow you have " + total + " tasks in the list.");
     }
 
     /**
@@ -100,8 +100,8 @@ public class Ui {
      * @param total The total number of tasks after deleting.
      */
     public void showTaskDeleted(Task task, int total) {
-        printOutput("Noted. I've removed this task:\n" + task +
-                "\nNow you have " + total + " tasks in the list.");
+        printOutput("Noted. I've removed this task:\n" + task
+                + "\nNow you have " + total + " tasks in the list.");
     }
 
     /**
