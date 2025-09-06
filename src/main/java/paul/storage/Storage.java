@@ -1,20 +1,18 @@
 package paul.storage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Scanner;
+
 import paul.exception.PaulException;
 import paul.task.Deadline;
 import paul.task.Event;
 import paul.task.Task;
 import paul.task.TaskList;
 import paul.task.ToDo;
-
-import java.io.File;
-import java.io.FileWriter;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import java.time.LocalDate;
-import java.util.Scanner;
 
 /**
  * Handles reading from and writing to the storage file,

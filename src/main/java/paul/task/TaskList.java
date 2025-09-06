@@ -1,15 +1,17 @@
 package paul.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+
 import paul.exception.PaulException;
 import paul.parser.Parser;
 import paul.storage.Storage;
 import paul.ui.Ui;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * A list that contains multiple tasks for Paul.
@@ -173,6 +175,8 @@ public class TaskList {
                 throw new PaulException("Please input a valid task number!");
             }
             break;
+        default:
+            throw new PaulException("Error! Not a valid command for marking tasks."); // Should not reach here
         }
         storage.saveTasks(this);
     }
