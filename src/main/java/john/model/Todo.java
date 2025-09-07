@@ -1,3 +1,5 @@
+package john.model;
+
 public class Todo extends Task{
     public Todo(String title) {
         super(title);
