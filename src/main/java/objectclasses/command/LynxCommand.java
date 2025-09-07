@@ -1,6 +1,7 @@
 package objectclasses.command;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.regex.PatternSyntaxException;
 
 import objectclasses.exception.LynxException;
@@ -9,7 +10,7 @@ import objectclasses.task.Task;
 /**
  * Represents a string of search modifiers and stores its search results.
  */
-public class LynxCommand {
+public abstract class LynxCommand {
 
     private final String[] commands;
     private int index = 0;
@@ -37,6 +38,20 @@ public class LynxCommand {
             }
         }
     }
+
+    /**
+     * Returns dialogue to be printed if no matching task has been found.
+     *
+     * @return Dialogue to be printed.
+     */
+    public abstract String emptyDialogue();
+
+    /**
+     * Returns dialogue representing the action performed on tasks.
+     *
+     * @return Dialogue to be printed.
+     */
+    public abstract String actionDialogue();
 
     /**
      * Stores a date as specified by a "/on" search modifier.
