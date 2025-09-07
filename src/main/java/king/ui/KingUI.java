@@ -25,7 +25,7 @@ public class KingUI {
      */
     public String showHelp() {
         return " Need help? Here is the list of commands you can use to use this chat bot!\n"
-                + " list - Gets the list of tasks you currently have\n"
+                + " list [/sorted] - Gets the list of tasks you currently have [and sorts by descending priority]\n"
                 + " due [YYYY-MM-DD] - Gets tasks due on specific date\n"
                 + " find [string1] [string2] ... - Finds tasks matching strings\n"
                 + " todo [task name] - Creates a new todo task\n"

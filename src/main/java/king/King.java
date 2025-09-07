@@ -55,7 +55,12 @@ public class King {
                 return kingUI.showHelp();
             } else if (kingParser.checkParser(KingParser.Commands.LIST)) {
                 // list command - lists all the current tasks in your task list
-                return kingUI.showAllList(kingTaskList.getTasks());
+                if (kingParser.getListMatcher().group(1) != null
+                        && kingParser.getListMatcher().group(1).trim().equals("/sorted")) {
+                    return kingUI.showSortedList(kingTaskList.getTasks());
+                } else {
+                    return kingUI.showAllList(kingTaskList.getTasks());
+                }
             } else if (kingParser.checkParser(KingParser.Commands.DUE)) {
                 // due command - lists all tasks on a certain due date
                 return kingUI.showDueList(
@@ -63,7 +68,9 @@ public class King {
                         LocalDate.parse(kingParser.getDueMatcher().group(1)));
             } else if (kingParser.checkParser(KingParser.Commands.FIND)) {
                 // find command - finds all tasks with a certain name
-                return kingUI.showFindList(kingTaskList.getTasks(), kingParser.getFindMatcher().group(1).split(" "));
+                return kingUI.showFindList(
+                        kingTaskList.getTasks(),
+                        kingParser.getFindMatcher().group(1).split(" "));
             } else if (kingParser.checkParser(KingParser.Commands.TODO)) {
                 // todo command - creates a new todo task
                 Todo newTask = new Todo(

@@ -16,6 +16,7 @@ public class KingParser {
     public enum Commands {
         HELP,
         LIST,
+        SORTED_LIST,
         DUE,
         FIND,
         TODO,
@@ -28,7 +29,7 @@ public class KingParser {
     }
 
     private final String helpRegex = "^help$";
-    private final String listRegex = "^list$";
+    private final String listRegex = "^list(?:\\s+(/sorted))?$";
     private final String dueRegex = "^due(?:\\s+(.*))?$";
     private final String findRegex = "^find(?:\\s+(.*))?$";
     private final String todoRegex = "^todo(?:\\s+(.*?)\\s*(?:/priority\\s+(.+))?)?$";
@@ -143,6 +144,12 @@ public class KingParser {
         return true;
     }
 
+    /**
+     * Checks if command matches find command or missing search text
+     *
+     * @return True if match find command
+     * @throws KingException If matching group is missing certain parts, throw IOError KingException.
+     */
     private boolean checkFind() throws KingException {
         if (!findMatcher.matches()) {
             return false;
@@ -152,6 +159,12 @@ public class KingParser {
         return true;
     }
 
+    /**
+     * Checks if command matches todo command or missing description and priority
+     *
+     * @return True if match todo command
+     * @throws KingException If matching group is missing certain parts, throw IOError KingException.
+     */
     private boolean checkTodo() throws KingException {
         if (!todoMatcher.matches()) {
             return false;
@@ -167,6 +180,12 @@ public class KingParser {
         return true;
     }
 
+    /**
+     * Checks if command matches deadline command or missing description, priority or deadline
+     *
+     * @return True if match deadline command
+     * @throws KingException If matching group is missing certain parts, throw IOError KingException.
+     */
     private boolean checkDeadline() throws KingException {
         if (!deadlineMatcher.matches()) {
             return false;
@@ -183,6 +202,12 @@ public class KingParser {
         return true;
     }
 
+    /**
+     * Checks if command matches event command or missing description, priority and from / to dates
+     *
+     * @return True if match event command
+     * @throws KingException If matching group is missing certain parts, throw IOError KingException.
+     */
     private boolean checkEvent() throws KingException {
         if (!eventMatcher.matches()) {
             return false;
@@ -203,6 +228,12 @@ public class KingParser {
         return true;
     }
 
+    /**
+     * Checks if command matches mark command or missing index
+     *
+     * @return True if match mark command
+     * @throws KingException If matching group is missing certain parts, throw IOError KingException.
+     */
     private boolean checkMark() throws KingException {
         if (!markMatcher.matches()) {
             return false;
@@ -213,6 +244,12 @@ public class KingParser {
         return true;
     }
 
+    /**
+     * Checks if command matches unmark command or missing index
+     *
+     * @return True if match unmark command
+     * @throws KingException If matching group is missing certain parts, throw IOError KingException.
+     */
     private boolean checkUnmark() throws KingException {
         if (!unmarkMatcher.matches()) {
             return false;
@@ -223,6 +260,12 @@ public class KingParser {
         return true;
     }
 
+    /**
+     * Checks if command matches delete command or missing index
+     *
+     * @return True if match delete command
+     * @throws KingException If matching group is missing certain parts, throw IOError KingException.
+     */
     private boolean checkDelete() throws KingException {
         if (!deleteMatcher.matches()) {
             return false;
