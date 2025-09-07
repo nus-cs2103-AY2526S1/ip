@@ -1,0 +1,2 @@
+1 | [T][X] todo 5
+0 | [T][ ] todo money
