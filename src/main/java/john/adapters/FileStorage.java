@@ -11,6 +11,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileWriter;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +23,24 @@ public class FileStorage implements Storage {
         this.filePath = filePath;
     }
 
+    public static Path resolveBesideJar() {
+        try {
+            Path jarDir = Paths.get(john.core.John.class
+                            .getProtectionDomain()
+                            .getCodeSource()
+                            .getLocation()
+                            .toURI())
+                    .getParent();
+            return jarDir.resolve("data.txt");
+        } catch (Exception e) {
+            return Paths.get(System.getProperty("user.home"), ".duke", "data.txt");
+        }
+    }
+
     @Override
     public TaskList load() {
         List<Task> tasks = new ArrayList<Task>();
-        File file = new File(this.filePath);
+        File file = new File(filePath);
         if (!file.exists()) {
             try {
                 if (file.createNewFile()) {
@@ -34,7 +50,7 @@ public class FileStorage implements Storage {
                 }
                 return new TaskList(tasks);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.out.println("Failed to create file at" + filePath);
             }
         }
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {

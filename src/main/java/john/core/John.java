@@ -15,14 +15,14 @@ import java.util.Scanner;
 
 public class John {
     private static TaskList tasks;
-    private static final FileStorage storage = new FileStorage("src/data/data.txt");
+    private static final FileStorage storage = new FileStorage(FileStorage.resolveBesideJar().toString());
     private static final ConsoleUi ui = new ConsoleUi(new Scanner(System.in), System.out);
     public static void run() {
         tasks = storage.load();
         try (Ui ignored = ui) {
             ui.showWelcome(tasks.size());
             while (true) {
-                String line = ui.nextCommand();        // or however you read a full line
+                String line = ui.nextCommand();
                 if (line == null) break;
                 try {
                     Command cmd = CommandParser.parse(line);
