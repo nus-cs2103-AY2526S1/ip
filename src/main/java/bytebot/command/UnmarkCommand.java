@@ -16,6 +16,7 @@ public class UnmarkCommand extends Command {
      * @param index Index of the task to unmark
      */
     public UnmarkCommand(int index) {
+        assert index >= 0 : "Index must be positive or 0";
         this.index = index;
     }
 
@@ -24,6 +25,8 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(Ui ui, Storage storage) throws ByteException {
+        assert ui != null : "Ui cannot be null";
+        assert storage != null : "Storage cannot be null";
         storage.unmarkTask(index);
         return ui.showUnmarked(storage.getTask(index));
     }
