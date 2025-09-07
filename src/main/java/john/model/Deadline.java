@@ -1,6 +1,8 @@
+package john.model;
+
 import java.time.LocalDateTime;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     private final LocalDateTime deadline;
     public Deadline(String title, LocalDateTime deadline) {
         super(title);

@@ -1,3 +1,5 @@
+package john.model;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
