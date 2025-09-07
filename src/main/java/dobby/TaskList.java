@@ -61,6 +61,16 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> matches = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matches.add(task);
+            }
+        }
+        return matches;
+    }
+
     /** Returns the number of tasks in the list. */
     public int size() {
         return tasks.size();
@@ -69,7 +79,9 @@ public class TaskList {
     /**
      * Returns all tasks as an unmodifiable list.
      */
-    public ArrayList<Task> getAll() {
+    public ArrayList<Task> getTasks() {
         return new ArrayList<>(tasks);
     }
+
+
 }

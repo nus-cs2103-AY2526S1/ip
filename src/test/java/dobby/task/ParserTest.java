@@ -25,7 +25,7 @@ class ParserTest {
         // Valid todo
         parser.handleCommand("todo Buy milk", tasks, ui, storage);
         assertEquals(1, tasks.size());
-        assertEquals("Buy milk", tasks.getAll().get(0).getDescription());
+        assertEquals("Buy milk", tasks.getTasks().get(0).getDescription());
 
         // Empty description
         Exception exception = assertThrows(DobbyException.class, () -> {
