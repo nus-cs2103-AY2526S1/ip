@@ -19,8 +19,8 @@ public class Deadline extends Task {
      * @param by          Deadline of the task.
      * @throws KingException Error in creation of task.
      */
-    public Deadline(String description, LocalDate by) throws KingException {
-        super(description);
+    public Deadline(String description, Priority priority, LocalDate by) throws KingException {
+        super(description, priority);
         if (by == null) {
             throw new KingException(KingException.ErrorMessage.DEADLINE_MISSING_DEADLINE);
         } else {

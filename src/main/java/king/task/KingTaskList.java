@@ -21,6 +21,7 @@ public class KingTaskList {
             this.tasks = new ArrayList<>();
         } else {
             this.tasks = tasks;
+            System.out.println(tasks);
         }
     }
 

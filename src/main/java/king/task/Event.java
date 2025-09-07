@@ -17,12 +17,13 @@ public class Event extends Task {
      * If no start / end date is provided, throws a missing date exception.
      *
      * @param description Description of the task.
+     * @param priority    Priority of the task.
      * @param from        Start date of the event.
      * @param to          End date of the event.
      * @throws KingException Error in creation of task.
      */
-    public Event(String description, LocalDate from, LocalDate to) throws KingException {
-        super(description);
+    public Event(String description, Priority priority, LocalDate from, LocalDate to) throws KingException {
+        super(description, priority);
 
         if (from == null && to == null) {
             throw new KingException(KingException.ErrorMessage.EVENT_MISSING_FROM_TO_DATE);

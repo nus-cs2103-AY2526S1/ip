@@ -23,9 +23,13 @@ public class KingTaskListTest {
     @BeforeEach
     public void setUp() throws KingException {
         kingTaskList = new KingTaskList();
-        testBasicTodo = new Todo("Find an internship");
-        testBasicDeadline = new Deadline("Submit CS2103 iP", LocalDate.parse("2025-12-31"));
-        testBasicEvent = new Event("CS2103 Meeting", LocalDate.parse("2025-09-01"), LocalDate.parse("2025-09-01"));
+        testBasicTodo = new Todo("Find an internship", Task.Priority.MEDIUM);
+        testBasicDeadline = new Deadline("Submit CS2103 iP", Task.Priority.LOW, LocalDate.parse("2025-12-31"));
+        testBasicEvent = new Event(
+                "CS2103 Meeting",
+                Task.Priority.MEDIUM,
+                LocalDate.parse("2025-09-01"),
+                LocalDate.parse("2025-09-01"));
     }
 
     @Test

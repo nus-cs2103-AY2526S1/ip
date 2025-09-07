@@ -180,13 +180,18 @@ public class KingStorage {
             case TODO:
                 assert task instanceof Todo;
                 Todo todo = (Todo) task;
-                fw.write("T | " + (todo.getComplete() ? 1 : 0) + " | " + todo.getDescription() + "\n");
+                fw.write("T | "
+                        + (todo.getComplete() ? 1 : 0) + " | "
+                        + todo.getPriority() + " | "
+                        + todo.getDescription() + "\n");
                 break;
             case DEADLINE:
                 assert task instanceof Deadline;
                 Deadline deadline = (Deadline) task;
-                fw.write("D | " + (deadline.getComplete() ? 1 : 0)
-                        + " | " + deadline.getDescription() + " | "
+                fw.write("D | "
+                        + (deadline.getComplete() ? 1 : 0) + " | "
+                        + deadline.getDescription() + " | "
+                        + deadline.getPriority() + " | "
                         + deadline.getBy() + "\n");
                 break;
             case EVENT:
@@ -221,16 +226,17 @@ public class KingStorage {
 
                 switch (taskStrings[0]) {
                 case "T":
-                    Todo newTodo = new Todo(taskStrings[2]);
-                    if (taskStrings[1].equals("1")) {
+                    Todo newTodo = new Todo(taskStrings[3], Task.getPriorityFromString(taskStrings[2]));
+                    if (taskStrings[1].equals("2")) {
                         newTodo.markDone();
                     }
                     tasks.add(newTodo);
                     break;
                 case "D":
                     Deadline newDeadline = new Deadline(
-                            taskStrings[2],
-                            LocalDate.parse(taskStrings[3]));
+                            taskStrings[3],
+                            Task.getPriorityFromString(taskStrings[2]),
+                            LocalDate.parse(taskStrings[4]));
                     if (taskStrings[1].equals("1")) {
                         newDeadline.markDone();
                     }
@@ -238,9 +244,10 @@ public class KingStorage {
                     break;
                 case "E":
                     Event newEvent = new Event(
-                            taskStrings[2],
-                            LocalDate.parse(taskStrings[3]),
-                            LocalDate.parse(taskStrings[4]));
+                            taskStrings[3],
+                            Task.getPriorityFromString(taskStrings[2]),
+                            LocalDate.parse(taskStrings[4]),
+                            LocalDate.parse(taskStrings[5]));
                     if (taskStrings[1].equals("1")) {
                         newEvent.markDone();
                     }

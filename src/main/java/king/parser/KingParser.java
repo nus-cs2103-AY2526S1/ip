@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import king.KingException;
+import king.task.Task;
 
 /**
  * Parser for the King that helps with checking which commands have been called based on user input
@@ -30,9 +31,12 @@ public class KingParser {
     private final String listRegex = "^list$";
     private final String dueRegex = "^due(?:\\s+(.*))?$";
     private final String findRegex = "^find(?:\\s+(.*))?$";
-    private final String todoRegex = "^todo(?:\\s+(.*))?$";
-    private final String deadlineRegex = "^deadline(?:\\s+(.*?)\\s*(?:/by\\s+(.+))?)?$";
-    private final String eventRegex = "^event(?:\\s+(.*?)(?:\\s+/from\\s+(.+?))?(?:\\s+/to\\s+(.+))?)?$";
+    private final String todoRegex = "^todo(?:\\s+(.*?)\\s*(?:/priority\\s+(.+))?)?$";
+    private final String deadlineRegex = "^deadline(?:\\s+(.*?)\\s*(?:/priority\\s+(.+?))?\\s*(?:/by\\s+(.+))?)?$";
+    private final String eventRegex = "^event(?:\\s+(.*?)\\s*"
+            + "(?:/priority\\s+(.+?))?\\s*"
+            + "(?:/from\\s+(.+?))?\\s*"
+            + "(?:/to\\s+(.+))?)?$";
     private final String markRegex = "^mark(?:\\s+(\\d*))?$";
     private final String unmarkRegex = "^unmark(?:\\s+(\\d*))?$";
     private final String deleteRegex = "^delete(?:\\s+(\\d*))?$";
@@ -133,8 +137,7 @@ public class KingParser {
     private boolean checkDue() throws KingException {
         if (!dueMatcher.matches()) {
             return false;
-        }
-        if (dueMatcher.group(1) == null) {
+        } else if (dueMatcher.group(1) == null) {
             throw new KingException(KingException.ErrorMessage.DEADLINE_MISSING_DEADLINE);
         }
         return true;
@@ -143,8 +146,7 @@ public class KingParser {
     private boolean checkFind() throws KingException {
         if (!findMatcher.matches()) {
             return false;
-        }
-        if (findMatcher.group(1) == null) {
+        } else if (findMatcher.group(1) == null) {
             throw new KingException(KingException.ErrorMessage.FIND_MISSING_SEARCH);
         }
         return true;
@@ -156,7 +158,12 @@ public class KingParser {
         }
         if (todoMatcher.group(1) == null) {
             throw new KingException(KingException.ErrorMessage.MISSING_TASK_DESCRIPTION);
+        } else if (todoMatcher.group(2) == null) {
+            throw new KingException(KingException.ErrorMessage.MISSING_TASK_PRIORITY);
+        } else if (!checkValidPriority(todoMatcher.group(2))) {
+            throw new KingException(KingException.ErrorMessage.INCORRECT_TASK_PRIORITY);
         }
+
         return true;
     }
 
@@ -164,7 +171,13 @@ public class KingParser {
         if (!deadlineMatcher.matches()) {
             return false;
         }
-        if (deadlineMatcher.group(2) == null) {
+        if (deadlineMatcher.group(1) == null) {
+            throw new KingException(KingException.ErrorMessage.MISSING_TASK_DESCRIPTION);
+        } else if (deadlineMatcher.group(2) == null) {
+            throw new KingException(KingException.ErrorMessage.MISSING_TASK_PRIORITY);
+        } else if (!checkValidPriority(deadlineMatcher.group(2))) {
+            throw new KingException(KingException.ErrorMessage.INCORRECT_TASK_PRIORITY);
+        } else if (deadlineMatcher.group(3) == null) {
             throw new KingException(KingException.ErrorMessage.DEADLINE_MISSING_DEADLINE);
         }
         return true;
@@ -174,11 +187,17 @@ public class KingParser {
         if (!eventMatcher.matches()) {
             return false;
         }
-        if (eventMatcher.group(2) == null && eventMatcher.group(3) == null) {
-            throw new KingException(KingException.ErrorMessage.EVENT_MISSING_FROM_TO_DATE);
+        if (eventMatcher.group(1) == null) {
+            throw new KingException(KingException.ErrorMessage.MISSING_TASK_DESCRIPTION);
         } else if (eventMatcher.group(2) == null) {
-            throw new KingException(KingException.ErrorMessage.EVENT_MISSING_FROM_DATE);
+            throw new KingException(KingException.ErrorMessage.MISSING_TASK_PRIORITY);
+        } else if (!checkValidPriority(todoMatcher.group(2))) {
+            throw new KingException(KingException.ErrorMessage.INCORRECT_TASK_PRIORITY);
+        } else if (eventMatcher.group(3) == null && eventMatcher.group(4) == null) {
+            throw new KingException(KingException.ErrorMessage.EVENT_MISSING_FROM_TO_DATE);
         } else if (eventMatcher.group(3) == null) {
+            throw new KingException(KingException.ErrorMessage.EVENT_MISSING_FROM_DATE);
+        } else if (eventMatcher.group(4) == null) {
             throw new KingException(KingException.ErrorMessage.EVENT_MISSING_TO_DATE);
         }
         return true;
@@ -212,6 +231,23 @@ public class KingParser {
             throw new KingException(KingException.ErrorMessage.DELETE_MISSING_INDEX);
         }
         return true;
+    }
+
+    /**
+     * Checks if the string provided is a valid priority text
+     *
+     * @param priorityText Input text
+     * @return True if priority is given correctly, else false.
+     */
+    private boolean checkValidPriority(String priorityText) {
+        System.out.println("Checking if valid priority");
+        for (Task.Priority p : Task.Priority.values()) {
+            System.out.println(p.getPriority());
+            if (p.getPriority().equals(priorityText)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

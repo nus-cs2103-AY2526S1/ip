@@ -72,6 +72,23 @@ public class KingUI {
     }
 
     /**
+     * Show specific tasks due for due command
+     *
+     * @param list List of all tasks
+     * @return Response string of all tasks
+     */
+    public String showSortedList(ArrayList<Task> list) {
+        StringBuilder response = new StringBuilder(" Here are the tasks sorted by decreasing priority:\n");
+        list.stream().sorted((t1, t2) -> t1.getPriority().getPriorityLevel() - t2.getPriority().getPriorityLevel())
+                .forEach(task ->
+                        response.append(list.indexOf(task) + 1)
+                                .append(". ")
+                                .append(task)
+                                .append("\n"));
+        return response.toString();
+    }
+
+    /**
      * Shows specific tasks matching find command
      *
      * @param list     List of all tasks
