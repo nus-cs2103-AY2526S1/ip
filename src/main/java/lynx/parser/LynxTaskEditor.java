@@ -76,7 +76,7 @@ public class LynxTaskEditor {
      * @throws LynxException If command is invalid.
      */
     public String deleteTasks(String input) throws LynxException {
-        Consumer<Task> delete = task -> taskList.removeTask(task, false);
+        Consumer<Task> delete = taskList::removeTask;
         String empty = "     (No tasks found or deleted)";
 
         if (input.length() <= 6 || !input.startsWith("delete")) {

@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import objectclasses.exception.LynxException;
+import objectclasses.exception.LynxFileException;
 
 /**
  * Contains methods to read and write data to a filepath.
@@ -23,9 +23,9 @@ public class LynxFileManager {
      * Creates the directory and file as specified by the filepath.
      * <p>
      * Skips if directory / file already exists.
-     * @throws LynxException If file cannot be located or created.
+     * @throws LynxFileException If file cannot be located or created.
      */
-    public void createFile() throws LynxException {
+    public void createFile() throws LynxFileException {
         try {
             // Ensure directory exists
             if (!Files.exists(filePath.getParent())) {
@@ -36,9 +36,7 @@ public class LynxFileManager {
                 Files.createFile(filePath);
             }
         } catch (IOException e) {
-            throw new LynxException("⚠️ Warning: Lynx couldn't set up your data file!\n"
-                    + "Details: " + e.getMessage() + "\n"
-                    + "Your tasks may not be saved. Please check your file permissions or disk space.");
+            throw LynxFileException.createError(e.getMessage());
         }
     }
 
@@ -46,15 +44,13 @@ public class LynxFileManager {
      * Reads all lines from the data file.
      *
      * @return File contents as list of strings.
-     * @throws LynxException If file cannot be read.
+     * @throws LynxFileException If file cannot be read.
      */
-    public List<String> readFromFile() throws LynxException {
+    public List<String> readFromFile() throws LynxFileException {
         try {
             return Files.readAllLines(filePath);
         } catch (IOException e) {
-            throw new LynxException("⚠️ Oops! Lynx couldn't read your data file.\n"
-                    + "Details: " + e.getMessage() + "\n"
-                    + "Your tasks could not be loaded. Starting with an empty list.");
+            throw LynxFileException.readError(e.getMessage());
         }
     }
 
@@ -62,15 +58,13 @@ public class LynxFileManager {
      * Writes to the data file.
      *
      * @param text Lines of text to be written.
-     * @throws LynxException If file cannot be written.
+     * @throws LynxFileException If file cannot be written.
      */
-    public void writeToFile(List<String> text) throws LynxException {
+    public void writeToFile(List<String> text) throws LynxFileException {
         try {
             Files.write(filePath, text);
         } catch (IOException e) {
-            throw new LynxException("⚠️ Oops! Lynx couldn't save your tasks.\n"
-                    + "Details: " + e.getMessage() + "\n"
-                    + "Any changes made during this session may not be saved.");
+            throw LynxFileException.writeError(e.getMessage());
         }
     }
 

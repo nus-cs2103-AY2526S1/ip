@@ -32,10 +32,8 @@ public class LynxTaskList {
 
     /**
      * Clears the task list of all tasks.
-     *
-     * @param dialogue Option to print a dialogue.
      */
-    public void clearTasks(boolean dialogue) {
+    public void clearTasks() {
         commands.clear();
     }
 
@@ -43,7 +41,7 @@ public class LynxTaskList {
      * Adds a task to the task list.
      *
      * @param task Task to be added.
-     * @return String representing the task added.
+     * @return String to represent task added.
      */
     public String addTask(Task task) {
         commands.add(task);
@@ -55,9 +53,8 @@ public class LynxTaskList {
      * Removes a task from the task list.
      *
      * @param task Task to be removed.
-     * @param dialogue Option to print a dialogue.
      */
-    public void removeTask(Task task, boolean dialogue) {
+    public void removeTask(Task task) {
         commands.remove(task);
     }
 
