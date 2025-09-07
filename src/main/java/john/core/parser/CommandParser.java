@@ -7,10 +7,41 @@ import john.util.DateTimeParser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses raw user input into executable Command instances.
+ * <p>
+ * Responsibilities:
+ * - Tokenize the input line into a verb and the remainder.
+ * - Dispatch to verb-specific parsers that validate arguments and build commands.
+ * - Produce helpful usage errors via ParseException when input is invalid.
+ * <p>
+ * Supported commands and usage:
+ * - bye
+ * - list
+ * - mark <task-number>
+ * - unmark <task-number>
+ * - delete <task-number>
+ * - todo <description>
+ * - deadline <description> /by <when>
+ * - event <description> /from <start> /to <end>
+ * <p>
+ * Date/time format expected by deadline and event:
+ * dd/MM/yyyy HH:mm:ss
+ */
 public final class CommandParser {
     public CommandParser() {
     }
 
+    /**
+     * Parses a full input line into a Command.
+     * <p>
+     * Splits on whitespace into: verb and the rest (verbatim remainder).
+     * Dispatches to a verb-specific parser.
+     *
+     * @param line raw user input
+     * @return a concrete Command ready to execute
+     * @throws ParseException if the verb is unknown or arguments are invalid
+     */
     public static Command parse(String line) throws ParseException {
         if (line == null || line.isBlank()) throw new ParseException("Empty command.");
         String[] head = line.trim().split("\\s+", 2);
@@ -26,11 +57,18 @@ public final class CommandParser {
             case "todo" -> parseTodo(rest);
             case "deadline" -> parseDeadline(rest);
             case "event" -> parseEvent(rest);
-            default -> throw new ParseException("Unknown command: " + verb +
-                    ". Try: list, mark, unmark, delete, todo, deadline, event, bye");
+            default ->
+                    throw new ParseException("Unknown command: " + verb + ". Try: list, mark, unmark, delete, todo, deadline, event, bye");
         };
     }
 
+    /**
+     * Parses: mark <task-number>
+     *
+     * @param rest remainder after the verb
+     * @return a MarkCommand
+     * @throws ParseException if the task number is missing or not an integer
+     */
     private static Command parseMark(String rest) throws ParseException {
         if (rest.isEmpty()) throw new ParseException("Usage: mark <task-number>");
         int oneBased;
@@ -42,6 +80,13 @@ public final class CommandParser {
         return new MarkCommand(oneBased);
     }
 
+    /**
+     * Parses: unmark <task-number>
+     *
+     * @param rest remainder after the verb
+     * @return an UnmarkCommand
+     * @throws ParseException if the task number is missing or not an integer
+     */
     private static Command parseUnmark(String rest) throws ParseException {
         if (rest.isEmpty()) throw new ParseException("Usage: unmark <task-number>");
         int oneBased;
@@ -53,6 +98,13 @@ public final class CommandParser {
         return new UnmarkCommand(oneBased);
     }
 
+    /**
+     * Parses: delete <task-number>
+     *
+     * @param rest remainder after the verb
+     * @return a DeleteCommand
+     * @throws ParseException if the task number is missing or not an integer
+     */
     private static Command parseDelete(String rest) throws ParseException {
         if (rest.isEmpty()) throw new ParseException("Usage: delete <task-number>");
         int oneBased;
@@ -64,18 +116,33 @@ public final class CommandParser {
         return new DeleteCommand(oneBased);
     }
 
+    /**
+     * Parses: todo <description>
+     *
+     * @param rest task description
+     * @return an AddTodoCommand
+     * @throws ParseException if description is empty
+     */
     private static Command parseTodo(String rest) throws ParseException {
         if (rest.isEmpty()) throw new ParseException("Usage: todo <description>");
         return new AddTodoCommand(rest);
     }
 
+    /**
+     * Parses: deadline <description> /by <when>
+     * <p>
+     * The <when> must be in the DateTimeParser expected format (dd/MM/yyyy HH:mm:ss).
+     *
+     * @param rest remainder containing description and by value
+     * @return an AddDeadlineCommand
+     * @throws ParseException if tokens are missing or the date-time is invalid
+     */
     private static Command parseDeadline(String rest) throws ParseException {
         int byPos = rest.lastIndexOf(" /by ");
         if (byPos == -1) throw new ParseException("Usage: deadline <description> /by <when>");
         String desc = rest.substring(0, byPos).trim();
         String when = rest.substring(byPos + 5).trim();
-        if (desc.isEmpty() || when.isEmpty())
-            throw new ParseException("Usage: deadline <description> /by <when>");
+        if (desc.isEmpty() || when.isEmpty()) throw new ParseException("Usage: deadline <description> /by <when>");
         LocalDateTime by;
         try {
             by = DateTimeParser.parseDateTime(when);
@@ -85,6 +152,16 @@ public final class CommandParser {
         return new AddDeadlineCommand(desc, by);
     }
 
+    /**
+     * Parses: event <description> /from <start> /to <end>
+     * <p>
+     * Both <start> and <end> must be in the DateTimeParser expected format (dd/MM/yyyy HH:mm:ss),
+     * and end must not be before start.
+     *
+     * @param rest remainder containing description, start and end tokens
+     * @return an AddEventCommand
+     * @throws ParseException if tokens are missing, date-time values are invalid, or end < start
+     */
     private static Command parseEvent(String rest) throws ParseException {
         int fromPos = rest.lastIndexOf(" /from ");
         int toPos = rest.lastIndexOf(" /to ");
@@ -104,8 +181,7 @@ public final class CommandParser {
         } catch (DateTimeParseException e) {
             throw new ParseException("Invalid date/time. Expected: " + DateTimeParser.HUMAN_PATTERN);
         }
-        if (to.isBefore(from))
-            throw new ParseException("End time must be after start time.");
+        if (to.isBefore(from)) throw new ParseException("End time must be after start time.");
         return new AddEventCommand(desc, from, to);
     }
 }
