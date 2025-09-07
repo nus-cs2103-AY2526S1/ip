@@ -31,9 +31,9 @@ public class Zell extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Zell.class.getResource("/view/MainWindow.fxml"));
             AnchorPane anchorPane = fxmlLoader.load();
             Scene scene = new Scene(anchorPane);
+            stage.setTitle("Zell");
             stage.setScene(scene);
 
-            Ui ui = new Ui();
             Storage storage = new Storage(FILE_PATH);
             Parser parser = new Parser();
             TaskList taskList;
