@@ -216,7 +216,7 @@ public class KingParser {
             throw new KingException(KingException.ErrorMessage.MISSING_TASK_DESCRIPTION);
         } else if (eventMatcher.group(2) == null) {
             throw new KingException(KingException.ErrorMessage.MISSING_TASK_PRIORITY);
-        } else if (!checkValidPriority(todoMatcher.group(2))) {
+        } else if (!checkValidPriority(eventMatcher.group(2))) {
             throw new KingException(KingException.ErrorMessage.INCORRECT_TASK_PRIORITY);
         } else if (eventMatcher.group(3) == null && eventMatcher.group(4) == null) {
             throw new KingException(KingException.ErrorMessage.EVENT_MISSING_FROM_TO_DATE);
@@ -285,8 +285,7 @@ public class KingParser {
     private boolean checkValidPriority(String priorityText) {
         System.out.println("Checking if valid priority");
         for (Task.Priority p : Task.Priority.values()) {
-            System.out.println(p.getPriority());
-            if (p.getPriority().equals(priorityText)) {
+            if (p.getDatabaseText().equals(priorityText)) {
                 return true;
             }
         }

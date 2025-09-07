@@ -182,7 +182,7 @@ public class KingStorage {
                 Todo todo = (Todo) task;
                 fw.write("T | "
                         + (todo.getComplete() ? 1 : 0) + " | "
-                        + todo.getPriority() + " | "
+                        + todo.getPriority().getDatabaseText() + " | "
                         + todo.getDescription() + "\n");
                 break;
             case DEADLINE:
@@ -190,17 +190,19 @@ public class KingStorage {
                 Deadline deadline = (Deadline) task;
                 fw.write("D | "
                         + (deadline.getComplete() ? 1 : 0) + " | "
+                        + deadline.getPriority().getDatabaseText() + " | "
                         + deadline.getDescription() + " | "
-                        + deadline.getPriority() + " | "
                         + deadline.getBy() + "\n");
                 break;
             case EVENT:
                 assert task instanceof Event;
                 Event event = (Event) task;
-                fw.write("E | " + (event.getComplete() ? 1 : 0)
-                        + " | " + event.getDescription()
-                        + " | " + event.getFrom()
-                        + " | " + event.getTo() + "\n");
+                fw.write("E | "
+                        + (event.getComplete() ? 1 : 0) + " | "
+                        + event.getPriority().getDatabaseText() + " | "
+                        + event.getDescription() + " | "
+                        + event.getFrom() + " | "
+                        + event.getTo() + "\n");
                 break;
             default:
                 break;

@@ -31,12 +31,12 @@ public abstract class Task {
         VERY_HIGH(1, "VH", "Very High");
 
         private final int priorityLevel;
-        private final String priority;
+        private final String databaseText;
         private final String displayText;
 
-        Priority(int priorityLevel, String priority, String displayText) {
+        Priority(int priorityLevel, String databaseText, String displayText) {
             this.priorityLevel = priorityLevel;
-            this.priority = priority;
+            this.databaseText = databaseText;
             this.displayText = displayText;
         }
 
@@ -44,8 +44,8 @@ public abstract class Task {
             return priorityLevel;
         }
 
-        public String getPriority() {
-            return priority;
+        public String getDatabaseText() {
+            return databaseText;
         }
 
         public String getDisplayText() {
@@ -109,7 +109,7 @@ public abstract class Task {
 
     public static Priority getPriorityFromString(String priorityText) throws KingException {
         for (Priority p : Priority.values()) {
-            if (p.getPriority().equals(priorityText)) {
+            if (p.getDatabaseText().equals(priorityText)) {
                 return p;
             }
         }
