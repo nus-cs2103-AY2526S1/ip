@@ -43,8 +43,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + " (from: " + from.format(DateTimeUtil.DISPLAY_FORMAT)
-                + " to: " + to.format(DateTimeUtil.DISPLAY_FORMAT) + ")";
+        return super.toString()
+                + " (from: " + DateTimeUtil.formatForDisplay(from)
+                + " to: " + DateTimeUtil.formatForDisplay(to) + ")";
     }
 
     @Override

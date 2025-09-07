@@ -37,7 +37,9 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + by.format(DateTimeUtil.DISPLAY_FORMAT) + ")";
+        return "[D][" + (isDone ? "X" : " ") + "] "
+                + description
+                + " (by: " + DateTimeUtil.formatForDisplay(by) + ")";
     }
 
     @Override
