@@ -1,6 +1,6 @@
 package dobby.exceptions;
 
-public class InvalidTaskException extends Exception {
+public class InvalidTaskException extends DobbyException {
     public InvalidTaskException() {
         super("Invalid task input!");
     }
