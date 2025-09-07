@@ -1,9 +1,6 @@
 package objectclasses.command;
 
-import java.util.function.Consumer;
-
 import objectclasses.exception.LynxException;
-import objectclasses.task.Task;
 
 /**
  * Represents a string of search modifiers for a "mark" command and stores its search results.

@@ -1,9 +1,6 @@
 package objectclasses.command;
 
 import objectclasses.exception.LynxException;
-import objectclasses.task.Task;
-
-import java.util.function.Consumer;
 
 /**
  * Represents a string of search modifiers for an "unmark" command and stores its search results.

@@ -1,7 +1,6 @@
 package objectclasses.command;
 
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.regex.PatternSyntaxException;
 
 import objectclasses.exception.LynxException;
