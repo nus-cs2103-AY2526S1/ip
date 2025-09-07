@@ -96,15 +96,15 @@ public class Storage {
      * @return list of matching tasks
      */
     public List<Task> findTasksByKeyword(String keyword) {
-        String needle = keyword == null ? "" : keyword.toLowerCase();
-        List<Task> result = new ArrayList<>();
+        String text = keyword == null ? "" : keyword.toLowerCase();
+        List<Task> results = new ArrayList<>();
         for (Task task : taskList.asList()) {
             String description = task.toString();
-            if (description.toLowerCase().contains(needle)) {
-                result.add(task);
+            if (description.toLowerCase().contains(text)) {
+                results.add(task);
             }
         }
-        return result;
+        return results;
     }
 
     /**
