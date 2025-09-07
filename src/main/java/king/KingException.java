@@ -12,6 +12,12 @@ public class KingException extends IOException {
     public enum ErrorMessage {
         INVALID_COMMAND("Invalid command"),
         MISSING_TASK_DESCRIPTION("Error! Missing task description! Type it after todo/deadline/event."),
+        MISSING_TASK_PRIORITY("Error! Missing task priority! "
+                + "Use the format `[task] [description] /priority [VL (Very Low), L (Low), "
+                + "M (Medium), H (High) or VH (Very High)]` after the description."),
+        INCORRECT_TASK_PRIORITY("Error! No such priority exists. "
+                + "Use the format `[task] [description] /priority [VL (Very Low), L (Low), "
+                + "M (Medium), H (High) or VH (Very High)]` after the description."),
         FIND_MISSING_SEARCH("Error! Search string is missing from command! Use the format `find [keyword].`"),
         DEADLINE_MISSING_DEADLINE("Error! Deadline is not provided! "
                 + "Use the format `deadline [task] /by [date]`"),

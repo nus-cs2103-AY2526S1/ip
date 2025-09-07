@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import king.KingException;
+import king.task.Task;
 
 /**
  * Parser for the King that helps with checking which commands have been called based on user input
@@ -15,6 +16,7 @@ public class KingParser {
     public enum Commands {
         HELP,
         LIST,
+        SORTED_LIST,
         DUE,
         FIND,
         TODO,
@@ -27,12 +29,15 @@ public class KingParser {
     }
 
     private final String helpRegex = "^help$";
-    private final String listRegex = "^list$";
+    private final String listRegex = "^list(?:\\s+(/sorted))?$";
     private final String dueRegex = "^due(?:\\s+(.*))?$";
     private final String findRegex = "^find(?:\\s+(.*))?$";
-    private final String todoRegex = "^todo(?:\\s+(.*))?$";
-    private final String deadlineRegex = "^deadline(?:\\s+(.*?)\\s*(?:/by\\s+(.+))?)?$";
-    private final String eventRegex = "^event(?:\\s+(.*?)(?:\\s+/from\\s+(.+?))?(?:\\s+/to\\s+(.+))?)?$";
+    private final String todoRegex = "^todo(?:\\s+(.*?)\\s*(?:/priority\\s+(.+))?)?$";
+    private final String deadlineRegex = "^deadline(?:\\s+(.*?)\\s*(?:/priority\\s+(.+?))?\\s*(?:/by\\s+(.+))?)?$";
+    private final String eventRegex = "^event(?:\\s+(.*?)\\s*"
+            + "(?:/priority\\s+(.+?))?\\s*"
+            + "(?:/from\\s+(.+?))?\\s*"
+            + "(?:/to\\s+(.+))?)?$";
     private final String markRegex = "^mark(?:\\s+(\\d*))?$";
     private final String unmarkRegex = "^unmark(?:\\s+(\\d*))?$";
     private final String deleteRegex = "^delete(?:\\s+(\\d*))?$";
@@ -133,57 +138,102 @@ public class KingParser {
     private boolean checkDue() throws KingException {
         if (!dueMatcher.matches()) {
             return false;
-        }
-        if (dueMatcher.group(1) == null) {
+        } else if (dueMatcher.group(1) == null) {
             throw new KingException(KingException.ErrorMessage.DEADLINE_MISSING_DEADLINE);
         }
         return true;
     }
 
+    /**
+     * Checks if command matches find command or missing search text
+     *
+     * @return True if match find command
+     * @throws KingException If matching group is missing certain parts, throw IOError KingException.
+     */
     private boolean checkFind() throws KingException {
         if (!findMatcher.matches()) {
             return false;
-        }
-        if (findMatcher.group(1) == null) {
+        } else if (findMatcher.group(1) == null) {
             throw new KingException(KingException.ErrorMessage.FIND_MISSING_SEARCH);
         }
         return true;
     }
 
+    /**
+     * Checks if command matches todo command or missing description and priority
+     *
+     * @return True if match todo command
+     * @throws KingException If matching group is missing certain parts, throw IOError KingException.
+     */
     private boolean checkTodo() throws KingException {
         if (!todoMatcher.matches()) {
             return false;
         }
         if (todoMatcher.group(1) == null) {
             throw new KingException(KingException.ErrorMessage.MISSING_TASK_DESCRIPTION);
+        } else if (todoMatcher.group(2) == null) {
+            throw new KingException(KingException.ErrorMessage.MISSING_TASK_PRIORITY);
+        } else if (!checkValidPriority(todoMatcher.group(2))) {
+            throw new KingException(KingException.ErrorMessage.INCORRECT_TASK_PRIORITY);
         }
+
         return true;
     }
 
+    /**
+     * Checks if command matches deadline command or missing description, priority or deadline
+     *
+     * @return True if match deadline command
+     * @throws KingException If matching group is missing certain parts, throw IOError KingException.
+     */
     private boolean checkDeadline() throws KingException {
         if (!deadlineMatcher.matches()) {
             return false;
         }
-        if (deadlineMatcher.group(2) == null) {
+        if (deadlineMatcher.group(1) == null) {
+            throw new KingException(KingException.ErrorMessage.MISSING_TASK_DESCRIPTION);
+        } else if (deadlineMatcher.group(2) == null) {
+            throw new KingException(KingException.ErrorMessage.MISSING_TASK_PRIORITY);
+        } else if (!checkValidPriority(deadlineMatcher.group(2))) {
+            throw new KingException(KingException.ErrorMessage.INCORRECT_TASK_PRIORITY);
+        } else if (deadlineMatcher.group(3) == null) {
             throw new KingException(KingException.ErrorMessage.DEADLINE_MISSING_DEADLINE);
         }
         return true;
     }
 
+    /**
+     * Checks if command matches event command or missing description, priority and from / to dates
+     *
+     * @return True if match event command
+     * @throws KingException If matching group is missing certain parts, throw IOError KingException.
+     */
     private boolean checkEvent() throws KingException {
         if (!eventMatcher.matches()) {
             return false;
         }
-        if (eventMatcher.group(2) == null && eventMatcher.group(3) == null) {
-            throw new KingException(KingException.ErrorMessage.EVENT_MISSING_FROM_TO_DATE);
+        if (eventMatcher.group(1) == null) {
+            throw new KingException(KingException.ErrorMessage.MISSING_TASK_DESCRIPTION);
         } else if (eventMatcher.group(2) == null) {
-            throw new KingException(KingException.ErrorMessage.EVENT_MISSING_FROM_DATE);
+            throw new KingException(KingException.ErrorMessage.MISSING_TASK_PRIORITY);
+        } else if (!checkValidPriority(eventMatcher.group(2))) {
+            throw new KingException(KingException.ErrorMessage.INCORRECT_TASK_PRIORITY);
+        } else if (eventMatcher.group(3) == null && eventMatcher.group(4) == null) {
+            throw new KingException(KingException.ErrorMessage.EVENT_MISSING_FROM_TO_DATE);
         } else if (eventMatcher.group(3) == null) {
+            throw new KingException(KingException.ErrorMessage.EVENT_MISSING_FROM_DATE);
+        } else if (eventMatcher.group(4) == null) {
             throw new KingException(KingException.ErrorMessage.EVENT_MISSING_TO_DATE);
         }
         return true;
     }
 
+    /**
+     * Checks if command matches mark command or missing index
+     *
+     * @return True if match mark command
+     * @throws KingException If matching group is missing certain parts, throw IOError KingException.
+     */
     private boolean checkMark() throws KingException {
         if (!markMatcher.matches()) {
             return false;
@@ -194,6 +244,12 @@ public class KingParser {
         return true;
     }
 
+    /**
+     * Checks if command matches unmark command or missing index
+     *
+     * @return True if match unmark command
+     * @throws KingException If matching group is missing certain parts, throw IOError KingException.
+     */
     private boolean checkUnmark() throws KingException {
         if (!unmarkMatcher.matches()) {
             return false;
@@ -204,6 +260,12 @@ public class KingParser {
         return true;
     }
 
+    /**
+     * Checks if command matches delete command or missing index
+     *
+     * @return True if match delete command
+     * @throws KingException If matching group is missing certain parts, throw IOError KingException.
+     */
     private boolean checkDelete() throws KingException {
         if (!deleteMatcher.matches()) {
             return false;
@@ -212,6 +274,22 @@ public class KingParser {
             throw new KingException(KingException.ErrorMessage.DELETE_MISSING_INDEX);
         }
         return true;
+    }
+
+    /**
+     * Checks if the string provided is a valid priority text
+     *
+     * @param priorityText Input text
+     * @return True if priority is given correctly, else false.
+     */
+    private boolean checkValidPriority(String priorityText) {
+        System.out.println("Checking if valid priority");
+        for (Task.Priority p : Task.Priority.values()) {
+            if (p.getDatabaseText().equals(priorityText)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

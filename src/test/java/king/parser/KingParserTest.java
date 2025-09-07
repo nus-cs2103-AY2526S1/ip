@@ -69,7 +69,7 @@ public class KingParserTest {
 
     @Test
     public void todo1_success() throws KingException {
-        kingParser.setNewInput("   todo    Todo Task ");
+        kingParser.setNewInput("   todo    Todo Task  /priority VH");
         assertTrue(kingParser.checkParser(KingParser.Commands.TODO));
     }
 
@@ -83,7 +83,7 @@ public class KingParserTest {
 
     @Test
     public void deadline1_success() throws KingException {
-        kingParser.setNewInput("deadline Deadline Task /by 2025-10-23 ");
+        kingParser.setNewInput("deadline Deadline Task /priority M  /by 2025-10-23 ");
         assertTrue(kingParser.checkParser(KingParser.Commands.DEADLINE));
     }
 
@@ -113,7 +113,7 @@ public class KingParserTest {
 
     @Test
     public void event1_success() throws KingException {
-        kingParser.setNewInput("event Event Task /from 2025-10-23 /to 2025-10-31 ");
+        kingParser.setNewInput("event Event Task /priority VL /from 2025-10-23 /to 2025-10-31 ");
         assertTrue(kingParser.checkParser(KingParser.Commands.EVENT));
     }
 

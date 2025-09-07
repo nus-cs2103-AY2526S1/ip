@@ -25,7 +25,7 @@ public class KingUI {
      */
     public String showHelp() {
         return " Need help? Here is the list of commands you can use to use this chat bot!\n"
-                + " list - Gets the list of tasks you currently have\n"
+                + " list [/sorted] - Gets the list of tasks you currently have [and sorts by descending priority]\n"
                 + " due [YYYY-MM-DD] - Gets tasks due on specific date\n"
                 + " find [string1] [string2] ... - Finds tasks matching strings\n"
                 + " todo [task name] - Creates a new todo task\n"
@@ -68,6 +68,23 @@ public class KingUI {
                                 .append(task)
                                 .append("\n"));
 
+        return response.toString();
+    }
+
+    /**
+     * Show specific tasks due for due command
+     *
+     * @param list List of all tasks
+     * @return Response string of all tasks
+     */
+    public String showSortedList(ArrayList<Task> list) {
+        StringBuilder response = new StringBuilder(" Here are the tasks sorted by decreasing priority:\n");
+        list.stream().sorted((t1, t2) -> t1.getPriority().getPriorityLevel() - t2.getPriority().getPriorityLevel())
+                .forEach(task ->
+                        response.append(list.indexOf(task) + 1)
+                                .append(". ")
+                                .append(task)
+                                .append("\n"));
         return response.toString();
     }
 

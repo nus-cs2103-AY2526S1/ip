@@ -7,6 +7,7 @@ import king.parser.KingParser;
 import king.task.Deadline;
 import king.task.Event;
 import king.task.KingTaskList;
+import king.task.Task;
 import king.task.Todo;
 import king.ui.KingUI;
 
@@ -54,7 +55,12 @@ public class King {
                 return kingUI.showHelp();
             } else if (kingParser.checkParser(KingParser.Commands.LIST)) {
                 // list command - lists all the current tasks in your task list
-                return kingUI.showAllList(kingTaskList.getTasks());
+                if (kingParser.getListMatcher().group(1) != null
+                        && kingParser.getListMatcher().group(1).trim().equals("/sorted")) {
+                    return kingUI.showSortedList(kingTaskList.getTasks());
+                } else {
+                    return kingUI.showAllList(kingTaskList.getTasks());
+                }
             } else if (kingParser.checkParser(KingParser.Commands.DUE)) {
                 // due command - lists all tasks on a certain due date
                 return kingUI.showDueList(
@@ -62,25 +68,32 @@ public class King {
                         LocalDate.parse(kingParser.getDueMatcher().group(1)));
             } else if (kingParser.checkParser(KingParser.Commands.FIND)) {
                 // find command - finds all tasks with a certain name
-                return kingUI.showFindList(kingTaskList.getTasks(), kingParser.getFindMatcher().group(1).split(" "));
+                return kingUI.showFindList(
+                        kingTaskList.getTasks(),
+                        kingParser.getFindMatcher().group(1).split(" "));
             } else if (kingParser.checkParser(KingParser.Commands.TODO)) {
                 // todo command - creates a new todo task
-                Todo newTask = new Todo(kingParser.getTodoMatcher().group(1));
+                Todo newTask = new Todo(
+                        kingParser.getTodoMatcher().group(1),
+                        Task.getPriorityFromString(kingParser.getTodoMatcher().group(2))
+                );
                 kingTaskList.addTask(newTask);
                 return kingUI.showTaskCreate(newTask, kingTaskList.getSize());
             } else if (kingParser.checkParser(KingParser.Commands.DEADLINE)) {
                 // deadline command - creates a new deadline task
                 Deadline newTask = new Deadline(
                         kingParser.getDeadlineMatcher().group(1),
-                        LocalDate.parse(kingParser.getDeadlineMatcher().group(2)));
+                        Task.getPriorityFromString(kingParser.getTodoMatcher().group(2)),
+                        LocalDate.parse(kingParser.getDeadlineMatcher().group(3)));
                 kingTaskList.addTask(newTask);
                 return kingUI.showTaskCreate(newTask, kingTaskList.getSize());
             } else if (kingParser.checkParser(KingParser.Commands.EVENT)) {
                 // event command - creates a new event task
                 Event newTask = new Event(
                         kingParser.getEventMatcher().group(1),
-                        LocalDate.parse(kingParser.getEventMatcher().group(2)),
-                        LocalDate.parse(kingParser.getEventMatcher().group(3)));
+                        Task.getPriorityFromString(kingParser.getTodoMatcher().group(2)),
+                        LocalDate.parse(kingParser.getEventMatcher().group(3)),
+                        LocalDate.parse(kingParser.getEventMatcher().group(4)));
                 kingTaskList.addTask(newTask);
                 return kingUI.showTaskCreate(newTask, kingTaskList.getSize());
             } else if (kingParser.checkParser(KingParser.Commands.MARK)) {
