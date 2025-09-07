@@ -17,6 +17,7 @@ public class DeleteCommand extends Command {
      * @param index Index of the task to delete
      */
     public DeleteCommand(int index) {
+        assert index >= 0 : "Index must be positive or 0";
         this.index = index;
     }
 
@@ -26,6 +27,8 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(Ui ui, Storage storage) throws ByteException {
+        assert ui != null : "Ui cannot be null";
+        assert storage != null : "Storage cannot be null";
         Task removed = storage.deleteTask(index);
         return ui.showDeleted(removed, storage.getSize());
     }

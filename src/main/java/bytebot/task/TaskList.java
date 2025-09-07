@@ -26,6 +26,7 @@ public class TaskList {
      * @param initialTasks Tasks to fill the list
      */
     public TaskList(List<Task> initialTasks) {
+        assert initialTasks != null : "Initial tasks list cannot be null";
         this.tasks = new ArrayList<>(initialTasks);
     }
 
@@ -35,6 +36,7 @@ public class TaskList {
      * @return No. of tasks
      */
     public int size() {
+        assert tasks != null : "Internal tasks list must be initialized";
         return tasks.size();
     }
 
@@ -44,6 +46,7 @@ public class TaskList {
      * @return List of tasks
      */
     public List<Task> asList() {
+        assert tasks != null : "Internal tasks list must be initialized";
         return tasks;
     }
 
@@ -55,6 +58,8 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If index is invalid
      */
     public Task get(int index) {
+        assert index >= 0 : "Index must be positive or 0";
+        assert index < tasks.size() : "Index must be within current size";
         if (index < 0 || index >= tasks.size()) {
             throw new IndexOutOfBoundsException("Task number is invalid");
         }
@@ -68,6 +73,7 @@ public class TaskList {
      * @return The same task for chaining
      */
     public Task add(Task task) {
+        assert task != null : "Task to add cannot be null";
         tasks.add(task);
         return task;
     }
@@ -80,6 +86,8 @@ public class TaskList {
      * @throws ByteException If index is invalid
      */
     public Task delete(int index) throws ByteException {
+        assert index >= 0 : "Index must be positive or 0";
+        assert index < tasks.size() : "Index must be within current size";
         Task removed = get(index);
         tasks.remove(index);
         return removed;
@@ -92,6 +100,8 @@ public class TaskList {
      * @throws ByteException If index is invalid
      */
     public void mark(int index) throws ByteException {
+        assert index >= 0 : "Index must be positive or 0";
+        assert index < tasks.size() : "Index must be within current size";
         Task task = get(index);
         task.mark();
     }
@@ -103,6 +113,8 @@ public class TaskList {
      * @throws ByteException If index is invalid
      */
     public void unmark(int index) throws ByteException {
+        assert index >= 0 : "Index must be positive or 0";
+        assert index < tasks.size() : "Index must be within current size";
         Task task = get(index);
         task.unmark();
     }
@@ -114,6 +126,8 @@ public class TaskList {
      * @throws IOException If writing fails
      */
     public void writeToFile(FileWriter writer) throws IOException {
+        assert writer != null : "Writer cannot be null";
+        assert tasks != null : "Internal tasks list must be initialized";
         for (Task task : tasks) {
             String status = task.isDone ? "1" : "0";
             writer.write(status + " | " + task + "\n");
