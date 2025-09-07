@@ -25,6 +25,8 @@ public class Parser {
      * @return Array of up to 3 segments: description, first option, second option
      */
     private static String[] parseSegments(String[] options) {
+        assert options != null : "Options cant be null";
+        assert options.length > 0 : "Options must have at least the command keyword";
         String[] segments = new String[3];
         StringBuilder currentSegment = new StringBuilder();
         int segmentIndex = 0;
@@ -57,6 +59,8 @@ public class Parser {
      * @throws ByteException If the input is invalid
      */
     public static Command parse(String input) throws ByteException {
+        assert input != null : "Input cannot be null";
+        assert !input.trim().isEmpty() : "Input cannot be empty";
         String[] parts = input.split(" ", 2);
         String keyword = parts[0];
 
@@ -85,10 +89,12 @@ public class Parser {
             return new EventCommand(description, from, to);
         }
         case "mark": {
+            assert parts.length == 2 : "Mark command needs an index";
             int index = Integer.parseInt(parts[1]) - 1;
             return new MarkCommand(index);
         }
         case "unmark": {
+            assert parts.length == 2 : "Unmark command needs an index";
             int index = Integer.parseInt(parts[1]) - 1;
             return new UnmarkCommand(index);
         }

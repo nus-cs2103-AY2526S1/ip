@@ -18,6 +18,7 @@ public class TodoCommand extends Command {
      * @param description Description of the to-do task
      */
     public TodoCommand(String description) {
+        assert description != null : "Description cannot be null";
         this.description = description;
     }
 
@@ -26,6 +27,8 @@ public class TodoCommand extends Command {
      */
     @Override
     public String execute(Ui ui, Storage storage) throws ByteException {
+        assert ui != null : "Ui cannot be null";
+        assert storage != null : "Storage cannot be null";
         if (description == null || description.trim().isEmpty()) {
             throw new ByteException("Note that the description of a todo cannot be empty");
         }

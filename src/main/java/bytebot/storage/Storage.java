@@ -44,6 +44,8 @@ public class Storage {
      * @throws IOException if there's an error reading the file
      */
     public TaskList load() throws IOException {
+        assert DATA_DIR != null && !DATA_DIR.isEmpty() : "Data directory must be defined";
+        assert FILE_NAME != null && !FILE_NAME.isEmpty() : "File name must be defined";
         File dataDir = new File(DATA_DIR);
         if (!dataDir.exists()) {
             dataDir.mkdirs();
@@ -54,6 +56,7 @@ public class Storage {
             return new TaskList();
         }
 
+        assert filePath != null : "File path must exist";
         List<String> lines = Files.readAllLines(filePath);
         List<Task> tasks = new ArrayList<>();
 
@@ -86,6 +89,7 @@ public class Storage {
      * Callers should not mutate returned tasks in a way that breaks invariants.
      */
     public List<Task> getAllTasks() {
+        assert taskList != null : "Task list must exist";
         return new ArrayList<>(taskList.asList());
     }
 
@@ -114,6 +118,7 @@ public class Storage {
      * @param taskList The TaskList to initialize with
      */
     public void initializeWithTaskList(TaskList taskList) {
+        assert taskList != null : "Provided task list cannot be null";
         this.taskList = taskList;
     }
 
@@ -123,6 +128,7 @@ public class Storage {
      * @return Number of tasks persisted
      */
     public int getSize() {
+        assert taskList != null : "Task list must exist";
         return taskList.size();
     }
 
@@ -134,6 +140,7 @@ public class Storage {
      * @throws ByteException If index is out of range
      */
     public Task getTask(int index) throws ByteException {
+        assert taskList != null : "Task list must exist";
         return taskList.get(index);
     }
 
@@ -143,6 +150,8 @@ public class Storage {
      * @param task Task to add
      */
     public void addTask(Task task) {
+        assert task != null : "Task to add must exist";
+        assert taskList != null : "Task list must exist";
         taskList.add(task);
         saveTasks(taskList);
     }
@@ -154,6 +163,7 @@ public class Storage {
      * @throws ByteException If the index is invalid
      */
     public void markTask(int index) throws ByteException {
+        assert taskList != null : "Task list must exist";
         taskList.mark(index);
         saveTasks(taskList);
     }
@@ -165,6 +175,7 @@ public class Storage {
      * @throws ByteException If the index is invalid
      */
     public void unmarkTask(int index) throws ByteException {
+        assert taskList != null : "Task list must exist";
         taskList.unmark(index);
         saveTasks(taskList);
     }
@@ -177,6 +188,7 @@ public class Storage {
      * @throws ByteException If the index is invalid
      */
     public Task deleteTask(int index) throws ByteException {
+        assert taskList != null : "Task list must exist";
         Task removed = taskList.delete(index);
         saveTasks(taskList);
         return removed;
@@ -188,6 +200,7 @@ public class Storage {
      * @param tasks TaskList to save
      */
     public void saveTasks(TaskList tasks) {
+        assert tasks != null : "Tasks to save must exist";
         try {
             File dataDir = new File(DATA_DIR);
             if (!dataDir.exists()) {
@@ -210,8 +223,11 @@ public class Storage {
      * @throws ByteException if the line format is invalid
      */
     private Task parseTaskFromString(String line) throws ByteException {
+        assert line != null : "Input line cannot be null";
+        assert !line.trim().isEmpty() : "Input line cannot be empty";
         String[] tokens = line.split(" \\| ");
 
+        assert tokens.length >= 2 : "Serialized task line must contain status and body";
         Status status = Status.fromString(tokens[0]);
         String taskString = tokens[1];
 
@@ -224,6 +240,7 @@ public class Storage {
             int byStart = taskString.indexOf("(by: ") + 5;
             int byEnd = taskString.indexOf(")");
 
+            assert byStart >= 5 && byEnd > byStart : "Deadline must contain by time";
             String by = taskString.substring(byStart, byEnd);
             String description = taskString.substring(taskString.indexOf("] ") + 2, taskString.indexOf(" (by:"));
             String convertedBy = convertDisplayToInput(by);
@@ -235,6 +252,8 @@ public class Storage {
             int toStart = taskString.indexOf("to: ") + 4;
             int toEnd = taskString.indexOf(")");
 
+            assert fromStart >= 7 && fromEnd > fromStart : "Event must contain from time";
+            assert toStart >= 4 && toEnd > toStart : "Event must contain to time";
             String from = taskString.substring(fromStart, fromEnd);
             String to = taskString.substring(toStart, toEnd);
             String description = taskString.substring(taskString.indexOf("] ") + 2, taskString.indexOf(" (from:"));
@@ -263,6 +282,8 @@ public class Storage {
      * @throws ByteException if the conversion fails
      */
     private String convertDisplayToInput(String displayFormat) throws ByteException {
+        assert displayFormat != null : "Display date must exist";
+        assert !displayFormat.trim().isEmpty() : "Display date cannot be empty";
         try {
             DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
             LocalDateTime dateTime = LocalDateTime.parse(displayFormat, displayFormatter);
