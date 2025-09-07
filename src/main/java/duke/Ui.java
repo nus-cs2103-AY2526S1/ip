@@ -124,4 +124,11 @@ public class Ui {
     public void close() {
         scanner.close();
     }
+
+    /**
+     * Shows a message when tasks have been sorted.
+     */
+    public void showTasksSorted() {
+        System.out.println("Tasks have been sorted! Deadlines are now arranged chronologically (earliest to latest).");
+    }
 }

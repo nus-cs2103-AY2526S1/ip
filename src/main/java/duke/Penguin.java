@@ -76,6 +76,10 @@ public class Penguin {
             handleFindCommand(command.getDescription());
             break;
 
+        case SORT:
+            handleSortCommand();
+            break;
+
         case INVALID:
         default:
             handleInvalidCommand();
@@ -94,6 +98,16 @@ public class Penguin {
 
     private void handleInvalidCommand() {
         ui.showInvalidTask();
+    }
+
+    /**
+     * Handles the sort command.
+     * @throws PenguinException if there's an error
+     */
+    private void handleSortCommand() throws PenguinException {
+        tasks.sortByDeadline();
+        storage.save(tasks.getTasks());
+        ui.showTasksSorted();
     }
 
     /**
@@ -228,6 +242,8 @@ public class Penguin {
                 return handleEventCommandGui(command.getDescription(), command.getFrom(), command.getTo());
             case FIND:
                 return handleFindCommandGui(command.getDescription());
+            case SORT:
+                return handleSortCommandGui();
             case INVALID:
                 return "OOPS!!! I'm sorry, but I don't know what that means :-(";
             default:
@@ -343,6 +359,16 @@ public class Penguin {
                 }
                 return sb.toString();
             }
+        } catch (PenguinException e) {
+            return "OOPS!!! " + e.getMessage();
+        }
+    }
+
+    private String handleSortCommandGui() {
+        try {
+            tasks.sortByDeadline();
+            storage.save(tasks.getTasks());
+            return "Tasks have been sorted! Deadlines are now arranged chronologically (latest to earliest).";
         } catch (PenguinException e) {
             return "OOPS!!! " + e.getMessage();
         }
