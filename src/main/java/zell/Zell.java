@@ -48,7 +48,7 @@ public class Zell extends Application {
             fxmlLoader.<Ui>getController().setFields(taskList, storage, parser);
             stage.show();
 
-            fxmlLoader.<Ui>getController().showMessage(ZellMessage.WELCOME_MESSAGE.message());
+            fxmlLoader.<Ui>getController().showMessage(ZellMessage.WELCOME_MESSAGE.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }

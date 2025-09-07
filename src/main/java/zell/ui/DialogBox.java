@@ -44,7 +44,7 @@ public class DialogBox extends HBox {
     /**
      * Flips the dialog box which we use for Zell.
      */
-    private void flip() {
+    private void flipDialogBox() {
         this.setAlignment(Pos.TOP_LEFT);
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         FXCollections.reverse(tmp);
@@ -72,7 +72,7 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getZellDialog(String message, Image image) {
         var db = new DialogBox(message, image);
-        db.flip();
+        db.flipDialogBox();
         return db;
     }
 }

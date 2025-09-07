@@ -78,7 +78,7 @@ public class Parser {
             output = handleFind(userInput, command, firstSpaceIndex, taskList);
             break;
         default:
-            throw new ZellException(command + ZellMessage.UNKNOWN_COMMAND.message());
+            throw new ZellException(command + ZellMessage.UNKNOWN_COMMAND.getMessage());
         }
 
         return output;
@@ -101,7 +101,7 @@ public class Parser {
     public String handleTaskCommands(String userInput, String command, int firstSpaceIndex,
             TaskList taskList, Storage storage) throws ZellException {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(ZellMessage.TASK_ADDED.message());
+        stringBuilder.append(ZellMessage.TASK_ADDED.getMessage());
 
         Task task = createTask(userInput, command, firstSpaceIndex);
 
@@ -133,7 +133,7 @@ public class Parser {
     public String handleDelete(String userInput, String command, int firstSpaceIndex,
             TaskList taskList, Storage storage) throws ZellException {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(ZellMessage.TASK_REMOVED.message());
+        stringBuilder.append(ZellMessage.TASK_REMOVED.getMessage());
 
         checkNoSpacesInCommand(command, firstSpaceIndex);
 
@@ -217,7 +217,7 @@ public class Parser {
      */
     public String handleBye(int firstSpaceIndex, String command) throws ZellException {
         checkIfCommandHasSpaces(command, firstSpaceIndex);
-        return ZellMessage.GOODBYE.message();
+        return ZellMessage.GOODBYE.getMessage();
     }
 
     /**
@@ -236,7 +236,7 @@ public class Parser {
         checkIfCommandHasSpaces(command, firstSpaceIndex);
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(ZellMessage.LIST.message());
+        stringBuilder.append(ZellMessage.LIST.getMessage());
         stringBuilder.append(taskList.listAllTasks());
 
         return stringBuilder.toString();
@@ -262,10 +262,10 @@ public class Parser {
 
         if (command.equals("mark")) {
             taskList.markTaskAsDone(index);
-            stringBuilder.append(ZellMessage.TASK_MARKED.message());
+            stringBuilder.append(ZellMessage.TASK_MARKED.getMessage());
         } else {
             taskList.markTaskAsNotDone(index);
-            stringBuilder.append(ZellMessage.TASK_UNMARKED.message());
+            stringBuilder.append(ZellMessage.TASK_UNMARKED.getMessage());
         }
 
         stringBuilder.append(currentTask);
@@ -287,7 +287,7 @@ public class Parser {
             TaskList taskList) throws ZellException {
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(ZellMessage.TASK_FOUND.message());
+        stringBuilder.append(ZellMessage.TASK_FOUND.getMessage());
 
         checkNoSpacesInCommand(command, firstSpaceIndex);
 

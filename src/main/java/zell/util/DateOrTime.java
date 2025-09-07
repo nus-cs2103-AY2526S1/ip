@@ -1,12 +1,11 @@
 package zell.util;
 
-import zell.exception.ZellException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import zell.exception.ZellException;
 
 /**
  * Wraps a LocalDate or LocalDateTime depending on what the user chooses.
@@ -39,8 +38,8 @@ public class DateOrTime {
             try {
                 this.date = LocalDate.parse(dateOrTimeString, dateFormatter);
             } catch (DateTimeParseException de) {
-                throw new ZellException("Date or DateTime should be in the respective formats " +
-                        "yyyy-MM-dd or yyyy-MM-dd HH:mm.\nFor example: 2019-12-01 or 2019-12-01 18:30");
+                throw new ZellException("Date or DateTime should be in the respective formats "
+                        + "yyyy-MM-dd or yyyy-MM-dd HH:mm.\nFor example: 2019-12-01 or 2019-12-01 18:30");
             }
         }
     }
@@ -53,7 +52,7 @@ public class DateOrTime {
      * </p>
      * @return The string format of the current date or datetime
      */
-    public String originalFormat() {
+    public String getOriginalFormat() {
         String original = "";
 
         if (this.date != null) {

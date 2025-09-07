@@ -45,7 +45,7 @@ public class Event extends Task {
     @Override
     public String taskToString() {
         return String.format("%s | %b | %s | %s | %s", "E", isDone(), getName(),
-                this.start.originalFormat(), this.end.originalFormat());
+                this.start.getOriginalFormat(), this.end.getOriginalFormat());
     }
 
     /**

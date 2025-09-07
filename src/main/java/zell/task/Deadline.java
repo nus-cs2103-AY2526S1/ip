@@ -39,7 +39,7 @@ public class Deadline extends Task {
      */
     @Override
     public String taskToString() {
-        return String.format("%s | %b | %s | %s", "D", isDone(), getName(), this.dueBy.originalFormat());
+        return String.format("%s | %b | %s | %s", "D", isDone(), getName(), this.dueBy.getOriginalFormat());
     }
 
     /**

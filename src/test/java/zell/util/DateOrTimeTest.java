@@ -109,16 +109,16 @@ public class DateOrTimeTest {
     }
 
     @Test
-    public void originalFormat_validDate_success() throws ZellException {
+    public void getOriginalFormat_validDate_success() throws ZellException {
         String dateString = "2025-08-09";
         DateOrTime date = assertDoesNotThrow(() -> new DateOrTime(dateString));
-        assertEquals(dateString, date.originalFormat());
+        assertEquals(dateString, date.getOriginalFormat());
     }
 
     @Test
-    public void originalFormat_validDateTime_success() throws ZellException {
+    public void getOriginalFormat_validDateTime_success() throws ZellException {
         String dateTimeString = "2025-08-10 07:30";
         DateOrTime dateTime = assertDoesNotThrow(() -> new DateOrTime(dateTimeString));
-        assertEquals(dateTimeString, dateTime.originalFormat());
+        assertEquals(dateTimeString, dateTime.getOriginalFormat());
     }
 }
