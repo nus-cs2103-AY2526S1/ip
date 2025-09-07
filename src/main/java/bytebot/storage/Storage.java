@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import bytebot.ByteException;
 import bytebot.task.Deadline;
@@ -100,19 +101,14 @@ public class Storage {
      * @return list of matching tasks
      */
     public List<Task> findTasksByKeyword(String keyword) {
-        String text = "";
-        if (keyword != null) {
-            text = keyword.toLowerCase();
-        }
+        final String searchText = Optional.ofNullable(keyword)
+                .map(String::toLowerCase)
+                .orElse("");
 
-        List<Task> results = new ArrayList<>();
-        for (Task task : taskList.asList()) {
-            String description = task.toString();
-            if (description.toLowerCase().contains(text)) {
-                results.add(task);
-            }
-        }
-        return results;
+        return taskList.asList().stream()
+                .filter(task -> task.toString()
+                .toLowerCase().contains(searchText))
+                .toList();
     }
 
     /**
