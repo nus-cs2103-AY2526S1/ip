@@ -14,9 +14,9 @@ import ui.Ui;
  * and manages the main event loop for processing user commands.
  */
 public class Rainy {
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
     private String commandType;
 
     /**
@@ -25,9 +25,9 @@ public class Rainy {
      * @param filePath the file path where tasks will be saved and loaded from
      */
     public Rainy(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        tasks = new TaskList(storage.load());
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        this.tasks = new TaskList(storage.load());
     }
 
     public Rainy() {
@@ -49,16 +49,21 @@ public class Rainy {
         boolean isExit = false;
 
         while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (RainyException e) {
-                ui.showError(e.getMessage());
-            }
+            isExit = processNextCommand();
         }
         ui.close();
+    }
+
+    private boolean processNextCommand() {
+        try {
+            String fullCommand = ui.readCommand();
+            Command c = Parser.parse(fullCommand);
+            c.execute(tasks, ui, storage);
+            return c.isExit();
+        } catch (RainyException e) {
+            ui.showError(e.getMessage());
+            return false;
+        }
     }
 
     /**
