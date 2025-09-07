@@ -1,28 +1,26 @@
 package dobby;
 
-import dobby.exceptions.DobbyException;
+import dobby.exceptions.InvalidTaskException;
 import dobby.task.ToDo;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class ParserTest {
+class TaskListTest {
 
     @Test
-    void handleTodoCommand_validAndEmptyDescription() throws DobbyException {
+    void delete_validAndInvalidIndex() throws InvalidTaskException {
         TaskList tasks = new TaskList();
-        Ui ui = new Ui();
-        Storage storage = new Storage(java.nio.file.Paths.get("test.txt"));
-        Parser parser = new Parser();
+        tasks.add(new ToDo("Task 1"));
+        tasks.add(new ToDo("Task 2"));
 
-        // Valid todo
-        parser.handleCommand("todo Buy milk", tasks, ui, storage);
+        // Delete valid index
+        assertEquals("Task 1", tasks.delete(0).getDescription());
         assertEquals(1, tasks.size());
-        assertEquals("Buy milk", tasks.getAll().get(0).getDescription());
 
-        // Empty description
-        Exception exception = assertThrows(DobbyException.class, () -> {
-            parser.handleCommand("todo   ", tasks, ui, storage);
+        // Delete invalid index
+        Exception exception = assertThrows(InvalidTaskException.class, () -> {
+            tasks.delete(5);
         });
-        assertEquals("Task description cannot be empty!", exception.getMessage());
+        assertEquals("Invalid task number.", exception.getMessage());
     }
 }
