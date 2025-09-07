@@ -3,10 +3,8 @@ package commands;
 import java.util.ArrayList;
 
 import exception.RainyException;
-import storage.Storage;
 import tasks.Task;
 import tasks.TaskList;
-import ui.Ui;
 
 /**
  * Represents a command to find tasks that contain a given keyword.
@@ -30,8 +28,6 @@ public class FindCommand extends Command {
     @Override
     public void execute(Object... args) throws RainyException {
         TaskList tasks = (TaskList) args[0];
-        Ui ui = (Ui) args[1];
-        Storage storage = (Storage) args[2];
 
         ArrayList<Task> allTasks = tasks.getAllTasks();
         ArrayList<Task> matchingTasks = new ArrayList<>();
@@ -52,6 +48,8 @@ public class FindCommand extends Command {
             sb.append(" ").append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
         }
         message = sb.toString().trim();
+
+        assert !message.isBlank() : "Message should be non-empty if matches exist";
     }
 
     /**
