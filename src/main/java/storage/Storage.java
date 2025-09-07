@@ -74,6 +74,7 @@ public class Storage {
                     tasks.add(todo);
                     break;
                 case "D":
+                    assert parts.length == 4 : "Deadline line should have 4 parts: " + line;
                     LocalDateTime by = LocalDateTime.parse(parts[3]);
                     Task deadline = new Deadline(description, by);
                     if (isDone) {
@@ -82,6 +83,7 @@ public class Storage {
                     tasks.add(deadline);
                     break;
                 case "E":
+                    assert parts.length == 5 : "Event line should have 5 parts: " + line;
                     LocalDateTime from = LocalDateTime.parse(parts[3]);
                     LocalDateTime to = LocalDateTime.parse(parts[4]);
                     Task event = new Event(description, from, to);

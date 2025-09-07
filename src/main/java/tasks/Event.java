@@ -37,6 +37,8 @@ public class Event extends Task {
         super(description, TaskType.EVENT);
         this.from = from;
         this.to = to;
+        assert this.from != null && this.to != null : "Event times must not be null";
+        assert !this.from.isAfter(this.to) : "from cannot be after to";
     }
 
     private LocalDateTime parseDateTime(String input) throws RainyException {
