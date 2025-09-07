@@ -15,6 +15,7 @@ public class Storage {
     public Storage(Path filePath) {
         this.filePath = filePath;
     }
+
     public void saveTasks(ArrayList<Task> tasks) {
         try {
             File file = filePath.toFile();
