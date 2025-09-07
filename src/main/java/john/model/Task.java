@@ -23,6 +23,9 @@ public abstract class Task {
         return String.format("[" + this.convert() + "] " + title);
     }
 
+    public boolean isCompleted() {
+        return this.completed;
+    }
     public abstract String serialise();
 
     private String convert() {
