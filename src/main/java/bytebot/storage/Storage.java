@@ -20,7 +20,7 @@ import bytebot.task.TaskList;
 import bytebot.task.Todo;
 
 /**
- * Handles task management and persistence.
+ * Handles task management (unmark, mark, delete, etc) and persistence.
  */
 public class Storage {
     private static final String DATA_DIR = "data";
@@ -96,7 +96,11 @@ public class Storage {
      * @return list of matching tasks
      */
     public List<Task> findTasksByKeyword(String keyword) {
-        String text = keyword == null ? "" : keyword.toLowerCase();
+        String text = "";
+        if (keyword != null) {
+            text = keyword.toLowerCase();
+        }
+
         List<Task> results = new ArrayList<>();
         for (Task task : taskList.asList()) {
             String description = task.toString();
