@@ -33,7 +33,7 @@ public class MainWindow {
         this.byteBot = byteBot;
     }
 
-    public void setImages(Image userImage, Image byteImage) {
+    public void setAvatarImages(Image userImage, Image byteImage) {
         this.userImage = userImage;
         this.byteImage = byteImage;
     }

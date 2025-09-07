@@ -64,8 +64,7 @@ public class GuiUi extends Ui {
      * @param tasks Tasks matching the search
      * @return Matching tasks as formatted string
      */
-    @Override
-    public String showMatching(List<Task> tasks) {
+    public String showMatchingTasks(List<Task> tasks) {
         StringBuilder output = new StringBuilder();
         output.append("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -89,13 +88,12 @@ public class GuiUi extends Ui {
     }
 
     /**
-     * Shows news after a task is marked as done.
+     * Shows a notification after a task is marked as done.
      *
      * @param task The task that was marked done
      * @return Success message as string
      */
-    @Override
-    public String showMarked(Task task) {
+    public String showTaskMarkedNotification(Task task) {
         return "Nice! I've marked this task as done:\n  " + task;
     }
 

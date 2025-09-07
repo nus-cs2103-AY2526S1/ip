@@ -20,7 +20,7 @@ public class FindCommand extends Command {
             throw new ByteException("Invalid keyword");
         }
 
-        return ui.showMatching(storage.findTasksByKeyword(keyword));
+        return ui.showMatchingTasks(storage.findTasksByKeyword(keyword));
     }
 }
 

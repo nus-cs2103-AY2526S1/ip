@@ -20,7 +20,7 @@ import bytebot.task.TaskList;
 import bytebot.task.Todo;
 
 /**
- * Handles saving and loading tasks to/from a file.
+ * Handles task management and persistence.
  */
 public class Storage {
     private static final String DATA_DIR = "data";

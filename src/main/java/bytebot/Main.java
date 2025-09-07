@@ -25,7 +25,7 @@ public class Main extends Application {
         stage.setTitle("ByteBot");
 
         MainWindow controller = fxmlLoader.getController();
-        controller.setImages(userImage, byteImage);
+        controller.setAvatarImages(userImage, byteImage);
         controller.setByteBot(new ByteBot(true));
 
         stage.show();

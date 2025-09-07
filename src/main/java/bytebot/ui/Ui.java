@@ -9,7 +9,7 @@ import bytebot.task.Task;
  * Handles all user-facing input and output
  */
 public class Ui {
-    private final String line = "____________________________________________________________\n";
+    private final String LINE = "____________________________________________________________\n";
     private final Scanner scanner;
 
     /**
@@ -23,9 +23,9 @@ public class Ui {
      * Shows the greeting banner.
      */
     public String showGreeting() {
-        String greeting = line
+        String greeting = LINE
                 + "Hello! I'm Byte.\nWhat can I do for you?\n"
-                + line;
+                + LINE;
         System.out.println(greeting);
         return greeting;
     }
@@ -34,9 +34,9 @@ public class Ui {
      * Shows the farewell banner.
      */
     public String showFarewell() {
-        String farewell = "\t" + line
+        String farewell = "\t" + LINE
                 + "\t" + "Bye, hope to see you again soon!\n"
-                + "\t" + line;
+                + "\t" + LINE;
         System.out.println(farewell);
         return farewell;
     }
@@ -47,9 +47,9 @@ public class Ui {
      * @param message Error to display
      */
     public String showError(String message) {
-        String error = "\t" + line
+        String error = "\t" + LINE
                 + "\t" + message + "\n"
-                + "\t" + line;
+                + "\t" + LINE;
         System.out.println(error);
         return error;
     }
@@ -66,9 +66,9 @@ public class Ui {
             output.append("\n\t").append(i + 1).append(".")
                     .append(tasks.get(i).toString());
         }
-        String result = "\t" + line
+        String result = "\t" + LINE
                 + "\t" + output + "\n"
-                + "\t" + line;
+                + "\t" + LINE;
         System.out.println(result);
         return result;
     }
@@ -78,16 +78,16 @@ public class Ui {
      *
      * @param tasks Tasks matching the search
      */
-    public String showMatching(List<Task> tasks) {
+    public String showMatchingTasks(List<Task> tasks) {
         StringBuilder output = new StringBuilder();
         output.append("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             output.append("\n\t").append(i + 1).append(".")
                   .append(tasks.get(i).toString());
         }
-        String result = "\t" + line
+        String result = "\t" + LINE
                 + "\t" + output + "\n"
-                + "\t" + line;
+                + "\t" + LINE;
         System.out.println(result);
         return result;
     }
@@ -99,23 +99,23 @@ public class Ui {
      * @param total Total number of tasks after addition
      */
     public String showAddedTask(Task task, int total) {
-        String result = "\t" + line
+        String result = "\t" + LINE
                 + "\t" + "Got it, I've added this task:\n\t  " + task
                 + "\n\tNow you have " + total + " tasks in the list."
-                + "\n" + "\t" + line;
+                + "\n" + "\t" + LINE;
         System.out.println(result);
         return result;
     }
 
     /**
-     * Shows news after a task is marked as done.
+     * Shows a notification after a task is marked as done.
      *
      * @param task The task that was marked done
      */
-    public String showMarked(Task task) {
-        String result = "\t" + line
+    public String showTaskMarkedNotification(Task task) {
+        String result = "\t" + LINE
                 + "\t" + "Nice! I've marked this task as done:\n\t  " + task
-                + "\n" + "\t" + line;
+                + "\n" + "\t" + LINE;
         System.out.println(result);
         return result;
     }
@@ -126,9 +126,9 @@ public class Ui {
      * @param task The task that was unmarked
      */
     public String showUnmarked(Task task) {
-        String result = "\t" + line
+        String result = "\t" + LINE
                 + "\t" + "OK, I've marked this task as not done yet:\n\t  " + task
-                + "\n" + "\t" + line;
+                + "\n" + "\t" + LINE;
         System.out.println(result);
         return result;
     }
@@ -140,10 +140,10 @@ public class Ui {
      * @param total Total number of tasks after deletion
      */
     public String showDeleted(Task removed, int total) {
-        String result = "\t" + line
+        String result = "\t" + LINE
                 + "\t" + "I have removed this task:\n\t  " + removed
                 + "\n\tNow you have " + total + " tasks in the list."
-                + "\n" + "\t" + line;
+                + "\n" + "\t" + LINE;
         System.out.println(result);
         return result;
     }

@@ -52,7 +52,7 @@ public class TaskCommandTest {
     }
 
     @Test
-    public void todoCommand_emptyDescription() {
+    public void todoCommand_emptyDescription_printsErrorMessage() {
         Storage storage = createStorage();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream original = System.out;

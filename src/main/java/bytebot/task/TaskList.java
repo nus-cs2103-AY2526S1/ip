@@ -52,11 +52,11 @@ public class TaskList {
      *
      * @param index Index to get
      * @return Task at the given index
-     * @throws ByteException If index is invalid
+     * @throws IndexOutOfBoundsException If index is invalid
      */
-    public Task get(int index) throws ByteException {
+    public Task get(int index) {
         if (index < 0 || index >= tasks.size()) {
-            throw new ByteException("Task number is invalid");
+            throw new IndexOutOfBoundsException("Task number is invalid");
         }
         return tasks.get(index);
     }
