@@ -1,5 +1,7 @@
 package buddy;
 
+import java.util.stream.IntStream;
+
 /**
  * Main class for the Buddy task management application.
  * Provides a command-line interface for managing personal tasks including
@@ -209,10 +211,14 @@ public class Buddy {
         StringBuilder response = new StringBuilder();
         response.append("Here are the tasks in your list:\n");
         Task[] taskArray = tasks.getTaskArray();
-        for (int i = 0; i < tasks.size(); i++) {
-            response.append(String.format("%d.%s\n", i + 1, taskArray[i]));
-        }
-        return response.toString().trim();
+        
+        String taskList = IntStream.range(0, tasks.size())
+                .mapToObj(i -> String.format("%d.%s", i + 1, taskArray[i]))
+                .reduce((task1, task2) -> task1 + "\n" + task2)
+                .orElse("");
+                
+        response.append(taskList);
+        return response.toString();
     }
 
     private String handleMarkResponse(String input) throws BuddyException {
@@ -275,12 +281,12 @@ public class Buddy {
             return "No matching tasks found.";
         }
         
-        StringBuilder response = new StringBuilder();
-        response.append("Here are the matching tasks in your list:\n");
-        for (int i = 0; i < matchingTasks.length; i++) {
-            response.append(String.format("%d.%s\n", i + 1, matchingTasks[i]));
-        }
-        return response.toString().trim();
+        String taskList = IntStream.range(0, matchingTasks.length)
+                .mapToObj(i -> String.format("%d.%s", i + 1, matchingTasks[i]))
+                .reduce((task1, task2) -> task1 + "\n" + task2)
+                .orElse("");
+        
+        return "Here are the matching tasks in your list:\n" + taskList;
     }
     
     public static void main(String[] args) {
