@@ -100,6 +100,12 @@ public class Ui {
         showLine();
     }
     
+        public void showTasksSorted(String sortBy) {
+        showLine();
+        System.out.println(" Tasks sorted by " + sortBy + "!");
+        showLine();
+    }
+
     public void close() {
         scanner.close();
     }

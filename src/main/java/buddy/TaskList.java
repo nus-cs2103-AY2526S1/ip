@@ -1,7 +1,8 @@
 package buddy;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Manages a list of tasks with operations for adding, deleting, and modifying tasks.
@@ -80,5 +81,29 @@ public class TaskList {
         return tasks.stream()
                 .filter(Task::isDone)
                 .toArray(Task[]::new);
+    }
+    
+    public void sortByDescription() {
+        Collections.sort(tasks, Comparator.comparing(Task::getDescription));
+    }
+    
+    public void sortByStatus() {
+        Collections.sort(tasks, (task1, task2) -> {
+            // Incomplete tasks first, then completed tasks
+            if (task1.isDone() == task2.isDone()) {
+                return task1.getDescription().compareTo(task2.getDescription());
+            }
+            return task1.isDone() ? 1 : -1;
+        });
+    }
+    
+    public void sortByType() {
+        Collections.sort(tasks, (task1, task2) -> {
+            int typeComparison = task1.getClass().getSimpleName().compareTo(task2.getClass().getSimpleName());
+            if (typeComparison == 0) {
+                return task1.getDescription().compareTo(task2.getDescription());
+            }
+            return typeComparison;
+        });
     }
 }
