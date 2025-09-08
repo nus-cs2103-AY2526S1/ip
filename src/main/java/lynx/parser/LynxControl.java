@@ -52,6 +52,7 @@ public class LynxControl {
      * @param input Input command.
      * @return Response from executing the command.
      */
+    @SuppressWarnings("checkstyle:Regexp")
     public String scanForCommandsGui(String input) {
         input = input.trim();
         if (input.length() > 300) {
@@ -61,32 +62,52 @@ public class LynxControl {
         try {
             if (input.equals("reload")) {
                 return LynxGeneral.reload(fileManager, taskList);
-            } else if (input.equals("save")) {
+            }
+
+            if (input.equals("save")) {
                 return LynxGeneral.save(fileManager, taskList);
-            } else if (input.equals("help")) {
+            }
+
+            if (input.equals("help")) {
                 return LynxUI.printHelpGui();
-            } else if (input.startsWith("list ")) {
+            }
+
+            if (input.startsWith("list ")) {
                 return taskEditor.listTasks(input);
-            } else if (input.startsWith("mark ")) {
+            }
+
+            if (input.startsWith("mark ")) {
                 return taskEditor.markTasks(input);
-            } else if (input.startsWith("unmark ")) {
+            }
+
+            if (input.startsWith("unmark ")) {
                 return taskEditor.unmarkTasks(input);
-            } else if (input.startsWith("delete ")) {
+            }
+
+            if (input.startsWith("delete ")) {
                 return taskEditor.deleteTasks(input);
-            } else if (input.startsWith("todo ")) {
+            }
+            if (input.startsWith("todo ")) {
                 return LynxGeneral.addTodo(input, taskList);
-            } else if (input.startsWith("deadline ")) {
+            }
+
+            if (input.startsWith("deadline ")) {
                 return LynxGeneral.addDeadline(input, taskList);
-            } else if (input.startsWith("event ")) {
+            }
+
+            if (input.startsWith("event ")) {
                 return LynxGeneral.addEvent(input, taskList);
-            } else if (!input.isEmpty()) {
-                throw new LynxException("Sorry, I didn't understand that command. "
-                        + "Please try again or type \"help\" to access the user guide.");
             }
         } catch (Exception e) {
             return (e.getMessage());
         }
-        return "";
+
+        if (!input.isEmpty()) {
+            return "Sorry, I didn't understand that command. "
+                    + "Please try again or type \"help\" to access the user guide.";
+        } else {
+            return "";
+        }
     }
 
     /**

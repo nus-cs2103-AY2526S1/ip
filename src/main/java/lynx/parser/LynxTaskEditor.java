@@ -17,6 +17,7 @@ import objectclasses.task.Task;
 
 /**
  * Contains methods for executing commands that act on tasks within a task list.
+ * These include mark, unmark, delete and list commands.
  */
 public class LynxTaskEditor {
 
@@ -34,12 +35,12 @@ public class LynxTaskEditor {
      * @throws LynxException If command is invalid.
      */
     public String markTasks(String input) throws LynxException {
-        if (input.length() <= 4 || !input.startsWith("mark")) {
+        if (!input.startsWith("mark ")) {
             throw new MissingArgumentException("mark");
         }
 
-        Consumer<Task> mark = Task::setComplete;
         MarkCommand command = new MarkCommand(input.substring(5).trim());
+        Consumer<Task> mark = Task::setComplete;
         return executeCommand(command, mark);
     }
 
@@ -51,12 +52,12 @@ public class LynxTaskEditor {
      * @throws LynxException If command is invalid.
      */
     public String unmarkTasks(String input) throws LynxException {
-        if (input.length() <= 6 || !input.startsWith("unmark")) {
+        if (!input.startsWith("unmark ")) {
             throw new MissingArgumentException("unmark");
         }
 
-        Consumer<Task> unmark = Task::setIncomplete;
         UnmarkCommand command = new UnmarkCommand(input.substring(7).trim());
+        Consumer<Task> unmark = Task::setIncomplete;
         return executeCommand(command, unmark);
     }
 
@@ -68,12 +69,12 @@ public class LynxTaskEditor {
      * @throws LynxException If command is invalid.
      */
     public String deleteTasks(String input) throws LynxException {
-        if (input.length() <= 6 || !input.startsWith("delete")) {
+        if (!input.startsWith("delete ")) {
             throw new MissingArgumentException("delete");
         }
 
-        Consumer<Task> delete = taskList::removeTask;
         DeleteCommand command = new DeleteCommand(input.substring(7).trim());
+        Consumer<Task> delete = taskList::removeTask;
         String taskCount = String.format("You currently have %d task(s) in your list.%n", taskList.getCount());
         return String.format("%s%s", executeCommand(command, delete), taskCount);
     }
@@ -86,12 +87,12 @@ public class LynxTaskEditor {
      * @throws LynxException If command is invalid.
      */
     public String listTasks(String input) throws LynxException {
-        if (input.length() <= 4 || !input.startsWith("list")) {
+        if (!input.startsWith("list ")) {
             throw new MissingArgumentException("list");
         }
 
-        Consumer<Task> list = task -> {};
         ListCommand command = new ListCommand(input.substring(5).trim());
+        Consumer<Task> list = task -> {};
         return executeCommand(command, list);
     }
 
@@ -111,7 +112,7 @@ public class LynxTaskEditor {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Here are the tasks requiring completion today:");
-        stringBuilder.append(executeOnTasks(task -> {}, tasks1, ""));
+        stringBuilder.append(performOnTasks(task -> {}, tasks1, ""));
         return stringBuilder.toString();
     }
 
@@ -129,7 +130,7 @@ public class LynxTaskEditor {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Reminder for your outstanding tasks:");
-        stringBuilder.append(executeOnTasks(task -> {}, tasks, ""));
+        stringBuilder.append(performOnTasks(task -> {}, tasks, ""));
         return stringBuilder.toString();
     }
 
@@ -145,19 +146,19 @@ public class LynxTaskEditor {
         LynxSearcher.findTasks(command, taskList.getAllTasks());
 
         String actionDialogue = command.actionDialogue();
-        String resultDialogue = executeOnTasks(action, command.getSearchResult(), command.emptyDialogue());
+        String resultDialogue = performOnTasks(action, command.getSearchResult(), command.emptyDialogue());
         return String.format("%s%s", actionDialogue, resultDialogue);
     }
 
     /**
      * Maps a <code>Consumer</code> to a list of tasks and prints each task.
      *
-     * @param consumer <code>Consumer</code> containing the action to execute on each task.
+     * @param consumer <code>Consumer</code> containing the action to perform on each task.
      * @param tasks List of tasks to perform action on.
      * @param empty String to be printed instead if list is empty.
      * @return String representing tasks acted on.
      */
-    private static String executeOnTasks(Consumer<Task> consumer, List<Task> tasks, String empty) {
+    private static String performOnTasks(Consumer<Task> consumer, List<Task> tasks, String empty) {
         int count = 0;
         StringBuilder stringBuilder = new StringBuilder();
         for (Task task : tasks) {

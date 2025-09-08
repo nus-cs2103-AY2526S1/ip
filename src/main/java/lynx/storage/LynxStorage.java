@@ -60,10 +60,10 @@ public abstract class LynxStorage {
         int errorCount = 0;
 
         for (String task : tasks) {
+            if (task.isBlank()) {
+                continue;
+            }
             try {
-                if (task.isBlank()) {
-                    continue;
-                }
                 String[] parts = task.split("\\|");
                 String type = parts[0];
                 switch (type) {

@@ -3,11 +3,13 @@ package objectclasses.command;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
+import objectclasses.exception.CommandFormatException;
 import objectclasses.exception.LynxException;
 import objectclasses.task.Task;
 
 /**
  * Represents a string of search modifiers and stores its search results.
+ * Does not handle the execution of commands.
  */
 public abstract class LynxCommand {
 
@@ -28,13 +30,12 @@ public abstract class LynxCommand {
      */
     public LynxCommand(String input) throws LynxException {
         if (input.isBlank()) {
-            throw new LynxException("Command cannot be created from blank string.");
-        } else {
-            try {
-                commands = input.trim().split("\\s+");
-            } catch (PatternSyntaxException e) {
-                throw new LynxException("Command must be of appropriate format.");
-            }
+            throw CommandFormatException.emptyCommand();
+        }
+        try {
+            commands = input.trim().split("\\s+");
+        } catch (PatternSyntaxException e) {
+            throw CommandFormatException.invalidCommandStructure();
         }
     }
 
@@ -54,13 +55,15 @@ public abstract class LynxCommand {
 
     /**
      * Stores a date as specified by a "/on" search modifier.
+     * </p>
+     * Date can only be set once.
      *
      * @param date String representation of a date.
      * @throws LynxException If more than one attempt to search by date is detected.
      */
     public void setDate(String date) throws LynxException {
         if (!this.date.isEmpty()) {
-            throw new LynxException("Only one date can be supplied per search.");
+            throw CommandFormatException.multipleDate();
         }
         this.date = String.format(" occurring on %s", date);
     }
@@ -80,13 +83,15 @@ public abstract class LynxCommand {
 
     /**
      * Stores an id as specified by a "/id" search modifier.
+     * </p>
+     * Id can only be set once.
      *
      * @param id Id of a task.
      * @throws LynxException If more than one attempt to search by id is detected.
      */
     public void setId(String id) throws LynxException {
         if (!this.id.isEmpty()) {
-            throw new LynxException("Only one id can be supplied per search.");
+            throw CommandFormatException.multipleId();
         }
         this.id = String.format(" with id %s", id);
     }
