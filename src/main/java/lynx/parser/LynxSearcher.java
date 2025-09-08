@@ -10,12 +10,12 @@ import objectclasses.formatter.LynxDateManager;
 import objectclasses.task.Task;
 
 /**
- * Contains methods for executing search and return commands on a task stream.
+ * Contains methods to facilitate a recursive parse-and-search function that work on a string of search modifiers.
  */
 public abstract class LynxSearcher {
 
     /**
-     * Filters a task stream as specified by a <code>LynxCommand</code> object.
+     * Filters a task stream as specified by the search modifiers in a <code>LynxCommand</code> object.
      * Stores the result within the <code>LynxCommand</code> object at the end of the search.
      *
      * @param command <code>LynxCommand</code> object containing a string of search modifiers.

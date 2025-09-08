@@ -1,22 +1,21 @@
 package lynx.parser;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 import lynx.storage.LynxTaskList;
 import objectclasses.command.DeleteCommand;
 import objectclasses.command.ListCommand;
 import objectclasses.command.LynxCommand;
 import objectclasses.command.MarkCommand;
+import objectclasses.command.ReminderCommand;
 import objectclasses.command.UnmarkCommand;
 import objectclasses.exception.LynxException;
 import objectclasses.exception.MissingArgumentException;
 import objectclasses.task.Task;
 
 /**
- * Contains methods for executing commands that act on tasks within a task list.
+ * Contains methods for executing commands that act on tasks in a task list.
  * These include mark, unmark, delete and list commands.
  */
 public class LynxTaskEditor {
@@ -102,18 +101,13 @@ public class LynxTaskEditor {
      * @return String representation of notice.
      */
     public String tasksToday() {
-        LocalDateTime today = LocalDateTime.now();
-        Stream<Task> tasks = LynxSorter.filterTasksByDate(taskList.getAllTasks(), today);
-        List<Task> tasks1 = LynxSorter.filterTasksByStatus(tasks, Task.Status.INCOMPLETE).toList();
-
-        if (tasks1.isEmpty()) {
-            return "You have cleared all tasks today. Good job!";
+        try {
+            ReminderCommand command = ReminderCommand.urgent();
+            Consumer<Task> remind = task -> {};
+            return executeCommand(command, remind);
+        } catch (LynxException e) {
+            return "Failed to detect urgent tasks. Please try reloading.";
         }
-
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Here are the tasks requiring completion today:");
-        stringBuilder.append(performOnTasks(task -> {}, tasks1, ""));
-        return stringBuilder.toString();
     }
 
     /**
@@ -122,16 +116,13 @@ public class LynxTaskEditor {
      * @return String representation of notice.
      */
     public String tasksFromToday() {
-        List<Task> tasks = LynxSorter.filterTasksByStatus(taskList.getAllTasks(), Task.Status.INCOMPLETE).toList();
-
-        if (tasks.isEmpty()) {
-            return "You have no outstanding tasks. Good job!";
+        try {
+            ReminderCommand command = ReminderCommand.incomplete();
+            Consumer<Task> remind = task -> {};
+            return executeCommand(command, remind);
+        } catch (LynxException e) {
+            return "Failed to detect incomplete tasks. Please try reloading.";
         }
-
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Reminder for your outstanding tasks:");
-        stringBuilder.append(performOnTasks(task -> {}, tasks, ""));
-        return stringBuilder.toString();
     }
 
     /**

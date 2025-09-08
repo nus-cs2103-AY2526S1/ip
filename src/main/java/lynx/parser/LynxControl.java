@@ -87,6 +87,7 @@ public class LynxControl {
             if (input.startsWith("delete ")) {
                 return taskEditor.deleteTasks(input);
             }
+
             if (input.startsWith("todo ")) {
                 return LynxGeneral.addTodo(input, taskList);
             }

@@ -12,7 +12,7 @@ import objectclasses.exception.LynxException;
 public abstract class Task {
 
     /**
-     * Represents the three type of tasks.
+     * Represents the three types of tasks.
      */
     public enum TaskType {
 
