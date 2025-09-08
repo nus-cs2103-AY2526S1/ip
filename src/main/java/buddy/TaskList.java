@@ -55,7 +55,7 @@ public class TaskList {
     }
     
     public Task[] getTaskArray() {
-        return tasks.toArray(new Task[0]);
+        return tasks.toArray(new Task[tasks.size()]);
     }
     
     public ArrayList<Task> getTasks() {
@@ -64,11 +64,13 @@ public class TaskList {
     
     public Task[] findTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
+        String lowerKeyword = keyword.toLowerCase();
+        
         for (Task task : tasks) {
-            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+            if (task.getDescription().toLowerCase().contains(lowerKeyword)) {
                 matchingTasks.add(task);
             }
         }
-        return matchingTasks.toArray(new Task[0]);
+        return matchingTasks.toArray(new Task[matchingTasks.size()]);
     }
 }
