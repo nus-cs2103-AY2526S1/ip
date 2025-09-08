@@ -86,6 +86,9 @@ public class Buddy {
             case "find":
                 handleFind(input);
                 break;
+            case "sort":
+                handleSort(input);
+                break;
             default:
                 throw new BuddyException("I'm sorry, but I don't know what that means :-(");
         }
@@ -144,6 +147,31 @@ public class Buddy {
         Task[] matchingTasks = tasks.findTasks(keyword);
         ui.showFoundTasks(matchingTasks);
     }
+    
+    private void handleSort(String input) throws BuddyException {
+        String[] parts = input.split("\\s+", 2);
+        if (parts.length < 2) {
+            throw new BuddyException("Please specify sort criteria: 'sort description', 'sort status', or 'sort type'");
+        }
+        
+        String sortBy = parts[1].toLowerCase();
+        switch (sortBy) {
+            case "description":
+                tasks.sortByDescription();
+                break;
+            case "status":
+                tasks.sortByStatus();
+                break;
+            case "type":
+                tasks.sortByType();
+                break;
+            default:
+                throw new BuddyException("Invalid sort criteria. Use: description, status, or type");
+        }
+        
+        saveTasksToFile();
+        ui.showTasksSorted(sortBy);
+    }
 
     private void saveTasksToFile() throws BuddyException {
         storage.save(tasks.getTasks());
@@ -193,6 +221,8 @@ public class Buddy {
                 return handleEventResponse(input);
             } else if (command.equals("find")) {
                 return handleFindResponse(input);
+            } else if (command.equals("sort")) {
+                return handleSortResponse(input);
             } else {
                 return "I'm sorry, but I don't know what that means :-(";
             }
@@ -281,6 +311,31 @@ public class Buddy {
             response.append(String.format("%d.%s\n", i + 1, matchingTasks[i]));
         }
         return response.toString().trim();
+    }
+    
+    private String handleSortResponse(String input) throws BuddyException {
+        String[] parts = input.split("\\s+", 2);
+        if (parts.length < 2) {
+            return "Please specify sort criteria: 'sort description', 'sort status', or 'sort type'";
+        }
+        
+        String sortBy = parts[1].toLowerCase();
+        switch (sortBy) {
+            case "description":
+                tasks.sortByDescription();
+                break;
+            case "status":
+                tasks.sortByStatus();
+                break;
+            case "type":
+                tasks.sortByType();
+                break;
+            default:
+                return "Invalid sort criteria. Use: description, status, or type";
+        }
+        
+        saveTasksToFile();
+        return String.format("Tasks sorted by %s!", sortBy);
     }
     
     public static void main(String[] args) {
