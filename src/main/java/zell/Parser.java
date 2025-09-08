@@ -1,5 +1,6 @@
 package zell;
 
+import javafx.application.Platform;
 import zell.exception.ZellException;
 import zell.storage.Storage;
 import zell.task.Deadline;
@@ -59,27 +60,45 @@ public class Parser {
 
         switch (command) {
         case "bye":
+            // Fallthrough
+        case "b":
             output = handleBye(firstSpaceIndex, command);
             break;
         case "list":
+            // Fallthrough
+        case "l":
             output = handleList(firstSpaceIndex, command, taskList);
             break;
         case "mark":
             // Fallthrough
+        case "m":
+            // Fallthrough
         case "unmark":
+            // Fallthrough
+        case "un":
             output = handleMarkOrUnMark(command, userInput, firstSpaceIndex, taskList);
             break;
         case "todo":
             // Fallthrough
+        case "t":
+            // Fallthrough
         case "deadline":
             // Fallthrough
+        case "d":
+            // Fallthrough
         case "event":
+            // Fallthrough
+        case "e":
             output = handleTaskCommands(userInput, command, firstSpaceIndex, taskList, storage);
             break;
         case "delete":
+            // Fallthrough
+        case "del":
             output = handleDelete(userInput, command, firstSpaceIndex, taskList, storage);
             break;
         case "find":
+            // Fallthrough
+        case "f":
             output = handleFind(userInput, command, firstSpaceIndex, taskList);
             break;
         default:
@@ -180,11 +199,11 @@ public class Parser {
 
         Task task = null;
 
-        if (command.equals("todo")) {
+        if (command.equals("todo") || command.equals("t")) {
             task = new ToDo(userInputSecondHalf);
-        } else if (command.equals("deadline")) {
+        } else if (command.equals("deadline") || command.equals("d")) {
             task = createDeadline(userInput, command, userInputSecondHalf);
-        } else if (command.equals("event")) { // Event
+        } else if (command.equals("event") || command.equals("e")) { // Event
             task = createEvent(userInput, command, userInputSecondHalf);
         } else {
             assert true : "Should not be able to reach here for creating a task";
@@ -258,6 +277,7 @@ public class Parser {
      */
     public String handleBye(int firstSpaceIndex, String command) throws ZellException {
         checkIfCommandHasSpaces(command, firstSpaceIndex);
+        Platform.exit();
         return ZellMessage.GOODBYE.getMessage();
     }
 
@@ -306,12 +326,14 @@ public class Parser {
         StringBuilder stringBuilder = new StringBuilder();
 
         // Perform mark or unmark on the task
-        if (command.equals("mark")) {
+        if (command.equals("mark") || command.equals("m")) {
             taskList.markTaskAsDone(index);
             stringBuilder.append(ZellMessage.TASK_MARKED.getMessage());
-        } else {
+        } else if (command.equals("unmark") || command.equals("un")) {
             taskList.markTaskAsNotDone(index);
             stringBuilder.append(ZellMessage.TASK_UNMARKED.getMessage());
+        } else {
+            assert true : "Should not reach here for mark or unmark";
         }
 
         stringBuilder.append(currentTask);
@@ -408,18 +430,26 @@ public class Parser {
             String formatMessage;
             switch (command) {
             case "todo":
+                // Fallthrough
+            case "t":
                 formatMessage = String.format("%s should include a thing to do.\nFor example:\n%s read books",
                         command, command);
                 break;
             case "deadline":
+                // Fallthrough
+            case "d":
                 formatMessage = String.format("%s should include a thing to do.\nFor example:\n%s books "
                         + "/by  Sunday", command, command);
                 break;
             case "event":
+                // Fallthrough
+            case "e":
                 formatMessage = String.format("%s should include a thing to do.\nFor example:\n%s "
                         + "books /from Mon 2pm /to 4pm", command, command);
                 break;
             case "find":
+                // Fallthrough
+            case "f":
                 formatMessage = String.format("%s should include a thing to search for.\nFor example:\n%s "
                         + "book", command, command);
                 break;
