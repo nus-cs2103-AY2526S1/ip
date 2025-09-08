@@ -11,7 +11,6 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import bytebot.ByteException;
 import bytebot.storage.Storage;
 import bytebot.task.Task;
 import bytebot.task.TaskList;
@@ -89,6 +88,6 @@ public class StateChangingCommandTest {
 
     @Test
     public void mark_withInvalidIndex_throws() {
-        assertThrows(ByteException.class, () -> new MarkCommand(5).execute(new bytebot.ui.Ui(), storage));
+        assertThrows(IndexOutOfBoundsException.class, () -> new MarkCommand(5).execute(new bytebot.ui.Ui(), storage));
     }
 }

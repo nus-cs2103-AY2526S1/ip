@@ -9,7 +9,7 @@ import bytebot.task.Task;
  * Handles all user-facing input and output
  */
 public class Ui {
-    private final String LINE = "____________________________________________________________\n";
+    private static final String LINE = "____________________________________________________________\n";
     private final Scanner scanner;
 
     /**
