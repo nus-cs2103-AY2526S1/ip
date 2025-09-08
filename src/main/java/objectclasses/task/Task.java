@@ -177,6 +177,20 @@ public abstract class Task {
     public abstract boolean isActive(LocalDateTime dateTime);
 
     /**
+     * Returns a string representation of the task used for storing it in a text file.
+     *
+     * @return String representation.
+     */
+    public String storageRepresentation() {
+        StringBuilder taskString = new StringBuilder();
+        taskString.append(type.name());
+        taskString.append("|").append(status.name());
+        taskString.append("|").append(id);
+        taskString.append("|").append(name);
+        return taskString.toString();
+    }
+
+    /**
      * Returns a string representation of the task without its id.
      *
      * @return String representation.

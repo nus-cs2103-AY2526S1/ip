@@ -109,6 +109,17 @@ public class EventTask extends Task {
      * {@inheritDoc}
      */
     @Override
+    public String storageRepresentation() {
+        StringBuilder taskString = new StringBuilder(super.storageRepresentation());
+        taskString.append("|from:").append(LynxDateManager.defaultDateTime(start));
+        taskString.append("|to:").append(LynxDateManager.defaultDateTime(end));
+        return taskString.toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String testRepresentation() {
         return String.format("%s (from: %s to: %s)", super.testRepresentation(),
                 LynxDateManager.textDateTime(start), LynxDateManager.textDateTime(end));

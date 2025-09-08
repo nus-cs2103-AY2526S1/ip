@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
 import objectclasses.exception.LynxException;
-import objectclasses.formatter.LynxDateManager;
 import objectclasses.task.DeadlineTask;
 import objectclasses.task.EventTask;
 import objectclasses.task.Task;
@@ -27,23 +26,8 @@ public abstract class LynxStorage {
         List<Task> tasks = taskList.getAllTasks().toList();
 
         for (Task task : tasks) {
-            StringBuilder taskString = new StringBuilder();
-
-            taskString.append(task.getType().name());
-            taskString.append("|").append(task.getStatus().name());
-            taskString.append("|").append(task.getId());
-            taskString.append("|").append(task.getName());
-
-            if (task instanceof DeadlineTask deadlineTask) {
-                taskString.append("|by:").append(LynxDateManager.defaultDateTime(deadlineTask.getDeadline()));
-            } else if (task instanceof EventTask eventTask) {
-                taskString.append("|from:").append(LynxDateManager.defaultDateTime(eventTask.getStart()));
-                taskString.append("|to:").append(LynxDateManager.defaultDateTime(eventTask.getEnd()));
-            }
-
-            taskStrings.add(taskString.toString());
+            taskStrings.add(task.storageRepresentation());
         }
-
         return taskStrings;
     }
 
