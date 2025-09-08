@@ -6,6 +6,10 @@ package buddy;
  * todos, deadlines, and events with persistent storage.
  */
 public class Buddy {
+    private static final String UNKNOWN_COMMAND_MESSAGE = "I'm sorry, but I don't know what that means :-(";
+    private static final String BYE_MESSAGE = "Bye. Hope to see you again soon!";
+    private static final String WELCOME_MESSAGE = "Hello! I'm Buddy\nWhat can I do for you?";
+    
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -87,7 +91,7 @@ public class Buddy {
                 handleFind(input);
                 break;
             default:
-                throw new BuddyException("I'm sorry, but I don't know what that means :-(");
+                throw new BuddyException(UNKNOWN_COMMAND_MESSAGE);
         }
     }
     
@@ -162,7 +166,7 @@ public class Buddy {
      * @return the welcome message as a string
      */
     public String getWelcomeMessage() {
-        return "Hello! I'm Buddy\nWhat can I do for you?";
+        return WELCOME_MESSAGE;
     }
 
     /**
@@ -174,30 +178,34 @@ public class Buddy {
     public String getResponse(String input) {
         try {
             String command = Parser.parseCommand(input);
-            
-            if (command.equals("bye")) {
-                return "Bye. Hope to see you again soon!";
-            } else if (command.equals("list")) {
-                return getTaskListResponse();
-            } else if (command.equals("mark")) {
-                return handleMarkResponse(input);
-            } else if (command.equals("unmark")) {
-                return handleUnmarkResponse(input);
-            } else if (command.equals("delete")) {
-                return handleDeleteResponse(input);
-            } else if (command.equals("todo")) {
-                return handleTodoResponse(input);
-            } else if (command.equals("deadline")) {
-                return handleDeadlineResponse(input);
-            } else if (command.equals("event")) {
-                return handleEventResponse(input);
-            } else if (command.equals("find")) {
-                return handleFindResponse(input);
-            } else {
-                return "I'm sorry, but I don't know what that means :-(";
-            }
+            return processCommand(command, input);
         } catch (BuddyException e) {
             return e.getMessage();
+        }
+    }
+    
+    private String processCommand(String command, String input) throws BuddyException {
+        switch (command) {
+            case "bye":
+                return BYE_MESSAGE;
+            case "list":
+                return getTaskListResponse();
+            case "mark":
+                return handleMarkResponse(input);
+            case "unmark":
+                return handleUnmarkResponse(input);
+            case "delete":
+                return handleDeleteResponse(input);
+            case "todo":
+                return handleTodoResponse(input);
+            case "deadline":
+                return handleDeadlineResponse(input);
+            case "event":
+                return handleEventResponse(input);
+            case "find":
+                return handleFindResponse(input);
+            default:
+                return UNKNOWN_COMMAND_MESSAGE;
         }
     }
 

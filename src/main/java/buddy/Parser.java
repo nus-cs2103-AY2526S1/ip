@@ -1,6 +1,9 @@
 package buddy;
 
 public class Parser {
+    private static final int DEADLINE_COMMAND_LENGTH = 8;  // "deadline".length()
+    private static final int EVENT_COMMAND_LENGTH = 5;     // "event".length()
+    private static final int TASK_NUMBER_BASE = 1; // Tasks are 1-indexed for users
     
     public static String parseCommand(String input) {
         String[] words = input.trim().split("\\s+");
@@ -16,7 +19,7 @@ public class Parser {
     }
     
     public static String[] parseDeadline(String input) throws BuddyException {
-        String[] parts = input.substring(8).split(" /by ");
+        String[] parts = input.substring(DEADLINE_COMMAND_LENGTH).split(" /by ");
         if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
             throw new BuddyException("Please use the format: deadline <description> /by <time>");
         }
@@ -24,7 +27,7 @@ public class Parser {
     }
     
     public static String[] parseEvent(String input) throws BuddyException {
-        String[] parts = input.substring(5).split(" /from ");
+        String[] parts = input.substring(EVENT_COMMAND_LENGTH).split(" /from ");
         if (parts.length < 2) {
             throw new BuddyException("Please use the format: event <description> /from <start> /to <end>");
         }
@@ -43,7 +46,7 @@ public class Parser {
         try {
             String numberStr = input.substring(command.length()).trim();
             int taskNumber = Integer.parseInt(numberStr);
-            return taskNumber - 1; // Convert to 0-based index
+            return taskNumber - TASK_NUMBER_BASE; // Convert to 0-based index
         } catch (NumberFormatException e) {
             throw new BuddyException("Please provide a valid task number.");
         }
