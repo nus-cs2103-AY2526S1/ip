@@ -51,7 +51,8 @@ public class Ui {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < taskList.size(); i++) {
                 Task task = taskList.getTask(i);
-                System.out.println((i + 1) + "." + task.getTypeIcon() + task.getStatusIcon() + " " + task.getFullDescription());
+                System.out.println((i + 1) + "." + task.getTypeIcon() + task.getStatusIcon()
+                        + " " + task.getFullDescription());
             }
         }
     }
@@ -63,7 +64,7 @@ public class Ui {
      * @param taskCount the total number of tasks after adding
      */
     public void showTaskAdded(Task task, int taskCount) {
-        showFormattedMessage("Got it. I've added this task:", 
+        showFormattedMessage("Got it. I've added this task:",
                            task.getTypeIcon() + task.getStatusIcon() + " " + task.getFullDescription(),
                            "Now you have %d tasks in the list.", taskCount);
     }
@@ -115,7 +116,8 @@ public class Ui {
             showFormattedMessage("Tasks on %s:", dateStr);
             for (int i = 0; i < taskList.size(); i++) {
                 Task task = taskList.getTask(i);
-                System.out.println((i + 1) + "." + task.getTypeIcon() + task.getStatusIcon() + " " + task.getFullDescription());
+                System.out.println((i + 1) + "." + task.getTypeIcon() + task.getStatusIcon()
+                        + " " + task.getFullDescription());
             }
         }
     }
@@ -147,11 +149,11 @@ public class Ui {
             System.out.println("Here are the matching tasks in your list:");
             for (int i = 0; i < taskList.size(); i++) {
                 Task task = taskList.getTask(i);
-                System.out.println((i + 1) + "." + task.getTypeIcon() + task.getStatusIcon() + " " + task.getFullDescription());
+                System.out.println((i + 1) + "." + task.getTypeIcon() + task.getStatusIcon()
+                        + " " + task.getFullDescription());
             }
         }
     }
-    
     /**
      * Shows formatted messages using printf-style formatting with varargs.
      *

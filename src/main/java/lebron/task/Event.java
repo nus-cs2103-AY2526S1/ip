@@ -50,7 +50,8 @@ public class Event extends Task {
      */
     @Override
     public String getFullDescription() {
-        return description + " (from: " + DateTimeParser.formatForDisplay(from) + " to: " + DateTimeParser.formatForDisplay(to) + ")";
+        return description + " (from: " + DateTimeParser.formatForDisplay(from)
+                + " to: " + DateTimeParser.formatForDisplay(to) + ")";
     }
 
     /**

@@ -23,7 +23,7 @@ public class LeBron {
     /**
      * Generates a response for the user's chat message using the shared TaskManager.
      * This allows GUI and console to share the same task data.
-     * 
+     *
      * @param input the user's command input
      * @return the response from processing the command
      */

@@ -1,11 +1,16 @@
 package lebron;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import lebron.util.DateTimeParser;
-import lebron.common.LeBronException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
+
+import lebron.common.LeBronException;
+import lebron.util.DateTimeParser;
 
 public class DateTimeParserTest {
 

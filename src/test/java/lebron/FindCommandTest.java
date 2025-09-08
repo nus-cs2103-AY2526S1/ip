@@ -1,17 +1,21 @@
 package lebron;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import static org.junit.jupiter.api.Assertions.*;
-import lebron.command.FindCommand;
-import lebron.task.TaskList;
-import lebron.task.ToDo;
-import lebron.task.Deadline;
-import lebron.ui.Ui;
-import lebron.storage.FileManager;
-import lebron.common.LeBronException;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import lebron.command.FindCommand;
+import lebron.common.LeBronException;
+import lebron.storage.FileManager;
+import lebron.task.Deadline;
+import lebron.task.TaskList;
+import lebron.task.ToDo;
+import lebron.ui.Ui;
 
 public class FindCommandTest {
     private TaskList taskList;

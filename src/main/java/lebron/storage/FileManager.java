@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 import lebron.common.LeBronException;
 import lebron.task.Deadline;
@@ -138,7 +137,8 @@ public class FileManager {
             sb.append("|").append(DateTimeParser.formatForStorage(deadline.getBy()));
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            sb.append("|").append(DateTimeParser.formatForStorage(event.getFrom())).append("|").append(DateTimeParser.formatForStorage(event.getTo()));
+            sb.append("|").append(DateTimeParser.formatForStorage(event.getFrom()))
+                    .append("|").append(DateTimeParser.formatForStorage(event.getTo()));
         }
 
         return sb.toString();
@@ -201,7 +201,8 @@ public class FileManager {
                 break;
             case "D":
                 if (parts.length != 4) {
-                    logWarning("Line %d - Deadline tasks should have exactly 4 fields, got %d", lineNumber, parts.length);
+                    logWarning("Line %d - Deadline tasks should have exactly 4 fields, got %d",
+                            lineNumber, parts.length);
                     return null;
                 }
                 String by = parts[3];
@@ -232,13 +233,17 @@ public class FileManager {
                 try {
                     LocalDateTime fromDateTime = DateTimeParser.parseFromStorage(from);
                     LocalDateTime toDateTime = DateTimeParser.parseFromStorage(to);
-                    assert fromDateTime != null && toDateTime != null : "DateTimeParser should not return null for valid input";
+                    assert fromDateTime != null && toDateTime != null
+                            : "DateTimeParser should not return null for valid input";
                     task = new Event(description, fromDateTime, toDateTime);
                 } catch (LeBronException e) {
                     logWarning("Line %d - Invalid date format in event: %s", lineNumber, e.getMessage());
                     return null;
                 }
                 break;
+            default:
+                logWarning("Line %d - Unknown task type: %s", lineNumber, type);
+                return null;
             }
 
             // Set the completion status
@@ -276,7 +281,7 @@ public class FileManager {
 
     /**
      * Logs a warning message with formatted output using varargs.
-     * 
+     *
      * @param format the format string
      * @param args the arguments for the format string
      */

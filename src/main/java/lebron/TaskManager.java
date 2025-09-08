@@ -28,7 +28,7 @@ import lebron.ui.Ui;
  * Coordinates all components and handles the main program loop.
  */
 public class TaskManager {
-    
+
     // Command length constants for parsing
     private static final int MARK_COMMAND_LENGTH = 5;
     private static final int UNMARK_COMMAND_LENGTH = 7;
@@ -82,7 +82,7 @@ public class TaskManager {
      * Processes a single command and returns the response as a string.
      * Captures System.out during command execution to return as string.
      * Used for GUI integration.
-     * 
+     *
      * @param input the user input command
      * @return the response message as a string
      */
@@ -92,18 +92,18 @@ public class TaskManager {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream capturedOut = new PrintStream(baos);
         System.setOut(capturedOut);
-        
+
         try {
             if (input.trim().isEmpty()) {
                 ui.showError("");
                 return baos.toString().trim();
             }
-            
+
             Command command = parseCommand(input);
             command.execute(taskList, ui, storage.getFileManager());
-            
+
             return baos.toString().trim();
-            
+
         } catch (LeBronException e) {
             ui.showError(e.getMessage());
             return baos.toString().trim();
