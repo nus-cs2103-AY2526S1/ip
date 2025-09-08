@@ -55,13 +55,13 @@ public class LynxStorageTest {
                 LocalDateTime.of(2025, 11, 12, 0, 0),
                 LocalDateTime.of(2025, 11, 13, 0, 0));
 
-        taskList.clearTasks(false);
+        taskList.clearTasks();
         taskList.addTask(testTaskA);
         taskList.addTask(testTaskB);
         taskList.addTask(testTaskC);
 
         List<String> tasks = LynxStorage.unloadTasks(taskList);
-        taskList.clearTasks(false);
+        taskList.clearTasks();
         assertEquals(0, taskList.getCount());
 
         try {
