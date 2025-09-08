@@ -9,6 +9,7 @@ import bytebot.command.ExitCommand;
 import bytebot.command.FindCommand;
 import bytebot.command.ListCommand;
 import bytebot.command.MarkCommand;
+import bytebot.command.SortCommand;
 import bytebot.command.TodoCommand;
 import bytebot.command.UnmarkCommand;
 
@@ -108,6 +109,16 @@ public class Parser {
         case "find": {
             String term = parts.length >= 2 ? parts[1].trim() : "";
             return new FindCommand(term);
+        }
+        case "sort": {
+            String rest = parts.length >= 2 ? parts[1].trim().toLowerCase() : "";
+            if (rest.equals("deadline") || rest.equals("deadlines")) {
+                return new SortCommand(SortCommand.SortType.DEADLINE);
+            }
+            if (rest.equals("all")) {
+                return new SortCommand(SortCommand.SortType.ALL);
+            }
+            throw new ByteException("Specify what to sort");
         }
         default:
             throw new ByteException("I dont know what that means!");
