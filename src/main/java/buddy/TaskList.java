@@ -23,6 +23,7 @@ public class TaskList {
      * @param task the task to be added
      */
     public void addTask(Task task) {
+        assert task != null : "Task should not be null when adding to task list";
         tasks.add(task);
     }
     
@@ -30,6 +31,7 @@ public class TaskList {
         if (index < 0 || index >= tasks.size()) {
             throw new BuddyException("Task number is out of range.");
         }
+        assert !tasks.isEmpty() : "Task list should not be empty when deleting";
         tasks.remove(index);
     }
     
