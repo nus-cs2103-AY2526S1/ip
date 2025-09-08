@@ -12,10 +12,12 @@ public abstract class Task {
     private boolean isDone;
 
     /**
-     * Constructors the constructor for Task
+     * Constructs the constructor for Task
      * @param name The name of the task.
      */
     public Task(String name) {
+        assert name != null : "Name is null";
+
         this.name = name;
         this.isDone = false;
     }

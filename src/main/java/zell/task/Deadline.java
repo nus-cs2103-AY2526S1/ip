@@ -17,6 +17,8 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String dueBy) throws ZellException {
         super(name);
+
+        assert dueBy != null : "Due by is null";
         this.dueBy = new DateOrTime(dueBy);
     }
 

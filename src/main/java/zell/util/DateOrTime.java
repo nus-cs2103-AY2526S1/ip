@@ -53,6 +53,7 @@ public class DateOrTime {
      * @return The string format of the current date or datetime
      */
     public String getOriginalFormat() {
+        assert !(this.date == null && this.dateTime == null) : "One of date/datetime cannot be null";
         String original = "";
 
         if (this.date != null) {
