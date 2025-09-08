@@ -28,6 +28,10 @@ public class Parser {
      * @see #executeCommand(String, String, TaskList, Storage)
      */
     public String parseInput(String userInput, TaskList taskList, Storage storage) throws ZellException {
+        assert userInput != null : "User input is null";
+        assert taskList != null : "Task List is null";
+        assert storage != null : "Storage is null";
+
         int firstSpaceIndex = userInput.indexOf(" ");
 
         String command = firstSpaceIndex != -1 ? userInput.substring(0, firstSpaceIndex) : userInput;
@@ -50,6 +54,7 @@ public class Parser {
     public String executeCommand(String userInput, String command, TaskList taskList,
             Storage storage) throws ZellException {
         int firstSpaceIndex = userInput.indexOf(" ");
+
         String output;
 
         switch (command) {
@@ -235,11 +240,11 @@ public class Parser {
     public String handleList(int firstSpaceIndex, String command, TaskList taskList) throws ZellException {
         checkIfCommandHasSpaces(command, firstSpaceIndex);
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(ZellMessage.LIST.getMessage());
-        stringBuilder.append(taskList.listAllTasks());
+        String output = "";
+        output += ZellMessage.LIST.getMessage();
+        output += taskList.listAllTasks();
 
-        return stringBuilder.toString();
+        return output;
     }
 
     /**

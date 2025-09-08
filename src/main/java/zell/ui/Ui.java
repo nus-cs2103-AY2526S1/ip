@@ -55,6 +55,10 @@ public class Ui extends AnchorPane {
      * @param parser The Parser object.
      */
     public void setFields(TaskList taskList, Storage storage, Parser parser) {
+        assert userInput != null : "User input is null";
+        assert taskList != null : "Task List is null";
+        assert parser != null : "Parser is null";
+
         this.taskList = taskList;
         this.storage = storage;
         this.parser = parser;
