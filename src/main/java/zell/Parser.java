@@ -105,17 +105,18 @@ public class Parser {
      */
     public String handleTaskCommands(String userInput, String command, int firstSpaceIndex,
             TaskList taskList, Storage storage) throws ZellException {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(ZellMessage.TASK_ADDED.getMessage());
 
+        // Create the task
         Task task = createTask(userInput, command, firstSpaceIndex);
 
+        // Store task in task list and local storage
         taskList.addTask(task);
-
         storage.storeTask(task);
 
+        // Create output that will be displayed to user
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(ZellMessage.TASK_ADDED.getMessage());
         stringBuilder.append(task);
-
         stringBuilder.append(taskList);
 
         return stringBuilder.toString();
@@ -137,19 +138,19 @@ public class Parser {
      */
     public String handleDelete(String userInput, String command, int firstSpaceIndex,
             TaskList taskList, Storage storage) throws ZellException {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(ZellMessage.TASK_REMOVED.getMessage());
-
         checkNoSpacesInCommand(command, firstSpaceIndex);
 
+        // Get index of task to delete
         int index = getIndexFromUserInput(command, userInput, firstSpaceIndex, taskList);
 
-        stringBuilder.append(taskList.getTask(index));
-
+        // Delete the task
         taskList.removeTask(index);
-
         storage.updateTasks(taskList.getAllTasksInString());
 
+        // Create output that will be displayed to user
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(ZellMessage.TASK_REMOVED.getMessage());
+        stringBuilder.append(taskList.getTask(index));
         stringBuilder.append(taskList);
 
         return stringBuilder.toString();
@@ -168,45 +169,80 @@ public class Parser {
      * @return The task that is created
      * @throws ZellException If the task command format is invalid such as missing parameters or invalid dates
      * @see #checkNoSpacesInCommand(String, int)
-     * @see #checkForDeadlineExceptions(String, String, String, int)
      * @see #checkForEventExceptions(String, String, String, int, int)
      */
     public Task createTask(String userInput, String command, int firstSpaceIndex)
             throws ZellException {
         checkNoSpacesInCommand(command, firstSpaceIndex);
 
+        // Extract second half of user input after the command
         String userInputSecondHalf = userInput.substring(firstSpaceIndex + 1);
-        Task task;
+
+        Task task = null;
 
         if (command.equals("todo")) {
             task = new ToDo(userInputSecondHalf);
         } else if (command.equals("deadline")) {
-            String splitBy = " /by ";
-            int firstByIndex = userInputSecondHalf.indexOf(splitBy); // Handle exception if missing; -1
-
-            checkForDeadlineExceptions(command, userInput, splitBy, firstByIndex);
-
-            String name = userInputSecondHalf.substring(0, firstByIndex);
-            String dueBy = userInputSecondHalf.substring(firstByIndex + splitBy.length());
-
-            task = new Deadline(name, dueBy);
-        } else { // Event
-            String splitFrom = " /from ";
-            String splitTo = " /to ";
-
-            int firstFromIndex = userInputSecondHalf.indexOf(splitFrom);
-            int firstToIndex = userInputSecondHalf.indexOf(splitTo);
-
-            checkForEventExceptions(command, userInput, splitFrom, firstFromIndex, firstToIndex);
-
-            String name = userInputSecondHalf.substring(0, firstFromIndex);
-            String start = userInputSecondHalf.substring(firstFromIndex + splitFrom.length(), firstToIndex);
-            String end = userInputSecondHalf.substring(firstToIndex + splitTo.length());
-
-            task = new Event(name, start, end);
+            task = createDeadline(userInput, command, userInputSecondHalf);
+        } else if (command.equals("event")) { // Event
+            task = createEvent(userInput, command, userInputSecondHalf);
+        } else {
+            assert true : "Should not be able to reach here for creating a task";
         }
 
         return task;
+    }
+
+    /**
+     * Deals with creating the Deadline
+     *
+     * @param userInput The user's input
+     * @param command The command to be executed
+     * @param userInputSecondHalf The second half of the user input after we split it from the command
+     * @return The Deadline that is created
+     * @throws ZellException If the user input to create a new Deadline is invalid
+     * @see #checkForDeadlineExceptions(String, String, String, int)
+     */
+    public Deadline createDeadline(String userInput, String command, String userInputSecondHalf)
+            throws ZellException {
+
+        String splitBy = " /by ";
+        int firstByIndex = userInputSecondHalf.indexOf(splitBy);
+
+        checkForDeadlineExceptions(command, userInput, splitBy, firstByIndex);
+
+        String name = userInputSecondHalf.substring(0, firstByIndex);
+        String dueBy = userInputSecondHalf.substring(firstByIndex + splitBy.length());
+
+        return new Deadline(name, dueBy);
+    }
+
+    /**
+     * Deals with creating the Event
+     *
+     * @param userInput The user's input
+     * @param command The command to be executed
+     * @param userInputSecondHalf The second half of the user input after we split it from the command
+     * @return The Event that is created
+     * @throws ZellException If the user input to create a new Event is invalid
+     * @see #checkForEventExceptions(String, String, String, int, int)
+     */
+    public Event createEvent(String userInput, String command, String userInputSecondHalf)
+            throws ZellException {
+
+        String splitFrom = " /from ";
+        String splitTo = " /to ";
+
+        int firstFromIndex = userInputSecondHalf.indexOf(splitFrom);
+        int firstToIndex = userInputSecondHalf.indexOf(splitTo);
+
+        checkForEventExceptions(command, userInput, splitFrom, firstFromIndex, firstToIndex);
+
+        String name = userInputSecondHalf.substring(0, firstFromIndex);
+        String start = userInputSecondHalf.substring(firstFromIndex + splitFrom.length(), firstToIndex);
+        String end = userInputSecondHalf.substring(firstToIndex + splitTo.length());
+
+        return new Event(name, start, end);
     }
 
     /**
@@ -260,11 +296,16 @@ public class Parser {
      */
     public String handleMarkOrUnMark(String command, String userInput,
             int firstSpaceIndex, TaskList taskList) throws ZellException {
+
+        // Get index of task to mark/unmark
         int index = getIndexFromUserInput(command, userInput, firstSpaceIndex, taskList);
 
+        // Get the task to mark/unmark
         Task currentTask = taskList.getTask(index);
+
         StringBuilder stringBuilder = new StringBuilder();
 
+        // Perform mark or unmark on the task
         if (command.equals("mark")) {
             taskList.markTaskAsDone(index);
             stringBuilder.append(ZellMessage.TASK_MARKED.getMessage());
@@ -291,13 +332,13 @@ public class Parser {
     public String handleFind(String userInput, String command, int firstSpaceIndex,
             TaskList taskList) throws ZellException {
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(ZellMessage.TASK_FOUND.getMessage());
-
         checkNoSpacesInCommand(command, firstSpaceIndex);
 
+        // Extract word to find from user input
         String word = userInput.substring(firstSpaceIndex + 1);
 
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(ZellMessage.TASK_FOUND.getMessage());
         stringBuilder.append(taskList.listAllTasksContainingWord(word));
 
         return stringBuilder.toString();
@@ -421,6 +462,7 @@ public class Parser {
      */
     public void checkForDeadlineExceptions(String command, String userInput, String splitBy,
             int firstByIndex) throws ZellException {
+
         // Handle missing deadline name
         if (userInput.contains(splitBy) && firstByIndex == -1) {
             String formatMessage = String.format("%s should include a name.\nFor example:\n" + "%s project "
@@ -428,6 +470,7 @@ public class Parser {
             throw new ZellException(formatMessage);
         }
 
+        // Handle missing /by
         if (firstByIndex == -1) {
             String formatMessage = String.format("%s should include a dateline by using /by.\nFor "
                     + "example:\n" + "%s read books /by Sunday", command, command);

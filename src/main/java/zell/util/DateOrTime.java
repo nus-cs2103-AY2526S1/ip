@@ -24,8 +24,8 @@ public class DateOrTime {
      * It converts and stores the date/datetime in the DateOrTime class in the respective LocalDate or
      * LocalDateTime object.
      * </p>
-     * @param dateOrTimeString The date or datetime string in the format {@code yyyy-MM-dd} or
-     * {@code yyyy-MM-dd HH:mm} respectively.
+     * @param dateOrTimeString The date or datetime string in the format {@code yyyy-MM-dd}
+     *     or {@code yyyy-MM-dd HH:mm} respectively.
      * @throws ZellException If the date or datetime string is invalid
      */
     public DateOrTime(String dateOrTimeString) throws ZellException {

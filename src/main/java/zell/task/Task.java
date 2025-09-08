@@ -40,28 +40,34 @@ public abstract class Task {
             throw new ZellException("Invalid task string provided! Certain parameters are missing.");
         }
 
+        Task task;
         switch (components[0]) {
         case "T":
             if (components.length != 3) {
                 throw new ZellException("Invalid task string provided! Certain parameters are missing.");
             }
 
-            return new ToDo(components[2], Boolean.parseBoolean(components[1]));
+            task = new ToDo(components[2], Boolean.parseBoolean(components[1]));
+            break;
         case "D":
             if (components.length != 4) {
                 throw new ZellException("Invalid task string provided! Certain parameters are missing.");
             }
 
-            return new Deadline(components[2], components[3], Boolean.parseBoolean(components[1]));
+            task = new Deadline(components[2], components[3], Boolean.parseBoolean(components[1]));
+            break;
         case "E":
             if (components.length != 5) {
                 throw new ZellException("Invalid task string provided! Certain parameters are missing.");
             }
 
-            return new Event(components[2], components[3], components[4], Boolean.parseBoolean(components[1]));
+            task = new Event(components[2], components[3], components[4], Boolean.parseBoolean(components[1]));
+            break;
         default:
             throw new ZellException("Unknown task type encountered when converting tasks");
         }
+
+        return task;
     }
 
     /**
