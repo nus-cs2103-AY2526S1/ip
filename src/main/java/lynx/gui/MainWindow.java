@@ -70,11 +70,19 @@ public class MainWindow extends AnchorPane {
         try {
             taskLynx.save();
         } catch (LynxException e) {
-            String warning = String.format("%s%nUse \"save\" to resave or \"bye!\" to force quit.", e.getMessage());
+            String warning = String.format("%s%nUse \"bye!\" if you need to force quit.", e.getMessage());
             dialogContainer.getChildren().addAll(DialogBox.getLynxDialog(warning, lynxImage));
             return;
         }
+        cueExit();
+    }
+
+    /**
+     * Schedules the program to stop reading user inputs and shut down in 5 seconds.
+     */
+    private void cueExit() {
         isExiting = true;
+        dialogContainer.getChildren().addAll(DialogBox.getLynxDialog("Auto-exiting in 5 seconds.", lynxImage));
         PauseTransition delay = new PauseTransition(Duration.seconds(5));
         delay.setOnFinished(event -> Platform.exit());
         delay.play();
@@ -87,18 +95,22 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String userText = userInput.getText();
+
         if (userText.isEmpty() || isExiting) {
             return;
         }
+
         if (userText.trim().equals("bye!")) {
             Platform.exit();
         }
+
         if (userText.trim().equals("bye")) {
             dialogContainer.getChildren().addAll(DialogBox.getUserDialog(userText, userImage));
             farewell();
             userInput.clear();
             return;
         }
+
         String lynxText = taskLynx.getCommandResponse(userInput.getText());
         if (lynxText.isEmpty()) {
             return;

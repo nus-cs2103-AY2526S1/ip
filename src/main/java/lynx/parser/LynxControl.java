@@ -130,7 +130,7 @@ public class LynxControl {
                     scanner.close();
                     break;
                 } catch (LynxException e) {
-                    LynxUI.printBox(e.getMessage() + "\nUse \"save\" to resave or \"bye!\" to force quit.");
+                    LynxUI.printBox(e.getMessage() + "\nUse \"bye!\" if you need to force quit.");
                     continue;
                 }
             }

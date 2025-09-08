@@ -18,7 +18,7 @@ public class LynxFileException extends LynxException {
     public static LynxFileException createError(String details) {
         return new LynxFileException("⚠️ Warning: Lynx couldn't set up your data file!\n"
                 + "Details: " + details + "\n"
-                + "Your tasks may not be saved. Please check your file permissions or disk space.");
+                + "Your tasks may not be saved. Try \"reload\" or \"save\" to reattempt.");
     }
 
     /**
@@ -30,7 +30,7 @@ public class LynxFileException extends LynxException {
     public static LynxFileException readError(String details) {
         return new LynxFileException("⚠️ Oops! Lynx couldn't read your data file.\n"
                 + "Details: " + details + "\n"
-                + "Your tasks could not be loaded. Starting with an empty list.");
+                + "Your tasks could not be loaded. Starting with an empty list. Try \"reload\" to reattempt.");
     }
 
     /**
@@ -42,7 +42,7 @@ public class LynxFileException extends LynxException {
     public static LynxFileException writeError(String details) {
         return new LynxFileException("⚠️ Oops! Lynx couldn't save your tasks.\n"
                 + "Details: " + details + "\n"
-                + "Any changes made during this session may not be saved.");
+                + "Any changes made during this session may not be saved. Try \"save\" to reattempt.");
     }
 
 }
