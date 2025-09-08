@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
 import objectclasses.command.LynxCommand;
+import objectclasses.exception.CommandFormatException;
 import objectclasses.exception.LynxException;
 import objectclasses.formatter.LynxDateManager;
 import objectclasses.task.Task;
@@ -36,8 +37,7 @@ public abstract class LynxSearcher {
         case "/on" -> findTasksByDate(command, stream);
         case "/status" -> findTasksByStatus(command, stream);
         case "/type" -> findTasksByType(command, stream);
-        default -> throw new LynxException("Non matching command detected. "
-                + "Please try again or type \"help\" to access the user guide.");
+        default -> throw CommandFormatException.nonMatchingCommand();
         }
     }
 
@@ -54,7 +54,7 @@ public abstract class LynxSearcher {
             command.setId(id);
             findTasks(command, LynxSorter.filterTasksById(stream, Integer.parseInt(id)));
         } catch (NumberFormatException e) {
-            throw new LynxException("Sorry, that isn't a valid ID.");
+            throw CommandFormatException.invalidId();
         }
     }
 

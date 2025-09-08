@@ -4,6 +4,7 @@ import objectclasses.exception.LynxException;
 
 /**
  * Represents a string of search modifiers for an "unmark" command and stores its search results.
+ * Does not handle the execution of commands.
  */
 public class UnmarkCommand extends LynxCommand {
 
@@ -28,6 +29,7 @@ public class UnmarkCommand extends LynxCommand {
     /**
      * {@inheritDoc}
      */
+
     @Override
     public String actionDialogue() {
         return String.format("Unmarked %s", super.getSearchString());

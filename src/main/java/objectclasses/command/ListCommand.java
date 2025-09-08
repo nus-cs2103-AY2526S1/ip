@@ -4,6 +4,7 @@ import objectclasses.exception.LynxException;
 
 /**
  * Represents a string of search modifiers for a "list" command and stores its search results.
+ * Does not handle the execution of commands.
  */
 public class ListCommand extends LynxCommand {
 
