@@ -2,14 +2,13 @@ package waddles;
 
 /**
  * Enum of all possible commands handled by Waddles.
- * Note that {@code Command.INVALID} represents an unknown command,
- * with the given command string stored in the {@code name} field.
+ * Note that {@code Command.INVALID} represents an unknown command.
  */
 public enum Command {
     BYE("bye"), LIST("list"), MARK("mark"), UNMARK("unmark"), TODO("todo"), DEADLINE("deadline"), EVENT("event"),
     DELETE("delete"), FIND("find"), INVALID("invalid");
 
-    private String name;
+    private final String name;
 
     Command(String name) {
         this.name = name;
@@ -25,9 +24,7 @@ public enum Command {
                 return command;
             }
         }
-        Command invalid = INVALID;
-        invalid.name = s;
-        return invalid;
+        return Command.INVALID;
     }
 
     @Override
