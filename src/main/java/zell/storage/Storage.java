@@ -19,6 +19,8 @@ public class Storage {
     private final String filePath;
 
     public Storage(String filePath) {
+        assert filePath != null : "File path is null";
+
         this.filePath = filePath;
     }
 
@@ -63,6 +65,8 @@ public class Storage {
      * @throws ZellException if we encounter some issue when storing the file
      */
     public void storeTask(Task task) throws ZellException {
+        assert task != null : "Task is null";
+        
         try {
             FileWriter fileWriter = new FileWriter(this.filePath, true);
             fileWriter.write(task.taskToString() + "\n");

@@ -20,6 +20,10 @@ public class Event extends Task {
      */
     public Event(String name, String start, String end) throws ZellException {
         super(name);
+
+        assert start != null : "Start is null";
+        assert end != null : "End is null";
+
         this.start = new DateOrTime(start);
         this.end = new DateOrTime(end);
     }
