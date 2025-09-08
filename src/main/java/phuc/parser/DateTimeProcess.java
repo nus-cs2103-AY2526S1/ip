@@ -35,6 +35,7 @@ public class DateTimeProcess {
      * @throws PhucException if no supported format matches the input string
      */
     public static LocalDateTime parseDateTime(String dateTimeStr) throws PhucException {
+        assert dateTimeStr != null;
         String trimmedStr = dateTimeStr.trim();
 
         if (!trimmedStr.contains(" ")) {
@@ -59,6 +60,7 @@ public class DateTimeProcess {
      * @return a formatted string for display
      */
     public static String formatForDisplay(LocalDateTime dateTime) {
+        assert dateTime != null;
         return dateTime.format(OUTPUT_DISPLAY_FORMAT);
     }
 
@@ -69,6 +71,7 @@ public class DateTimeProcess {
      * @return a formatted string for file storage
      */
     public static String formatForFile(LocalDateTime dateTime) {
+        assert dateTime != null;
         return dateTime.format(OUTPUT_FILE_FORMAT);
     }
 }

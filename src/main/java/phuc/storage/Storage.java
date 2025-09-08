@@ -38,6 +38,7 @@ public class Storage {
     public void save(TaskList tasks) throws IOException {
         java.io.File file = new java.io.File(filePath);
         file.getParentFile().mkdirs();
+        assert file.createNewFile();
 
         try (FileWriter writer = new FileWriter(file)) {
             for (Task task : tasks.getAllTasks()) {

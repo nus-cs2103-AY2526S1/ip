@@ -46,6 +46,7 @@ public class MainWindow extends AnchorPane {
      * Injects the Phuc instance
      */
     public void setPhuc(Phuc phuc) {
+        assert phuc != null;
         this.phuc = phuc;
     }
 
