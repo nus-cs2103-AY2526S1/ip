@@ -1,6 +1,7 @@
 package buddy;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Manages a list of tasks with operations for adding, deleting, and modifying tasks.
@@ -63,14 +64,21 @@ public class TaskList {
     }
     
     public Task[] findTasks(String keyword) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
         String lowerKeyword = keyword.toLowerCase();
-        
-        for (Task task : tasks) {
-            if (task.getDescription().toLowerCase().contains(lowerKeyword)) {
-                matchingTasks.add(task);
-            }
-        }
-        return matchingTasks.toArray(new Task[matchingTasks.size()]);
+        return tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(lowerKeyword))
+                .toArray(Task[]::new);
+    }
+    
+    public long getCompletedTaskCount() {
+        return tasks.stream()
+                .filter(Task::isDone)
+                .count();
+    }
+    
+    public Task[] getCompletedTasks() {
+        return tasks.stream()
+                .filter(Task::isDone)
+                .toArray(Task[]::new);
     }
 }
