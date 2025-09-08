@@ -28,12 +28,14 @@ public class Zell extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            // Set up stage
             FXMLLoader fxmlLoader = new FXMLLoader(Zell.class.getResource("/view/MainWindow.fxml"));
             AnchorPane anchorPane = fxmlLoader.load();
             Scene scene = new Scene(anchorPane);
             stage.setTitle("Zell");
             stage.setScene(scene);
 
+            // Initialize objects that will be used in other classes later
             Storage storage = new Storage(FILE_PATH);
             Parser parser = new Parser();
             TaskList taskList;
@@ -48,6 +50,7 @@ public class Zell extends Application {
             fxmlLoader.<Ui>getController().setFields(taskList, storage, parser);
             stage.show();
 
+            // Display welcome message to user
             fxmlLoader.<Ui>getController().showMessage(ZellMessage.WELCOME_MESSAGE.getMessage());
         } catch (IOException e) {
             e.printStackTrace();

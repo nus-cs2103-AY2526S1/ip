@@ -83,8 +83,10 @@ public class Ui extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        // Get user input
         String input = userInput.getText();
 
+        // Get response to output to user
         String response;
         try {
             response = parser.parseInput(input, taskList, storage);
@@ -92,13 +94,16 @@ public class Ui extends AnchorPane {
             response = ze.toString();
         }
 
+        // Display user input and Zell's output
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getZellDialog(response, zellImage)
         );
 
+        // Clear text box
         userInput.clear();
 
+        // If the user typed bye we need to exit
         if (input.equals("bye")) {
             Platform.exit();
         }
