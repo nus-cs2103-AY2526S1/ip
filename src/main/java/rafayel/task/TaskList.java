@@ -3,6 +3,7 @@ package rafayel.task;
 
 import java.util.ArrayList;
 
+import rafayel.Rafayel;
 import rafayel.RafayelException;
 
 /**
@@ -67,12 +68,13 @@ public class TaskList {
      * @throws RafayelException if the task number is invalid.
      */
     public boolean checkTaskNumber(int taskNumber) throws RafayelException {
-        if (taskNumber < 0 || taskNumber >= this.getSize()) {
-            throw new RafayelException("Invalid task number.");
-            // return false;
-        } else {
-            return true;
+        boolean isTaskNumberTooSmall = taskNumber <= 0;
+        boolean isTaskNumberLargerThanTasksSize = taskNumber > this.getSize();
+
+        if (isTaskNumberTooSmall || isTaskNumberLargerThanTasksSize) {
+            throw new RafayelException(Rafayel.INVALID_TASK_NUM);
         }
+        return true;
     }
 
     /**
@@ -115,13 +117,10 @@ public class TaskList {
      */
     public String getTaskList() {
         if (this.getSize() == 0) {
-            // System.out.println("There's nothing in the list.");
             return "There's nothing in the list.";
         } else {
-            // System.out.println("Here are the tasks in your list:");
             String result = "Here are the tasks in your list:\n";
             for (int i = 0; i < this.getSize(); i++) {
-                // System.out.println(i + 1 + "." + tasks.get(i).toString());
                 String temp = i + 1 + "." + tasks.get(i).toString() + "\n";
                 result += temp;
             }

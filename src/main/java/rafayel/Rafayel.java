@@ -30,6 +30,13 @@ public class Rafayel {
     /* Manages the ui of Rafayel */
     private final Ui ui;
 
+    // Code qualit
+    private static final String DEADLINE_FORMAT_ERROR = "Deadline format is wrong. Example: deadline [desc] /by [time]";
+    private static final String EVENT_FORMAT_ERROR = "Event format is wrong. Example: event [desc] /from [time] /to [time]";
+    public static final String INVALID_TASK_NUM = "Invalid task number.";
+    private static final String INVALID_PROMPT = "Please enter a valid prompt! (i.e. todo/deadline/event)";
+    public static final String DATE_FORMAT_ERROR = "Please use one of: MMM d yyyy HH:mm | yyyy/MM/dd HH:mm | dd-MM-yyyy HH:mm";
+
     /**
      * Constructs a new Rafayel chatbot instance with the specified file path for data storage.
      *
@@ -62,14 +69,20 @@ public class Rafayel {
         assert tasks != null : "TaskList cannot be null";
 
         int minLen = markTask ? 5 : 7;
+
+        // Guard condition
         if (input.length() <= minLen) {
             throw new RafayelException("Please state what task to be marked/unmarked.");
         }
+
+        // No happy path
         String[] temp = input.split(" ");
         int taskNumber = Integer.parseInt(temp[1]);
 
-        if (taskNumber <= 0 || taskNumber > tasks.getSize()) {
-            throw new RafayelException("Invalid task number.");
+        boolean isTaskNumberTooSmall = taskNumber <= 0;
+        boolean isTaskNumberLargerThanTasksSize = taskNumber > tasks.getSize();
+        if (isTaskNumberTooSmall || isTaskNumberLargerThanTasksSize) {
+            throw new RafayelException(INVALID_TASK_NUM);
         }
         taskNumber--;
         assert taskNumber >= 0 && taskNumber < tasks.getSize() : "Adjusted task number should be within valid range";
@@ -78,23 +91,21 @@ public class Rafayel {
 
         if (markTask) {
             tasks.get(taskNumber).markAsDone();
-            System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(taskNumber).toString());
             return "Nice! I've marked this task as done:\n  " + tasks.get(taskNumber).toString();
         } else {
             tasks.get(taskNumber).markAsUndone();
-            System.out.println("OK, I've marked this task as not done yet:\n  " + tasks.get(taskNumber).toString());
             return "OK, I've marked this task as not done yet:\n  " + tasks.get(taskNumber).toString();
         }
 
     }
 
     /**
-     * Prints the confirmation message when a new task is added to the list
+     * Gets the confirmation message when a new task is added to the list
      *
      * @param newTask the task that was added.
      * @param counter the current number of tasks in the ArrayList.
      */
-    private static String printNewTaskString(Task newTask, int counter) {
+    private static String getNewTaskString(Task newTask, int counter) {
         return String.format("Got it. I've added this task:\n %s\nNow you have %d tasks in the list.",
                 newTask.toString(), counter);
     }
@@ -110,14 +121,17 @@ public class Rafayel {
         assert input != null : "Input cannot be null";
         assert tasks != null : "TaskList cannot be null";
 
+        // Checks
+        // Guard condition
         if (input.length() <= 5) {
             throw new RafayelException("Please add in the description of the Todo task.");
         }
 
+        // No happy path
         Todo newTask = new Todo(input.substring(5).trim());
         tasks.add(newTask);
 
-        return printNewTaskString(newTask, tasks.getSize());
+        return getNewTaskString(newTask, tasks.getSize());
     }
 
     /**
@@ -128,6 +142,8 @@ public class Rafayel {
      * @throws RafayelException if the input format is invalid, description is missing or date format is wrong.
      */
     private static String handleDeadlineCommand(String input, TaskList tasks) throws RafayelException {
+        // Checks
+        // Guard conditions
         assert input != null : "Input cannot be null";
         assert tasks != null : "TaskList cannot be null";
 
@@ -135,15 +151,16 @@ public class Rafayel {
             throw new RafayelException("Please add in the description of the Deadline task.");
         }
         if (!input.contains("/by")) {
-            throw new RafayelException("Deadline format is wrong. Example: deadline [desc] /by [time]");
+            throw new RafayelException(DEADLINE_FORMAT_ERROR);
         }
 
+        // No happy path
         String[] taskInfo = input.substring(9).split("/by ");
         LocalDateTime dateTime = handleReadDate(taskInfo[1].trim());
         Deadline newTask = new Deadline(taskInfo[0].trim(), dateTime);
         tasks.add(newTask);
 
-        return printNewTaskString(newTask, tasks.getSize());
+        return getNewTaskString(newTask, tasks.getSize());
     }
 
     /**
@@ -166,8 +183,6 @@ public class Rafayel {
             }
         }
 
-        System.out.println("Please use one of: MMM d yyyy HH:mm | yyyy/MM/dd HH:mm | dd-MM-yyyy HH:mm");
-
         return null;
     }
 
@@ -179,6 +194,7 @@ public class Rafayel {
      * @throws RafayelException if the input format is invalid, description is missing, or date formats are incorrect.
      */
     private static String handleEventCommand(String input, TaskList tasks) throws RafayelException {
+        // Guard conditions
         assert input != null : "Input cannot be null";
         assert tasks != null : "TaskList cannot be null";
 
@@ -186,12 +202,13 @@ public class Rafayel {
             throw new RafayelException("Please add in the description of the Event task.");
         }
         if (!input.contains("/from")) {
-            throw new RafayelException("Event format is wrong. Example: event [desc] /from [time] /to [time]");
+            throw new RafayelException(EVENT_FORMAT_ERROR);
         }
         if (!input.contains("/to")) {
-            throw new RafayelException("Event format is wrong. Example: event [desc] /from [time] /to [time]");
+            throw new RafayelException(EVENT_FORMAT_ERROR);
         }
 
+        // No happy path
         String[] taskInfo = input.substring(6).split("/");
         LocalDateTime dateTimeFrom = handleReadDate(taskInfo[1].substring(5).trim());
         LocalDateTime dateTimeTo = handleReadDate(taskInfo[2].substring(3).trim());
@@ -200,7 +217,7 @@ public class Rafayel {
 
         tasks.add(newTask);
 
-        return printNewTaskString(newTask, tasks.getSize());
+        return getNewTaskString(newTask, tasks.getSize());
     }
 
     /**
@@ -285,7 +302,7 @@ public class Rafayel {
                 return res;
 
             default:
-                throw new RafayelException("Please enter a valid prompt! (i.e. todo/deadline/event)");
+                throw new RafayelException(INVALID_PROMPT);
             }
         } catch (RafayelException e) {
             // ui.showError(e.getMessage());
