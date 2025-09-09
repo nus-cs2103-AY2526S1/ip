@@ -4,9 +4,14 @@ package rafayel;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import rafayel.command.Parser;
+import rafayel.reminder.ReminderManager;
 import rafayel.storage.Storage;
 import rafayel.task.Deadline;
 import rafayel.task.Event;
@@ -29,6 +34,8 @@ public class Rafayel {
     private TaskList tasks;
     /* Manages the ui of Rafayel */
     private final Ui ui;
+    /* Manages reminders */
+    private ReminderManager reminderManager;
 
     // Code qualit
     private static final String DEADLINE_FORMAT_ERROR = "Deadline format is wrong. Example: deadline [desc] /by [time]";
@@ -46,14 +53,30 @@ public class Rafayel {
     public Rafayel(String filePath) throws RafayelException {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
+        this.reminderManager = new ReminderManager(null);
         try {
             tasks = new TaskList(storage.load());
+            this.reminderManager = new ReminderManager(getAll());
         } catch (RafayelException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * @return the TaskList in ArrayList form.
+     */
+    public ArrayList<Task> getAll() {
+        return tasks.getAll();
+    }
+
+    /**
+     * Saves the current tasks into the storage location
+     */
+    public void save() throws RafayelException {
+        storage.save(tasks.getAll());
     }
 
     /**
@@ -300,6 +323,38 @@ public class Rafayel {
                     res += i + 1 + "." + matchedTasks.get(i).toString() + "\n";
                 }
                 return res;
+
+            case REMIND:
+                // Remind user of their deadlines
+                ArrayList<Task> reminders = new ArrayList<>();
+                ArrayList<Task> overdue = new ArrayList<>();
+                LocalDateTime now = LocalDateTime.now();
+
+                for (Task task : tasks.getAll()) {
+                    if (task.hasDeadline() && !task.isDone()) {
+                        LocalDateTime deadline = task.getDeadline();
+                        long hoursUntilDeadline = ChronoUnit.HOURS.between(now, deadline);
+
+                        if (hoursUntilDeadline <= 24 && hoursUntilDeadline >= 0) {
+                            reminders.add(task);
+                        } else if (hoursUntilDeadline < 0) {
+                            overdue.add(task);
+                        }
+                    }
+                }
+                if (reminders.isEmpty() && overdue.isEmpty()) {
+                    return "No upcoming deadlines! :D";
+                }
+
+                String upcomingReminders = reminders.isEmpty() ? ""
+                        : "Upcoming Deadlines:\n\n" + IntStream.range(0, reminders.size())
+                                .mapToObj(i -> (i + 1) + ". " + reminders.get(i).toString())
+                                .collect(Collectors.joining("\n"));
+                String overdueReminders = overdue.isEmpty() ? ""
+                        : "OVERDUE TASKS!!!\n\n" + IntStream.range(0, overdue.size())
+                                .mapToObj(i -> (i + 1) + ". " + overdue.get(i).toString())
+                                .collect(Collectors.joining("\n"));
+                return overdueReminders + upcomingReminders;
 
             default:
                 throw new RafayelException(INVALID_PROMPT);

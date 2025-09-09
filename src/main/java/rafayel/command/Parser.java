@@ -11,7 +11,7 @@ public class Parser {
      * Enumeration of all possible commands that can be recognised by the application.
      */
     public enum CommandType {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, UNKNOWN;
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, REMIND, UNKNOWN;
 
         /**
          * Parses the input string to determine the corresponding command type.
@@ -46,6 +46,9 @@ public class Parser {
             }
             if (input.startsWith("find")) {
                 return FIND;
+            }
+            if (input.startsWith("remind")) {
+                return REMIND;
             }
             return UNKNOWN;
         }

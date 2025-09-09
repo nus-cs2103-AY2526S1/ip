@@ -52,4 +52,18 @@ public class Event extends Task {
         return "E" + super.saveTaskName() + " | " + handleDateTimeFormatting(this.startDate) + " - "
                 + handleDateTimeFormatting(this.endDate);
     }
+
+    @Override
+    public boolean hasDeadline() {
+        return true;
+    }
+
+    @Override
+    public LocalDateTime getDeadline() {
+        return endDate;
+    }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
 }

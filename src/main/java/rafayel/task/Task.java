@@ -1,6 +1,8 @@
 
 package rafayel.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Abstract task with description and completion status. Subclasses should
  * define the specific types of tasks.
@@ -18,6 +20,13 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    /**
+     * @return true if the task is completed, false otherwise.
+     */
+    public boolean isDone() {
+        return this.isDone;
     }
 
     /**
@@ -100,4 +109,22 @@ public abstract class Task {
         }
         return result.toString();
     }
+
+    /**
+     * @return true if the task has a deadline (deadline/event), false otherwise.
+     */
+    public boolean hasDeadline() {
+        return false;
+    }
+
+    /**
+     * @return deadline LocalDateTime, null by default.
+     */
+    public LocalDateTime getDeadline() {
+        return null;
+    }
+
+    // public LocalDateTime getStartDate() {
+    //     return null;
+    // }
 }

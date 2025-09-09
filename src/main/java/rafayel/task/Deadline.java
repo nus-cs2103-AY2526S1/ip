@@ -44,4 +44,14 @@ public class Deadline extends Task {
     public String saveTaskName() {
         return "D" + super.saveTaskName() + " | " + handleDateTimeFormatting(this.deadlineDate);
     }
+
+    @Override
+    public boolean hasDeadline() {
+        return true;
+    }
+
+    @Override
+    public LocalDateTime getDeadline() {
+        return deadlineDate;
+    }
 }

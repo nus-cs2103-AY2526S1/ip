@@ -121,8 +121,7 @@ public class TaskList {
         final String EMPTY_LIST = "There's nothing in the list.";
         return this.getSize() == 0 ? EMPTY_LIST
                 : "Here are the tasks in your list:\n" + IntStream.range(0, this.getSize())
-                        .mapToObj(i -> (i + 1) + "." + tasks.get(i).toString() + "\n")
-                        .collect(Collectors.joining("\n"));
+                        .mapToObj(i -> (i + 1) + "." + tasks.get(i).toString()).collect(Collectors.joining("\n"));
     }
 
     /**

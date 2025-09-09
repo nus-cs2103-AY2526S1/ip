@@ -7,10 +7,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -56,4 +58,20 @@ public class DialogBox extends HBox {
         db.flip();
         return db;
     }
+
+    /**
+     * Alert the user of their reminders.
+     * 
+     * @param reminderMessage the reminder message to display on alert.
+     */
+    public static void showReminderDialog(String reminderMessage) {
+        // Alert not appearing
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Task Reminder");
+        alert.setHeaderText("⏰ Reminder!");
+        alert.setContentText(reminderMessage);
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.show();
+    }
+
 }
