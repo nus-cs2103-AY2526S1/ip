@@ -100,7 +100,6 @@ public class BeeBong {
         // Parse the user's input as a command
         try {
             Command command = parser.parseCommand(input);
-            // Make sure command is never null
             assert command != null : "Command is NULL";
 
             String res = command.execute(this.taskList, this.storage);
