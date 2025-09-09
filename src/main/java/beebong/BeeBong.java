@@ -74,6 +74,9 @@ public class BeeBong {
             this.ui.printBotErrorMessage(e.getMessage());
             this.taskList = new TaskList();
         }
+
+        // Make sure taskList not null
+        assert this.taskList != null : "TaskList is empty";
     }
 
     /**
@@ -87,6 +90,9 @@ public class BeeBong {
         // Parse the user's input as a command
         try {
             Command command = parser.parseCommand(input);
+            // Make sure command is never null
+            assert command != null : "Command is NULL";
+
             String res = command.execute(this.taskList, this.storage);
             if (command.isExit()) {
                 this.ui.printBotExitMessage(res);

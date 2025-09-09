@@ -72,6 +72,7 @@ public class Parser {
             // Parse params into taskNum
             try {
                 int taskNum = Integer.parseInt(params) - 1;
+                assert taskNum >= 0 : "Task Index is out of range";
                 // Mark the task as complete or incomplete
                 return new MarkTaskAsCommand(taskNum, command == CommandKeyword.MARK);
             } catch (NumberFormatException e) {
@@ -95,6 +96,7 @@ public class Parser {
             // Parse params into task details
             try {
                 String[] taskInfo = convertDetailsToDeadlineTaskInfo(params);
+                assert taskInfo.length == 2 : "Deadline task must have exactly 2 parts (desc and date)";
                 LocalDateTime deadline = DateTimeUtil.parseDateTime(taskInfo[1]);
                 // Add New Deadline Task
                 return new AddDeadlineTaskCommand(taskInfo[0], deadline);
@@ -110,6 +112,7 @@ public class Parser {
             // Parse params into task details
             try {
                 String[] taskInfo = convertDetailsToEventTaskInfo(params);
+                assert taskInfo.length == 3 : "Deadline task must have exactly 3 parts (desc, start date, end date)";
                 LocalDateTime startDate = DateTimeUtil.parseDateTime(taskInfo[1]);
                 LocalDateTime endDate = DateTimeUtil.parseDateTime(taskInfo[2]);
                 // Make sure startDate <= endDate
@@ -131,6 +134,7 @@ public class Parser {
             // Parse params into taskNum
             try {
                 int taskNum = Integer.parseInt(params) - 1;
+                assert taskNum >= 0 : "Task Index is out of range";
                 // Delete Task
                 return new DeleteTaskCommand(taskNum);
             } catch (NumberFormatException e) {
