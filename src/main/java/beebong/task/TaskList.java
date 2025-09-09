@@ -2,6 +2,8 @@ package beebong.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import beebong.exception.BBongException;
 import beebong.storage.Storage;
@@ -89,22 +91,16 @@ public class TaskList {
      * @return a new {@code TaskList} containing all matching tasks.
      */
     public TaskList findTasks(String keyword) {
-        TaskList newTaskList = new TaskList();
-        for (Task t : tasks) {
-            // Make both to lowerCase to allow case-insensitive matching
-            if (t.getName().toLowerCase().contains(keyword.toLowerCase())) {
-                newTaskList.addTask(t);
-            }
-        }
-        return newTaskList;
+        List<Task> filtered = tasks.stream()
+                .filter(t -> t.getName().toLowerCase().contains(keyword.toLowerCase()))
+                .toList();
+        return new TaskList(filtered);
     }
 
     @Override
     public String toString() {
-        StringBuilder output = new StringBuilder();
-        for (int i = 0; i < this.tasks.size(); i++) {
-            output.append((i + 1)).append(". ").append(this.tasks.get(i)).append("\n");
-        }
-        return output.toString();
+        return IntStream.range(0, tasks.size())
+                .mapToObj(i -> (i + 1) + ". " + tasks.get(i))
+                .collect(Collectors.joining("\n"));
     }
 }
