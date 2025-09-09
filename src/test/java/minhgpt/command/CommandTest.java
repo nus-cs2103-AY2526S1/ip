@@ -17,6 +17,7 @@ public class CommandTest {
         assertEquals(Command.parseCommand("unmark 1") instanceof CommandUnmark, true);
         assertEquals(Command.parseCommand("delete 1") instanceof CommandDelete, true);
         assertEquals(Command.parseCommand("find bruh") instanceof CommandFind, true);
+        assertEquals(Command.parseCommand("sort") instanceof CommandSort, true);
         assertEquals(Command.parseCommand("lmao") instanceof CommandInvalid, true);
     }
 }

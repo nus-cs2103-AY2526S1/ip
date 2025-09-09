@@ -32,6 +32,11 @@ class TaskDeadline extends Task {
         return commands;
     }
 
+    @Override
+    public LocalDate getSortingDate() {
+        return deadline;
+    }
+
     /**
      * @return String representation of a deadline task.
      */

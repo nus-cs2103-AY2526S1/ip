@@ -16,7 +16,7 @@ public class TaskList {
     public TaskList(ArrayList<Task> initialTasks) {
         assert (initialTasks != null);
 
-        tasks = initialTasks;
+        tasks = new ArrayList<>(initialTasks);
     }
 
     /**
@@ -84,5 +84,15 @@ public class TaskList {
                 .map(Task::toCommands)
                 .flatMap(List::stream)
                 .reduce("", (cmds1, cmds2) -> cmds1 + cmds2 + "\n");
+    }
+
+    /**
+     * @return A new TaskList that has its tasks sorted
+     *         according to the date in Task::getSortingDate().
+     */
+    public TaskList sort() {
+        TaskList sorted = new TaskList(tasks);
+        sorted.tasks.sort((task1, task2) -> task1.getSortingDate().compareTo(task2.getSortingDate()));
+        return sorted;
     }
 }

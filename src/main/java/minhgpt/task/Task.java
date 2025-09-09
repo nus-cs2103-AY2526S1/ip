@@ -1,6 +1,7 @@
 package minhgpt.task;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -124,6 +125,11 @@ public abstract class Task {
         }
         return commands;
     }
+
+    /**
+     * @return Date of the task, which will be used for sorting.
+     */
+    public abstract LocalDate getSortingDate();
 
     /**
      * @return Simple String representation of a task.
