@@ -36,6 +36,9 @@ public abstract class Task {
      * @param supplier Constructor for the task.
      */
     protected static void register(String regex, Function<String, Task> supplier) {
+        assert (regex != null);
+        assert (supplier != null);
+
         registry.put(regex, supplier);
     }
 
@@ -58,6 +61,7 @@ public abstract class Task {
      *                        patterns.
      */
     public static Task parseTask(String input) throws ParseException {
+        assert (input != null);
         Ui ui = new Ui();
 
         try {
@@ -80,6 +84,8 @@ public abstract class Task {
      * @param name Name of task to be created.
      */
     public Task(String name) {
+        assert (name != null);
+
         this.name = name;
         this.isDone = false;
     }
@@ -102,6 +108,8 @@ public abstract class Task {
      * Return true if the task name matches regex string 'query'. False otherwise.
      */
     public boolean matchRegex(String query) {
+        assert (query != null);
+
         return name.toUpperCase().contains(query.toUpperCase());
     }
 

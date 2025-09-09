@@ -17,6 +17,8 @@ class CommandAdd extends Command {
 
     @Override
     public String execute(String input, TaskList taskList, Ui ui, Storage storage) {
+        super.execute(input, taskList, ui, storage);
+
         try {
             taskList.add(Task.parseTask(input));
             return ui.getAddResponse(taskList.get(taskList.size() - 1));

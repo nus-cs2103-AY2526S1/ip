@@ -14,6 +14,8 @@ class CommandBye extends Command {
 
     @Override
     public String execute(String input, TaskList taskList, Ui ui, Storage storage) {
+        super.execute(input, taskList, ui, storage);
+
         storage.saveTasks(taskList);
         System.exit(0);
         return ui.getExitMessage();

@@ -24,6 +24,8 @@ public class Storage {
      * @param tasks Tasks to be saved.
      */
     public void saveTasks(TaskList tasks) {
+        assert (tasks != null);
+
         try {
             FileWriter writer = new FileWriter(FILENAME);
             String content = "";
