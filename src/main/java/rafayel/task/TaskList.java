@@ -2,6 +2,8 @@
 package rafayel.task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import rafayel.Rafayel;
 import rafayel.RafayelException;
@@ -116,16 +118,11 @@ public class TaskList {
      * @return 
      */
     public String getTaskList() {
-        if (this.getSize() == 0) {
-            return "There's nothing in the list.";
-        } else {
-            String result = "Here are the tasks in your list:\n";
-            for (int i = 0; i < this.getSize(); i++) {
-                String temp = i + 1 + "." + tasks.get(i).toString() + "\n";
-                result += temp;
-            }
-            return result;
-        }
+        final String EMPTY_LIST = "There's nothing in the list.";
+        return this.getSize() == 0 ? EMPTY_LIST
+                : "Here are the tasks in your list:\n" + IntStream.range(0, this.getSize())
+                        .mapToObj(i -> (i + 1) + "." + tasks.get(i).toString() + "\n")
+                        .collect(Collectors.joining("\n"));
     }
 
     /**
@@ -142,22 +139,8 @@ public class TaskList {
      * @return list of tasks that has matching substring.
      */
     public ArrayList<Task> matchTasks(String substring) {
-        ArrayList<Task> results = new ArrayList<Task>();
-        if (this.getSize() == 0) {
-            System.out.println("There's nothing in the list.");
-        } else {
-            for (Task task : tasks) {
-                if (task.findSubstring(substring)) {
-                    results.add(task);
-                }
-            }
-        }
-        if (results.isEmpty()) {
-            System.out.println("There's nothing in the list.");
-            return null;
-        } else {
-            return results;
-        }
+        return tasks.stream().filter(task -> task.getDescription().toLowerCase().contains(substring.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
 }
