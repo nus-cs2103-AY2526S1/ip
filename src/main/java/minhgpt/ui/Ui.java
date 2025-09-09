@@ -89,14 +89,23 @@ public class Ui {
         return builder.toString();
     }
 
+    /**
+     * Return the message when user's input does not match any known commands.
+     */
     public String getInvalidInputResponse() {
         return "( ˶°ㅁ°) That is not a valid command!";
     }
 
+    /**
+     * Return the message when user enters the wrong date format.
+     */
     public String getInvalidDateFormatResponse() {
         return "( ˶°ㅁ°) Please input date in the format: yyyy-mm-dd";
     }
 
+    /**
+     * Return the message when user enters the wrong task format.
+     */
     public String getInvalidTaskFormatResponse() {
         return "( ˶°ㅁ°) That is not a valid way to input a task!";
     }
