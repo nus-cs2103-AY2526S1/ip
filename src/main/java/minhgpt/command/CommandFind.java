@@ -17,6 +17,8 @@ class CommandFind extends Command {
 
     @Override
     public String execute(String input, TaskList taskList, Ui ui, Storage storage) {
+        super.execute(input, taskList, ui, storage);
+
         String query = input.split("\\s+", 2)[1];
         ArrayList<Task> match = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {
