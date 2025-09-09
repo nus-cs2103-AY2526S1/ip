@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import minhgpt.task.Task;
@@ -28,14 +27,7 @@ public class Storage {
 
         try {
             FileWriter writer = new FileWriter(FILENAME);
-            String content = "";
-            for (int i = 0; i < tasks.size(); i++) {
-                ArrayList<String> commands = tasks.get(i).toCommands();
-                for (String cmd : commands) {
-                    content += content.equals("") ? cmd : "\n" + cmd;
-                }
-            }
-            writer.write(content);
+            writer.write(tasks.toCommands());
             writer.close();
             Logger.info("Tasks are saved in mem.txt.");
         } catch (IOException e) {
