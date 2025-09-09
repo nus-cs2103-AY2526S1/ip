@@ -66,8 +66,8 @@ public class Storage {
                 }
             }
             scanner.close();
-            Logger.info("Found mem.txt, loading tasks from previous sessions." +
-                    " To disable, run with --fresh flag.");
+            Logger.info("Found mem.txt, loading tasks from previous sessions."
+                    + " To disable, run with --fresh flag.");
         } catch (FileNotFoundException e) {
             Logger.info("No memory file detected. Starting fresh.");
         }

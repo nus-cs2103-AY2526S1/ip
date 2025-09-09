@@ -79,7 +79,10 @@ public class TaskList {
      * @return Input commands to re-create this list of tasks.
      */
     public String toCommands() {
-        return tasks.stream().map(Task::toCommands).flatMap(List::stream).reduce("",
-                (cmds1, cmds2) -> cmds1 + cmds2 + "\n");
+        return tasks
+                .stream()
+                .map(Task::toCommands)
+                .flatMap(List::stream)
+                .reduce("", (cmds1, cmds2) -> cmds1 + cmds2 + "\n");
     }
 }
