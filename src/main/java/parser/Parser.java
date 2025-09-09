@@ -9,6 +9,7 @@ import commands.DeleteCommand;
 import commands.FindCommand;
 import commands.ListCommand;
 import commands.MarkCommand;
+import commands.UndoCommand;
 import commands.UnmarkCommand;
 import exception.RainyException;
 
@@ -87,6 +88,9 @@ public class Parser {
                 throw new RainyException("oh no!!! please specify a keyword to search.");
             }
             return new FindCommand(words[1].trim());
+
+        case "undo":
+            return new UndoCommand(null);
 
         default:
             throw new RainyException("oh no!!! idk what that means... :-(");

@@ -28,11 +28,15 @@ public abstract class Command {
         return false;
     }
 
+    public boolean isUndoable() {
+        return true; // default true
+    }
+
     /**
      * Undo the effect of this command.
      * Default: do nothing.
      */
     public void undo(Object... args) throws RainyException {
-        // to be overridden
+        throw new UnsupportedOperationException("Undo not implemented for this command");
     }
 }

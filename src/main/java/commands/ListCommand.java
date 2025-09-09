@@ -16,4 +16,9 @@ public class ListCommand extends Command {
         TaskList tasks = (TaskList) args[0];
         message = ui.showList(tasks) + "\n";
     }
+
+    @Override
+    public boolean isUndoable() {
+        return false;
+    }
 }

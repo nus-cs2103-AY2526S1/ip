@@ -28,4 +28,9 @@ public class ErrorCommand extends Command {
     public String getMessage() {
         return message;
     }
+
+    @Override
+    public boolean isUndoable() {
+        return false;
+    }
 }

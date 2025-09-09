@@ -1,5 +1,7 @@
 package rainy;
 
+import java.util.Stack;
+
 import commands.Command;
 import commands.ErrorCommand;
 import exception.RainyException;
@@ -18,6 +20,7 @@ public class Rainy {
     private final TaskList tasks;
     private final Ui ui;
     private String commandType;
+    private final Stack<Command> commandHistory = new Stack<>();
 
     /**
      * Constructs a Rainy instance with the given file path for persistent storage.
@@ -58,7 +61,15 @@ public class Rainy {
         try {
             String fullCommand = ui.readCommand();
             Command c = Parser.parse(fullCommand);
+            if (c instanceof commands.UndoCommand) {
+                c = new commands.UndoCommand(commandHistory);
+            }
             c.execute(tasks, ui, storage);
+            if (!(c instanceof commands.UndoCommand)
+                    && !c.isExit()
+                    && c.isUndoable()) {
+                commandHistory.push(c);
+            }
             return c.isExit();
         } catch (RainyException e) {
             ui.showError(e.getMessage());
@@ -79,7 +90,15 @@ public class Rainy {
     public String getResponse(String input) throws RainyException {
         try {
             Command c = Parser.parse(input);
+            if (c instanceof commands.UndoCommand) {
+                c = new commands.UndoCommand(commandHistory);
+            }
             c.execute(tasks, ui, storage);
+            if (!(c instanceof commands.UndoCommand)
+                    && !c.isExit()
+                    && c.isUndoable()) {
+                commandHistory.push(c);
+            }
             commandType = c.getClass().getSimpleName();
             return c.getMessage();
         } catch (RainyException e) {
