@@ -14,6 +14,8 @@ public class TaskList {
      * Initialise the task list with 'initialTasks'.
      */
     public TaskList(ArrayList<Task> initialTasks) {
+        assert (initialTasks != null);
+
         tasks = initialTasks;
     }
 
@@ -42,6 +44,8 @@ public class TaskList {
      * Add 'task' to list.
      */
     public Task add(Task task) {
+        assert (task != null);
+
         tasks.add(task);
         return tasks.get(tasks.size() - 1);
     }

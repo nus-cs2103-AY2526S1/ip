@@ -23,19 +23,20 @@ public abstract class Task {
     // NOTE: PROTECTED
 
     /** Date format when tasks are saved to disk. */
-    protected static final DateTimeFormatter DATE_SAVE_FORMAT =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    protected static final DateTimeFormatter DATE_SAVE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     /** Date format when tasks are displayed. */
-    protected static final DateTimeFormatter DATE_OUTPUT_FORMAT =
-            DateTimeFormatter.ofPattern("MMM dd yyyy");
+    protected static final DateTimeFormatter DATE_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     /**
      * Put mapping into 'registry'.
      *
-     * @param regex Regex that the task matches.
+     * @param regex    Regex that the task matches.
      * @param supplier Constructor for the task.
      */
     protected static void register(String regex, Function<String, Task> supplier) {
+        assert (regex != null);
+        assert (supplier != null);
+
         registry.put(regex, supplier);
     }
 
@@ -54,9 +55,12 @@ public abstract class Task {
      * Factory method for creating a task.
      *
      * @param input Input from user to create a task.
-     * @throws ParseException When the input string does not match any known input patterns.
+     * @throws ParseException When the input string does not match any known input
+     *                        patterns.
      */
     public static Task parseTask(String input) throws ParseException {
+        assert (input != null);
+
         try {
             for (String regex : registry.keySet()) {
                 if (input.matches(regex)) {
@@ -77,6 +81,8 @@ public abstract class Task {
      * @param name Name of task to be created.
      */
     public Task(String name) {
+        assert (name != null);
+
         this.name = name;
         this.isDone = false;
     }
@@ -99,6 +105,8 @@ public abstract class Task {
      * Return true if the task name matches regex string 'query'. False otherwise.
      */
     public boolean matchRegex(String query) {
+        assert (query != null);
+
         return name.toUpperCase().contains(query.toUpperCase());
     }
 

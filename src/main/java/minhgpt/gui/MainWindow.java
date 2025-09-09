@@ -41,6 +41,8 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the MinhGpt instance */
     public void setMinhGpt(MinhGpt minhgpt) {
+        assert (minhgpt != null);
+
         this.minhgpt = minhgpt;
     }
 
