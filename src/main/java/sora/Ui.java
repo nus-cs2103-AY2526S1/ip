@@ -56,7 +56,7 @@ public class Ui {
      * @param size the size of the task list after the task is added.
      */
     public String showAddedTask(Task task, int size) {
-        return "Got it. I've added this task:\n" + task +"\n" + "Now you have " + size + " tasks in the list.\n";
+        return "Got it. I've added this task:\n" + task + "\n" + "Now you have " + size + " tasks in the list.\n";
     }
 
     /**
@@ -66,8 +66,8 @@ public class Ui {
      * @param size the size of the task list after the task is deleted.
      */
     public String showDeletedTask(Task task, int size) {
-        return "Noted. I've removed this task:\n" + task + "\n" + "Now you have " +
-                size + " tasks in the list.\n";
+        return "Noted. I've removed this task:\n" + task + "\n" + "Now you have "
+                + size + " tasks in the list.\n";
     }
 
     /**
@@ -76,7 +76,7 @@ public class Ui {
      * @param tasks the current task list.
      */
     public String showTaskList(TaskList tasks) {
-        StringBuilder output = new StringBuilder("Here are the task in your list:\n");
+        StringBuilder output = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             output.append((i + 1)).append(".").append(tasks.getTask(i).toString()).append("\n");
         }

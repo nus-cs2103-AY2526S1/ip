@@ -8,7 +8,7 @@ import sora.task.Task;
  * Represents a list of tasks and provides methods to manipulate them.
  */
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructs an empty TaskList.
@@ -98,13 +98,13 @@ public class TaskList {
      * @return an {@link ArrayList} of all tasks that contain the keyword
      */
     public ArrayList<Task> findTasks(String keyword) {
-        ArrayList<Task> check = new ArrayList<>();
+        ArrayList<Task> matchedTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
-                check.add(task);
+                matchedTasks.add(task);
             }
         }
-        return check;
+        return matchedTasks;
     }
 
 }
