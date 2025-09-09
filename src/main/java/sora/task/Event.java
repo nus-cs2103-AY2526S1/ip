@@ -22,8 +22,8 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(TaskType.EVENT, description);
-        assert from != null : "Event 'from' time must not be null";
-        assert to != null : "Event 'to' time must not be null";
+        assert from != null : "The 'from' time must not be null";
+        assert to != null : "The 'to' time must not be null";
         this.from = from;
         this.to = to;
     }
@@ -34,7 +34,7 @@ public class Event extends Task {
      * @return the formatted start time in the pattern "MMM dd yyyy HHmm".
      */
     public String fromToFormat() {
-        assert from != null : "Event 'from' must not be null before formatting";
+        assert from != null : "The 'from' must not be null before formatting";
         return from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm", Locale.ENGLISH));
     }
 
@@ -44,7 +44,7 @@ public class Event extends Task {
      * @return the formatted start time in the pattern "MMM dd yyyy HHmm"
      */
     public String toToFormat() {
-        assert to != null : "Event 'to' must not be null before formatting";
+        assert to != null : "The 'to' must not be null before formatting";
         return to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm", Locale.ENGLISH));
     }
 

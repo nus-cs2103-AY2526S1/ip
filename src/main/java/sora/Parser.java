@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import sora.list.TaskList;
 import sora.storage.Storage;
+import sora.task.After;
 import sora.task.Deadline;
 import sora.task.Event;
 import sora.task.Task;
@@ -103,6 +104,19 @@ public class Parser {
                     Task deadline = new Deadline(time[0], by);
                     tasks.addTask(deadline);
                     return ui.showAddedTask(deadline, tasks.size());
+                }
+            case "after":
+                if (description.isEmpty()) {
+                    throw new SoraException("Invalid after");
+                } else {
+                    if (!description.contains("/required")) {
+                        throw new SoraException("Lack of required time!");
+                    }
+                    String[] time = description.split(" /required ");
+                    LocalDateTime required = LocalDateTime.parse(time[1], format);
+                    Task after = new After(time[0], required);
+                    tasks.addTask(after);
+                    return ui.showAddedTask(after, tasks.size());
                 }
             case "event":
                 if (description.isEmpty()) {

@@ -3,7 +3,7 @@ package sora.task;
 /**
  * Represents a task in the Sora task management system.
  * This is the abstract base class for specific types of tasks:
- * {@code Todo}, {@code Deadline}, and {@code Event}.
+ * {@code Todo}, {@code After}, and {@code Event}.
  */
 public class Task {
     /**
@@ -12,7 +12,8 @@ public class Task {
     public enum TaskType {
         TODO,
         DEADLINE,
-        EVENT
+        EVENT,
+        AFTER
     }
 
     protected String description;
@@ -83,6 +84,7 @@ public class Task {
         case TODO -> "T";
         case DEADLINE -> "D";
         case EVENT -> "E";
+        case AFTER -> "A";
         };
         return "[" + typeIcon + "]" + "[" + this.getStatusIcon() + "] " + description;
     }
@@ -111,6 +113,12 @@ public class Task {
             String from = ((Event) this).fromToFormat();
             String to = ((Event) this).toToFormat();
             return "E " + "| " + isDoneNumber + " | " + description + " | " + from + " | " + to;
+        case AFTER:
+            if (!(this instanceof After)) {
+                throw new UnsupportedOperationException("Not a after type");
+            }
+            String required = ((After) this).requiredToFormat();
+            return "A " + "| " + isDoneNumber + " | " + description + " | " + required;
         default:
             throw new UnsupportedOperationException("Unknown type");
         }

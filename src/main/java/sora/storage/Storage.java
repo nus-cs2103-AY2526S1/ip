@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import sora.list.TaskList;
+import sora.task.After;
 import sora.task.Deadline;
 import sora.task.Event;
 import sora.task.Task;
@@ -83,6 +84,14 @@ public class Storage {
                     event.markAsDone();
                 }
                 tasks.addTask(event);
+                break;
+            case "A":
+                LocalDateTime required = LocalDateTime.parse(parts[3], format);
+                After after = new After(description, required);
+                if (isDone) {
+                    after.markAsDone();
+                }
+                tasks.addTask(after);
                 break;
             default:
                 System.out.println("Invalid line: " + line);
