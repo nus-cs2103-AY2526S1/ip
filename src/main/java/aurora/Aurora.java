@@ -37,7 +37,7 @@ public class Aurora {
      */
     public Aurora() {
         this.ui = new Ui(new Scanner(System.in));
-        this.storage = new Storage("");
+        this.storage = new Storage("./data/aurora.txt");
         this.list = storage.load();
     }
 
@@ -80,7 +80,9 @@ public class Aurora {
     public String getResponse(String input) {
         Command c = CommandReader.read(input);
         commandType = c.getClass().getSimpleName();
-        return c.execute(list);
+        String result = c.execute(list);
+        storage.save(list);
+        return result;
     }
 
     public String getCommandType() {
