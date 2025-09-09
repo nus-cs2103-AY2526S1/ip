@@ -2,6 +2,7 @@ package objectclasses.task;
 
 import java.time.LocalDateTime;
 
+import objectclasses.exception.CommandFormatException;
 import objectclasses.exception.LynxException;
 import objectclasses.exception.MissingArgumentException;
 import objectclasses.formatter.LynxDateManager;
@@ -41,14 +42,22 @@ public class EventTask extends Task {
      * @throws LynxException If input is of invalid format or start / end is invalid.
      */
     public static Task of(String[] parts) throws LynxException {
-        if (parts.length != 6) {
+        if (parts.length != 7) {
             throw new LynxException("");
         }
+
         String status = parts[1];
         String name = parts[3];
-        LocalDateTime from = LynxDateManager.parseDateTime(parts[4].replace("from:", ""));
-        LocalDateTime to = LynxDateManager.parseDateTime(parts[5].replace("to:", ""));
+        String priority = parts[4];
+        LocalDateTime from = LynxDateManager.parseDateTime(parts[5].replace("from:", ""));
+        LocalDateTime to = LynxDateManager.parseDateTime(parts[6].replace("to:", ""));
+
         Task task = new EventTask(name, from, to);
+        try {
+            task.setPriority(Integer.parseInt(priority));
+        } catch (NumberFormatException e) {
+            throw CommandFormatException.invalidPriority();
+        }
         if (status.equals("COMPLETE")) {
             task.setComplete();
         }
@@ -66,26 +75,42 @@ public class EventTask extends Task {
         if (!input.startsWith("event ")) {
             throw new MissingArgumentException("event");
         }
+
         String[] parts = input.substring(5).split(" /from ", 2);
         if (parts.length < 2) {
             throw new LynxException("Please specify a start time using ' /from '.");
         }
-        String[] timeSplit = parts[1].split(" /to ", 2);
-        if (timeSplit.length < 2) {
-            throw new LynxException("Please specify an end time using ' /to '.");
-        }
+
         String name = parts[0].trim();
         if (name.isEmpty()) {
             throw new LynxException("Please specify a task name.");
         }
-
         checkName(name);
-        LocalDateTime from = LynxDateManager.parseDateTime(timeSplit[0].trim());
-        LocalDateTime to = LynxDateManager.parseDateTime(timeSplit[1].trim());
+
+        parts = parts[1].split(" /to ", 2);
+        if (parts.length < 2) {
+            throw new LynxException("Please specify an end time using ' /to '.");
+        }
+        LocalDateTime from = LynxDateManager.parseDateTime(parts[0].trim());
+
+        parts = parts[1].split(" /p ");
+        LocalDateTime to = LynxDateManager.parseDateTime(parts[0].trim());
         if (from.isAfter(to)) {
             throw new LynxException("The start date/time cannot be after the end date/time.");
         }
-        return new EventTask(name, from, to);
+
+        int priority = 0;
+        if (parts.length > 1) {
+            try {
+                priority = Integer.parseInt(parts[1].trim());
+            } catch (NumberFormatException e) {
+                throw CommandFormatException.invalidPriority();
+            }
+        }
+
+        EventTask task = new EventTask(name, from, to);
+        task.setPriority(priority);
+        return task;
     }
 
     /**

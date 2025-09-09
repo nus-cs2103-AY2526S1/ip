@@ -2,6 +2,7 @@ package objectclasses.task;
 
 import java.time.LocalDateTime;
 
+import objectclasses.exception.CommandFormatException;
 import objectclasses.exception.LynxException;
 import objectclasses.exception.MissingArgumentException;
 import objectclasses.formatter.LynxDateManager;
@@ -37,13 +38,21 @@ public class DeadlineTask extends Task {
      * @throws LynxException If input is of invalid format or deadline is invalid.
      */
     public static Task of(String[] parts) throws LynxException {
-        if (parts.length != 5) {
+        if (parts.length != 6) {
             throw new LynxException("");
         }
+
         String status = parts[1];
         String name = parts[3];
-        LocalDateTime by = LynxDateManager.parseDateTime(parts[4].replace("by:", ""));
+        String priority = parts[4];
+        LocalDateTime by = LynxDateManager.parseDateTime(parts[5].replace("by:", ""));
+
         Task task = new DeadlineTask(name, by);
+        try {
+            task.setPriority(Integer.parseInt(priority));
+        } catch (NumberFormatException e) {
+            throw CommandFormatException.invalidPriority();
+        }
         if (status.equals("COMPLETE")) {
             task.setComplete();
         }
@@ -65,14 +74,28 @@ public class DeadlineTask extends Task {
         if (parts.length < 2) {
             throw new LynxException("Please specify a deadline using ' /by '.");
         }
+
         String name = parts[0].trim();
         if (name.isEmpty()) {
             throw new LynxException("Please specify a task name.");
         }
-
         checkName(name);
-        LocalDateTime by = LynxDateManager.parseDateTime(parts[1].trim());
-        return new DeadlineTask(name, by);
+
+        parts = parts[1].split(" /p ", 2);
+        LocalDateTime by = LynxDateManager.parseDateTime(parts[0].trim());
+
+        int priority = 0;
+        if (parts.length > 1) {
+            try {
+                priority = Integer.parseInt(parts[1].trim());
+            } catch (NumberFormatException e) {
+                throw CommandFormatException.invalidPriority();
+            }
+        }
+
+        DeadlineTask task = new DeadlineTask(name, by);
+        task.setPriority(priority);
+        return task;
     }
 
     public LocalDateTime getDeadline() {

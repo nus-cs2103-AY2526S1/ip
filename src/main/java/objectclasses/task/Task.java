@@ -2,6 +2,7 @@ package objectclasses.task;
 
 import java.time.LocalDateTime;
 
+import objectclasses.exception.CommandFormatException;
 import objectclasses.exception.LynxException;
 
 /**
@@ -104,6 +105,7 @@ public abstract class Task {
     private static int currId = 0;
     private final int id;
     private String name;
+    private int priority = 0;
     private Status status = Status.INCOMPLETE;
     private TaskType type;
 
@@ -146,12 +148,23 @@ public abstract class Task {
         return name;
     }
 
+    public int getPriority() {
+        return priority;
+    }
+
     public TaskType getType() {
         return type;
     }
 
     public Status getStatus() {
         return status;
+    }
+
+    public void setPriority(int priority) throws LynxException {
+        if (priority < 0) {
+            throw CommandFormatException.invalidPriority();
+        }
+        this.priority = priority;
     }
 
     public void setComplete() {
@@ -188,6 +201,7 @@ public abstract class Task {
         taskString.append("|").append(status.name());
         taskString.append("|").append(id);
         taskString.append("|").append(name);
+        taskString.append("|").append(priority);
         return taskString.toString();
     }
 
@@ -197,7 +211,7 @@ public abstract class Task {
      * @return String representation.
      */
     public String testRepresentation() {
-        return String.format("%s%s %s", type.getSymbol(), status.getSymbol(), name);
+        return String.format("[%s]%s%s %s", priority, type.getSymbol(), status.getSymbol(), name);
     }
 
     /**

@@ -34,4 +34,8 @@ public class CommandFormatException extends LynxException {
         return new CommandFormatException("Sorry, that isn't a valid ID.");
     }
 
+    public static CommandFormatException invalidPriority() {
+        return new CommandFormatException("Priority must be a non-negative integer.");
+    }
+
 }

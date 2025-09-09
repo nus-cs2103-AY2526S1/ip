@@ -64,6 +64,7 @@ public abstract class LynxUI {
                      deadline [name] /by [date]
                      event [name] /from [date] /to [date]
                      * Date format: yyyy-mm-dd, yyyy-mm-dd-hh, or yyyy-mm-dd-hh-mm
+                     * Priority can be optionally set using /p [priority] at the end of the command
                 
                 Task actions (requires one or more search modifier(s)):
                      list                      - Show task(s)
