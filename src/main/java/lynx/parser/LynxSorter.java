@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 import objectclasses.task.Task;
 
 /**
- * Contains task sorting methods that work on task streams.
+ * Contains methods that sort task streams.
  */
 public abstract class LynxSorter {
 

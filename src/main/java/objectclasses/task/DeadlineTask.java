@@ -92,6 +92,16 @@ public class DeadlineTask extends Task {
      * {@inheritDoc}
      */
     @Override
+    public String storageRepresentation() {
+        StringBuilder taskString = new StringBuilder(super.storageRepresentation());
+        taskString.append("|by:").append(LynxDateManager.defaultDateTime(deadline));
+        return taskString.toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String testRepresentation() {
         return String.format("%s (by: %s)", super.testRepresentation(), LynxDateManager.textDateTime(deadline));
     }

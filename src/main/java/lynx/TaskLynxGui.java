@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lynx.parser.LynxControl;
+import lynx.ui.LynxUI;
 import objectclasses.exception.LynxException;
 
 /**
@@ -27,8 +28,7 @@ public class TaskLynxGui {
 
     public List<String> getGreetings() {
         List<String> greetings = new ArrayList<>();
-        greetings.add("Hello! I'm Tasklynx. \n"
-                + "Your dependable assistant for tracking tasks, managing deadlines, and keeping your work organized.");
+        greetings.add(LynxUI.hello());
         greetings.add(LYNX_CONTROL.tasksToday());
         return greetings;
     }
@@ -36,7 +36,7 @@ public class TaskLynxGui {
     public List<String> getFarewells() {
         List<String> farewells = new ArrayList<>();
         farewells.add(LYNX_CONTROL.tasksFromToday());
-        farewells.add("Goodbye. I'll be here whenever you need to stay on track. (Exiting in 5 seconds)");
+        farewells.add(LynxUI.bye());
         return farewells;
     }
 

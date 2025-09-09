@@ -4,17 +4,18 @@ import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
 import objectclasses.command.LynxCommand;
+import objectclasses.exception.CommandFormatException;
 import objectclasses.exception.LynxException;
 import objectclasses.formatter.LynxDateManager;
 import objectclasses.task.Task;
 
 /**
- * Contains methods for executing search and return commands on a task stream.
+ * Contains methods to facilitate a recursive parse-and-search function that work on a string of search modifiers.
  */
 public abstract class LynxSearcher {
 
     /**
-     * Filters a task stream as specified by a <code>LynxCommand</code> object.
+     * Filters a task stream as specified by the search modifiers in a <code>LynxCommand</code> object.
      * Stores the result within the <code>LynxCommand</code> object at the end of the search.
      *
      * @param command <code>LynxCommand</code> object containing a string of search modifiers.
@@ -36,8 +37,7 @@ public abstract class LynxSearcher {
         case "/on" -> findTasksByDate(command, stream);
         case "/status" -> findTasksByStatus(command, stream);
         case "/type" -> findTasksByType(command, stream);
-        default -> throw new LynxException("Non matching command detected. "
-                + "Please try again or type \"help\" to access the user guide.");
+        default -> throw CommandFormatException.nonMatchingCommand();
         }
     }
 
@@ -54,7 +54,7 @@ public abstract class LynxSearcher {
             command.setId(id);
             findTasks(command, LynxSorter.filterTasksById(stream, Integer.parseInt(id)));
         } catch (NumberFormatException e) {
-            throw new LynxException("Sorry, that isn't a valid ID.");
+            throw CommandFormatException.invalidId();
         }
     }
 

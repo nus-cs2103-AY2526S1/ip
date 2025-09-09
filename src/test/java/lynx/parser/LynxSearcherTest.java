@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 
 import lynx.storage.LynxTaskList;
+import objectclasses.command.ListCommand;
 import objectclasses.command.LynxCommand;
 import objectclasses.exception.LynxException;
 import objectclasses.task.DeadlineTask;
@@ -54,15 +55,15 @@ public class LynxSearcherTest {
         taskList.addTask(testTaskH);
         taskList.addTask(testTaskI);
 
-        LynxCommand testCommandA = new LynxCommand("/key a /key b");
-        LynxCommand testCommandB = new LynxCommand("/type deadline /status complete /key c");
-        LynxCommand testCommandC = new LynxCommand("/status expired /key b");
-        LynxCommand testCommandD = new LynxCommand("/type todo /type deadline");
-        LynxCommand testCommandE = new LynxCommand("/status expired /on 2025-11-11");
-        LynxCommand testCommandF = new LynxCommand("/status complete /status incomplete /all");
-        LynxCommand testCommandG = new LynxCommand("/key c");
-        LynxCommand testCommandH = new LynxCommand("/all");
-        LynxCommand testCommandI = new LynxCommand("/key a /on 2025-11-11 /status incomplete");
+        LynxCommand testCommandA = new ListCommand("/key a /key b");
+        LynxCommand testCommandB = new ListCommand("/type deadline /status complete /key c");
+        LynxCommand testCommandC = new ListCommand("/status expired /key b");
+        LynxCommand testCommandD = new ListCommand("/type todo /type deadline");
+        LynxCommand testCommandE = new ListCommand("/status expired /on 2025-11-11");
+        LynxCommand testCommandF = new ListCommand("/status complete /status incomplete /all");
+        LynxCommand testCommandG = new ListCommand("/key c");
+        LynxCommand testCommandH = new ListCommand("/all");
+        LynxCommand testCommandI = new ListCommand("/key a /on 2025-11-11 /status incomplete");
 
         LynxSearcher.findTasks(testCommandA, taskList.getAllTasks());
         LynxSearcher.findTasks(testCommandB, taskList.getAllTasks());

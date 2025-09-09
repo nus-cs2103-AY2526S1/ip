@@ -12,7 +12,7 @@ import objectclasses.exception.LynxException;
 public abstract class Task {
 
     /**
-     * Represents the three type of tasks.
+     * Represents the three types of tasks.
      */
     public enum TaskType {
 
@@ -175,6 +175,20 @@ public abstract class Task {
      * @return True if task occurs on given date.
      */
     public abstract boolean isActive(LocalDateTime dateTime);
+
+    /**
+     * Returns a string representation of the task used for storing it in a text file.
+     *
+     * @return String representation.
+     */
+    public String storageRepresentation() {
+        StringBuilder taskString = new StringBuilder();
+        taskString.append(type.name());
+        taskString.append("|").append(status.name());
+        taskString.append("|").append(id);
+        taskString.append("|").append(name);
+        return taskString.toString();
+    }
 
     /**
      * Returns a string representation of the task without its id.

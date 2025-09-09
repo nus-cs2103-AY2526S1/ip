@@ -1,18 +1,22 @@
 package lynx.parser;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 import lynx.storage.LynxTaskList;
+import objectclasses.command.DeleteCommand;
+import objectclasses.command.ListCommand;
 import objectclasses.command.LynxCommand;
+import objectclasses.command.MarkCommand;
+import objectclasses.command.ReminderCommand;
+import objectclasses.command.UnmarkCommand;
 import objectclasses.exception.LynxException;
 import objectclasses.exception.MissingArgumentException;
 import objectclasses.task.Task;
 
 /**
- * Contains methods for executing commands that act on tasks within a task list.
+ * Contains methods for executing commands that act on tasks in a task list.
+ * These include mark, unmark, delete and list commands.
  */
 public class LynxTaskEditor {
 
@@ -30,19 +34,13 @@ public class LynxTaskEditor {
      * @throws LynxException If command is invalid.
      */
     public String markTasks(String input) throws LynxException {
-        Consumer<Task> mark = Task::setComplete;
-        String empty = "     (No tasks found or marked)";
-
-        if (input.length() <= 4 || !input.startsWith("mark")) {
+        if (!input.startsWith("mark ")) {
             throw new MissingArgumentException("mark");
         }
-        LynxCommand command = new LynxCommand(input.substring(5).trim());
-        LynxSearcher.findTasks(command, taskList.getAllTasks());
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(String.format("Marked %s", command.getSearchString()));
-        stringBuilder.append(executeOnTasks(mark, command.getSearchResult(), empty));
-        return stringBuilder.toString();
+        MarkCommand command = new MarkCommand(input.substring(5).trim());
+        Consumer<Task> mark = Task::setComplete;
+        return executeCommand(command, mark);
     }
 
     /**
@@ -53,19 +51,13 @@ public class LynxTaskEditor {
      * @throws LynxException If command is invalid.
      */
     public String unmarkTasks(String input) throws LynxException {
-        Consumer<Task> unmark = Task::setIncomplete;
-        String empty = "     (No tasks found or unmarked)";
-
-        if (input.length() <= 6 || !input.startsWith("unmark")) {
+        if (!input.startsWith("unmark ")) {
             throw new MissingArgumentException("unmark");
         }
-        LynxCommand command = new LynxCommand(input.substring(7).trim());
-        LynxSearcher.findTasks(command, taskList.getAllTasks());
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(String.format("Unmarked %s", command.getSearchString()));
-        stringBuilder.append(executeOnTasks(unmark, command.getSearchResult(), empty));
-        return stringBuilder.toString();
+        UnmarkCommand command = new UnmarkCommand(input.substring(7).trim());
+        Consumer<Task> unmark = Task::setIncomplete;
+        return executeCommand(command, unmark);
     }
 
     /**
@@ -76,20 +68,14 @@ public class LynxTaskEditor {
      * @throws LynxException If command is invalid.
      */
     public String deleteTasks(String input) throws LynxException {
-        Consumer<Task> delete = task -> taskList.removeTask(task, false);
-        String empty = "     (No tasks found or deleted)";
-
-        if (input.length() <= 6 || !input.startsWith("delete")) {
+        if (!input.startsWith("delete ")) {
             throw new MissingArgumentException("delete");
         }
-        LynxCommand command = new LynxCommand(input.substring(7).trim());
-        LynxSearcher.findTasks(command, taskList.getAllTasks());
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(String.format("Removed %s", command.getSearchString()));
-        stringBuilder.append(executeOnTasks(delete, command.getSearchResult(), empty));
-        stringBuilder.append(String.format("You currently have %d task(s) in your list.%n", taskList.getCount()));
-        return stringBuilder.toString();
+        DeleteCommand command = new DeleteCommand(input.substring(7).trim());
+        Consumer<Task> delete = taskList::removeTask;
+        String taskCount = String.format("You currently have %d task(s) in your list.%n", taskList.getCount());
+        return String.format("%s%s", executeCommand(command, delete), taskCount);
     }
 
     /**
@@ -100,19 +86,13 @@ public class LynxTaskEditor {
      * @throws LynxException If command is invalid.
      */
     public String listTasks(String input) throws LynxException {
-        Consumer<Task> list = task -> {};
-        String empty = "     (No tasks yet)";
-
-        if (input.length() <= 4 || !input.startsWith("list")) {
+        if (!input.startsWith("list ")) {
             throw new MissingArgumentException("list");
         }
-        LynxCommand command = new LynxCommand(input.substring(5).trim());
-        LynxSearcher.findTasks(command, taskList.getAllTasks());
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(String.format("Here are %s", command.getSearchString()));
-        stringBuilder.append(executeOnTasks(list, command.getSearchResult(), empty));
-        return stringBuilder.toString();
+        ListCommand command = new ListCommand(input.substring(5).trim());
+        Consumer<Task> list = task -> {};
+        return executeCommand(command, list);
     }
 
     /**
@@ -121,18 +101,13 @@ public class LynxTaskEditor {
      * @return String representation of notice.
      */
     public String tasksToday() {
-        LocalDateTime today = LocalDateTime.now();
-        Stream<Task> tasks = LynxSorter.filterTasksByDate(taskList.getAllTasks(), today);
-        List<Task> tasks1 = LynxSorter.filterTasksByStatus(tasks, Task.Status.INCOMPLETE).toList();
-
-        if (tasks1.isEmpty()) {
-            return "You have cleared all tasks today. Good job!";
+        try {
+            ReminderCommand command = ReminderCommand.urgent();
+            Consumer<Task> remind = task -> {};
+            return executeCommand(command, remind);
+        } catch (LynxException e) {
+            return "Failed to detect urgent tasks. Please try reloading.";
         }
-
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Here are the tasks requiring completion today:");
-        stringBuilder.append(executeOnTasks(task -> {}, tasks1, ""));
-        return stringBuilder.toString();
     }
 
     /**
@@ -141,27 +116,40 @@ public class LynxTaskEditor {
      * @return String representation of notice.
      */
     public String tasksFromToday() {
-        List<Task> tasks = LynxSorter.filterTasksByStatus(taskList.getAllTasks(), Task.Status.INCOMPLETE).toList();
-
-        if (tasks.isEmpty()) {
-            return "You have no outstanding tasks. Good job!";
+        try {
+            ReminderCommand command = ReminderCommand.incomplete();
+            Consumer<Task> remind = task -> {};
+            return executeCommand(command, remind);
+        } catch (LynxException e) {
+            return "Failed to detect incomplete tasks. Please try reloading.";
         }
+    }
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Reminder for your outstanding tasks:");
-        stringBuilder.append(executeOnTasks(task -> {}, tasks, ""));
-        return stringBuilder.toString();
+    /**
+     * Executes a command and returns its execution details.
+     *
+     * @param command <code>LynxCommand</code> containing the details of the user command.
+     * @param action <code>Consumer</code> representing action to perform on tasks.
+     * @return String detailing the command execution.
+     * @throws LynxException If command is invalid.
+     */
+    private String executeCommand(LynxCommand command, Consumer<Task> action) throws LynxException {
+        LynxSearcher.findTasks(command, taskList.getAllTasks());
+
+        String actionDialogue = command.actionDialogue();
+        String resultDialogue = performOnTasks(action, command.getSearchResult(), command.emptyDialogue());
+        return String.format("%s%s", actionDialogue, resultDialogue);
     }
 
     /**
      * Maps a <code>Consumer</code> to a list of tasks and prints each task.
      *
-     * @param consumer <code>Consumer</code> containing the action to execute on each task.
+     * @param consumer <code>Consumer</code> containing the action to perform on each task.
      * @param tasks List of tasks to perform action on.
      * @param empty String to be printed instead if list is empty.
      * @return String representing tasks acted on.
      */
-    private static String executeOnTasks(Consumer<Task> consumer, List<Task> tasks, String empty) {
+    private static String performOnTasks(Consumer<Task> consumer, List<Task> tasks, String empty) {
         int count = 0;
         StringBuilder stringBuilder = new StringBuilder();
         for (Task task : tasks) {
