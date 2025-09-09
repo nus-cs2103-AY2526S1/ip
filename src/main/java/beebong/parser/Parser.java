@@ -44,10 +44,8 @@ public class Parser {
             InvalidTaskDetailsException, InvalidDateException {
         // Check for Commands
         String[] commandParts = input.split(" ", 2);
-        CommandKeyword command;
-
         // Convert command into Command enum
-        command = CommandKeyword.stringToCommand(commandParts[0].toLowerCase());
+        CommandKeyword command = CommandKeyword.stringToCommand(commandParts[0].toLowerCase());
         String params = (commandParts.length) > 1 ? commandParts[1] : null;
 
         switch (command) {
@@ -61,41 +59,14 @@ public class Parser {
         case LIST:
             // List all Tasks
             return new ListAllTasksCommand();
-        // Mark Tasks
-        case MARK:
-        case UNMARK:
-            // Check if params were provided
-            if (params == null) {
-                throw new InvalidTaskDetailsException("You forgot the task number!");
-            }
-
-            // Parse params into taskNum
-            try {
-                int taskNum = Integer.parseInt(params) - 1;
-                assert taskNum >= 0 : "Task Index is out of range";
-                // Mark the task as complete or incomplete
-                return new MarkTaskAsCommand(taskNum, command == CommandKeyword.MARK);
-            } catch (NumberFormatException e) {
-                throw new InvalidTaskDetailsException("That task number doesn’t exist. Try a real one!");
-            }
         // Add Tasks
         case TODO:
-            // Check if details is empty
-            if (params == null || params.isEmpty()) {
-                throw new InvalidTaskDetailsException("Missing Task Details!");
-            }
-
             // Add New ToDoTask
-            return new AddToDoTaskCommand(params);
+            return new AddToDoTaskCommand(validateParams(params, "Missing Task Details!"));
         case DEADLINE:
-            // Check if details is empty
-            if (params == null || params.isEmpty()) {
-                throw new InvalidTaskDetailsException("Missing Task Details!");
-            }
-
             // Parse params into task details
             try {
-                String[] taskInfo = convertDetailsToDeadlineTaskInfo(params);
+                String[] taskInfo = convertDetailsToDeadlineTaskInfo(validateParams(params, "Missing Task Details!"));
                 assert taskInfo.length == 2 : "Deadline task must have exactly 2 parts (desc and date)";
                 LocalDateTime deadline = DateTimeUtil.parseDateTime(taskInfo[1]);
                 // Add New Deadline Task
@@ -104,14 +75,9 @@ public class Parser {
                 throw new InvalidDateException();
             }
         case EVENT:
-            // Check if details is empty
-            if (params == null || params.isEmpty()) {
-                throw new InvalidTaskDetailsException("Missing Task Details!");
-            }
-
             // Parse params into task details
             try {
-                String[] taskInfo = convertDetailsToEventTaskInfo(params);
+                String[] taskInfo = convertDetailsToEventTaskInfo(validateParams(params, "Missing Task Details!"));
                 assert taskInfo.length == 3 : "Deadline task must have exactly 3 parts (desc, start date, end date)";
                 LocalDateTime startDate = DateTimeUtil.parseDateTime(taskInfo[1]);
                 LocalDateTime endDate = DateTimeUtil.parseDateTime(taskInfo[2]);
@@ -124,34 +90,44 @@ public class Parser {
             } catch (DateTimeParseException e) {
                 throw new InvalidDateException();
             }
+        // Mark Tasks
+        case MARK:
+        case UNMARK:
+            return new MarkTaskAsCommand(parseTaskIndex(
+                    validateParams(params, "You forgot the task number!")),
+                    command == CommandKeyword.MARK);
         // Delete Tasks
         case DELETE:
-            // Check if params were provided
-            if (params == null) {
-                throw new InvalidTaskDetailsException("You forgot the task number!");
-            }
-
-            // Parse params into taskNum
-            try {
-                int taskNum = Integer.parseInt(params) - 1;
-                assert taskNum >= 0 : "Task Index is out of range";
-                // Delete Task
-                return new DeleteTaskCommand(taskNum);
-            } catch (NumberFormatException e) {
-                throw new InvalidTaskDetailsException("That task number doesn’t exist. Try a real one!");
-            }
+            return new DeleteTaskCommand(parseTaskIndex(
+                    validateParams(params, "You forgot the task number!")));
         // Find Tasks
         case FIND:
-            // Check if params were provided
-            if (params == null) {
-                throw new InvalidTaskDetailsException("You forgot the task number!");
-            }
-
             // Find Tasks with keyword
-            return new FindTaskCommand(params);
+            return new FindTaskCommand(validateParams(params, "You forgot the task number!"));
         // Unknown Commands
         default:
             return new NullCommand();
+        }
+    }
+
+    private String validateParams(String params, String errorMsg) {
+        // Check if params were provided
+        if (params == null || params.isEmpty()) {
+            throw new InvalidTaskDetailsException(errorMsg);
+        }
+
+        return params;
+    }
+
+    private int parseTaskIndex(String params) throws InvalidTaskDetailsException {
+        try {
+            int taskNum = Integer.parseInt(params) - 1;
+            if (taskNum < 0) {
+                throw new InvalidTaskDetailsException("Task number must be positive!");
+            }
+            return taskNum;
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskDetailsException("That task number doesn’t exist. Try a real one!");
         }
     }
 
