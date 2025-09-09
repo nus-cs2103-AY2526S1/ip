@@ -26,6 +26,6 @@ class CommandFind extends Command {
                 match.add(taskList.get(i));
             }
         }
-        return ui.findResponse(match);
+        return ui.getFindResponse(match);
     }
 }

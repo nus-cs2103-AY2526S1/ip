@@ -18,6 +18,6 @@ class CommandBye extends Command {
 
         storage.saveTasks(taskList);
         System.exit(0);
-        return ui.exitMessage();
+        return ui.getExitMessage();
     }
 }

@@ -9,25 +9,12 @@ import minhgpt.task.TaskList;
  * Responsible for all UI printing.
  */
 public class Ui {
-    // NOTE: PRIVATE
-
-    /**
-     * Return String of 'size' number of empty lines.
-     */
-    private static String padding(int size) {
-        String pad = "";
-        for (int i = 0; i < size; i++) {
-            pad += "\n";
-        }
-        return pad;
-    }
-
     // NOTE: PUBLIC
 
     /**
      * Return initial greeting message when user enter the program.
      */
-    public static String welcomeMessage() {
+    public static String getWelcomeMessage() {
         return "Hello! I'm MinhGPT.\nWhat can I do for you?";
     }
 
@@ -35,7 +22,7 @@ public class Ui {
      * Return the error response when the task with that index does not exist for
      * mark + unmark + delete operation.
      */
-    public String indexErrorResponse() {
+    public String getIndexErrorResponse() {
         return "<( ⸝⸝•̀ - •́⸝⸝)> There is no tasks with that index."
                 + " You could have caused an IndexOutOfBoundsException.";
     }
@@ -45,7 +32,7 @@ public class Ui {
      *
      * @param task Task that was just added by user.
      */
-    public String addResponse(Task task) {
+    public String getAddResponse(Task task) {
         return String.format("(˶ᵔ ᵕ ᵔ˶) Added: %s", task);
     }
 
@@ -54,7 +41,7 @@ public class Ui {
      *
      * @param task Task that was just marked by user.
      */
-    public String markResponse(Task task) {
+    public String getMarkResponse(Task task) {
         return String.format("(˵˃ ᗜ ˂˵) Congrats on finishing the task.\n%s", task);
     }
 
@@ -63,7 +50,7 @@ public class Ui {
      *
      * @param task Task that was just unmarked by user.
      */
-    public String unmarkResponse(Task task) {
+    public String getUnmarkResponse(Task task) {
         return String.format("(¬`‸´¬) Huh? Why did you lie?\n%s", task);
     }
 
@@ -72,14 +59,14 @@ public class Ui {
      *
      * @param task Task that was just deleted by user.
      */
-    public String deleteResponse(Task task) {
+    public String getDeleteResponse(Task task) {
         return String.format("(˶ᵔ ᵕ ᵔ˶) Removed: %s", task);
     }
 
     /**
      * Return the response when user list all tasks.
      */
-    public String listResponse(TaskList taskList) {
+    public String getListResponse(TaskList taskList) {
         StringBuilder builder = new StringBuilder(String.format(
                 "(˶˃ ᵕ ˂˶) Here are the list of tasks. You have %d in total.", taskList.size()));
         for (int i = 0; i < taskList.size(); i++) {
@@ -93,7 +80,7 @@ public class Ui {
      *
      * @param tasks Tasks matching the query that user inputted.
      */
-    public String findResponse(ArrayList<Task> tasks) {
+    public String getFindResponse(ArrayList<Task> tasks) {
         StringBuilder builder = new StringBuilder(
                 String.format("(˶˃ ᵕ ˂˶) Here are the matching tasks in your list.", tasks.size()));
         for (int i = 0; i < tasks.size(); i++) {
@@ -103,9 +90,30 @@ public class Ui {
     }
 
     /**
+     * Return the message when user's input does not match any known commands.
+     */
+    public String getInvalidInputResponse() {
+        return "( ˶°ㅁ°) That is not a valid command!";
+    }
+
+    /**
+     * Return the message when user enters the wrong date format.
+     */
+    public String getInvalidDateFormatResponse() {
+        return "( ˶°ㅁ°) Please input date in the format: yyyy-mm-dd";
+    }
+
+    /**
+     * Return the message when user enters the wrong task format.
+     */
+    public String getInvalidTaskFormatResponse() {
+        return "( ˶°ㅁ°) That is not a valid way to input a task!";
+    }
+
+    /**
      * Return the message when user exit the program.
      */
-    public String exitMessage() {
+    public String getExitMessage() {
         return "(╥﹏╥) Bye. Hope to see you again soon!";
     }
 }

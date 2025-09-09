@@ -18,9 +18,9 @@ class CommandUnmark extends Command {
 
         int index = Integer.parseInt(input.split("\\s+", 2)[1]) - 1;
         try {
-            return ui.unmarkResponse(taskList.unmark(index));
+            return ui.getUnmarkResponse(taskList.unmark(index));
         } catch (IndexOutOfBoundsException e) {
-            return ui.indexErrorResponse();
+            return ui.getIndexErrorResponse();
         }
     }
 }
