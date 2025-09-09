@@ -34,6 +34,7 @@ public class Rafayel {
     private static final String DEADLINE_FORMAT_ERROR = "Deadline format is wrong. Example: deadline [desc] /by [time]";
     private static final String EVENT_FORMAT_ERROR = "Event format is wrong. Example: event [desc] /from [time] /to [time]";
     private static final String INVALID_TASK_NUM = "Invalid task number.";
+    private static final String INVALID_PROMPT = "Please enter a valid prompt! (i.e. todo/deadline/event)";
 
     /**
      * Constructs a new Rafayel chatbot instance with the specified file path for data storage.
@@ -65,13 +66,18 @@ public class Rafayel {
     private static String handleMarkCommand(String input, TaskList tasks, boolean markTask) throws RafayelException {
         int minLen = markTask ? 5 : 7;
 
+        // Guard condition
         if (input.length() <= minLen) {
             throw new RafayelException("Please state what task to be marked/unmarked.");
         }
+
+        // No happy path
         String[] temp = input.split(" ");
         int taskNumber = Integer.parseInt(temp[1]);
 
-        if (taskNumber <= 0 || taskNumber > tasks.getSize()) {
+        boolean isTaskNumberTooSmall = taskNumber <= 0;
+        boolean isTaskNumberLargerThanTasksSize = taskNumber > tasks.getSize();
+        if (isTaskNumberTooSmall || isTaskNumberLargerThanTasksSize) {
             throw new RafayelException(INVALID_TASK_NUM);
         }
         taskNumber--;
@@ -108,10 +114,12 @@ public class Rafayel {
      */
     private static String handleTodoCommand(String input, TaskList tasks) throws RafayelException {
         // Checks
+        // Guard condition
         if (input.length() <= 5) {
             throw new RafayelException("Please add in the description of the Todo task.");
         }
 
+        // No happy path
         Todo newTask = new Todo(input.substring(5).trim());
         tasks.add(newTask);
 
@@ -127,6 +135,7 @@ public class Rafayel {
      */
     private static String handleDeadlineCommand(String input, TaskList tasks) throws RafayelException {
         // Checks
+        // Guard conditions
         if (input.length() <= 10) {
             throw new RafayelException("Please add in the description of the Deadline task.");
         }
@@ -134,6 +143,7 @@ public class Rafayel {
             throw new RafayelException(DEADLINE_FORMAT_ERROR);
         }
 
+        // No happy path
         String[] taskInfo = input.substring(9).split("/by ");
         LocalDateTime dateTime = handleReadDate(taskInfo[1].trim());
         Deadline newTask = new Deadline(taskInfo[0].trim(), dateTime);
@@ -175,6 +185,7 @@ public class Rafayel {
      * @throws RafayelException if the input format is invalid, description is missing, or date formats are incorrect.
      */
     private static String handleEventCommand(String input, TaskList tasks) throws RafayelException {
+        // Guard conditions
         if (input.length() <= 6) {
             throw new RafayelException("Please add in the description of the Event task.");
         }
@@ -185,6 +196,7 @@ public class Rafayel {
             throw new RafayelException(EVENT_FORMAT_ERROR);
         }
 
+        // No happy path
         String[] taskInfo = input.substring(6).split("/");
         LocalDateTime dateTimeFrom = handleReadDate(taskInfo[1].substring(5).trim());
         LocalDateTime dateTimeTo = handleReadDate(taskInfo[2].substring(3).trim());
@@ -264,7 +276,7 @@ public class Rafayel {
                 return res;
 
             default:
-                throw new RafayelException("Please enter a valid prompt! (i.e. todo/deadline/event)");
+                throw new RafayelException(INVALID_PROMPT);
             }
         } catch (RafayelException e) {
             // ui.showError(e.getMessage());
