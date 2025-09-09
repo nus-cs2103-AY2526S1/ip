@@ -48,7 +48,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert input != null : "User input must not be null";
+
         String response = Sora.getResponse(input);
+        assert response != null : "Sora response must not be null";
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getSoraDialog(response, dukeImage)

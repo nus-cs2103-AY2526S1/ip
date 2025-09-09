@@ -29,8 +29,7 @@ public class Ui {
                 + " \\___ \\ / __ \\| '__/ _  \\\n"
                 + "  ___\\ | |__| | | | |_| |\n"
                 + " |____/ \\____/|_|  \\___/|\n";
-        logo = "Hello from\n" + logo + "Hello! I'm Sora\n" + "What can I do for you?\n";
-        return logo;
+        return "Hello from\n" + logo + "Hello! I'm Sora\n" + "What can I do for you?\n";
     }
 
     /**
@@ -46,6 +45,7 @@ public class Ui {
      * @param message the error message to display.
      */
     public String showError(String message) {
+        assert message != null : "Error message must not be null";
         return "Oh no! " + message + "\n";
     }
 
@@ -76,6 +76,7 @@ public class Ui {
      * @param tasks the current task list.
      */
     public String showTaskList(TaskList tasks) {
+        assert tasks != null : "TaskList must not be null";
         StringBuilder output = new StringBuilder("Here are the task in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             output.append((i + 1)).append(".").append(tasks.getTask(i).toString()).append("\n");
