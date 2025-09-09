@@ -4,15 +4,12 @@ package rafayel;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-<<<<<<< HEAD
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-=======
 import java.util.ArrayList;
->>>>>>> branch-Level-10
 
 import rafayel.command.Parser;
 import rafayel.reminder.ReminderManager;
@@ -41,16 +38,13 @@ public class Rafayel {
     /* Manages reminders */
     private ReminderManager reminderManager;
 
-<<<<<<< HEAD
-    // Code qualit
+    // Code quality
     private static final String DEADLINE_FORMAT_ERROR = "Deadline format is wrong. Example: deadline [desc] /by [time]";
     private static final String EVENT_FORMAT_ERROR = "Event format is wrong. Example: event [desc] /from [time] /to [time]";
     public static final String INVALID_TASK_NUM = "Invalid task number.";
     private static final String INVALID_PROMPT = "Please enter a valid prompt! (i.e. todo/deadline/event)";
     public static final String DATE_FORMAT_ERROR = "Please use one of: MMM d yyyy HH:mm | yyyy/MM/dd HH:mm | dd-MM-yyyy HH:mm";
 
-=======
->>>>>>> branch-Level-10
     /**
      * Constructs a new Rafayel chatbot instance with the specified file path for data storage.
      *
@@ -60,15 +54,10 @@ public class Rafayel {
     public Rafayel(String filePath) throws RafayelException {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
-<<<<<<< HEAD
         this.reminderManager = new ReminderManager(null);
         try {
             tasks = new TaskList(storage.load());
             this.reminderManager = new ReminderManager(getAll());
-=======
-        try {
-            tasks = new TaskList(storage.load());
->>>>>>> branch-Level-10
         } catch (RafayelException e) {
             ui.showLoadingError();
             tasks = new TaskList();
@@ -76,7 +65,6 @@ public class Rafayel {
             throw new RuntimeException(e);
         }
     }
-<<<<<<< HEAD
 
     /**
      * @return the TaskList in ArrayList form.
@@ -91,8 +79,6 @@ public class Rafayel {
     public void save() throws RafayelException {
         storage.save(tasks.getAll());
     }
-=======
->>>>>>> branch-Level-10
 
     /**
      * Handles marking or unmarking a task as done/not done.
@@ -103,12 +89,9 @@ public class Rafayel {
      * @throws RafayelException if the input format or task number is invalid.
      */
     private static String handleMarkCommand(String input, TaskList tasks, boolean markTask) throws RafayelException {
-<<<<<<< HEAD
         assert input != null : "Input cannot be null";
         assert tasks != null : "TaskList cannot be null";
 
-=======
->>>>>>> branch-Level-10
         int minLen = markTask ? 5 : 7;
 
         // Guard condition
@@ -132,17 +115,9 @@ public class Rafayel {
 
         if (markTask) {
             tasks.get(taskNumber).markAsDone();
-<<<<<<< HEAD
             return "Nice! I've marked this task as done:\n  " + tasks.get(taskNumber).toString();
         } else {
             tasks.get(taskNumber).markAsUndone();
-=======
-            System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(taskNumber).toString());
-            return "Nice! I've marked this task as done:\n  " + tasks.get(taskNumber).toString();
-        } else {
-            tasks.get(taskNumber).markAsUndone();
-            System.out.println("OK, I've marked this task as not done yet:\n  " + tasks.get(taskNumber).toString());
->>>>>>> branch-Level-10
             return "OK, I've marked this task as not done yet:\n  " + tasks.get(taskNumber).toString();
         }
 
@@ -154,14 +129,9 @@ public class Rafayel {
      * @param newTask the task that was added.
      * @param counter the current number of tasks in the ArrayList.
      */
-<<<<<<< HEAD
+
     private static String getNewTaskString(Task newTask, int counter) {
         return String.format("Got it. I've added this task:\n %s\nNow you have %d tasks in the list.",
-=======
-    private static String printNewTaskString(Task newTask, int counter) {
-        return String.format(
-                "Got it. I've added this task:\n %s\nNow you have %d tasks in the list.",
->>>>>>> branch-Level-10
                 newTask.toString(), counter);
     }
 
@@ -173,14 +143,11 @@ public class Rafayel {
      * @throws RafayelException if the input format is invalid or description is missing.
      */
     private static String handleTodoCommand(String input, TaskList tasks) throws RafayelException {
-<<<<<<< HEAD
         assert input != null : "Input cannot be null";
         assert tasks != null : "TaskList cannot be null";
 
         // Checks
         // Guard condition
-=======
->>>>>>> branch-Level-10
         if (input.length() <= 5) {
             throw new RafayelException("Please add in the description of the Todo task.");
         }
@@ -189,11 +156,7 @@ public class Rafayel {
         Todo newTask = new Todo(input.substring(5).trim());
         tasks.add(newTask);
 
-<<<<<<< HEAD
         return getNewTaskString(newTask, tasks.getSize());
-=======
-        return printNewTaskString(newTask, tasks.getSize());
->>>>>>> branch-Level-10
     }
 
     /**
@@ -204,14 +167,11 @@ public class Rafayel {
      * @throws RafayelException if the input format is invalid, description is missing or date format is wrong.
      */
     private static String handleDeadlineCommand(String input, TaskList tasks) throws RafayelException {
-<<<<<<< HEAD
         // Checks
         // Guard conditions
         assert input != null : "Input cannot be null";
         assert tasks != null : "TaskList cannot be null";
 
-=======
->>>>>>> branch-Level-10
         if (input.length() <= 10) {
             throw new RafayelException("Please add in the description of the Deadline task.");
         }
@@ -225,11 +185,7 @@ public class Rafayel {
         Deadline newTask = new Deadline(taskInfo[0].trim(), dateTime);
         tasks.add(newTask);
 
-<<<<<<< HEAD
         return getNewTaskString(newTask, tasks.getSize());
-=======
-        return printNewTaskString(newTask, tasks.getSize());
->>>>>>> branch-Level-10
     }
 
     /**
@@ -263,13 +219,10 @@ public class Rafayel {
      * @throws RafayelException if the input format is invalid, description is missing, or date formats are incorrect.
      */
     private static String handleEventCommand(String input, TaskList tasks) throws RafayelException {
-<<<<<<< HEAD
         // Guard conditions
         assert input != null : "Input cannot be null";
         assert tasks != null : "TaskList cannot be null";
 
-=======
->>>>>>> branch-Level-10
         if (input.length() <= 6) {
             throw new RafayelException("Please add in the description of the Event task.");
         }
@@ -289,11 +242,7 @@ public class Rafayel {
 
         tasks.add(newTask);
 
-<<<<<<< HEAD
         return getNewTaskString(newTask, tasks.getSize());
-=======
-        return printNewTaskString(newTask, tasks.getSize());
->>>>>>> branch-Level-10
     }
 
     /**
@@ -302,7 +251,6 @@ public class Rafayel {
      * @throws RafayelException if there's any error while executing user commands
      */
     public String getResponse(String input) throws RafayelException {
-<<<<<<< HEAD
 
         assert input != null : "Input cannot be null";
         assert tasks != null : "TaskList cannot be null";
@@ -322,58 +270,32 @@ public class Rafayel {
             case MARK:
                 // Mark task
                 assert input.length() > 4 : "Mark command should have additional arguments";
-=======
-        try {
-            Parser.CommandType commandType = Parser.parse(input);
-            switch (commandType) {
-            case BYE:
-                return ui.showExit();
-
-            case LIST:
-                return tasks.getTaskList();
-
-            case MARK:
-                // Mark task
->>>>>>> branch-Level-10
                 return handleMarkCommand(input, tasks, true);
 
             case UNMARK:
                 // Unmark task
-<<<<<<< HEAD
                 assert input.length() > 6 : "Unmark command should have additional arguments";
-=======
->>>>>>> branch-Level-10
                 return handleMarkCommand(input, tasks, false);
 
             case TODO:
                 // Create Todo Task
-<<<<<<< HEAD
                 assert input.length() > 4 : "Todo command should have a description";
-=======
->>>>>>> branch-Level-10
                 return handleTodoCommand(input, tasks);
 
             case DEADLINE:
                 // Create Deadline Task
-<<<<<<< HEAD
                 assert input.length() > 8 : "Deadline command should have additional arguments";
-=======
->>>>>>> branch-Level-10
                 return handleDeadlineCommand(input, tasks);
 
             case EVENT:
                 // Create Event Task
-<<<<<<< HEAD
                 assert input.length() > 5 : "Event command should have additional arguments";
-=======
->>>>>>> branch-Level-10
                 return handleEventCommand(input, tasks);
 
             case DELETE:
                 // Delete tasks
                 if (input.length() <= 7) {
                     throw new RafayelException("Please indicate which task to delete (i.e. delete 1)");
-<<<<<<< HEAD
                 }
                 String[] temp = input.split(" ");
                 int taskNumber = Integer.parseInt(temp[1]);
@@ -424,13 +346,8 @@ public class Rafayel {
                 }
                 if (reminders.isEmpty() && overdue.isEmpty()) {
                     return "No upcoming deadlines! :D";
-=======
->>>>>>> branch-Level-10
                 }
-                String[] temp = input.split(" ");
-                int taskNumber = Integer.parseInt(temp[1]);
 
-<<<<<<< HEAD
                 String upcomingReminders = reminders.isEmpty() ? ""
                         : "Upcoming Deadlines:\n\n" + IntStream.range(0, reminders.size())
                                 .mapToObj(i -> (i + 1) + ". " + reminders.get(i).toString())
@@ -443,34 +360,6 @@ public class Rafayel {
 
             default:
                 throw new RafayelException(INVALID_PROMPT);
-=======
-                taskNumber--;
-                Task deletedTask = tasks.remove(taskNumber);
-
-                System.out.println("Noted. I've removed this task:\n  " + deletedTask.toString() + "\nNow you have "
-                        + tasks.getSize() + " tasks in the list.");
-                return "Noted. I've removed this task:\n  " + deletedTask.toString() + "\nNow you have "
-                        + tasks.getSize() + " tasks in the list.";
-
-            case FIND:
-                // Find substring
-                if (input.length() <= 5) {
-                    throw new RafayelException("Please indicate what to find in the task (i.e. find book)");
-                }
-                String substring = input.substring(5).trim();
-                ArrayList<Task> matchedTasks = tasks.matchTasks(substring);
-
-                String res = "Here are the matching tasks in your list:\n";
-                System.out.println("Here are the matching tasks in your list:");
-                for (int i = 0; i < matchedTasks.size(); i++) {
-                    System.out.println(i + 1 + "." + matchedTasks.get(i).toString());
-                    res += i + 1 + "." + matchedTasks.get(i).toString() + "\n";
-                }
-                return res;
-
-            default:
-                throw new RafayelException("Please enter a valid prompt! (i.e. todo/deadline/event)");
->>>>>>> branch-Level-10
             }
         } catch (RafayelException e) {
             // ui.showError(e.getMessage());

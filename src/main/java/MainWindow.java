@@ -1,12 +1,8 @@
 
-<<<<<<< HEAD
 // import java.util.Objects;
 
 import java.util.ArrayList;
 // import java.util.List;
-=======
-import java.util.Objects;
->>>>>>> branch-Level-10
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,14 +14,10 @@ import javafx.scene.layout.VBox;
 
 import rafayel.Rafayel;
 import rafayel.RafayelException;
-<<<<<<< HEAD
 import rafayel.reminder.ReminderManager;
 // import rafayel.storage.Storage;
 import rafayel.task.Task;
 import rafayel.ui.Ui;
-=======
-
->>>>>>> branch-Level-10
 
 /**
  * Controller for the main GUI.
@@ -43,15 +35,8 @@ public class MainWindow extends AnchorPane {
     private Rafayel rafayel;
     private ReminderManager reminderManager;
 
-<<<<<<< HEAD
     private Image userIcon = new Image(this.getClass().getResourceAsStream("/images/UserIcon.jpeg"));
     private Image rafayelIcon = new Image(this.getClass().getResourceAsStream("/images/RafayelIcon.png"));
-=======
-    private final Image userIcon = new Image(Objects.requireNonNull(
-            this.getClass().getResourceAsStream("/images/UserIcon.png")));
-    private final Image rafayelIcon = new Image(Objects.requireNonNull(
-            this.getClass().getResourceAsStream("/images/RafayelIcon.png")));
->>>>>>> branch-Level-10
 
     @FXML
     public void initialize() {

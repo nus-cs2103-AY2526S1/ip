@@ -118,26 +118,10 @@ public class TaskList {
      * @return 
      */
     public String getTaskList() {
-<<<<<<< HEAD
         final String EMPTY_LIST = "There's nothing in the list.";
         return this.getSize() == 0 ? EMPTY_LIST
                 : "Here are the tasks in your list:\n" + IntStream.range(0, this.getSize())
                         .mapToObj(i -> (i + 1) + "." + tasks.get(i).toString()).collect(Collectors.joining("\n"));
-=======
-        if (this.getSize() == 0) {
-            // System.out.println("There's nothing in the list.");
-            return "There's nothing in the list.";
-        } else {
-            // System.out.println("Here are the tasks in your list:");
-            String result = "Here are the tasks in your list:\n";
-            for (int i = 0; i < this.getSize(); i++) {
-                // System.out.println(i + 1 + "." + tasks.get(i).toString());
-                String temp = i + 1 + "." + tasks.get(i).toString() + "\n";
-                result += temp;
-            }
-            return result;
-        }
->>>>>>> branch-Level-10
     }
 
     /**
