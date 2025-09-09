@@ -33,7 +33,7 @@ public class Rafayel {
     // Code qualit
     private static final String DEADLINE_FORMAT_ERROR = "Deadline format is wrong. Example: deadline [desc] /by [time]";
     private static final String EVENT_FORMAT_ERROR = "Event format is wrong. Example: event [desc] /from [time] /to [time]";
-    private static final String INVALID_TASK_NUM = "Invalid task number.";
+    public static final String INVALID_TASK_NUM = "Invalid task number.";
     private static final String INVALID_PROMPT = "Please enter a valid prompt! (i.e. todo/deadline/event)";
 
     /**
