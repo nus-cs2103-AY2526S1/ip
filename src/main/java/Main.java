@@ -19,11 +19,14 @@ import rafayel.RafayelException;
 public class Main extends Application {
 
     private final Rafayel rafayel = new Rafayel("src/main/java/data/rafayel.txt");
+<<<<<<< HEAD
     private MainWindow mainWindow;
     private Timer reminderTimer;
 
     private final int ONE_SECOND = 1000;
     private final int FIVE_MIN = 5 * 60 * ONE_SECOND;
+=======
+>>>>>>> branch-Level-10
 
     public Main() throws RafayelException {
     }
@@ -35,12 +38,16 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+<<<<<<< HEAD
             stage.setTitle("Rafayel Chatbot");
 
             // Get the controller and set Rafayel instance
             mainWindow = fxmlLoader.<MainWindow>getController();
             mainWindow.setRafayel(rafayel);
 
+=======
+            fxmlLoader.<MainWindow>getController().setRafayel(rafayel); // inject the instance
+>>>>>>> branch-Level-10
             stage.show();
 
             // Schedule reminder checks 

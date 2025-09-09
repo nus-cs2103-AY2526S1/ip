@@ -11,7 +11,11 @@ public class Parser {
      * Enumeration of all possible commands that can be recognised by the application.
      */
     public enum CommandType {
+<<<<<<< HEAD
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, REMIND, UNKNOWN;
+=======
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, UNKNOWN;
+>>>>>>> branch-Level-10
 
         /**
          * Parses the input string to determine the corresponding command type.
