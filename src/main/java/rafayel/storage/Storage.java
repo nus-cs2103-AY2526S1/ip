@@ -90,8 +90,11 @@ public class Storage {
      * @throws IOException if there's an error reading the file.
      */
     public ArrayList<Task> load() throws RafayelException, IOException {
+
+        final int DEADLINE_PARTS = 4;
+        final int EVENT_PARTS = 5;
+
         ArrayList<Task> tasks = new ArrayList<Task>();
-        // Tasklist?
 
         // check if directory/folder and file exists
         ensureFileExists();
@@ -122,13 +125,14 @@ public class Storage {
                     task = new Todo(description);
                     break;
                 case "D":
-                    if (parts.length >= 4) {
+
+                    if (parts.length >= DEADLINE_PARTS) {
                         LocalDateTime by = handleReadDate(parts[3].trim());
                         task = new Deadline(description, by);
                     }
                     break;
                 case "E":
-                    if (parts.length >= 5) {
+                    if (parts.length >= EVENT_PARTS) {
                         LocalDateTime from = handleReadDate(parts[3].trim());
                         LocalDateTime to = handleReadDate(parts[4].trim());
                         task = new Event(description, from, to);

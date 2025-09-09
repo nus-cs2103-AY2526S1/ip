@@ -30,6 +30,11 @@ public class Rafayel {
     /* Manages the ui of Rafayel */
     private final Ui ui;
 
+    // Code qualit
+    private static final String DEADLINE_FORMAT_ERROR = "Deadline format is wrong. Example: deadline [desc] /by [time]";
+    private static final String EVENT_FORMAT_ERROR = "Event format is wrong. Example: event [desc] /from [time] /to [time]";
+    private static final String INVALID_TASK_NUM = "Invalid task number.";
+
     /**
      * Constructs a new Rafayel chatbot instance with the specified file path for data storage.
      *
@@ -59,6 +64,7 @@ public class Rafayel {
      */
     private static String handleMarkCommand(String input, TaskList tasks, boolean markTask) throws RafayelException {
         int minLen = markTask ? 5 : 7;
+
         if (input.length() <= minLen) {
             throw new RafayelException("Please state what task to be marked/unmarked.");
         }
@@ -66,9 +72,10 @@ public class Rafayel {
         int taskNumber = Integer.parseInt(temp[1]);
 
         if (taskNumber <= 0 || taskNumber > tasks.getSize()) {
-            throw new RafayelException("Invalid task number.");
+            throw new RafayelException(INVALID_TASK_NUM);
         }
         taskNumber--;
+
         if (markTask) {
             tasks.get(taskNumber).markAsDone();
             System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(taskNumber).toString());
@@ -88,8 +95,7 @@ public class Rafayel {
      * @param counter the current number of tasks in the ArrayList.
      */
     private static String printNewTaskString(Task newTask, int counter) {
-        return String.format(
-                "Got it. I've added this task:\n %s\nNow you have %d tasks in the list.",
+        return String.format("Got it. I've added this task:\n %s\nNow you have %d tasks in the list.",
                 newTask.toString(), counter);
     }
 
@@ -101,6 +107,7 @@ public class Rafayel {
      * @throws RafayelException if the input format is invalid or description is missing.
      */
     private static String handleTodoCommand(String input, TaskList tasks) throws RafayelException {
+        // Checks
         if (input.length() <= 5) {
             throw new RafayelException("Please add in the description of the Todo task.");
         }
@@ -119,11 +126,12 @@ public class Rafayel {
      * @throws RafayelException if the input format is invalid, description is missing or date format is wrong.
      */
     private static String handleDeadlineCommand(String input, TaskList tasks) throws RafayelException {
+        // Checks
         if (input.length() <= 10) {
             throw new RafayelException("Please add in the description of the Deadline task.");
         }
         if (!input.contains("/by")) {
-            throw new RafayelException("Deadline format is wrong. Example: deadline [desc] /by [time]");
+            throw new RafayelException(DEADLINE_FORMAT_ERROR);
         }
 
         String[] taskInfo = input.substring(9).split("/by ");
@@ -171,10 +179,10 @@ public class Rafayel {
             throw new RafayelException("Please add in the description of the Event task.");
         }
         if (!input.contains("/from")) {
-            throw new RafayelException("Event format is wrong. Example: event [desc] /from [time] /to [time]");
+            throw new RafayelException(EVENT_FORMAT_ERROR);
         }
         if (!input.contains("/to")) {
-            throw new RafayelException("Event format is wrong. Example: event [desc] /from [time] /to [time]");
+            throw new RafayelException(EVENT_FORMAT_ERROR);
         }
 
         String[] taskInfo = input.substring(6).split("/");
