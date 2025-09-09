@@ -22,6 +22,9 @@ public abstract class Command {
      * @param supplier Constructor for the command.
      */
     protected static void register(String regex, Supplier<Command> supplier) {
+        assert (regex != null);
+        assert (supplier != null);
+
         registry.put(regex, supplier);
     }
 
@@ -34,7 +37,13 @@ public abstract class Command {
      * @param storage  Program's storage handler.
      * @return Response to the command.
      */
-    public abstract String execute(String input, TaskList taskList, Ui ui, Storage storage);
+    public String execute(String input, TaskList taskList, Ui ui, Storage storage) {
+        assert (input != null);
+        assert (taskList != null);
+        assert (ui != null);
+        assert (storage != null);
+        return "";
+    }
 
     /**
      * Initialise the mapping in 'registry'.
