@@ -32,6 +32,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if index is invalid
      */
     public Task get(int index) {
+        assert index >= 0 && index < tasks.size();
         return tasks.get(index);
     }
 
@@ -41,6 +42,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if index is invalid
      */
     public Task remove(int index) {
+        assert index >= 0 && index < tasks.size();
         return tasks.remove(index);
     }
 

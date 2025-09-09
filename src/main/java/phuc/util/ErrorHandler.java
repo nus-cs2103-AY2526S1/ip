@@ -52,6 +52,7 @@ public class ErrorHandler {
      * @throws PhucException if the input is invalid or out of bounds
      */
     public static void validateTaskIndex(String input, int maxIndex) throws PhucException {
+        assert maxIndex >= 0;
         if (input == null || input.trim().isEmpty()) {
             throw new PhucException(String.format(ERROR_INVALID_TASK_NUMBER, maxIndex - 1));
         }
