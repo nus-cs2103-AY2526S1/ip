@@ -17,6 +17,7 @@ public abstract class LynxSearcher {
     /**
      * Filters a task stream as specified by the search modifiers in a <code>LynxCommand</code> object.
      * Stores the result within the <code>LynxCommand</code> object at the end of the search.
+     * Result will be ordered by decreasing priority.
      *
      * @param command <code>LynxCommand</code> object containing a string of search modifiers.
      * @param stream Task stream that is being operated on.
@@ -26,7 +27,7 @@ public abstract class LynxSearcher {
         String input = command.getNextCommand();
 
         if (input.isBlank()) {
-            command.setSearchResult(stream.toList());
+            command.setSearchResult(stream.sorted().toList());
             return;
         }
 
@@ -34,6 +35,7 @@ public abstract class LynxSearcher {
         case "/all" -> findTasks(command, stream);
         case "/id" -> findTasksById(command, stream);
         case "/key" -> findTasksByKeyword(command, stream);
+        case "/p" -> findTasksByPriority(command, stream);
         case "/on" -> findTasksByDate(command, stream);
         case "/status" -> findTasksByStatus(command, stream);
         case "/type" -> findTasksByType(command, stream);
@@ -70,6 +72,20 @@ public abstract class LynxSearcher {
         Task.checkName(keyword);
         command.setKeyword(keyword);
         findTasks(command, LynxSorter.filterTasksByKeyword(stream, keyword));
+    }
+
+    /**
+     * Filters a task stream to only contain tasks matching a given priority.
+     *
+     * @param command <code>LynxCommand</code> object containing the priority.
+     * @param stream Task stream that is being operated on.
+     * @throws LynxException If priority is of invalid format.
+     */
+    private static void findTasksByPriority(LynxCommand command, Stream<Task> stream) throws LynxException {
+        String priority = command.getNextCommand();
+        int intPriority = Task.parsePriority(priority);
+        command.setPriority(priority);
+        findTasks(command, LynxSorter.filterTasksByPriority(stream, intPriority));
     }
 
     /**

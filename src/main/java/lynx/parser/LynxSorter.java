@@ -34,6 +34,17 @@ public abstract class LynxSorter {
     }
 
     /**
+     * Returns all tasks in a stream with a given priority.
+     *
+     * @param tasks Stream of tasks to be filtered.
+     * @param priority Priority used to filter tasks.
+     * @return Task stream filtered by priority.
+     */
+    public static Stream<Task> filterTasksByPriority(Stream<Task> tasks, int priority) {
+        return tasks.filter(task -> task.getPriority() == (priority));
+    }
+
+    /**
      * Returns all tasks in a stream that are active on a given date.
      *
      * @param tasks Stream of tasks to be filtered.

@@ -6,11 +6,11 @@ import objectclasses.exception.CommandFormatException;
 import objectclasses.exception.LynxException;
 
 /**
- * Represents a task with a <code>TaskType</code>, <code>Status</code>, name and id for tracking.
+ * Represents a task with a <code>TaskType</code>, <code>Status</code>, name, priority and id for tracking.
  * <p>
  * <code>Status</code> is <code>INCOMPLETE</code> by default, and id is assigned by the constructor.
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
 
     /**
      * Represents the three types of tasks.
@@ -114,10 +114,11 @@ public abstract class Task {
      * @param name Name of the task.
      * @param type Type of task.
      */
-    public Task(String name, TaskType type) {
+    public Task(String name, int priority, TaskType type) {
         currId += 1;
         id = currId;
         this.name = name;
+        this.priority = priority;
         this.type = type;
     }
 
@@ -139,6 +140,26 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Parses a priority represented as a string into a non-negative integer.
+     *
+     * @param priority Priority specified as a string.
+     * @throws LynxException If priority is not a valid non-negative integer.
+     */
+    public static int parsePriority(String priority) throws LynxException {
+        int intPriority;
+        try {
+            intPriority = Integer.parseInt(priority);
+        } catch (NumberFormatException e) {
+            throw CommandFormatException.invalidPriority();
+        }
+
+        if (intPriority < 0) {
+            throw CommandFormatException.invalidPriority();
+        }
+        return intPriority;
+    }
+
     public int getId() {
         assert(id >= 0);
         return id;
@@ -158,13 +179,6 @@ public abstract class Task {
 
     public Status getStatus() {
         return status;
-    }
-
-    public void setPriority(int priority) throws LynxException {
-        if (priority < 0) {
-            throw CommandFormatException.invalidPriority();
-        }
-        this.priority = priority;
     }
 
     public void setComplete() {
@@ -189,6 +203,18 @@ public abstract class Task {
      * @return True if task occurs on given date.
      */
     public abstract boolean isActive(LocalDateTime dateTime);
+
+    /**
+     * Compares two tasks based on their priority.
+     *
+     * @return -1 if the current task has a greater priority.
+     * 0 if both tasks are of equal priority.
+     * 1 if the current task has a lower priority.
+     */
+    @Override
+    public int compareTo(Task task) {
+        return -Integer.compare(this.priority, task.priority);
+    }
 
     /**
      * Returns a string representation of the task used for storing it in a text file.

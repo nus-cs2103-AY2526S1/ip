@@ -17,6 +17,7 @@ public abstract class LynxCommand {
     private int index = 0;
     private String date = "";
     private String keyword = "";
+    private String priority = "";
     private String id = "";
     private String status = "";
     private String type = "";
@@ -78,6 +79,20 @@ public abstract class LynxCommand {
             this.keyword = String.format(" containing keyword \"%s\"", keyword);
         } else {
             this.keyword = String.format("%s, \"%s\"", this.keyword, keyword);
+        }
+    }
+
+    /**
+     * Stores a priority as specified by a "/p" search modifier.
+     *
+     * @param priority Priority as a string.
+     * @throws LynxException If more than one attempt to search by priority is detected.
+     */
+    public void setPriority(String priority) throws LynxException {
+        if (!this.priority.isEmpty()) {
+            throw CommandFormatException.multiplePriority();
+        } else {
+            this.priority = String.format(" of priority %s", priority);
         }
     }
 
@@ -153,7 +168,7 @@ public abstract class LynxCommand {
      * @return Dialogue of search details.
      */
     public String getSearchString() {
-        String searchString = String.format("all%s%s tasks%s%s%s:", status, type, date, keyword, id);
+        String searchString = String.format("all%s%s tasks%s%s%s%s:", status, type, date, keyword, priority, id);
         if (searchString.length() > 100) {
             return "all matching tasks:";
         } else {

@@ -26,6 +26,10 @@ public class CommandFormatException extends LynxException {
         return new CommandFormatException("Only one date can be supplied per search.");
     }
 
+    public static CommandFormatException multiplePriority() {
+        return new CommandFormatException("Only one priority can be supplied per search.");
+    }
+
     public static CommandFormatException multipleId() {
         return new CommandFormatException("Only one id can be supplied per search.");
     }
