@@ -32,6 +32,11 @@ public class Parser {
      */
     public static String parse(String command, TaskList tasks, Ui ui,
                              Storage storage) throws SoraException {
+        assert command != null : "Command must not be null";
+        assert tasks != null : "TaskList must not be null";
+        assert ui != null : "Ui must not be null";
+        assert storage != null : "Storage must not be null";
+
         String[] parts = command.split(" ", 2);
         String startWord = parts[0];
         String description = parts.length == 1 ? "" : parts[1];
@@ -53,7 +58,7 @@ public class Parser {
                 }
             case "mark":
                 int x = Integer.parseInt(description);
-                tasks.getTask(x - 1).markAsDone();
+                tasks.mark(x - 1);
                 try {
                     storage.save(tasks);
                 } catch (IOException e) {
@@ -62,7 +67,7 @@ public class Parser {
                 return ui.showMarkedTask(tasks.getTask(x - 1));
             case "unmark":
                 int y = Integer.parseInt(description);
-                tasks.getTask(y - 1).markAsNotDone();
+                tasks.unmark(y - 1);
                 try {
                     storage.save(tasks);
                 } catch (IOException e) {

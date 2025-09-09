@@ -14,6 +14,8 @@ public class Sora {
     private static TaskList tasks;
     private static Ui ui;
 
+    boolean isExit = false;
+
     /**
      * Constructs a new instance of {@code Sora}.
      *
@@ -35,19 +37,33 @@ public class Sora {
      */
     public void run() {
         System.out.print(ui.showWelcome());
-        boolean isExit = false;
         while (!isExit) {
             try {
                 String command = ui.readCommand();
-                if (command.equals("bye")) {
-                    isExit = true;
-                }
-                String output = Parser.parse(command, tasks, ui, storage);
+                String output = executeCommand(command);
                 System.out.print(output);
             } catch (SoraException e) {
                 System.out.print(ui.showError(e.getMessage()));
             }
         }
+    }
+
+    /**
+     * Executes a user command by parsing it and performing the corresponding action.
+     * <p>
+     * If the command is "bye", the application will be flagged to exit. Otherwise,
+     * the command is delegated to the {@link Parser#parse(String, TaskList, Ui, Storage)}
+     * method to perform the required task operations.
+     * </p>
+     *
+     * @param command the command input from the user
+     * @throws SoraException if the command is invalid or an error occurs during execution
+     */
+    private String executeCommand(String command) throws SoraException {
+        if (command.equals("bye")) {
+            isExit = true;
+        }
+        return Parser.parse(command, tasks, ui, storage);
     }
 
     /**
