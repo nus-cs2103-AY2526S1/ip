@@ -111,6 +111,7 @@ public class MainWindow extends AnchorPane {
             return;
         }
 
+        assert(!isExiting);
         String lynxText = taskLynx.getCommandResponse(userInput.getText());
         if (lynxText.isEmpty()) {
             return;

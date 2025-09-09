@@ -29,7 +29,7 @@ public class TodoTask extends Task {
      * @throws LynxException If input is of invalid format.
      */
     public static Task of(String[] parts) throws LynxException {
-        if (parts.length < 4) {
+        if (parts.length != 4) {
             throw new LynxException("");
         }
         String status = parts[1];
@@ -49,7 +49,7 @@ public class TodoTask extends Task {
      * @throws LynxException If command or name is invalid.
      */
     public static Task of(String input) throws LynxException {
-        if (input.length() <= 4) {
+        if (!input.startsWith("todo ")) {
             throw new MissingArgumentException("todo");
         }
         String name = input.substring(4).trim();

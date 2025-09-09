@@ -20,7 +20,7 @@ public abstract class LynxCommand {
     private String id = "";
     private String status = "";
     private String type = "";
-    private List<Task> searchResult;
+    private List<Task> searchResult = null;
 
     /**
      * Takes in a string containing search modifiers and parses it into separate components.
@@ -127,6 +127,7 @@ public abstract class LynxCommand {
     }
 
     public List<Task> getSearchResult() {
+        assert (searchResult != null);
         return searchResult;
     }
 
@@ -136,6 +137,7 @@ public abstract class LynxCommand {
      * @return Command component as a string.
      */
     public String getNextCommand() {
+        assert (index >= 0);
         if (index >= commands.length) {
             return "";
         } else {

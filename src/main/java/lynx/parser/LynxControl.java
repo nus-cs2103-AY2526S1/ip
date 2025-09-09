@@ -52,7 +52,6 @@ public class LynxControl {
      * @param input Input command.
      * @return Response from executing the command.
      */
-    @SuppressWarnings("checkstyle:Regexp")
     public String scanForCommandsGui(String input) {
         input = input.trim();
         if (input.length() > 300) {
