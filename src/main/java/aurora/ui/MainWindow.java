@@ -24,8 +24,10 @@ public class MainWindow extends AnchorPane {
 
     private Aurora aurora;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(
+            this.getClass().getResourceAsStream("/images/npc.jpg"));
+    private final Image dukeImage = new Image(
+            this.getClass().getResourceAsStream("/images/Aurora.png"));
 
     @FXML
     public void initialize() {
@@ -37,10 +39,6 @@ public class MainWindow extends AnchorPane {
         aurora = a;
     }
 
-    /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
