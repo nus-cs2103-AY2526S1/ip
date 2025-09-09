@@ -14,6 +14,7 @@ public class ToDo extends Task {
      */
     public ToDo(String description) {
         super(description);
+        assert description != null && !description.isEmpty() : "Event cannot be null or empty";
     }
 
     /**
@@ -23,6 +24,7 @@ public class ToDo extends Task {
      */
     public ToDo(String description, boolean isDone) {
         super(description, isDone);
+        assert description != null && !description.isEmpty() : "Event cannot be null or empty";
     }
 
     /**

@@ -24,6 +24,9 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
+        assert description != null && !description.isEmpty() : "Event cannot be null or empty";
+        assert from != null && !from.isEmpty() : "Event from string cannot be null or empty";
+        assert to != null && !to.isEmpty() : "Event to string cannot be null or empty";
         try {
             this.fromDate = LocalDate.parse(from);
             this.fromRaw = from;
@@ -48,6 +51,9 @@ public class Event extends Task {
      */
     public Event(String description, boolean isDone, String from, String to) {
         super(description, isDone);
+        assert description != null && !description.isEmpty() : "Event cannot be null or empty";
+        assert from != null && !from.isEmpty() : "Event from string cannot be null or empty";
+        assert to != null && !to.isEmpty() : "Event to string cannot be null or empty";
         try {
             this.fromDate = LocalDate.parse(from);
             this.fromRaw = from;

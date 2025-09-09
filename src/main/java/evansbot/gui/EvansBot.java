@@ -44,7 +44,6 @@ public class EvansBot {
      * The loop continues until an exit command is issued.
      */
     private void run() {
-        ui.greet();
         boolean isExit = false;
 
         while (!isExit) {
@@ -57,10 +56,13 @@ public class EvansBot {
                 ui.showError(e.getMessage());
             }
         }
-
-        ui.close();
     }
-
+    /**
+     * Runs the input string through the parser to execute the respective command.
+     *
+     * @param input String that is parsed.
+     * @return String that is formed after parsing.
+     */
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);
