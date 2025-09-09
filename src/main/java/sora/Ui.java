@@ -56,7 +56,7 @@ public class Ui {
      * @param size the size of the task list after the task is added.
      */
     public String showAddedTask(Task task, int size) {
-        return "Got it. I've added this task:\n" + task +"\n" + "Now you have " + size + " tasks in the list.\n";
+        return "Got it. I've added this task:\n" + task + "\n" + "Now you have " + size + " tasks in the list.\n";
     }
 
     /**
@@ -66,8 +66,8 @@ public class Ui {
      * @param size the size of the task list after the task is deleted.
      */
     public String showDeletedTask(Task task, int size) {
-        return "Noted. I've removed this task:\n" + task + "\n" + "Now you have " +
-                size + " tasks in the list.\n";
+        return "Noted. I've removed this task:\n" + task + "\n" + "Now you have "
+                + size + " tasks in the list.\n";
     }
 
     /**

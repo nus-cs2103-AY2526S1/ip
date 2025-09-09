@@ -22,11 +22,27 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Sora sora= new Sora("./data/sora.txt");
+    private Sora sora = new Sora("./data/sora.txt");
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the main window of the GUI.
+     * <p>
+     * This method is automatically called by JavaFX after the FXML
+     * elements have been loaded. It performs the following:
+     * </p>
+     * <ul>
+     *   <li>Binds the vertical scroll position of the {@code scrollPane} to
+     *       the height of the {@code dialogContainer}, ensuring the scroll
+     *       automatically moves to show the latest dialog.</li>
+     *   <li>Adds an initial welcome message from Sora to the {@code dialogContainer}.</li>
+     * </ul>
+     * <p>
+     * The welcome message is displayed as a {@link DialogBox} with the Sora image.
+     * </p>
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

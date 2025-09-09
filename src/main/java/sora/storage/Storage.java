@@ -21,7 +21,7 @@ import sora.task.Todo;
  * and saving tasks from a {@link TaskList} back to the file.
  */
 public class Storage {
-    private String filePath;
+    private final String filePath;
     private final DateTimeFormatter format =
             DateTimeFormatter.ofPattern("MMM dd yyyy HHmm", Locale.ENGLISH);
 
@@ -58,6 +58,7 @@ public class Storage {
             String type = parts[0];
             boolean isDone = parts[1].equals("1");
             String description = parts[2];
+
             switch (type) {
             case "T":
                 Todo todo = new Todo(description);

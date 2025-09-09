@@ -53,6 +53,8 @@ public class Parser {
             case "list":
                 if (description.isEmpty()) {
                     return ui.showTaskList(tasks);
+                } else {
+                    throw new SoraException("Not a valid input");
                 }
             case "mark":
                 int x = Integer.parseInt(description);

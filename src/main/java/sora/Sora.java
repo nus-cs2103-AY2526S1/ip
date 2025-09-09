@@ -22,7 +22,7 @@ public class Sora {
      * @param filePath the file path to the data storage file.
      */
     public Sora(String filePath) {
-        this.ui = new Ui();
+        ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load().getFullTasks());
