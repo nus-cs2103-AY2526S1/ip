@@ -82,9 +82,9 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Handle the different type of command to apply the corresponding design style.
+     * Check the type of command and apply the corresponding design to the command type.
      *
-     * @param commandType the string of the command
+     * @param commandType the command of user in string format.
      */
     private void changeDialogStyle(String commandType) {
         switch(commandType) {

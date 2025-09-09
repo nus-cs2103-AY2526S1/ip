@@ -43,17 +43,18 @@ public class UserInterface {
 
         if (tasks.isEmpty()) {
             print("No tasks found for word: " + word);
-        } else {
-            String listOfFoundedTask =
-                    "Here are the matching tasks in your list:\n"
-                            + IntStream.range(0, tasks.size())
-                                    .mapToObj(i -> (i + 1) + ". " + tasks.get(i))
-                                    .collect(Collectors.joining("\n", "", "\n"));
-
-            System.out.println(LINE);
-            System.out.print(listOfFoundedTask);
-            System.out.println(LINE);
+            return;
         }
+        
+        String listOfFoundedTask =
+                "Here are the matching tasks in your list:\n"
+                        + IntStream.range(0, tasks.size())
+                        .mapToObj(i -> (i + 1) + ". " + tasks.get(i))
+                        .collect(Collectors.joining("\n", "", "\n"));
+
+        System.out.println(LINE);
+        System.out.print(listOfFoundedTask);
+        System.out.println(LINE);
     }
 
 

@@ -34,18 +34,18 @@ public class ErrorHandlerTest {
     @Test
     public void testValidateDescription_valid() {
         assertDoesNotThrow(() -> {
-            ErrorHandler.validateDescription("valid description", "todo", "todo");
+            ErrorHandler.validateDescription("valid description");
         });
     }
 
     @Test
     public void testValidateDescription_empty() {
         assertThrows(PhucException.class, () -> {
-            ErrorHandler.validateDescription("", "todo", "todo");
+            ErrorHandler.validateDescription("");
         });
 
         assertThrows(PhucException.class, () -> {
-            ErrorHandler.validateDescription("   ", "todo", "todo");
+            ErrorHandler.validateDescription("   ");
         });
     }
 }

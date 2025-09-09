@@ -18,17 +18,17 @@ public class ProcessInputTest {
 
     @Test
     void testStartDoesNotThrow() {
-        assertDoesNotThrow(() -> processInput.start());
+        assertDoesNotThrow(() -> processInput.sayGreetingMessage());
     }
 
     @Test
     void testEndDoesNotThrow() {
-        assertDoesNotThrow(() -> processInput.end());
+        assertDoesNotThrow(() -> processInput.sayGoodbyeMessage());
     }
 
     @Test
     void testLoadDoesNotThrow() {
-        assertDoesNotThrow(() -> processInput.load());
+        assertDoesNotThrow(() -> processInput.loadDataFromStorage());
     }
 
     @Test

@@ -29,9 +29,11 @@ public class Phuc {
      *
      * @throws PhucException if any error occurs during application execution
      */
-    public void run() throws PhucException {
-        pi.start();
-        pi.load();
+    public void runForCommandLineInterface() throws PhucException {
+        //Print out greeting message
+        pi.sayGreetingMessage();
+        //Load data from storage
+        pi.loadDataFromStorage();
 
         Scanner sc = new Scanner(System.in);
 
@@ -39,7 +41,7 @@ public class Phuc {
             try {
                 String input = sc.nextLine();
                 if (input.equals("bye")) {
-                    pi.end();
+                    pi.sayGoodbyeMessage();
                     break;
                 }
                 pi.process(input);
@@ -58,15 +60,15 @@ public class Phuc {
      * @return the formatted response string captured from console output
      * @throws PhucException for many
      */
-    public String getResponse(String input) throws PhucException {
+    public String runForGraphicalUserInterface(String input) throws PhucException {
         if (!haveLoadData) {
-            pi.load();
+            pi.loadDataFromStorage();
             haveLoadData = true;
         }
         return OutputCapture.captureOutput(() -> {
             try {
                 if (input.equals("bye")) {
-                    pi.end();
+                    pi.sayGoodbyeMessage();
                 } else {
                     pi.process(input);
                 }

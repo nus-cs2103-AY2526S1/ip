@@ -67,7 +67,7 @@ public class MainWindow extends AnchorPane {
                 isEnd = true;
             }
 
-            String response = phuc.getResponse(input);
+            String response = phuc.runForGraphicalUserInterface(input);
 
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),

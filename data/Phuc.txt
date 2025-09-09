@@ -1,4 +1,4 @@
-T | false | Buy groceries
+T | true | Buy groceries
 D | true | Submit report | 15/12/2023 1700
 E | false | Birthday party | 16/12/2023 1800 | 17/12/2023 0200
 T | true | Booking hotel
@@ -11,3 +11,5 @@ D | false | Submit report | 15/12/2023 1700
 D | false | Finish project | 20/12/2023 2359
 E | false | Team meeting | 15/12/2023 1400 | 15/12/2023 1600
 E | false | Conference | 15/12/2023 0900 | 17/12/2023 1800
+D | true | booking airplane ticket | 20/11/2100 0000
+T | false | buy things from supermarket

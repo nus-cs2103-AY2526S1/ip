@@ -40,7 +40,7 @@ public class Task {
      * @return "X" if completed, " " if not completed
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return (isDone ? "X" : "   ");
     }
 
     /**

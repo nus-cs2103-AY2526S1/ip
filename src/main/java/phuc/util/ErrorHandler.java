@@ -31,39 +31,28 @@ public class ErrorHandler {
     /** Error message for invalid number format */
     public static final String ERROR_NUMBER_FORMAT =
             "Please enter a valid number for the task index (＞﹏＜)";
-    /** Error message for empty command */
-    public static final String ERROR_EMPTY_COMMAND =
-            "Please enter a command (・人・)";
-
-    /**
-     * Throws an exception for an error command input.
-     *
-     * @throws PhucException
-     */
-    public static void setErrorEmptyCommand() throws PhucException {
-        throw new PhucException(ERROR_EMPTY_COMMAND);
-    }
 
     /**
      * Validates that a task index is within valid bounds.
      *
-     * @param input the input string to validate
+     * @param taskIndexInStringFormat the taskIndexInStringFormat string to validate
      * @param maxIndex the maximum valid index
-     * @throws PhucException if the input is invalid or out of bounds
+     * @throws PhucException if the taskIndexInStringFormat is invalid or out of bounds
      */
-    public static void validateTaskIndex(String input, int maxIndex) throws PhucException {
+    public static void validateTaskIndex(String taskIndexInStringFormat, int maxIndex) throws PhucException {
+        boolean isNotValidTaskIndex = taskIndexInStringFormat == null || taskIndexInStringFormat.trim().isEmpty();
         assert maxIndex >= 0;
-        if (input == null || input.trim().isEmpty()) {
+
+        if (isNotValidTaskIndex) {
             throw new PhucException(String.format(ERROR_INVALID_TASK_NUMBER, maxIndex - 1));
         }
 
         try {
-            int index = Integer.parseInt(input.trim()) - 1;
+            int index = Integer.parseInt(taskIndexInStringFormat.trim()) - 1;
 
             if (index < 0 || index >= maxIndex) {
                 throw new PhucException(String.format(ERROR_INVALID_TASK_NUMBER, maxIndex - 1));
             }
-
         } catch (NumberFormatException e) {
             throw new PhucException(ERROR_NUMBER_FORMAT);
         }
@@ -73,39 +62,42 @@ public class ErrorHandler {
      * Validates that a task description is not empty.
      *
      * @param description the description to validate
-     * @param taskType the type of task (for error message)
-     * @param command the command used (for error message)
      * @throws PhucException if the description is empty
      */
-    public static void validateDescription(String description, String taskType, String command)
+    public static void validateDescription(String description)
             throws PhucException {
-        if (description == null || description.trim().isEmpty()) {
-            throw new PhucException(String.format(ERROR_EMPTY_DESCRIPTION, taskType, command));
+        boolean isNotValidDescription = description == null || description.trim().isEmpty();
+
+        if (isNotValidDescription) {
+            throw new PhucException(String.format(ERROR_EMPTY_DESCRIPTION));
         }
     }
 
     /**
-     * Validates and parses event format arguments.
+     * Validates and parses event format eventInStringForm.
      * Returns a string that have parsed in form {description, startDate ,endDate}
      *
-     * @param arguments the event arguments string
+     * @param eventInStringForm the event eventInStringForm string
      * @return array containing description, start date, and end date
      * @throws PhucException if the event format is invalid
      */
-    public static String[] validateEventFormat(String arguments) throws PhucException {
-        if (arguments == null || arguments.trim().isEmpty()) {
+    public static String[] validateEventFormat(String eventInStringForm) throws PhucException {
+        boolean isNotValidEventFormat = eventInStringForm == null || eventInStringForm.trim().isEmpty();
+
+        if (isNotValidEventFormat) {
             throw new PhucException(ERROR_EVENT_FORMAT);
         }
 
-        String[] parts = arguments.split("/from", 2);
+        String[] parts = eventInStringForm.split("/from", 2);
+
         if (parts.length != 2) {
             throw new PhucException(ERROR_EVENT_FORMAT);
         }
 
         String description = parts[0].trim();
-        validateDescription(description, "event", "event");
-
+        validateDescription(description);
         String[] dateParts = parts[1].split("/to", 2);
+
         if (dateParts.length != 2) {
             throw new PhucException(ERROR_EVENT_FORMAT);
         }
@@ -133,7 +125,9 @@ public class ErrorHandler {
      * @throws PhucException if the deadline format is invalid
      */
     public static String[] validateDeadlineFormat(String arguments) throws PhucException {
-        if (arguments == null || arguments.trim().isEmpty()) {
+        boolean isNotValidDeadline = arguments == null || arguments.trim().isEmpty();
+
+        if (isNotValidDeadline) {
             throw new PhucException(ERROR_DEADLINE_FORMAT);
         }
 
@@ -143,10 +137,11 @@ public class ErrorHandler {
         }
 
         String description = parts[0].trim();
-        validateDescription(description, "deadline", "deadline");
-
+        validateDescription(description);
         String deadline = parts[1].trim();
-        if (deadline.isEmpty()) {
+        boolean isNotValidDeadlineDescription = deadline.isEmpty() || deadline.trim().isEmpty();
+
+        if (isNotValidDeadlineDescription) {
             throw new PhucException(ERROR_DEADLINE_FORMAT);
         }
 
