@@ -18,6 +18,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime by) {
         super(Task.TaskType.DEADLINE, description);
+        assert by != null : "Deadline date/time should not be null";
         this.by = by;
     }
 
@@ -27,6 +28,7 @@ public class Deadline extends Task {
      * @return the formatted deadline time in the pattern "MMM dd yyyy HHmm".
      */
     public String byToFormat() {
+        assert by != null : "Deadline 'by' field must not be null before formatting";
         return by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm", Locale.ENGLISH));
     }
 
