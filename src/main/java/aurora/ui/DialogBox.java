@@ -13,6 +13,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * Represents a custom dialog box consisting of a text label and an image.
+ * The {@code DialogBox} is used in the GUI to display user and Aurora responses.
+ */
+
 public class DialogBox extends HBox {
 
     @FXML
@@ -20,6 +25,13 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Creates a {@code DialogBox} with the specified text and display image.
+     * The FXML layout is loaded, and the text and image are initialized.
+     *
+     * @param s The text content to display in the dialog box.
+     * @param i The image to display beside the text.
+     */
     public DialogBox(String s, Image i) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
