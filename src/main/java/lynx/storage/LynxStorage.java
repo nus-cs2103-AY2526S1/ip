@@ -41,6 +41,7 @@ public abstract class LynxStorage {
      */
     public static void loadTasks(List<String> tasks, LynxTaskList taskList) throws LynxException {
         taskList.clearTasks();
+        assert(taskList.getCount() == 0);
         int errorCount = 0;
 
         for (String task : tasks) {

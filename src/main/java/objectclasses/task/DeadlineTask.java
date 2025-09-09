@@ -37,7 +37,7 @@ public class DeadlineTask extends Task {
      * @throws LynxException If input is of invalid format or deadline is invalid.
      */
     public static Task of(String[] parts) throws LynxException {
-        if (parts.length < 5) {
+        if (parts.length != 5) {
             throw new LynxException("");
         }
         String status = parts[1];
@@ -58,7 +58,7 @@ public class DeadlineTask extends Task {
      * @throws LynxException If command, name or date is invalid.
      */
     public static Task of(String input) throws LynxException {
-        if (input.length() <= 8) {
+        if (!input.startsWith("deadline ")) {
             throw new MissingArgumentException("deadline");
         }
         String[] parts = input.substring(8).split(" /by ", 2);

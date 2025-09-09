@@ -41,7 +41,7 @@ public class EventTask extends Task {
      * @throws LynxException If input is of invalid format or start / end is invalid.
      */
     public static Task of(String[] parts) throws LynxException {
-        if (parts.length < 6) {
+        if (parts.length != 6) {
             throw new LynxException("");
         }
         String status = parts[1];
@@ -63,7 +63,7 @@ public class EventTask extends Task {
      * @throws LynxException If command, name or date is invalid.
      */
     public static Task of(String input) throws LynxException {
-        if (input.length() <= 5) {
+        if (!input.startsWith("event ")) {
             throw new MissingArgumentException("event");
         }
         String[] parts = input.substring(5).split(" /from ", 2);
@@ -86,14 +86,6 @@ public class EventTask extends Task {
             throw new LynxException("The start date/time cannot be after the end date/time.");
         }
         return new EventTask(name, from, to);
-    }
-
-    public LocalDateTime getStart() {
-        return start;
-    }
-
-    public LocalDateTime getEnd() {
-        return end;
     }
 
     /**

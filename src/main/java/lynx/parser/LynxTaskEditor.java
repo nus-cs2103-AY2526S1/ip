@@ -138,6 +138,9 @@ public class LynxTaskEditor {
 
         String actionDialogue = command.actionDialogue();
         String resultDialogue = performOnTasks(action, command.getSearchResult(), command.emptyDialogue());
+        assert(!actionDialogue.isEmpty());
+        assert(!resultDialogue.isEmpty());
+
         return String.format("%s%s", actionDialogue, resultDialogue);
     }
 
@@ -152,6 +155,7 @@ public class LynxTaskEditor {
     private static String performOnTasks(Consumer<Task> consumer, List<Task> tasks, String empty) {
         int count = 0;
         StringBuilder stringBuilder = new StringBuilder();
+
         for (Task task : tasks) {
             count++;
             consumer.accept(task);
@@ -160,6 +164,8 @@ public class LynxTaskEditor {
         if (count == 0) {
             stringBuilder.append(String.format("%n%s", empty));
         }
+
+        assert (!stringBuilder.isEmpty());
         return stringBuilder.toString();
     }
 

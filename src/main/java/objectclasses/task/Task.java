@@ -138,6 +138,7 @@ public abstract class Task {
     }
 
     public int getId() {
+        assert(id >= 0);
         return id;
     }
 
