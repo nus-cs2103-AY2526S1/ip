@@ -79,6 +79,16 @@ public class BeeBong {
         assert this.taskList != null : "TaskList is empty";
     }
 
+    public void exitSession(String message) {
+        this.ui.printBotExitMessage(message);
+        // Disable User Input
+        this.ui.disableUserInput();
+        // Start shutdown timer
+        PauseTransition delay = new PauseTransition(Duration.seconds(3));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
+    }
+
     /**
      * Parses a user's input using the chatbot's parser.
      *
@@ -95,13 +105,7 @@ public class BeeBong {
 
             String res = command.execute(this.taskList, this.storage);
             if (command.isExit()) {
-                this.ui.printBotExitMessage(res);
-                // Disable User Input
-                this.ui.disableUserInput();
-                // Start shutdown timer
-                PauseTransition delay = new PauseTransition(Duration.seconds(3));
-                delay.setOnFinished(event -> Platform.exit());
-                delay.play();
+                exitSession(res);
             } else {
                 this.ui.printBotMessage(res);
             }
