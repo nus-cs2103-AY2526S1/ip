@@ -5,15 +5,11 @@ import minhgpt.task.TaskList;
 import minhgpt.ui.Ui;
 
 /**
- * Encapsulate the list task command.
+ * Encapsulate the delete task command.
  */
-class CommandList extends Command {
-    static {
-        register("^list$", CommandList::new);
-    }
-
+class CommandInvalid extends Command {
     @Override
     public String execute(String input, TaskList taskList, Ui ui, Storage storage) {
-        return ui.getListResponse(taskList);
+        return ui.getInvalidInputResponse();
     }
 }

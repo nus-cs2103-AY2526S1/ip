@@ -16,6 +16,6 @@ class CommandBye extends Command {
     public String execute(String input, TaskList taskList, Ui ui, Storage storage) {
         storage.saveTasks(taskList);
         System.exit(0);
-        return ui.exitMessage();
+        return ui.getExitMessage();
     }
 }

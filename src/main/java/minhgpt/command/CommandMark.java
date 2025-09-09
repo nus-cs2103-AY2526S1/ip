@@ -16,9 +16,9 @@ class CommandMark extends Command {
     public String execute(String input, TaskList taskList, Ui ui, Storage storage) {
         int index = Integer.parseInt(input.split("\\s+", 2)[1]) - 1;
         try {
-            return ui.markResponse(taskList.mark(index));
+            return ui.getMarkResponse(taskList.mark(index));
         } catch (IndexOutOfBoundsException e) {
-            return ui.indexErrorResponse();
+            return ui.getIndexErrorResponse();
         }
     }
 }

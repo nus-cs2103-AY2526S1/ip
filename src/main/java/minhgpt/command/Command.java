@@ -61,6 +61,6 @@ public abstract class Command {
             }
         }
 
-        return new CommandAdd();
+        return new CommandInvalid();
     }
 }
