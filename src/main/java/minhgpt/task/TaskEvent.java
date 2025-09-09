@@ -36,6 +36,11 @@ class TaskEvent extends Task {
         return commands;
     }
 
+    @Override
+    public LocalDate getSortingDate() {
+        return from;
+    }
+
     /**
      * @return String representation of an event task.
      */

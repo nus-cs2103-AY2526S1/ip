@@ -56,6 +56,7 @@ public abstract class Command {
         new CommandMark();
         new CommandUnmark();
         new CommandFind();
+        new CommandSort();
     }
 
     /**

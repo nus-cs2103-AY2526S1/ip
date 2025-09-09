@@ -1,5 +1,6 @@
 package minhgpt.task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -24,6 +25,11 @@ class TaskTodo extends Task {
         ArrayList<String> commands = super.toCommands();
         commands.set(0, String.format("todo %s", commands.get(0)));
         return commands;
+    }
+
+    @Override
+    public LocalDate getSortingDate() {
+        return LocalDate.parse("3000-01-01");
     }
 
     /**
