@@ -58,6 +58,9 @@ public class Rafayel {
      * @throws RafayelException if the input format or task number is invalid.
      */
     private static String handleMarkCommand(String input, TaskList tasks, boolean markTask) throws RafayelException {
+        assert input != null : "Input cannot be null";
+        assert tasks != null : "TaskList cannot be null";
+
         int minLen = markTask ? 5 : 7;
         if (input.length() <= minLen) {
             throw new RafayelException("Please state what task to be marked/unmarked.");
@@ -69,6 +72,10 @@ public class Rafayel {
             throw new RafayelException("Invalid task number.");
         }
         taskNumber--;
+        assert taskNumber >= 0 && taskNumber < tasks.getSize() : "Adjusted task number should be within valid range";
+
+        assert tasks.get(taskNumber) != null : "Task at " + taskNumber + " should not be null";
+
         if (markTask) {
             tasks.get(taskNumber).markAsDone();
             System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(taskNumber).toString());
@@ -88,8 +95,7 @@ public class Rafayel {
      * @param counter the current number of tasks in the ArrayList.
      */
     private static String printNewTaskString(Task newTask, int counter) {
-        return String.format(
-                "Got it. I've added this task:\n %s\nNow you have %d tasks in the list.",
+        return String.format("Got it. I've added this task:\n %s\nNow you have %d tasks in the list.",
                 newTask.toString(), counter);
     }
 
@@ -101,6 +107,9 @@ public class Rafayel {
      * @throws RafayelException if the input format is invalid or description is missing.
      */
     private static String handleTodoCommand(String input, TaskList tasks) throws RafayelException {
+        assert input != null : "Input cannot be null";
+        assert tasks != null : "TaskList cannot be null";
+
         if (input.length() <= 5) {
             throw new RafayelException("Please add in the description of the Todo task.");
         }
@@ -119,6 +128,9 @@ public class Rafayel {
      * @throws RafayelException if the input format is invalid, description is missing or date format is wrong.
      */
     private static String handleDeadlineCommand(String input, TaskList tasks) throws RafayelException {
+        assert input != null : "Input cannot be null";
+        assert tasks != null : "TaskList cannot be null";
+
         if (input.length() <= 10) {
             throw new RafayelException("Please add in the description of the Deadline task.");
         }
@@ -167,6 +179,9 @@ public class Rafayel {
      * @throws RafayelException if the input format is invalid, description is missing, or date formats are incorrect.
      */
     private static String handleEventCommand(String input, TaskList tasks) throws RafayelException {
+        assert input != null : "Input cannot be null";
+        assert tasks != null : "TaskList cannot be null";
+
         if (input.length() <= 6) {
             throw new RafayelException("Please add in the description of the Event task.");
         }
@@ -194,8 +209,15 @@ public class Rafayel {
      * @throws RafayelException if there's any error while executing user commands
      */
     public String getResponse(String input) throws RafayelException {
+
+        assert input != null : "Input cannot be null";
+        assert tasks != null : "TaskList cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         try {
             Parser.CommandType commandType = Parser.parse(input);
+            assert commandType != null : "Parser should never return null command type";
+
             switch (commandType) {
             case BYE:
                 return ui.showExit();
@@ -205,22 +227,27 @@ public class Rafayel {
 
             case MARK:
                 // Mark task
+                assert input.length() > 4 : "Mark command should have additional arguments";
                 return handleMarkCommand(input, tasks, true);
 
             case UNMARK:
                 // Unmark task
+                assert input.length() > 6 : "Unmark command should have additional arguments";
                 return handleMarkCommand(input, tasks, false);
 
             case TODO:
                 // Create Todo Task
+                assert input.length() > 4 : "Todo command should have a description";
                 return handleTodoCommand(input, tasks);
 
             case DEADLINE:
                 // Create Deadline Task
+                assert input.length() > 8 : "Deadline command should have additional arguments";
                 return handleDeadlineCommand(input, tasks);
 
             case EVENT:
                 // Create Event Task
+                assert input.length() > 5 : "Event command should have additional arguments";
                 return handleEventCommand(input, tasks);
 
             case DELETE:
@@ -230,12 +257,13 @@ public class Rafayel {
                 }
                 String[] temp = input.split(" ");
                 int taskNumber = Integer.parseInt(temp[1]);
+                assert taskNumber > 0 : "Task number should be positive";
 
                 taskNumber--;
+                assert taskNumber >= 0 && taskNumber < tasks.getSize() : "Task number should be within valid range";
+
                 Task deletedTask = tasks.remove(taskNumber);
 
-                System.out.println("Noted. I've removed this task:\n  " + deletedTask.toString() + "\nNow you have "
-                        + tasks.getSize() + " tasks in the list.");
                 return "Noted. I've removed this task:\n  " + deletedTask.toString() + "\nNow you have "
                         + tasks.getSize() + " tasks in the list.";
 
@@ -245,12 +273,13 @@ public class Rafayel {
                     throw new RafayelException("Please indicate what to find in the task (i.e. find book)");
                 }
                 String substring = input.substring(5).trim();
+                assert !substring.isEmpty() : "Search substring should not be empty";
+
                 ArrayList<Task> matchedTasks = tasks.matchTasks(substring);
+                assert matchedTasks != null : "Matched tasks list should not be null";
 
                 String res = "Here are the matching tasks in your list:\n";
-                System.out.println("Here are the matching tasks in your list:");
                 for (int i = 0; i < matchedTasks.size(); i++) {
-                    System.out.println(i + 1 + "." + matchedTasks.get(i).toString());
                     res += i + 1 + "." + matchedTasks.get(i).toString() + "\n";
                 }
                 return res;
