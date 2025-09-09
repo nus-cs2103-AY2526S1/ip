@@ -17,15 +17,6 @@ public class TaskList {
     }
 
     /**
-     * Creates a TaskList from an existing list of tasks
-     *
-     * @param tasks the initial list of tasks
-     */
-    public TaskList(ArrayList<Task> tasks) {
-        this.tasks = new ArrayList<>(tasks);
-    }
-
-    /**
      * Adds a task to the list
      * @param task the task to add
      */

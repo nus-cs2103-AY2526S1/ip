@@ -22,14 +22,14 @@ public class ProcessInput {
     /**
      * Gives command for the welcome message when the application starts.
      */
-    public void start() {
+    public void sayGreetingMessage() {
         ui.sayHello();
     }
 
     /**
      * Gives command for the goodbye message when the application starts.
      */
-    public void end() {
+    public void sayGoodbyeMessage() {
         ui.sayGoodbye();
     }
 
@@ -38,7 +38,7 @@ public class ProcessInput {
      *
      * @throws PhucException if storage file meet an error
      */
-    public void load() throws PhucException {
+    public void loadDataFromStorage() throws PhucException {
         ui.load();
     }
 
@@ -88,22 +88,25 @@ public class ProcessInput {
     /**
      * Handles the delete command to remove a task.
      *
-     * @param arguments the task index to delete
+     * @param taskIndexInStringFormat the task index to delete
      * @throws PhucException if the index is invalid
      */
-    private void handleDelete(String arguments) throws PhucException {
-        ErrorHandler.validateTaskIndex(arguments, ui.numTasks());
-        ui.delete(arguments);
+    private void handleDelete(String taskIndexInStringFormat) throws PhucException {
+        //Check if the task index is valid or not
+        ErrorHandler.validateTaskIndex(taskIndexInStringFormat, ui.numTasks());
+        ui.delete(taskIndexInStringFormat);
     }
 
     /**
      * Handles the event command to add a new event task.
      *
-     * @param arguments the event description and time range
+     * @param eventInStringForm the event description and time range
      * @throws PhucException if the event format is invalid
      */
-    private void handleEvent(String arguments) throws PhucException {
-        String[] eventArg = ErrorHandler.validateEventFormat(arguments);
+    private void handleEvent(String eventInStringForm) throws PhucException {
+        //Check if the event string is valid and extract it start and end date
+        String[] eventArg = ErrorHandler.validateEventFormat(eventInStringForm);
+        //Transform date, time of start date and end date from string to localdatetime
         LocalDateTime startDate = ErrorHandler.validateAndParseDateTime(eventArg[1]);
         LocalDateTime endDate = ErrorHandler.validateAndParseDateTime(eventArg[2]);
         ui.event(eventArg[0], startDate, endDate);
@@ -116,41 +119,47 @@ public class ProcessInput {
      * @throws PhucException if the deadline format is invalid
      */
     private void handleDeadline(String arguments) throws PhucException {
+        //Check if the deadline task is valid or not and extract deadline and task description in it
         String[] deadlineArg = ErrorHandler.validateDeadlineFormat(arguments);
+        String taskDescription = deadlineArg[0];
+        //Transform date, time of deadline from string to localdatetime
         LocalDateTime deadline = ErrorHandler.validateAndParseDateTime(deadlineArg[1]);
-        ui.deadline(deadlineArg[0], deadline);
+        ui.deadline(taskDescription, deadline);
     }
 
     /**
      * Handles the todo command to add a new to-do task.
      *
-     * @param arguments the to-do description
+     * @param taskDescription the to-do description
      * @throws PhucException if the description is empty
      */
-    private void handleTodo(String arguments) throws PhucException {
-        ErrorHandler.validateDescription(arguments, "todo", "todo");
-        ui.toDo(arguments);
+    private void handleTodo(String taskDescription) throws PhucException {
+        //Check if the task description is valid or not
+        ErrorHandler.validateDescription(taskDescription);
+        ui.toDo(taskDescription);
     }
 
     /**
      * Handles the unmark command to mark a task as not done.
      *
-     * @param arguments the task index to unmark
+     * @param taskIndexInStringFormat the task index to unmark
      * @throws PhucException if the index is invalid
      */
-    private void handleUnmark(String arguments) throws PhucException {
-        ErrorHandler.validateTaskIndex(arguments, ui.numTasks());
-        ui.unMark(arguments);
+    private void handleUnmark(String taskIndexInStringFormat) throws PhucException {
+        //Check if the index is valid
+        ErrorHandler.validateTaskIndex(taskIndexInStringFormat, ui.numTasks());
+        ui.unMark(taskIndexInStringFormat);
     }
 
     /**
      * Handles the mark command to mark a task as done.
      *
-     * @param arguments the task index to mark
+     * @param taskIndexInStringFormat the task index to mark
      * @throws PhucException if the index is invalid
      */
-    private void handleMark(String arguments) throws PhucException {
-        ErrorHandler.validateTaskIndex(arguments, ui.numTasks());
-        ui.mark(arguments);
+    private void handleMark(String taskIndexInStringFormat) throws PhucException {
+        //Check if the index is valid
+        ErrorHandler.validateTaskIndex(taskIndexInStringFormat, ui.numTasks());
+        ui.mark(taskIndexInStringFormat);
     }
 }
