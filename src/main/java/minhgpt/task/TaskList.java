@@ -1,6 +1,7 @@
 package minhgpt.task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Responsible for all operations done on the list of tasks.
@@ -68,5 +69,13 @@ public class TaskList {
         Task toBeDeleted = tasks.get(index);
         tasks.remove(index);
         return toBeDeleted;
+    }
+
+    /**
+     * @return Input commands to re-create this list of tasks.
+     */
+    public String toCommands() {
+        return tasks.stream().map(Task::toCommands).flatMap(List::stream).reduce("",
+                (cmds1, cmds2) -> cmds1 + cmds2 + "\n");
     }
 }
