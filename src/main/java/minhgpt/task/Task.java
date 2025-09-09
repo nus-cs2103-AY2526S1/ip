@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Function;
 
+import minhgpt.ui.Ui;
+
 /**
  * Base class for a task.
  */
@@ -60,6 +62,7 @@ public abstract class Task {
      */
     public static Task parseTask(String input) throws ParseException {
         assert (input != null);
+        Ui ui = new Ui();
 
         try {
             for (String regex : registry.keySet()) {
@@ -68,11 +71,11 @@ public abstract class Task {
                 }
             }
         } catch (DateTimeParseException e) {
-            throw new ParseException("( ˶°ㅁ°) Please input date in the format: yyyy-mm-dd", 0);
+            throw new ParseException(ui.getInvalidDateFormatResponse(), 0);
         }
 
         // If control reaches here, there is no matching task type
-        throw new ParseException("( ˶°ㅁ°) That is not a valid way to input a task!", 0);
+        throw new ParseException(ui.getInvalidTaskFormatResponse(), 0);
     }
 
     /**

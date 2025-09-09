@@ -16,6 +16,6 @@ class CommandList extends Command {
     public String execute(String input, TaskList taskList, Ui ui, Storage storage) {
         super.execute(input, taskList, ui, storage);
 
-        return ui.listResponse(taskList);
+        return ui.getListResponse(taskList);
     }
 }

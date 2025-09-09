@@ -35,7 +35,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-        dialogContainer.getChildren().add(DialogBox.getProgramDialog(Ui.welcomeMessage(), programImage));
+        dialogContainer.getChildren().add(DialogBox.getProgramDialog(Ui.getWelcomeMessage(), programImage));
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 

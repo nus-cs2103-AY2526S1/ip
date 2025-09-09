@@ -59,22 +59,23 @@ public class Storage {
                 i++;
                 String command = scanner.nextLine();
                 if (command.matches("^mark$")) {
+                    assert (tasks.size() > 0);
+
                     // Mark the last task as done
-                    if (tasks.size() > 0) {
-                        tasks.get(tasks.size() - 1).markAsDone();
-                    }
-                } else {
-                    try {
-                        tasks.add(Task.parseTask(command));
-                    } catch (ParseException e) {
-                        Logger.error(
-                                String.format("Line %d is corrupted. Proceeding to next line.", i));
-                    }
+                    tasks.get(tasks.size() - 1).markAsDone();
+                    continue;
+                }
+
+                try {
+                    tasks.add(Task.parseTask(command));
+                } catch (ParseException e) {
+                    Logger.error(
+                            String.format("Line %d is corrupted. Proceeding to next line.", i));
                 }
             }
             scanner.close();
-            Logger.info(
-                    "Found mem.txt, loading tasks from previous sessions. To disable, run with --fresh flag.");
+            Logger.info("Found mem.txt, loading tasks from previous sessions." +
+                    " To disable, run with --fresh flag.");
         } catch (FileNotFoundException e) {
             Logger.info("No memory file detected. Starting fresh.");
         }
