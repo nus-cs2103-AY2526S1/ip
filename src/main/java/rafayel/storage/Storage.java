@@ -178,8 +178,6 @@ public class Storage {
             }
         }
 
-        // System.out.println("Please use one of: MMM d yyyy HH:mm | yyyy/MM/dd HH:mm | dd-MM-yyyy HH:mm");
-
         return null; // Error
     }
 

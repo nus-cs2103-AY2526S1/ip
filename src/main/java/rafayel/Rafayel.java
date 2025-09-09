@@ -35,6 +35,7 @@ public class Rafayel {
     private static final String EVENT_FORMAT_ERROR = "Event format is wrong. Example: event [desc] /from [time] /to [time]";
     public static final String INVALID_TASK_NUM = "Invalid task number.";
     private static final String INVALID_PROMPT = "Please enter a valid prompt! (i.e. todo/deadline/event)";
+    public static final String DATE_FORMAT_ERROR = "Please use one of: MMM d yyyy HH:mm | yyyy/MM/dd HH:mm | dd-MM-yyyy HH:mm";
 
     /**
      * Constructs a new Rafayel chatbot instance with the specified file path for data storage.
@@ -84,23 +85,21 @@ public class Rafayel {
 
         if (markTask) {
             tasks.get(taskNumber).markAsDone();
-            System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(taskNumber).toString());
             return "Nice! I've marked this task as done:\n  " + tasks.get(taskNumber).toString();
         } else {
             tasks.get(taskNumber).markAsUndone();
-            System.out.println("OK, I've marked this task as not done yet:\n  " + tasks.get(taskNumber).toString());
             return "OK, I've marked this task as not done yet:\n  " + tasks.get(taskNumber).toString();
         }
 
     }
 
     /**
-     * Prints the confirmation message when a new task is added to the list
+     * Gets the confirmation message when a new task is added to the list
      *
      * @param newTask the task that was added.
      * @param counter the current number of tasks in the ArrayList.
      */
-    private static String printNewTaskString(Task newTask, int counter) {
+    private static String getNewTaskString(Task newTask, int counter) {
         return String.format("Got it. I've added this task:\n %s\nNow you have %d tasks in the list.",
                 newTask.toString(), counter);
     }
@@ -123,7 +122,7 @@ public class Rafayel {
         Todo newTask = new Todo(input.substring(5).trim());
         tasks.add(newTask);
 
-        return printNewTaskString(newTask, tasks.getSize());
+        return getNewTaskString(newTask, tasks.getSize());
     }
 
     /**
@@ -149,7 +148,7 @@ public class Rafayel {
         Deadline newTask = new Deadline(taskInfo[0].trim(), dateTime);
         tasks.add(newTask);
 
-        return printNewTaskString(newTask, tasks.getSize());
+        return getNewTaskString(newTask, tasks.getSize());
     }
 
     /**
@@ -171,8 +170,6 @@ public class Rafayel {
                 // ignore
             }
         }
-
-        System.out.println("Please use one of: MMM d yyyy HH:mm | yyyy/MM/dd HH:mm | dd-MM-yyyy HH:mm");
 
         return null;
     }
@@ -205,7 +202,7 @@ public class Rafayel {
 
         tasks.add(newTask);
 
-        return printNewTaskString(newTask, tasks.getSize());
+        return getNewTaskString(newTask, tasks.getSize());
     }
 
     /**
@@ -254,8 +251,6 @@ public class Rafayel {
                 taskNumber--;
                 Task deletedTask = tasks.remove(taskNumber);
 
-                System.out.println("Noted. I've removed this task:\n  " + deletedTask.toString() + "\nNow you have "
-                        + tasks.getSize() + " tasks in the list.");
                 return "Noted. I've removed this task:\n  " + deletedTask.toString() + "\nNow you have "
                         + tasks.getSize() + " tasks in the list.";
 
@@ -268,9 +263,7 @@ public class Rafayel {
                 ArrayList<Task> matchedTasks = tasks.matchTasks(substring);
 
                 String res = "Here are the matching tasks in your list:\n";
-                System.out.println("Here are the matching tasks in your list:");
                 for (int i = 0; i < matchedTasks.size(); i++) {
-                    System.out.println(i + 1 + "." + matchedTasks.get(i).toString());
                     res += i + 1 + "." + matchedTasks.get(i).toString() + "\n";
                 }
                 return res;

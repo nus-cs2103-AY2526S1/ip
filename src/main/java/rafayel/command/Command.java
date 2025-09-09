@@ -9,13 +9,12 @@ import rafayel.storage.Storage;
 import rafayel.task.Task;
 import rafayel.task.TaskList;
 
-
 /**
  * An abstract class that represents an executable user command.
  */
 public abstract class Command {
 
-    protected String output = "Sorry! An error occurred!";
+    // protected final String OUTPUT = "Sorry! An error occurred!";
 
     private final Parser.CommandType commandType;
 
@@ -63,14 +62,13 @@ public abstract class Command {
     }
 
     /**
-     * Prints the confirmation message when a new task is added to the list
+     * Gets the confirmation message when a new task is added to the list
      *
      * @param newTask the task that was added.
      * @param counter the current number of tasks in the ArrayList.
      */
     protected static String getNewTaskString(Task newTask, int counter) {
-        return String.format(
-                "Got it. I've added this task:\n %s\nNow you have %d tasks in the list.",
+        return String.format("Got it. I've added this task:\n %s\nNow you have %d tasks in the list.",
                 newTask.toString(), counter);
     }
 }

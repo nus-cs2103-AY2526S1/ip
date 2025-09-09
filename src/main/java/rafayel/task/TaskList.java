@@ -117,13 +117,10 @@ public class TaskList {
      */
     public String getTaskList() {
         if (this.getSize() == 0) {
-            // System.out.println("There's nothing in the list.");
             return "There's nothing in the list.";
         } else {
-            // System.out.println("Here are the tasks in your list:");
             String result = "Here are the tasks in your list:\n";
             for (int i = 0; i < this.getSize(); i++) {
-                // System.out.println(i + 1 + "." + tasks.get(i).toString());
                 String temp = i + 1 + "." + tasks.get(i).toString() + "\n";
                 result += temp;
             }
