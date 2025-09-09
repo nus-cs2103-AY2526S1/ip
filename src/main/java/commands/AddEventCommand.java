@@ -17,6 +17,7 @@ public class AddEventCommand extends Command {
     private final String description;
     private final String from;
     private final String to;
+    private int addedTaskIndex = -1;
 
     /**
      * Creates a new {@code AddEventCommand} with the given description,
@@ -42,6 +43,25 @@ public class AddEventCommand extends Command {
         storage.save(tasks.getAllTasks());
         ui.showLine();
         message = "oki! i've added this task:\n  " + t
+                + "\nnow you have " + tasks.size() + " tasks left!";
+        ui.showLine();
+    }
+
+    @Override
+    public void undo(Object... args) throws RainyException {
+        if (addedTaskIndex == -1) {
+            message = "hmm... nothing to undo for this event.";
+            return;
+        }
+        TaskList tasks = (TaskList) args[0];
+        Ui ui = (Ui) args[1];
+        Storage storage = (Storage) args[2];
+
+        Task removed = tasks.deleteTask(addedTaskIndex);
+        storage.save(tasks.getAllTasks());
+
+        ui.showLine();
+        message = "undo oki! removed this event:\n  " + removed
                 + "\nnow you have " + tasks.size() + " tasks left!";
         ui.showLine();
     }

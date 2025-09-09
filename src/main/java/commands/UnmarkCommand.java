@@ -28,4 +28,16 @@ public class UnmarkCommand extends Command {
         message = "oki, i've marked this task as not done yet:\n  " + tasks.getTask(index);
         ui.showLine();
     }
+
+    @Override
+    public void undo(Object... args) throws RainyException {
+        TaskList tasks = (TaskList) args[0];
+        Ui ui = (Ui) args[1];
+        Storage storage = (Storage) args[2];
+        tasks.markTask(index);
+        storage.save(tasks.getAllTasks());
+        ui.showLine();
+        message = "undo oki! re-marked this task as done:\n  " + tasks.getTask(index);
+        ui.showLine();
+    }
 }

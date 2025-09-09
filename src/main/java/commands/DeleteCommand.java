@@ -13,6 +13,7 @@ import ui.Ui;
  */
 public class DeleteCommand extends Command {
     private final int index;
+    private Task deletedTask;
 
     public DeleteCommand(int index) {
         this.index = index;
@@ -23,11 +24,29 @@ public class DeleteCommand extends Command {
         TaskList tasks = (TaskList) args[0];
         Ui ui = (Ui) args[1];
         Storage storage = (Storage) args[2];
-        Task removedTask = tasks.deleteTask(index);
+        deletedTask = tasks.deleteTask(index);
         storage.save(tasks.getAllTasks());
         ui.showLine();
-        message = "oki! i've removed this task:\n  " + removedTask
+        message = "oki! i've removed this task:\n  " + deletedTask
                 + "\nnow you have " + tasks.size() + " tasks left!";
         ui.showLine();
+    }
+
+    @Override
+    public void undo(Object... args) throws RainyException {
+        if (deletedTask == null) {
+            message = "hmm... nothing to undo for this delete.";
+            return;
+        }
+        TaskList tasks = (TaskList) args[0];
+        Ui ui = (Ui) args[1];
+        Storage storage = (Storage) args[2];
+        tasks.getAllTasks().add(index, deletedTask);
+        storage.save(tasks.getAllTasks());
+        ui.showLine();
+        message = "undo oki! restored this task:\n  " + deletedTask
+                + "\nnow you have " + tasks.size() + " tasks left!";
+        ui.showLine();
+        deletedTask = null;
     }
 }

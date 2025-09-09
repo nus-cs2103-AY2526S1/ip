@@ -16,6 +16,7 @@ import ui.Ui;
 public class AddDeadlineCommand extends Command {
     private final String description;
     private final String by;
+    private int addedTaskIndex = -1;
 
     /**
      * Creates a new {@code AddDeadlineCommand} with the given description
@@ -37,9 +38,29 @@ public class AddDeadlineCommand extends Command {
 
         Task t = new Deadline(description, by);
         tasks.addTask(t);
+        addedTaskIndex = tasks.size() - 1;
         storage.save(tasks.getAllTasks());
         ui.showLine();
         message = "oki! i've added this task:\n  " + t
+                + "\nnow you have " + tasks.size() + " tasks left!";
+        ui.showLine();
+    }
+
+    @Override
+    public void undo(Object... args) throws RainyException {
+        if (addedTaskIndex == -1) {
+            message = "hmm... nothing to undo for this deadline.";
+            return;
+        }
+        TaskList tasks = (TaskList) args[0];
+        Ui ui = (Ui) args[1];
+        Storage storage = (Storage) args[2];
+
+        Task removed = tasks.deleteTask(addedTaskIndex);
+        storage.save(tasks.getAllTasks());
+
+        ui.showLine();
+        message = "undo oki! removed this deadline:\n  " + removed
                 + "\nnow you have " + tasks.size() + " tasks left!";
         ui.showLine();
     }

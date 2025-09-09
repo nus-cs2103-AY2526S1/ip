@@ -4,3 +4,4 @@ D | 0 | do homework | 2025-01-01T23:59
 T | 0 | eat
 T | 0 | read book
 T | 0 | readbook
+T | 0 | read book

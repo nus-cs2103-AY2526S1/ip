@@ -71,7 +71,7 @@ public class DialogBox extends HBox {
             dialog.getStyleClass().add("error-label");
             break;
         default:
-            assert false : "Unhandled commandType: " + commandType;
+            //nothing
         }
     }
 

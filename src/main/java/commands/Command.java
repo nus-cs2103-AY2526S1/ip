@@ -27,4 +27,12 @@ public abstract class Command {
     public boolean isExit() {
         return false;
     }
+
+    /**
+     * Undo the effect of this command.
+     * Default: do nothing.
+     */
+    public void undo(Object... args) throws RainyException {
+        // to be overridden
+    }
 }
