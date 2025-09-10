@@ -1,35 +1,36 @@
 .label {
-    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
-    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
-    -fx-border-width: 2px;
-    -fx-background-radius: 1em 1em 0 1em;
-    -fx-border-radius: 1em 1em 0 1em;
+    -fx-background-color: linear-gradient(to bottom right, #3298a8, rgba(78, 100, 250, 0.9));
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+    -fx-background-radius: 4em 2em 4em 1em;
+    -fx-border-radius: 3em 0 3em 3em;
 }
 
 .reply-label {
-    -fx-background-radius: 1em 1em 1em 0;
-    -fx-border-radius: 1em 1em 1em 0;
+    -fx-background-radius: 4em 1em 4em 2em;
+    -fx-border-radius: 3em 3em 3em 0;
+    -fx-translate-y: -25;
 }
 
 .add-label {
-    -fx-background-color: yellow;
+    -fx-background-color: linear-gradient(to bottom right, rgba(78, 100, 250, 0.9), rgba(65, 7, 122, 0.9));
 }
 
 .marked-label {
-    -fx-background-color: palegreen;
+    -fx-background-color: linear-gradient(to bottom right, rgba(78, 100, 250, 0.9), #012e09);
 }
 
 .delete-label {
-    -fx-background-color: lightpink;
+    -fx-background-color: linear-gradient(to bottom right, rgba(78, 100, 250, 0.9), #66050d);
 }
 
 #displayPicture {
     /* Shadow effect on image. */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0), 10, 0.5, 5, 5);
 
     /* Change size of image. */
-    -fx-scale-x: 1;
-    -fx-scale-y: 1;
+    -fx-scale-x: 0.8;
+    -fx-scale-y: 0.8;
 
     /* Rotate image clockwise by degrees. */
     -fx-rotate: 0;

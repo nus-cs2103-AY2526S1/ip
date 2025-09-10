@@ -74,7 +74,7 @@ public class UI {
      */
     public String deleteTask(Task task, int taskCount) {
         String header = "  Noted. I've removed this task:\n    ";
-        String closer = "h\n  Now you have " + taskCount + " tasks in the list! \n  (─.─)ゞ";
+        String closer = "\n  Now you have " + taskCount + " tasks in the list! \n  (─.─)ゞ";
 
         return header + task + closer;
     }

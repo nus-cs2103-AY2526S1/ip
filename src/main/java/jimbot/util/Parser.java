@@ -23,7 +23,7 @@ public class Parser {
      * @param input User input string.
      * @param command Command string found in user input to split.
      * @param taskCount Current number of tasks in user's task list.
-     * @returns Index parsed from the input (0-based).
+     * @return Index parsed from the input (0-based).
      * @throws NoSuchTaskException If index invalid or out of bounds
      */
     public static int parseIndex(String input, String command, int taskCount) throws NoSuchTaskException {
@@ -78,6 +78,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input string into a LocalDate.
+     * Throws invalidDateTimeException if user string format is invalid.
+     *
+     * @param input User input string in dd/MM/yyyy format.
+     * @return Parsed LocalDate object.
+     * @throws InvalidDateTimeException If in the wrong format.
+     */
     public static LocalDate parseDate(String input) throws InvalidDateTimeException {
         input = input.trim();
 

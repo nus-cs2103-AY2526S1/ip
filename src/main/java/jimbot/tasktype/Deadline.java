@@ -39,11 +39,11 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         if (isMidnight) {
-            return "[D]" + super.toString() + " (BY: "
+            return "[D]" + super.toString() + "\n               (BY: "
                     + dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
 
         } else {
-            return "[D]" + super.toString() + " (BY: "
+            return "[D]" + super.toString() + "\n               (BY: "
                     + dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm")) + ")";
         }
     }
