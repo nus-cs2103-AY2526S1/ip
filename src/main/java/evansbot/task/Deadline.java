@@ -21,6 +21,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
+        assert description != null && !description.isEmpty() : "Description cannot be null or empty";
+        assert by != null && !by.isEmpty() : "Deadline date string cannot be null or empty";
         try {
             this.byDate = LocalDate.parse(by);
             this.byRaw = by;
@@ -40,6 +42,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, boolean isDone, String by) {
         super(description, isDone);
+        assert description != null && !description.isEmpty() : "Description cannot be null or empty";
+        assert by != null && !by.isEmpty() : "Deadline date string cannot be null or empty";
         try {
             this.byDate = LocalDate.parse(by);
             this.byRaw = by;

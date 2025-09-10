@@ -48,7 +48,7 @@ public class Parser {
         } else if (trimmed.startsWith("deadline ")) {
             //split by /by
             String[] information = input.substring(9).split(" /by ", 2);
-            if (information.length < 2) {
+            if (information.length < 2 || !information[0].matches(".*[a-zA-Z].*")) {
                 throw new InvalidDeadlineException();
             }
             String description = information[0];
@@ -57,7 +57,7 @@ public class Parser {
         } else if (trimmed.startsWith("event ")) {
             //split by /from and /to
             String[] information = input.substring(6).split(" /from | /to ", 3);
-            if (information.length < 3) {
+            if (information.length < 3 || !information[0].matches(".*[a-zA-Z].*")) {
                 throw new InvalidEventException();
             }
             String description = information[0];
