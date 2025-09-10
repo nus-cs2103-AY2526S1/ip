@@ -2,14 +2,15 @@ package objectclasses.task;
 
 import java.time.LocalDateTime;
 
+import objectclasses.exception.CommandFormatException;
 import objectclasses.exception.LynxException;
 
 /**
- * Represents a task with a <code>TaskType</code>, <code>Status</code>, name and id for tracking.
+ * Represents a task with a <code>TaskType</code>, <code>Status</code>, name, priority and id for tracking.
  * <p>
  * <code>Status</code> is <code>INCOMPLETE</code> by default, and id is assigned by the constructor.
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
 
     /**
      * Represents the three types of tasks.
@@ -104,6 +105,7 @@ public abstract class Task {
     private static int currId = 0;
     private final int id;
     private String name;
+    private int priority = 0;
     private Status status = Status.INCOMPLETE;
     private TaskType type;
 
@@ -112,10 +114,11 @@ public abstract class Task {
      * @param name Name of the task.
      * @param type Type of task.
      */
-    public Task(String name, TaskType type) {
+    public Task(String name, int priority, TaskType type) {
         currId += 1;
         id = currId;
         this.name = name;
+        this.priority = priority;
         this.type = type;
     }
 
@@ -137,6 +140,26 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Parses a priority represented as a string into a non-negative integer.
+     *
+     * @param priority Priority specified as a string.
+     * @throws LynxException If priority is not a valid non-negative integer.
+     */
+    public static int parsePriority(String priority) throws LynxException {
+        int intPriority;
+        try {
+            intPriority = Integer.parseInt(priority);
+        } catch (NumberFormatException e) {
+            throw CommandFormatException.invalidPriority();
+        }
+
+        if (intPriority < 0) {
+            throw CommandFormatException.invalidPriority();
+        }
+        return intPriority;
+    }
+
     public int getId() {
         assert(id >= 0);
         return id;
@@ -144,6 +167,10 @@ public abstract class Task {
 
     public String getName() {
         return name;
+    }
+
+    public int getPriority() {
+        return priority;
     }
 
     public TaskType getType() {
@@ -178,6 +205,18 @@ public abstract class Task {
     public abstract boolean isActive(LocalDateTime dateTime);
 
     /**
+     * Compares two tasks based on their priority.
+     *
+     * @return -1 if the current task has a greater priority.
+     * 0 if both tasks are of equal priority.
+     * 1 if the current task has a lower priority.
+     */
+    @Override
+    public int compareTo(Task task) {
+        return -Integer.compare(this.priority, task.priority);
+    }
+
+    /**
      * Returns a string representation of the task used for storing it in a text file.
      *
      * @return String representation.
@@ -188,6 +227,7 @@ public abstract class Task {
         taskString.append("|").append(status.name());
         taskString.append("|").append(id);
         taskString.append("|").append(name);
+        taskString.append("|").append(priority);
         return taskString.toString();
     }
 
@@ -197,7 +237,7 @@ public abstract class Task {
      * @return String representation.
      */
     public String testRepresentation() {
-        return String.format("%s%s %s", type.getSymbol(), status.getSymbol(), name);
+        return String.format("[%s]%s%s %s", priority, type.getSymbol(), status.getSymbol(), name);
     }
 
     /**

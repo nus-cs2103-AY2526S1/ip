@@ -8,7 +8,7 @@ import objectclasses.formatter.LynxDateManager;
 
 /**
  * Represents a task with a <code>TaskType</code>, <code>Status</code>,
- * name, <code>LocalDateTime</code> start, <code>LocalDateTime</code> end, and id for tracking.
+ * name, priority, <code>LocalDateTime</code> start, <code>LocalDateTime</code> end, and id for tracking.
  * <p>
  * <code>Status</code> is <code>INCOMPLETE</code> by default, and id is assigned by the constructor.
  */
@@ -21,11 +21,12 @@ public class EventTask extends Task {
      * Constructor for creating an <code>EventTask</code>
      *
      * @param name Name of the task.
+     * @param priority Priority of the task.
      * @param start Start date of the task.
      * @param end End date of the task.
      */
-    public EventTask(String name, LocalDateTime start, LocalDateTime end) {
-        super(name, TaskType.EVENT);
+    public EventTask(String name, int priority, LocalDateTime start, LocalDateTime end) {
+        super(name, priority, TaskType.EVENT);
         this.start = start;
         this.end = end;
         if (end.isBefore(LocalDateTime.now())) {
@@ -38,17 +39,20 @@ public class EventTask extends Task {
      *
      * @param parts Parsed representation of an <code>EventTask</code>.
      * @return <code>EventTask</code> created.
-     * @throws LynxException If input is of invalid format or start / end is invalid.
+     * @throws LynxException If input is of invalid format.
      */
     public static Task of(String[] parts) throws LynxException {
-        if (parts.length != 6) {
+        if (parts.length != 7) {
             throw new LynxException("");
         }
+
         String status = parts[1];
         String name = parts[3];
-        LocalDateTime from = LynxDateManager.parseDateTime(parts[4].replace("from:", ""));
-        LocalDateTime to = LynxDateManager.parseDateTime(parts[5].replace("to:", ""));
-        Task task = new EventTask(name, from, to);
+        int priority = parsePriority(parts[4]);
+        LocalDateTime from = LynxDateManager.parseDateTime(parts[5].replace("from:", ""));
+        LocalDateTime to = LynxDateManager.parseDateTime(parts[6].replace("to:", ""));
+
+        Task task = new EventTask(name, priority, from, to);
         if (status.equals("COMPLETE")) {
             task.setComplete();
         }
@@ -60,32 +64,42 @@ public class EventTask extends Task {
      *
      * @param input User command in the form "event [name] /from [start] /to [end]".
      * @return <code>EventTask</code> created.
-     * @throws LynxException If command, name or date is invalid.
+     * @throws LynxException If command, name, priority or date is invalid.
      */
     public static Task of(String input) throws LynxException {
         if (!input.startsWith("event ")) {
             throw new MissingArgumentException("event");
         }
+
         String[] parts = input.substring(5).split(" /from ", 2);
         if (parts.length < 2) {
             throw new LynxException("Please specify a start time using ' /from '.");
         }
-        String[] timeSplit = parts[1].split(" /to ", 2);
-        if (timeSplit.length < 2) {
-            throw new LynxException("Please specify an end time using ' /to '.");
-        }
+
         String name = parts[0].trim();
         if (name.isEmpty()) {
             throw new LynxException("Please specify a task name.");
         }
-
         checkName(name);
-        LocalDateTime from = LynxDateManager.parseDateTime(timeSplit[0].trim());
-        LocalDateTime to = LynxDateManager.parseDateTime(timeSplit[1].trim());
+
+        parts = parts[1].split(" /to ", 2);
+        if (parts.length < 2) {
+            throw new LynxException("Please specify an end time using ' /to '.");
+        }
+        LocalDateTime from = LynxDateManager.parseDateTime(parts[0].trim());
+
+        parts = parts[1].split(" /p ");
+        LocalDateTime to = LynxDateManager.parseDateTime(parts[0].trim());
         if (from.isAfter(to)) {
             throw new LynxException("The start date/time cannot be after the end date/time.");
         }
-        return new EventTask(name, from, to);
+
+        int priority = 0;
+        if (parts.length > 1) {
+            priority = parsePriority(parts[1].trim());
+        }
+
+        return new EventTask(name, priority, from, to);
     }
 
     /**

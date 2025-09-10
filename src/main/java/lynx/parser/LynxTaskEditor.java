@@ -159,7 +159,7 @@ public class LynxTaskEditor {
         for (Task task : tasks) {
             count++;
             consumer.accept(task);
-            stringBuilder.append(String.format("%n     %d.%s", count, task));
+            stringBuilder.append(String.format("%n     %s", task));
         }
         if (count == 0) {
             stringBuilder.append(String.format("%n%s", empty));

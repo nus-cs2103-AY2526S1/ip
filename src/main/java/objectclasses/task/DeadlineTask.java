@@ -8,7 +8,7 @@ import objectclasses.formatter.LynxDateManager;
 
 /**
  * Represents a task with a <code>TaskType</code>, <code>Status</code>,
- * name, <code>LocalDateTime</code> deadline, and id for tracking.
+ * name, priority, <code>LocalDateTime</code> deadline, and id for tracking.
  * <p>
  * <code>Status</code> is <code>INCOMPLETE</code> by default, and id is assigned by the constructor.
  */
@@ -19,10 +19,11 @@ public class DeadlineTask extends Task {
      * Constructor for creating a <code>DeadlineTask</code>
      *
      * @param name Name of the task.
+     * @param priority Priority of the task.
      * @param deadline Deadline of the task.
      */
-    public DeadlineTask(String name, LocalDateTime deadline) {
-        super(name, TaskType.DEADLINE);
+    public DeadlineTask(String name, int priority, LocalDateTime deadline) {
+        super(name, priority, TaskType.DEADLINE);
         this.deadline = deadline;
         if (deadline.isBefore(LocalDateTime.now())) {
             setExpired();
@@ -34,16 +35,19 @@ public class DeadlineTask extends Task {
      *
      * @param parts Parsed representation of a <code>DeadlineTask</code>.
      * @return <code>DeadlineTask</code> created.
-     * @throws LynxException If input is of invalid format or deadline is invalid.
+     * @throws LynxException If input is of invalid format.
      */
     public static Task of(String[] parts) throws LynxException {
-        if (parts.length != 5) {
+        if (parts.length != 6) {
             throw new LynxException("");
         }
+
         String status = parts[1];
         String name = parts[3];
-        LocalDateTime by = LynxDateManager.parseDateTime(parts[4].replace("by:", ""));
-        Task task = new DeadlineTask(name, by);
+        int priority = parsePriority(parts[4]);
+        LocalDateTime by = LynxDateManager.parseDateTime(parts[5].replace("by:", ""));
+
+        Task task = new DeadlineTask(name, priority, by);
         if (status.equals("COMPLETE")) {
             task.setComplete();
         }
@@ -55,7 +59,7 @@ public class DeadlineTask extends Task {
      *
      * @param input User command in the form "deadline [name] /by [date]".
      * @return <code>DeadlineTask</code> created.
-     * @throws LynxException If command, name or date is invalid.
+     * @throws LynxException If command, name, priority or date is invalid.
      */
     public static Task of(String input) throws LynxException {
         if (!input.startsWith("deadline ")) {
@@ -65,14 +69,22 @@ public class DeadlineTask extends Task {
         if (parts.length < 2) {
             throw new LynxException("Please specify a deadline using ' /by '.");
         }
+
         String name = parts[0].trim();
         if (name.isEmpty()) {
             throw new LynxException("Please specify a task name.");
         }
-
         checkName(name);
-        LocalDateTime by = LynxDateManager.parseDateTime(parts[1].trim());
-        return new DeadlineTask(name, by);
+
+        parts = parts[1].split(" /p ", 2);
+        LocalDateTime by = LynxDateManager.parseDateTime(parts[0].trim());
+
+        int priority = 0;
+        if (parts.length > 1) {
+            priority = parsePriority(parts[1].trim());
+        }
+
+        return new DeadlineTask(name, priority, by);
     }
 
     public LocalDateTime getDeadline() {

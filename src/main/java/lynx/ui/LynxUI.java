@@ -64,6 +64,7 @@ public abstract class LynxUI {
                      deadline [name] /by [date]
                      event [name] /from [date] /to [date]
                      * Date format: yyyy-mm-dd, yyyy-mm-dd-hh, or yyyy-mm-dd-hh-mm
+                     * Priority can be optionally set using /p [priority] at the end of the command
                 
                 Task actions (requires one or more search modifier(s)):
                      list                      - Show task(s)
@@ -76,6 +77,7 @@ public abstract class LynxUI {
                      /on [date]                - Tasks occurring on a specific date
                      /status [status]          - Tasks with matching status
                      /type [type]              - Tasks with matching type
+                     /p [priority]             - Tasks with matching priority
                      /id [id]                  - Task with matching id
                      /all                      - All tasks in the task list
                      * Arguments must not contain blank characters, keywords included
@@ -84,7 +86,8 @@ public abstract class LynxUI {
                      list /key meeting         - Show all tasks containing 'meeting'
                      list /on 2025-09-01       - Show tasks occurring on 1st September 2025
                      delete /status complete   - Delete all tasks marked as completed
-                     delete /type todo         - Delete all todo tasks
+                     delete /type              - Delete all todo tasks
+                     mark /p 1                 - Mark all tasks with priority 1
                      mark /id 3                - Mark the task with id 3 as done
                      unmark /all               - Unmark all tasks as not done
                 
