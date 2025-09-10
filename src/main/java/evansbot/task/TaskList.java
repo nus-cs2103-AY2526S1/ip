@@ -70,10 +70,7 @@ public class TaskList {
      * @throws InvalidTaskIndexException If the index is out of range.
      */
     public String markTask(int index) throws InvalidTaskIndexException {
-        if (index < 1 || index > tasks.size()) {
-            throw new InvalidTaskIndexException(tasks.size());
-        }
-        Task task = tasks.get(index - 1);
+        Task task = getTaskAtIndex(index);
         task.markAsDone();
         save();
         return "Good Job! I have marked this task as done: \n"
@@ -88,10 +85,7 @@ public class TaskList {
      * @throws InvalidTaskIndexException If the index is out of range.
      */
     public String unmarkTask(int index) throws InvalidTaskIndexException {
-        if (index < 1 || index > tasks.size()) {
-            throw new InvalidTaskIndexException(tasks.size());
-        }
-        Task task = tasks.get(index - 1);
+        Task task = getTaskAtIndex(index);
         task.unmarkDone();
         save();
         return "Oh no! I have unmarked this task for now: \n"
@@ -105,9 +99,9 @@ public class TaskList {
      * @param index 1-based index of the task to delete.
      * @return String of the deleted task.
      */
-    public String deleteTask(int index) {
-        Task task = tasks.get(index - 1);
-        tasks.remove(index - 1);
+    public String deleteTask(int index) throws InvalidTaskIndexException {
+        Task task = getTaskAtIndex(index);
+        tasks.remove(task);
         save();
         return "Okay! I will remove this task: \n"
              + " " + task.toString()
@@ -141,5 +135,19 @@ public class TaskList {
         } catch (IOException e) {
             System.out.println("Could not save tasks: " + e.getMessage());
         }
+    }
+
+    /**
+     * Returns the task at the given 1-based index after validating it.
+     *
+     * @param index 1-based index of the task.
+     * @return Task at the specified index.
+     * @throws InvalidTaskIndexException If the index is out of range.
+     */
+    private Task getTaskAtIndex(int index) throws InvalidTaskIndexException {
+        if (index < 1 || index > tasks.size()) {
+            throw new InvalidTaskIndexException(tasks.size());
+        }
+        return tasks.get(index - 1);
     }
 }
