@@ -3,6 +3,9 @@ package jimbot.tasktype;
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * Represents a task that contains a description and can be completed.
+ */
 public class Task implements Serializable {
     // Version identifier number that is stored with the serialized tasks
     @Serial
@@ -10,6 +13,12 @@ public class Task implements Serializable {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a Task that has the given description.
+     * Tasks constructed this way will always be not done yet.
+     *
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -31,6 +40,11 @@ public class Task implements Serializable {
         this.isDone = false;
     }
 
+    /**
+     * Returns the string representation of the task, including its description and status.
+     *
+     * @return String representation of the task.
+     */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

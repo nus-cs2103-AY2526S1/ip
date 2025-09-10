@@ -7,27 +7,57 @@ import jimbot.tasktype.Task;
 import jimbot.tasktype.TaskList;
 
 /**
-  * Class that handles the UI of programs' responses to user.
-  *
-  * @author limjimin-nus
+ * Handles the user interface of the program, including
+ * generating responses to user input and displaying task information.
+ * Provides methods for formatting task lists, individual task actions,
+ * greetings, farewells, and command responses.
+ *
+ * <p>All methods return formatted Strings instead of directly printing to console,
+ * allowing separation of UI from application logic.</p>
+ *
+ * @author limjimin-nus
   * */
 public class UI {
     private final Scanner scanner;
 
+    /**
+     * Constructs a UI object with a Scanner for user input.
+     */
     public UI() {
         scanner = new Scanner(System.in);
     }
 
+    /**
+     * Returns a response string after marking a task as done.
+     *
+     * @param userList The list of tasks.
+     * @param index Index of the task marked as done.
+     * @return Formatted string showing the marked task.
+     */
     public String markRes(TaskList userList, int index) {
         String header = "  Nice♪ I've marked this task as done: \n    ";
         return header + userList.getTask(index) + "\n  ♪ ｖ(＾＿＾ｖ)♪ ~~ ♪(ｖ＾＿＾)ｖ";
     }
 
+    /**
+     * Returns a response string after unmarking a task.
+     *
+     * @param userList The list of tasks.
+     * @param index Index of the task marked as not done.
+     * @return Formatted string showing the unmarked task.
+     */
     public String unmarkRes(TaskList userList, int index) {
         String header = "  OK, I've marked this task as not done yet: \n    ";
         return header + userList.getTask(index) + "\n  (｀_´)ゞ";
     }
 
+    /**
+     * Returns a response string after adding a new task to the list.
+     *
+     * @param task Task added.
+     * @param taskCount Number of tasks after addition.
+     * @return Formatted string showing the added task and total count.
+     */
     public String addTask(Task task, int taskCount) {
         String header = "  Got it. I've added this task: \n    ";
         String closer = "\n  Now you have " + taskCount + " tasks in the list!\n  (￣^￣)ゞ";
@@ -35,6 +65,13 @@ public class UI {
         return header + task + closer;
     }
 
+    /**
+     * Returns a response string after deleting a task from the list.
+     *
+     * @param task Task removed.
+     * @param taskCount Number of tasks remaining.
+     * @return Formatted string showing the deleted task and remaining count.
+     */
     public String deleteTask(Task task, int taskCount) {
         String header = "  Noted. I've removed this task:\n    ";
         String closer = "h\n  Now you have " + taskCount + " tasks in the list! \n  (─.─)ゞ";
@@ -42,6 +79,12 @@ public class UI {
         return header + task + closer;
     }
 
+    /**
+     * Prints a formatted string listing all tasks in a list.
+     *
+     * @param list List of tasks.
+     * @return Formatted string showing all tasks with index numbers.
+     */
     public String printList(List<Task> list) {
         int taskCount = list.size();
 
@@ -51,15 +94,16 @@ public class UI {
             listContent += "\n    " + (i + 1) + ". " + task;
         }
 
-        String header = "  Here are the tasks in your list: \n";
+        String header = "  Here are the tasks in your list: ";
         return header + listContent + "    ノ( ゜-゜ノ)";
     }
 
     /**
-     * Prints a the lsit of tasks at a specific date.
+     * Prints a formatted string listing tasks at a specified date.
      *
      * @param list List of tasks with the same dates.
-     * @param isToday If specific date matches LocalDate.now(), string response changes to mention that.
+     * @param isToday True if the specified date is today, affecting header wording.
+     * @return Formatted string showing tasks at the specified date.
      */
     public String printListAtDate(List<Task> list, boolean isToday) {
         int taskCount = list.size();
@@ -72,7 +116,7 @@ public class UI {
 
         String header;
         if (isToday) {
-            header = "  Here are your tasks for today: \n";
+            header = "  Here are your tasks for today: ";
         } else {
             header = "  Here are your tasks for that date:";
         }
@@ -80,12 +124,23 @@ public class UI {
         return header + listContent + "    (・ω・)ノ";
     }
 
+    /**
+     * Returns a greeting string with the bot's name.
+     *
+     * @param name Name of the bot.
+     * @return Formatted greeting string.
+     */
     public static String hello(String name) {
         return "  Hello! I'm " + name + "!"
                         + "  What can I do for you?\n"
                         + " (^з^)-☆";
     }
 
+    /**
+     * Returns a farewell string when the user exits.
+     *
+     * @return Formatted farewell string.
+     */
     public String goodBye() {
         return """
                     \\(^O^) Bye! Hope to see you again soon!
@@ -93,7 +148,10 @@ public class UI {
     }
 
     /**
-     * Response for unrecognized commands.
+     * Returns a response string for unrecognized commands.
+     *
+     * @param userInput User input string that could not be parsed.
+     * @return Formatted string indicating the command was not recognized.
      */
     public String respond(String userInput) {
         return "Sorry I don't recognize this command:\n"

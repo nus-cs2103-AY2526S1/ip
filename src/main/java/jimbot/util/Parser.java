@@ -9,16 +9,22 @@ import java.time.format.DateTimeParseException;
 import jimbot.exception.InvalidDateTimeException;
 import jimbot.exception.NoSuchTaskException;
 
+/**
+ * Utility class for parsing user input strings into indexes, dates, and times.
+ *
+ * @author limjimin-nus
+ */
 public class Parser {
 
     /**
-     * Parses a user input string into an int.
+     * Parses a user input string into an integer index.
      * Throws InvalidIndexException if user input string is invalid.
      *
      * @param input User input string.
      * @param command Command string found in user input to split.
      * @param taskCount Current number of tasks in user's task list.
-     * @throws NoSuchTaskException If index < 0 or >= taskCount.
+     * @returns Index parsed from the input (0-based).
+     * @throws NoSuchTaskException If index invalid or out of bounds
      */
     public static int parseIndex(String input, String command, int taskCount) throws NoSuchTaskException {
         try {
@@ -41,6 +47,7 @@ public class Parser {
      * Throws invalidDateTimeException if user string format is invalid.
      *
      * @param input User input string in dd/MM/yyyy HHmm format.
+     * @return Parsed LocalDate object.
      * @throws InvalidDateTimeException If in the wrong format.
      */
     public static LocalDateTime parseDateTime(String input) throws InvalidDateTimeException {

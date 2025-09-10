@@ -23,6 +23,8 @@ import jimbot.util.Parser;
 /**
  * Main class for Jimbot application.
  * Initializes UI, storage and tasklist, and includes method for retrieving a response to user inputs.
+ *
+ * @author limjimin-nus
  */
 public class Jimbot {
     private final Storage userStorage;

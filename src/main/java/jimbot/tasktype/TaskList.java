@@ -7,18 +7,24 @@ import java.util.List;
 import jimbot.exception.NoSuchTaskException;
 import jimbot.exception.TaskLimitException;
 
+/**
+ * Represents a list of tasks stored by Jimbot.
+ * Provides methods to add, delete, retrieve, and search tasks.
+ */
 public class TaskList {
     protected List<Task> listOfTasks;
 
     /**
-     * Default constructor when there is no data stored.
+     * Constructs a new empty TaskList when there is no data stored.
      */
     public TaskList() {
         listOfTasks = new ArrayList<>();
     }
 
     /**
-     * Constructor used for when there is data to load.
+     * Constructs a TaskList with existing tasks loaded from storage.
+     *
+     * @param loadTasks List of tasks to load.
      */
     public TaskList(List<Task> loadTasks) {
         this.listOfTasks = loadTasks;
@@ -26,16 +32,18 @@ public class TaskList {
 
     /**
      * Returns the list of tasks as a List<Task>.
+     *
+     * @return List of tasks stored in this TaskList.
      */
     public List<Task> getTaskList() {
         return listOfTasks;
     }
 
     /**
-     * Adds a given task to the list of tasks.
+     * Adds a given task to the list.
      *
      * @param task Task to be added.
-     * @throws TaskLimitException If the current task count in the list is >= 100.
+     * @throws TaskLimitException If the current task count exceeds 99.
      */
     public void addToList(Task task) throws TaskLimitException {
         if (listOfTasks.size() >= 99) {
@@ -46,17 +54,17 @@ public class TaskList {
     }
 
     /**
-     * Retrieves a specific task from the list of tasks.
+     * Retrieves a task from the list by index.
      *
-     * @param index Index of task to be retrieved, starting from 0.
-     * @return Task from at given index.
+     * @param index Index of task to be retrieved (starting from 0).
+     * @return Task at specified index.
      */
     public Task getTask(int index) {
         return listOfTasks.get(index);
     }
 
     /**
-     * Removes a specific task from the list of tasks.
+     * Removes a specific task from the list.
      *
      * @param task Task to be removed.
      */
@@ -65,18 +73,20 @@ public class TaskList {
     }
 
     /**
-     * Returns the current number of tasks stored in the list.
+     * Returns the number of tasks currently stored in the list.
+     *
+     * @return Number of tasks in the list.
      */
     public int getTaskCount() {
         return listOfTasks.size();
     }
 
     /**
-     * Returns a list of tasks with description matching user input as a TaskList.
+     * Finds tasks in the list whose description contains the given string.
      *
-     * @param description Description provided by user.
-     * @return List of tasks whose description contains the given description.
-     * @throws NoSuchTaskException If description does not match any task in the list.
+     * @param description Description to match tasks against.
+     * @return TaskList containing matching tasks.
+     * @throws NoSuchTaskException If no tasks match the description.
      * */
     public TaskList findTasks(String description) throws NoSuchTaskException {
         List<Task> result = new ArrayList<>();
@@ -109,11 +119,11 @@ public class TaskList {
     }
 
     /**
-     * Returns a list of tasks with date matching user input as a TaskList.
+     * Find tasks that occur on a specific date.
      *
-     * @param date Date provided by user.
-     * @return List of tasks whose date matches the given date.
-     * @throws NoSuchTaskException If date does not match any tasks' date in the list.
+     * @param date Date to match tasks against.
+     * @return TaskList containing tasks matching the given date.
+     * @throws NoSuchTaskException If no tasks match the date.
      * */
     public TaskList findTasksAtDate(LocalDate date) throws NoSuchTaskException {
         List<Task> result = new ArrayList<>();

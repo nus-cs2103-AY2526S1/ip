@@ -5,10 +5,21 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task that occurs over a period of time.
+ * Stores the start and end date/time of the event.
+ */
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
+    /**
+     * Constructs an Event task with the specified description, start, and end times.
+     *
+     * @param description Description of the event.
+     * @param from Start date and time of the event.
+     * @param to End date and time of the event.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
@@ -24,10 +35,11 @@ public class Event extends Task {
     }
 
     /**
-     * Converts a given date and time into String with MMM dd yyyy, HH:mm format.
+     * Converts a given LocalDateTime into a formatted string.
+     * If the time is midnight, only the date is shown; otherwise, date and time are shown.
      *
-     * @param dateTime DateTime in dd/MM/yyyy format.
-     * @return String represent of given date and time
+     * @param dateTime Date and time to format.
+     * @return Formatted string representation of the date and time.
      */
     private String dateTimeToString(LocalDateTime dateTime) {
         boolean isMidnight = dateTime.toLocalTime().equals(LocalTime.MIDNIGHT);
@@ -38,6 +50,12 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Returns a string representation of the Event task.
+     * Includes the task type, description, and formatted start and end times.
+     *
+     * @return String representation of the event task.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (FROM: "

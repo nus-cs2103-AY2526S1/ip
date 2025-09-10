@@ -1,20 +1,25 @@
 package jimbot.command;
 
-import java.util.regex.Pattern;
-
 import jimbot.exception.InvalidDateTimeException;
 
+/**
+ * Represents the different commands that Jimbot can recognize.
+ * Provides a utility method to parse a string input into a Commands value.
+ *
+ * @author limjimin-nus
+ */
 public enum Commands {
     HI, BYE, DATE, DEADLINE, DELETE, EVENT, FIND, HELP, LIST, MARK, TODAY, TODO, UNKNOWN, UNMARK;
 
-    // Regex to match dd/MM/yyyy
-    private static final Pattern DATE_PATTERN = Pattern.compile("\\d{2}/\\d{2}/\\d{4}");
-
     /**
-     * Convert a string into a Commands enum value.
-     * Handles case-insensitivity and unknown inputs.
+     * Convert a string input into the corresponding Commands enum value.
+     * Handles case-insensitive command strings and recognizes date inputs.
+     *
+     * @param input User input string to be converted into a command.
+     * @return Corresponding Commands enum value.
+     * @throws InvalidDateTimeException If the input only contains a date but does not match the date pattern.
      */
-    public static Commands fromString(String input) throws InvalidDateTimeException {
+    public static Commands fromString(String input) {
         if (input == null || input.isEmpty()) {
             return UNKNOWN;
         }
@@ -23,11 +28,7 @@ public enum Commands {
 
         // Check for date input
         if (cmd.contains("/")) {
-            if (DATE_PATTERN.matcher(input).matches()) {
-                return DATE;
-            } else {
-                throw new InvalidDateTimeException();
-            }
+            return DATE;
         }
 
         return switch (cmd) {
