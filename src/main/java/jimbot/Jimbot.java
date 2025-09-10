@@ -4,44 +4,56 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import jimbot.exceptions.InvalidDateTimeException;
-import jimbot.exceptions.InvalidDeadlineException;
-import jimbot.exceptions.InvalidEventException;
-import jimbot.exceptions.InvalidToDoException;
-import jimbot.exceptions.NoSuchTaskException;
-import jimbot.exceptions.TaskLimitException;
+import jimbot.command.Commands;
+import jimbot.exception.InvalidDateTimeException;
+import jimbot.exception.InvalidDeadlineException;
+import jimbot.exception.InvalidEventException;
+import jimbot.exception.InvalidToDoException;
+import jimbot.exception.NoSuchTaskException;
+import jimbot.exception.TaskLimitException;
 import jimbot.storage.Storage;
-import jimbot.tasktypes.Deadline;
-import jimbot.tasktypes.Event;
-import jimbot.tasktypes.Task;
-import jimbot.tasktypes.TaskList;
-import jimbot.tasktypes.ToDo;
+import jimbot.tasktype.Deadline;
+import jimbot.tasktype.Event;
+import jimbot.tasktype.Task;
+import jimbot.tasktype.TaskList;
+import jimbot.tasktype.ToDo;
 import jimbot.ui.UI;
 import jimbot.util.Parser;
 
+/**
+ * Main class for Jimbot application.
+ * Initializes UI, storage and tasklist, and includes method for retrieving a response to user inputs.
+ */
 public class Jimbot {
     private final Storage userStorage;
     private final TaskList userList;
     private final UI user;
     private String commandType;
 
+    /**
+     * Initializes a new Jimbot instance.
+     * Loads user data from the specified file.
+     *
+     * @param filePath Path to the file used for storing and loading user data.
+     */
     public Jimbot(String filePath) {
         user = new UI();
         userStorage = new Storage(filePath);
         userList = userStorage.load();
-
-        user.hello("Jimbot");
     }
 
     public String getResponse(String userInput) {
-        commandType = userInput.split(" ")[0];
         try {
+            commandType = userInput.split(" ")[0];
+            Commands cmd = Commands.fromString(commandType);
             int taskCount = userList.getTaskCount();
-            if (userInput.toLowerCase().matches(".*\\b(bye|goodbye)\\b.*")) {
+
+            switch (cmd) {
+            case BYE:
                 return user.goodBye();
-            } else if (userInput.equalsIgnoreCase("list")) {
+            case LIST:
                 return user.printList(userList.getTaskList());
-            } else if (userInput.startsWith("mark")) {
+            case MARK: {
                 // Retrieve task index as int from user string input
                 int index = Parser.parseIndex(userInput, "mark", taskCount);
 
@@ -56,7 +68,8 @@ public class Jimbot {
 
                 // Print response
                 return user.markRes(userList, index);
-            } else if (userInput.startsWith("unmark")) {
+            }
+            case UNMARK: {
                 // Retrieve task index as int from user string input
                 int index = Parser.parseIndex(userInput, "unmark", taskCount);
 
@@ -71,7 +84,8 @@ public class Jimbot {
 
                 // Print response
                 return user.unmarkRes(userList, index);
-            } else if (userInput.startsWith("deadline")) {
+            }
+            case DEADLINE: {
                 if (!userInput.contains("/by")) {
                     throw new InvalidDeadlineException();
                 }
@@ -92,7 +106,8 @@ public class Jimbot {
                 userList.addToList(userDeadline);
                 userStorage.update(userList);
                 return user.addTask(userDeadline, taskCount + 1);
-            } else if (userInput.startsWith("event")) {
+            }
+            case EVENT: {
                 if (!userInput.contains("/from") || !userInput.contains("/to")) {
                     throw new InvalidEventException();
                 } else {
@@ -118,7 +133,8 @@ public class Jimbot {
                     userStorage.update(userList);
                     return user.addTask(userEvent, taskCount + 1);
                 }
-            } else if (userInput.startsWith("todo")) {
+            }
+            case TODO: {
                 String description = userInput.substring(4).trim();
 
                 if (description.isEmpty()) {
@@ -130,21 +146,23 @@ public class Jimbot {
                     userStorage.update(userList);
                     return user.addTask(userToDo, taskCount + 1);
                 }
-            } else if (userInput.startsWith("delete")) {
+            }
+            case DELETE:
                 int index = Parser.parseIndex(userInput, "delete", taskCount);
                 Task task = userList.getTask(index);
 
                 userList.deleteFromList(userList.getTask(index));
                 userStorage.update(userList);
                 return user.deleteTask(task, taskCount - 1);
-            } else if (userInput.startsWith("find")) {
+            case FIND: {
                 String description = userInput.toLowerCase()
                         .substring(4)
                         .trim();
                 List<Task> tasks = userList.findTasks(description).getTaskList();
 
                 return user.printList(tasks);
-            } else if (userInput.contains("/") || userInput.equalsIgnoreCase("today")) {
+            }
+            case DATE, TODAY:
                 LocalDate date = LocalDate.now();
 
                 if (!userInput.equals("today")) {
@@ -155,9 +173,9 @@ public class Jimbot {
 
                 return user.printListAtDate(tasks,
                         date.isEqual(LocalDate.now()) || userInput.equals("today"));
-            } else if (userInput.equalsIgnoreCase("help")) {
+            case HELP:
                 return user.commandList();
-            } else {
+            default:
                 return user.respond(userInput);
             }
         } catch (InvalidDateTimeException | InvalidDeadlineException | InvalidEventException

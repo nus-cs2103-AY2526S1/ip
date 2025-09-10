@@ -1,11 +1,11 @@
-package jimbot.tasktypes;
+package jimbot.tasktype;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import jimbot.exceptions.NoSuchTaskException;
-import jimbot.exceptions.TaskLimitException;
+import jimbot.exception.NoSuchTaskException;
+import jimbot.exception.TaskLimitException;
 
 public class TaskList {
     protected List<Task> listOfTasks;

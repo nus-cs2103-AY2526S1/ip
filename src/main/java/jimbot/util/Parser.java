@@ -6,8 +6,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import jimbot.exceptions.InvalidDateTimeException;
-import jimbot.exceptions.NoSuchTaskException;
+import jimbot.exception.InvalidDateTimeException;
+import jimbot.exception.NoSuchTaskException;
 
 public class Parser {
 

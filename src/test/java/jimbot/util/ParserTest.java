@@ -1,7 +1,7 @@
 package jimbot.util;
 
-import jimbot.exceptions.InvalidDateTimeException;
-import jimbot.exceptions.NoSuchTaskException;
+import jimbot.exception.InvalidDateTimeException;
+import jimbot.exception.NoSuchTaskException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

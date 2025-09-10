@@ -2,11 +2,11 @@ package jimbot.ui;
 
 import java.util.List;
 
-import jimbot.tasktypes.Task;
-import jimbot.tasktypes.TaskList;
+import jimbot.tasktype.Task;
+import jimbot.tasktype.TaskList;
 
 /**
- * Old class that handles the UI of programs' responses to user.
+ * Old unused class that handled the UI of programs' responses to user.
  *
  * @author limjimin-nus
  * */

@@ -3,8 +3,8 @@ package jimbot.ui;
 import java.util.List;
 import java.util.Scanner;
 
-import jimbot.tasktypes.Task;
-import jimbot.tasktypes.TaskList;
+import jimbot.tasktype.Task;
+import jimbot.tasktype.TaskList;
 
 /**
   * Class that handles the UI of programs' responses to user.
@@ -37,7 +37,7 @@ public class UI {
 
     public String deleteTask(Task task, int taskCount) {
         String header = "  Noted. I've removed this task:\n    ";
-        String closer = "\n  Now you have " + taskCount + " tasks in the list! \n  (─.─)ゞ";
+        String closer = "h\n  Now you have " + taskCount + " tasks in the list! \n  (─.─)ゞ";
 
         return header + task + closer;
     }
@@ -45,13 +45,14 @@ public class UI {
     public String printList(List<Task> list) {
         int taskCount = list.size();
 
-        String listContent = "\n                ノ( ゜-゜ノ)";
+        String listContent = "";
         for (int i = 0; i < taskCount; i++) {
             Task task = list.get(i);
             listContent += "\n    " + (i + 1) + ". " + task;
         }
-        String header = "  Here are the tasks in your list: ";
-        return header + listContent;
+
+        String header = "  Here are the tasks in your list: \n";
+        return header + listContent + "    ノ( ゜-゜ノ)";
     }
 
     /**
@@ -105,9 +106,8 @@ public class UI {
      */
     public String commandList() {
         return """
-                            _(•̀ω•́ 」∠)_
                   Here are the commands you can use:
-                    (input date in dd/mm/yyyy)
+                    (input date in dd/MM/yyyy)
                     bye/goodbye
                     deadline
                     delete
@@ -118,6 +118,7 @@ public class UI {
                     today
                     todo
                     unmark
+                  bh_(•̀ω•́ 」∠)_
                 """;
     }
 }

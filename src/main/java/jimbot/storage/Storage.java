@@ -9,8 +9,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import jimbot.tasktypes.Task;
-import jimbot.tasktypes.TaskList;
+import jimbot.tasktype.Task;
+import jimbot.tasktype.TaskList;
 
 /**
  * This class stores task data in hard disk.

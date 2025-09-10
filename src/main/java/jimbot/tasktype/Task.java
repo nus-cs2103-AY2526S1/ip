@@ -1,4 +1,4 @@
-package jimbot.tasktypes;
+package jimbot.tasktype;
 
 import java.io.Serial;
 import java.io.Serializable;
