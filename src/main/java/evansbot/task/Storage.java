@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import evansbot.Exceptions.InvalidCommandException;
+
 /**
  * Handles reading and writing tasks to and from persistent storage.
  * Tasks are saved in a text file with a specific format for each task type (ToDo, Deadline, Event).
@@ -46,35 +48,53 @@ public class Storage {
         Scanner sc = new Scanner(file);
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
-            String[] parts = line.split(" \\| ");
-            String type = parts[0];
-            boolean isDone = parts[1].equals("1");
-            String description = parts[2];
-
-            Task task;
-            switch (type) {
-            case "T": // Case of a ToDo
-                task = new ToDo(description);
-                break;
-            case "D": // Case of a Deadline
-                task = new Deadline(description, parts[3]);
-                break;
-            case "E": // Case of a Event
-                task = new Event(description, parts[3], parts[4]);
-                break;
-            default:
-                continue;
+            try {
+                Task task = parseTask(line);
+                tasks.add(task);
+            } catch (Exception e) {
+                System.err.println("Skipping invalid task line: " + line);
             }
-
-            if (isDone) {
-                task.markAsDone();
-            }
-            tasks.add(task);
         }
         sc.close();
         return tasks;
     }
 
+    /**
+     * Parses a single line from the save file into a Task object.
+     *
+     * @param line A line from the save file in the format: TYPE | STATUS | DESCRIPTION | (extra fields)
+     * @return Task object parsed from the line.
+     */
+    private Task parseTask(String line) throws InvalidCommandException {
+        String[] parts = line.split(" \\| ");
+
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        Task task;
+        switch (type) {
+        case "T":
+            task = new ToDo(description);
+            break;
+        case "D":
+            assert parts.length >= 4 : "Deadline task missing 'by' field";
+            task = new Deadline(description, parts[3]);
+            break;
+        case "E":
+            assert parts.length >= 5 : "Event task missing 'from' or 'to' field";
+            task = new Event(description, parts[3], parts[4]);
+            break;
+        default:
+            throw new InvalidCommandException();
+        }
+
+        if (isDone) {
+            task.markAsDone();
+        }
+
+        return task;
+    }
     /**
      * Saves a list of tasks to the storage file.
      * Each task is formatted according to its type.

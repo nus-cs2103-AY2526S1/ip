@@ -20,10 +20,17 @@ import evansbot.command.UnmarkCommand;
  * Throws EvansBotException or its subclasses if the input is invalid.
  */
 public class Parser {
+    private static final String CMD_BYE = "bye";
+    private static final String CMD_LIST = "list";
+    private static final String CMD_MARK = "mark";
+    private static final String CMD_UNMARK = "unmark";
+    private static final String CMD_TODO = "todo";
+    private static final String CMD_DEADLINE = "deadline";
+    private static final String CMD_EVENT = "event";
+    private static final String CMD_DELETE = "delete";
+    private static final String CMD_FIND = "find";
     /**
      * Parses the user's input and returns the appropriate Command object.
-     * Recognizes commands like "bye", "list", "mark", "unmark", "todo",
-     * "deadline", "event", "delete" and "find".
      *
      * @param input Raw user input string.
      * @return Command object corresponding to the user's input.
@@ -32,50 +39,146 @@ public class Parser {
      */
     public static Command parse(String input) throws EvansBotException {
         String trimmed = input.trim();
-
-        if (trimmed.equalsIgnoreCase("bye")) {
-            return new ExitCommand();
-        } else if (trimmed.equalsIgnoreCase("list")) {
-            return new ListCommand();
-        } else if (trimmed.startsWith("mark ")) {
-            int index = Integer.parseInt(trimmed.split(" ")[1]);
-            return new MarkCommand(index);
-        } else if (trimmed.startsWith("unmark ")) {
-            int index = Integer.parseInt(trimmed.split(" ")[1]);
-            return new UnmarkCommand(index);
-        } else if (trimmed.startsWith("todo ")) {
-            return new AddTodoCommand(trimmed.substring(5));
-        } else if (trimmed.startsWith("deadline ")) {
-            //split by /by
-            String[] information = input.substring(9).split(" /by ", 2);
-            if (information.length < 2 || !information[0].matches(".*[a-zA-Z].*")) {
-                throw new InvalidDeadlineException();
-            }
-            String description = information[0];
-            String by = information[1];
-            return new AddDeadlineCommand(description, by);
-        } else if (trimmed.startsWith("event ")) {
-            //split by /from and /to
-            String[] information = input.substring(6).split(" /from | /to ", 3);
-            if (information.length < 3 || !information[0].matches(".*[a-zA-Z].*")) {
-                throw new InvalidEventException();
-            }
-            String description = information[0];
-            String from = information[1];
-            String to = information[2];
-            return new AddEventCommand(description, from, to);
-        } else if (trimmed.startsWith("delete ")) {
-            int index = Integer.parseInt(trimmed.split(" ")[1]);
-            return new DeleteCommand(index);
-        } else if (trimmed.startsWith("find ")) {
-            String keyword = trimmed.substring(5).trim();
-            if (keyword.isEmpty()) {
-                throw new InvalidCommandException("Please provide a keyword to search for.");
-            }
-            return new FindCommand(keyword);
-        } else {
-            throw new InvalidCommandException();
+        if (trimmed.isEmpty()) {
+            throw new InvalidCommandException("Input cannot be empty.");
         }
+
+        String[] tokens = trimmed.split(" ", 2);
+        String commandWord = tokens[0].toLowerCase();
+        String arguments = tokens.length > 1 ? tokens[1].trim() : "";
+
+        return switch (commandWord) {
+        case CMD_BYE -> new ExitCommand();
+        case CMD_LIST -> new ListCommand();
+        case CMD_MARK -> parseMark(arguments);
+        case CMD_UNMARK -> parseUnmark(arguments);
+        case CMD_TODO -> parseTodo(arguments);
+        case CMD_DEADLINE -> parseDeadline(arguments);
+        case CMD_EVENT -> parseEvent(arguments);
+        case CMD_DELETE -> parseDelete(arguments);
+        case CMD_FIND -> parseFind(arguments);
+        default -> throw new InvalidCommandException();
+        };
+    }
+    /**
+     * Parses the "mark" command.
+     *
+     * @param args The index argument provided by the user.
+     * @return A MarkCommand with the valid index.
+     * @throws EvansBotException If the index is missing or invalid.
+     */
+    private static Command parseMark(String args) throws EvansBotException {
+        int index = parseIndex(args, "mark");
+        return new MarkCommand(index);
     }
 
+    /**
+     * Parses the "unmark" command.
+     *
+     * @param args The index argument provided by the user.
+     * @return An  UnmarkCommand  with a valid index
+     * @throws EvansBotException If the index is missing or invalid.
+     */
+    private static Command parseUnmark(String args) throws EvansBotException {
+        int index = parseIndex(args, "unmark");
+        return new UnmarkCommand(index);
+    }
+
+    /**
+     * Parses the "todo" command.
+     *
+     * @param args The task description provided by the user.
+     * @return An AddTodoCommand with the args.
+     * @throws EvansBotException If the description is empty.
+     */
+    private static Command parseTodo(String args) throws EvansBotException {
+        assert args != null : "Todo description should not be null";
+        assert !args.trim().isEmpty() : "Todo description should not be blank";
+        if (args.isEmpty()) {
+            throw new InvalidCommandException("The description of a todo cannot be empty.");
+        }
+        return new AddTodoCommand(args);
+    }
+
+    /**
+     * Parses the "deadline" command.
+     *
+     * @param args The description and deadline, separated by "/by".
+     * @return An AddDeadlineCommand object with description and by.
+     * @throws EvansBotException If the format is invalid.
+     */
+    private static Command parseDeadline(String args) throws EvansBotException {
+        String[] information = args.split(" /by ", 2);
+        if (information.length < 2) {
+            throw new InvalidDeadlineException();
+        }
+        String description = information[0].trim();
+        String by = information[1].trim();
+        assert !description.isEmpty() : "Deadline description should not be blank";
+        return new AddDeadlineCommand(description, by);
+    }
+
+    /**
+     * Parses the "event" command.
+     *
+     * @param args The description, start time, and end time, separated by "/from" and "/to".
+     * @return An AddEventCommand with description, from and to.
+     * @throws EvansBotException If the format is invalid.
+     */
+    private static Command parseEvent(String args) throws EvansBotException {
+        String[] information = args.split(" /from | /to ", 3);
+        if (information.length < 3) {
+            throw new InvalidEventException();
+        }
+        String description = information[0].trim();
+        String from = information[1].trim();
+        String to = information[2].trim();
+        assert !description.isEmpty() : "Event description should not be blank";
+
+        return new AddEventCommand(description, from, to);
+    }
+
+    /**
+     * Parses the "delete" command.
+     *
+     * @param args The index argument provided by the user.
+     * @return A DeleteCommand with the index..
+     * @throws EvansBotException If the index is missing or invalid.
+     */
+    private static Command parseDelete(String args) throws EvansBotException {
+        int index = parseIndex(args, "delete");
+        return new DeleteCommand(index);
+    }
+
+    /**
+     * Parses the "find" command.
+     *
+     * @param args The keyword provided by the user.
+     * @return A FindCommand with args.
+     * @throws EvansBotException If the keyword is empty.
+     */
+    private static Command parseFind(String args) throws EvansBotException {
+        if (args.isEmpty()) {
+            throw new InvalidCommandException("Please provide a keyword to search for.");
+        }
+        return new FindCommand(args);
+    }
+
+    /**
+     * Utility method for parsing an index-based argument.
+     *
+     * @param arg The string representing an index.
+     * @param commandName The name of the command for clearer error messages.
+     * @return The parsed index as an integer.
+     * @throws EvansBotException If the argument cannot be parsed as a number.
+     */
+    private static int parseIndex(String arg, String commandName) throws EvansBotException {
+        try {
+            return Integer.parseInt(arg.trim());
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandException(
+                    "The argument for '" + commandName + "' must be a number."
+            );
+        }
+    }
 }
