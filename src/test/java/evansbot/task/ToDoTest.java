@@ -3,6 +3,7 @@ package evansbot.task;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 public class ToDoTest {
@@ -22,13 +23,13 @@ public class ToDoTest {
     }
 
     @Test
-    public void testToString_NotDone() {
+    public void testToStringNotDone() {
         ToDo todo = new ToDo("go jogging");
         assertEquals("[T][ ] go jogging", todo.toString());
     }
 
     @Test
-    public void testToString_Done() {
+    public void testToStringDone() {
         ToDo todo = new ToDo("buy groceries", true);
         assertEquals("[T][X] buy groceries", todo.toString());
     }

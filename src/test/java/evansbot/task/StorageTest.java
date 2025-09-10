@@ -1,15 +1,17 @@
 package evansbot.task;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class StorageTest {
 
@@ -28,7 +30,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testSaveAndLoad_ToDo() throws IOException {
+    public void testSaveAndLoadToDo() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new ToDo("read book", true));
 
@@ -42,7 +44,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testSaveAndLoad_Deadline() throws IOException {
+    public void testSaveAndLoadDeadline() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new Deadline("submit report", "2025-08-30"));
 
@@ -57,7 +59,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testSaveAndLoad_Event() throws IOException {
+    public void testSaveAndLoadEvent() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new Event("team meeting", "2025-08-28", "2025-08-29"));
 
@@ -73,7 +75,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testLoad_EmptyFile() throws IOException {
+    public void testLoadEmptyFile() throws IOException {
         ArrayList<Task> loaded = storage.loadTasks();
         assertTrue(loaded.isEmpty());
     }
