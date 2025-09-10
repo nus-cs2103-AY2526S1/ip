@@ -21,26 +21,26 @@ public class LynxSearcherTest {
 
     @Test
     public void testFindTasks() throws LynxException {
-        Task testTaskA = new TodoTask("ab");
-        Task testTaskB = new TodoTask("b");
-        Task testTaskC = new TodoTask("c");
+        Task testTaskA = new TodoTask("ab", 0);
+        Task testTaskB = new TodoTask("b", 0);
+        Task testTaskC = new TodoTask("c", 0);
         testTaskC.setComplete();
 
-        Task testTaskD = new DeadlineTask("a", LocalDateTime.of(
+        Task testTaskD = new DeadlineTask("a", 0, LocalDateTime.of(
                 2025, 11, 11, 0, 0));
-        Task testTaskE = new DeadlineTask("ba", LocalDateTime.of(
+        Task testTaskE = new DeadlineTask("ba", 0, LocalDateTime.of(
                 1925, 11, 11, 0, 0));
-        Task testTaskF = new DeadlineTask("c", LocalDateTime.of(
+        Task testTaskF = new DeadlineTask("c", 0, LocalDateTime.of(
                 2025, 11, 12, 0, 0));
         testTaskF.setComplete();
 
-        Task testTaskG = new EventTask("a",
+        Task testTaskG = new EventTask("a", 0,
                 LocalDateTime.of(2025, 11, 7, 0, 0),
                 LocalDateTime.of(2025, 11, 13, 0, 0));
-        Task testTaskH = new EventTask("b",
+        Task testTaskH = new EventTask("b", 0,
                 LocalDateTime.of(1925, 11, 8, 0, 0),
                 LocalDateTime.of(1925, 11, 13, 0, 0));
-        Task testTaskI = new EventTask("c",
+        Task testTaskI = new EventTask("c", 0,
                 LocalDateTime.of(2025, 12, 9, 0, 0),
                 LocalDateTime.of(2025, 12, 13, 0, 0));
         testTaskG.setComplete();

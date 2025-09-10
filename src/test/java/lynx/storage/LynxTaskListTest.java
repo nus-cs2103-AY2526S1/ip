@@ -20,7 +20,7 @@ public class LynxTaskListTest {
     @Test
     public void testFilterTasksById() throws LynxException {
         taskList.clearTasks();
-        TodoTask testTask = new TodoTask("a");
+        TodoTask testTask = new TodoTask("a", 0);
         taskList.addTask(testTask);
         int id = testTask.getId();
         assertEquals(id, LynxSorter.filterTasksById(taskList.getAllTasks(), id)
@@ -30,8 +30,8 @@ public class LynxTaskListTest {
     @Test
     public void testFilterTasksByKeyword() throws LynxException {
         taskList.clearTasks();
-        taskList.addTask(new TodoTask("A aaa test BBB"));
-        taskList.addTask(new TodoTask("BAAA,AtestBB"));
+        taskList.addTask(new TodoTask("A aaa test BBB", 0));
+        taskList.addTask(new TodoTask("BAAA,AtestBB", 0));
 
         assertEquals(2, LynxSorter.filterTasksByKeyword(
                 taskList.getAllTasks(), "a").count());
@@ -52,11 +52,11 @@ public class LynxTaskListTest {
     @Test
     public void testFilterTasksByDate() throws LynxException {
         taskList.clearTasks();
-        taskList.addTask(new DeadlineTask("a", LocalDateTime.of(
+        taskList.addTask(new DeadlineTask("a", 0, LocalDateTime.of(
                 2025, 11, 11, 0, 0)));
-        taskList.addTask(new DeadlineTask("a", LocalDateTime.of(
+        taskList.addTask(new DeadlineTask("a", 0, LocalDateTime.of(
                 2025, 11, 12, 0, 0)));
-        taskList.addTask(new EventTask("a",
+        taskList.addTask(new EventTask("a", 0,
                 LocalDateTime.of(2025, 11, 12, 0, 0),
                 LocalDateTime.of(2025, 11, 13, 0, 0)));
 
@@ -71,11 +71,11 @@ public class LynxTaskListTest {
     @Test
     public void testFilterTasksByStatus() throws LynxException {
         taskList.clearTasks();
-        taskList.addTask(new DeadlineTask("a", LocalDateTime.of(
+        taskList.addTask(new DeadlineTask("a", 0, LocalDateTime.of(
                 1925, 11, 11, 0, 0)));
-        taskList.addTask(new DeadlineTask("a", LocalDateTime.of(
+        taskList.addTask(new DeadlineTask("a", 0, LocalDateTime.of(
                 2025, 11, 12, 0, 0)));
-        DeadlineTask testTask = new DeadlineTask("b", LocalDateTime.of(
+        DeadlineTask testTask = new DeadlineTask("b", 0, LocalDateTime.of(
                 2025, 11, 12, 0, 0));
         testTask.setComplete();
         taskList.addTask(testTask);
@@ -91,10 +91,10 @@ public class LynxTaskListTest {
     @Test
     public void testFilterTasksByType() throws LynxException {
         taskList.clearTasks();
-        taskList.addTask(new TodoTask("a"));
-        taskList.addTask(new DeadlineTask("a", LocalDateTime.of(
+        taskList.addTask(new TodoTask("a", 0));
+        taskList.addTask(new DeadlineTask("a", 0, LocalDateTime.of(
                 2025, 11, 11, 0, 0)));
-        taskList.addTask(new EventTask("a",
+        taskList.addTask(new EventTask("a", 0,
                 LocalDateTime.of(2025, 11, 12, 0, 0),
                 LocalDateTime.of(2025, 11, 13, 0, 0)));
 
