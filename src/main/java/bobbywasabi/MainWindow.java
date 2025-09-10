@@ -40,13 +40,14 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
 
         String response = bobbywasabi.getResponse(input);
+        String commandType = bobbywasabi.getCommandType();
 
         assert !response.trim().isEmpty()
                 : "Bot response cannot be empty!";
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(this.userImage, input),
-                DialogBox.getBobbyWasabiDialog(this.bobbywasabiImage, response)
+                DialogBox.getBobbyWasabiDialog(this.bobbywasabiImage, response, commandType)
         );
         userInput.clear();
     }

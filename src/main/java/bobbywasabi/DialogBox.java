@@ -42,17 +42,44 @@ public class DialogBox extends HBox {
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
+        dialog.getStyleClass().add("reply-label");
         this.getChildren().setAll(tmp);
         this.setAlignment(Pos.TOP_LEFT);
+    }
+
+    private void changeDialogStyle(String commandType) {
+        System.out.println(commandType);
+        switch(commandType) {
+        case "TODO":
+            dialog.getStyleClass().add("add-label");
+            break;
+        case "EVENT":
+            dialog.getStyleClass().add("add-label");
+            break;
+        case "DEADLINE":
+            dialog.getStyleClass().add("add-label");
+            break;
+        case "MARK":
+            dialog.getStyleClass().add("marked-label");
+            break;
+        case "UNMARK":
+            dialog.getStyleClass().add("marked-label");
+            break;
+        case "DELETE":
+            dialog.getStyleClass().add("delete-label");
+            break;
+        default:
+        }
     }
 
     public static DialogBox getUserDialog(Image image, String text) {
         return new DialogBox(image, text);
     }
 
-    public static DialogBox getBobbyWasabiDialog(Image image, String text) {
+    public static DialogBox getBobbyWasabiDialog(Image image, String text, String commandType) {
         var db = new DialogBox(image, text);
         db.flip();
+        db.changeDialogStyle(commandType);
         return db;
     }
 
