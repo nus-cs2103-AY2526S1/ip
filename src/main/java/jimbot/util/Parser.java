@@ -36,6 +36,7 @@ public class Parser {
                 throw new NoSuchTaskException();
             }
 
+            assert index >= 0 && index < taskCount : "Index must be within valid task range";
             return index;
         } catch (NumberFormatException e) {
             throw new NoSuchTaskException();
@@ -63,16 +64,19 @@ public class Parser {
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HHmm");
 
         try {
+            LocalDateTime result;
             if (input.contains(" ")) { // input has both date + time
-                return LocalDateTime.parse(input, dtFormat);
+                result = LocalDateTime.parse(input, dtFormat);
             } else if (input.contains("/")) { // input only has date
                 LocalDate date = LocalDate.parse(input, dateFormat);
-                return date.atStartOfDay();
+                result = date.atStartOfDay();
             } else { // input only has time
                 LocalTime time = LocalTime.parse(input, timeFormat);
-
-                return time.atDate(LocalDate.now());
+                result = time.atDate(LocalDate.now());
             }
+
+            assert result != null : "Parsed LocalDateTime should never be null";
+            return result;
         } catch (DateTimeParseException e) {
             throw new InvalidDateTimeException();
         }
@@ -91,8 +95,10 @@ public class Parser {
 
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate result = LocalDate.parse(input, formatter);
 
-            return LocalDate.parse(input, formatter);
+            assert result != null : "Parsed LocalDate should never be null";
+            return result;
         } catch (DateTimeParseException e) {
             throw new InvalidDateTimeException();
         }

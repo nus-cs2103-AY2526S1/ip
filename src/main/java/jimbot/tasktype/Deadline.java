@@ -23,6 +23,10 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
+        assert by != null : "Deadline dateTime cannot be null";
+        assert getDescription() != null && !getDescription().isEmpty()
+                : "Task description should not be null or empty";
+
         this.dateTime = by;
         this.isMidnight = dateTime.toLocalTime().equals(LocalTime.MIDNIGHT);
     }

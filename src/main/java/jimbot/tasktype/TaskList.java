@@ -29,15 +29,17 @@ public class TaskList {
      * @param loadTasks List of tasks to load.
      */
     public TaskList(List<Task> loadTasks) {
+        assert loadTasks != null : "Task list cannot be null";
         this.listOfTasks = loadTasks;
     }
 
     /**
-     * Returns the list of tasks as a List<Task>.
+     * Returns the list of tasks as a {@Link List<Task>}.
      *
      * @return List of tasks stored in this TaskList.
      */
     public List<Task> getTaskList() {
+        assert listOfTasks != null : "Internal task list should never be null";
         return listOfTasks;
     }
 
@@ -48,6 +50,7 @@ public class TaskList {
      * @throws TaskLimitException If the current task count exceeds 99.
      */
     public void addToList(Task task) throws TaskLimitException {
+        assert task != null : "Cannot add null task to TaskList";
         if (listOfTasks.size() >= 99) {
             throw new TaskLimitException();
         } else {
@@ -62,6 +65,7 @@ public class TaskList {
      * @return Task at specified index.
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < listOfTasks.size() : "Task index out of bounds";
         return listOfTasks.get(index);
     }
 
@@ -71,6 +75,7 @@ public class TaskList {
      * @param task Task to be removed.
      */
     public void deleteFromList(Task task) {
+        assert task != null : "Cannot delete null task from TaskList";
         listOfTasks.remove(task);
     }
 
@@ -91,6 +96,7 @@ public class TaskList {
      * @throws NoSuchTaskException If no tasks match the description.
      * */
     public TaskList findTasks(String description) throws NoSuchTaskException {
+        assert description != null : "Search description should not be null";
         List<Task> result = new ArrayList<>();
 
         if (description.isEmpty()) {
@@ -116,6 +122,10 @@ public class TaskList {
         if (result.isEmpty()) {
             throw new NoSuchTaskException();
         } else {
+            for (Task t : result) {
+                assert t.getDescription().contains(description)
+                        : "Filtered task does not match search description";
+            }
             return new TaskList(result);
         }
     }
@@ -128,6 +138,7 @@ public class TaskList {
      * @throws NoSuchTaskException If no tasks match the date.
      * */
     public TaskList findTasksAtDate(LocalDate date) throws NoSuchTaskException {
+        assert date != null : "Search date should not be null";
         List<Task> result = new ArrayList<>();
 
         for (Task task : listOfTasks) {
@@ -146,6 +157,9 @@ public class TaskList {
         if (result.isEmpty()) {
             throw new NoSuchTaskException();
         } else {
+            for (Task t : result) {
+                assert t instanceof Deadline || t instanceof Event : "Unexpected task type in date search result";
+            }
             return new TaskList(result);
         }
     }
