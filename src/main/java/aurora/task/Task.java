@@ -1,5 +1,6 @@
 package aurora.task;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +22,7 @@ public abstract class Task {
         assert description != null && !description.isBlank() : "Description cannot be null or empty";
         this.description = description;
         this.isDone = isDone;
+        this.tags = new ArrayList<>();
     }
 
     public void addTag(String tag) {
@@ -38,7 +40,17 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return isDone ? "[X] " + description : "[ ] " + description;
+        StringBuilder result = new StringBuilder();
+        if (isDone) {
+            result.append("[X] ");
+        } else {
+            result.append("[ ] ");
+        }
+        result.append(description);
+        for (String tag : tags) {
+            result.append(" #").append(tag);
+        }
+        return result.toString();
     }
 
     /**
@@ -52,7 +64,13 @@ public abstract class Task {
      * @return A string separated by | representing the task.
      */
     public String toText() {
-        return String.format("%s|%s", isDone ? "true" : "false", description);
+        StringBuilder result = new StringBuilder();
+        result.append(isDone).append("|");
+        result.append(description).append("|");
+        for (String tag : tags) {
+            result.append(tag).append(" ");
+        }
+        return result.toString().trim();
     }
 
     /**
