@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 /**
  * Represents a task that contains a description and can be completed.
+ *
+ * @author limjimin-nus
  */
 public class Task implements Serializable {
     // Version identifier number that is stored with the serialized tasks

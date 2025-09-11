@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task with a deadline.
  * Stores the date and time by which the task should be completed.
+ *
+ * @author limjimin-nus
  */
 public class Deadline extends Task {
     protected LocalDateTime dateTime;
@@ -41,7 +43,6 @@ public class Deadline extends Task {
         if (isMidnight) {
             return "[D]" + super.toString() + "\n               (BY: "
                     + dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
-
         } else {
             return "[D]" + super.toString() + "\n               (BY: "
                     + dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm")) + ")";

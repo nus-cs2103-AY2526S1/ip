@@ -7,13 +7,41 @@ import jimbot.tasktype.TaskList;
 import jimbot.ui.UI;
 import jimbot.util.Parser;
 
+/**
+ * Represents a command that deletes a task from the task list.
+ * The task index is extracted from the user input following
+ * the {@code delete} keyword.
+ *
+ * Example input:
+ * {@code delete 2}
+ *
+ * This would delete the second task in the task list.
+ *
+ * @author limjimin-nus
+ */
 public class DeleteCommand implements Command {
     private final String userInput;
 
+    /**
+     * Constructs a DeleteCommand with the specified user input.
+     *
+     * @param input The raw user string input.
+     */
     public DeleteCommand(String input) {
         this.userInput = input;
     }
 
+    /**
+     * Executes the command by deleting the task at the specified index.
+     * The task is removed from the task list and the storage is updated.
+     *
+     * @param userList Task list from which the task will be deleted.
+     * @param userStorage Storage manager to update after deletion.
+     * @param user UI manager used to generate the response message.
+     * @return Response message confirming deletion of the task.
+     * @throws JimbotException If the task index is invalid or other
+     *                         task-related errors occur.
+     */
     @Override
     public String execute(TaskList userList, Storage userStorage, UI user) throws JimbotException {
         int taskCount = userList.getTaskCount();

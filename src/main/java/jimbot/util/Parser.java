@@ -97,25 +97,4 @@ public class Parser {
             throw new InvalidDateTimeException();
         }
     }
-
-    /**
-     * Extracts the arguments part of a user input string, i.e., everything after the first word.
-     *
-     * @param input Full user input string, e.g., "todo work"
-     * @return The arguments string after the command word, trimmed. Returns empty string if no arguments.
-     */
-    public static String parseArguments(String input) {
-        if (input == null || input.isBlank()) {
-            return "";
-        }
-
-        String trimmed = input.trim();
-        String cmdWord = trimmed.split(" ")[0];
-        // first word = command
-        if (trimmed.length() > cmdWord.length()) {
-            return trimmed.substring(cmdWord.length()).trim();
-        } else {
-            return "";
-        }
-    }
 }

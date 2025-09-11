@@ -2,8 +2,6 @@ package jimbot.command;
 
 import java.util.function.Function;
 
-import jimbot.exception.InvalidDateTimeException;
-
 /**
  * Represents the different commands that Jimbot can recognize.
  * Provides a utility method to parse a string input into a Commands value.
@@ -33,22 +31,19 @@ public enum Commands {
     }
 
     /**
-     * Convert a string input into the corresponding Commands enum value.
-     * Handles case-insensitive command strings and recognizes date inputs.
+     * Converts a string input and its extracted command word into a corresponding
+     * {@link Command} object.
      *
      * @param input User input string to be converted into a command.
-     * @return Corresponding Commands enum value.
-     * @throws InvalidDateTimeException If the input only contains a date but does not match the date pattern.
+     * @param cmd Extracted command word from the input.
+     * @return {@link Command} object corresponding to the user input.
      */
-    public static Command fromString(String input) {
+    public static Command fromString(String input, String cmd) {
         if (input == null || input.isEmpty()) {
             return UNKNOWN.factory.apply(input);
         }
 
-        String[] tokens = input.trim().split(" ", 2);
-        String cmd = tokens[0].toLowerCase();
-
-        // Check for date input
+        // Check for date command
         if (cmd.contains("/")) {
             return DATE.factory.apply(input);
         }

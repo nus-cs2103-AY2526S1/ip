@@ -3,6 +3,8 @@ package jimbot.tasktype;
 /**
  * Represents a simple task without a specific date or time.
  * Stores only the description of the task.
+ *
+ * @author limjimin-nus
  */
 public class ToDo extends Task {
 

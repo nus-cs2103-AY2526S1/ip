@@ -31,10 +31,16 @@ public class Jimbot {
         userList = userStorage.load();
     }
 
+    /**
+     * Returns a response according to the raw user input string.
+     *
+     * @param userInput Raw user input string
+     * @return Appropriate response from UI.
+     */
     public String getResponse(String userInput) {
         try {
             commandType = userInput.split(" ")[0];
-            Command cmd = Commands.fromString(userInput);
+            Command cmd = Commands.fromString(userInput, commandType);
 
             return cmd.execute(userList, userStorage, user);
         } catch (JimbotException e) {
