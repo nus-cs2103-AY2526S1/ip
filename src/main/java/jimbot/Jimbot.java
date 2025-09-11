@@ -48,6 +48,9 @@ public class Jimbot {
         try {
             commandType = userInput.split(" ")[0];
             Commands cmd = Commands.fromString(commandType);
+
+            assert cmd != null : "Parsed command should never be null";
+
             int taskCount = userList.getTaskCount();
 
             switch (cmd) {
@@ -63,7 +66,7 @@ public class Jimbot {
 
                 // Retrieve task from list using task index
                 Task task = userList.getTask(index);
-
+                assert task != null : "Task retrieved by index should not be null";
                 // Mark task as done
                 task.markAsDone();
 
@@ -79,6 +82,7 @@ public class Jimbot {
 
                 // Retrieve task from list using task index
                 Task task = userList.getTask(index);
+                assert task != null : "Task retrieved by index should not be null";
 
                 // Mark task as undone
                 task.markAsUndone();
@@ -131,6 +135,9 @@ public class Jimbot {
 
                     LocalDateTime dateTime1 = Parser.parseDateTime(from);
                     LocalDateTime dateTime2 = Parser.parseDateTime(to);
+                    if (dateTime2.isBefore(dateTime1)) {
+                        throw new InvalidEventException();
+                    }
                     Event userEvent = new Event(description, dateTime1, dateTime2);
 
                     userList.addToList(userEvent);
@@ -154,6 +161,7 @@ public class Jimbot {
             case DELETE:
                 int index = Parser.parseIndex(userInput, "delete", taskCount);
                 Task task = userList.getTask(index);
+                assert task != null : "Task retrieved by index should not be null";
 
                 userList.deleteFromList(userList.getTask(index));
                 userStorage.update(userList);
