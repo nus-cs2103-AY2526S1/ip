@@ -24,6 +24,7 @@ import java.time.format.DateTimeParseException;
  * - todo <description>
  * - deadline <description> /by <when>
  * - event <description> /from <start> /to <end>
+ * - find <substring>
  * <p>
  * Date/time format expected by deadline and event:
  * dd/MM/yyyy HH:mm:ss
@@ -57,8 +58,9 @@ public final class CommandParser {
             case "todo" -> parseTodo(rest);
             case "deadline" -> parseDeadline(rest);
             case "event" -> parseEvent(rest);
+            case "find" -> parseFind(rest);
             default ->
-                    throw new ParseException("Unknown command: " + verb + ". Try: list, mark, unmark, delete, todo, deadline, event, bye");
+                    throw new ParseException("Unknown command: " + verb + ". Try: list, mark, unmark, delete, todo, deadline, event, find, bye");
         };
     }
 
@@ -183,5 +185,21 @@ public final class CommandParser {
         }
         if (to.isBefore(from)) throw new ParseException("End time must be after start time.");
         return new AddEventCommand(desc, from, to);
+    }
+
+    /**
+     * Parses: find <substring>
+     * <p>
+     * Rules:
+     * - Requires a non-empty substring.
+     * - Matching is performed by FindCommand (case-insensitive).
+     *
+     * @param rest the substring to search for
+     * @return a FindCommand configured with the substring
+     * @throws ParseException if the substring is missing
+     */
+    private static Command parseFind(String rest) throws ParseException {
+        if (rest.isEmpty()) throw new ParseException("Usage: find <substring>");
+        return new FindCommand(rest);
     }
 }

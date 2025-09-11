@@ -15,6 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileWriter;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -57,12 +58,24 @@ public class FileStorage implements Storage {
      * @return a path pointing to data.txt beside the application artifact, or a home-directory fallback
      */
     public static Path resolveBesideJar() {
-        try {
-            Path jarDir = Paths.get(john.core.John.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
-            return jarDir.resolve("data.txt");
-        } catch (Exception e) {
-            return Paths.get(System.getProperty("user.home"), ".duke", "data.txt");
+        String override = System.getProperty("john.data");
+        if (override != null && !override.isBlank()) {
+            return Paths.get(override);
         }
+        try {
+            Path loc = Paths.get(john.core.John.class
+                    .getProtectionDomain()
+                    .getCodeSource()
+                    .getLocation()
+                    .toURI());
+            if (Files.isRegularFile(loc) && loc.toString().endsWith(".jar")) {
+                return loc.getParent().resolve("data.txt");
+            }
+        } catch (Exception ignore) {
+            // fall through to defaults
+        }
+        Path workingDir = Paths.get(System.getProperty("user.dir")).toAbsolutePath();
+        return workingDir.resolve("data.txt");
     }
 
     /**

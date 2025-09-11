@@ -10,41 +10,32 @@ import john.model.TaskList;
 import john.adapters.FileStorage;
 import john.ports.Ui;
 
-
 import java.util.Scanner;
 
 /**
- * Application entry point and main command loop for the John task manager.
+ * Core application class for the John task manager.
  * <p>
- * Responsibilities:
- * - Initialize storage, UI, and in-memory task list.
- * - Load tasks from persistent storage at startup.
- * - Read user input lines, parse them into commands, execute, and display results.
- * - Gracefully handle parse errors and unexpected exceptions.
- * - Close UI resources on shutdown.
+ * Roles
+ * - CLI entry point and command loop (run, main).
+ * - Backend service for the JavaFX UI (getReply).
+ * - Orchestrates parsing, command execution, persistence, and UI messaging.
  * <p>
- * Lifecycle:
- * 1) tasks = storage.load()
- * 2) ui.showWelcome(taskCount)
- * 3) Loop:
- * - line = ui.nextCommand() (null on EOF)
- * - parse line into Command
- * - execute Command -> CommandResult
- * - ui.showMessage(result.feedback) if non-blank
- * - break if result.exit is true
- * 4) Close UI (which closes the underlying Scanner)
+ * Storage
+ * - Uses FileStorage.resolveBesideJar() to choose a writable data path near the
+ * running JAR; falls back to a home-directory path if needed.
  * <p>
- * Notes:
- * - FileStorage.resolveBesideJar() chooses a data file path next to the running JAR
- * (or falls back to a home directory path). This avoids hardcoding src/ paths.
- * - ConsoleUi.close() will close the Scanner. If that Scanner wraps System.in,
- * System.in will be closed as well. The PrintStream (System.out) is not closed.
- * - This class uses static fields for simplicity in a single-VM CLI program.
- * For greater testability, prefer dependency injection and instance fields.
+ * UI
+ * - In CLI mode, ConsoleUi reads from System.in and writes to System.out.
+ * ConsoleUi.close() will close the Scanner, which also closes System.in.
+ * <p>
+ * Design notes
+ * - Uses static fields for a simple single-VM CLI. For richer testing and multiple
+ * instances, prefer dependency injection and instance fields.
+ * - Commands should return messages via CommandResult rather than printing directly.
  */
 public class John {
     /**
-     * In-memory task list backing the session. Populated on startup via storage.load().
+     * In-memory task list for the current session. Populated on startup via storage.load().
      */
     private static TaskList tasks;
 
@@ -60,9 +51,9 @@ public class John {
     private static final ConsoleUi ui = new ConsoleUi(new Scanner(System.in), System.out);
 
     /**
-     * Runs the main REPL loop: load tasks, greet the user, process commands until exit or EOF.
-     * Any ParseException thrown by command parsing is caught and shown to the user.
-     * Other unexpected exceptions are also surfaced via the UI before shutdown.
+     * Runs the CLI loop: load tasks, greet the user, then repeatedly read, parse, and
+     * execute commands until an exit command or EOF is encountered. Parse errors are
+     * shown to the user; unexpected exceptions are surfaced before shutdown.
      */
     public static void run() {
         tasks = storage.load();
@@ -85,7 +76,49 @@ public class John {
         }
     }
 
+    /**
+     * Standard Java entry point for CLI mode. Delegates to run().
+     *
+     * @param args command-line arguments (unused)
+     */
     public static void main(String[] args) {
         John.run();
+    }
+
+    /**
+     * Constructs a backend instance for GUI mode and loads tasks immediately.
+     * Note that this does not start the CLI loop; the JavaFX controller will call
+     * getReply(String) to process individual user inputs.
+     */
+    public John() {
+        tasks = storage.load();
+    }
+
+    /**
+     * Immutable reply returned to the JavaFX controller.
+     *
+     * @param message user-facing feedback text
+     * @param exit    true if the application should exit after showing the message
+     */
+    public record Reply(String message, boolean exit) {
+    }
+
+    /**
+     * Processes a single user input and returns a reply for the GUI.
+     * The reply contains the user-facing message and a boolean that signals
+     * whether the application should exit. Commands may mutate the task list
+     * and persist changes via storage as needed.
+     *
+     * @param input raw user input text
+     * @return a Reply containing the message and an exit flag
+     */
+    public Reply getReply(String input) {
+        try {
+            Command cmd = CommandParser.parse(input);
+            CommandResult res = cmd.execute(tasks, storage, ui);
+            return new Reply(res.feedback(), res.exit());
+        } catch (ParseException e) {
+            return new Reply(e.getMessage(), false);
+        }
     }
 }

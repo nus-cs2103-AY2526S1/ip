@@ -16,7 +16,7 @@ import john.ports.Ui;
  * Side effects:
  * - None. This command does not mutate tasks or call storage.
  */
-public final class ListCommand implements Command {
+public class ListCommand implements Command {
 
     /**
      * Builds a numbered listing of all tasks and returns it as a CommandResult.
