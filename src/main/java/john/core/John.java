@@ -61,12 +61,18 @@ public class John {
             ui.showWelcome(tasks.size());
             while (true) {
                 String line = ui.nextCommand();
-                if (line == null) break; // EOF
+                if (line == null) {
+                    break; // EOF
+                }
                 try {
                     Command cmd = CommandParser.parse(line);
                     CommandResult res = cmd.execute(tasks, storage, ui);
-                    if (!res.feedback().isBlank()) ui.showMessage(res.feedback());
-                    if (res.exit()) break;
+                    if (!res.feedback().isBlank()) {
+                        ui.showMessage(res.feedback());
+                    }
+                    if (res.exit()) {
+                        break;
+                    }
                 } catch (ParseException e) {
                     ui.showMessage(e.getMessage());
                 }

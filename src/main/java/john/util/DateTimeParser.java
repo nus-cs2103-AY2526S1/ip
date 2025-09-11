@@ -28,7 +28,8 @@ public final class DateTimeParser {
      * Internal formatter matching HUMAN_PATTERN with strict resolution.
      * Rejects invalid dates and times (e.g., leap-day errors).
      */
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm:ss").withResolverStyle(ResolverStyle.STRICT);
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.
+            ofPattern("dd/MM/uuuu HH:mm:ss").withResolverStyle(ResolverStyle.STRICT);
 
     /**
      * Parses a date-time string into a LocalDateTime using the expected pattern.

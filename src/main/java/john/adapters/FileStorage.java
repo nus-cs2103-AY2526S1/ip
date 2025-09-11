@@ -117,7 +117,9 @@ public class FileStorage implements Storage {
 
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\\|");
-                if (parts.length == 0) continue;
+                if (parts.length == 0) {
+                    continue;
+                }
 
                 String type = parts[0].trim().toUpperCase();
 
@@ -137,7 +139,8 @@ public class FileStorage implements Storage {
                         if (parts.length >= 4) {
                             String title = parts[2].trim();
                             String deadline = parts[3].trim();
-                            Task deadlineTask = new Deadline(title, DateTimeParser.parseDateTime(deadline));
+                            Task deadlineTask = new Deadline(title,
+                                    DateTimeParser.parseDateTime(deadline));
                             if ("1".equals(parts[1].trim())) {
                                 deadlineTask.markAsComplete();
                             }
@@ -150,7 +153,8 @@ public class FileStorage implements Storage {
                             String title = parts[2].trim();
                             String from = parts[3].trim();
                             String to = parts[4].trim();
-                            Task eventTask = new Event(title, DateTimeParser.parseDateTime(from), DateTimeParser.parseDateTime(to));
+                            Task eventTask = new Event(title,
+                                    DateTimeParser.parseDateTime(from), DateTimeParser.parseDateTime(to));
                             if ("1".equals(parts[1].trim())) {
                                 eventTask.markAsComplete();
                             }
