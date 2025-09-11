@@ -1,5 +1,7 @@
 package jimbot.command;
 
+import java.util.function.Function;
+
 import jimbot.exception.InvalidDateTimeException;
 
 /**
@@ -9,7 +11,26 @@ import jimbot.exception.InvalidDateTimeException;
  * @author limjimin-nus
  */
 public enum Commands {
-    HI, BYE, DATE, DEADLINE, DELETE, EVENT, FIND, HELP, LIST, MARK, TODAY, TODO, UNKNOWN, UNMARK;
+    HI(GreetCommand::new),
+    BYE(input -> new ExitCommand()),
+    DATE(FindDateCommand::new),
+    DEADLINE(AddDeadlineCommand::new),
+    DELETE(DeleteCommand::new),
+    EVENT(AddEventCommand::new),
+    FIND(FindCommand::new),
+    HELP(input -> new HelpCommand()),
+    LIST(input -> new ListCommand()),
+    MARK(MarkCommand::new),
+    TODAY(FindDateCommand::new),
+    TODO(AddToDoCommand::new),
+    UNKNOWN(ResponseCommand::new),
+    UNMARK(UnmarkCommand::new);
+
+    private final Function<String, Command> factory;
+
+    Commands(Function<String, Command> factory) {
+        this.factory = factory;
+    }
 
     /**
      * Convert a string input into the corresponding Commands enum value.
@@ -19,32 +40,33 @@ public enum Commands {
      * @return Corresponding Commands enum value.
      * @throws InvalidDateTimeException If the input only contains a date but does not match the date pattern.
      */
-    public static Commands fromString(String input) {
+    public static Command fromString(String input) {
         if (input == null || input.isEmpty()) {
-            return UNKNOWN;
+            return UNKNOWN.factory.apply(input);
         }
 
-        String cmd = input.toLowerCase();
+        String[] tokens = input.trim().split(" ", 2);
+        String cmd = tokens[0].toLowerCase();
 
         // Check for date input
         if (cmd.contains("/")) {
-            return DATE;
+            return DATE.factory.apply(input);
         }
 
         return switch (cmd) {
-        case "hi" -> HI;
-        case "bye", "goodbye" -> BYE;
-        case "deadline" -> DEADLINE;
-        case "delete" -> DELETE;
-        case "event" -> EVENT;
-        case "find" -> FIND;
-        case "help" -> HELP;
-        case "list" -> LIST;
-        case "mark" -> MARK;
-        case "today" -> TODAY;
-        case "todo" -> TODO;
-        case "unmark" -> UNMARK;
-        default -> UNKNOWN;
+        case "hi" -> HI.factory.apply("Jimbot");
+        case "bye", "goodbye" -> BYE.factory.apply(input);
+        case "deadline" -> DEADLINE.factory.apply(input);
+        case "delete" -> DELETE.factory.apply(input);
+        case "event" -> EVENT.factory.apply(input);
+        case "find" -> FIND.factory.apply(input);
+        case "help" -> HELP.factory.apply(input);
+        case "list" -> LIST.factory.apply(input);
+        case "mark" -> MARK.factory.apply(input);
+        case "today" -> TODAY.factory.apply(input);
+        case "todo" -> TODO.factory.apply(input);
+        case "unmark" -> UNMARK.factory.apply(input);
+        default -> UNKNOWN.factory.apply(input);
         };
     }
 }
