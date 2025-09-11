@@ -1,5 +1,7 @@
 package aurora.task;
 
+import java.util.List;
+
 /**
  * Represents a task with a description and completion status.
  * Abstract base class for all subtasks.
@@ -7,6 +9,7 @@ package aurora.task;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected List<String> tags;
 
     /**
      * Creates a Task with the given description.
@@ -18,6 +21,14 @@ public abstract class Task {
         assert description != null && !description.isBlank() : "Description cannot be null or empty";
         this.description = description;
         this.isDone = isDone;
+    }
+
+    public void addTag(String tag) {
+        tags.add(tag);
+    }
+
+    public void removeTag(String tag) {
+        tags.remove(tag);
     }
 
     /**
