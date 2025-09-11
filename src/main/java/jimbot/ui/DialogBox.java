@@ -54,6 +54,9 @@ public class DialogBox extends HBox {
 
     private void changeDialogStyle(String commandType) {
         switch(commandType) {
+        case "hi":
+            dialog.getStyleClass().add("greet-label");
+            break;
         case "todo":
         case "deadline":
         case "event":

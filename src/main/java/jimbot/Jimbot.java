@@ -44,13 +44,15 @@ public class Jimbot {
         userList = userStorage.load();
     }
 
-    public String getResponse(String userInput) {
+    public String getResponse(String userInput, String name) {
         try {
             commandType = userInput.split(" ")[0];
             Commands cmd = Commands.fromString(commandType);
             int taskCount = userList.getTaskCount();
 
             switch (cmd) {
+            case HI:
+                return user.hello(name);
             case BYE:
                 return user.goodBye();
             case LIST:
