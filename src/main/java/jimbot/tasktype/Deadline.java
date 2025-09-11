@@ -31,6 +31,10 @@ public class Deadline extends Task {
         this.isMidnight = dateTime.toLocalTime().equals(LocalTime.MIDNIGHT);
     }
 
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
     public LocalDate getDate() {
         return dateTime.toLocalDate();
     }

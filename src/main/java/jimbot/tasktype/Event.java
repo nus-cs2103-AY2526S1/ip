@@ -41,6 +41,10 @@ public class Event extends Task {
         return to.toLocalDate();
     }
 
+    public LocalDateTime getFromDateTime() {
+        return from;
+    }
+
     /**
      * Converts a given LocalDateTime into a formatted string.
      * If the time is midnight, only the date is shown; otherwise, date and time are shown.
