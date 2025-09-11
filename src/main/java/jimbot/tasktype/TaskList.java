@@ -1,6 +1,7 @@
 package jimbot.tasktype;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,8 @@ public class TaskList {
      */
     public List<Task> getTaskList() {
         assert listOfTasks != null : "Internal task list should never be null";
+        sortTasks();
+
         return listOfTasks;
     }
 
@@ -161,6 +164,45 @@ public class TaskList {
                 assert t instanceof Deadline || t instanceof Event : "Unexpected task type in date search result";
             }
             return new TaskList(result);
+        }
+    }
+
+    /**
+     * Sorts the tasks in the list chronologically.
+     * - Events are sorted by their start time.
+     * - Deadlines are sorted by their due time.
+     * - ToDos are placed after all dated tasks.
+     */
+    public void sortTasks() {
+        listOfTasks.sort((t1, t2) -> {
+            LocalDateTime dt1 = getTaskDateTime(t1);
+            LocalDateTime dt2 = getTaskDateTime(t2);
+
+            if (dt1 == null && dt2 == null) {
+                return 0; // both are ToDos, keep insertion order
+            } else if (dt1 == null) {
+                return 1; // t1 is ToDo, push after t2
+            } else if (dt2 == null) {
+                return -1; // t2 is ToDo, push after t1
+            } else {
+                return dt1.compareTo(dt2); // compare actual dates
+            }
+        });
+    }
+
+    /**
+     * Returns the date/time used for sorting the task.
+     *
+     * @param task Task to get date/time for
+     * @return LocalDateTime for deadlines and events; null for ToDos
+     */
+    private LocalDateTime getTaskDateTime(Task task) {
+        if (task instanceof Deadline deadline) {
+            return deadline.getDateTime(); // should return LocalDateTime
+        } else if (task instanceof Event event) {
+            return event.getFromDateTime(); // start time
+        } else {
+            return null; // ToDos have no date/time
         }
     }
 }

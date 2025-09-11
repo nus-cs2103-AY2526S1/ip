@@ -75,7 +75,6 @@ public class UI {
     public String deleteTask(Task task, int taskCount) {
         String header = "  Noted. I've removed this task:\n    ";
         String closer = "\n  Now you have " + taskCount + " tasks in the list! \n  (─.─)ゞ";
-
         return header + task + closer;
     }
 
@@ -155,7 +154,7 @@ public class UI {
      */
     public String respond(String userInput) {
         return "Sorry I don't recognize this command:\n"
-                + "\"" + userInput + "\"\n"
+                + "  \"" + userInput + "\"\n"
                 + "Type \"help\" for the list possible commands.";
     }
 
@@ -176,7 +175,7 @@ public class UI {
                     today
                     todo
                     unmark
-                  bh_(•̀ω•́ 」∠)_
+                   _(•̀ω•́ 」∠)_
                 """;
     }
 }
