@@ -130,7 +130,7 @@ public class UI {
      * @param name Name of the bot.
      * @return Formatted greeting string.
      */
-    public String hello(String name) {
+    public String greet(String name) {
         return "  Hello! I'm " + name + "!"
                         + "  What can I do for you?\n"
                         + " (^з^)-☆";

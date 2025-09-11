@@ -10,6 +10,8 @@ import jimbot.exception.TaskLimitException;
 /**
  * Represents a list of tasks stored by Jimbot.
  * Provides methods to add, delete, retrieve, and search tasks.
+ *
+ * @author limjimin-nus
  */
 public class TaskList {
     protected List<Task> listOfTasks;
