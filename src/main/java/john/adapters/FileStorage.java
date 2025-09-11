@@ -98,6 +98,7 @@ public class FileStorage implements Storage {
     @Override
     public TaskList load() {
         List<Task> tasks = new ArrayList<Task>();
+        assert filePath != null && !filePath.isBlank() : "filePath required";
         File file = new File(filePath);
         if (!file.exists()) {
             try {

@@ -44,7 +44,9 @@ public final class CommandParser {
      * @throws ParseException if the verb is unknown or arguments are invalid
      */
     public static Command parse(String line) throws ParseException {
-        if (line == null || line.isBlank()) throw new ParseException("Empty command.");
+        if (line == null || line.isBlank()) {
+            throw new ParseException("Empty command.");
+        }
         String[] head = line.trim().split("\\s+", 2);
         String verb = head[0].toLowerCase();
         String rest = head.length > 1 ? head[1].trim() : "";
@@ -60,7 +62,8 @@ public final class CommandParser {
             case "event" -> parseEvent(rest);
             case "find" -> parseFind(rest);
             default ->
-                    throw new ParseException("Unknown command: " + verb + ". Try: list, mark, unmark, delete, todo, deadline, event, find, bye");
+                    throw new ParseException("Unknown command: " + verb +
+                            ". Try: list, mark, unmark, delete, todo, deadline, event, find, bye");
         };
     }
 
@@ -72,7 +75,9 @@ public final class CommandParser {
      * @throws ParseException if the task number is missing or not an integer
      */
     private static Command parseMark(String rest) throws ParseException {
-        if (rest.isEmpty()) throw new ParseException("Usage: mark <task-number>");
+        if (rest.isEmpty()) {
+            throw new ParseException("Usage: mark <task-number>");
+        }
         int oneBased;
         try {
             oneBased = Integer.parseInt(rest);
@@ -90,7 +95,9 @@ public final class CommandParser {
      * @throws ParseException if the task number is missing or not an integer
      */
     private static Command parseUnmark(String rest) throws ParseException {
-        if (rest.isEmpty()) throw new ParseException("Usage: unmark <task-number>");
+        if (rest.isEmpty()) {
+            throw new ParseException("Usage: unmark <task-number>");
+        }
         int oneBased;
         try {
             oneBased = Integer.parseInt(rest);
@@ -108,7 +115,9 @@ public final class CommandParser {
      * @throws ParseException if the task number is missing or not an integer
      */
     private static Command parseDelete(String rest) throws ParseException {
-        if (rest.isEmpty()) throw new ParseException("Usage: delete <task-number>");
+        if (rest.isEmpty()) {
+            throw new ParseException("Usage: delete <task-number>");
+        }
         int oneBased;
         try {
             oneBased = Integer.parseInt(rest);
@@ -126,7 +135,9 @@ public final class CommandParser {
      * @throws ParseException if description is empty
      */
     private static Command parseTodo(String rest) throws ParseException {
-        if (rest.isEmpty()) throw new ParseException("Usage: todo <description>");
+        if (rest.isEmpty()) {
+            throw new ParseException("Usage: todo <description>");
+        }
         return new AddTodoCommand(rest);
     }
 
@@ -141,10 +152,14 @@ public final class CommandParser {
      */
     private static Command parseDeadline(String rest) throws ParseException {
         int byPos = rest.lastIndexOf(" /by ");
-        if (byPos == -1) throw new ParseException("Usage: deadline <description> /by <when>");
+        if (byPos == -1) {
+            throw new ParseException("Usage: deadline <description> /by <when>");
+        }
         String desc = rest.substring(0, byPos).trim();
         String when = rest.substring(byPos + 5).trim();
-        if (desc.isEmpty() || when.isEmpty()) throw new ParseException("Usage: deadline <description> /by <when>");
+        if (desc.isEmpty() || when.isEmpty()) {
+            throw new ParseException("Usage: deadline <description> /by <when>");
+        }
         LocalDateTime by;
         try {
             by = DateTimeParser.parseDateTime(when);
@@ -167,15 +182,15 @@ public final class CommandParser {
     private static Command parseEvent(String rest) throws ParseException {
         int fromPos = rest.lastIndexOf(" /from ");
         int toPos = rest.lastIndexOf(" /to ");
-        if (fromPos == -1 || toPos == -1 || toPos <= fromPos)
+        if (fromPos == -1 || toPos == -1 || toPos <= fromPos) {
             throw new ParseException("Usage: event <description> /from <start> /to <end>");
-
+        }
         String desc = rest.substring(0, fromPos).trim();
         String start = rest.substring(fromPos + 7, toPos).trim();
         String end = rest.substring(toPos + 5).trim();
-        if (desc.isEmpty() || start.isEmpty() || end.isEmpty())
+        if (desc.isEmpty() || start.isEmpty() || end.isEmpty()) {
             throw new ParseException("Usage: event <description> /from <start> /to <end>");
-
+        }
         LocalDateTime from, to;
         try {
             from = DateTimeParser.parseDateTime(start);
@@ -199,7 +214,9 @@ public final class CommandParser {
      * @throws ParseException if the substring is missing
      */
     private static Command parseFind(String rest) throws ParseException {
-        if (rest.isEmpty()) throw new ParseException("Usage: find <substring>");
+        if (rest.isEmpty()) {
+            throw new ParseException("Usage: find <substring>");
+        }
         return new FindCommand(rest);
     }
 }
