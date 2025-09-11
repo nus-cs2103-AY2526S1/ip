@@ -13,6 +13,8 @@ import aurora.util.DateUtil;
  * based on input format.
  */
 public class TaskReader {
+
+    // Regex for extracting task description, by, from and to from user input
     private static final Pattern TODO = Pattern.compile(
             "^todo\\s+(.+)$", Pattern.CASE_INSENSITIVE);
     private static final Pattern DEADLINE = Pattern.compile(
@@ -78,6 +80,8 @@ public class TaskReader {
             throw new InvalidTaskException("Not enough fields in text line: " + text);
         }
         boolean isDone = values[1].equals("true");
+
+        // Construct new Task class based on starting char
         Task result = switch (values[0]) {
         case "T" -> new Todo(values[2], isDone);
         case "D" -> new Deadline(values[2], isDone, toDate(values[3]));
