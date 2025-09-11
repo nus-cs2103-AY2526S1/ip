@@ -78,6 +78,7 @@ public class Aurora {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
+        assert input != null && !input.isBlank() : "Input string cannot be null or empty";
         Command c = CommandReader.read(input);
         commandType = c.getClass().getSimpleName();
         String result = c.execute(list);

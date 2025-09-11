@@ -15,6 +15,7 @@ public class DeleteCommand implements Command {
      * @param index 1-based index of the task to be deleted
      */
     public DeleteCommand(int index) {
+        assert index > 0 : "Index must be non-negative";
         this.index = index;
     }
 
@@ -24,8 +25,10 @@ public class DeleteCommand implements Command {
             return "There is no task numbered " + index + ".";
         }
 
+        int sizeBefore = list.size();
         Task task = list.remove(index - 1);
-        int len = list.size();
-        return "Noted. I've removed this task:\n" + task + "\nNow you have " + len + " tasks in your list.";
+        int sizeAfter = list.size();
+        assert sizeAfter == sizeBefore - 1 : "List size should decrease by 1";
+        return "Noted. I've removed this task:\n" + task + "\nNow you have " + sizeAfter + " tasks in your list.";
     }
 }
