@@ -1,5 +1,7 @@
 package evansbot.task;
 
+import java.time.LocalDate;
+
 /**
  * Represents a task that has a description and can be completed.
  */
@@ -71,6 +73,24 @@ public class Task {
         return isDone;
     }
 
+    /**
+     * Returns the status of the task if it on date or not.
+     * Default to false since Todo and generic task do not have a date.
+     *
+     * @return boolean status of the task being on date.
+     */
+    public boolean isOnDate(LocalDate date) {
+        return false;
+    }
+    /**
+     * Returns the date of the task.
+     * Default to null since there is no start date
+     *
+     * @return LocalDate date of the task if there is a date.
+     */
+    public LocalDate getStartDate() {
+        return null;
+    }
     /**
      * Returns the string representation of the task, including its description and status.
      *

@@ -54,11 +54,21 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns the status on whether the task is on the same date as asked.
+     * @param date date that the task is checked with.
+     * @return boolean on whether the task is on the same date.
+     */
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        return byDate != null && byDate.equals(date);
+    }
+    /**
      * Returns the parsed LocalDate of the task's due date.
      *
      * @return LocalDate representation of the due date, or null if parsing failed.
      */
-    public LocalDate getByDate() {
+    @Override
+    public LocalDate getStartDate() {
         return this.byDate;
     }
 

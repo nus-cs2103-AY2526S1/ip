@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents a Event task with a description and a due date.
+ * Represents an Event task with a description and a due date.
  * The due date can be either a valid LocalDate or a raw string if parsing fails.
  */
 public class Event extends Task {
@@ -68,11 +68,22 @@ public class Event extends Task {
     }
 
     /**
+     * Returns the status on whether the task is on the same date as asked.
+     * @param date date that the task is checked with.
+     * @return boolean on whether the task is on the same date.
+     */
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        return fromDate != null && fromDate.equals(date);
+    }
+
+    /**
      * Returns the parsed LocalDate of the task's From date.
      *
      * @return LocalDate representation of the From date, or null if parsing failed.
      */
-    public LocalDate getFromDate() {
+    @Override
+    public LocalDate getStartDate() {
         return fromDate;
     }
 

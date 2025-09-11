@@ -1,6 +1,7 @@
 package evansbot.task;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import evansbot.Exceptions.InvalidTaskIndexException;
@@ -149,5 +150,23 @@ public class TaskList {
             throw new InvalidTaskIndexException(tasks.size());
         }
         return tasks.get(index - 1);
+    }
+
+    /**
+     * Returns the list of task that falls on that Date.
+     * @param date Date which the task falls on.
+     * @return ArrayList of task that falls on the date.
+     */
+    public String getTasksForDate(LocalDate date) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here is your schedule for ").append(date).append("\n");
+        int count = 1;
+        for (Task task : tasks) {
+            if (task.isOnDate(date)) {
+                sb.append(count).append(". ").append(task).append("\n");
+                count++;
+            }
+        }
+        return sb.toString();
     }
 }

@@ -123,7 +123,7 @@ public class Storage {
         } else if (task instanceof Deadline) {
             Deadline d = (Deadline) task;
             String byStr;
-            if (d.getByDate() != null) {
+            if (d.getStartDate() != null) {
                 byStr = String.valueOf(d.byDate);
             } else {
                 byStr = d.byRaw;
@@ -133,7 +133,7 @@ public class Storage {
             Event e = (Event) task;
             String fromStr;
             String toStr;
-            if (e.getFromDate() != null && e.getToDate() != null) {
+            if (e.getStartDate() != null && e.getToDate() != null) {
                 fromStr = String.valueOf(e.fromDate);
                 toStr = String.valueOf(e.toDate);
             } else {

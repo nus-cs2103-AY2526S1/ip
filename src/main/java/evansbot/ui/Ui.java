@@ -11,7 +11,7 @@ public class Ui {
 
 
     /**
-     * Constructs a Ui instance and initializes the input scanner.
+     * Constructs an Ui instance and initializes the input scanner.
      */
     public Ui() {
         scanner = new Scanner(System.in);

@@ -1,5 +1,8 @@
 package evansbot.ui;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import evansbot.Exceptions.EvansBotException;
 import evansbot.Exceptions.InvalidCommandException;
 import evansbot.Exceptions.InvalidDeadlineException;
@@ -14,6 +17,7 @@ import evansbot.command.FindCommand;
 import evansbot.command.ListCommand;
 import evansbot.command.MarkCommand;
 import evansbot.command.UnmarkCommand;
+import evansbot.command.ViewScheduleCommand;
 
 /**
  * Parses user input strings into corresponding Command objects for EvansBot.
@@ -29,6 +33,7 @@ public class Parser {
     private static final String CMD_EVENT = "event";
     private static final String CMD_DELETE = "delete";
     private static final String CMD_FIND = "find";
+    private static final String CMD_VIEW = "view";
     /**
      * Parses the user's input and returns the appropriate Command object.
      *
@@ -57,6 +62,7 @@ public class Parser {
         case CMD_EVENT -> parseEvent(arguments);
         case CMD_DELETE -> parseDelete(arguments);
         case CMD_FIND -> parseFind(arguments);
+        case CMD_VIEW -> parseView(arguments);
         default -> throw new InvalidCommandException();
         };
     }
@@ -163,7 +169,21 @@ public class Parser {
         }
         return new FindCommand(args);
     }
-
+    /**
+     * Parses the "view" command.
+     *
+     * @param args The date provided by the user.
+     * @return A ViewScheduleCommand with date.
+     * @throws EvansBotException If the keyword is empty.
+     */
+    private static Command parseView(String args) throws EvansBotException {
+        try {
+            LocalDate date = LocalDate.parse(args.trim());
+            return new ViewScheduleCommand(date);
+        } catch (DateTimeParseException e) {
+            throw new InvalidCommandException("Please enter date in YYYY-MM-DD format.");
+        }
+    }
     /**
      * Utility method for parsing an index-based argument.
      *
