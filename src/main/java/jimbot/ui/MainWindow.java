@@ -35,9 +35,9 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setJimbot(Jimbot j) {
         jimbot = j;
-
+        String jimbotHi = jimbot.getResponse("hi");
         dialogContainer.getChildren().add(
-                DialogBox.getJimbotDialog(UI.hello("Jimbot"), jimbotImage, "hi")
+                DialogBox.getJimbotDialog(jimbotHi, jimbotImage, "hi")
         );
     }
 

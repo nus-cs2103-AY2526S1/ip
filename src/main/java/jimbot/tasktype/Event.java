@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task that occurs over a period of time.
  * Stores the start and end date/time of the event.
+ *
+ * @author limjimin-nus
  */
 public class Event extends Task {
     protected LocalDateTime from;
