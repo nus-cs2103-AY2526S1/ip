@@ -92,6 +92,7 @@ public class John {
      */
     public John() {
         tasks = storage.load();
+        assert tasks != null : "storage.load() must not return null";
     }
 
     /**
@@ -113,6 +114,7 @@ public class John {
      * @return a Reply containing the message and an exit flag
      */
     public Reply getReply(String input) {
+        assert input != null : "controller should not pass null input";
         try {
             Command cmd = CommandParser.parse(input);
             CommandResult res = cmd.execute(tasks, storage, ui);

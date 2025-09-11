@@ -39,6 +39,7 @@ public class MainWindow extends AnchorPane {
     }
 
     public void setJohn(John d) {
+        assert d != null : "backend must not be null";
         john = d;
     }
 

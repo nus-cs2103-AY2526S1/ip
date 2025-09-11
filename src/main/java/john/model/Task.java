@@ -32,6 +32,7 @@ public abstract class Task {
      * @param title task description; must not be null
      */
     public Task(String title) {
+        assert title != null : "title must not be null";
         this.title = title;
     }
 
@@ -91,6 +92,7 @@ public abstract class Task {
      * @return the assembled record
      */
     protected String baseSerialize(String type, String... extras) {
+        assert type != null && !type.isBlank() : "task type tag must be non-blank";
         StringBuilder sb = new StringBuilder();
         sb.append(type)
                 .append(" | ")
