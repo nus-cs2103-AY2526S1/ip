@@ -15,6 +15,7 @@ public class MarkCommand implements Command {
      * @param index 1-based index of the task to be marked
      */
     public MarkCommand(int index) {
+        assert index > 0 : "Index must be non-negative";
         this.index = index;
     }
 

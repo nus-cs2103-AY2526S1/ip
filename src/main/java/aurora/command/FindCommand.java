@@ -15,6 +15,7 @@ public class FindCommand implements Command {
      * @param search String to search the task list.
      */
     public FindCommand(String search) {
+        assert search != null && !search.isBlank() : "Search string cannot be null or empty";
         this.search = search;
     }
 

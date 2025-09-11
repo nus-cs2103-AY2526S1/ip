@@ -29,6 +29,7 @@ public class Storage {
      * @param filePath path to the file used for saving and loading tasks
      */
     public Storage(String filePath) {
+        assert filePath != null && !filePath.isBlank() : "File path cannot be null or empty";
         this.file = new File(filePath);
     }
 
