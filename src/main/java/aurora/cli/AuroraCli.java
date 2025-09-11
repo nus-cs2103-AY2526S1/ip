@@ -36,7 +36,10 @@ public class AuroraCli {
         new AuroraCli().run();
     }
 
-    private void run() {
+    /**
+     * Starts the chatbot in CLI mode.
+     */
+    public void run() {
         ui.speakIntro();
         String input = ui.readInput();
         while (!input.equalsIgnoreCase("bye")) {
