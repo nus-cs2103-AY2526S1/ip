@@ -198,7 +198,9 @@ public final class CommandParser {
         } catch (DateTimeParseException e) {
             throw new ParseException("Invalid date/time. Expected: " + DateTimeParser.HUMAN_PATTERN);
         }
-        if (to.isBefore(from)) throw new ParseException("End time must be after start time.");
+        if (to.isBefore(from)) {
+            throw new ParseException("End time must be after start time.");
+        }
         return new AddEventCommand(desc, from, to);
     }
 

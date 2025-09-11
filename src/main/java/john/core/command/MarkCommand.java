@@ -46,7 +46,8 @@ public class MarkCommand implements Command {
     public CommandResult execute(TaskList tasks, Storage storage, Ui ui) throws ParseException {
         Integer idx = toZeroBasedOrNull(oneBased, tasks.size());
         if (idx == null) {
-            return CommandResult.ok("Please provide a valid task number between 1 and " + tasks.size() + ".");
+            return CommandResult.ok("Please provide a valid task number between 1 and " +
+                    tasks.size() + ".");
         }
         tasks.get(idx).markAsComplete();
         storage.save(tasks);
