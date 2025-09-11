@@ -18,7 +18,6 @@ import aurora.ui.Ui;
 public class Aurora {
     private final Storage storage;
     private final TaskList list;
-    private final Ui ui;
     private String commandType;
 
     /**
@@ -27,7 +26,6 @@ public class Aurora {
      * @param filePath path to the file used for saving and loading tasks
      */
     public Aurora(String filePath) {
-        this.ui = new Ui(new Scanner(System.in));
         this.storage = new Storage(filePath);
         this.list = storage.load();
     }
@@ -36,42 +34,7 @@ public class Aurora {
      * Constructs a new Aurora chatbot.
      */
     public Aurora() {
-        this.ui = new Ui(new Scanner(System.in));
-        this.storage = new Storage("./data/aurora.txt");
-        this.list = storage.load();
-    }
-
-    /**
-     * Runs the chatbot session.
-     * <p>
-     * Displays a greeting, enter a command loop,
-     * and display a goodbye message when loop terminates.
-     * </p>
-     */
-    public void run() {
-        ui.speakIntro();
-        loop();
-        ui.speakOutro();
-    }
-
-    private void loop() {
-        String input = ui.readInput();
-
-        while (!input.equalsIgnoreCase("bye")) {
-            Command command = CommandReader.read(input);
-            ui.speak(command.execute(list));
-            storage.save(list);
-            input = ui.readInput();
-        }
-    }
-
-    /**
-     * Entry point of the program.
-     *
-     * @param args command-line arguments (unused)
-     */
-    public static void main(String[] args) {
-        new Aurora("./data/aurora.txt").run();
+        this("./data/aurora.txt");
     }
 
     /**

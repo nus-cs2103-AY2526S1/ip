@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Aurora aurora = new Aurora();
+    private final Aurora aurora = new Aurora();
 
     /**
      * Starts the JavaFX application by setting up the primary stage.
