@@ -14,6 +14,7 @@ import aurora.task.TaskReader;
  */
 public class CommandReader {
 
+    // Regex for mark, delete, and find commands to extract the integer/string after the command
     private static final Pattern MARK = Pattern.compile("^mark\\s+(\\d+)$", Pattern.CASE_INSENSITIVE);
     private static final Pattern DELETE = Pattern.compile("^delete\\s+(\\d+)$", Pattern.CASE_INSENSITIVE);
     private static final Pattern FIND = Pattern.compile("^find\\s+(.+)$", Pattern.CASE_INSENSITIVE);

@@ -12,9 +12,9 @@ public class ListCommand implements Command {
             return "Your list is empty.";
         }
 
-        StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
+        StringBuilder result = new StringBuilder("Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
-            result.append(String.format("%d. %s\n", i + 1, list.get(i)));
+            result.append(String.format("\n%d. %s", i + 1, list.get(i)));
         }
 
         return result.toString();
