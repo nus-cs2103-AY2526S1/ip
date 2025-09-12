@@ -311,11 +311,11 @@ public class Parser {
      * @param input The string to convert.
      * @return      The integer value if parseable, or 0 if invalid.
      */
-    public static int getIntegerFromString(String input) {
+    public static int getIntegerFromString(String input) throws BobbyWasabiException {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            return 0;
+            throw new BobbyWasabiException("String given is not a valid integer!");
         }
     }
 
