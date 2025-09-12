@@ -79,9 +79,7 @@ public class Piper {
                         } else {
                             task.markUndone();
                         }
-                        if (storage != null) {
-                            storage.saveAll(tasks);
-                        }
+                        saveToStorage();
                         reply.append(ui.showTaskStatus(task));
                     } catch (IndexOutOfBoundsException ex) {
                         throw new PiperException(
@@ -96,9 +94,7 @@ public class Piper {
                         int index = taskNumber - 1;
                         Task task = tasks.getTask(index);
                         tasks.deleteTask(index);
-                        if (storage != null) {
-                            storage.saveAll(tasks);
-                        }
+                        saveToStorage();
                         reply.append(ui.showDeletedTask(task))
                                 .append(System.lineSeparator())
                                 .append(ui.showTasksSize(tasks));
@@ -111,9 +107,7 @@ public class Piper {
                 case TODO: {
                     Task task = new Todo(arg);
                     tasks.addTask(task);
-                    if (storage != null) {
-                        storage.saveAll(tasks);
-                    }
+                    saveToStorage();
                     reply.append(ui.showAddedTask(task))
                             .append(System.lineSeparator())
                             .append(ui.showTasksSize(tasks));
@@ -123,9 +117,7 @@ public class Piper {
                     Parser.DeadlineArgs da = Parser.parseDeadlineArgs(arg);
                     Task task = new Deadline(da.description, da.by);
                     tasks.addTask(task);
-                    if (storage != null) {
-                        storage.saveAll(tasks);
-                    }
+                    saveToStorage();
                     reply.append(ui.showAddedTask(task))
                             .append(System.lineSeparator())
                             .append(ui.showTasksSize(tasks));
@@ -135,9 +127,7 @@ public class Piper {
                     Parser.EventArgs ea = Parser.parseEventArgs(arg);
                     Task task = new Event(ea.description, ea.from, ea.to);
                     tasks.addTask(task);
-                    if (storage != null) {
-                        storage.saveAll(tasks);
-                    }
+                    saveToStorage();
                     reply.append(ui.showAddedTask(task))
                             .append(System.lineSeparator())
                             .append(ui.showTasksSize(tasks));
@@ -167,5 +157,14 @@ public class Piper {
     public boolean isExit() {
         return isExit;
     }
+
+    /**
+     * Saves tasks to storage if storage has been set up.
+     */
+     private void saveToStorage() throws PiperException {
+         if (storage != null) {
+             storage.saveAll(tasks);
+         }
+     }
 
 }
