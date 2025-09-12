@@ -1,5 +1,8 @@
 package bobbywasabi;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -8,13 +11,17 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.Collections;
+
+import static bobbywasabi.BobbyWasabi.Command.ADDCLIENT;
 
 public class DialogBox extends HBox {
     @FXML
@@ -39,7 +46,6 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         profileCircle.setFill(new ImagePattern(image));
 
-
     }
 
     private void flip() {
@@ -53,6 +59,19 @@ public class DialogBox extends HBox {
     private void changeDialogStyle(String commandType) {
         System.out.println(commandType);
         switch(commandType) {
+        case "BYE":
+            break;
+        case "LIST":
+            break;
+        case "FIND":
+            break;
+        case "CLIENTS":
+            break;
+        case "EDITCLIENT":
+            break;
+        case "ADDCLIENT":
+            dialog.getStyleClass().add("add-label");
+            break;
         case "TODO":
             dialog.getStyleClass().add("add-label");
             break;
@@ -71,8 +90,50 @@ public class DialogBox extends HBox {
         case "DELETE":
             dialog.getStyleClass().add("delete-label");
             break;
+        case "DELETECLIENT":
+            dialog.getStyleClass().add("delete-label");
+            break;
         default:
+            dialog.getStyleClass().add("error-label");
+            break;
         }
+    }
+
+    public void activateProfileErrorAnimation(String commandType) {
+        if (!commandType.equals("OTHERS")) {
+            return;
+        }
+
+        Double translateXDistance = 1.0;
+        Color flashColor = Color.RED;
+        Double borderWidthChange = 2.0;
+
+        // change the border color to red then back to the original color to simulate a flash effect
+        Color borderColor = (Color) profileCircle.getStroke();
+        Double borderWidth = profileCircle.getStrokeWidth();
+
+        Timeline shaketimeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(profileCircle.translateXProperty(), 0)),
+                new KeyFrame(Duration.millis(50), new KeyValue(profileCircle.translateXProperty(), -translateXDistance)),
+                new KeyFrame(Duration.millis(100), new KeyValue(profileCircle.translateXProperty(), translateXDistance)),
+                new KeyFrame(Duration.millis(150), new KeyValue(profileCircle.translateXProperty(), -translateXDistance)),
+                new KeyFrame(Duration.millis(200), new KeyValue(profileCircle.translateXProperty(), translateXDistance)),
+                new KeyFrame(Duration.millis(250), new KeyValue(profileCircle.translateXProperty(), 0))
+        );
+
+        Timeline flashTimeline = new Timeline(
+                new KeyFrame(
+                        Duration.ZERO,
+                        new KeyValue(profileCircle.strokeProperty(), flashColor),
+                        new KeyValue(profileCircle.strokeWidthProperty(), borderWidthChange)
+                ),
+                new KeyFrame(Duration.millis(250),
+                        new KeyValue(profileCircle.strokeProperty(), borderColor),
+                        new KeyValue(profileCircle.strokeWidthProperty(), borderWidth)
+                )
+        );
+        flashTimeline.play();
+        shaketimeline.play();
     }
 
     public static DialogBox getUserDialog(Image image, String text) {
@@ -82,6 +143,7 @@ public class DialogBox extends HBox {
     public static DialogBox getBobbyWasabiDialog(Image image, String text, String commandType) {
         var db = new DialogBox(image, text);
         db.flip();
+        db.activateProfileErrorAnimation(commandType);
         db.changeDialogStyle(commandType);
         return db;
     }
