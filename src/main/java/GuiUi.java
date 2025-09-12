@@ -31,8 +31,12 @@ public class GuiUi extends Ui {
      * Initializes the output buffer for capturing GUI display content.
      */
     public GuiUi() {
-        super();
+        super(); 
         this.output = new StringBuilder();
+        
+        // Assert that the output buffer is properly initialized
+        assert this.output != null : "Output buffer must be initialized";
+        assert this.output.length() == 0 : "Output buffer should start empty";
     }
 
     /**
@@ -41,7 +45,15 @@ public class GuiUi extends Ui {
      * @return The captured output from command execution.
      */
     public String getOutput() {
-        return output.toString().trim();
+        // Assert that output buffer is in a valid state
+        assert output != null : "Output buffer should never be null";
+        
+        String result = output.toString().trim();
+        
+        // Assert postcondition: result should never be null
+        assert result != null : "getOutput() should never return null";
+        
+        return result;
     }
 
     /**
@@ -124,6 +136,9 @@ public class GuiUi extends Ui {
      */
     @Override
     public void showError(String message) {
+        // Assert precondition: error message should not be null
+        assert message != null : "Error message should not be null";
+        
         appendLine(message);
     }
 
@@ -134,6 +149,9 @@ public class GuiUi extends Ui {
      */
     @Override
     public void showMessage(String message) {
+        // Assert precondition: message should not be null
+        assert message != null : "Message should not be null";
+        
         appendLine(message);
     }
 
@@ -145,6 +163,9 @@ public class GuiUi extends Ui {
      */
     @Override
     public void printTaskList(ArrayList<Task> tasks) {
+        // Assert precondition: task list should not be null
+        assert tasks != null : "Task list should not be null";
+        
         if (tasks.isEmpty()) {
             appendLine(EMPTY_TASK_LIST_MESSAGE);
             return;
@@ -162,6 +183,9 @@ public class GuiUi extends Ui {
      */
     @Override
     public void printMatchingTasks(ArrayList<TaskList.IndexedTask> matchingTasks) {
+        // Assert precondition: matching tasks list should not be null
+        assert matchingTasks != null : "Matching tasks list should not be null";
+        
         if (matchingTasks.isEmpty()) {
             appendLine(NO_MATCHES_MESSAGE);
             return;
