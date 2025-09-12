@@ -77,10 +77,9 @@ public class BobbyWasabi {
             this.storage.createDataStorage();
             this.taskList = storage.loadTaskList();
             this.clientList = storage.loadClientList();
-            String s = "hi";
         } catch (BobbyWasabiException e) {
-            ui.generateErrorMsg(e.getMessage());
             this.taskList = new TaskList();
+            this.clientList = new ClientList();
         }
     }
 
