@@ -12,6 +12,8 @@ import tasks.Task;
 public class AddCommand extends Command {
     // Constants for user feedback messages - eliminates magic strings
     private static final String TASK_ADDED_MESSAGE = "Got it. I've added this task:";
+    private static final String TASK_ALREADY_EXISTS_MESSAGE = "Task already exists";
+    private static final String EXISTING_TASK_PREFIX = "Existing task at position ";
     private static final String TASK_COUNT_MESSAGE_PREFIX = "Now you have ";
     private static final String TASK_COUNT_MESSAGE_SUFFIX = " tasks in your list.";
     private static final String TASK_PREFIX = "  ";
@@ -40,6 +42,12 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        // Check for duplicates before adding
+        if (tasks.containsDuplicate(task)) {
+            displayDuplicateMessage(ui, tasks);
+            return; // Don't add the task or save to storage
+        }
+        
         addTaskToList(tasks);
         displaySuccessMessage(ui, tasks.size());
         saveTasksToStorage(tasks, ui, storage);
@@ -53,6 +61,22 @@ public class AddCommand extends Command {
      */
     private void addTaskToList(TaskList tasks) {
         tasks.add(task);
+    }
+    
+    /**
+     * Displays message when a duplicate task is detected.
+     * Shows "Task already exists" message and the position of existing task.
+     * 
+     * @param ui The user interface for displaying messages
+     * @param tasks The task list to find the duplicate position
+     */
+    private void displayDuplicateMessage(Ui ui, TaskList tasks) {
+        ui.showMessage(TASK_ALREADY_EXISTS_MESSAGE);
+        
+        int duplicateIndex = tasks.findDuplicateIndex(task);
+        if (duplicateIndex != -1) {
+            ui.showMessage(EXISTING_TASK_PREFIX + duplicateIndex);
+        }
     }
     
     /**

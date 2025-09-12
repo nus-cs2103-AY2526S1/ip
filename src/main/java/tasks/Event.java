@@ -152,4 +152,40 @@ public class Event extends Task {
     public String getTo() {
         return to;
     }
+    
+    /**
+     * Checks if this event is equal to another object.
+     * Two events are equal if they have the same description, start time, and end time.
+     * 
+     * @param obj The object to compare with
+     * @return true if the events are equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!super.equals(obj)) {
+            return false;
+        }
+        
+        if (!(obj instanceof Event)) {
+            return false;
+        }
+        
+        Event other = (Event) obj;
+        return (from != null ? from.equals(other.from) : other.from == null) &&
+               (to != null ? to.equals(other.to) : other.to == null);
+    }
+    
+    /**
+     * Returns the hash code for this event.
+     * Based on the description, start time, and end time to ensure consistent hashing.
+     * 
+     * @return The hash code
+     */
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (from != null ? from.hashCode() : 0);
+        result = 31 * result + (to != null ? to.hashCode() : 0);
+        return result;
+    }
 }

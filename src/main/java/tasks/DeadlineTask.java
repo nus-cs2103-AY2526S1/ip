@@ -142,4 +142,40 @@ public class DeadlineTask extends Task {
         return this.getStatus() + this.getStatusIcon() + SPACE_SEPARATOR + this.getDescription() 
                 + BY_PREFIX + this.deadline + BY_SUFFIX;
     }
+    
+    /**
+     * Checks if this deadline task is equal to another object.
+     * Two deadline tasks are equal if they have the same description and deadline date.
+     * 
+     * @param obj The object to compare with
+     * @return true if the deadline tasks are equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!super.equals(obj)) {
+            return false;
+        }
+        
+        if (!(obj instanceof DeadlineTask)) {
+            return false;
+        }
+        
+        DeadlineTask other = (DeadlineTask) obj;
+        assert this.deadline != null : "Deadline should not be null";
+        return this.deadline.equals(other.deadline);
+    }
+    
+    /**
+     * Returns the hash code for this deadline task.
+     * Based on the description and deadline to ensure consistent hashing.
+     * 
+     * @return The hash code
+     */
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        assert this.deadline != null : "Deadline should not be null";
+        result = 31 * result + deadline.hashCode();
+        return result;
+    }
 }
