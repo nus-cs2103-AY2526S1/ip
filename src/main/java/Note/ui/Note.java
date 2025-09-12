@@ -126,6 +126,9 @@ public class Note {
                     }
                     return sbMatch.toString();
 
+                case "help":
+                    return HelpCommand.getHelpMessage();
+
                 default:
                     return "OOPS!!! I'm sorry, but I don't know what that means :-(";
             }
