@@ -9,6 +9,7 @@ import application.Ui;
  * Searches through task descriptions for matching keywords and displays results.
  */
 public class FindCommand extends Command {
+    /** The keyword to search for in task descriptions */
     private final String keyword;
     
     /**
@@ -30,11 +31,23 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        performSearch(tasks, ui);
+    }
+    
+    /**
+     * Performs the search operation and displays results.
+     * Separates the search logic for clarity and potential future enhancements.
+     * Storage parameter is not used as searching doesn't modify data.
+     * 
+     * @param tasks The task list to search through
+     * @param ui The user interface for displaying results
+     */
+    private void performSearch(TaskList tasks, Ui ui) {
         ui.printMatchingTasks(tasks.findTasks(keyword));
     }
     
     @Override
     public boolean isBye() {
-        return false;
+        return false; // Find commands do not terminate the application
     }
 }

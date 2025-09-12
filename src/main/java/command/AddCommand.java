@@ -10,8 +10,15 @@ import tasks.Task;
  * Handles task addition, user feedback, and automatic persistence to storage.
  */
 public class AddCommand extends Command {
+    // Constants for user feedback messages - eliminates magic strings
+    private static final String TASK_ADDED_MESSAGE = "Got it. I've added this task:";
+    private static final String TASK_COUNT_MESSAGE_PREFIX = "Now you have ";
+    private static final String TASK_COUNT_MESSAGE_SUFFIX = " tasks in your list.";
+    private static final String TASK_PREFIX = "  ";
+    private static final String STORAGE_FILENAME = "romidas.txt";
+    
     /** The task to be added to the list */
-    private Task task;
+    private final Task task;
     
     /**
      * Constructs a new AddCommand with the specified task.
@@ -33,12 +40,47 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        addTaskToList(tasks);
+        displaySuccessMessage(ui, tasks.size());
+        saveTasksToStorage(tasks, ui, storage);
+    }
+    
+    /**
+     * Adds the task to the task list.
+     * Separated for single responsibility and clarity.
+     * 
+     * @param tasks The task list to add to
+     */
+    private void addTaskToList(TaskList tasks) {
         tasks.add(task);
-        ui.showMessage("Got it. I've added this task:");
-        ui.showMessage("  " + task.toString());
-        ui.showMessage("Now you have " + tasks.size() + " tasks in your list.");
+    }
+    
+    /**
+     * Displays success message to the user.
+     * Shows the added task and updated task count.
+     * 
+     * @param ui The user interface for displaying messages
+     * @param totalTasks The total number of tasks after addition
+     */
+    private void displaySuccessMessage(Ui ui, int totalTasks) {
+        ui.showMessage(TASK_ADDED_MESSAGE);
+        ui.showMessage(TASK_PREFIX + task.toString());
+        
+        String countMessage = TASK_COUNT_MESSAGE_PREFIX + totalTasks + TASK_COUNT_MESSAGE_SUFFIX;
+        ui.showMessage(countMessage);
+    }
+    
+    /**
+     * Saves the updated task list to storage.
+     * Handles storage errors gracefully by displaying error messages.
+     * 
+     * @param tasks The task list to save
+     * @param ui The user interface for error display
+     * @param storage The storage component
+     */
+    private void saveTasksToStorage(TaskList tasks, Ui ui, Storage storage) {
         try {
-            storage.saveTasks("romidas.txt", tasks.retreive());
+            storage.saveTasks(STORAGE_FILENAME, tasks.retreive());
         } catch (RomidasException e) {
             ui.showError(e.getMessage());
         }
@@ -46,6 +88,6 @@ public class AddCommand extends Command {
     
     @Override
     public boolean isBye() {
-        return false;
+        return false; // Add commands do not terminate the application
     }
 }

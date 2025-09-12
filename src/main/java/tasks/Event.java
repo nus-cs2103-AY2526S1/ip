@@ -6,8 +6,26 @@ import exception.RomidasException;
  * Extends the base Task class to provide event-specific functionality.
  */
 public class Event extends Task {
-    String from;
-    String to;
+    // Constants for Event formatting - eliminates magic strings
+    private static final String EVENT_STATUS_ICON = "[E]";
+    private static final String EVENT_TYPE_MARKER = "E";
+    private static final String FIELD_SEPARATOR = " | ";
+    private static final String COMPLETION_TRUE = "1";
+    private static final String COMPLETION_FALSE = "0";
+    private static final String FROM_PREFIX = " (from: ";
+    private static final String TO_PREFIX = " to: ";
+    private static final String TIME_SUFFIX = ")";
+    private static final String TIME_SEPARATOR = "-";
+    private static final int EXPECTED_PARTS_COUNT = 4;
+    private static final int COMPLETION_INDEX = 1;
+    private static final int DESCRIPTION_INDEX = 2;
+    private static final int TIME_RANGE_INDEX = 3;
+    private static final int EXPECTED_TIME_PARTS = 2;
+    private static final int FROM_TIME_INDEX = 0;
+    private static final int TO_TIME_INDEX = 1;
+    
+    private final String from;
+    private final String to;
 
     /**
      * Constructs a new Event task with the specified description and time range.
@@ -32,38 +50,77 @@ public class Event extends Task {
      * @throws RomidasException If the input format is invalid or missing required parts.
      */
     public static Task toTask(String[] parts) throws RomidasException {
-        if (parts.length != 4) {
-            throw new RomidasException("Invalid number of arguments. Expected 4 but got " 
-                    + parts.length);
-        }
-        String[] timeParts = parts[3].split("-");
-        if (timeParts.length != 2 || timeParts[0].isBlank() || timeParts[1].isBlank()) {
-            throw new RomidasException("Invalid event format. Expected 'from-to' but got: " 
-                    + parts[3]);
-        }
-        // Extract the base description by removing the "(from: ... to: ...)" part
-        String baseDescription = parts[2];
-        if (baseDescription.contains(" (from: ")) {
-            baseDescription = baseDescription.substring(0, 
-                    baseDescription.indexOf(" (from: "));
-        }
-        Event task = new Event(baseDescription, timeParts[0], timeParts[1]);
-        if (parts[1].equals("1")) {
-            task.setIsDone(true);
-        }
+        validatePartsArray(parts);
+        
+        String[] timeParts = parseTimeRange(parts[TIME_RANGE_INDEX]);
+        String baseDescription = extractBaseDescription(parts[DESCRIPTION_INDEX]);
+        
+        Event task = new Event(baseDescription, timeParts[FROM_TIME_INDEX], timeParts[TO_TIME_INDEX]);
+        
+        boolean isCompleted = parts[COMPLETION_INDEX].equals(COMPLETION_TRUE);
+        task.setIsDone(isCompleted);
+        
         return task;
+    }
+    
+    /**
+     * Validates the parts array for correct format.
+     * Applies defensive programming to prevent invalid input.
+     * 
+     * @param parts The parts array to validate
+     * @throws RomidasException if the format is invalid
+     */
+    private static void validatePartsArray(String[] parts) throws RomidasException {
+        if (parts.length != EXPECTED_PARTS_COUNT) {
+            throw new RomidasException("Invalid number of arguments. Expected " + EXPECTED_PARTS_COUNT
+                    + " but got " + parts.length);
+        }
+    }
+    
+    /**
+     * Parses the time range string into from and to components.
+     * Validates the format and extracts time boundaries.
+     * 
+     * @param timeRange The time range string in format "from-to"
+     * @return Array containing from and to times
+     * @throws RomidasException if the format is invalid
+     */
+    private static String[] parseTimeRange(String timeRange) throws RomidasException {
+        String[] timeParts = timeRange.split(TIME_SEPARATOR);
+        
+        if (timeParts.length != EXPECTED_TIME_PARTS || timeParts[FROM_TIME_INDEX].isBlank() 
+                || timeParts[TO_TIME_INDEX].isBlank()) {
+            throw new RomidasException("Invalid event format. Expected 'from-to' but got: " + timeRange);
+        }
+        
+        return timeParts;
+    }
+    
+    /**
+     * Extracts the base description by removing time formatting.
+     * Separates the event description from time information.
+     * 
+     * @param fullDescription The full description containing time info
+     * @return The base description without time formatting
+     */
+    private static String extractBaseDescription(String fullDescription) {
+        if (fullDescription.contains(FROM_PREFIX)) {
+            return fullDescription.substring(0, fullDescription.indexOf(FROM_PREFIX));
+        }
+        return fullDescription;
     }
 
     @Override
     public String toText() {
-        return "E | " + (this.isDone ? "1 | " : "0 | ") + this.getDescription() 
-                + " (from: " + this.from + " to: " + this.to + ") | " 
-                + this.from + "-" + this.to;
+        String completionStatus = this.isDone ? COMPLETION_TRUE : COMPLETION_FALSE;
+        return EVENT_TYPE_MARKER + FIELD_SEPARATOR + completionStatus + FIELD_SEPARATOR 
+                + this.getDescription() + FROM_PREFIX + this.from + TO_PREFIX + this.to + TIME_SUFFIX 
+                + FIELD_SEPARATOR + this.from + TIME_SEPARATOR + this.to;
     }
 
     @Override
     public String getStatus() {
-        return "[E]";
+        return EVENT_STATUS_ICON;
     }
 
     /**
@@ -74,7 +131,25 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return this.getStatus() + this.getStatusIcon() + " " + this.getDescription() 
-                + " (from: " + this.from + " to: " + this.to + ")";
+        return this.getStatus() + this.getStatusIcon() + SPACE_SEPARATOR + this.getDescription() 
+                + FROM_PREFIX + this.from + TO_PREFIX + this.to + TIME_SUFFIX;
+    }
+    
+    /**
+     * Gets the start time of this event.
+     * 
+     * @return The start time string
+     */
+    public String getFrom() {
+        return from;
+    }
+    
+    /**
+     * Gets the end time of this event.
+     * 
+     * @return The end time string
+     */
+    public String getTo() {
+        return to;
     }
 }
