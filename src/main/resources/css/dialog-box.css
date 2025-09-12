@@ -1,12 +1,13 @@
 .label {
-    -fx-background-color: white;
-    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
-    -fx-border-width: 2px;
+    -fx-background-color: #1b1b1b;
+    -fx-border-color: white #00e676 white #00e676;
+    -fx-border-width: 1px;
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
-    -fx-text-fill: ladder(-fx-background-color, white 49%, black 50%);
+    -fx-text-fill: #ffd600;
+    -fx-font-family: "Montserrat", "Arial Black", "Arial", sans-serif;
+    -fx-font-size: 13px;
 }
-
 
 .reply-label {
     -fx-background-radius: 1em 1em 1em 0;
@@ -14,31 +15,21 @@
 }
 
 .add-label {
-    -fx-background-color: #b3e5fc;
+    -fx-background-color: #00e676; /* vibrant dojo green */
+    -fx-text-fill: #000; /* ensure readable on green */
 }
 
 .marked-label {
-    -fx-background-color: palegreen;
+    -fx-background-color: #ffd600; /* dojo yellow highlight */
+    -fx-text-fill: #000;
 }
 
 .delete-label {
-    -fx-background-color: lightpink;
+    -fx-background-color: #ff1744; /* dojo red, stronger than lightpink */
+    -fx-text-fill: #fff;
 }
 
 .error-label {
-    -fx-background-color: #e57373;
+    -fx-background-color: #d50000; /* deep punchy dojo red */
+    -fx-text-fill: #fff;
 }
-
-#displayPicture {
-    /* Shadow effect on image. */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
-
-    /* Change size of image. */
-    -fx-scale-x: 1;
-    -fx-scale-y: 1;
-
-    /* Rotate image clockwise by degrees. */
-    -fx-rotate: 0;
-}
-
-

@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.sql.Time;
 import java.util.Collections;
 
-import static bobbywasabi.BobbyWasabi.Command.ADDCLIENT;
 
 public class DialogBox extends HBox {
     @FXML
