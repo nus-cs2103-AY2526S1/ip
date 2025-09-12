@@ -90,4 +90,36 @@ public abstract class Task {
     public String toString() {
         return this.getStatus() + this.getStatusIcon() + SPACE_SEPARATOR + this.getDescription();
     }
+    
+    /**
+     * Checks if this task is equal to another object.
+     * Two tasks are considered equal if they have the same type and description.
+     * Completion status is NOT considered for equality to detect duplicates regardless of completion state.
+     * 
+     * @param obj The object to compare with
+     * @return true if the tasks are equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        
+        Task other = (Task) obj;
+        return description != null ? description.equals(other.description) : other.description == null;
+    }
+    
+    /**
+     * Returns the hash code for this task.
+     * Based on the task description to ensure consistent hashing for duplicate detection.
+     * 
+     * @return The hash code
+     */
+    @Override
+    public int hashCode() {
+        return description != null ? description.hashCode() : 0;
+    }
 }

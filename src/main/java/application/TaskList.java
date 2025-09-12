@@ -41,6 +41,37 @@ public class TaskList {
     }
     
     /**
+     * Checks if the task list contains a duplicate of the given task.
+     * Uses the equals() method to compare tasks based on their content.
+     * 
+     * @param task The task to check for duplicates
+     * @return true if a duplicate exists, false otherwise
+     */
+    public boolean containsDuplicate(Task task) {
+        for (Task existingTask : tasks) {
+            if (existingTask.equals(task)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Finds the index of the first duplicate task.
+     * 
+     * @param task The task to find duplicates for
+     * @return The index of the duplicate (1-based for user display), or -1 if no duplicate exists
+     */
+    public int findDuplicateIndex(Task task) {
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).equals(task)) {
+                return i + 1; 
+            }
+        }
+        return -1;
+    }
+    
+    /**
      * Finds all tasks whose descriptions contain the specified keyword.
      * Returns a list of IndexedTask objects containing both the task and its original index.
      *
