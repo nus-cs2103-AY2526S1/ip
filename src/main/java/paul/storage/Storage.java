@@ -33,6 +33,10 @@ public class Storage {
         this.filePath = filePath;
 
         // create directory if it does not exist
+        createFile(filePath);
+    }
+
+    private static void createFile(String filePath) {
         File parentFile = new File(filePath).getParentFile();
         if (!parentFile.exists()) {
             if (!parentFile.mkdirs()) {
@@ -67,7 +71,7 @@ public class Storage {
         return tasks;
     }
 
-    private static Task getTaskFromFile(String input) throws PaulException {
+    private Task getTaskFromFile(String input) throws PaulException {
         String[] parts = input.split(SEPARATOR);
         assert parts.length >= 3 : "Corrupted storage line: " + input;
         String type = parts[0]; // T, D, E
@@ -96,12 +100,12 @@ public class Storage {
      * @param tasks TaskList containing the tasks to save.
      */
     public void saveTasks(TaskList tasks) throws PaulException {
-        assert tasks != null : "TaskList to save should not be null";
+        assert tasks != null : "Tasks to save should not be null";
         StringBuilder tasksSaveString = getTasksSaveString(tasks);
         saveTasksToFile(tasksSaveString);
     }
 
-    private static StringBuilder getTasksSaveString(TaskList tasks) {
+    private StringBuilder getTasksSaveString(TaskList tasks) {
         StringBuilder tasksSaveString = new StringBuilder();
         for (int i = 1; i <= tasks.size(); i++) {
             tasksSaveString.append(tasks.get(i).toSaveString()).append(System.lineSeparator());

@@ -71,7 +71,7 @@ public class Parser {
         //CHECKSTYLE.ON: Indentation
     }
 
-    private static String handleAddTask(TaskList tasks, Storage storage, Ui ui, String[] parsedCommand)
+    private String handleAddTask(TaskList tasks, Storage storage, Ui ui, String[] parsedCommand)
             throws PaulException {
         Task newTask = tasks.addTask(parsedCommand);
         tasks.add(newTask);
@@ -79,37 +79,37 @@ public class Parser {
         return ui.showTaskAdded(newTask, tasks.size());
     }
 
-    private static String handleList(TaskList tasks, Ui ui) {
+    private String handleList(TaskList tasks, Ui ui) {
         return ui.showTasks(tasks);
     }
 
-    private static String handleMarkTask(TaskList tasks, Storage storage, Ui ui, String[] parsedCommand)
+    private String handleMarkTask(TaskList tasks, Storage storage, Ui ui, String[] parsedCommand)
             throws PaulException {
         Task markedTask = tasks.markTask(parsedCommand);
         storage.saveTasks(tasks);
         return ui.showTaskMarked(markedTask);
     }
 
-    private static String handleUnmarkTask(TaskList tasks, Storage storage, Ui ui, String[] parsedCommand)
+    private String handleUnmarkTask(TaskList tasks, Storage storage, Ui ui, String[] parsedCommand)
             throws PaulException {
-        Task markedTask = tasks.unmarkTask(parsedCommand);
+        Task unmarkedTask = tasks.unmarkTask(parsedCommand);
         storage.saveTasks(tasks);
-        return ui.showTaskUnmarked(markedTask);
+        return ui.showTaskUnmarked(unmarkedTask);
     }
 
-    private static String handleDeleteTask(TaskList tasks, Storage storage, Ui ui, String[] parsedCommand)
+    private String handleDeleteTask(TaskList tasks, Storage storage, Ui ui, String[] parsedCommand)
             throws PaulException {
         Task deletedTask = tasks.deleteTask(parsedCommand);
         storage.saveTasks(tasks);
         return ui.showTaskDeleted(deletedTask, tasks.size());
     }
 
-    private static String handleFindTasks(TaskList tasks, Ui ui, String[] parsedCommand) throws PaulException {
+    private String handleFindTasks(TaskList tasks, Ui ui, String[] parsedCommand) throws PaulException {
         TaskList foundTasks = tasks.findTasks(parsedCommand);
         return ui.showTaskFound(foundTasks);
     }
 
-    private static String handleByeUser(Ui ui) {
+    private String handleByeUser(Ui ui) {
         return ui.byeUser();
     }
 }
