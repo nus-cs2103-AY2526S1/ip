@@ -32,6 +32,14 @@ public class FindCommand implements Command {
             if (task.getDescription().contains(search)) {
                 result.append(String.format("%d.%s", index, task));
                 index++;
+                continue;
+            }
+
+            for (String tag : task.getTags()) {
+                if (tag.contains(search)) {
+                    index++;
+                    result.append(String.format("%d.%s", index, task));
+                }
             }
         }
 

@@ -33,6 +33,10 @@ public abstract class Task {
         tags.remove(tag);
     }
 
+    public List<String> getTags() {
+        return this.tags;
+    }
+
     /**
      * Returns a string representation of the task.
      *

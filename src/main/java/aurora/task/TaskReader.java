@@ -109,8 +109,10 @@ public class TaskReader {
     }
 
     private static List<String> toTagList(String input) {
-        return Arrays.stream(input.trim().split("\\s+"))
+        List<String> result = Arrays.stream(input.trim().split("\\s+"))
                 .filter(tag -> !tag.isBlank())
                 .toList();
+
+        return new ArrayList<>(result);
     }
 }
