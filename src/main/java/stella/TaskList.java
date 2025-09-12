@@ -2,6 +2,8 @@ package stella;
 
 import java.util.ArrayList;
 
+import stella.exception.IncompleteInstructionException;
+
 /**
  * Represents a group of tasks
  */

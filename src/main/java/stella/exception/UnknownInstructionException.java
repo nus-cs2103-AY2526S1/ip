@@ -1,4 +1,4 @@
-package stella;
+package stella.exception;
 
 /**
  * UnknownInstructionException is thrown when

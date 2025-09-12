@@ -1,5 +1,10 @@
 package stella;
 
+import stella.exception.ExcessParameterException;
+import stella.exception.IncompleteInstructionException;
+import stella.exception.StellaException;
+import stella.exception.UnknownInstructionException;
+
 /**
  * Represent a task with the only detail being the task description
  */

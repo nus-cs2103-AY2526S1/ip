@@ -1,4 +1,4 @@
-package stella;
+package stella.exception;
 
 /**
  * InsufficientParameterException is thrown when the user include

@@ -1,4 +1,4 @@
-package stella;
+package stella.exception;
 
 public class StellaException extends RuntimeException {
     public StellaException(String message) {

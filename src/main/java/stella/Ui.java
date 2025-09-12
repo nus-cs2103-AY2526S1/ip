@@ -1,6 +1,9 @@
 package stella;
 
-import java.util.Scanner;
+import stella.exception.ExcessParameterException;
+import stella.exception.IncompleteInstructionException;
+import stella.exception.InsufficientParameterException;
+import stella.exception.UnknownInstructionException;
 
 /**
  * Responsible for dealing with the interactions with the user, including

@@ -1,4 +1,4 @@
-package stella;
+package stella.exception;
 
 /**
  * IncompleteInstructionException is thrown when the user did not

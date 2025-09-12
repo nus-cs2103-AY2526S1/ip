@@ -1,6 +1,9 @@
 package stella;
 
-import java.util.stream.Collectors;
+import stella.exception.ExcessParameterException;
+import stella.exception.IncompleteInstructionException;
+import stella.exception.InsufficientParameterException;
+import stella.exception.UnknownInstructionException;
 
 /**
  * Responsible in making sense of the user command, for example to

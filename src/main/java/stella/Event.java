@@ -1,5 +1,11 @@
 package stella;
 
+import stella.exception.ExcessParameterException;
+import stella.exception.IncompleteInstructionException;
+import stella.exception.InsufficientParameterException;
+import stella.exception.StellaException;
+import stella.exception.UnknownInstructionException;
+
 /**
  * Represents a task that have a start date/time and an end date/time. An Event is
  * represented by 3 strings, which are the description, the start and the end.

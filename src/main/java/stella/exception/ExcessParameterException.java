@@ -1,4 +1,4 @@
-package stella;
+package stella.exception;
 
 /**
  * ExcessParameterException is thrown when the user include
