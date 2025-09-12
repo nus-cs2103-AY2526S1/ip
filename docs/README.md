@@ -69,4 +69,4 @@ Tasks due on a certain date/time can be listed with a command.
 **Usage:**
 ```bash
 due
-``
+```
