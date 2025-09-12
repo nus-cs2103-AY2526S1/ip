@@ -48,7 +48,7 @@ import kip.command.Parser;
  */
 public class Storage {
     /** Path to the CSV file for storing tasks */
-    private static final String CSV_FILE = "src/main/java/kip/storage/tasks.csv";
+    private static final String CSV_FILE = "tasks.csv";
     /** Header line for the CSV file */
     private static final String CSV_HEADER = "type,done,description,datetime1,datetime2";
     
