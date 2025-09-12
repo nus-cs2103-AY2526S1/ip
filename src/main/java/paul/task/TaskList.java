@@ -63,7 +63,7 @@ public class TaskList {
         if (parsedCommand.length < 2) {
             throw new PaulException("The description of a " + commandType + " cannot be empty!");
         }
-        String description = parsedCommand[1];
+        String description = parsedCommand[1].trim();
 
         //CHECKSTYLE.OFF: Indentation
         Task newTask = switch (commandType) {
@@ -74,6 +74,10 @@ public class TaskList {
         };
         //CHECKSTYLE.ON: Indentation
         assert newTask != null : "Task creation failed in addTask()";
+        if (isDuplicate(newTask)) {
+            throw new PaulException("This task already exists!");
+        }
+
         return newTask;
     }
 
@@ -203,6 +207,16 @@ public class TaskList {
             }
         }
         return foundTasks;
+    }
+
+    /**
+     * Checks if a new task is a duplicate of an existing task.
+     *
+     * @param newTask The task to check.
+     * @return {@code true} if the task is a duplicate task, otherwise {@code false}.
+     */
+    public boolean isDuplicate(Task newTask) {
+        return tasks.contains(newTask);
     }
 
     /**

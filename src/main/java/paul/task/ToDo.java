@@ -30,4 +30,22 @@ public class ToDo extends Task {
     public String toSaveString() {
         return "T" + super.toSaveString();
     }
+
+    /**
+     * Checks if the given object is equal to a To Do.
+     * They are equal if they have the same description.
+     *
+     * @param obj the reference object with which to compare.
+     * @return true if this is equal to the To Do.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (!(obj instanceof ToDo)) {
+            return false;
+        }
+        ToDo other = (ToDo) obj;
+        return this.description.equalsIgnoreCase(other.description);
+    }
 }

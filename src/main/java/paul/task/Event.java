@@ -31,8 +31,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: "
-                + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ", to: "
-                + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+                + from.format(DateTimeFormatter.ofPattern(DATE_FORMAT)) + ", to: "
+                + to.format(DateTimeFormatter.ofPattern(DATE_FORMAT)) + ")";
     }
 
     /**
@@ -43,5 +43,25 @@ public class Event extends Task {
     @Override
     public String toSaveString() {
         return "E" + super.toSaveString() + " | " + from + " | " + to;
+    }
+
+    /**
+     * Checks if the given object is equal to an Event.
+     * They are equal if they have the same description, from date and to date.
+     *
+     * @param obj the reference object with which to compare.
+     * @return true if this is equal to the Event.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (!(obj instanceof Event)) {
+            return false;
+        }
+        Event other = (Event) obj;
+        return this.description.equalsIgnoreCase(other.description)
+                && this.from.equals(other.from)
+                && this.to.equals(other.to);
     }
 }
