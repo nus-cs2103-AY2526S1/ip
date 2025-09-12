@@ -29,6 +29,7 @@ public class Storage {
      * @param filePath The path to the storage file.
      */
     public Storage(String filePath) {
+        assert filePath != null && !filePath.isBlank() : "File path should not be null or blank";
         this.filePath = filePath;
 
         // create directory if it does not exist
@@ -58,6 +59,8 @@ public class Storage {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine().trim();
                 String[] parts = line.split(" \\| ");
+                assert parts.length >= 3 : "Corrupted storage line: " + line;
+
                 String type = parts[0]; // T, D, E
                 boolean isDone = parts[1].equals("1");
                 String description = parts[2];
@@ -75,8 +78,7 @@ public class Storage {
                             description, LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
                     break;
                 default:
-                    System.out.println("Unknown task type in file, skipping: " + type);
-                    continue;
+                    throw new PaulException("Unknown task type in file: " + type);
                 }
 
                 if (isDone) {
@@ -88,7 +90,6 @@ public class Storage {
         } catch (FileNotFoundException e) {
             throw new PaulException("Error: File not found: " + e.getMessage());
         }
-
         return tasks;
     }
 
@@ -98,6 +99,7 @@ public class Storage {
      * @param taskList TaskList containing the tasks to save.
      */
     public void saveTasks(TaskList taskList) {
+        assert taskList != null : "TaskList to save should not be null";
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= taskList.size(); i++) {
             sb.append(taskList.get(i).toSaveString()).append(System.lineSeparator());
