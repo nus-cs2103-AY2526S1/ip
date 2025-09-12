@@ -1,6 +1,10 @@
 package aurora.task;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -83,9 +87,9 @@ public class TaskReader {
 
         // Construct new Task class based on starting char
         Task result = switch (values[0]) {
-        case "T" -> new Todo(values[2], isDone);
-        case "D" -> new Deadline(values[2], isDone, toDate(values[3]));
-        case "E" -> new Event(values[2], isDone, toDate(values[3]), toDate(values[4]));
+        case "T" -> new Todo(values[2], isDone, toTagList(values[3]));
+        case "D" -> new Deadline(values[2], isDone, toDate(values[4]), toTagList(values[3]));
+        case "E" -> new Event(values[2], isDone, toDate(values[4]), toDate(values[5]), toTagList(values[3]));
         default -> null;
         };
 
@@ -102,5 +106,11 @@ public class TaskReader {
         } catch (IllegalArgumentException e) {
             throw new InvalidTaskException("Invalid date format. Please try yyyy-MM-dd.");
         }
+    }
+
+    private static List<String> toTagList(String input) {
+        return Arrays.stream(input.trim().split("\\s+"))
+                .filter(tag -> !tag.isBlank())
+                .toList();
     }
 }

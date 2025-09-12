@@ -1,6 +1,7 @@
 package aurora.task;
 
 import java.time.temporal.Temporal;
+import java.util.List;
 
 import aurora.util.DateUtil;
 
@@ -22,6 +23,20 @@ public class Deadline extends Task {
     public Deadline(String description, boolean isDone, Temporal by) {
         super(description, isDone);
         this.by = by;
+    }
+
+    /**
+     * Creates a Deadline with the given description and due date.
+     *
+     * @param description the task details
+     * @param isDone the completion status
+     * @param by the task due date
+     * @param tags list of tags
+     */
+    public Deadline(String description, boolean isDone, Temporal by, List<String> tags) {
+        super(description, isDone);
+        this.by = by;
+        this.tags = tags;
     }
 
     @Override

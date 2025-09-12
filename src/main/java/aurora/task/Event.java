@@ -1,6 +1,7 @@
 package aurora.task;
 
 import java.time.temporal.Temporal;
+import java.util.List;
 
 import aurora.util.DateUtil;
 
@@ -24,6 +25,22 @@ public class Event extends Task {
         super(description, isDone);
         this.from = from;
         this.to = to;
+    }
+
+    /**
+     * Creates a Deadline with the given description and due date.
+     *
+     * @param description the task details
+     * @param isDone the completion status
+     * @param from the task start date
+     * @param to the task end date
+     * @param tags list of tags
+     */
+    public Event(String description, boolean isDone, Temporal from, Temporal to, List<String> tags) {
+        super(description, isDone);
+        this.from = from;
+        this.to = to;
+        this.tags = tags;
     }
 
     @Override
