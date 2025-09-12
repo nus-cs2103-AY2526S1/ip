@@ -8,9 +8,6 @@ import java.util.List;
 import paul.exception.PaulException;
 import paul.parser.Parser;
 
-
-
-
 /**
  * A list that contains multiple tasks for Paul.
  */
@@ -30,6 +27,7 @@ public class TaskList {
      * @param task The task to add.
      */
     public void add(Task task) {
+        assert task != null : "Cannot add null Task to TaskList";
         this.tasks.add(task);
     }
 
@@ -100,8 +98,9 @@ public class TaskList {
             }
             break;
         default:
-            newTask = null;
+            newTask = null; // Should not reach here
         }
+        assert newTask != null : "Task creation failed in addTask()";
         return newTask;
     }
 
@@ -124,6 +123,7 @@ public class TaskList {
         } catch (NumberFormatException e) {
             throw new PaulException("Please input a valid task number!");
         }
+        assert task != null : "Deleted task should not be null";
         return task;
     }
 
