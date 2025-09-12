@@ -18,6 +18,8 @@ public class CommandReader {
     private static final Pattern MARK = Pattern.compile("^mark\\s+(\\d+)$", Pattern.CASE_INSENSITIVE);
     private static final Pattern DELETE = Pattern.compile("^delete\\s+(\\d+)$", Pattern.CASE_INSENSITIVE);
     private static final Pattern FIND = Pattern.compile("^find\\s+(.+)$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern TAG = Pattern.compile("^tag\\s+(\\d+)\\s+(.+)$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern UNTAG = Pattern.compile("^untag\\s+(\\d+)\\s+(.+)$", Pattern.CASE_INSENSITIVE);
 
     /**
      * Reads user input and returns a {@link Command} object.
@@ -75,6 +77,30 @@ public class CommandReader {
             } else {
                 return new InvalidCommand("Invalid find command.\n"
                         + "enter \"find <content>\" to find task from list.");
+            }
+        }
+
+        if (input.toLowerCase().startsWith("tag")) {
+            Matcher matcher = TAG.matcher(input);
+            if (matcher.matches()) {
+                int index = Integer.parseInt(matcher.group(1));
+                String tag = matcher.group(2);
+                return new TagCommand(index, tag);
+            } else {
+                return new InvalidCommand("Invalid tag command.\n"
+                        + "enter \"tag <task number> <tag>\" to tag a task in the list.");
+            }
+        }
+
+        if (input.toLowerCase().startsWith("untag")) {
+            Matcher matcher = UNTAG.matcher(input);
+            if (matcher.matches()) {
+                int index = Integer.parseInt(matcher.group(1));
+                String tag = matcher.group(2);
+                return new UntagCommand(index, tag);
+            } else {
+                return new InvalidCommand("Invalid untag command.\n"
+                        + "enter \"untag <task number> <tag>\" to untag a task in the list.");
             }
         }
 
