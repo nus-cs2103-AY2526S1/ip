@@ -1,30 +1,13 @@
-# Duke User Guide
+# Dobby User Guide
 
-// Update the title above to match the actual product name
+> Dobby is the most powerful task assistant!  
 
-// Product screenshot goes here
+**This serves as user documentation**
 
-// Product intro goes here
+### Product Features
+1. Adding Tasks, Events, Deadlines
+2. Marking & Unmarking Tasks
+3. Listing out Tasks, Event & Deadlines
 
-## Adding deadlines
+To run Dobby, run `Dobby.java`
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
