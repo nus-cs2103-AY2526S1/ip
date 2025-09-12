@@ -18,56 +18,78 @@ public class Event extends Task {
     }
 
     public void convertToDate(String start, String end) {
+        // --- Parse start ---
         try {
-            this.start = start;
-            // Split date and time
-            String[] elems = start.split(" ");
-            String[] dates = elems[0].split("/");   // e.g., "2025/08/22"
-            String[] times = elems[1].split(":");   // e.g., "14:30"
+            this.start = start.trim();
+            String[] elems = this.start.split(" ");
 
-            // Parse strings to integers
-            if (dates.length < 2 || times.length < 1) {
+            // Parse date
+            String[] dates = elems[0].split("/");
+            if (dates.length != 3) {
                 throw new IncorrectFormatException();
             }
             int year = Integer.parseInt(dates[0]);
             int month = Integer.parseInt(dates[1]);
             int day = Integer.parseInt(dates[2]);
-            int hour = Integer.parseInt(times[0]);
-            int minute = Integer.parseInt(times[1]);
 
-            // Create LocalDateTime
-            LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour, minute);
-            this.startDate = dateTime;
+            int hour = 0;
+            int minute = 0;
+
+            // Parse time if provided
+            if (elems.length == 2) {
+                String[] times = elems[1].split(":");
+                if (times.length != 2) {
+                    throw new IncorrectFormatException();
+                }
+                hour = Integer.parseInt(times[0]);
+                minute = Integer.parseInt(times[1]);
+            }
+
+            LocalDateTime startDateTime = LocalDateTime.of(year, month, day, hour, minute);
+            this.startDate = startDateTime;
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-            this.start = dateTime.format(formatter);
-        } catch (IncorrectFormatException | DateTimeException e) {
-            //do nothing
+            this.start = startDateTime.format(formatter);
+
+        } catch (IncorrectFormatException | DateTimeException | NumberFormatException e) {
+            this.startDate = null; // fallback if parsing fails
         }
 
+        // --- Parse end ---
         try {
-            this.end = end;
-            // Split date and time
-            String[] elems = end.split(" ");
-            String[] dates = elems[0].split("/");   // e.g., "2025/08/22"
-            String[] times = elems[1].split(":");   // e.g., "14:30"
+            this.end = end.trim();
+            String[] elems = this.end.split(" ");
 
-            // Parse strings to integers
-            if (dates.length < 2 || times.length < 1) {
+            // Parse date
+            String[] dates = elems[0].split("/");
+            if (dates.length != 3) {
                 throw new IncorrectFormatException();
             }
             int year = Integer.parseInt(dates[0]);
             int month = Integer.parseInt(dates[1]);
             int day = Integer.parseInt(dates[2]);
-            int hour = Integer.parseInt(times[0]);
-            int minute = Integer.parseInt(times[1]);
 
-            // Create LocalDateTime
-            LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour, minute);
-            this.endDate = dateTime;
+            int hour = 0;
+            int minute = 0;
+
+            // Parse time if provided
+            if (elems.length == 2) {
+                String[] times = elems[1].split(":");
+                if (times.length != 2) {
+                    throw new IncorrectFormatException();
+                }
+                hour = Integer.parseInt(times[0]);
+                minute = Integer.parseInt(times[1]);
+            }
+
+            LocalDateTime endDateTime = LocalDateTime.of(year, month, day, hour, minute);
+            this.endDate = endDateTime;
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-            this.end = dateTime.format(formatter);
-        } catch (IncorrectFormatException | DateTimeException e) {
-            //do nothing
+            this.end = endDateTime.format(formatter);
+
+        } catch (IncorrectFormatException | DateTimeException | NumberFormatException e) {
+            this.endDate = null; // fallback if parsing fails
         }
     }
 

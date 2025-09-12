@@ -301,22 +301,19 @@ public class Chatbot {
     public String addDeadline(String command) throws DukeException {
         assert command.startsWith("deadline") : "Command must start with 'deadline'";
         if (!command.contains("/by")) {
-            throw new IncorrectFormatException();
+            throw new IncorrectFormatException("Format is \"deadline <desc> /by <time>\"");
         }
 
-        int firstSpace = command.indexOf(" ");
-        int byIndex = command.indexOf(" /by ");
-
-        if (firstSpace == -1 || byIndex == -1 || byIndex <= firstSpace) {
-            throw new IncorrectFormatException();
+        String[] parts = command.substring(8).trim().split("/by", 2);
+        if (parts.length < 2) {
+            throw new IncorrectFormatException("Format is \"deadline <desc> /by <time>\"");
         }
 
-        String desc = command.substring(firstSpace + 1, byIndex).trim();
+        String desc = parts[0].trim();
+        String by = parts[1].trim();
         if (desc.isEmpty()) {
             throw new DescriptionEmptyException();
         }
-
-        String by = command.substring(byIndex + 5).trim();
         if (by.isEmpty()) {
             throw new TimestampEmptyException();
         }
@@ -325,32 +322,35 @@ public class Chatbot {
     }
 
     public String addEvent(String command) throws DukeException {
-        assert command.startsWith("event") : "Command must start with the word'event'";
+        assert command.startsWith("event") : "Command must start with 'event'";
         if (!command.contains("/from") || !command.contains("/to")) {
-            throw new IncorrectFormatException();
+            throw new IncorrectFormatException("Format is \"event <desc> /from <start> /to <end>\"");
         }
 
-        int firstSpace = command.indexOf(" ");
-        int fromIndex = command.indexOf(" /from ");
-        int toIndex = command.indexOf(" /to ");
-        if (firstSpace == -1 || fromIndex == -1 || toIndex == -1
-                || fromIndex <= firstSpace || toIndex <= fromIndex) {
-            throw new IncorrectFormatException();
+        String[] parts = command.substring(5).trim().split("/from", 2);
+        if (parts.length < 2) {
+            throw new IncorrectFormatException("Format is \"event <desc> /from <start> /to <end>\"");
         }
 
-        String desc = command.substring(firstSpace + 1, fromIndex).trim();
+        String desc = parts[0].trim();
+        String[] timeParts = parts[1].split("/to", 2);
+        if (timeParts.length < 2) {
+            throw new IncorrectFormatException("Format is \"event <desc> /from <start> /to <end>\"");
+        }
+
+        String start = timeParts[0].trim();
+        String end = timeParts[1].trim();
+
         if (desc.isEmpty()) {
             throw new DescriptionEmptyException();
         }
-
-        String start = command.substring(fromIndex + 7, toIndex).trim();
-        String end = command.substring(toIndex + 5).trim();
         if (start.isEmpty() || end.isEmpty()) {
             throw new TimestampEmptyException();
         }
 
         return addTask(new Event(desc, start, end));
     }
+
 
     /**
      * Adds a task to the task list.

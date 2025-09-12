@@ -1,30 +1,25 @@
-# Duke User Guide
+# Lanturn User Guide
 
-// Update the title above to match the actual product name
+![Ui.png](Ui.png)
 
-// Product screenshot goes here
+Lanturn helps you manage tasks, deadlines, and projects efficiently.  
+This guide introduces the key features, along with examples of how to use them.
 
-// Product intro goes here
+---
+
+## Adding todos
+
+Todos let you track which tasks need to be completed.
+
+**Usage:**
+```bash
+todo <task_name>
+```
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+Deadlines let you track when tasks need to be completed. You can add a deadline directly to a task using a keyword command.
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+**Usage:**
+```bash
+deadline <task_name> /from <deadline>
