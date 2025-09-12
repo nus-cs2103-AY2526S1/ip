@@ -10,16 +10,18 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 import java.util.Collections;
 
 public class DialogBox extends HBox {
     @FXML
-    private Label dialog;
+    private Circle profileCircle;
 
     @FXML
-    private ImageView displayPicture;
+    private Label dialog;
 
     public DialogBox(Image image, String text) {
         assert image != null
@@ -35,7 +37,8 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        displayPicture.setImage(image);
+        profileCircle.setFill(new ImagePattern(image));
+
 
     }
 
