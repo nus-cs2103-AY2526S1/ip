@@ -57,7 +57,7 @@ jar {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "piper"
     archiveClassifier = null
 }
 
