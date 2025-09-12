@@ -19,8 +19,8 @@ import paul.task.ToDo;
  * which keeps track of tasks.
  */
 public class Storage {
-    // Path to the storage file
-    private final String filePath;
+    private static final String SEPARATOR = " \\| ";
+    private final String filePath; // Path to the storage file
 
     /**
      * Creates a Storage instance with the given file path.
@@ -57,63 +57,68 @@ public class Storage {
 
         try (Scanner sc = new Scanner(file)) {
             while (sc.hasNextLine()) {
-                String line = sc.nextLine().trim();
-                String[] parts = line.split(" \\| ");
-                assert parts.length >= 3 : "Corrupted storage line: " + line;
-
-                String type = parts[0]; // T, D, E
-                boolean isDone = parts[1].equals("1");
-                String description = parts[2];
-
-                Task task;
-                switch (type) {
-                case "T":
-                    task = new ToDo(description);
-                    break;
-                case "D":
-                    task = new Deadline(description, LocalDate.parse(parts[3]));
-                    break;
-                case "E":
-                    task = new Event(
-                            description, LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
-                    break;
-                default:
-                    throw new PaulException("Unknown task type in file: " + type);
-                }
-
-                if (isDone) {
-                    task.markTask();
-                }
-
+                Task task = getTaskFromFile(sc.nextLine().trim());
                 tasks.add(task);
             }
         } catch (FileNotFoundException e) {
             throw new PaulException("Error: File not found: " + e.getMessage());
         }
+
         return tasks;
+    }
+
+    private static Task getTaskFromFile(String input) throws PaulException {
+        String[] parts = input.split(SEPARATOR);
+        assert parts.length >= 3 : "Corrupted storage line: " + input;
+        String type = parts[0]; // T, D, E
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        //CHECKSTYLE.OFF: Indentation
+        Task task = switch (type) {
+            case "T" -> new ToDo(description);
+            case "D" -> new Deadline(description, LocalDate.parse(parts[3]));
+            case "E" -> new Event(
+                    description, LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
+            default -> throw new PaulException("Unknown task type in file: " + type);
+        };
+        //CHECKSTYLE.ON: Indentation
+
+        if (isDone) {
+            task.markTask();
+        }
+        return task;
     }
 
     /**
      * Saves the tasks from the TaskList into the storage file.
      *
-     * @param taskList TaskList containing the tasks to save.
+     * @param tasks TaskList containing the tasks to save.
      */
-    public void saveTasks(TaskList taskList) {
-        assert taskList != null : "TaskList to save should not be null";
-        StringBuilder sb = new StringBuilder();
-        for (int i = 1; i <= taskList.size(); i++) {
-            sb.append(taskList.get(i).toSaveString()).append(System.lineSeparator());
-        }
+    public void saveTasks(TaskList tasks) throws PaulException {
+        assert tasks != null : "TaskList to save should not be null";
+        StringBuilder tasksSaveString = getTasksSaveString(tasks);
+        saveTasksToFile(tasksSaveString);
+    }
 
+    private static StringBuilder getTasksSaveString(TaskList tasks) {
+        StringBuilder tasksSaveString = new StringBuilder();
+        for (int i = 1; i <= tasks.size(); i++) {
+            tasksSaveString.append(tasks.get(i).toSaveString()).append(System.lineSeparator());
+        }
+        return tasksSaveString;
+    }
+
+    private void saveTasksToFile(StringBuilder taskSaveString) throws PaulException {
         try {
             File file = new File(filePath);
 
             // Write to file
             FileWriter fw = new FileWriter(file);
-            fw.write(sb.toString());
+            fw.write(taskSaveString.toString());
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error: Unable to save tasks: " + e.getMessage());
+            throw new PaulException("Error: Unable to save tasks: " + e.getMessage());
         }
     }
 }
