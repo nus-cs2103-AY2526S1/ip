@@ -16,7 +16,7 @@
 
 ## Quick Start
 
-1. [**Download**](**link here**) the latest version of Kip
+1. [**Download**](https://github.com/alsonleej/ip/releases/tag/A-Release) the latest version of Kip
 2. **Run** the application:
     - For GUI, use `./gradlew run`
     - For CLI, use `java -cp build/classes/java/main kip.Kip`
