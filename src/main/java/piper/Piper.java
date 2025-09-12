@@ -48,6 +48,7 @@ public class Piper {
         StringBuilder reply = new StringBuilder();
         try {
             Parser.ParsedString ps = Parser.parse(trimmed);
+            assert ps.cmd != null && !ps.cmd.isEmpty() : "Parser must return a non-null command";
             String cmd = ps.cmd;
             String arg = ps.arg;
 
@@ -72,8 +73,10 @@ public class Piper {
                         Task task = tasks.getTask(index);
                         if ("mark".equals(cmd)) {
                             task.markDone();
+                            assert "X".equals(task.getStatusIcon()) : "Task should be marked done";
                         } else {
                             task.markUndone();
+                            assert " ".equals(task.getStatusIcon()) : "Task should be marked undone";
                         }
                         if (storage != null) {
                             storage.saveAll(tasks);
@@ -90,8 +93,10 @@ public class Piper {
                     try {
                         int taskNumber = Parser.parseIndex(arg);
                         int index = taskNumber - 1;
+                        int initSize = tasks.getSize();
                         Task task = tasks.getTask(index);
                         tasks.deleteTask(index);
+                        assert tasks.getSize() == initSize - 1 : "Task deletion should decrease number of tasks by 1";
                         if (storage != null) {
                             storage.saveAll(tasks);
                         }
@@ -106,7 +111,9 @@ public class Piper {
                 }
                 case "todo": {
                     Task task = new Todo(arg);
+                    int initSize = tasks.getSize();
                     tasks.addTask(task);
+                    assert tasks.getSize() == initSize + 1 : "New task addition should increase number of tasks by 1";
                     if (storage != null) {
                         storage.saveAll(tasks);
                     }
@@ -118,7 +125,9 @@ public class Piper {
                 case "deadline": {
                     Parser.DeadlineArgs da = Parser.parseDeadlineArgs(arg);
                     Task task = new Deadline(da.description, da.by);
+                    int initSize = tasks.getSize();
                     tasks.addTask(task);
+                    assert tasks.getSize() == initSize + 1 : "New task addition should increase number of tasks by 1";
                     if (storage != null) {
                         storage.saveAll(tasks);
                     }
@@ -130,7 +139,9 @@ public class Piper {
                 case "event": {
                     Parser.EventArgs ea = Parser.parseEventArgs(arg);
                     Task task = new Event(ea.description, ea.from, ea.to);
+                    int initSize = tasks.getSize();
                     tasks.addTask(task);
+                    assert tasks.getSize() == initSize + 1 : "New task addition should increase number of tasks by 1";
                     if (storage != null) {
                         storage.saveAll(tasks);
                     }
@@ -141,6 +152,7 @@ public class Piper {
                 }
                 case "find": {
                     TaskList matches = tasks.find(arg);
+                    assert matches != null : "Function find(String kw) should not return null";
                     reply.append(ui.displayMatchingTasks(matches));
                     break;
                 }
