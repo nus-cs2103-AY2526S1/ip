@@ -1,12 +1,15 @@
 package bobbywasabi.tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an Event task with a description, marked status, start time, and end time.
  * Extends the generic Task class.
  */
 public class Event extends bobbywasabi.tasks.Task {
-    private String start;
-    private String end;
+    private LocalDateTime start;
+    private LocalDateTime end;
 
     /**
      * Constructs an Event with description, marked status, start time, and end time.
@@ -16,7 +19,7 @@ public class Event extends bobbywasabi.tasks.Task {
      * @param start       The start time of the event.
      * @param end         The end time of the event.
      */
-    public Event(String description, boolean isMarked, String start, String end) {
+    public Event(String description, boolean isMarked, LocalDateTime start, LocalDateTime end) {
         super(description, isMarked);
         this.start = start;
         this.end = end;
@@ -28,9 +31,11 @@ public class Event extends bobbywasabi.tasks.Task {
      * @return The duration string in the format "(from:start to:end)".
      */
     public String getDuration() {
-        return String.format("(from:%sto:%s)",
-                this.start,
-                this.end);
+        String formattedStart = this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
+        String formattedEnd = this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
+        return String.format("(from: %s to: %s)",
+                formattedStart,
+                formattedEnd);
     }
 
     /**
@@ -52,7 +57,9 @@ public class Event extends bobbywasabi.tasks.Task {
      */
     @Override
     public String getData() {
+        String startOutput = this.start.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+        String endOutput = this.end.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
         return String.format("E|%s|%s|%s|%s",
-                super.getDescription(), super.getMarkedStatus(), this.start, this.end);
+                super.getDescription(), super.getMarkedStatus(), startOutput, endOutput);
     }
 }

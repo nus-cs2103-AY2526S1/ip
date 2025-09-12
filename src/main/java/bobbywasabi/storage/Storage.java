@@ -211,7 +211,9 @@ public class Storage {
             return new Deadline(description, isMarked, dateTime);
 
         } else if (type.equals("E")) {
-            return new Event(description, isMarked, infos[3], infos[4]);
+            LocalDateTime start = Parser.parseDateString(infos[3]);
+            LocalDateTime end = Parser.parseDateString(infos[4]);
+            return new Event(description, isMarked, start, end);
         } else {
             return null;
         }

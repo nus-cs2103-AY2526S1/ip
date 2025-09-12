@@ -77,6 +77,7 @@ public class BobbyWasabi {
             this.storage.createDataStorage();
             this.taskList = storage.loadTaskList();
             this.clientList = storage.loadClientList();
+            String s = "hi";
         } catch (BobbyWasabiException e) {
             ui.generateErrorMsg(e.getMessage());
             this.taskList = new TaskList();
@@ -169,8 +170,8 @@ public class BobbyWasabi {
                     : "Details in DEADLINE command is insufficient!";
 
             String description = details[0];
-            String start = details[1];
-            String end = details[2];
+            LocalDateTime start = Parser.parseDateString(details[1]);
+            LocalDateTime end = Parser.parseDateString(details[2]);
 
             Task eventTask = new Event(description, false, start, end);
             this.taskList.add(eventTask);
