@@ -14,7 +14,13 @@ public class Deadline extends Task {
 
     public Deadline(String description, String byStr) {
         super(description);
+        assert description != null && !description.isBlank() :
+                "Deadline description cannot be null/blank";
+        assert byStr != null && !byStr.isBlank() :
+                "Deadline 'by' string cannot be null/blank";
         this.by = parseDateTime(byStr);
+        assert this.by != null :
+                "Deadline 'by' LocalDateTime must not be null";
     }
 
     private LocalDateTime parseDateTime(String dateTimeStr) {
@@ -27,6 +33,7 @@ public class Deadline extends Task {
     }
 
     public String getBy() {
+        assert by != null : "Deadline date must be initialized before formatting";
         return by.format(OUTPUT_FORMATTER);
     }
 
@@ -42,6 +49,7 @@ public class Deadline extends Task {
     }
 
     public LocalDateTime getByDateTime() {
+        assert by != null : "Deadline date must never be null";
         return by; // for comparisons or filtering
     }
 }
