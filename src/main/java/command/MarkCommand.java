@@ -10,10 +10,16 @@ import tasks.Task;
  * Handles task status changes, user feedback, and automatic persistence to storage.
  */
 public class MarkCommand extends Command {
+    // Constants for user feedback messages - eliminates magic strings
+    private static final String TASK_MARKED_DONE_MESSAGE = "Nice! I've marked this task as done:";
+    private static final String TASK_MARKED_UNDONE_MESSAGE = "OK, I've marked this task as not done yet:";
+    private static final String TASK_PREFIX = "  ";
+    private static final String STORAGE_FILENAME = "romidas.txt";
+    
     /** The index of the task to be marked */
-    private int index;
+    private final int index;
     /** Whether to mark the task as done (true) or not done (false) */
-    private boolean isMark;
+    private final boolean isMark;
     
     /**
      * Constructs a new MarkCommand with the specified task index and mark status.
@@ -37,18 +43,48 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        Task task = updateTaskStatus(tasks);
+        displayStatusMessage(ui, task);
+        saveTasksToStorage(tasks, ui, storage);
+    }
+    
+    /**
+     * Updates the task status based on the mark operation.
+     * Separates the core logic for clarity and testability.
+     * 
+     * @param tasks The task list containing the task to update
+     * @return The updated task
+     */
+    private Task updateTaskStatus(TaskList tasks) {
         Task task = tasks.get(index);
         task.setIsDone(isMark);
-        
-        if (isMark) {
-            ui.showMessage("Nice! I've marked this task as done:");
-        } else {
-            ui.showMessage("OK, I've marked this task as not done yet:");
-        }
-        ui.showMessage("  " + task.toString());
-        
+        return task;
+    }
+    
+    /**
+     * Displays appropriate status message based on mark operation.
+     * Shows different messages for marking done vs. undone.
+     * 
+     * @param ui The user interface for displaying messages
+     * @param task The task that was marked
+     */
+    private void displayStatusMessage(Ui ui, Task task) {
+        String statusMessage = isMark ? TASK_MARKED_DONE_MESSAGE : TASK_MARKED_UNDONE_MESSAGE;
+        ui.showMessage(statusMessage);
+        ui.showMessage(TASK_PREFIX + task.toString());
+    }
+    
+    /**
+     * Saves the updated task list to storage.
+     * Handles storage errors gracefully by displaying error messages.
+     * 
+     * @param tasks The task list to save
+     * @param ui The user interface for error display
+     * @param storage The storage component
+     */
+    private void saveTasksToStorage(TaskList tasks, Ui ui, Storage storage) {
         try {
-            storage.saveTasks("romidas.txt", tasks.retreive());
+            storage.saveTasks(STORAGE_FILENAME, tasks.retreive());
         } catch (RomidasException e) {
             ui.showError(e.getMessage());
         }
@@ -56,6 +92,6 @@ public class MarkCommand extends Command {
     
     @Override
     public boolean isBye() {
-        return false;
+        return false; // Mark commands do not terminate the application
     }
 }
