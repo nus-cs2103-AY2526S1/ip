@@ -77,11 +77,11 @@ public class TaskList {
         return newTask;
     }
 
-    private static ToDo createToDo(String description) {
+    private ToDo createToDo(String description) {
         return new ToDo(description);
     }
 
-    private static Task createDeadline(String description) throws PaulException {
+    private Task createDeadline(String description) throws PaulException {
         Task newTask;
         String[] deadlineStr = description.split(" /by ");
 
@@ -98,7 +98,7 @@ public class TaskList {
         return newTask;
     }
 
-    private static Task createEvent(String description) throws PaulException {
+    private Task createEvent(String description) throws PaulException {
         Task newTask;
         String[] eventStr = description.split(" /from | /to ");
 
