@@ -116,4 +116,8 @@ public abstract class Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         return ldt.format(formatter);
     }
+
+    public String getTitle() {
+        return this.title;
+    }
 }

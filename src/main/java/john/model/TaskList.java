@@ -82,4 +82,8 @@ public class TaskList {
         assert i >= 0 && i < tasks.size() : "index out of range for remove";
         return tasks.remove(i);
     }
+
+    public void set(int idx, Task updated) {
+        tasks.set(idx, updated);
+    }
 }

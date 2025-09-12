@@ -61,9 +61,11 @@ public final class CommandParser {
             case "deadline" -> parseDeadline(rest);
             case "event" -> parseEvent(rest);
             case "find" -> parseFind(rest);
+            case "postpone" -> parsePostpone(rest);
+
             default ->
                     throw new ParseException("Unknown command: " + verb +
-                            ". Try: list, mark, unmark, delete, todo, deadline, event, find, bye");
+                            ". Try: list, mark, unmark, delete, todo, deadline, event, find, bye, postpone");
         };
     }
 
@@ -220,5 +222,67 @@ public final class CommandParser {
             throw new ParseException("Usage: find <substring>");
         }
         return new FindCommand(rest);
+    }
+
+    private static Command parsePostpone(String rest) throws ParseException {
+        // Allowed:
+        // 1) postpone <idx> /by <when>
+        // 2) postpone <idx> /from <start> /to <end>
+        final String USAGE = "Usage: postpone <task-number> /by <when> | postpone <task-number> /from <start> /to <end>";
+
+        if (rest.isEmpty()) {
+            throw new ParseException(USAGE);
+        }
+
+        String[] head = rest.split("\\s+", 2);
+        int oneBased;
+        try {
+            oneBased = Integer.parseInt(head[0]);
+        } catch (NumberFormatException e) {
+            throw new ParseException(USAGE);
+        }
+        String tail = (head.length > 1) ? head[1].trim() : "";
+        if (tail.isEmpty()) {
+            throw new ParseException(USAGE);
+        }
+
+        // Case 1: /by <when>
+        if (tail.startsWith("/by ")) {
+            String byStr = tail.substring(4).trim();
+            // no extra tags allowed
+            if (byStr.isEmpty() || byStr.contains(" /from ") || byStr.contains(" /to ")) {
+                throw new ParseException(USAGE);
+            }
+            try {
+                LocalDateTime by = DateTimeParser.parseDateTime(byStr);
+                return new PostponeCommand(oneBased, by, null, null);
+            } catch (java.time.format.DateTimeParseException ex) {
+                throw new ParseException("Invalid date/time. Expected: " + DateTimeParser.HUMAN_PATTERN);
+            }
+        }
+
+        // Case 2: /from <start> /to <end>
+        if (tail.startsWith("/from ")) {
+            int toPos = tail.indexOf(" /to ");
+            if (toPos < 0) {
+                throw new ParseException(USAGE);
+            }
+
+            String fromStr = tail.substring(6, toPos).trim();
+            String toStr   = tail.substring(toPos + 5).trim();
+            if (fromStr.isEmpty() || toStr.isEmpty()) {
+                throw new ParseException(USAGE);
+            }
+
+            try {
+                LocalDateTime from = DateTimeParser.parseDateTime(fromStr);
+                LocalDateTime to   = DateTimeParser.parseDateTime(toStr);
+                return new PostponeCommand(oneBased, null, from, to);
+            } catch (java.time.format.DateTimeParseException ex) {
+                throw new ParseException("Invalid date/time. Expected: " + DateTimeParser.HUMAN_PATTERN);
+            }
+        }
+
+        throw new ParseException(USAGE);
     }
 }

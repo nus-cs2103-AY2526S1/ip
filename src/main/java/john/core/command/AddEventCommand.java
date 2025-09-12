@@ -1,5 +1,6 @@
 package john.core.command;
 
+import john.core.exception.ParseException;
 import john.model.Event;
 import john.model.Task;
 import john.model.TaskList;
@@ -51,10 +52,14 @@ public class AddEventCommand implements Command {
      * @return a success result containing a confirmation message
      */
     @Override
-    public CommandResult execute(TaskList tasks, Storage storage, Ui ui) {
+    public CommandResult execute(TaskList tasks, Storage storage, Ui ui) throws ParseException {
+        if (to.isBefore(from)) {
+            throw new ParseException("End time must be after start time.");
+        }
         Task t = new Event(desc, from, to);
         tasks.add(t);
         storage.save(tasks);
+
         return CommandResult.ok(
                 "Got it. I've added this task:\n" + t +
                         "\nNow you have " + tasks.size() + " tasks in the list."
