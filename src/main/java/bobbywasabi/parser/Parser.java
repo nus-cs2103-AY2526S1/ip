@@ -334,6 +334,24 @@ public class Parser {
         }
     }
 
+    public static LocalDateTime[] parseEventDateString(String start, String end) throws BobbyWasabiException {
+
+        LocalDateTime startTime = Parser.parseDateString(start);
+        LocalDateTime endTime = Parser.parseDateString(end);
+
+        // check if end time is before or the same as start time
+        if (endTime.isBefore(startTime)) {
+            throw new BobbyWasabiException("End time cannot be earlier than start time!");
+        } else if (endTime.isEqual(startTime)) {
+            throw new BobbyWasabiException("End time cannot be the same as start time!");
+        }
+
+        return new LocalDateTime[] {
+                startTime,
+                endTime
+        };
+    }
+
     /**
      * Parses the first word of user input as a {@link BobbyWasabi.Command} enum.
      * <p>

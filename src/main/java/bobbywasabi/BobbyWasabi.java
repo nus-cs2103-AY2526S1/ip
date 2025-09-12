@@ -170,8 +170,9 @@ public class BobbyWasabi {
                     : "Details in DEADLINE command is insufficient!";
 
             String description = details[0];
-            LocalDateTime start = Parser.parseDateString(details[1]);
-            LocalDateTime end = Parser.parseDateString(details[2]);
+            LocalDateTime[] timings = Parser.parseEventDateString(details[1], details[2]);
+            LocalDateTime start = timings[0];
+            LocalDateTime end = timings[1];
 
             Task eventTask = new Event(description, false, start, end);
             this.taskList.add(eventTask);
