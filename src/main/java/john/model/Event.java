@@ -56,4 +56,12 @@ public class Event extends Task {
     public String serialise() {
         return baseSerialize("E", formatTime(from), formatTime(to));
     }
+
+    public LocalDateTime getFrom() {
+        return this.from;
+    }
+
+    public LocalDateTime getTo() {
+        return this.to;
+    }
 }
