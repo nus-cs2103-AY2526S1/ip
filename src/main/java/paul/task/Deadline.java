@@ -2,7 +2,6 @@ package paul.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 /**
  * A deadline task for Paul.
