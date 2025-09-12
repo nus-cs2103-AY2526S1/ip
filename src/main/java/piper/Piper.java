@@ -1,5 +1,6 @@
 package piper;
 
+import piper.parser.CommandType;
 import piper.parser.Parser;
 import piper.storage.Storage;
 import piper.task.Deadline;
@@ -48,29 +49,32 @@ public class Piper {
         StringBuilder reply = new StringBuilder();
         try {
             Parser.ParsedString ps = Parser.parse(trimmed);
-            String cmd = ps.cmd;
+            CommandType cmd = ps.cmdType;
             String arg = ps.arg;
 
             if (arg == null) {
-                if ("bye".equals(cmd)) {
+                switch (cmd) {
+                case BYE:
                     isExit = true;
                     reply.append(ui.farewellUser());
-                } else if ("list".equals(cmd)) {
+                    break;
+                case LIST:
                     reply.append(ui.displayTasks(tasks));
-                } else {
+                    break;
+                default:
                     throw new PiperException(
                             "CHEEP CHEEP! I can't quite sing along with '"
                                     + trimmed + "'. Wanna try another command?");
                 }
             } else {
                 switch (cmd) {
-                case "mark":
-                case "unmark": {
+                case MARK:
+                case UNMARK: {
                     try {
                         int taskNumber = Parser.parseIndex(arg);
                         int index = taskNumber - 1;
                         Task task = tasks.getTask(index);
-                        if ("mark".equals(cmd)) {
+                        if (cmd == CommandType.MARK) {
                             task.markDone();
                         } else {
                             task.markUndone();
@@ -86,7 +90,7 @@ public class Piper {
                     }
                     break;
                 }
-                case "delete": {
+                case DELETE: {
                     try {
                         int taskNumber = Parser.parseIndex(arg);
                         int index = taskNumber - 1;
@@ -104,7 +108,7 @@ public class Piper {
                     }
                     break;
                 }
-                case "todo": {
+                case TODO: {
                     Task task = new Todo(arg);
                     tasks.addTask(task);
                     if (storage != null) {
@@ -115,7 +119,7 @@ public class Piper {
                             .append(ui.showTasksSize(tasks));
                     break;
                 }
-                case "deadline": {
+                case DEADLINE: {
                     Parser.DeadlineArgs da = Parser.parseDeadlineArgs(arg);
                     Task task = new Deadline(da.description, da.by);
                     tasks.addTask(task);
@@ -127,7 +131,7 @@ public class Piper {
                             .append(ui.showTasksSize(tasks));
                     break;
                 }
-                case "event": {
+                case EVENT: {
                     Parser.EventArgs ea = Parser.parseEventArgs(arg);
                     Task task = new Event(ea.description, ea.from, ea.to);
                     tasks.addTask(task);
@@ -139,7 +143,7 @@ public class Piper {
                             .append(ui.showTasksSize(tasks));
                     break;
                 }
-                case "find": {
+                case FIND: {
                     TaskList matches = tasks.find(arg);
                     reply.append(ui.displayMatchingTasks(matches));
                     break;
