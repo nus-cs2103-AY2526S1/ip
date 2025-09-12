@@ -1,7 +1,7 @@
 package piper.parser;
 
 import piper.PiperException;
-
+import piper.parser.CommandType;
 
 /**
  * Parses raw user input into commands and structured arguments.
@@ -16,17 +16,17 @@ public final class Parser {
      * Result of splitting a raw input into a command and its argument.
      */
     public static final class ParsedString {
-        public final String cmd;
+        public final CommandType cmdType;
         public final String arg;
 
         /**
          * Creates a ParsedString.
          *
-         * @param cmd command token.
+         * @param cmdType command type.
          * @param arg remainder of the user input or null if none.
          */
-        public ParsedString(String cmd, String arg) {
-            this.cmd = cmd;
+        public ParsedString(CommandType cmdType, String arg) {
+            this.cmdType = cmdType;
             this.arg = arg;
         }
     }
@@ -83,31 +83,41 @@ public final class Parser {
         if (userInput == null || userInput.isEmpty()) {
             throw new PiperException("CHIRP CHIRP! Don't think you said anything there. Try tweeting a command!");
         }
-        String[] substrings = userInput.split("\\s", 2);
-        String cmd = substrings[0];
+        String[] substrings = userInput.split("\\s+", 2);
+        String cmdToken = substrings[0];
+        CommandType cmd = CommandType.from(cmdToken);
+
+        if (cmd == null) {
+            throw new PiperException(
+                    "CHIRP CHIRP! I don't recognise the tune called '" + cmdToken + "'. Try another command?"
+            );
+        }
 
         if (substrings.length < 2) {
-            if (cmd.equals("bye") || cmd.equals("list")) {
+            if (!cmd.requiresArg()) {
                 return new ParsedString(cmd, null);
-            } else if (cmd.equals("todo") || cmd.equals("deadline") || cmd.equals("event")) {
+            }
+            switch (cmd) {
+            case TODO:
+            case DEADLINE:
+            case EVENT:
                 // missing task description
                 throw new PiperException("TWEET TWEET! What are we supposed to do? Please specify the description!");
-            } else if (cmd.equals("find")) {
+            case FIND:
                 // missing keyword
                 throw new PiperException("TWEET TWEET! What should we look for? Please specify a keyword!");
-            } else if (cmd.equals("mark") || cmd.equals("unmark") || cmd.equals("delete")) {
+            case MARK:
+            case UNMARK:
+            case DELETE:
                 // missing task index
                 throw new PiperException("CHIRRUP! Which task should I peck at? Please give me the task index!");
-            } else {
-                // unrecognisable command
-                throw new PiperException(
-                        "CHIRP CHIRP! I don't recognise the tune called '" + cmd + "'. Try another command?"
-                );
+            default:
+                return new ParsedString(cmd, null);
             }
         }
 
         String arg = substrings[1];
-        return new ParsedString(cmd, arg);
+        return new ParsedString(cmd, null);
     }
 
     /**
