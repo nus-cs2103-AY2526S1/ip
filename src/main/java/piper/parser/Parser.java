@@ -26,6 +26,7 @@ public final class Parser {
          * @param arg remainder of the user input or null if none.
          */
         public ParsedString(String cmd, String arg) {
+            assert cmd != null && !cmd.isEmpty() : "ParsedString should be non-null or non-empty";
             this.cmd = cmd;
             this.arg = arg;
         }
@@ -84,6 +85,7 @@ public final class Parser {
             throw new PiperException("CHIRP CHIRP! Don't think you said anything there. Try tweeting a command!");
         }
         String[] substrings = userInput.split("\\s", 2);
+        assert substrings.length > 0 : "Command string should not be empty";
         String cmd = substrings[0];
 
         if (substrings.length < 2) {
