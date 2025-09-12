@@ -8,9 +8,6 @@ import java.util.List;
 import paul.exception.PaulException;
 import paul.parser.Parser;
 
-
-
-
 /**
  * A list that contains multiple tasks for Paul.
  */
@@ -55,7 +52,9 @@ public class TaskList {
 
     /**
      * Adds a task to the TaskList based on the user's command and saves it in the storage.
+     *
      * @param parsedCommand The String array after parsing the command.
+     * @return The task that was added.
      * @throws PaulException if there is an error in the command.
      */
     public Task addTask(String[] parsedCommand) throws PaulException {
@@ -64,50 +63,61 @@ public class TaskList {
             throw new PaulException("The description of a " + commandType + " cannot be empty!");
         }
         String description = parsedCommand[1];
+
+        //CHECKSTYLE.OFF: Indentation
+        return switch (commandType) {
+            case TODO -> createToDo(description);
+            case DEADLINE -> createDeadline(description);
+            case EVENT -> createEvent(description);
+            default -> null;
+        };
+        //CHECKSTYLE.ON: Indentation
+    }
+
+    private static ToDo createToDo(String description) {
+        return new ToDo(description);
+    }
+
+    private static Task createDeadline(String description) throws PaulException {
         Task newTask;
+        String[] deadlineStr = description.split(" /by ");
 
-        switch (commandType) {
-        case TODO:
-            newTask = new ToDo(description);
-            break;
-        case DEADLINE:
-            String[] deadlineStr = description.split(" /by ");
+        if (deadlineStr.length < 2 || deadlineStr[0].isBlank() || deadlineStr[1].isBlank()) {
+            throw new PaulException("A deadline must have a description and a /by date!");
+        }
 
-            if (deadlineStr.length < 2 || deadlineStr[0].isBlank() || deadlineStr[1].isBlank()) {
-                throw new PaulException("A deadline must have a description and a /by date!");
-            }
+        try {
+            LocalDate date = LocalDate.parse(deadlineStr[1]);
+            newTask = new Deadline(deadlineStr[0].trim(), date);
+        } catch (DateTimeParseException e) {
+            throw new PaulException("/by must be in yyyy-mm-dd format! (e.g., 2019-10-15)");
+        }
+        return newTask;
+    }
 
-            try {
-                LocalDate date = LocalDate.parse(deadlineStr[1]);
-                newTask = new Deadline(deadlineStr[0].trim(), date);
-            } catch (DateTimeParseException e) {
-                throw new PaulException("/by must be in yyyy-mm-dd format! (e.g., 2019-10-15)");
-            }
-            break;
-        case EVENT:
-            String[] eventStr = description.split(" /from | /to ");
+    private static Task createEvent(String description) throws PaulException {
+        Task newTask;
+        String[] eventStr = description.split(" /from | /to ");
 
-            if (eventStr.length < 3 || eventStr[0].isBlank() || eventStr[1].isBlank() || eventStr[2].isBlank()) {
-                throw new PaulException("An event must have a description, /from, and /to!");
-            }
+        if (eventStr.length < 3 || eventStr[0].isBlank() || eventStr[1].isBlank() || eventStr[2].isBlank()) {
+            throw new PaulException("An event must have a description, /from, and /to!");
+        }
 
-            try {
-                LocalDate fromDate = LocalDate.parse(eventStr[1]);
-                LocalDate toDate = LocalDate.parse(eventStr[2]);
-                newTask = new Event(eventStr[0].trim(), fromDate, toDate);
-            } catch (DateTimeParseException e) {
-                throw new PaulException("/from and /to must be in yyyy-mm-dd format! (e.g., 2019-10-15)");
-            }
-            break;
-        default:
-            newTask = null;
+        try {
+            LocalDate fromDate = LocalDate.parse(eventStr[1]);
+            LocalDate toDate = LocalDate.parse(eventStr[2]);
+            newTask = new Event(eventStr[0].trim(), fromDate, toDate);
+        } catch (DateTimeParseException e) {
+            throw new PaulException("/from and /to must be in yyyy-mm-dd format! (e.g., 2019-10-15)");
         }
         return newTask;
     }
 
     /**
      * Deletes a task from TaskList based on the user's command and save the changes in the storage.
+     *
      * @param parsedCommand The String array after parsing the command.
+     * @return The task that was deleted.
      * @throws PaulException if there is an error in the command.
      */
     public Task deleteTask(String[] parsedCommand) throws PaulException {
@@ -129,48 +139,44 @@ public class TaskList {
 
     /**
      * Marks a task from TaskList and save the changes in the storage.
+     *
      * @param parsedCommand The String array after parsing the command.
+     * @return The marked task.
      * @throws PaulException if there is an error in the command.
      */
     public Task markTask(String[] parsedCommand) throws PaulException {
-        if (parsedCommand.length < 2) {
-            throw new PaulException("The description of a mark cannot be empty!");
-        }
-        String input = parsedCommand[1];
-        Task task;
-        try {
-            int index = Integer.parseInt(input);
-            task = this.get(index);
-            task.markTask();
-        } catch (IndexOutOfBoundsException e) {
-            throw new PaulException("Oops! Invalid task number for mark command.");
-        } catch (NumberFormatException e) {
-            throw new PaulException("Please input a valid task number!");
-        }
-        return task;
+        return updateTaskStatus(parsedCommand, true);
     }
 
     /**
      * Unmarks a task from TaskList and save the changes in the storage.
+     *
      * @param parsedCommand The String array after parsing the command.
+     * @return The unmarked task.
      * @throws PaulException if there is an error in the command.
      */
     public Task unmarkTask(String[] parsedCommand) throws PaulException {
+        return updateTaskStatus(parsedCommand, false);
+    }
+
+    private Task updateTaskStatus(String[] parsedCommand, boolean mark) throws PaulException {
         if (parsedCommand.length < 2) {
-            throw new PaulException("The description of an unmark cannot be empty!");
+            throw new PaulException("The description of a mark/unmark cannot be empty!");
         }
-        String input = parsedCommand[1];
-        Task task;
         try {
-            int index = Integer.parseInt(input);
-            task = this.get(index);
-            task.unmarkTask();
+            int index = Integer.parseInt(parsedCommand[1]);
+            Task task = get(index);
+            if (mark) {
+                task.markTask();
+            } else {
+                task.unmarkTask();
+            }
+            return task;
         } catch (IndexOutOfBoundsException e) {
-            throw new PaulException("Oops! Invalid task number for mark command.");
+            throw new PaulException("Oops! Invalid task number for mark/unmark command.");
         } catch (NumberFormatException e) {
             throw new PaulException("Please input a valid task number!");
         }
-        return task;
     }
 
     /**

@@ -96,9 +96,8 @@ public class Ui {
     public String showTaskFound(TaskList list) {
         if (list.size() == 0) {
             return "There are no matches found!";
-        } else {
-            return "Here are the matching tasks in your list:\n" + list;
         }
+        return "Here are the matching tasks in your list:\n" + list;
     }
 
     /**

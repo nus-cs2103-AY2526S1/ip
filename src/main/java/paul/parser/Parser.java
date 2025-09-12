@@ -56,35 +56,60 @@ public class Parser {
         String[] parsedCommand = fullCommand.split(" ", 2);
         CommandType command = getCommandType(parsedCommand[0]);
 
-        switch (command) {
-        case TODO, DEADLINE, EVENT:
-            Task newTask = tasks.addTask(parsedCommand);
-            tasks.add(newTask);
-            storage.saveTasks(tasks);
-            return ui.showTaskAdded(newTask, tasks.size());
-        case LIST:
-            return ui.showTasks(tasks);
-        case MARK:
-            Task markedTask = tasks.markTask(parsedCommand);
-            storage.saveTasks(tasks);
-            return ui.showTaskMarked(markedTask);
-        case UNMARK:
-            Task unmarkedTask = tasks.unmarkTask(parsedCommand);
-            storage.saveTasks(tasks);
-            return ui.showTaskUnmarked(unmarkedTask);
-        case DELETE:
-            Task deletedTask = tasks.deleteTask(parsedCommand);
-            storage.saveTasks(tasks);
-            return ui.showTaskDeleted(deletedTask, tasks.size());
-        case FIND:
-            TaskList foundTasks = tasks.findTasks(parsedCommand);
-            return ui.showTaskFound(foundTasks);
-        case BYE:
-            return ui.byeUser();
-        case UNKNOWN:
-            throw new PaulException("Sorry! I do not know what that means :(");
-        default:
-            throw new PaulException("Error! Not a valid command for parsing."); // Should not reach here
-        }
+        //CHECKSTYLE.OFF: Indentation
+        return switch (command) {
+            case TODO, DEADLINE, EVENT -> handleAddTask(tasks, storage, ui, parsedCommand);
+            case LIST -> handleList(tasks, ui);
+            case MARK -> handleMarkTask(tasks, storage, ui, parsedCommand);
+            case UNMARK -> handleUnmarkTask(tasks, storage, ui, parsedCommand);
+            case DELETE -> handleDeleteTask(tasks, storage, ui, parsedCommand);
+            case FIND -> handleFindTasks(tasks, ui, parsedCommand);
+            case BYE -> handleByeUser(ui);
+            case UNKNOWN -> throw new PaulException("Sorry! I do not know what that means :(");
+            default -> throw new PaulException("Error! Not a valid command for parsing."); // Should not reach here
+        };
+        //CHECKSTYLE.ON: Indentation
+    }
+
+    private static String handleAddTask(TaskList tasks, Storage storage, Ui ui, String[] parsedCommand)
+            throws PaulException {
+        Task newTask = tasks.addTask(parsedCommand);
+        tasks.add(newTask);
+        storage.saveTasks(tasks);
+        return ui.showTaskAdded(newTask, tasks.size());
+    }
+
+    private static String handleList(TaskList tasks, Ui ui) {
+        return ui.showTasks(tasks);
+    }
+
+    private static String handleMarkTask(TaskList tasks, Storage storage, Ui ui, String[] parsedCommand)
+            throws PaulException {
+        Task markedTask = tasks.markTask(parsedCommand);
+        storage.saveTasks(tasks);
+        return ui.showTaskMarked(markedTask);
+    }
+
+    private static String handleUnmarkTask(TaskList tasks, Storage storage, Ui ui, String[] parsedCommand)
+            throws PaulException {
+        Task markedTask = tasks.unmarkTask(parsedCommand);
+        storage.saveTasks(tasks);
+        return ui.showTaskUnmarked(markedTask);
+    }
+
+    private static String handleDeleteTask(TaskList tasks, Storage storage, Ui ui, String[] parsedCommand)
+            throws PaulException {
+        Task deletedTask = tasks.deleteTask(parsedCommand);
+        storage.saveTasks(tasks);
+        return ui.showTaskDeleted(deletedTask, tasks.size());
+    }
+
+    private static String handleFindTasks(TaskList tasks, Ui ui, String[] parsedCommand) throws PaulException {
+        TaskList foundTasks = tasks.findTasks(parsedCommand);
+        return ui.showTaskFound(foundTasks);
+    }
+
+    private static String handleByeUser(Ui ui) {
+        return ui.byeUser();
     }
 }
