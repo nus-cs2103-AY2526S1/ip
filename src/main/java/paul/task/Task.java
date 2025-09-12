@@ -4,7 +4,8 @@ package paul.task;
  * A task for Paul.
  * Stores the task's description and completion status.
  */
-public class Task {
+public abstract class Task {
+    public static final String DATE_FORMAT = "MMM dd yyyy";
     protected String description;
     protected boolean isDone;
 
@@ -58,4 +59,13 @@ public class Task {
     public String toSaveString() {
         return " | " + (isDone ? "1" : "0") + " | " + description;
     }
+
+    /**
+     * Checks if the given object id equal to a Task.
+     *
+     * @param obj the reference object with which to compare.
+     * @return true if this is equal to the Task.
+     */
+    @Override
+    public abstract boolean equals(Object obj);
 }
