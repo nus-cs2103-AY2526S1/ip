@@ -6,6 +6,11 @@ package tasks;
  * and serves as a base for specific task types.
  */
 public abstract class Task {
+    // Constants for status icons to eliminate magic strings
+    protected static final String DONE_ICON = "[X]";
+    protected static final String NOT_DONE_ICON = "[ ]";
+    protected static final String SPACE_SEPARATOR = " ";
+    
     protected String description;
     protected boolean isDone;
 
@@ -20,12 +25,31 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Gets the description of this task.
+     * 
+     * @return The task description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Sets the completion status of this task.
+     * 
+     * @param isDone true if the task is completed, false otherwise
+     */
     public void setIsDone(boolean isDone) {
         this.isDone = isDone;
+    }
+    
+    /**
+     * Checks if this task is completed.
+     * 
+     * @return true if the task is done, false otherwise
+     */
+    public boolean isDone() {
+        return isDone;
     }
 
     /**
@@ -35,7 +59,7 @@ public abstract class Task {
      * @return The status icon string.
      */
     public String getStatusIcon() {
-        return isDone ? "[X]" : "[ ]";
+        return isDone ? DONE_ICON : NOT_DONE_ICON;
     }
 
     /**
@@ -64,6 +88,6 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return this.getStatus() + this.getStatusIcon() + " " + this.getDescription();
+        return this.getStatus() + this.getStatusIcon() + SPACE_SEPARATOR + this.getDescription();
     }
 }
