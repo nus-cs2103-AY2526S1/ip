@@ -1,0 +1,39 @@
+.label {
+  -fx-background-color: rgb(255, 253, 248);
+  -fx-border-color: rgb(0, 0, 0);
+  -fx-border-width: 1px;
+  -fx-background-radius: 15px 15px 15px 15px;
+  -fx-border-radius: 5px;
+  -fx-text-fill: rgb(51, 25, 0);
+  -fx-font-family: "Georgia";
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 3, 0, 1, 1);
+}
+
+.reply-label {
+  -fx-background-color: rgba(255, 215, 0, 0.4);
+  -fx-border-color: rgb(0, 0, 0);
+  -fx-padding: 10px 15px 10px 15px;
+  -fx-border-width: 1px;
+  -fx-background-radius: 5px;
+  -fx-text-fill: rgb(0, 0, 0);
+  -fx-font-family: "Georgia";
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0, 2, 2);
+}
+
+.reply-label.error {
+  -fx-background-color: rgba(255, 99, 71, 0.2);
+  -fx-text-fill: rgb(220, 20, 60);
+  -fx-border-color: rgb(220, 20, 60);
+}
+
+#displayPicture {
+  /* Magical glow effect on image */
+  -fx-effect: dropshadow(gaussian, rgba(218, 165, 32, 0.3), 15, 0.8, 0, 0);
+
+  /* Change size of image */
+  -fx-scale-x: 1;
+  -fx-scale-y: 1;
+
+  /* Rotate image clockwise by degrees */
+  -fx-rotate: 0;
+}

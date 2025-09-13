@@ -1,7 +1,94 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+----------------------------------------
+Hello! I'm Hermione, your personal assistant!
+What magical tasks can I help you organize today?
+----------------------------------------
+> ----------------------------------------
+Brilliant! I've added this task to your list:
+[T][ ] read book
+Now you have 1 tasks to complete. Time to get organized!
+----------------------------------------
+> ----------------------------------------
+Brilliant! I've added this task to your list:
+[T][ ] swimming
+Now you have 2 tasks to complete. Time to get organized!
+----------------------------------------
+> ----------------------------------------
+[ERROR] Invalid command: invalid
+----------------------------------------
+> ----------------------------------------
+[ERROR] Task Error: Todo Task format must be: todo {description}
+----------------------------------------
+> ----------------------------------------
+Brilliant! I've added this task to your list:
+[D][ ] return book (by: Mar 19 2025 16:00)
+Now you have 3 tasks to complete. Time to get organized!
+----------------------------------------
+> ----------------------------------------
+[ERROR] Task Error: Deadline Task format must be: deadline {description} /by {deadline}
+----------------------------------------
+> ----------------------------------------
+Brilliant! I've added this task to your list:
+[E][ ] project meeting (from: Mar 19 2025 16:00 to: Mar 19 2025 18:00)
+Now you have 4 tasks to complete. Time to get organized!
+----------------------------------------
+> ----------------------------------------
+[ERROR] Task Error: Event Task description cannot be empty.
+----------------------------------------
+> ----------------------------------------
+Fantastic! I've marked this task as completed:
+[T][X] read book
+Well done! You're making excellent progress!
+----------------------------------------
+> ----------------------------------------
+Fantastic! I've marked this task as completed:
+[T][X] swimming
+Well done! You're making excellent progress!
+----------------------------------------
+> ----------------------------------------
+No worries! I've marked this task as not done yet:
+[T][ ] swimming
+Don't worry, you'll get to it when you're ready!
+----------------------------------------
+> ----------------------------------------
+Here's your current task list:
+1. [T][X] read book
+2. [T][ ] swimming
+3. [D][ ] return book (by: Mar 19 2025 16:00)
+4. [E][ ] project meeting (from: Mar 19 2025 16:00 to: Mar 19 2025 18:00)
+You've completed 1 tasks so far. Keep up the excellent work!
+----------------------------------------
+> ----------------------------------------
+I found these tasks matching your search:
+1. [E][ ] project meeting (from: Mar 19 2025 16:00 to: Mar 19 2025 18:00)
+Hope this helps you find what you're looking for!
+----------------------------------------
+> ----------------------------------------
+Right then! I've removed this task from your list:
+[T][X] read book
+Now you have 3 tasks remaining. One less thing to worry about!
+----------------------------------------
+> ----------------------------------------
+Here's your current task list:
+1. [T][ ] swimming
+2. [D][ ] return book (by: Mar 19 2025 16:00)
+3. [E][ ] project meeting (from: Mar 19 2025 16:00 to: Mar 19 2025 18:00)
+You've completed 0 tasks so far. Keep up the excellent work!
+----------------------------------------
+> ----------------------------------------
+Right then! I've removed this task from your list:
+[T][ ] swimming
+Now you have 2 tasks remaining. One less thing to worry about!
+----------------------------------------
+> ----------------------------------------
+Right then! I've removed this task from your list:
+[D][ ] return book (by: Mar 19 2025 16:00)
+Now you have 1 tasks remaining. One less thing to worry about!
+----------------------------------------
+> ----------------------------------------
+Right then! I've removed this task from your list:
+[E][ ] project meeting (from: Mar 19 2025 16:00 to: Mar 19 2025 18:00)
+Now you have 0 tasks remaining. One less thing to worry about!
+----------------------------------------
+> ----------------------------------------
+Bye. Hope to see you soon!
+----------------------------------------

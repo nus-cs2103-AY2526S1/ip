@@ -1,0 +1,108 @@
+.root {
+    main-color: rgb(255, 248, 240); /* Warm cream background like parchment */
+    accent-color: rgb(139, 69, 19); /* Saddle brown for borders */
+    gold-color: rgb(218, 165, 32); /* Golden color for highlights */
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color: rgb(
+            255,
+            253,
+            248
+    ); /* Slightly off-white like aged parchment */
+    -fx-border-color: accent-color;
+    -fx-border-width: 1px 0px 0px 0px;
+    -fx-border-radius: 0px 0px 0px 10px;
+    -fx-background-radius: 5px;
+    -fx-font: 16px "Georgia";
+    -fx-text-fill: rgb(51, 25, 0); /* Dark brown text */
+}
+
+.text-field:focused {
+    -fx-border-color: gold-color;
+    -fx-border-width: 2px;
+}
+
+.button {
+    -fx-background-color: linear-gradient(
+            to bottom,
+            rgb(218, 165, 32),
+            rgb(184, 134, 11)
+    ); /* Golden gradient */
+    -fx-border-color: accent-color;
+    -fx-border-width: 1px;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+    -fx-font: bold 14px "Georgia";
+    -fx-text-fill: rgb(51, 25, 0);
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(
+            to bottom,
+            rgb(255, 215, 0),
+            rgb(218, 165, 32)
+    ); /* Brighter gold on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 2);
+}
+
+.button:pressed {
+    -fx-background-color: linear-gradient(
+            to bottom,
+            rgb(184, 134, 11),
+            rgb(139, 69, 19)
+    ); /* Darker when pressed */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 3, 0, 0, 1);
+}
+
+.button:disabled {
+    -fx-background-color: linear-gradient(
+            to bottom,
+            rgb(200, 200, 200),
+            rgb(150, 150, 150)
+    ); /* Gray gradient when disabled */
+    -fx-border-color: rgb(100, 100, 100);
+    -fx-text-fill: rgb(100, 100, 100);
+    -fx-opacity: 0.6;
+    -fx-cursor: default;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: main-color;
+    -fx-border-color: accent-color;
+    -fx-border-width: 1px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: linear-gradient(
+            to bottom,
+            gold-color,
+            rgb(184, 134, 11)
+    );
+    -fx-background-radius: 5px;
+    -fx-border-color: accent-color;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: linear-gradient(
+            to bottom,
+            rgb(255, 215, 0),
+            gold-color
+    );
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
