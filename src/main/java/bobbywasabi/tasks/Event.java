@@ -4,20 +4,22 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents an Event task with a description, marked status, start time, and end time.
- * Extends the generic Task class.
+ * Represents an Event task with a description, completion status, start time, and end time.
+ * <p>
+ * Extends the generic {@link Task} class and provides methods to format the event's
+ * duration and convert the event into a string suitable for display or file storage.
  */
 public class Event extends bobbywasabi.tasks.Task {
     private LocalDateTime start;
     private LocalDateTime end;
 
     /**
-     * Constructs an Event with description, marked status, start time, and end time.
+     * Constructs an {@code Event} with a description, marked status, start time, and end time.
      *
-     * @param description The description of the event.
-     * @param isMarked    Whether the event is marked as done.
-     * @param start       The start time of the event.
-     * @param end         The end time of the event.
+     * @param description The description of the event; must not be null or empty.
+     * @param isMarked    {@code true} if the event is marked as done, {@code false} otherwise.
+     * @param start       The start time of the event; must not be null.
+     * @param end         The end time of the event; must not be null and must not be before {@code start}.
      */
     public Event(String description, boolean isMarked, LocalDateTime start, LocalDateTime end) {
         super(description, isMarked);
@@ -26,9 +28,12 @@ public class Event extends bobbywasabi.tasks.Task {
     }
 
     /**
-     * Returns a formatted string representing the event duration.
+     * Returns a formatted string representing the event's duration.
+     * <p>
+     * The start and end times are formatted using the pattern "MMM d yyyy HHmm"
+     * (e.g., "Aug 13 2025 1430").
      *
-     * @return The duration string in the format "(from:start to:end)".
+     * @return A string in the format "(from: start to: end)" representing the event duration.
      */
     public String getDuration() {
         String formattedStart = this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
@@ -39,10 +44,12 @@ public class Event extends bobbywasabi.tasks.Task {
     }
 
     /**
-     * Returns the string representation of the Event task.
-     * Prepends "[E]" to indicate the task type, appends the duration.
+     * Returns the string representation of this {@code Event} for display purposes.
+     * <p>
+     * Prepends "[E]" to indicate the task type, appends the formatted duration,
+     * and includes the description and completion status inherited from {@link Task}.
      *
-     * @return String representation of the Event task.
+     * @return A string representation of the event suitable for console display.
      */
     @Override
     public String toString() {
@@ -50,10 +57,15 @@ public class Event extends bobbywasabi.tasks.Task {
     }
 
     /**
-     * Returns a formatted string of the event data suitable for saving.
-     * Format: E|description|checked_status|start|end
+     * Returns a formatted string of the event's data suitable for persistent storage.
+     * <p>
+     * Format: {@code E|description|marked_status|start|end}, where:
+     * <ul>
+     *     <li>{@code marked_status} is "[X]" if done, "[ ]" otherwise.</li>
+     *     <li>{@code start} and {@code end} are formatted using "d/M/yyyy HHmm" (e.g., "13/8/2025 1430").</li>
+     * </ul>
      *
-     * @return A pipe-separated string representing the Event task.
+     * @return A pipe-separated string representing the event task for saving to file.
      */
     @Override
     public String getData() {
