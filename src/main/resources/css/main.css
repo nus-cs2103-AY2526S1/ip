@@ -1,0 +1,52 @@
+.root {
+    main-color: #e6ff4c; /* Wasabi yellow-green */
+    -fx-background-image: url("../images/dojo2.jpeg"); /* Set image */
+    -fx-background-size: stretch;
+}
+
+.text-field {
+    -fx-background-color: #d9ffe2;
+    -fx-font: 20px "Arial";
+}
+
+.button {
+    -fx-background-color: #00c853; /* energetic green */
+    -fx-text-fill: #fff;
+    -fx-font: bold 16px "Arial Black";
+    -fx-border-color: #e6ff4c;
+    -fx-border-width: 2px;
+    -fx-background-radius: 0.5em;
+}
+
+.button:hover {
+    -fx-background-color: #e6ff4c;
+    -fx-text-fill: #1b1b1b;
+}
+
+.button:pressed {
+    -fx-background-color:orange;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: rgba(255,255,255, 0.3);
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+

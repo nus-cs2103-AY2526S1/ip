@@ -62,6 +62,7 @@ public class BobbyWasabi {
     private TaskList taskList;
     private Storage storage;
     private UI ui;
+    private String commandType;
 
     /**
      * Constructs a new BobbyWasabi instance.
@@ -189,7 +190,7 @@ public class BobbyWasabi {
 
             int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
 
-            assert indx > 0 && indx < this.taskList.size()
+            assert indx > 0 && indx <= this.taskList.size()
                     : "Index in DELETE command is out of bounds!";
 
             Task targetTask = this.taskList.get(indx - 1);
@@ -297,6 +298,8 @@ public class BobbyWasabi {
         assert command != null
                 : "Command cannot be null!";
 
+        this.commandType = command.name();
+
         switch (command) {
         case BYE:
             return this.processByeCommand();
@@ -327,6 +330,10 @@ public class BobbyWasabi {
         default:
             return this.processDefaultCommand();
         }
+    }
+
+    public String getCommandType() {
+        return this.commandType;
     }
 
 }
