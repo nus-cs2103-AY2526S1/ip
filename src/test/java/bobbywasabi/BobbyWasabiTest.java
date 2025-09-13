@@ -1,7 +1,9 @@
 package bobbywasabi;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Field;
 import java.nio.file.Files;
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import bobbywasabi.client.ClientList;
+import bobbywasabi.exceptions.BobbyWasabiException;
 import bobbywasabi.storage.Storage;
 import bobbywasabi.tasks.TaskList;
 
@@ -46,142 +49,190 @@ class BobbyWasabiTest {
 
     @Test
     void testProcessMarkCommand_markValidTask_success() {
-        String result = bobby.processMarkCommand("mark,1");
-        assertTrue(bobby.processListCommand().contains("[X] Read book"));
-        assertTrue(result.toLowerCase().contains("mark"));
+        try {
+            String result = bobby.processMarkCommand("mark,1");
+            assertTrue(bobby.processListCommand().contains("[X] Read book"));
+            assertTrue(result.toLowerCase().contains("mark"));
+        } catch (BobbyWasabiException e) {
+            fail("Mark command threw an unexpected exception: " + e.getMessage());
+        }
     }
 
     @Test
     void testProcessMarkCommand_invalidIndex_throwsException() {
-        String result = bobby.processMarkCommand("mark,100");
-        assertTrue(result.toLowerCase().contains("oops"));
+        assertThrows(BobbyWasabiException.class, () -> bobby.processMarkCommand("mark,100"));
     }
 
     @Test
     void testProcessUnmarkCommand_unmarkValidTask_success() {
-        bobby.processMarkCommand("mark,1");
-        String result = bobby.processUnmarkCommand("unmark,1");
-        assertTrue(bobby.processListCommand().contains("[ ] Read book"));
-        assertTrue(result.toLowerCase().contains("not done yet"));
+        try {
+            bobby.processMarkCommand("mark,1");
+            String result = bobby.processUnmarkCommand("unmark,1");
+            assertTrue(bobby.processListCommand().contains("[ ] Read book"));
+            assertTrue(result.toLowerCase().contains("not done yet"));
+        } catch (BobbyWasabiException e) {
+            fail("Unmark command threw an unexpected exception: " + e.getMessage());
+        }
     }
 
     @Test
     void testProcessTodoCommand_addValidTodo_success() {
-        String result = bobby.processTodoCommand("todo , Buy milk");
-        assertTrue(bobby.processListCommand().contains("Buy milk"));
-        assertTrue(result.toLowerCase().contains("add"));
+        try {
+            String result = bobby.processTodoCommand("todo , Buy milk");
+            assertTrue(bobby.processListCommand().contains("Buy milk"));
+            assertTrue(result.toLowerCase().contains("add"));
+        } catch (BobbyWasabiException e) {
+            fail("Todo command threw an unexpected exception: " + e.getMessage());
+        }
     }
 
     @Test
     void testProcessTodoCommand_missingDescription_throwsException() {
-        String result = bobby.processTodoCommand("todo ");
-        assertTrue(result.toLowerCase().contains("oops"));
+        assertThrows(BobbyWasabiException.class, () -> bobby.processTodoCommand("todo ")
+        );
     }
 
     @Test
     void testProcessDeadlineCommand_addValidDeadline_success() {
-        String result = bobby.processDeadlineCommand("deadline , Finish project,31/12/2099 2359");
-        assertTrue(bobby.processListCommand().contains("Finish project"));
-        assertTrue(result.toLowerCase().contains("add"));
+        try {
+            String result = bobby.processDeadlineCommand("deadline , Finish project,31/12/2099 2359");
+            assertTrue(bobby.processListCommand().contains("Finish project"));
+            assertTrue(result.toLowerCase().contains("add"));
+        } catch (BobbyWasabiException e) {
+            fail("Deadline command threw an unexpected exception: " + e.getMessage());
+        }
     }
 
     @Test
     void testProcessDeadlineCommand_invalidFormat_throwsException() {
-        String result = bobby.processDeadlineCommand("deadline, Finish project, 31-12-2099 2359");
-        assertTrue(result.toLowerCase().contains("oops"));
+        assertThrows(
+                BobbyWasabiException.class, () -> bobby
+                        .processDeadlineCommand("deadline, Finish project, 31-12-2099 2359")
+        );
     }
 
     @Test
     void testProcessEventCommand_addValidEvent_success() {
-        String result = bobby.processEventCommand("event,   Meeting, 31/12/2099 1000, 31/12/3000 1100");
-        assertTrue(bobby.processListCommand().contains("Meeting"));
-        assertTrue(result.toLowerCase().contains("add"));
+        try {
+            String result = bobby.processEventCommand("event, Meeting, 31/12/2099 1000, 31/12/3000 1100");
+            assertTrue(bobby.processListCommand().contains("Meeting"));
+            assertTrue(result.toLowerCase().contains("add"));
+        } catch (BobbyWasabiException e) {
+            fail("Event command threw an unexpected exception: " + e.getMessage());
+        }
     }
 
     @Test
     void testProcessEventCommand_sameStartAndEndTime_throwsException() {
-        String result = bobby.processEventCommand("event Meeting, 31/12/2099 1000, 31/12/2099 1000");
-        assertTrue(result.toLowerCase().contains("oops"));
+        assertThrows(
+                BobbyWasabiException.class, () -> bobby
+                        .processEventCommand("event Meeting, 31/12/2099 1000, 31/12/2099 1000")
+        );
     }
 
     @Test
     void testProcessDeleteCommand_deleteValidTask_success() {
-        int before = bobby.processListCommand().split("\n").length;
-        String result = bobby.processDeleteCommand("delete,1");
-        int after = bobby.processListCommand().split("\n").length;
-        assertTrue(result.toLowerCase().contains("removed"));
-        assertEquals(before - 1, after);
+        try {
+            int before = bobby.processListCommand().split("\n").length;
+            String result = bobby.processDeleteCommand("delete,1");
+            int after = bobby.processListCommand().split("\n").length;
+            assertTrue(result.toLowerCase().contains("removed"));
+            assertEquals(before - 1, after);
+        } catch (BobbyWasabiException e) {
+            fail("Delete command threw an unexpected exception: " + e.getMessage());
+        }
     }
 
     @Test
     void testProcessDeleteCommand_indexOutOfRange_throwsException() {
-        String result = bobby.processDeleteCommand("delete,100");
-        assertTrue(result.toLowerCase().contains("oops"));
+        assertThrows(BobbyWasabiException.class, () -> bobby.processDeleteCommand("delete,100"));
     }
 
     @Test
     void testProcessFindCommand_findExistingTask_success() {
-        String result = bobby.processFindCommand("find,book");
-        assertTrue(result.toLowerCase().contains("read book"));
+        try {
+            String result = bobby.processFindCommand("find,book");
+            assertTrue(result.toLowerCase().contains("read book"));
+        } catch (BobbyWasabiException e) {
+            fail("Find command threw an unexpected exception: " + e.getMessage());
+        }
     }
 
     @Test
     void testProcessFindCommand_emptyKeyword_throwsException() {
-        String result = bobby.processFindCommand("find,");
-        assertTrue(result.toLowerCase().contains("oops"));
+        assertThrows(BobbyWasabiException.class, () -> bobby.processFindCommand("find,"));
     }
 
     @Test
     void testProcessEditClient_editValidClientName_success() {
-        String result = bobby.processEditClient("editclient ,1,name,Bob");
-        assertTrue(result.toLowerCase().contains("updated"));
-        assertTrue(bobby.processClientsCommand().contains("Bob"));
+        try {
+            String result = bobby.processEditClient("editclient ,1,name,Bob");
+            assertTrue(result.toLowerCase().contains("updated"));
+            assertTrue(bobby.processClientsCommand().contains("Bob"));
+        } catch (BobbyWasabiException e) {
+            fail("EditClient command threw an unexpected exception: " + e.getMessage());
+        }
     }
 
     @Test
     void testProcessEditClient_editValidClientContact_success() {
-        String result = bobby.processEditClient("editclient ,1,contactnumber, 89898989");
-        assertTrue(result.toLowerCase().contains("updated"));
-        assertTrue(bobby.processClientsCommand().contains("89898989"));
+        try {
+            String result = bobby.processEditClient("editclient ,1,contactnumber, 89898989");
+            assertTrue(result.toLowerCase().contains("updated"));
+            assertTrue(bobby.processClientsCommand().contains("89898989"));
+        } catch (BobbyWasabiException e) {
+            fail("EditClient command threw an unexpected exception: " + e.getMessage());
+        }
     }
 
     @Test
     void testProcessEditClient_invalidClientIndex_throwsException() {
-        String result = bobby.processEditClient("editclient , 100,name,Bob");
-        assertTrue(result.toLowerCase().contains("oops"));
+        assertThrows(
+                BobbyWasabiException.class, () -> bobby
+                        .processEditClient("editclient , 100,name,Bob")
+        );
     }
 
     @Test
     void testProcessDeleteClient_deleteValidClient_success() {
-        int before = bobby.processClientsCommand().split("\n").length;
-        String result = bobby.processDeleteClient("deleteclient,1");
-        int after = bobby.processClientsCommand().split("\n").length;
-        assertTrue(result.toLowerCase().contains("removed this client"));
+        try {
+            String result = bobby.processDeleteClient("deleteclient,1");
+            assertTrue(result.toLowerCase().contains("removed this client"));
+        } catch (BobbyWasabiException e) {
+            fail("DeleteClient command threw an unexpected exception: " + e.getMessage());
+        }
     }
 
     @Test
     void testProcessDeleteClient_invalidClientIndex_throwsException() {
-        String result = bobby.processDeleteClient("deleteclient,100");
-        assertTrue(result.toLowerCase().contains("oops"));
+        assertThrows(BobbyWasabiException.class, () -> bobby.processDeleteClient("deleteclient,100"));
     }
 
     @Test
     void testProcessAddClient_addValidClient_success() {
-        String result = bobby.processAddClient("addclient , John,   45664545 ,25,Doctor,PolicyB");
-        assertTrue(result.toLowerCase().contains("add"));
-        assertTrue(bobby.processClientsCommand().contains("John"));
+        try {
+            String result = bobby.processAddClient("addclient , John,   45664545 ,25,Doctor,PolicyB");
+            assertTrue(result.toLowerCase().contains("add"));
+            assertTrue(bobby.processClientsCommand().contains("John"));
+        } catch (BobbyWasabiException e) {
+            fail("AddClient command threw an unexpected exception: " + e.getMessage());
+        }
     }
 
     @Test
     void testProcessAddClient_invalidContact_throwsException() {
-        String result = bobby.processAddClient("addclient, John, 4566 ,25,Doctor,PolicyB");
-        assertTrue(result.toLowerCase().contains("oops"));
+        assertThrows(
+                BobbyWasabiException.class, () -> bobby
+                        .processAddClient("addclient, John, 4566 ,25,Doctor,PolicyB")
+        );
     }
 
     @Test
     void testProcessAddClient_invalidClientDetails_throwsExeption() {
-        String result = bobby.processAddClient("addclient, Joh, 24555555, 23 ");
-        assertTrue(result.toLowerCase().contains("oops"));
+        assertThrows(
+                BobbyWasabiException.class, () -> bobby
+                        .processAddClient("addclient, Joh, 24555555, 23 ")
+        );
     }
 
     @Test

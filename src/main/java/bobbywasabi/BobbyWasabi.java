@@ -1,7 +1,6 @@
 package bobbywasabi;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 import bobbywasabi.client.Client;
 import bobbywasabi.client.ClientList;
@@ -91,24 +90,20 @@ public class BobbyWasabi {
      * @param userInput User command input containing the task index.
      * @return Confirmation message or error message via {@link Response}.
      */
-    public String processMarkCommand(String userInput) {
-        try {
+    public String processMarkCommand(String userInput) throws BobbyWasabiException {
 
-            int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
+        int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
 
-            assert indx > 0 && indx <= this.taskList.size()
-                    : "Index in MARK command is out of bounds!";
+        assert indx > 0 && indx <= this.taskList.size()
+                : "Index in MARK command is out of bounds!";
 
-            Task targetTask = this.taskList.get(indx - 1);
-            targetTask.setIsMarked(true);
+        Task targetTask = this.taskList.get(indx - 1);
+        targetTask.setIsMarked(true);
 
-            storage.updateDataFileFromTasks(this.taskList);
+        storage.updateDataFileFromTasks(this.taskList);
 
-            return botResponse.markTaskMessage(indx, targetTask);
+        return botResponse.markTaskMessage(indx, targetTask);
 
-        } catch (BobbyWasabiException e) {
-            return botResponse.generateErrorMsg(e.getMessage());
-        }
     }
 
     /**
@@ -117,24 +112,20 @@ public class BobbyWasabi {
      * @param userInput User command input containing the task index.
      * @return Confirmation message or error message via {@link Response}.
      */
-    public String processUnmarkCommand(String userInput) {
-        try {
+    public String processUnmarkCommand(String userInput) throws BobbyWasabiException {
 
-            int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
+        int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
 
-            assert indx > 0 && indx <= this.taskList.size()
-                    : "Index in MARK command is out of bounds!";
+        assert indx > 0 && indx <= this.taskList.size()
+                : "Index in MARK command is out of bounds!";
 
-            Task targetTask = this.taskList.get(indx - 1);
-            targetTask.setIsMarked(false);
+        Task targetTask = this.taskList.get(indx - 1);
+        targetTask.setIsMarked(false);
 
-            storage.updateDataFileFromTasks(this.taskList);
+        storage.updateDataFileFromTasks(this.taskList);
 
-            return botResponse.unmarkTaskMessage(indx, targetTask);
+        return botResponse.unmarkTaskMessage(indx, targetTask);
 
-        } catch (BobbyWasabiException e) {
-            return botResponse.generateErrorMsg(e.getMessage());
-        }
     }
 
     /**
@@ -143,19 +134,16 @@ public class BobbyWasabi {
      * @param userInput User command input containing the task description.
      * @return Confirmation message or error message via {@link Response}.
      */
-    public String processTodoCommand(String userInput) {
-        try {
-            String description = Parser.parseTodo(userInput);
-            Task todo = new ToDo(description, false);
-            this.taskList.add(todo);
+    public String processTodoCommand(String userInput) throws BobbyWasabiException {
 
-            storage.fileWrite(todo.getData(), Storage.StorageType.TASKLIST);
+        String description = Parser.parseTodo(userInput);
+        Task todo = new ToDo(description, false);
+        this.taskList.add(todo);
 
-            return botResponse.addTaskMessage(todo, this.taskList.size());
+        storage.fileWrite(todo.getData(), Storage.StorageType.TASKLIST);
 
-        } catch (BobbyWasabiException e) {
-            return botResponse.generateErrorMsg(e.getMessage());
-        }
+        return botResponse.addTaskMessage(todo, this.taskList.size());
+
     }
 
     /**
@@ -164,27 +152,24 @@ public class BobbyWasabi {
      * @param userInput User command input containing the task description and deadline.
      * @return Confirmation message or error message via {@link Response}.
      */
-    public String processDeadlineCommand(String userInput) {
-        try {
-            String[] details = Parser.parseDeadline(userInput);
+    public String processDeadlineCommand(String userInput) throws BobbyWasabiException {
 
-            assert details.length == 2
-                    : "Details in DEADLINE command is insufficient!";
+        String[] details = Parser.parseDeadline(userInput);
 
-            String description = details[0];
-            String deadline = details[1];
-            LocalDateTime dateTime = Parser.parseDateString(deadline);
+        assert details.length == 2
+                : "Details in DEADLINE command is insufficient!";
 
-            Task deadlineTask = new Deadline(description, false, dateTime);
-            this.taskList.add(deadlineTask);
+        String description = details[0];
+        String deadline = details[1];
+        LocalDateTime dateTime = Parser.parseDateString(deadline);
 
-            storage.fileWrite(deadlineTask.getData(), Storage.StorageType.TASKLIST);
+        Task deadlineTask = new Deadline(description, false, dateTime);
+        this.taskList.add(deadlineTask);
 
-            return botResponse.addTaskMessage(deadlineTask, this.taskList.size());
+        storage.fileWrite(deadlineTask.getData(), Storage.StorageType.TASKLIST);
 
-        } catch (BobbyWasabiException | DateTimeParseException e) {
-            return botResponse.generateErrorMsg(e.getMessage());
-        }
+        return botResponse.addTaskMessage(deadlineTask, this.taskList.size());
+
     }
 
     /**
@@ -193,27 +178,24 @@ public class BobbyWasabi {
      * @param userInput User command input containing the event description and timings.
      * @return Confirmation message or error message via {@link Response}.
      */
-    public String processEventCommand(String userInput) {
-        try {
-            String[] details = Parser.parseEvent(userInput);
+    public String processEventCommand(String userInput) throws BobbyWasabiException {
 
-            assert details.length >= 2
-                    : "Details in DEADLINE command is insufficient!";
+        String[] details = Parser.parseEvent(userInput);
 
-            String description = details[0];
-            LocalDateTime[] timings = Parser.parseEventDateString(details[1], details[2]);
-            LocalDateTime start = timings[0];
-            LocalDateTime end = timings[1];
+        assert details.length >= 2
+                : "Details in DEADLINE command is insufficient!";
 
-            Task eventTask = new Event(description, false, start, end);
-            this.taskList.add(eventTask);
+        String description = details[0];
+        LocalDateTime[] timings = Parser.parseEventDateString(details[1], details[2]);
+        LocalDateTime start = timings[0];
+        LocalDateTime end = timings[1];
 
-            storage.fileWrite(eventTask.getData(), Storage.StorageType.TASKLIST);
-            return botResponse.addTaskMessage(eventTask, this.taskList.size());
+        Task eventTask = new Event(description, false, start, end);
+        this.taskList.add(eventTask);
 
-        } catch (BobbyWasabiException e) {
-            return botResponse.generateErrorMsg(e.getMessage());
-        }
+        storage.fileWrite(eventTask.getData(), Storage.StorageType.TASKLIST);
+        return botResponse.addTaskMessage(eventTask, this.taskList.size());
+
     }
 
     /**
@@ -222,24 +204,20 @@ public class BobbyWasabi {
      * @param userInput User command input containing the task index.
      * @return Confirmation message or error message via {@link Response}.
      */
-    public String processDeleteCommand(String userInput) {
-        try {
+    public String processDeleteCommand(String userInput) throws BobbyWasabiException {
 
-            int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
+        int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
 
-            assert indx > 0 && indx <= this.taskList.size()
-                    : "Index in DELETE command is out of bounds!";
+        assert indx > 0 && indx <= this.taskList.size()
+                : "Index in DELETE command is out of bounds!";
 
-            Task targetTask = this.taskList.get(indx - 1);
-            this.taskList.remove(indx - 1);
+        Task targetTask = this.taskList.get(indx - 1);
+        this.taskList.remove(indx - 1);
 
-            storage.updateDataFileFromTasks(this.taskList);
+        storage.updateDataFileFromTasks(this.taskList);
 
-            return botResponse.deleteMessage(targetTask, this.taskList.size());
+        return botResponse.deleteMessage(targetTask, this.taskList.size());
 
-        } catch (BobbyWasabiException e) {
-            return botResponse.generateErrorMsg(e.getMessage());
-        }
     }
 
     /**
@@ -248,17 +226,13 @@ public class BobbyWasabi {
      * @param userInput User command input containing the search keyword.
      * @return Search result message or error message via {@link Response}.
      */
-    public String processFindCommand(String userInput) {
-        try {
+    public String processFindCommand(String userInput) throws BobbyWasabiException {
 
-            String keyword = Parser.parseFindCommand(userInput);
-            String matchingTasks = this.taskList.findTasksThatMatchKeyword(keyword);
+        String keyword = Parser.parseFindCommand(userInput);
+        String matchingTasks = this.taskList.findTasksThatMatchKeyword(keyword);
 
-            return botResponse.findMessage(matchingTasks);
+        return botResponse.findMessage(matchingTasks);
 
-        } catch (BobbyWasabiException e) {
-            return botResponse.generateErrorMsg(e.getMessage());
-        }
     }
 
     /**
@@ -267,23 +241,21 @@ public class BobbyWasabi {
      * @param userInput User command input containing the client index, field name, and new value.
      * @return Confirmation message or error message via {@link Response}.
      */
-    public String processEditClient(String userInput) {
-        try {
-            String[] details = Parser.parseEditClient(userInput, this.clientList.size());
+    public String processEditClient(String userInput) throws BobbyWasabiException {
 
-            int index = Parser.getIntegerFromString(details[0]) - 1;
-            String field = details[1];
-            String newFieldContent = details[2];
-            Client targetClient = this.clientList.get(index);
+        String[] details = Parser.parseEditClient(userInput, this.clientList.size());
 
-            this.clientList.updateClientField(index, field, newFieldContent);
+        int index = Parser.getIntegerFromString(details[0]) - 1;
+        String field = details[1];
+        String newFieldContent = details[2];
+        Client targetClient = this.clientList.get(index);
 
-            this.storage.updateDataFileFromClients(this.clientList);
+        this.clientList.updateClientField(index, field, newFieldContent);
 
-            return botResponse.editClientMessage(targetClient);
-        } catch (BobbyWasabiException e) {
-            return botResponse.generateErrorMsg(e.getMessage());
-        }
+        this.storage.updateDataFileFromClients(this.clientList);
+
+        return botResponse.editClientMessage(targetClient);
+
     }
 
     /**
@@ -292,24 +264,20 @@ public class BobbyWasabi {
      * @param userInput User command input containing the client index.
      * @return Confirmation message or error message via {@link Response}.
      */
-    public String processDeleteClient(String userInput) {
-        try {
+    public String processDeleteClient(String userInput) throws BobbyWasabiException {
 
-            int indx = Parser.parseCommandIndex(userInput, this.clientList.size());
+        int indx = Parser.parseCommandIndex(userInput, this.clientList.size());
 
-            assert indx > 0 && indx <= this.clientList.size()
-                    : "Index in DELETE command is out of bounds!";
+        assert indx > 0 && indx <= this.clientList.size()
+                : "Index in DELETE command is out of bounds!";
 
-            Client targetClient = this.clientList.get(indx - 1);
-            this.clientList.remove(indx - 1);
+        Client targetClient = this.clientList.get(indx - 1);
+        this.clientList.remove(indx - 1);
 
-            storage.updateDataFileFromClients(this.clientList);
+        storage.updateDataFileFromClients(this.clientList);
 
-            return botResponse.deleteClientMessage(targetClient, this.clientList.size());
+        return botResponse.deleteClientMessage(targetClient, this.clientList.size());
 
-        } catch (BobbyWasabiException e) {
-            return botResponse.generateErrorMsg(e.getMessage());
-        }
     }
 
     /**
@@ -318,15 +286,13 @@ public class BobbyWasabi {
      * @param userInput User command input containing client details.
      * @return Confirmation message or error message via {@link Response}.
      */
-    public String processAddClient(String userInput) {
-        try {
-            Client client = Parser.parseAddClient(userInput);
-            this.clientList.add(client);
-            storage.fileWrite(client.getData(), Storage.StorageType.CLIENTLIST);
-            return botResponse.addClientMessage(client, this.clientList.size());
-        } catch (BobbyWasabiException e) {
-            return botResponse.generateErrorMsg(e.getMessage());
-        }
+    public String processAddClient(String userInput) throws BobbyWasabiException {
+
+        Client client = Parser.parseAddClient(userInput);
+        this.clientList.add(client);
+        storage.fileWrite(client.getData(), Storage.StorageType.CLIENTLIST);
+        return botResponse.addClientMessage(client, this.clientList.size());
+
     }
 
     /**
@@ -375,43 +341,47 @@ public class BobbyWasabi {
      * @return Formatted response message corresponding to the executed command.
      */
     public String getResponse(String userInput) {
+        try {
+            Command command = Parser.parseCommand(userInput);
 
-        Command command = Parser.parseCommand(userInput);
+            assert command != null
+                    : "Command cannot be null!";
 
-        assert command != null
-                : "Command cannot be null!";
+            this.commandType = command.name();
 
-        this.commandType = command.name();
-
-        switch (command) {
-        case BYE:
-            return this.processByeCommand();
-        case LIST:
-            return this.processListCommand();
-        case MARK:
-            return this.processMarkCommand(userInput);
-        case UNMARK:
-            return this.processUnmarkCommand(userInput);
-        case TODO:
-            return this.processTodoCommand(userInput);
-        case DEADLINE:
-            return this.processDeadlineCommand(userInput);
-        case EVENT:
-            return this.processEventCommand(userInput);
-        case DELETE:
-            return this.processDeleteCommand(userInput);
-        case FIND:
-            return this.processFindCommand(userInput);
-        case CLIENTS:
-            return this.processClientsCommand();
-        case ADDCLIENT:
-            return this.processAddClient(userInput);
-        case DELETECLIENT:
-            return this.processDeleteClient(userInput);
-        case EDITCLIENT:
-            return this.processEditClient(userInput);
-        default:
-            return this.processDefaultCommand();
+            switch (command) {
+            case BYE:
+                return this.processByeCommand();
+            case LIST:
+                return this.processListCommand();
+            case MARK:
+                return this.processMarkCommand(userInput);
+            case UNMARK:
+                return this.processUnmarkCommand(userInput);
+            case TODO:
+                return this.processTodoCommand(userInput);
+            case DEADLINE:
+                return this.processDeadlineCommand(userInput);
+            case EVENT:
+                return this.processEventCommand(userInput);
+            case DELETE:
+                return this.processDeleteCommand(userInput);
+            case FIND:
+                return this.processFindCommand(userInput);
+            case CLIENTS:
+                return this.processClientsCommand();
+            case ADDCLIENT:
+                return this.processAddClient(userInput);
+            case DELETECLIENT:
+                return this.processDeleteClient(userInput);
+            case EDITCLIENT:
+                return this.processEditClient(userInput);
+            default:
+                return this.processDefaultCommand();
+            }
+        } catch (BobbyWasabiException e) {
+            this.commandType = "OTHERS";
+            return botResponse.generateErrorMsg(e.getMessage());
         }
     }
 
