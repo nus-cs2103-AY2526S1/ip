@@ -9,8 +9,8 @@ public class CommandFormatException extends LynxException {
         super(message);
     }
 
-    public static CommandFormatException nonMatchingCommand() {
-        return new CommandFormatException("Non matching command detected. "
+    public static CommandFormatException invalidCommand() {
+        return new CommandFormatException("Sorry, I didn't understand that command. "
                 + "Please try again or type \"help\" to access the user guide.");
     }
 

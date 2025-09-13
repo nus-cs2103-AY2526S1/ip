@@ -23,8 +23,11 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+    private String text;
 
     private DialogBox(String text, Image img) {
+        this.text = text;
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -50,12 +53,26 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.dialog.getStyleClass().add("user-dialog");
+        return db;
     }
 
     public static DialogBox getLynxDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
         db.flip();
+        db.dialog.getStyleClass().add("lynx-dialog");
         return db;
+    }
+
+    public static DialogBox getErrorDialog(String text, Image img) {
+        DialogBox db = new DialogBox(text, img);
+        db.flip();
+        db.dialog.getStyleClass().add("error-dialog");
+        return db;
+    }
+
+    public boolean isEmpty() {
+        return text.isEmpty();
     }
 }

@@ -22,7 +22,7 @@ public class TaskLynxGui {
         return LYNX_CONTROL.save();
     }
 
-    public String getCommandResponse(String input) {
+    public String getCommandResponse(String input) throws LynxException {
         return LYNX_CONTROL.scanForCommandsGui(input);
     }
 

@@ -5,7 +5,9 @@ import java.util.Scanner;
 import lynx.storage.LynxFileManager;
 import lynx.storage.LynxTaskList;
 import lynx.ui.LynxUI;
+import objectclasses.exception.CommandFormatException;
 import objectclasses.exception.LynxException;
+import objectclasses.exception.LynxFileException;
 
 /**
  * Contains all methods related to the main program flow.
@@ -52,7 +54,7 @@ public class LynxControl {
      * @param input Input command.
      * @return Response from executing the command.
      */
-    public String scanForCommandsGui(String input) {
+    public String scanForCommandsGui(String input) throws LynxException {
         input = input.trim();
         if (input.length() > 300) {
             return "Sorry, commands cannot exceed 300 characters in length.%n";
@@ -103,8 +105,7 @@ public class LynxControl {
         }
 
         if (!input.isEmpty()) {
-            return "Sorry, I didn't understand that command. "
-                    + "Please try again or type \"help\" to access the user guide.";
+            throw CommandFormatException.invalidCommand();
         } else {
             return "";
         }
@@ -134,7 +135,11 @@ public class LynxControl {
                 }
             }
 
-            LynxUI.printBox(scanForCommandsGui(input));
+            try {
+                LynxUI.printBox(scanForCommandsGui(input));
+            } catch (LynxException e) {
+                LynxUI.printBox(e.getMessage());
+            }
         }
     }
 

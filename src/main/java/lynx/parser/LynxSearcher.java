@@ -39,7 +39,7 @@ public abstract class LynxSearcher {
         case "/on" -> findTasksByDate(command, stream);
         case "/status" -> findTasksByStatus(command, stream);
         case "/type" -> findTasksByType(command, stream);
-        default -> throw CommandFormatException.nonMatchingCommand();
+        default -> throw CommandFormatException.invalidCommand();
         }
     }
 

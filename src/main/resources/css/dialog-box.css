@@ -9,6 +9,24 @@
     -fx-background-insets: 0px 7px 0px 7px;
 }
 
+/* User dialog: light blue gradient */
+.user-dialog {
+    -fx-background-color: linear-gradient(to bottom right, #00bfff, #0099ff);
+    -fx-text-fill: black;
+}
+
+/* Lynx dialog: light green gradient */
+.lynx-dialog {
+    -fx-background-color: linear-gradient(to bottom right, #32cd32, #28a745);
+    -fx-text-fill: black;
+}
+
+/* Error dialog: red gradient */
+.error-dialog {
+    -fx-background-color: linear-gradient(to bottom right, #ff3b3f, #b30000);
+    -fx-text-fill: white;
+}
+
 .reply-label {
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
