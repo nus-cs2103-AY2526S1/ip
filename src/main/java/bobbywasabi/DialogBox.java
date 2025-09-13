@@ -20,7 +20,13 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.Collections;
 
-
+/**
+ * Represents a single dialog box in the UI, showing a profile image and text.
+ * <p>
+ * Can represent either the user's message or the bot's message. The dialog box
+ * supports styling based on command type and can play animations (e.g., shake and flash)
+ * for error commands.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Circle profileCircle;
@@ -28,6 +34,12 @@ public class DialogBox extends HBox {
     @FXML
     private Label dialog;
 
+    /**
+     * Constructs a DialogBox with a profile image and message text.
+     *
+     * @param image The profile image for the dialog. Must not be null.
+     * @param text  The text to display in the dialog.
+     */
     public DialogBox(Image image, String text) {
         assert image != null
                 : "Image in DialogBox is null!";
@@ -46,6 +58,11 @@ public class DialogBox extends HBox {
 
     }
 
+    /**
+     * Flips the dialog box horizontally, reversing the order of the profile image and text.
+     * <p>
+     * Used to differentiate bot messages from user messages.
+     */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
@@ -54,8 +71,14 @@ public class DialogBox extends HBox {
         this.setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Changes the style of the dialog text based on the command type.
+     * <p>
+     * Adds different CSS classes for add, delete, mark/unmark, and error messages.
+     *
+     * @param commandType The command type corresponding to the dialog message.
+     */
     private void changeDialogStyle(String commandType) {
-        System.out.println(commandType);
         switch(commandType) {
         case "BYE":
             break;
@@ -97,6 +120,13 @@ public class DialogBox extends HBox {
         }
     }
 
+    /**
+     * Activates an error animation on the profile image if the command is invalid.
+     * <p>
+     * The animation combines a horizontal shake and a red flash border effect.
+     *
+     * @param commandType The command type of the dialog. Only triggers if the command is "OTHERS".
+     */
     public void activateProfileErrorAnimation(String commandType) {
         if (!commandType.equals("OTHERS")) {
             return;
@@ -134,10 +164,28 @@ public class DialogBox extends HBox {
         shaketimeline.play();
     }
 
+    /**
+     * Creates a dialog box representing a user message.
+     *
+     * @param image The user's profile image.
+     * @param text  The text of the user's message.
+     * @return A {@link DialogBox} instance for the user.
+     */
     public static DialogBox getUserDialog(Image image, String text) {
         return new DialogBox(image, text);
     }
 
+    /**
+     * Creates a dialog box representing a bot message.
+     * <p>
+     * The dialog box will be flipped to the left, styled according to the command type,
+     * and an error animation will play if applicable.
+     *
+     * @param image       The bot's profile image.
+     * @param text        The text of the bot's message.
+     * @param commandType The type of command this message is responding to.
+     * @return A {@link DialogBox} instance for the bot.
+     */
     public static DialogBox getBobbyWasabiDialog(Image image, String text, String commandType) {
         var db = new DialogBox(image, text);
         db.flip();
