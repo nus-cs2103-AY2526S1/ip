@@ -80,42 +80,24 @@ public class DialogBox extends HBox {
      */
     private void changeDialogStyle(String commandType) {
         switch(commandType) {
-        case "BYE":
-            break;
-        case "LIST":
-            break;
-        case "FIND":
-            break;
-        case "CLIENTS":
-            break;
-        case "EDITCLIENT":
-            break;
         case "ADDCLIENT":
-            dialog.getStyleClass().add("add-label");
-            break;
         case "TODO":
-            dialog.getStyleClass().add("add-label");
-            break;
         case "EVENT":
-            dialog.getStyleClass().add("add-label");
-            break;
         case "DEADLINE":
             dialog.getStyleClass().add("add-label");
             break;
         case "MARK":
-            dialog.getStyleClass().add("marked-label");
-            break;
         case "UNMARK":
             dialog.getStyleClass().add("marked-label");
             break;
         case "DELETE":
-            dialog.getStyleClass().add("delete-label");
-            break;
         case "DELETECLIENT":
             dialog.getStyleClass().add("delete-label");
             break;
-        default:
+        case "OTHERS":
             dialog.getStyleClass().add("error-label");
+            break;
+        default:
             break;
         }
     }
@@ -133,14 +115,33 @@ public class DialogBox extends HBox {
         }
 
         Double translateXDistance = 1.0;
+
         Color flashColor = Color.RED;
         Double borderWidthChange = 2.0;
-
-        // change the border color to red then back to the original color to simulate a flash effect
         Color borderColor = (Color) profileCircle.getStroke();
         Double borderWidth = profileCircle.getStrokeWidth();
 
-        Timeline shaketimeline = new Timeline(
+        Timeline shaketimeline = createShakeTimeline(translateXDistance);
+        Timeline flashTimeline = createFlashTimeline(borderColor, flashColor,
+                borderWidth, borderWidthChange);
+
+        flashTimeline.play();
+        shaketimeline.play();
+    }
+
+    /**
+     * Creates a timeline that produces a horizontal "shake" animation
+     * on the profile image circle. The shake effect moves the image
+     * left and right several times in quick succession to visually
+     * indicate an error or invalid command.
+     *
+     * @param translateXDistance The horizontal distance in pixels to
+     *                           shift the profile image during the shake.
+     * @return A {@link Timeline} configured with the shake animation.
+     */
+    public Timeline createShakeTimeline(double translateXDistance) {
+
+        return new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(profileCircle.translateXProperty(), 0)),
                 new KeyFrame(Duration.millis(50), new KeyValue(
                         profileCircle.translateXProperty(), -translateXDistance)),
@@ -153,8 +154,24 @@ public class DialogBox extends HBox {
                 new KeyFrame(Duration.millis(250), new KeyValue(
                         profileCircle.translateXProperty(), 0))
         );
+    }
 
-        Timeline flashTimeline = new Timeline(
+    /**
+     * Creates a timeline that produces a flashing border animation
+     * on the profile image circle. The flash briefly changes the
+     * border color and width to highlight an error, before restoring
+     * the original appearance.
+     *
+     * @param borderColor        The original border color of the profile image.
+     * @param flashColor         The temporary color used during the flash effect.
+     * @param borderWidth        The original border width of the profile image.
+     * @param borderWidthChange  The border width to apply during the flash effect.
+     * @return A {@link Timeline} configured with the flashing border animation.
+     */
+    public Timeline createFlashTimeline(Color borderColor, Color flashColor,
+            Double borderWidth, Double borderWidthChange) {
+
+        return new Timeline(
                 new KeyFrame(
                         Duration.ZERO,
                         new KeyValue(profileCircle.strokeProperty(), flashColor),
@@ -165,8 +182,6 @@ public class DialogBox extends HBox {
                         new KeyValue(profileCircle.strokeWidthProperty(), borderWidth)
                 )
         );
-        flashTimeline.play();
-        shaketimeline.play();
     }
 
     /**

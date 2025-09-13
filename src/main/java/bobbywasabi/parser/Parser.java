@@ -188,21 +188,34 @@ public class Parser {
      * @throws BobbyWasabiException If required fields are missing, blank, or invalid (e.g., non-numeric age/contact).
      */
     public static Client parseAddClient(String userInput) throws BobbyWasabiException {
-        String[] wordList = userInput.split(",");
+        String[] clientDetails = Parser.splitAddClientInput(userInput);
 
-        // check if number of arguments given is valid
-        if (wordList.length != 5 && wordList.length != 6) {
-            throw new BobbyWasabiException("Wrong number of arguments for ADDCLIENT command!");
-        }
+        String name = clientDetails[0];
+        String contactNumber = clientDetails[1];
+        String age = clientDetails[2];
+        String occupation = clientDetails[3];
+        String currentPolicies = clientDetails[4];
 
-        String name = wordList[1].trim();
-        String contactNumber = wordList[2].trim();
-        String age = wordList[3].trim();
-        String occupation = wordList[4].trim();
-        String currentPolicies = wordList.length == 6
-                ? wordList[5].trim()
-                : "";
+        Parser.validateAddClientArgumments(name, contactNumber, age, occupation);
 
+        return new Client(name, contactNumber,
+                Parser.getIntegerFromString(age),
+                occupation, currentPolicies);
+    }
+
+    /**
+     * Validates the arguments of an ADDCLIENT command.
+     * <p>
+     * Checks that contact number and age are numeric and that name/occupation are not empty.
+     *
+     * @param name          The client's name.
+     * @param contactNumber The client's contact number.
+     * @param age           The client's age.
+     * @param occupation    The client's occupation.
+     * @throws BobbyWasabiException If any field is invalid or blank.
+     */
+    private static void validateAddClientArgumments(String name, String contactNumber,
+                                                   String age, String occupation) throws BobbyWasabiException {
         // check if contact is valid
         if (!Parser.isContactAValidNumber(contactNumber)) {
             throw new BobbyWasabiException("Please provide a valid contact number for client!");
@@ -222,10 +235,36 @@ public class Parser {
         if (occupation.trim().isEmpty()) {
             throw new BobbyWasabiException("Please provide an actual occupation!");
         }
+    }
 
-        return new Client(name, contactNumber,
-                Parser.getIntegerFromString(age),
-                occupation, currentPolicies);
+    /**
+     * Splits and validates the arguments for an ADDCLIENT command.
+     * <p>
+     * Expected format: "ADDCLIENT name,contact,age,occupation[,currentPolicies]".
+     * The current policies field is optional.
+     *
+     * @param input The full ADDCLIENT command string.
+     * @return      An array of 5 strings: [name, contactNumber, age, occupation, currentPolicies].
+     *              currentPolicies will be an empty string if not provided.
+     * @throws BobbyWasabiException If the number of arguments is invalid.
+     */
+    private static String[] splitAddClientInput(String input) throws BobbyWasabiException {
+        String[] wordList = input.split(",");
+
+        // check if number of arguments given is valid
+        if (wordList.length != 5 && wordList.length != 6) {
+            throw new BobbyWasabiException("Wrong number of arguments for ADDCLIENT command!");
+        }
+
+        String name = wordList[1].trim();
+        String contactNumber = wordList[2].trim();
+        String age = wordList[3].trim();
+        String occupation = wordList[4].trim();
+        String currentPolicies = wordList.length == 6
+                ? wordList[5].trim()
+                : "";
+
+        return new String[] {name, contactNumber, age, occupation, currentPolicies};
     }
 
     /**
@@ -237,58 +276,99 @@ public class Parser {
      * @throws BobbyWasabiException If the index, field, or value is invalid, out of range, or empty.
      */
     public static String[] parseEditClient(String userInput, int clientSize) throws BobbyWasabiException {
-        String[] wordList = userInput.split(",");
+        String[] args = Parser.splitEditClientArgs(userInput);
+        int index = parseAndValidateClientIndex(args[1], clientSize);
+        String field = args[2].trim().toUpperCase();
+        String newFieldContent = args[3].trim();
 
-        // check if number of arguments given is valid
-        if (wordList.length != 4) {
-            throw new BobbyWasabiException("Wrong number of arguments for EDITCLIENT command!");
-        }
-
-        String trimmedIndex = wordList[1].trim();
-        int index = Parser.getIntegerFromString(trimmedIndex) - 1;
-        String field = wordList[2].trim().toUpperCase();
-        String newFieldContent = wordList[3].trim();
-
-        // check if index has a valid range
-        if (index >= clientSize) {
-            throw new BobbyWasabiException("List index for clients is out of range!");
-        } else if (index < 0) {
-            throw new BobbyWasabiException("List index for clients cannot be negative!");
-        }
-
-        // check if given argument is valid in accordance with field
-        switch (field) {
-        case ("CONTACTNUMBER"):
-            if (!isContactAValidNumber(newFieldContent)) {
-                throw new BobbyWasabiException("Please provide a valid contact number!");
-            }
-            break;
-        case ("AGE"):
-            if (!isStringAValidInteger(newFieldContent)) {
-                throw new BobbyWasabiException("Please provide a valid age!");
-            }
-            break;
-        case ("NAME"):
-            if (newFieldContent.trim().isEmpty()) {
-                throw new BobbyWasabiException("Name given is empty!");
-            }
-            break;
-        case ("OCCUPATION"):
-            if (newFieldContent.trim().isEmpty()) {
-                throw new BobbyWasabiException("Occupation given is empty!");
-            }
-            break;
-        case ("CURRENTPOLICIES"):
-            break;
-        default:
-            throw new BobbyWasabiException("This is not a valid field to change for client!");
-        }
+        Parser.validateFieldContent(field, newFieldContent);
 
         return new String[] {
-            trimmedIndex,
+            String.valueOf(index),
             field,
             newFieldContent
         };
+    }
+
+    /**
+     * Splits and validates the arguments for an EDITCLIENT command.
+     * <p>
+     * Expected format: "EDITCLIENT index,field,newValue".
+     *
+     * @param userInput The full EDITCLIENT command string.
+     * @return          An array of 4 strings: [command, index, field, newValue].
+     * @throws BobbyWasabiException If the number of arguments is not exactly 4.
+     */
+    private static String[] splitEditClientArgs(String userInput) throws BobbyWasabiException {
+        String[] args = userInput.split(",");
+        if (args.length != 4) {
+            throw new BobbyWasabiException("Wrong number of arguments for EDITCLIENT command!");
+        }
+        return args;
+    }
+
+    /**
+     * Parses and validates the client index for an EDITCLIENT command.
+     * <p>
+     * Ensures the index is numeric, positive, and within the bounds of the client list.
+     *
+     * @param rawIndex   The index string from the user input.
+     * @param clientSize The current number of clients in the list.
+     * @return           The validated index as an integer (1-based).
+     * @throws BobbyWasabiException If there are no clients, or the index is out of range or invalid.
+     */
+    private static int parseAndValidateClientIndex(String rawIndex, int clientSize) throws BobbyWasabiException {
+        if (clientSize <= 0) {
+            throw new BobbyWasabiException("There are no clients in your contact list to edit!");
+        }
+
+        int index = getIntegerFromString(rawIndex.trim());
+        if (index <= 0) {
+            throw new BobbyWasabiException("List index for clients cannot be 0 or lesser!");
+        }
+        if (index > clientSize) {
+            throw new BobbyWasabiException("List index for clients is out of range!");
+        }
+        return index;
+    }
+
+    /**
+     * Validates the new field content for an EDITCLIENT command based on the specified field.
+     * <p>
+     * Supported fields: NAME, CONTACTNUMBER, AGE, OCCUPATION, CURRENTPOLICIES.
+     *
+     * @param field   The field name (already uppercased).
+     * @param content The new field value.
+     * @throws BobbyWasabiException If the field is not recognized or the value is invalid.
+     */
+    private static void validateFieldContent(String field, String content) throws BobbyWasabiException {
+        switch (field) {
+            case "CONTACTNUMBER":
+                if (!isContactAValidNumber(content)) {
+                    throw new BobbyWasabiException("Please provide a valid contact number!");
+                }
+                break;
+            case "AGE":
+                if (!isStringAValidInteger(content)) {
+                    throw new BobbyWasabiException("Please provide a valid age!");
+                }
+                break;
+            case "NAME":
+                if (content.isEmpty()) {
+                    throw new BobbyWasabiException("Name given is empty!");
+                }
+                break;
+            case "OCCUPATION":
+                if (content.isEmpty()) {
+                    throw new BobbyWasabiException("Occupation given is empty!");
+                }
+                break;
+            case "CURRENTPOLICIES":
+                // no validation needed for now
+                break;
+            default:
+                throw new BobbyWasabiException("This is not a valid field to change for client!");
+        }
     }
 
     /**
