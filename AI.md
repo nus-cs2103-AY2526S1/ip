@@ -1,13 +1,7 @@
-Ill be using Github Copilot for the entire duration of this project. 
+I mostly used Github Copilot and ChatGPT for this project. 
 
 Week 1 (L0 - L6)
 ----------
-"this chatbot aims to assist the user in logging and managing tasks in work."
-"Come up with a name, personality and a greeting dialogue to fit this personality."
-
-"Hello! I’m lynx.TaskLynx."
-"Your dependable assistant for tracking tasks, managing deadlines, and keeping your work organized."
-
 What I asked AI:
 - Create a name and personality for the chatbot
 - Generate code based on a design specification
@@ -24,3 +18,10 @@ very well, and sometimes generates code that does not integrate very well into t
 causing bugs. Another issue is that AI is unable to plan ahead, so iteratively adding changes via AI will often result
 in unnecessary or badly structured code piling up. Therefore, I have to regularly review (and restructure) existing 
 code and keep the AI up to date with these changes. 
+
+Week 2 onwards 
+----------
+As the project gets larger and more divided, it becomes harder and harder to track the overall progress and structure
+using AI. Therefore, from here on, I mostly used AI to help generate smaller bits of independent code, a good example
+being parsing methods. Otherwise, I also used AI to write the instructions in the in-program user guide. I tried using
+it for documentation, but I preferred to write it myself since I have a better idea of my own intentions.
