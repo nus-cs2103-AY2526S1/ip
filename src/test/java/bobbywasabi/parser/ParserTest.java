@@ -96,4 +96,23 @@ class ParserTest {
         String dateStr = "2025-08-22 1930";
         assertThrows(BobbyWasabiException.class, () -> Parser.parseDateString(dateStr));
     }
+
+    @Test
+    void testIsContactAValidNumber_validNumbers_success() {
+        assertTrue(Parser.isContactAValidNumber("91234567"));
+        assertTrue(Parser.isContactAValidNumber("61234567"));
+        assertTrue(Parser.isContactAValidNumber("81234567"));
+        assertTrue(Parser.isContactAValidNumber("71234567"));
+    }
+
+    @Test
+    void testIsContactAValidNumber_invalidNumbers_failure() {
+        assertFalse(Parser.isContactAValidNumber("5123456799"));
+        assertFalse(Parser.isContactAValidNumber("1234567"));
+        assertFalse(Parser.isContactAValidNumber("a1234567"));
+        assertFalse(Parser.isContactAValidNumber("91234 567"));
+        assertFalse(Parser.isContactAValidNumber("91234-567"));
+        assertFalse(Parser.isContactAValidNumber(""));
+        assertFalse(Parser.isContactAValidNumber(" "));
+    }
 }
