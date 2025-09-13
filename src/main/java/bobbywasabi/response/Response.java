@@ -1,12 +1,11 @@
 package bobbywasabi.response;
 
-import bobbywasabi.client.ClientList;
+import java.util.Random;
+
 import bobbywasabi.client.Client;
-import bobbywasabi.exceptions.BobbyWasabiException;
+import bobbywasabi.client.ClientList;
 import bobbywasabi.tasks.Task;
 import bobbywasabi.tasks.TaskList;
-
-import java.util.Random;
 
 /**
  * Handles user interaction through the console.
@@ -16,21 +15,21 @@ import java.util.Random;
  * Each response may include a randomly selected personal phrase and emoji for personality.
  */
 public class Response {
-    private static String[] BOBBY_WASABI_PERSONAL_PHRASES = new String[] {
-            "Stay kickin'!",
-            "Wasabi power!",
-            "Chop-chop, let's go!",
-            "Hi-ya! Mission complete.",
-            "Wax on, wax off!",
-            "Keep your guard up!",
-            "Strike first, ask questions later!",
-            "That’s the Wasabi way!",
-            "You got this, sensei!",
-            "Another victory for the dojo!"
+    private static final String[] BOBBY_WASABI_PHRASES = new String[] {
+        "Stay kickin'!",
+        "Wasabi power!",
+        "Chop-chop, let's go!",
+        "Hi-ya! Mission complete.",
+        "Wax on, wax off!",
+        "Keep your guard up!",
+        "Strike first, ask questions later!",
+        "That’s the Wasabi way!",
+        "You got this, sensei!",
+        "Another victory for the dojo!"
     };
 
     private static final String[] BOBBY_WASABI_EMOJIS = {
-            "🥋", "👊", "💥", "🔥", "😎", "🥷", "👐", "🤙", "🦶", "🏆"
+        "🥋", "👊", "💥", "🔥", "😎", "🥷", "👐", "🤙", "🦶", "🏆"
     };
 
     private Random random = new Random();
@@ -42,9 +41,9 @@ public class Response {
      * @return      The input message appended with a random phrase and emoji.
      */
     private String addRandomPersonalPhraseToMessage(String input) {
-        int phraseIndex = random.nextInt(BOBBY_WASABI_PERSONAL_PHRASES.length);
+        int phraseIndex = random.nextInt(BOBBY_WASABI_PHRASES.length);
         int emojiIndex = random.nextInt(BOBBY_WASABI_EMOJIS.length);
-        return input + "\n" + BOBBY_WASABI_PERSONAL_PHRASES[phraseIndex]
+        return input + "\n" + BOBBY_WASABI_PHRASES[phraseIndex]
                 + BOBBY_WASABI_EMOJIS[emojiIndex];
     }
 
@@ -204,8 +203,8 @@ public class Response {
         assert client != null
                 : "client in addClientMessage is null!";
 
-        String output =  String.format("""
-                        I have added this client:
+        String output = String.format("""
+                        I have added this clients:
                         %s
                         Now you have %d clients in your contacts
                         """,
@@ -224,11 +223,12 @@ public class Response {
         assert client != null
                 : "client in editClientMessage is null!";
 
-        String output =  String.format("""
-                Client has been updated as follows:
-                %s
-                """,
+        String output = String.format("""
+                        Client has been updated as follows:
+                        %s
+                        """,
                 client);
+
         return addRandomPersonalPhraseToMessage(output);
     }
 
@@ -247,7 +247,8 @@ public class Response {
      * @return A String containing the farewell message.
      */
     public String farewellUser() {
-        String output =  """
+        String output =
+               """
                Bye. Hope to see you again soon!
                """;
 

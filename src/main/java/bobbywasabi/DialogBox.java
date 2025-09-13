@@ -1,5 +1,8 @@
 package bobbywasabi;
 
+import java.io.IOException;
+import java.util.Collections;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -16,9 +19,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
-
-import java.io.IOException;
-import java.util.Collections;
 
 /**
  * Represents a single dialog box in the UI, showing a profile image and text.
@@ -142,11 +142,16 @@ public class DialogBox extends HBox {
 
         Timeline shaketimeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(profileCircle.translateXProperty(), 0)),
-                new KeyFrame(Duration.millis(50), new KeyValue(profileCircle.translateXProperty(), -translateXDistance)),
-                new KeyFrame(Duration.millis(100), new KeyValue(profileCircle.translateXProperty(), translateXDistance)),
-                new KeyFrame(Duration.millis(150), new KeyValue(profileCircle.translateXProperty(), -translateXDistance)),
-                new KeyFrame(Duration.millis(200), new KeyValue(profileCircle.translateXProperty(), translateXDistance)),
-                new KeyFrame(Duration.millis(250), new KeyValue(profileCircle.translateXProperty(), 0))
+                new KeyFrame(Duration.millis(50), new KeyValue(
+                        profileCircle.translateXProperty(), -translateXDistance)),
+                new KeyFrame(Duration.millis(100), new KeyValue(
+                        profileCircle.translateXProperty(), translateXDistance)),
+                new KeyFrame(Duration.millis(150), new KeyValue(
+                        profileCircle.translateXProperty(), -translateXDistance)),
+                new KeyFrame(Duration.millis(200), new KeyValue(
+                        profileCircle.translateXProperty(), translateXDistance)),
+                new KeyFrame(Duration.millis(250), new KeyValue(
+                        profileCircle.translateXProperty(), 0))
         );
 
         Timeline flashTimeline = new Timeline(

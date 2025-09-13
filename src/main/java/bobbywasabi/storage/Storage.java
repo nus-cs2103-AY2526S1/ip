@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import bobbywasabi.client.Client;
@@ -280,7 +279,8 @@ public class Storage {
      * @throws BobbyWasabiException If writing fails.
      */
     public void fileWrite(String line, StorageType storageType) throws BobbyWasabiException {
-        assert line != null && !line.trim().isEmpty(): "Attempting to write an empty task line";
+        assert line != null && !line.trim().isEmpty()
+                : "Attempting to write an empty task line";
         String filePath = this.getFilePath(storageType);
         try {
             FileWriter filewriter = new FileWriter(filePath, true);

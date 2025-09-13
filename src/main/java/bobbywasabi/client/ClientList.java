@@ -1,10 +1,10 @@
 package bobbywasabi.client;
 
-import bobbywasabi.exceptions.BobbyWasabiException;
-import bobbywasabi.parser.Parser;
-
 import java.util.ArrayList;
 import java.util.stream.IntStream;
+
+import bobbywasabi.exceptions.BobbyWasabiException;
+import bobbywasabi.parser.Parser;
 
 /**
  * Represents a list of {@link Client} objects with utility methods for formatting and updating client data.
@@ -56,7 +56,8 @@ public class ClientList extends ArrayList<Client> {
      * Updates a specific field of a client in the list.
      *
      * @param index           The zero-based index of the client in the list.
-     * @param field           The field to update (must be one of: "NAME", "CONTACTNUMBER", "AGE", "OCCUPATION", "CURRENTPOLICIES").
+     * @param field           The field to update (must be one of: "NAME", "CONTACTNUMBER",
+     *                        "AGE", "OCCUPATION", "CURRENTPOLICIES").
      * @param newFieldContent The new value to set for the specified field.
      * @throws BobbyWasabiException if the specified field is invalid.
      */

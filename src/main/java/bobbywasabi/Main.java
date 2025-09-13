@@ -1,13 +1,12 @@
 package bobbywasabi;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 /**
  * The entry point for the BobbyWasabi JavaFX application.
@@ -46,7 +45,7 @@ public class Main extends Application {
      *
      * @param args Command-line arguments (not used).
      */
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         launch(args);
     }
 }

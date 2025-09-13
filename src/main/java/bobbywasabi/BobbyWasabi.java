@@ -3,8 +3,8 @@ package bobbywasabi;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import bobbywasabi.client.ClientList;
 import bobbywasabi.client.Client;
+import bobbywasabi.client.ClientList;
 import bobbywasabi.exceptions.BobbyWasabiException;
 import bobbywasabi.parser.Parser;
 import bobbywasabi.response.Response;
@@ -409,7 +409,7 @@ public class BobbyWasabi {
         case DELETECLIENT:
             return this.processDeleteClient(userInput);
         case EDITCLIENT:
-            return  this.processEditClient(userInput);
+            return this.processEditClient(userInput);
         default:
             return this.processDefaultCommand();
         }

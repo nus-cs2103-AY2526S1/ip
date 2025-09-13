@@ -173,9 +173,9 @@ public class Parser {
         }
 
         return new String[] {
-                description,
-                eventStart,
-                eventEnd
+            description,
+            eventStart,
+            eventEnd
         };
 
     }
@@ -277,6 +277,7 @@ public class Parser {
             if (newFieldContent.trim().isEmpty()) {
                 throw new BobbyWasabiException("Occupation given is empty!");
             }
+            break;
         case ("CURRENTPOLICIES"):
             break;
         default:
@@ -284,9 +285,9 @@ public class Parser {
         }
 
         return new String[] {
-                trimmedIndex,
-                field,
-                newFieldContent
+            trimmedIndex,
+            field,
+            newFieldContent
         };
 
     }
@@ -383,8 +384,8 @@ public class Parser {
         }
 
         return new LocalDateTime[] {
-                startTime,
-                endTime
+            startTime,
+            endTime
         };
     }
 
