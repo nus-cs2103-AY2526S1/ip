@@ -343,31 +343,31 @@ public class Parser {
      */
     private static void validateFieldContent(String field, String content) throws BobbyWasabiException {
         switch (field) {
-            case "CONTACTNUMBER":
-                if (!isContactAValidNumber(content)) {
-                    throw new BobbyWasabiException("Please provide a valid contact number!");
-                }
-                break;
-            case "AGE":
-                if (!isStringAValidInteger(content)) {
-                    throw new BobbyWasabiException("Please provide a valid age!");
-                }
-                break;
-            case "NAME":
-                if (content.isEmpty()) {
-                    throw new BobbyWasabiException("Name given is empty!");
-                }
-                break;
-            case "OCCUPATION":
-                if (content.isEmpty()) {
-                    throw new BobbyWasabiException("Occupation given is empty!");
-                }
-                break;
-            case "CURRENTPOLICIES":
-                // no validation needed for now
-                break;
-            default:
-                throw new BobbyWasabiException("This is not a valid field to change for client!");
+        case "CONTACTNUMBER":
+            if (!isContactAValidNumber(content)) {
+                throw new BobbyWasabiException("Please provide a valid contact number!");
+            }
+            break;
+        case "AGE":
+            if (!isStringAValidInteger(content)) {
+                throw new BobbyWasabiException("Please provide a valid age!");
+            }
+            break;
+        case "NAME":
+            if (content.isEmpty()) {
+                throw new BobbyWasabiException("Name given is empty!");
+            }
+            break;
+        case "OCCUPATION":
+            if (content.isEmpty()) {
+                throw new BobbyWasabiException("Occupation given is empty!");
+            }
+            break;
+        case "CURRENTPOLICIES":
+            // no validation needed for now
+            break;
+        default:
+            throw new BobbyWasabiException("This is not a valid field to change for client!");
         }
     }
 
