@@ -1,17 +1,18 @@
 package bobbywasabi;
 
-import bobbywasabi.client.ClientList;
-import bobbywasabi.storage.Storage;
-import bobbywasabi.tasks.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import java.lang.reflect.Field;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import bobbywasabi.client.ClientList;
+import bobbywasabi.storage.Storage;
+import bobbywasabi.tasks.TaskList;
 
 class BobbyWasabiTest {
 
@@ -30,7 +31,11 @@ class BobbyWasabiTest {
         Files.createDirectories(Paths.get("./testdata"));
 
         bobby = new BobbyWasabi();
-        setPrivateField(bobby, "storage", new Storage("./testdata", "./testdata/BobbyWasabiTasks.txt", "./testdata/BobbyWasabiClients.txt"));
+        setPrivateField(bobby, "storage", new Storage(
+                "./testdata",
+                "./testdata/BobbyWasabiTasks.txt",
+                "./testdata/BobbyWasabiClients.txt"
+        ));
         setPrivateField(bobby, "taskList", new TaskList());
         setPrivateField(bobby, "clientList", new ClientList());
 
