@@ -289,7 +289,6 @@ public class Parser {
             field,
             newFieldContent
         };
-
     }
 
     /**
@@ -326,7 +325,6 @@ public class Parser {
         }
 
         return true;
-
     }
 
     /**
