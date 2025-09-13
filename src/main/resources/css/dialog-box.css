@@ -9,6 +9,14 @@
     -fx-background-insets: 0px 7px 0px 7px;
 }
 
+.name-label {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-font-size: 10px;
+    -fx-text-fill: gray;
+}
+
 /* User dialog: light blue gradient */
 .user-dialog {
     -fx-background-color: linear-gradient(to bottom right, #00bfff, #0099ff);
@@ -28,8 +36,8 @@
 }
 
 .reply-label {
-    -fx-background-radius: 1em 1em 1em 0;
-    -fx-border-radius: 1em 1em 1em 0;
+    -fx-background-radius: 1em 1em 1em 1em;
+    -fx-border-radius: 1em 1em 1em 1em;
 }
 
 #displayPicture {

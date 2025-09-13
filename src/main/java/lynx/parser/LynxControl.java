@@ -7,7 +7,6 @@ import lynx.storage.LynxTaskList;
 import lynx.ui.LynxUI;
 import objectclasses.exception.CommandFormatException;
 import objectclasses.exception.LynxException;
-import objectclasses.exception.LynxFileException;
 
 /**
  * Contains all methods related to the main program flow.
@@ -102,6 +101,10 @@ public class LynxControl {
             }
         } catch (Exception e) {
             return (e.getMessage());
+        }
+
+        if (input.toLowerCase().contains("lynx")) {
+            throw LynxException.secret();
         }
 
         if (!input.isEmpty()) {

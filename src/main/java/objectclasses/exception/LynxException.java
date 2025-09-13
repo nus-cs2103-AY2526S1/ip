@@ -5,8 +5,23 @@ package objectclasses.exception;
  */
 public class LynxException extends Exception {
 
+    private boolean isSecret = false;
+
     public LynxException(String message) {
         super(message);
+    }
+
+    /**
+     * Secret dialogue.
+     */
+    public static LynxException secret() {
+        LynxException secret = new LynxException("* unskippable monologue *");
+        secret.isSecret = true;
+        return secret;
+    }
+
+    public boolean isSecret() {
+        return isSecret;
     }
 
 }

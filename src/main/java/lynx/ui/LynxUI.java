@@ -35,7 +35,7 @@ public abstract class LynxUI {
      * Returns a greeting.
      */
     public static String hello() {
-        return "Hello! I'm Tasklynx. \n"
+        return "Hello! I'm TaskLynx. \n"
                 + "Your dependable assistant for tracking tasks, managing deadlines, and keeping your work organized.";
     }
 

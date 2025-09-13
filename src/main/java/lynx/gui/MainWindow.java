@@ -31,6 +31,8 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image lynxImage = new Image(this.getClass().getResourceAsStream("/images/Lynx.png"));
     private Image errorImage = new Image(this.getClass().getResourceAsStream("/images/LynxError.png"));
+    private Image unknownImage = new Image(this.getClass().getResourceAsStream("/images/NotLynx.png"));
+
 
     @FXML
     public void initialize() {
@@ -122,7 +124,12 @@ public class MainWindow extends AnchorPane {
             lynxDialogue = DialogBox.getLynxDialog(response, lynxImage);
         } catch (LynxException e) {
             String response = e.getMessage();
-            lynxDialogue = DialogBox.getErrorDialog(response, errorImage);
+            if (e.isSecret()) {
+                lynxDialogue = DialogBox.getErrorDialog(response, unknownImage);
+                lynxDialogue.setName("Lynx???");
+            } else {
+                lynxDialogue = DialogBox.getErrorDialog(response, errorImage);
+            }
         }
 
         if (lynxDialogue.isEmpty()) {

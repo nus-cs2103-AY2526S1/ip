@@ -22,6 +22,8 @@ public class DialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
+    private Label name;
+    @FXML
     private ImageView displayPicture;
     private String text;
 
@@ -38,6 +40,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        dialog.setWrapText(true);
         displayPicture.setImage(img);
     }
 
@@ -55,6 +58,7 @@ public class DialogBox extends HBox {
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.dialog.getStyleClass().add("user-dialog");
+        db.setName("User");
         return db;
     }
 
@@ -62,6 +66,7 @@ public class DialogBox extends HBox {
         DialogBox db = new DialogBox(text, img);
         db.flip();
         db.dialog.getStyleClass().add("lynx-dialog");
+        db.setName("TaskLynx");
         return db;
     }
 
@@ -69,10 +74,16 @@ public class DialogBox extends HBox {
         DialogBox db = new DialogBox(text, img);
         db.flip();
         db.dialog.getStyleClass().add("error-dialog");
+        db.setName("TaskLynx");
         return db;
     }
 
     public boolean isEmpty() {
         return text.isEmpty();
     }
+
+    public void setName(String name) {
+        this.name.setText(name);
+    }
+
 }
