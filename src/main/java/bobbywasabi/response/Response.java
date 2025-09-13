@@ -2,6 +2,7 @@ package bobbywasabi.response;
 
 import bobbywasabi.client.ClientList;
 import bobbywasabi.client.Client;
+import bobbywasabi.exceptions.BobbyWasabiException;
 import bobbywasabi.tasks.Task;
 import bobbywasabi.tasks.TaskList;
 
@@ -9,10 +10,13 @@ import java.util.Random;
 
 /**
  * Handles user interaction through the console.
- * Provides methods to format and display messages for tasks, clients, and general responses.
+ * <p>
+ * Provides methods to format and display messages for tasks, clients, search results,
+ * confirmations, errors, and general bot responses.
+ * Each response may include a randomly selected personal phrase and emoji for personality.
  */
 public class Response {
-    private static String[] bobbyWasabiPersonalPhrases = new String[] {
+    private static String[] BOBBY_WASABI_PERSONAL_PHRASES = new String[] {
             "Stay kickin'!",
             "Wasabi power!",
             "Chop-chop, let's go!",
@@ -25,23 +29,23 @@ public class Response {
             "Another victory for the dojo!"
     };
 
-    private static final String[] bobbyWasabiEmojis = {
+    private static final String[] BOBBY_WASABI_EMOJIS = {
             "🥋", "👊", "💥", "🔥", "😎", "🥷", "👐", "🤙", "🦶", "🏆"
     };
 
     private Random random = new Random();
 
     /**
-     * Constructs a new UI instance.
+     * Adds a random personal phrase and emoji to a message.
+     *
+     * @param input The original message.
+     * @return      The input message appended with a random phrase and emoji.
      */
-    public Response() {
-    }
-
     private String addRandomPersonalPhraseToMessage(String input) {
-        int phraseIndex = random.nextInt(bobbyWasabiPersonalPhrases.length);
-        int emojiIndex = random.nextInt(bobbyWasabiEmojis.length);
-        return input + "\n" + bobbyWasabiPersonalPhrases[phraseIndex]
-                + bobbyWasabiEmojis[emojiIndex];
+        int phraseIndex = random.nextInt(BOBBY_WASABI_PERSONAL_PHRASES.length);
+        int emojiIndex = random.nextInt(BOBBY_WASABI_EMOJIS.length);
+        return input + "\n" + BOBBY_WASABI_PERSONAL_PHRASES[phraseIndex]
+                + BOBBY_WASABI_EMOJIS[emojiIndex];
     }
 
     /**
