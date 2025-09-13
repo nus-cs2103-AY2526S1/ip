@@ -51,7 +51,7 @@ public class BobbyWasabi {
          */
         public static Command toCommand(String input) {
             try {
-                return Command.valueOf(input.toUpperCase());
+                return Command.valueOf(input.toUpperCase().trim());
             } catch (IllegalArgumentException e) {
                 return Command.OTHERS;
             }
@@ -188,7 +188,7 @@ public class BobbyWasabi {
 
             int indx = Parser.parseCommandIndex(userInput, this.taskList.size());
 
-            assert indx > 0 && indx < this.taskList.size()
+            assert indx > 0 && indx <= this.taskList.size()
                     : "Index in DELETE command is out of bounds!";
 
             Task targetTask = this.taskList.get(indx - 1);
