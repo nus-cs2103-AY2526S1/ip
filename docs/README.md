@@ -5,45 +5,49 @@
 **BobbyWasabi** is a lightweight JavaFX desktop application that helps you manage tasks, deadlines, events, and client information efficiently. The application supports intuitive command-based inputs and provides structured responses for task and client management.
 
 ---
+# Managing Tasks
+
+---
 
 ## Listing All Tasks
 
 Shows all tasks in your task list.
 
-Example: `list`
+**Example:** `list`
 
 Displays a numbered list of all tasks, including todos, deadlines, and events.
 
+---
 
 ## Adding Todos
 
 Adds a task to your todo list.
 
-Example: `todo, Read book`
+**Example:** `todo, Read book`
 
 Adds a new task "Read book" to your task list.
 
 Output: [] Read book
 
+---
 
 ## Adding Deadlines
 
 Adds a task with a deadline.
 
-Example: `deadline, Submit report, 20/12/2025 2359`
+**Example:** `deadline, Submit report, 20/12/2025 2359`
 
 Adds a new task "Submit report" with a deadline of 20th Dec 2025, 23:59.
 
+---
 
 ## Adding Events
 
 Adds a task with a start and end time.
 
-Example: `event, Project meeting, 22/12/2025 1000, 22/12/2025 1200`
+**Example:** `event, Project meeting, 22/12/2025 1000, 22/12/2025 1200`
 
 Adds a new event "Project meeting" from 10:00 to 12:00 on 22nd Dec 2025.
-
-
 
 ---
 
@@ -51,11 +55,9 @@ Adds a new event "Project meeting" from 10:00 to 12:00 on 22nd Dec 2025.
 
 Marks a task as completed.
 
-Example: `mark, 1`
+**Example:** `mark, 1`
 
 Marks the first task in the list as done.
-
-
 
 ---
 
@@ -63,12 +65,9 @@ Marks the first task in the list as done.
 
 Marks a previously done task as not done.
 
-Example: `unmark, 1`
+**Example:** `unmark, 1`
 
 Marks the first task in the list as not done.
-
-
-
 
 ---
 
@@ -76,74 +75,77 @@ Marks the first task in the list as not done.
 
 Searches for tasks containing a keyword.
 
-Example: `find, book`
+**Example:** `find, book`
 
 Displays all tasks containing "book".
 
+---
 
 ## Deleting Tasks
 
 Removes a task from your task list.
 
-Example: `delete, 1`
+**Example:** `delete, 1`
 
 Deletes the first task in your task list.
 
+---
+
+# Managing Clients
 
 ---
 
-## Managing Clients
+## Adding a Client
 
-### Adding a Client
+Adds a new client with the provided name, contact number, age, occupation, and current policies.
 
-Example: `addclient, John Doe, 12345678, 30, Engineer, PolicyA`
+**Example:**  
+`addclient, John Doe, 12345678, 30, Engineer, PolicyA`
 
-Adds a new client with the provided details.
+Adds "John Doe" as a new client in the system.
+
+---
+
+## Editing a Client
+
+Updates the specified field (name, contact number, age, occupation, or current policies) of the client at the given index. Indexing starts from 1.
+
+**Example:**  
+`editclient, 1, name, Jane Doe`
+
+Changes the name of client #1 to "Jane Doe".
+
+---
+
+## Deleting a Client
+
+Removes the client at the specified index from the client list.
+
+**Example:**  
+`deleteclient, 1`
+
+Deletes client #1 from the system.
 
 
 ---
 
-## Managing Clients
+## Listing All Clients
 
-### Adding a Client
+Displays all clients in the system with their full details.
 
-Example: `addclient, John Doe, 12345678, 30, Engineer, PolicyA`
+**Example:**  
+`clients`
 
-Adds a new client with the provided details.
-
-
-### Editing a Client
-
-Example: `editclient, 1, name, Jane Doe`
-
-Updates the first client's name to "Jane Doe".
-
-
-
-### Deleting a Client
-
-Example: `deleteclient, 1`
-
-Removes the first client from the client list.
-
-
-### Listing All Clients
-
-Example: `clients`
-
-Displays all clients with their details.
-
-
+Shows all clients
 
 ---
 
 ## Exiting the Application
 
-Example: `bye`
-
 Closes the BobbyWasabi application with a farewell message.
 
-
+**Example:** 
+`bye`
 
 ---
 
@@ -151,5 +153,5 @@ Closes the BobbyWasabi application with a farewell message.
 
 Any unrecognized command will return an error message.
 
-Example: `foobar`
+**Example:** `foobar`
 
