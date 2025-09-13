@@ -1,0 +1,35 @@
+.label {
+    -fx-background-color: #1b1b1b;
+    -fx-border-color: white #00e676 white #00e676;
+    -fx-border-width: 1px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: #ffd600;
+    -fx-font-family: "Montserrat", "Arial Black", "Arial", sans-serif;
+    -fx-font-size: 13px;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.add-label {
+    -fx-background-color: #00e676; /* vibrant dojo green */
+    -fx-text-fill: #000; /* ensure readable on green */
+}
+
+.marked-label {
+    -fx-background-color: #ffd600; /* dojo yellow highlight */
+    -fx-text-fill: #000;
+}
+
+.delete-label {
+    -fx-background-color: #ff1744; /* dojo red, stronger than lightpink */
+    -fx-text-fill: #fff;
+}
+
+.error-label {
+    -fx-background-color: #d50000; /* deep punchy dojo red */
+    -fx-text-fill: #fff;
+}
