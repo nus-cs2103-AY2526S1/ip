@@ -1,2 +1,1 @@
 Alice|123|30|Engineer|PolicyA
-Bob|123|30|Engineer|PolicyA
