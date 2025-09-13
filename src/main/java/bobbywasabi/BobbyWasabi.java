@@ -51,7 +51,7 @@ public class BobbyWasabi {
          */
         public static Command toCommand(String input) {
             try {
-                return Command.valueOf(input.toUpperCase());
+                return Command.valueOf(input.toUpperCase().trim());
             } catch (IllegalArgumentException e) {
                 return Command.OTHERS;
             }
