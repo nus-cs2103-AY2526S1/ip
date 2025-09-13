@@ -67,53 +67,53 @@ public class Storage {
     }
 
     /**
-     * Ensures that the data folder and required files exist. Creates them if they do not exist.
+     * Ensures the required data storage folder and files exist.
+     * <p>
+     * Creates the folder and the task/client list files if they are missing.
      *
-     * @throws BobbyWasabiException If the folder or files could not be created.
+     * @throws BobbyWasabiException if the folder or files could not be created.
      */
     public void createDataStorage() throws BobbyWasabiException {
-        File folder = new File(this.folderPath);
-        File taskListFile = new File(this.taskListFilePath);
-        File clientListFile = new File(this.clientListFilePath);
+        createFolderIfNotExists(new File(this.folderPath));
 
-        // check if folder exists
-        if (!folder.exists()) {
-            // create the folder if it does not exist
-            if (!folder.mkdirs()) {
-                throw new BobbyWasabiException("Could not create the folder ./data!");
-            }
-        }
-
-        // check if the taskListFile exists to prevent duplicate creation
-        if (!taskListFile.exists()) {
-            // create the taskListFile if it does not exist
-            try {
-                if (!taskListFile.createNewFile()) {
-                    throw new BobbyWasabiException("Could not create the task file!");
-                }
-            } catch (IOException e) {
-                throw new BobbyWasabiException("Could not create the task file!");
-            }
-        }
-
-        // check if clientListFile exists to prevent duplicate creation
-        if (!clientListFile.exists()) {
-            // create the clientListFile if it does not exist
-            try {
-                if (!clientListFile.createNewFile()) {
-                    throw new BobbyWasabiException("Could not create the client file!");
-                }
-            } catch (IOException e) {
-                throw new BobbyWasabiException("Could not create the client file!");
-            }
-        }
-
-
-        assert clientListFile.exists();
-        assert taskListFile.exists();
-        assert folder.exists();
+        createFileIfNotExists(new File(this.taskListFilePath), "task file");
+        createFileIfNotExists(new File(this.clientListFilePath), "client file");
     }
 
+    /**
+     * Creates a folder if it does not already exist.
+     *
+     * @param folder the folder to check/create
+     * @throws BobbyWasabiException if the folder could not be created
+     */
+    private void createFolderIfNotExists(File folder) throws BobbyWasabiException {
+        if (!folder.exists() && !folder.mkdirs()) {
+            throw new BobbyWasabiException("Could not create the folder: "
+                    + folder.getAbsolutePath());
+        }
+    }
+
+    /**
+     * Creates a file if it does not already exist.
+     *
+     * @param file        the file to check/create
+     * @param description a human-readable description of the file
+     * @throws BobbyWasabiException if the file could not be created
+     */
+    private void createFileIfNotExists(File file, String description) throws BobbyWasabiException {
+        if (file.exists()) {
+            return;
+        }
+
+        try {
+            if (!file.createNewFile()) {
+                throw new BobbyWasabiException("Could not create the "
+                        + description + ": " + file.getAbsolutePath());
+            }
+        } catch (IOException e) {
+            throw new BobbyWasabiException(e.getMessage());
+        }
+    }
 
     /**
      * Loads tasks from the task list file.
