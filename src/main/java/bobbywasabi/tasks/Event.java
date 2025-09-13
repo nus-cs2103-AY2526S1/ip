@@ -28,7 +28,7 @@ public class Event extends bobbywasabi.tasks.Task {
      * @return The duration string in the format "(from:start to:end)".
      */
     public String getDuration() {
-        return String.format("(from:%sto:%s)",
+        return String.format("(from: %sto: %s)",
                 this.start,
                 this.end);
     }

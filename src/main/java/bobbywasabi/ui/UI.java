@@ -5,16 +5,43 @@ import bobbywasabi.client.Client;
 import bobbywasabi.tasks.Task;
 import bobbywasabi.tasks.TaskList;
 
+import java.util.Random;
+
 /**
  * Handles user interaction through the console.
  * Provides methods to format and display messages for tasks, clients, and general responses.
  */
 public class UI {
+    private static String[] bobbyWasabiPersonalPhrases = new String[] {
+        "Stay kickin'!",
+        "Wasabi power!",
+        "Chop-chop, let's go!",
+        "Hi-ya! Mission complete.",
+        "Wax on, wax off!",
+        "Keep your guard up!",
+        "Strike first, ask questions later!",
+        "That’s the Wasabi way!",
+        "You got this, sensei!",
+        "Another victory for the dojo!"
+    };
+
+    private static final String[] bobbyWasabiEmojis = {
+            "🥋", "👊", "💥", "🔥", "😎", "🥷", "👐", "🤙", "🦶", "🏆"
+    };
+
+    private Random random = new Random();
 
     /**
      * Constructs a new UI instance.
      */
     public UI() {
+    }
+
+    private String addRandomPersonalPhraseToMessage(String input) {
+        int phraseIndex = random.nextInt(bobbyWasabiPersonalPhrases.length);
+        int emojiIndex = random.nextInt(bobbyWasabiEmojis.length);
+        return input + "\n" + bobbyWasabiPersonalPhrases[phraseIndex]
+                + bobbyWasabiEmojis[emojiIndex];
     }
 
     /**
@@ -25,7 +52,7 @@ public class UI {
      */
     public String listMessage(TaskList tasks) {
         String listOutput = "Here are the tasks in your list:\n" + tasks;
-        return listOutput;
+        return addRandomPersonalPhraseToMessage(listOutput);
     }
 
     /**
@@ -36,7 +63,7 @@ public class UI {
      */
     public String clientsMessage(ClientList clients) {
         String clientOutput = "Here are your clients:\n" + clients;
-        return clientOutput;
+        return addRandomPersonalPhraseToMessage(clientOutput);
     }
 
     /**
@@ -50,7 +77,7 @@ public class UI {
                 ? "Sorry! We could not find any matching tasks :/\n"
                 : "Here are the matching tasks in your list:\n";
         String botResponse = output + tasks;
-        return botResponse;
+        return addRandomPersonalPhraseToMessage(botResponse);
     }
 
     /**
@@ -74,7 +101,7 @@ public class UI {
                                 """,
                 curTask);
 
-        return output;
+        return addRandomPersonalPhraseToMessage(output);
     }
 
     /**
@@ -98,7 +125,7 @@ public class UI {
                                 """,
                 curTask);
 
-        return output;
+        return addRandomPersonalPhraseToMessage(output);
     }
 
 
@@ -112,14 +139,14 @@ public class UI {
     public String addTaskMessage(Task task, int num) {
         assert task != null
                 : "task in addTaskMessage is null!";
-        String s = String.format("""
+        String output = String.format("""
                 Got it. I've added this task:
                 %s
                 Now you have %d tasks in the list.
                 """,
                 task, num);
 
-        return s;
+        return addRandomPersonalPhraseToMessage(output);
     }
 
     /**
@@ -139,7 +166,7 @@ public class UI {
                         """,
                 targetTask, taskSize);
 
-       return output;
+       return addRandomPersonalPhraseToMessage(output);
     }
 
     /**
@@ -159,7 +186,7 @@ public class UI {
                         """,
                 targetClient, clientSize);
 
-        return output;
+        return addRandomPersonalPhraseToMessage(output);
     }
 
     /**
@@ -173,13 +200,14 @@ public class UI {
         assert client != null
                 : "client in addClientMessage is null!";
 
-        return String.format("""
+        String output =  String.format("""
                         I have added this client:
                         %s
                         Now you have %d clients in your contacts
                         """,
                 client, clientSize);
 
+        return addRandomPersonalPhraseToMessage(output);
     }
 
     /**
@@ -192,12 +220,12 @@ public class UI {
         assert client != null
                 : "client in editClientMessage is null!";
 
-        return String.format("""
+        String output =  String.format("""
                 Client has been updated as follows:
                 %s
                 """,
                 client);
-
+        return addRandomPersonalPhraseToMessage(output);
     }
 
     /**
@@ -206,7 +234,6 @@ public class UI {
      * @return A String indicating invalid command input.
      */
     public String invalidMessage() {
-
         return this.generateErrorMsg("Please provide a valid command!");
     }
 
@@ -216,9 +243,11 @@ public class UI {
      * @return A String containing the farewell message.
      */
     public String farewellUser() {
-        return """
+        String output =  """
                Bye. Hope to see you again soon!
                """;
+
+        return addRandomPersonalPhraseToMessage(output);
     }
 
 
@@ -232,12 +261,12 @@ public class UI {
         assert !e.trim().isEmpty()
                 : "Error message cannot be empty!";
 
-        String s = String.format("""
+        String output = String.format("""
                 OOPS!!! %s
                 """,
                 e);
 
-        return s;
+        return addRandomPersonalPhraseToMessage(output);
     }
 
 }
