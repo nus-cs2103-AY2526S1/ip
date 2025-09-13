@@ -9,9 +9,24 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The entry point for the BobbyWasabi JavaFX application.
+ * <p>
+ * This class is responsible for launching the JavaFX UI and initializing the main application logic.
+ * It sets up the primary stage, loads the FXML layout for the main window, and injects
+ * the BobbyWasabi instance into the controller.
+ */
 public class Main extends Application {
     private BobbyWasabi bobbywasabi = new BobbyWasabi();
 
+    /**
+     * Starts the JavaFX application.
+     * <p>
+     * Loads the main window from FXML, sets the scene on the provided stage,
+     * and links the BobbyWasabi instance to the controller.
+     *
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -26,6 +41,11 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * The main method to launch the JavaFX application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main (String[] args) {
         launch(args);
     }
