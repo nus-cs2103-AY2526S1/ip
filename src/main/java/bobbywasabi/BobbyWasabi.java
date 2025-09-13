@@ -2,19 +2,18 @@ package bobbywasabi;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
 import bobbywasabi.client.ClientList;
 import bobbywasabi.client.Client;
 import bobbywasabi.exceptions.BobbyWasabiException;
 import bobbywasabi.parser.Parser;
+import bobbywasabi.response.Response;
 import bobbywasabi.storage.Storage;
 import bobbywasabi.tasks.Deadline;
 import bobbywasabi.tasks.Event;
 import bobbywasabi.tasks.Task;
 import bobbywasabi.tasks.TaskList;
 import bobbywasabi.tasks.ToDo;
-import bobbywasabi.ui.UI;
 
 /**
  * Main class for the BobbyWasabi task manager application.
@@ -61,7 +60,7 @@ public class BobbyWasabi {
     private ClientList clientList;
     private TaskList taskList;
     private Storage storage;
-    private UI ui;
+    private Response botResponse;
     private String commandType;
 
     /**
@@ -70,7 +69,7 @@ public class BobbyWasabi {
      * an empty task list is initialized and an error is displayed.
      */
     public BobbyWasabi() {
-        this.ui = new UI();
+        this.botResponse = new Response();
         this.storage = new Storage("./data", "./data/BobbyWasabiTasks.txt",
                 "./data/BobbyWasabiClients.txt");
 
@@ -97,10 +96,10 @@ public class BobbyWasabi {
 
             storage.updateDataFileFromTasks(this.taskList);
 
-            return ui.markTaskMessage(indx, targetTask);
+            return botResponse.markTaskMessage(indx, targetTask);
 
         } catch (BobbyWasabiException e) {
-            return ui.generateErrorMsg(e.getMessage());
+            return botResponse.generateErrorMsg(e.getMessage());
         }
     }
 
@@ -117,10 +116,10 @@ public class BobbyWasabi {
 
             storage.updateDataFileFromTasks(this.taskList);
 
-            return ui.unmarkTaskMessage(indx, targetTask);
+            return botResponse.unmarkTaskMessage(indx, targetTask);
 
         } catch (BobbyWasabiException e) {
-            return ui.generateErrorMsg(e.getMessage());
+            return botResponse.generateErrorMsg(e.getMessage());
         }
     }
 
@@ -132,10 +131,10 @@ public class BobbyWasabi {
 
             storage.fileWrite(todo.getData(), Storage.StorageType.TASKLIST);
 
-            return ui.addTaskMessage(todo, this.taskList.size());
+            return botResponse.addTaskMessage(todo, this.taskList.size());
 
         } catch (BobbyWasabiException e) {
-            return ui.generateErrorMsg(e.getMessage());
+            return botResponse.generateErrorMsg(e.getMessage());
         }
     }
 
@@ -155,10 +154,10 @@ public class BobbyWasabi {
 
             storage.fileWrite(deadlineTask.getData(), Storage.StorageType.TASKLIST);
 
-            return ui.addTaskMessage(deadlineTask, this.taskList.size());
+            return botResponse.addTaskMessage(deadlineTask, this.taskList.size());
 
         } catch (BobbyWasabiException | DateTimeParseException e) {
-            return ui.generateErrorMsg(e.getMessage());
+            return botResponse.generateErrorMsg(e.getMessage());
         }
     }
 
@@ -178,10 +177,10 @@ public class BobbyWasabi {
             this.taskList.add(eventTask);
 
             storage.fileWrite(eventTask.getData(), Storage.StorageType.TASKLIST);
-            return ui.addTaskMessage(eventTask, this.taskList.size());
+            return botResponse.addTaskMessage(eventTask, this.taskList.size());
 
         } catch (BobbyWasabiException e) {
-            return ui.generateErrorMsg(e.getMessage());
+            return botResponse.generateErrorMsg(e.getMessage());
         }
     }
 
@@ -198,10 +197,10 @@ public class BobbyWasabi {
 
             storage.updateDataFileFromTasks(this.taskList);
 
-            return ui.deleteMessage(targetTask, this.taskList.size());
+            return botResponse.deleteMessage(targetTask, this.taskList.size());
 
         } catch (BobbyWasabiException e) {
-            return ui.generateErrorMsg(e.getMessage());
+            return botResponse.generateErrorMsg(e.getMessage());
         }
     }
 
@@ -211,10 +210,10 @@ public class BobbyWasabi {
             String keyword = Parser.parseFindCommand(userInput);
             String matchingTasks = this.taskList.findTasksThatMatchKeyword(keyword);
 
-            return ui.findMessage(matchingTasks);
+            return botResponse.findMessage(matchingTasks);
 
         } catch (BobbyWasabiException e) {
-            return ui.generateErrorMsg(e.getMessage());
+            return botResponse.generateErrorMsg(e.getMessage());
         }
     }
 
@@ -233,9 +232,9 @@ public class BobbyWasabi {
 
             this.storage.updateDataFileFromClients(this.clientList);
 
-            return ui.editClientMessage(targetClient);
+            return botResponse.editClientMessage(targetClient);
         } catch (BobbyWasabiException e) {
-            return ui.generateErrorMsg(e.getMessage());
+            return botResponse.generateErrorMsg(e.getMessage());
         }
     }
 
@@ -253,10 +252,10 @@ public class BobbyWasabi {
 
             storage.updateDataFileFromClients(this.clientList);
 
-            return ui.deleteClientMessage(targetClient, this.clientList.size());
+            return botResponse.deleteClientMessage(targetClient, this.clientList.size());
 
         } catch (BobbyWasabiException e) {
-            return ui.generateErrorMsg(e.getMessage());
+            return botResponse.generateErrorMsg(e.getMessage());
         }
     }
 
@@ -265,26 +264,26 @@ public class BobbyWasabi {
             Client client = Parser.parseAddClient(userInput);
             this.clientList.add(client);
             storage.fileWrite(client.getData(), Storage.StorageType.CLIENTLIST);
-            return ui.addClientMessage(client, this.clientList.size());
+            return botResponse.addClientMessage(client, this.clientList.size());
         } catch (BobbyWasabiException e) {
-            return ui.generateErrorMsg(e.getMessage());
+            return botResponse.generateErrorMsg(e.getMessage());
         }
     }
 
     public String processClientsCommand() {
-        return ui.clientsMessage(this.clientList);
+        return botResponse.clientsMessage(this.clientList);
     }
 
     public String processByeCommand() {
-        return this.ui.farewellUser();
+        return this.botResponse.farewellUser();
     }
 
     public String processListCommand() {
-        return ui.listMessage(this.taskList);
+        return botResponse.listMessage(this.taskList);
     }
 
     public String processDefaultCommand() {
-        return ui.invalidMessage();
+        return botResponse.invalidMessage();
     }
 
     /**

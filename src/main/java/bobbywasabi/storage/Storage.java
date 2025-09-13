@@ -255,7 +255,7 @@ public class Storage {
     public void updateDataFileFromClients(ClientList clients) throws BobbyWasabiException {
         try {
             // clear the current data file to prevent duplication when writing
-            PrintWriter writer = new PrintWriter(this.taskListFilePath);
+            PrintWriter writer = new PrintWriter(this.clientListFilePath);
             writer.print("");
             writer.close();
 

@@ -202,7 +202,7 @@ public class Parser {
                 : "";
 
         // check if contact is valid
-        if (!Parser.isStringAValidInteger(contactNumber)) {
+        if (!Parser.isContactAValidNumber(contactNumber)) {
             throw new BobbyWasabiException("Please provide a valid contact number for client!");
         }
 
@@ -246,7 +246,6 @@ public class Parser {
         int index = Parser.getIntegerFromString(trimmedIndex) - 1;
         String field = wordList[2].trim().toUpperCase();
         String newFieldContent = wordList[3].trim();
-        System.out.println(index);
 
         // check if index has a valid range
         if (index >= clientSize) {
@@ -258,7 +257,7 @@ public class Parser {
         // check if given argument is valid in accordance with field
         switch (field) {
         case ("CONTACTNUMBER"):
-            if (!isStringAValidInteger(newFieldContent)) {
+            if (!isContactAValidNumber(newFieldContent)) {
                 throw new BobbyWasabiException("Please provide a valid contact number!");
             }
             break;
@@ -303,6 +302,20 @@ public class Parser {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public static boolean isContactAValidNumber(String contact) {
+        if (!isStringAValidInteger(contact)) {
+            return false;
+        }
+
+        // check if contact number is 8 digits which matches Singaporean contact number format
+        if (contact.length() != 8) {
+            return false;
+        }
+
+        return true;
+
     }
 
     /**
