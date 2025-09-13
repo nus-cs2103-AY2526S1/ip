@@ -1,17 +1,13 @@
 package bobbywasabi;
 
-import bobbywasabi.BobbyWasabi;
-import bobbywasabi.client.Client;
 import bobbywasabi.client.ClientList;
 import bobbywasabi.storage.Storage;
 import bobbywasabi.tasks.*;
-import bobbywasabi.ui.UI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
 
 import java.lang.reflect.Field;
 
@@ -39,8 +35,8 @@ class BobbyWasabiTest {
         setPrivateField(bobby, "clientList", new ClientList());
 
         bobby.processTodoCommand("todo, Read book");
-        bobby.processDeadlineCommand("deadline, Submit report , 2099-12-31T23:59");
-        bobby.processAddClient("addclient , Alice,123,30,Engineer,PolicyA");
+        bobby.processDeadlineCommand("deadline, Submit report , 20/12/3100 2359");
+        bobby.processAddClient("addclient , Alice,12345678,30,Engineer,PolicyA");
     }
 
     @Test
@@ -131,10 +127,17 @@ class BobbyWasabiTest {
     }
 
     @Test
-    void testProcessEditClient_editValidClient_success() {
+    void testProcessEditClient_editValidClientName_success() {
         String result = bobby.processEditClient("editclient ,1,name,Bob");
         assertTrue(result.toLowerCase().contains("updated"));
         assertTrue(bobby.processClientsCommand().contains("Bob"));
+    }
+
+    @Test
+    void testProcessEditClient_editValidClientContact_success() {
+        String result = bobby.processEditClient("editclient ,1,contactnumber, 89898989");
+        assertTrue(result.toLowerCase().contains("updated"));
+        assertTrue(bobby.processClientsCommand().contains("89898989"));
     }
 
     @Test
@@ -159,14 +162,20 @@ class BobbyWasabiTest {
 
     @Test
     void testProcessAddClient_addValidClient_success() {
-        String result = bobby.processAddClient("addclient , John,456,25,Doctor,PolicyB");
+        String result = bobby.processAddClient("addclient , John,   45664545 ,25,Doctor,PolicyB");
         assertTrue(result.toLowerCase().contains("add"));
         assertTrue(bobby.processClientsCommand().contains("John"));
     }
 
     @Test
+    void testProcessAddClient_invalidContact_throwsException() {
+        String result = bobby.processAddClient("addclient, John, 4566 ,25,Doctor,PolicyB");
+        assertTrue(result.toLowerCase().contains("oops"));
+    }
+
+    @Test
     void testProcessAddClient_invalidClientDetails_throwsExeption() {
-        String result = bobby.processAddClient("addclient, Joh, 245, 23 ");
+        String result = bobby.processAddClient("addclient, Joh, 24555555, 23 ");
         assertTrue(result.toLowerCase().contains("oops"));
     }
 
@@ -186,6 +195,7 @@ class BobbyWasabiTest {
     void testProcessListCommand_listTasks_success() {
         String result = bobby.processListCommand();
         assertTrue(result.contains("Read book"));
+        assertTrue(result.contains("Submit report"));
     }
 
     @Test
@@ -207,7 +217,7 @@ class BobbyWasabiTest {
         assertTrue(bobby.getResponse("delete,1").toLowerCase().contains("removed"));
         assertTrue(bobby.getResponse("find,eggs").toLowerCase().contains("eggs"));
         assertTrue(bobby.getResponse("clients").contains("Alice"));
-        assertTrue(bobby.getResponse("addclient,Jane,789,40,Lawyer,PolicyC").toLowerCase().contains("add"));
+        assertTrue(bobby.getResponse("addclient,Jane,78988888,40,Lawyer,PolicyC").toLowerCase().contains("add"));
         assertTrue(bobby.getResponse("deleteclient,1").toLowerCase().contains("removed this client"));
         assertTrue(bobby.getResponse("editclient ,1,name,Jane").toLowerCase().contains("updated"));
         assertTrue(bobby.getResponse("nonsense").toLowerCase().contains("oops"));
