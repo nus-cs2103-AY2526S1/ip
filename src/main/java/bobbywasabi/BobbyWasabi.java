@@ -62,6 +62,7 @@ public class BobbyWasabi {
     private TaskList taskList;
     private Storage storage;
     private UI ui;
+    private String commandType;
 
     /**
      * Constructs a new BobbyWasabi instance.
@@ -78,8 +79,8 @@ public class BobbyWasabi {
             this.taskList = storage.loadTaskList();
             this.clientList = storage.loadClientList();
         } catch (BobbyWasabiException e) {
-            ui.generateErrorMsg(e.getMessage());
             this.taskList = new TaskList();
+            this.clientList = new ClientList();
         }
     }
 
@@ -169,8 +170,9 @@ public class BobbyWasabi {
                     : "Details in DEADLINE command is insufficient!";
 
             String description = details[0];
-            String start = details[1];
-            String end = details[2];
+            LocalDateTime[] timings = Parser.parseEventDateString(details[1], details[2]);
+            LocalDateTime start = timings[0];
+            LocalDateTime end = timings[1];
 
             Task eventTask = new Event(description, false, start, end);
             this.taskList.add(eventTask);
@@ -296,6 +298,8 @@ public class BobbyWasabi {
         assert command != null
                 : "Command cannot be null!";
 
+        this.commandType = command.name();
+
         switch (command) {
         case BYE:
             return this.processByeCommand();
@@ -326,6 +330,10 @@ public class BobbyWasabi {
         default:
             return this.processDefaultCommand();
         }
+    }
+
+    public String getCommandType() {
+        return this.commandType;
     }
 
 }
