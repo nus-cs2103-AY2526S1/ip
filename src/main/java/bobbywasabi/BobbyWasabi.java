@@ -17,8 +17,9 @@ import bobbywasabi.tasks.ToDo;
 
 /**
  * Main class for the BobbyWasabi task manager application.
- * This class handles command parsing, task list management,
- * and interaction between the user interface, storage, and tasks.
+ * <p>
+ * Handles parsing of user commands, management of task and client lists,
+ * interaction with persistent storage, and communication with the UI layer via {@link Response}.
  */
 public class BobbyWasabi {
 
@@ -43,10 +44,10 @@ public class BobbyWasabi {
         OTHERS;
 
         /**
-         * Converts a user input string to a corresponding Command.
+         * Converts a user input string into the corresponding {@link Command}.
          *
-         * @param input User command input.
-         * @return Corresponding Command enum value.
+         * @param input User input string representing a command.
+         * @return The matching {@link Command} enum value, or {@link #OTHERS} if input is unrecognized.
          */
         public static Command toCommand(String input) {
             try {
@@ -65,8 +66,9 @@ public class BobbyWasabi {
 
     /**
      * Constructs a new BobbyWasabi instance.
-     * Initializes the UI, Storage, and TaskList. If loading from storage fails,
-     * an empty task list is initialized and an error is displayed.
+     * <p>
+     * Initializes the {@link Response}, {@link Storage}, {@link TaskList}, and {@link ClientList}.
+     * If loading from storage fails, empty task and client lists are created.
      */
     public BobbyWasabi() {
         this.botResponse = new Response();
@@ -83,6 +85,12 @@ public class BobbyWasabi {
         }
     }
 
+    /**
+     * Processes a MARK command, marking the specified task as completed.
+     *
+     * @param userInput User command input containing the task index.
+     * @return Confirmation message or error message via {@link Response}.
+     */
     public String processMarkCommand(String userInput) {
         try {
 
@@ -103,6 +111,12 @@ public class BobbyWasabi {
         }
     }
 
+    /**
+     * Processes an UNMARK command, marking the specified task as not completed.
+     *
+     * @param userInput User command input containing the task index.
+     * @return Confirmation message or error message via {@link Response}.
+     */
     public String processUnmarkCommand(String userInput) {
         try {
 
@@ -123,6 +137,12 @@ public class BobbyWasabi {
         }
     }
 
+    /**
+     * Processes a TODO command, adding a new {@link ToDo} task.
+     *
+     * @param userInput User command input containing the task description.
+     * @return Confirmation message or error message via {@link Response}.
+     */
     public String processTodoCommand(String userInput) {
         try {
             String description = Parser.parseTodo(userInput);
@@ -138,6 +158,12 @@ public class BobbyWasabi {
         }
     }
 
+    /**
+     * Processes a DEADLINE command, adding a new {@link Deadline} task with a specified due date.
+     *
+     * @param userInput User command input containing the task description and deadline.
+     * @return Confirmation message or error message via {@link Response}.
+     */
     public String processDeadlineCommand(String userInput) {
         try {
             String[] details = Parser.parseDeadline(userInput);
@@ -161,6 +187,12 @@ public class BobbyWasabi {
         }
     }
 
+    /**
+     * Processes an EVENT command, adding a new {@link Event} task with a start and end time.
+     *
+     * @param userInput User command input containing the event description and timings.
+     * @return Confirmation message or error message via {@link Response}.
+     */
     public String processEventCommand(String userInput) {
         try {
             String[] details = Parser.parseEvent(userInput);
@@ -184,6 +216,12 @@ public class BobbyWasabi {
         }
     }
 
+    /**
+     * Processes a DELETE command, removing a task from the task list.
+     *
+     * @param userInput User command input containing the task index.
+     * @return Confirmation message or error message via {@link Response}.
+     */
     public String processDeleteCommand(String userInput) {
         try {
 
@@ -204,6 +242,12 @@ public class BobbyWasabi {
         }
     }
 
+    /**
+     * Processes a FIND command, searching for tasks matching a keyword.
+     *
+     * @param userInput User command input containing the search keyword.
+     * @return Search result message or error message via {@link Response}.
+     */
     public String processFindCommand(String userInput) {
         try {
 
@@ -217,8 +261,12 @@ public class BobbyWasabi {
         }
     }
 
-
-    //edit clients -> 1 name/contact/age/occupation/currentpolicies what you want to replace
+    /**
+     * Processes an EDITCLIENT command, updating a specified field of a client.
+     *
+     * @param userInput User command input containing the client index, field name, and new value.
+     * @return Confirmation message or error message via {@link Response}.
+     */
     public String processEditClient(String userInput) {
         try {
             String[] details = Parser.parseEditClient(userInput, this.clientList.size());
@@ -238,7 +286,12 @@ public class BobbyWasabi {
         }
     }
 
-
+    /**
+     * Processes a DELETECLIENT command, removing a client from the client list.
+     *
+     * @param userInput User command input containing the client index.
+     * @return Confirmation message or error message via {@link Response}.
+     */
     public String processDeleteClient(String userInput) {
         try {
 
@@ -259,6 +312,12 @@ public class BobbyWasabi {
         }
     }
 
+    /**
+     * Processes an ADDCLIENT command, adding a new {@link Client} to the client list.
+     *
+     * @param userInput User command input containing client details.
+     * @return Confirmation message or error message via {@link Response}.
+     */
     public String processAddClient(String userInput) {
         try {
             Client client = Parser.parseAddClient(userInput);
@@ -270,25 +329,50 @@ public class BobbyWasabi {
         }
     }
 
+    /**
+     * Processes the CLIENTS command, returning a formatted list of all clients.
+     *
+     * @return Client list message via {@link Response}.
+     */
     public String processClientsCommand() {
         return botResponse.clientsMessage(this.clientList);
     }
 
+    /**
+     * Processes the BYE command, returning a farewell message.
+     *
+     * @return Farewell message via {@link Response}.
+     */
     public String processByeCommand() {
         return this.botResponse.farewellUser();
     }
 
+    /**
+     * Processes the LIST command, returning a formatted list of all tasks.
+     *
+     * @return Task list message via {@link Response}.
+     */
     public String processListCommand() {
         return botResponse.listMessage(this.taskList);
     }
 
+    /**
+     * Processes an unrecognized command, returning a generic invalid command message.
+     *
+     * @return Error message via {@link Response}.
+     */
     public String processDefaultCommand() {
         return botResponse.invalidMessage();
     }
 
     /**
-     * Starts the BobbyWasabi main command loop.
-     * Continuously reads and executes user commands until the BYE command is received.
+     * Parses and executes a user input command, routing it to the appropriate processor method.
+     * <p>
+     * Supports all commands defined in {@link Command}. If the input does not match a known command,
+     * it falls back to {@link #processDefaultCommand()}.
+     *
+     * @param userInput Raw user input string.
+     * @return Formatted response message corresponding to the executed command.
      */
     public String getResponse(String userInput) {
 
@@ -331,6 +415,11 @@ public class BobbyWasabi {
         }
     }
 
+    /**
+     * Returns the type of the last processed command.
+     *
+     * @return Command type as a string.
+     */
     public String getCommandType() {
         return this.commandType;
     }
