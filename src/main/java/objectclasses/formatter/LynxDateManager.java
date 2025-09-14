@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import objectclasses.exception.DateFormatException;
 import objectclasses.exception.LynxException;
 
 /**
@@ -37,10 +38,10 @@ public abstract class LynxDateManager {
                 // Date only, set time to 00:00
                 return LocalDateTime.parse(input + "-00-00", DEFAULT_FORMAT);
             } else {
-                throw new LynxException("Invalid date format. Please use yyyy-MM-dd-HH-mm.");
+                throw new DateFormatException();
             }
         } catch (DateTimeParseException e) {
-            throw new LynxException("Invalid date. Please retry using yyyy-MM-dd-HH-mm.");
+            throw new DateFormatException();
         }
     }
 

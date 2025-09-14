@@ -52,6 +52,7 @@ public class LynxControl {
      *
      * @param input Input command.
      * @return Response from executing the command.
+     * @throws LynxException If command is invalid.
      */
     public String scanForCommandsGui(String input) throws LynxException {
         input = input.trim();
@@ -105,9 +106,7 @@ public class LynxControl {
 
         if (input.toLowerCase().contains("lynx")) {
             throw LynxException.secret();
-        }
-
-        if (!input.isEmpty()) {
+        } else if (!input.isEmpty()) {
             throw CommandFormatException.invalidCommand();
         } else {
             return "";

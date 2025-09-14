@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
 import objectclasses.exception.LynxException;
+import objectclasses.exception.LynxFileException;
 import objectclasses.task.DeadlineTask;
 import objectclasses.task.EventTask;
 import objectclasses.task.Task;
@@ -63,7 +64,7 @@ public abstract class LynxStorage {
         }
 
         if (errorCount > 0) {
-            throw new LynxException("⚠️ Lynx skipped " + errorCount + " invalid task(s) during loading.");
+            throw LynxFileException.loadError(errorCount);
         }
     }
 

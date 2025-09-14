@@ -2,6 +2,7 @@ package objectclasses.task;
 
 import java.time.LocalDateTime;
 
+import objectclasses.exception.InvalidTaskException;
 import objectclasses.exception.LynxException;
 import objectclasses.exception.MissingArgumentException;
 import objectclasses.formatter.LynxDateManager;
@@ -43,7 +44,7 @@ public class EventTask extends Task {
      */
     public static Task of(String[] parts) throws LynxException {
         if (parts.length != 7) {
-            throw new LynxException("");
+            throw new MissingArgumentException("event");
         }
 
         String status = parts[1];
@@ -73,25 +74,22 @@ public class EventTask extends Task {
 
         String[] parts = input.substring(5).split(" /from ", 2);
         if (parts.length < 2) {
-            throw new LynxException("Please specify a start time using ' /from '.");
+            throw new MissingArgumentException("event");
         }
 
         String name = parts[0].trim();
-        if (name.isEmpty()) {
-            throw new LynxException("Please specify a task name.");
-        }
         checkName(name);
 
         parts = parts[1].split(" /to ", 2);
         if (parts.length < 2) {
-            throw new LynxException("Please specify an end time using ' /to '.");
+            throw new MissingArgumentException("event");
         }
         LocalDateTime from = LynxDateManager.parseDateTime(parts[0].trim());
 
         parts = parts[1].split(" /p ");
         LocalDateTime to = LynxDateManager.parseDateTime(parts[0].trim());
         if (from.isAfter(to)) {
-            throw new LynxException("The start date/time cannot be after the end date/time.");
+            throw InvalidTaskException.invalidDuration();
         }
 
         int priority = 0;

@@ -3,6 +3,8 @@ package objectclasses.task;
 import java.time.LocalDateTime;
 
 import objectclasses.exception.CommandFormatException;
+import objectclasses.exception.InvalidTaskException;
+import objectclasses.exception.LynxEnumException;
 import objectclasses.exception.LynxException;
 
 /**
@@ -50,7 +52,7 @@ public abstract class Task implements Comparable<Task> {
                 return EVENT;
             }
             default -> {
-                throw new LynxException("Invalid type.");
+                throw new LynxEnumException("Invalid type.");
             }
             }
         }
@@ -95,7 +97,7 @@ public abstract class Task implements Comparable<Task> {
                 return EXPIRED;
             }
             default -> {
-                throw new LynxException("Invalid status.");
+                throw new LynxEnumException("Invalid status.");
             }
             }
         }
@@ -130,13 +132,13 @@ public abstract class Task implements Comparable<Task> {
      */
     public static void checkName(String name) throws LynxException {
         if (name.isBlank()) {
-            throw new LynxException("Task name cannot be blank.");
+            throw InvalidTaskException.blankName();
         }
         if (name.contains("/")) {
-            throw new LynxException("Task name cannot contain the \"/\" character.");
+            throw InvalidTaskException.invalidName();
         }
         if (name.length() > 150) {
-            throw new LynxException("Task name cannot exceed 150 characters.");
+            throw InvalidTaskException.longName();
         }
     }
 

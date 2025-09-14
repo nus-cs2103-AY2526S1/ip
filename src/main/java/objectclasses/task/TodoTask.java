@@ -31,7 +31,7 @@ public class TodoTask extends Task {
      */
     public static Task of(String[] parts) throws LynxException {
         if (parts.length != 5) {
-            throw new LynxException("");
+            throw new MissingArgumentException("todo");
         }
 
         String status = parts[1];
@@ -59,9 +59,6 @@ public class TodoTask extends Task {
 
         String[] parts = input.substring(4).split(" /p ", 2);
         String name = parts[0].trim();
-        if (name.isEmpty()) {
-            throw new LynxException("Please specify a task name.");
-        }
         checkName(name);
 
         int priority = 0;

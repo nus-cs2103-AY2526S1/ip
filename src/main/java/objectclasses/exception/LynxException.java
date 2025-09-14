@@ -12,7 +12,7 @@ public class LynxException extends Exception {
     }
 
     /**
-     * Secret dialogue.
+     * Summons a... Lynx?
      */
     public static LynxException secret() {
         LynxException secret = new LynxException("* unskippable monologue *");

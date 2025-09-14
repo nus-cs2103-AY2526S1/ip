@@ -45,4 +45,14 @@ public class LynxFileException extends LynxException {
                 + "Any changes made during this session may not be saved. Try \"save\" to reattempt.");
     }
 
+    /**
+     * Returns an exception detailing the number of skipped lines during a failed <code>reload</code> attempt.
+     *
+     * @param errorCount Number of skipped lines.
+     * @return Details wrapped in a <code>LynxFileException</code>
+     */
+    public static LynxFileException loadError(int errorCount) {
+        return new LynxFileException("⚠️ Lynx skipped " + errorCount + " invalid task(s) during loading.");
+    }
+
 }

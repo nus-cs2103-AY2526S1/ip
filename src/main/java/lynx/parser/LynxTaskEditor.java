@@ -106,7 +106,7 @@ public class LynxTaskEditor {
             Consumer<Task> remind = task -> {};
             return executeCommand(command, remind);
         } catch (LynxException e) {
-            return "Failed to detect urgent tasks. Please try reloading.";
+            return "";
         }
     }
 
@@ -121,7 +121,7 @@ public class LynxTaskEditor {
             Consumer<Task> remind = task -> {};
             return executeCommand(command, remind);
         } catch (LynxException e) {
-            return "Failed to detect incomplete tasks. Please try reloading.";
+            return "";
         }
     }
 

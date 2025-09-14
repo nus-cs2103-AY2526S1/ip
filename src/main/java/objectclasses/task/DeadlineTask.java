@@ -39,7 +39,7 @@ public class DeadlineTask extends Task {
      */
     public static Task of(String[] parts) throws LynxException {
         if (parts.length != 6) {
-            throw new LynxException("");
+            throw new MissingArgumentException("deadline");
         }
 
         String status = parts[1];
@@ -67,13 +67,10 @@ public class DeadlineTask extends Task {
         }
         String[] parts = input.substring(8).split(" /by ", 2);
         if (parts.length < 2) {
-            throw new LynxException("Please specify a deadline using ' /by '.");
+            throw new MissingArgumentException("deadline");
         }
 
         String name = parts[0].trim();
-        if (name.isEmpty()) {
-            throw new LynxException("Please specify a task name.");
-        }
         checkName(name);
 
         parts = parts[1].split(" /p ", 2);
