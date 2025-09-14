@@ -36,6 +36,7 @@ public class Storage {
      *                     {@code "data/eve.txt"})
      */
     public Storage(String relativePath) {
+        assert relativePath != null && !relativePath.trim().isEmpty() : "File path should not be null or empty";
         this.file = Paths.get(relativePath);
     }
 
@@ -59,6 +60,9 @@ public class Storage {
                 }
                 return out;
             }
+
+            assert Files.isReadable(file) : "Data file is not readable";
+
             try (BufferedReader br = Files.newBufferedReader(file, StandardCharsets.UTF_8)) {
                 String line;
                 while ((line = br.readLine()) != null) {
@@ -82,6 +86,7 @@ public class Storage {
      * @param tasks the list of tasks to be written to storage
      */
     public void save(List<Task> tasks) {
+        assert tasks != null : "Tasks list to save cannot be null";
         try {
             Path parent = file.getParent();
             if (parent != null && !Files.exists(parent)) {
@@ -119,8 +124,7 @@ public class Storage {
         if (line == null)
             return null;
         String[] parts = line.split("\\s*\\|\\s*");
-        if (parts.length < 3)
-            return null;
+        assert parts.length >= 3 : "Malformed line with fewer than 3 parts: " + line;
 
         String type = parts[0].trim();
         boolean isDone = "1".equals(parts[1].trim());
@@ -165,6 +169,7 @@ public class Storage {
      * @return a string representation of the task
      */
     private String serialize(Task t) {
+        assert t != null : "Cannot serialize a null task";
         if (t instanceof Todo) {
             return String.format("T | %d | %s", isDone(t), t.getDescription());
         } else if (t instanceof Deadline) {
