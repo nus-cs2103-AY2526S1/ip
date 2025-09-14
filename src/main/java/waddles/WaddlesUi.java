@@ -75,6 +75,20 @@ public class WaddlesUi {
     }
 
     /**
+     * Returns a verification message for tagging a task.
+     */
+    public String makeTaggedMessage(Task task) {
+        return String.format("I've added your tag to this task:\n%s", task);
+    }
+
+    /**
+     * Returns a verification message for untagging a task.
+     */
+    public String makeUntaggedMessage(Task task) {
+        return String.format("I've removed your tag from this task:\n%s", task);
+    }
+
+    /**
      * Returns an error message.
      */
     public String makeErrorMessage(WaddlesException error) {

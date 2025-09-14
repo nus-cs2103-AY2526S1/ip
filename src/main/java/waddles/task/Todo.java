@@ -4,8 +4,8 @@ package waddles.task;
  * Todos are the most generic task - they only have a description and completion status.
  */
 public class Todo extends Task {
-    public Todo(String description, boolean isDone) {
-        super(description, isDone);
+    public Todo(String description, boolean isDone, Tags tags) {
+        super(description, isDone, tags);
     }
 
     /**
@@ -14,10 +14,11 @@ public class Todo extends Task {
      */
     public static Todo fromSerializedString(String serialized) {
         String[] fields = Task.splitSerialized(serialized);
-        assert fields.length == 3 : "Failed to deserialize todo - invalid format";
+        assert fields.length == 4 : "Failed to deserialize todo - invalid format";
         boolean isDone = fields[1].equals("1");
         String description = fields[2];
-        return new Todo(description, isDone);
+        Tags tags = Tags.fromSerializedString(fields[3]);
+        return new Todo(description, isDone, tags);
     }
 
     /**

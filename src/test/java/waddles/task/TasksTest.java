@@ -11,7 +11,7 @@ public class TasksTest {
     @Test
     public void get_valid_success() throws WaddlesException {
         Tasks tasks = new Tasks();
-        tasks.add(new Todo("return book", false));
+        tasks.add(new Todo("return book", false, new Tags()));
         tasks.get(1);
     }
 
@@ -29,14 +29,14 @@ public class TasksTest {
     @Test
     public void remove_valid_success() throws WaddlesException {
         Tasks tasks = new Tasks();
-        tasks.add(new Todo("return book", false));
+        tasks.add(new Todo("return book", false, new Tags()));
         tasks.remove(1);
     }
 
     @Test
     public void remove_outOfBounds_throwsException() {
         Tasks tasks = new Tasks();
-        tasks.add(new Todo("return book", false));
+        tasks.add(new Todo("return book", false, new Tags()));
         try {
             tasks.remove(2);
             fail();
