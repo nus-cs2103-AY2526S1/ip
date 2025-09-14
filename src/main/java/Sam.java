@@ -3,6 +3,7 @@ import java.util.Scanner;
 import sam.parser.Parser;
 import sam.task.Deadline;
 import sam.task.Event;
+import sam.task.Priority;
 import sam.task.Task;
 import sam.task.TaskList;
 import sam.task.Todo;
@@ -142,6 +143,10 @@ public class Sam {
                     return findOutput.toString().trim();
                 }
 
+                case PRIORITY: {
+                    return handlePriorityCommand(rest);
+                }
+
                 case UNKNOWN:
                     throw new UnknownCommandException();
             }
@@ -151,6 +156,39 @@ public class Sam {
             return "OOPS!!! Task number must be an integer.";
         }
         return "";
+    }
+
+    /**
+     * Handles the priority command to change task priority.
+     * @param rest The task number and priority level
+     * @return The response message after changing priority
+     * @throws SamException If the format is invalid
+     */
+    private String handlePriorityCommand(String rest) throws SamException {
+        if (rest.isEmpty()) {
+            throw new SamException("OOPS!!! Use: priority <task_number> <priority_level>");
+        }
+        
+        String[] parts = rest.trim().split("\\s+", 2);
+        if (parts.length != 2) {
+            throw new SamException("OOPS!!! Use: priority <task_number> <priority_level>");
+        }
+        
+        int idx = parseIndex(parts[0], tasks.size());
+        Priority newPriority = Priority.fromString(parts[1]);
+        
+        Task task = tasks.get(idx);
+        task.setPriority(newPriority);
+        saveTasks();
+        
+        return "Nice! I've updated the priority of this task:\n" + task;
+    }
+
+    /**
+     * Helper method to save tasks to storage.
+     */
+    private void saveTasks() {
+        storage.save(tasks.getTasks());
     }
 
     /**
