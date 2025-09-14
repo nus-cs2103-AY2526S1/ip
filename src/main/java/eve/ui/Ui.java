@@ -134,6 +134,7 @@ public class Ui {
                 "  delete <n>            - Delete task",
                 "  find <kw>             - Search tasks (if you implemented Level-9)",
                 "  bye                   - Exit",
+                "  period <desc> /from /to    : Adds a 'do within period' task",
                 LINE);
     }
 

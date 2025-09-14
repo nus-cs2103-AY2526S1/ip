@@ -8,6 +8,7 @@ import java.util.*;
 import eve.tasks.Task;
 import eve.tasks.Todo;
 import eve.tasks.Deadline;
+import eve.tasks.DoWithinPeriod;
 import eve.tasks.Event;
 
 /**
@@ -154,6 +155,16 @@ public class Storage {
                         t.markAsDone();
                     return t;
                 }
+
+                case "P": {
+                    if (parts.length < 5)
+                        return null;
+                    Task t = new DoWithinPeriod(parts[2].trim(), parts[3].trim(), parts[4].trim());
+                    if (isDone)
+                        t.markAsDone();
+                    return t;
+                }
+
                 default:
                     return null;
             }
@@ -180,6 +191,10 @@ public class Storage {
             Event e = (Event) t;
             return String.format("E | %d | %s | %s | %s",
                     isDone(t), e.getDescription(), e.getFromToken(), e.getToToken());
+        } else if (t instanceof DoWithinPeriod) {
+            DoWithinPeriod p = (DoWithinPeriod) t;
+            return String.format("P | %d | %s | %s | %s",
+                    isDone(t), p.getDescription(), p.getStart(), p.getEnd());
         }
         return String.format("T | %d | %s", isDone(t), t.getDescription());
     }
