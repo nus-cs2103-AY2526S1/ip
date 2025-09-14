@@ -5,7 +5,7 @@ import java.util.List;
 
 import eve.tasks.Task;
 
-public class ui {
+public class Ui {
     private static final String LINE = "____________________________________________________________";
     private static final String LOGO = " ______   __      __   ______ \n"
             + "| _____|  \\ \\    / /  | _____|\n"
