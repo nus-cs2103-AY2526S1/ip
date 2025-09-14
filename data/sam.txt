@@ -1,6 +1,4 @@
-T | 0 | ]  ]  ]  ]  ]  2100 tutorial
-T | 0 | ]  ]  ]  ]  ]  watch 2100 lect
-T | 0 | ]  ]  ]  ]  2100 tutoria
-T | 0 | ]  ]  ]  2100 assignmen
-T | 0 | ]  ]  2100 tutorial
-T | 0 | ]  tutorial
+T | 0 | ]  ]  ]  ]  2100 assignmen
+T | 0 | ]  ]  ]  2100 tutorial
+T | 0 | ]  ]  tutorial
+T | 0 | ]  2100 tutorial

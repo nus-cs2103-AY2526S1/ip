@@ -9,9 +9,11 @@ public class TaskTest {
     public void testTaskCreation() {
         Task task = new Task("Test task");
         String taskString = task.toString();
-        String description = taskString.substring(taskString.indexOf("]") + 2).trim();
+        // Extract description from format: "[ ] [MEDIUM] Test task"
+        String description = taskString.substring(taskString.lastIndexOf("]") + 2).trim();
         assertEquals("Test task", description);
         assertFalse(task.isDone());
+        assertEquals(Priority.MEDIUM, task.getPriority());
     }
 
     @Test
