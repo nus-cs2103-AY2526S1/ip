@@ -32,6 +32,7 @@ public class Storage {
      * @param filePath The path to the file where tasks will be stored
      */
     public Storage(final String filePath) {
+        assert filePath != null && !filePath.trim().isEmpty() : "File path cannot be null or empty";
         this.filePath = Paths.get(filePath);
     }
 
@@ -68,9 +69,11 @@ public class Storage {
      * @param tasks The ArrayList of tasks to be saved
      */
     public void save(final ArrayList<Task> tasks) {
+        assert tasks != null : "Task list cannot be null";
         createFileAndParent();
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
             for (Task task : tasks) {
+                assert task != null : "Individual tasks cannot be null";
                 writer.write(formatTask(task));
                 writer.newLine();
             }
@@ -116,15 +119,20 @@ public class Storage {
     private Task parseTask(final String line) {
         // Example: T | 1 | read book
         // Implement parsing logic based on your Task/Deadline/Event/Todo classes
+        assert line != null : "Line cannot be null";
         String[] parts = line.split(" \\| ");
         try {
+            assert parts.length >= TASK_TYPE_INDEX + 1 : "Line must contain task type";
             switch (parts[TASK_TYPE_INDEX]) {
                 case "T":
+                    assert parts.length >= TASK_DESCRIPTION_INDEX + 1 : "Todo must have description";
                     return new Todo(parts[TASK_DESCRIPTION_INDEX], parts[TASK_STATUS_INDEX].equals("1"));
                 case "D":
+                    assert parts.length >= TASK_EXTRA_INFO_INDEX + 1 : "Deadline must have due date";
                     return new Deadline(parts[TASK_DESCRIPTION_INDEX], parts[TASK_STATUS_INDEX].equals("1"), parts[TASK_EXTRA_INFO_INDEX]);
                 case "E":
                     // For Event, expect: E | 1 | description | from | to
+                    assert parts.length >= TASK_SECOND_EXTRA_INFO_INDEX + 1 : "Event must have start and end times";
                     return new Event(parts[TASK_DESCRIPTION_INDEX], parts[TASK_STATUS_INDEX].equals("1"), parts[TASK_EXTRA_INFO_INDEX], parts[TASK_SECOND_EXTRA_INFO_INDEX]);
                 default:
                     return null;
@@ -136,6 +144,7 @@ public class Storage {
     }
 
     private String formatTask(final Task task) {
+        assert task != null : "Task cannot be null";
         String status = task.isDone() ? "1" : "0";
         if (task instanceof Todo) {
             return "T | " + status + " | " + task.toString().substring(task.toString().indexOf(" ") + 1);
