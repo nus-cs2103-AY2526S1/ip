@@ -13,8 +13,8 @@ import eve.util.DateTimeUtil;
  * representations (enums, indices, or parts objects) that the main
  * application logic can handle.
  */
-public final class parser {
-    private parser() {
+public final class Parser {
+    private Parser() {
     }
 
     /**
