@@ -162,11 +162,14 @@ public class Sam {
      * @throws SamException If the argument is invalid or the index is out of bounds
      */
     private static int parseIndex(final String arg, final int size) throws SamException {
+        assert arg != null && !arg.trim().isEmpty() : "Argument cannot be null or empty";
+        assert size >= 0 : "Size must be non-negative";
         int n = Integer.parseInt(arg);
         int idx = n - 1;
         if (idx < 0 || idx >= size) {
             throw new SamException("OOPS!!! Invalid task number.");
         }
+        assert idx >= 0 && idx < size : "Parsed index must be valid";
         return idx;
     }
 
