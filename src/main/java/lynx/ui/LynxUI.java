@@ -35,8 +35,8 @@ public abstract class LynxUI {
      * Returns a greeting.
      */
     public static String hello() {
-        return "Hello! I'm TaskLynx. \n"
-                + "Your dependable assistant for tracking tasks, managing deadlines, and keeping your work organized.";
+        return "Hello! I'm Task *ahem* \"Lynx\". \n"
+                + "Your dependable assistant for tracking and managing tasks.";
     }
 
     /**
@@ -92,8 +92,8 @@ public abstract class LynxUI {
                      unmark /all               - Unmark all tasks as not done
                 
                 Advanced usage (chaining):
-                     list /type deadline /status incomplete /on 2025-09-01 /key attendacodingcourse
-                     * [D][I] Attend a Coding Course by John (by: Sep 1 2025 00:00) (id:1)
+                     list /p 1 /type deadline /status incomplete /key attendacodingcourse /on 2025-09-01 /id 1
+                     * [1][D][I] Attend a Coding Course by John (by: Sep 1 2025 00:00) (id:1)
                 """;
     }
 

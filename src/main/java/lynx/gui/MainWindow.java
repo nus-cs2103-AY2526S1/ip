@@ -73,7 +73,7 @@ public class MainWindow extends AnchorPane {
         try {
             taskLynx.save();
         } catch (LynxException e) {
-            String warning = String.format("%s%nUse \"bye!\" if you need to force quit.", e.getMessage());
+            String warning = String.format("%s%nUse \"bye!\" to put me out of this misery.", e.getMessage());
             dialogContainer.getChildren().addAll(DialogBox.getLynxDialog(warning, lynxImage));
             return;
         }
@@ -85,7 +85,8 @@ public class MainWindow extends AnchorPane {
      */
     private void cueExit() {
         isExiting = true;
-        dialogContainer.getChildren().addAll(DialogBox.getLynxDialog("Auto-exiting in 5 seconds.", lynxImage));
+        dialogContainer.getChildren().add(
+                DialogBox.getLynxDialog("* Slowly fades away * (in 5 seconds)", lynxImage));
         PauseTransition delay = new PauseTransition(Duration.seconds(5));
         delay.setOnFinished(event -> Platform.exit());
         delay.play();
@@ -110,6 +111,12 @@ public class MainWindow extends AnchorPane {
         if (userText.trim().equals("bye")) {
             dialogContainer.getChildren().addAll(DialogBox.getUserDialog(userText, userImage));
             farewell();
+            userInput.clear();
+            return;
+        }
+
+        if (userText.trim().equals("clear")) {
+            dialogContainer.getChildren().clear();
             userInput.clear();
             return;
         }

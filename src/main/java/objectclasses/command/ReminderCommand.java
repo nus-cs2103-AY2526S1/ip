@@ -63,10 +63,10 @@ public class ReminderCommand extends LynxCommand {
     public String actionDialogue() {
         switch (type) {
         case URGENT -> {
-            return "Here are the tasks requiring completion today:";
+            return "Take responsibility and complete your tasks:";
         }
         case INCOMPLETE -> {
-            return "Reminder for your outstanding tasks:";
+            return "Start early. Begin working on these tasks now:";
         }
         default -> {
             return "";

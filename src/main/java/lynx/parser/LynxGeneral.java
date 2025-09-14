@@ -24,7 +24,7 @@ public abstract class LynxGeneral {
     public static String reload(LynxFileManager fileManager, LynxTaskList taskList) throws LynxException {
         fileManager.createFile();
         LynxStorage.loadTasks(fileManager.readFromFile(), taskList);
-        return "Load successful!";
+        return "Caught all your tasks!";
     }
 
     /**
@@ -38,7 +38,7 @@ public abstract class LynxGeneral {
     public static String save(LynxFileManager fileManager, LynxTaskList taskList) throws LynxException {
         fileManager.createFile();
         fileManager.writeToFile(LynxStorage.unloadTasks(taskList));
-        return "Save successful!";
+        return "Kept all your tasks!";
     }
 
     /**

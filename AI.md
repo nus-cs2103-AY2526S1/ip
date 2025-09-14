@@ -25,3 +25,7 @@ As the project gets larger and more divided, it becomes harder and harder to tra
 using AI. Therefore, from here on, I mostly used AI to help generate smaller bits of independent code, a good example
 being parsing methods. Otherwise, I also used AI to write the instructions in the in-program user guide. I tried using
 it for documentation, but I preferred to write it myself since I have a better idea of my own intentions.
+
+Week 6 (A-BetterGui)
+----------
+I used AI a lot to help me with designing and writing code for the GUI.

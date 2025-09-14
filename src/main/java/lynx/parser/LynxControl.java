@@ -57,7 +57,7 @@ public class LynxControl {
     public String scanForCommandsGui(String input) throws LynxException {
         input = input.trim();
         if (input.length() > 300) {
-            return "Sorry, commands cannot exceed 300 characters in length.%n";
+            return "Sorry, I'm only partially literate. Keep your commands under 300 characters.";
         }
 
         try {
@@ -132,7 +132,7 @@ public class LynxControl {
                     scanner.close();
                     break;
                 } catch (LynxException e) {
-                    LynxUI.printBox(e.getMessage() + "\nUse \"bye!\" if you need to force quit.");
+                    LynxUI.printBox(e.getMessage() + "\nUse \"bye!\" to put me out of this misery.");
                     continue;
                 }
             }

@@ -6,7 +6,7 @@ package objectclasses.exception;
 public class DateFormatException extends LynxException {
 
     public DateFormatException() {
-        super("Invalid date. Please retry using yyyy-MM-dd-HH-mm.");
+        super("I don't recognise such a date. Are you using a sundial? Please retry using yyyy-MM-dd-HH-mm instead.");
     }
 
 }

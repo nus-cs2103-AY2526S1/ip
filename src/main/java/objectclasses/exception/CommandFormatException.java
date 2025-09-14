@@ -10,8 +10,8 @@ public class CommandFormatException extends LynxException {
     }
 
     public static CommandFormatException invalidCommand() {
-        return new CommandFormatException("Sorry, I didn't understand that command. "
-                + "Please try again or type \"help\" to access the user guide.");
+        return new CommandFormatException("Sorry, I have limited language capabilities. "
+                + "Please try again or type \"help\" to access the command guide.");
     }
 
     public static CommandFormatException emptyCommand() {

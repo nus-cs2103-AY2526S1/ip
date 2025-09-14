@@ -10,19 +10,20 @@ public class InvalidTaskException extends LynxException {
     }
 
     public static InvalidTaskException blankName() {
-        return new InvalidTaskException("Task name cannot be blank.");
+        return new InvalidTaskException("Please describe the task to me.");
     }
 
     public static InvalidTaskException invalidName() {
-        return new InvalidTaskException("Task name cannot contain the \"/\" character.");
+        return new InvalidTaskException("Task name cannot contain the \"/\" character. Sorry, these are conventions.");
     }
 
     public static InvalidTaskException longName() {
-        return new InvalidTaskException("Task name cannot exceed 150 characters.");
+        return new InvalidTaskException("My memory is limited and I can't remember anything past 150 characters.");
     }
 
     public static InvalidTaskException invalidDuration() {
-        return new InvalidTaskException("The start date/time cannot be after the end date/time.");
+        return new InvalidTaskException("Does your task require time travel? "
+                + "If not, please ensure start is before end.");
     }
 
 }
