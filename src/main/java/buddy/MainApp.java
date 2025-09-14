@@ -90,7 +90,7 @@ public class MainApp extends Application {
 
     private void configureStage(Stage stage) {
         stage.setScene(scene);
-        stage.setTitle("Buddy - Your Personal Task Assistant");
+        stage.setTitle("🚀 Buddy - Your Enthusiastic Productivity Companion! ✨");
         stage.setResizable(true); // Enable resizing
         stage.setMinHeight(500.0);
         stage.setMinWidth(400.0);
