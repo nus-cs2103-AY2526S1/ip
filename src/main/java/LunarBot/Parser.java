@@ -2,12 +2,18 @@ package LunarBot;
 
 import LunarBot.Command.*;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class Parser {
     public static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Parse the given input and returns the respective command
+     *
+     * @param input user input to be parsed
+     * @return returns the Command to be executed based on the input
+     */
     public static Command parse(String input) {
         String[] tmp = input.split(" ");
         String command = tmp[0];

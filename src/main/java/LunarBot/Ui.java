@@ -11,6 +11,10 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Returns the loop termination flag
+     * @return returns the loop termination flag
+     */
     public boolean isBye() {
         return this.isBye;
     }
@@ -33,6 +37,10 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Reads user input
+     * @return returns string inputted by user
+     */
     public String readCommand() {
         System.out.println("Input: ");
         return scanner.nextLine();

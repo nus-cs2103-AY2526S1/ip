@@ -10,6 +10,9 @@ public class DeleteCommand extends Command {
         this.index = i;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(Ui ui, TaskList taskList) {
         taskList.delete(this.index);

@@ -10,6 +10,9 @@ public class MarkCommand extends Command {
         this.index = i;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(Ui ui, TaskList taskList) {
         String toPrint = ui.showMessage("Okay, I'll mark that one off your list!") + "\n";

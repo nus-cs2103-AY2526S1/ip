@@ -15,6 +15,9 @@ public class DeadlineCommand extends Command {
         this.by = by;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(Ui ui, TaskList taskList) {
         taskList.add(new Deadline(description, false, by));

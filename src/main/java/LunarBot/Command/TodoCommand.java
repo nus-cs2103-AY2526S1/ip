@@ -11,6 +11,9 @@ public class TodoCommand extends Command {
         this.description = description;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(Ui ui, TaskList taskList) {
         taskList.add(new Todo(description, false));

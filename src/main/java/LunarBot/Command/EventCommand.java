@@ -17,6 +17,9 @@ public class EventCommand extends Command {
         this.to = to;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(Ui ui, TaskList taskList) {
         taskList.add(new Event(description, false, from, to));

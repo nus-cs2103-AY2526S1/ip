@@ -10,6 +10,9 @@ public class UnmarkCommand extends Command {
         this.index = i;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(Ui ui, TaskList taskList) {
         String toPrint = ui.showMessage("Okay, I'll unmark that!") + "\n";
