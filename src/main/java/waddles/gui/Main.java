@@ -22,6 +22,7 @@ public class Main extends Application {
             AnchorPane pane = fxmlLoader.load();
             Scene scene = new Scene(pane);
             stage.setScene(scene);
+            stage.setTitle("Waddles");
             fxmlLoader.<MainWindow>getController().setWaddles(waddles); // inject the Waddles instance
             stage.show();
         } catch (IOException e) {
