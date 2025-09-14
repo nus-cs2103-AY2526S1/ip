@@ -30,7 +30,7 @@ public class Parser {
      * such command exists
      */
     public String findCommand(String description) throws StellaException {
-        assert description.length() > 0;
+        
 
         if (description.equals(("list"))) {
             return this.tasks.printList();
