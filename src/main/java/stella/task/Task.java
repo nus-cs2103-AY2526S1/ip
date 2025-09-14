@@ -56,4 +56,15 @@ public abstract class Task {
         return "[" + this.getCurrentStatus() + "] " + this.description;
     }
 
+    // JavaDoc comment for countParameter method is adapted from AI.
+    /**
+     * Return the number of inputs (excluding task name) found in
+     * user's task creation command (e.g. event open house/06-07-2025/07-07-2025/HIGH)
+     *
+     * @param command User's full command for task creation
+     * @return Number of inputs (excluding task name)
+     */
+    public static long countParameter(String command) {
+        return command.chars().filter(c -> c == '/').count();
+    }
 }

@@ -94,7 +94,7 @@ public interface Storage {
 
         int endOfToken1 = startOfToken1 + token1.length();
         int endOfToken2 = startOfToken2 + token2.length();
-        int endOfToken3 = startOfToken2 + token2.length();
+        int endOfToken3 = startOfToken3 + token3.length();
 
         String details = description.substring(taskPrefixLength, startOfToken1);
         String start = description.substring(endOfToken1, startOfToken2);

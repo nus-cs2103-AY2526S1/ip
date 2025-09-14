@@ -31,12 +31,12 @@ public class ToDo extends Task {
     public static ToDo createTask(String description) throws StellaException {
         try {
             ToDo.checkDescription(description);
-            if (Parser.countParameter(description) == 0) {
+            if (Task.countParameter(description) == 0) {
                 String details = description.substring(commandKeyword.length());
 
                 return new ToDo(details);
             }
-            if (Parser.countParameter(description) == 1) {
+            if (Task.countParameter(description) == 1) {
                 int slashIndex = description.indexOf('/');
 
                 String details = description.substring(commandKeyword.length(), slashIndex);
@@ -56,7 +56,7 @@ public class ToDo extends Task {
             throw new IncompleteInstructionException(description);
         }
 
-        long numberOfParameter = Parser.countParameter(description);
+        long numberOfParameter = Task.countParameter(description);
         if (numberOfParameter > 1) {
             throw new ExcessParameterException(numberOfParameter
                     + " input (excluding task description) is provided,"

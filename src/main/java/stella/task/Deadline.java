@@ -37,7 +37,7 @@ public class Deadline extends Task {
     public static Deadline createTask(String description) throws StellaException {
         try {
             Deadline.checkDescription(description);
-            if (Parser.countParameter(description) == 1) {
+            if (Task.countParameter(description) == 1) {
                 int curSlashIndex = description.indexOf('/');
                 String details = description.substring(commandKeyword.length(), curSlashIndex);
                 String deadline = description.substring(curSlashIndex + 1);
@@ -45,7 +45,7 @@ public class Deadline extends Task {
                 return new Deadline(details, deadline);
             }
 
-            if (Parser.countParameter(description) == 2) {
+            if (Task.countParameter(description) == 2) {
                 int curSlashIndex = description.indexOf('/');
                 int nextSlashIndex = description.indexOf('/', curSlashIndex + 1);
 
@@ -66,7 +66,7 @@ public class Deadline extends Task {
             throw new IncompleteInstructionException(description);
         }
 
-        long numberOfParameter = Parser.countParameter(description);
+        long numberOfParameter = Task.countParameter(description);
         if (numberOfParameter > 2) {
             throw new ExcessParameterException(numberOfParameter
                     + " input (excluding task description) is provided,"

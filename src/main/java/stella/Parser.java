@@ -26,8 +26,8 @@ public class Parser {
      * @param description A String consisting of user's command
      * @return Stella's response
      * @throws IncompleteInstructionException If command contain insufficient information
-     * @throws UnknownInstructionException If no
-     * such command exists
+     * @throws UnknownInstructionException    If no
+     *                                        such command exists
      */
     public String findCommand(String description) throws StellaException {
         assert description.length() > 0;
@@ -77,9 +77,5 @@ public class Parser {
             return TimeConverter.convertDateWithTime(time);
         }
         return time;
-    }
-
-    public static long countParameter(String command) {
-        return command.chars().filter(c -> c == '/').count();
     }
 }

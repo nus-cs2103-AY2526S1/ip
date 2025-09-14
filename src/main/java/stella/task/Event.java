@@ -41,7 +41,7 @@ public class Event extends Task {
     public static Event createTask(String description) throws StellaException {
         try {
             Event.checkDescription(description);
-            if (Parser.countParameter(description) == 2) {
+            if (Task.countParameter(description) == 2) {
                 int curSlashIndex = description.indexOf('/');
                 int nextSlashIndex = description.indexOf('/', curSlashIndex + 1);
 
@@ -51,7 +51,7 @@ public class Event extends Task {
 
                 return new Event(details, start, end);
             }
-            if (Parser.countParameter(description) == 3) {
+            if (Task.countParameter(description) == 3) {
                 int curSlashIndex = description.indexOf('/');
                 int nextSlashIndex = description.indexOf('/', curSlashIndex + 1);
 
@@ -77,7 +77,7 @@ public class Event extends Task {
             throw new IncompleteInstructionException(description);
         }
 
-        long numberOfParameter = Parser.countParameter(description);
+        long numberOfParameter = Task.countParameter(description);
         if (numberOfParameter > 3) {
             throw new ExcessParameterException(numberOfParameter
                     + " input (excluding task description) is provided,"
