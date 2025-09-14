@@ -14,6 +14,13 @@ import sam.ui.Ui;
  * coordinates between different components like UI, Parser, TaskList, and Storage.
  */
 public class Sam {
+    // Essential constants for configuration and error messages
+    private static final String DATA_FILE_PATH = "./data/sam.txt";
+    private static final String DEADLINE_FORMAT_ERROR = "OOPS!!! Use: deadline <description> /by <time>";
+    private static final String EVENT_FORMAT_ERROR = "OOPS!!! Use: event <description> /from <start> /to <end>";
+    private static final String FIND_KEYWORD_ERROR = "OOPS!!! Please provide a keyword to search for.";
+    private static final String TASK_NUMBER_ERROR = "OOPS!!! Task number must be an integer.";
+    
     private final TaskList tasks;
     private final Storage storage;
     private final Ui ui;
@@ -23,7 +30,7 @@ public class Sam {
      */
     public Sam() {
         this.ui = new Ui();
-        this.storage = new Storage("./data/sam.txt");
+        this.storage = new Storage(DATA_FILE_PATH);
         this.tasks = new TaskList(storage.load());
     }
 
@@ -61,18 +68,23 @@ public class Sam {
         } catch (SamException e) {
             return e.getMessage();
         } catch (NumberFormatException e) {
-            return "OOPS!!! Task number must be an integer.";
+            return TASK_NUMBER_ERROR;
         }
     }
 
     /**
      * Handles the list command to display all tasks.
+     * Returns a formatted string containing all tasks with their indices,
+     * or a message indicating the list is empty.
      * @return The formatted list of tasks or empty list message
      */
     private String handleListCommand() {
+        // Guard clause: handle empty list case first
         if (tasks.size() == 0) {
             return "Your task list is empty!";
         }
+        
+        // Happy path: build and return task list
         StringBuilder listOutput = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             listOutput.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
@@ -141,14 +153,17 @@ public class Sam {
      */
     private String handleDeadlineCommand(String rest) throws SamException {
         if (rest.isEmpty() || !rest.contains("/by")) {
-            throw new SamException("OOPS!!! Use: deadline <description> /by <time>");
+            throw new SamException(DEADLINE_FORMAT_ERROR);
         }
+        
         String[] parts = rest.split("/by", 2);
         String description = parts[0].trim();
         String by = parts[1].trim();
+        
         if (description.isEmpty() || by.isEmpty()) {
-            throw new SamException("OOPS!!! Use: deadline <description> /by <time>");
+            throw new SamException(DEADLINE_FORMAT_ERROR);
         }
+        
         return addTask(new Deadline(description, by));
     }
 
@@ -160,29 +175,37 @@ public class Sam {
      */
     private String handleEventCommand(String rest) throws SamException {
         if (rest.isEmpty() || !rest.contains("/from") || !rest.contains("/to")) {
-            throw new SamException("OOPS!!! Use: event <description> /from <start> /to <end>");
+            throw new SamException(EVENT_FORMAT_ERROR);
         }
+        
         String[] fromParts = rest.split("/from", 2);
         String[] toParts = fromParts[1].split("/to", 2);
         String description = fromParts[0].trim();
         String from = toParts[0].trim();
         String to = toParts[1].trim();
+        
         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new SamException("OOPS!!! Use: event <description> /from <start> /to <end>");
+            throw new SamException(EVENT_FORMAT_ERROR);
         }
+        
         return addTask(new Event(description, from, to));
     }
 
     /**
      * Handles the find command to search for tasks.
+     * Performs case-insensitive search across all task descriptions
+     * and returns formatted results with match count.
      * @param rest The search keyword
      * @return The response message with matching tasks
      * @throws SamException If no keyword is provided
      */
     private String handleFindCommand(String rest) throws SamException {
+        // Guard clause: validate input first
         if (rest.isEmpty()) {
-            throw new SamException("OOPS!!! Please provide a keyword to search for.");
+            throw new SamException(FIND_KEYWORD_ERROR);
         }
+        
+        // Happy path: search for matching tasks
         StringBuilder findOutput = new StringBuilder("Here are the matching tasks in your list:\n");
         int matchCount = 0;
         String keyword = rest.toLowerCase();
@@ -195,9 +218,11 @@ public class Sam {
             }
         }
         
+        // Guard clause: handle no matches case
         if (matchCount == 0) {
             return "No tasks found matching '" + rest + "'.";
         }
+        
         return findOutput.toString().trim();
     }
 
