@@ -137,6 +137,23 @@ public class Ui {
                 LINE);
     }
 
+    /**
+     * Renders a list of matching tasks found by the FIND command.
+     *
+     * @param matches List of tasks that match the keyword.
+     * @return A string displaying all matching tasks, or a message if none found.
+     */
+    public String renderMatches(List<Task> matches) {
+        if (matches.isEmpty()) {
+            return "No matching tasks found.";
+        }
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < matches.size(); i++) {
+            sb.append((i + 1)).append(". ").append(matches.get(i)).append("\n");
+        }
+        return sb.toString().trim();
+    }
+
     public String renderList(List<Task> tasks) {
         StringBuilder sb = new StringBuilder();
         sb.append(LINE).append("\n Here are the tasks in your list:\n");
