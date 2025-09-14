@@ -94,6 +94,16 @@ Deletes the first task in your task list.
 # Managing Clients
 
 ---
+## Listing All Clients
+
+Displays all clients in the system with their full details.
+
+**Example:**  
+`clients`
+
+Shows all clients
+
+---
 
 ## Adding a Client
 
@@ -125,18 +135,6 @@ Removes the client at the specified index from the client list.
 `deleteclient, 1`
 
 Deletes client #1 from the system.
-
-
----
-
-## Listing All Clients
-
-Displays all clients in the system with their full details.
-
-**Example:**  
-`clients`
-
-Shows all clients
 
 ---
 
