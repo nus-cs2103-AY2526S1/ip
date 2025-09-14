@@ -1,0 +1,73 @@
+package waddles.task;
+
+import java.time.LocalDateTime;
+
+/**
+ * Events have a description and completion status, as well as a start and ending datetime.
+ */
+public class Event extends Task {
+    private final LocalDateTime start;
+    private final LocalDateTime end;
+
+    /**
+     * Constructs a new Event object.
+     */
+    public Event(String description, boolean isDone, Tags tags, LocalDateTime start, LocalDateTime end) {
+        super(description, isDone, tags);
+        this.start = start;
+        this.end = end;
+    }
+
+    /**
+     * Returns an Event from the serialized string.
+     * WARNING: Assumes that the given string is a serialization of some Event.
+     */
+    public static Event fromSerializedString(String serialized) {
+        String[] fields = Task.splitSerialized(serialized);
+        assert fields.length == 5 : "Failed to deserialize event - invalid format";
+        boolean isDone = fields[1].equals("1");
+        String description = fields[2];
+        Tags tags = Tags.fromSerializedString(fields[3]);
+        String[] timing = fields[4].split("-");
+        assert timing.length == 2 : "Failed to deserialize event timing - invalid format";
+        LocalDateTime start = LocalDateTime.parse(timing[0], Task.OUTPUT_DATETIME_FORMATTER);
+        LocalDateTime end = LocalDateTime.parse(timing[1], Task.OUTPUT_DATETIME_FORMATTER);
+        return new Event(description, isDone, tags, start, end);
+    }
+
+    /**
+     * Returns whether the given string is a serialization of an Event.
+     * WARNING: Assumes that the given string is a serialization of some Task.
+     */
+    public static boolean isSerialization(String serialized) {
+        return serialized.startsWith("E |");
+    }
+
+    /**
+     * Returns a formatted string of this event's start time.
+     */
+    public String getStartString() {
+        return this.start.format(Task.OUTPUT_DATETIME_FORMATTER);
+    }
+
+    /**
+     * Returns a formatted string of this event's end time.
+     */
+    public String getEndString() {
+        return this.end.format(Task.OUTPUT_DATETIME_FORMATTER);
+    }
+
+    /**
+     * Returns a serialization of this event.
+     * Serialization format: <code>E | isDone | description | start-end</code>.
+     */
+    @Override
+    public String toSerializedString() {
+        return String.format("E | %s | %s-%s", super.toSerializedString(), getStartString(), getEndString());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), getStartString(), getEndString());
+    }
+}
