@@ -5,7 +5,7 @@
  * string input into the corresponding command.
  */
 public enum Command {
-    BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND, UNKNOWN;
+    BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND, PRIORITY, UNKNOWN;
 
     /**
      * Converts a string verb to the corresponding Command enum value.
@@ -34,6 +34,8 @@ public enum Command {
                 return EVENT;
             case "find":
                 return FIND;
+            case "priority":
+                return PRIORITY;
             default:
                 return UNKNOWN;
         }
