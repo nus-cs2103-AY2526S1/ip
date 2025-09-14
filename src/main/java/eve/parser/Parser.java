@@ -21,7 +21,7 @@ public final class Parser {
      * Enumerates the set of supported commands that the chatbot recognizes.
      */
     public enum Command {
-        HELP, LIST, TODO, FIND, DEADLINE, EVENT, MARK, UNMARK, DELETE, BYE
+        HELP, LIST, TODO, FIND, DEADLINE, EVENT, MARK, PERIOD, UNMARK, DELETE, BYE
     }
 
     /**
@@ -55,6 +55,8 @@ public final class Parser {
                 return Command.BYE;
             case "find":
                 return Command.FIND;
+            case "period":
+                return Command.PERIOD;
             default:
                 return null;
         }
@@ -210,4 +212,28 @@ public final class Parser {
             this.to = t;
         }
     }
+
+    public static class PeriodParts {
+        public final String desc;
+        public final String start;
+        public final String end;
+
+        public PeriodParts(String d, String s, String e) {
+            desc = d;
+            start = s;
+            end = e;
+        }
+    }
+
+    public static PeriodParts parsePeriod(String args) {
+        String[] parts = args.split("/from|/to");
+        if (parts.length < 3)
+            throw new IllegalArgumentException("Usage: period DESC /from START /to END");
+
+        String desc = parts[0].trim();
+        String from = parts[1].trim();
+        String to = parts[2].trim();
+        return new PeriodParts(desc, from, to);
+    }
+
 }

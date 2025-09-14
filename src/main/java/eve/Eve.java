@@ -8,10 +8,12 @@ import eve.parser.EveException;
 import eve.parser.Parser.Command;
 import eve.parser.Parser.DeadlineParts;
 import eve.parser.Parser.EventParts;
+import eve.parser.Parser.PeriodParts;
 import eve.storage.Storage;
 import eve.tasks.Task;
 import eve.tasks.Todo;
 import eve.tasks.Deadline;
+import eve.tasks.DoWithinPeriod;
 import eve.tasks.Event;
 
 /**
@@ -211,6 +213,12 @@ public class Eve {
                     Task t = tasks.setDone(n - 1, false);
                     storage.save(tasks.asList());
                     return ui.renderMarked(t, false);
+                }
+                case PERIOD: {
+                    PeriodParts p = Parser.parsePeriod(args);
+                    Task t = tasks.add(new DoWithinPeriod(p.desc, p.start, p.end));
+                    storage.save(tasks.asList());
+                    return ui.renderAdded(t, tasks.size());
                 }
                 case DELETE: {
                     int n = Parser.parseDeleteIndex(args);
