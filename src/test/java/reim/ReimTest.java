@@ -1,0 +1,47 @@
+package reim;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+public class ReimTest {
+    @Test
+    public void errorInCommandTest() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new Todo(false, "borrow"));
+        tasks.add(new Deadline(false, "test", "2002-12-12"));
+        tasks.add(new Event(true, "party", "2002-12-12"));
+        TaskList t = new TaskList(tasks);
+        Parser parse = new Parser("todo run", t);
+        Integer error = parse.errorInCommand();
+        assertEquals(0, error);
+        assertEquals(1, new Parser("tomooror", t).errorInCommand());
+        assertEquals(2, new Parser("todo", t).errorInCommand());
+        assertEquals(3, new Parser("list todos", t).errorInCommand());
+        assertEquals(4, new Parser("mark hi", t).errorInCommand());
+        assertEquals(5, new Parser("mark 5", t).errorInCommand());
+        assertEquals(6, new Parser("deadline assignment ", t).errorInCommand());
+        assertEquals(7, new Parser("event /from 2002-12-12", t).errorInCommand());
+        assertEquals(8, new Parser("unmark 1", t).errorInCommand());
+        assertEquals(9, new Parser("mark 3", t).errorInCommand());
+        assertEquals(10, new Parser("todo borrow", t).errorInCommand());
+        assertEquals(11, new Parser("deadline assignment /by 2200-12-hi", t).errorInCommand());
+        assertEquals(13, new Parser("event tasd /from 2002-31-31", t).errorInCommand());
+        assertEquals(13, new Parser("event sadasd /from 2002-12-12 5555", t).errorInCommand());
+    }
+
+    @Test
+    public void saveArrayTest() throws ReimException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new Event(false, "party", "2022-12-18"));
+        tasks.add(new Deadline(true, "test", LocalDate.parse("2022-10-08"), LocalTime.parse("10:00")));
+        tasks.add(new Todo(false, "temp"));
+        TaskList t = new TaskList(tasks);
+        Storage store = new Storage("src/test/data/reim", "src/test/data/reim/testFile.txt");
+        assertEquals(t.getArray().toString(), store.readFile().getArray().toString());
+    }
+}
