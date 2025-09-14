@@ -15,8 +15,8 @@ public class TodoCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public void execute(Ui ui, TaskList taskList) {
-        ui.showMessage("Okay! I'll add this to your TODOs");
+    public String execute(Ui ui, TaskList taskList) {
         taskList.add(new Todo(description, false));
+        return ui.showMessage("Okay! I'll add this to your TODOs");
     }
 }

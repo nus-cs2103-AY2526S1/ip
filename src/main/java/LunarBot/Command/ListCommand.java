@@ -8,10 +8,11 @@ public class ListCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public void execute(Ui ui, TaskList taskList) {
-        ui.showMessage("Printing tasks!");
+    public String execute(Ui ui, TaskList taskList) {
+        String toPrint = ui.showMessage("Printing tasks!") + "\n";
         for (int i = 1; i < taskList.size() + 1; i++) {
-            ui.showMessage(i + ": " + taskList.get(i-1).print());
+            toPrint += ui.showMessage(i + ": " + taskList.get(i-1).print()) + "\n";
         }
+        return toPrint;
     }
 }

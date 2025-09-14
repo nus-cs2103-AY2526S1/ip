@@ -3,7 +3,7 @@ package LunarBot;
 import java.util.Scanner;
 
 public class Ui {
-    private static final String LINE = "__________________________________________";
+    private static final String LINE = "_________________________________________________";
     private Scanner scanner;
     private boolean isBye;
 
@@ -19,28 +19,22 @@ public class Ui {
         return this.isBye;
     }
 
-    /**
-     * Displays greeting message
-     */
-    public void greeting() {
-        System.out.println("Hello from LunarBot.LunarBot!\n");
-        System.out.println("Nice to meet you! What can I do for you?\n" + LINE);
+    public String greeting() {
+        System.out.println("Hello from LunarBot!\n" + 
+            "Nice to meet you! What can I do for you?\n" + LINE);
+        return "Hello from LunarBot!\n" +
+            "Nice to meet you! What can I do for you?\n";
     }
 
-    /**
-     * Displays goodbye message and sets loop termination flag
-     */
-    public void goodbye() {
-        System.out.println("Hope to see you soon!\n");
+    public String goodbye() {
         this.isBye = true;
+        System.out.println("Hope to see you again!");
+        return "Hope to see you again!";
     }
 
-    /**
-     * Shows message
-     * @param message message to be shown
-     */
-    public void showMessage(String message) {
+    public String showMessage(String message) {
         System.out.println(message);
+        return message;
     }
 
     /**

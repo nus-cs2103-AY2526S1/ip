@@ -10,5 +10,5 @@ public abstract class Command {
      * @param ui ui that command is being executed on
      * @param taskList list of tasks to perform the task on
      */
-    public abstract void execute(Ui ui, TaskList taskList);
+    public abstract String execute(Ui ui, TaskList taskList);
 }
