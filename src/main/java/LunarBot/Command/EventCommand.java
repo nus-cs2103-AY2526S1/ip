@@ -18,8 +18,8 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList taskList) {
-        ui.showMessage("Okay! I'll add this to your events!");
+    public String execute(Ui ui, TaskList taskList) {
         taskList.add(new Event(description, false, from, to));
+        return ui.showMessage("Okay! I'll add this to your events!");
     }
 }

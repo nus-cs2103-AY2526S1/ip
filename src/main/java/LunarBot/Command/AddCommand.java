@@ -12,8 +12,8 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList taskList) {
-        ui.showMessage("added: " + description);
+    public String execute(Ui ui, TaskList taskList) {
         taskList.add(new Task(description, false));
+        return ui.showMessage("added: " + description);
     }
 }

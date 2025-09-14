@@ -28,4 +28,8 @@ public class LunarBot {
     public static void main(String[] args) {
         new LunarBot().run();
     }
+
+    public String getResponse(String input) {
+        return Parser.parse(input).execute(this.ui, this.taskList);
+    }
 }

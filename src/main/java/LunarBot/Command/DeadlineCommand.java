@@ -16,8 +16,8 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList taskList) {
-        ui.showMessage("Okay! I'll add this to your deadlines!");
+    public String execute(Ui ui, TaskList taskList) {
         taskList.add(new Deadline(description, false, by));
+        return ui.showMessage("Okay! I'll add this to your deadlines!");
     }
 }

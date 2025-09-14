@@ -11,9 +11,10 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList taskList) {
-        ui.showMessage("Okay, I'll mark that one off your list!");
+    public String execute(Ui ui, TaskList taskList) {
+        String toPrint = ui.showMessage("Okay, I'll mark that one off your list!") + "\n";
         taskList.get(this.index).setCompleted(true);
-        ui.showMessage(taskList.get(this.index).print());
+        toPrint += ui.showMessage(taskList.get(this.index).print());
+        return toPrint;
     }
 }

@@ -11,9 +11,9 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList taskList) {
-        ui.showMessage("Okay, I'll delete this one from your list!");
-        ui.showMessage(taskList.get(this.index).print());
+    public String execute(Ui ui, TaskList taskList) {
         taskList.delete(this.index);
+        return "Okay, I'll delete this one from your list!\n" + 
+            taskList.get(this.index).print();
     }
 }

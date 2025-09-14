@@ -11,9 +11,10 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList taskList) {
-        ui.showMessage("Okay, I'll unmark that!");
+    public String execute(Ui ui, TaskList taskList) {
+        String toPrint = ui.showMessage("Okay, I'll unmark that!") + "\n";
         taskList.get(this.index).setCompleted(false);
-        ui.showMessage(taskList.get(this.index).print());
+        toPrint += ui.showMessage(taskList.get(this.index).print());
+        return toPrint;
     }
 }

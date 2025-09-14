@@ -15,11 +15,13 @@ public class FindCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public void execute(Ui ui, TaskList taskList) {
+    public String execute(Ui ui, TaskList taskList) {
+        String toPrint = "";
         for (Task task: taskList.all()) {
             if (task.getName().toLowerCase().contains(keyWord)) {
-                ui.showMessage(task.print());
+                toPrint += ui.showMessage(task.print()) + "\n";
             }
         }
+        return toPrint;
     }
 }
