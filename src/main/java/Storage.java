@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import sam.task.Deadline;
 import sam.task.Event;
+import sam.task.Priority;
 import sam.task.Task;
 import sam.task.Todo;
 
@@ -22,9 +23,10 @@ public class Storage {
     // Constants for parsing task data
     private static final int TASK_TYPE_INDEX = 0;
     private static final int TASK_STATUS_INDEX = 1;
-    private static final int TASK_DESCRIPTION_INDEX = 2;
-    private static final int TASK_EXTRA_INFO_INDEX = 3;
-    private static final int TASK_SECOND_EXTRA_INFO_INDEX = 4;
+    private static final int TASK_PRIORITY_INDEX = 2;
+    private static final int TASK_DESCRIPTION_INDEX = 3;
+    private static final int TASK_EXTRA_INFO_INDEX = 4;
+    private static final int TASK_SECOND_EXTRA_INFO_INDEX = 5;
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -117,23 +119,59 @@ public class Storage {
     }
 
     private Task parseTask(final String line) {
-        // Example: T | 1 | read book
+        // Example: T | 1 | HIGH | read book
         // Implement parsing logic based on your Task/Deadline/Event/Todo classes
         assert line != null : "Line cannot be null";
         String[] parts = line.split(" \\| ");
         try {
             assert parts.length >= TASK_TYPE_INDEX + 1 : "Line must contain task type";
+            
+            // Handle backward compatibility - if no priority field, default to MEDIUM
+            Priority priority = Priority.MEDIUM;
+            String description;
+            String extraInfo = null;
+            String secondExtraInfo = null;
+            
+            if (parts.length >= TASK_PRIORITY_INDEX + 1) {
+                // New format with priority
+                priority = Priority.fromString(parts[TASK_PRIORITY_INDEX]);
+                description = parts[TASK_DESCRIPTION_INDEX];
+                if (parts.length > TASK_EXTRA_INFO_INDEX) {
+                    extraInfo = parts[TASK_EXTRA_INFO_INDEX];
+                }
+                if (parts.length > TASK_SECOND_EXTRA_INFO_INDEX) {
+                    secondExtraInfo = parts[TASK_SECOND_EXTRA_INFO_INDEX];
+                }
+            } else {
+                // Old format without priority - backward compatibility
+                description = parts[TASK_DESCRIPTION_INDEX];
+                if (parts.length > TASK_EXTRA_INFO_INDEX) {
+                    extraInfo = parts[TASK_EXTRA_INFO_INDEX];
+                }
+                if (parts.length > TASK_SECOND_EXTRA_INFO_INDEX) {
+                    secondExtraInfo = parts[TASK_SECOND_EXTRA_INFO_INDEX];
+                }
+            }
+            
+            boolean isDone = parts[TASK_STATUS_INDEX].equals("1");
+            
             switch (parts[TASK_TYPE_INDEX]) {
                 case "T":
                     assert parts.length >= TASK_DESCRIPTION_INDEX + 1 : "Todo must have description";
-                    return new Todo(parts[TASK_DESCRIPTION_INDEX], parts[TASK_STATUS_INDEX].equals("1"));
+                    Todo todo = new Todo(description, isDone);
+                    todo.setPriority(priority);
+                    return todo;
                 case "D":
                     assert parts.length >= TASK_EXTRA_INFO_INDEX + 1 : "Deadline must have due date";
-                    return new Deadline(parts[TASK_DESCRIPTION_INDEX], parts[TASK_STATUS_INDEX].equals("1"), parts[TASK_EXTRA_INFO_INDEX]);
+                    Deadline deadline = new Deadline(description, isDone, extraInfo);
+                    deadline.setPriority(priority);
+                    return deadline;
                 case "E":
-                    // For Event, expect: E | 1 | description | from | to
+                    // For Event, expect: E | 1 | HIGH | description | from | to
                     assert parts.length >= TASK_SECOND_EXTRA_INFO_INDEX + 1 : "Event must have start and end times";
-                    return new Event(parts[TASK_DESCRIPTION_INDEX], parts[TASK_STATUS_INDEX].equals("1"), parts[TASK_EXTRA_INFO_INDEX], parts[TASK_SECOND_EXTRA_INFO_INDEX]);
+                    Event event = new Event(description, isDone, extraInfo, secondExtraInfo);
+                    event.setPriority(priority);
+                    return event;
                 default:
                     return null;
             }
@@ -146,14 +184,16 @@ public class Storage {
     private String formatTask(final Task task) {
         assert task != null : "Task cannot be null";
         String status = task.isDone() ? "1" : "0";
+        String priority = task.getPriority().getDisplayName();
+        
         if (task instanceof Todo) {
-            return "T | " + status + " | " + task.toString().substring(task.toString().indexOf(" ") + 1);
+            return "T | " + status + " | " + priority + " | " + task.getDescription();
         } else if (task instanceof Deadline) {
             Deadline d = (Deadline) task;
-            return "D | " + status + " | " + d.toString().substring(d.toString().indexOf(" ") + 1, d.toString().indexOf(" (by:"));
+            return "D | " + status + " | " + priority + " | " + task.getDescription() + " | " + d.getByRaw();
         } else if (task instanceof Event) {
             Event e = (Event) task;
-            return "E | " + status + " | " + e.toString().substring(e.toString().indexOf(" ") + 1, e.toString().indexOf(" (from:"));
+            return "E | " + status + " | " + priority + " | " + task.getDescription() + " | " + e.getFromRaw() + " | " + e.getToRaw();
         } else {
             return "";
         }
