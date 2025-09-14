@@ -1,0 +1,13 @@
+echo
+list
+todo
+todo 1st task
+deadline /by end
+deadline 2nd task /by
+deadline 2nd task /by end
+event 3rd task /from /to end
+event 3rd task /from start /to
+event /from start /to end
+event 3rd task /from start /to end
+list
+bye

@@ -1,0 +1,57 @@
+.user-button {
+    -fx-background-color: seashell;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-border-color: black ;
+    -fx-border-width: 2;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-cursor: hand;
+}
+
+.user-button:focused {
+    -fx-background-color: silver;
+    -fx-border-color: black;
+}
+
+.user-textfield {
+    -fx-background-color: seashell;
+    -fx-text-fill: black;
+    -fx-prompt-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-border-color: black ;
+    -fx-border-width: 2;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-cursor: hand;
+}
+
+.user-textfield:focused {
+    -fx-background-color: silver;
+    -fx-border-color: black;
+}
+
+.autocomplete-label {
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-font-weight: bold;
+    -fx-border-width: 1;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.dialogbox {
+   -fx-text-fill: black;
+   -fx-background-color: aqua;
+   -fx-border-color: blue;
+   -fx-border-width: 2;
+   -fx-border-radius: 5;
+   -fx-background-radius: 5;
+   -fx-min-width: 200;
+   -fx-padding: 5 5 5 5;
+}
+
+.dialogbox:rin {
+    -fx-background-color: pink;
+    -fx-border-color: deeppink;
+}
