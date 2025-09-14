@@ -1,0 +1,20 @@
+todo
+todo td
+mark 1
+list
+mark 2
+deadline   /by today
+deadline dl /by
+deadline dl /by tomorrow
+list
+mark 2
+event      /from now /to never
+event ev /from now /to
+event ev /from now /to never
+list
+unmark 1
+unmark 3
+list
+delete 2
+list
+bye
