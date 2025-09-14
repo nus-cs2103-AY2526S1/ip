@@ -28,6 +28,10 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+
+        assert scrollPane != null : "ScrollPane must be injected by FXML";
+        assert dialogContainer != null : "Dialog container must be injected by FXML";
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
         // Optional debug logs
@@ -37,6 +41,9 @@ public class MainWindow extends AnchorPane {
         System.out.println("Check /view/DialogBox.fxml -> " + getClass().getResource("/view/DialogBox.fxml"));
         System.out.println("Check /view/MainWindow.fxml -> " + getClass().getResource("/view/MainWindow.fxml"));
 
+        assert getClass().getResourceAsStream("/images/cat1.PNG") != null : "User image resource not found";
+        assert getClass().getResourceAsStream("/images/cat.PNG") != null : "Eve image resource not found";
+
         // Load user and Eve image from resources
         userImage = new Image(this.getClass().getResourceAsStream("/images/cat1.PNG"));
         eveImage = new Image(this.getClass().getResourceAsStream("/images/cat.PNG"));
@@ -44,6 +51,7 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Eve instance */
     public void setEve(eve.Eve e) {
+        assert e != null : "Injected Eve instance cannot be null";
         eve = e;
     }
 

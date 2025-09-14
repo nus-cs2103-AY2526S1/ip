@@ -31,11 +31,8 @@ public final class parser {
      * @return the parsed {@link Command}, or {@code null} if unknown
      */
     public static Command parseCommand(String full) {
-        if (full == null)
-            return null;
+        assert full != null && !full.trim().isEmpty() : "Input should not be null or empty";
         String trimmed = full.trim();
-        if (trimmed.isEmpty())
-            return null;
         String head = trimmed.split("\\s+", 2)[0].toLowerCase();
         switch (head) {
             case "help":
