@@ -74,7 +74,7 @@ public class LynxTaskEditor {
 
         DeleteCommand command = new DeleteCommand(input.substring(7).trim());
         Consumer<Task> delete = taskList::removeTask;
-        String taskCount = String.format("You currently have %d task(s) in your list.%n", taskList.getCount());
+        String taskCount = String.format("\nYou currently have %d task(s) in your list.", taskList.getCount());
         return String.format("%s%s", executeCommand(command, delete), taskCount);
     }
 
