@@ -12,15 +12,18 @@ public abstract class Task {
     public static final String OUTPUT_DATETIME_FORMAT = "MMM dd yyyy HH:mm";
     public static final DateTimeFormatter OUTPUT_DATETIME_FORMATTER =
             DateTimeFormatter.ofPattern(OUTPUT_DATETIME_FORMAT);
+
     private final String description;
+    private final Tags tags;
     private boolean isDone;
 
     /**
      * Constructs a new Task object.
      */
-    public Task(String description, boolean isDone) {
+    public Task(String description, boolean isDone, Tags tags) {
         this.description = description;
         this.isDone = isDone;
+        this.tags = tags;
     }
 
     /**
@@ -35,6 +38,10 @@ public abstract class Task {
         return description;
     }
 
+    public Tags getTags() {
+        return this.tags;
+    }
+
     /**
      * Marks this task as done / undone.
      */
@@ -44,15 +51,16 @@ public abstract class Task {
 
     /**
      * Returns a serialization of this task.
-     * Serialization format: <code>isDone | description</code>.
+     * Serialization format: <code>isDone | description | tags</code>.
      */
     public String toSerializedString() {
-        return String.format("%d | %s", isDone ? 1 : 0, description);
+        return String.format("%d | %s | %s", isDone ? 1 : 0, description, tags.toSerializedString());
     }
 
     @Override
     public String toString() {
         char doneMarker = isDone ? 'X' : ' ';
-        return String.format("[%c] %s", doneMarker, description);
+        String tagString = tags.toString();
+        return String.format("[%c] %s (%s)", doneMarker, description, tagString);
     }
 }

@@ -11,8 +11,8 @@ public class Deadline extends Task {
     /**
      * Constructs a new Deadline object.
      */
-    public Deadline(String description, boolean isDone, LocalDateTime by) {
-        super(description, isDone);
+    public Deadline(String description, boolean isDone, Tags tags, LocalDateTime by) {
+        super(description, isDone, tags);
         this.by = by;
     }
 
@@ -22,11 +22,12 @@ public class Deadline extends Task {
      */
     public static Deadline fromSerializedString(String serialized) {
         String[] fields = Task.splitSerialized(serialized);
-        assert fields.length == 4 : "Failed to deserialize deadline - invalid format";
+        assert fields.length == 5 : "Failed to deserialize deadline - invalid format";
         boolean isDone = fields[1].equals("1");
         String description = fields[2];
-        LocalDateTime by = LocalDateTime.parse(fields[3], Task.OUTPUT_DATETIME_FORMATTER);
-        return new Deadline(description, isDone, by);
+        Tags tags = Tags.fromSerializedString(fields[3]);
+        LocalDateTime by = LocalDateTime.parse(fields[4], Task.OUTPUT_DATETIME_FORMATTER);
+        return new Deadline(description, isDone, tags, by);
     }
 
     /**

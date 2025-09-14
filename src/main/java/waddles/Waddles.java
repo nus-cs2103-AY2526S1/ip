@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import waddles.task.Deadline;
 import waddles.task.Event;
+import waddles.task.Tags;
 import waddles.task.Task;
 import waddles.task.Tasks;
 import waddles.task.Todo;
@@ -65,6 +66,10 @@ public class Waddles {
             return handleDelete(parser);
         case FIND:
             return handleFind(parser);
+        case TAG:
+            return handleTag(parser);
+        case UNTAG:
+            return handleUntag(parser);
         default:
             throw new WaddlesException.InvalidCommand(input);
         }
@@ -92,7 +97,7 @@ public class Waddles {
      */
     private WaddlesResult handleAddTodo(Parser parser) throws WaddlesException {
         String description = parser.readArgument("task description", "");
-        Todo todo = new Todo(description, false);
+        Todo todo = new Todo(description, false, new Tags());
         tasks.add(todo);
         String verificationMessage = ui.makeAddedTaskMessage(tasks, todo);
         return WaddlesResult.makeSuccess(verificationMessage);
@@ -105,7 +110,7 @@ public class Waddles {
     private WaddlesResult handleAddDeadline(Parser parser) throws WaddlesException {
         String description = parser.readArgument("task description", " /by ");
         LocalDateTime by = parser.readDateTimeArgument("deadline (/by)", "");
-        Deadline deadline = new Deadline(description, false, by);
+        Deadline deadline = new Deadline(description, false, new Tags(), by);
         tasks.add(deadline);
         String verificationMessage = ui.makeAddedTaskMessage(tasks, deadline);
         return WaddlesResult.makeSuccess(verificationMessage);
@@ -119,7 +124,7 @@ public class Waddles {
         String description = parser.readArgument("task description", " /from ");
         LocalDateTime from = parser.readDateTimeArgument("from (/from)", " /to ");
         LocalDateTime to = parser.readDateTimeArgument("to (/to)", "");
-        Event event = new Event(description, false, from, to);
+        Event event = new Event(description, false, new Tags(), from, to);
         tasks.add(event);
         String verificationMessage = ui.makeAddedTaskMessage(tasks, event);
         return WaddlesResult.makeSuccess(verificationMessage);
@@ -169,5 +174,31 @@ public class Waddles {
         Tasks filteredTasks = tasks.find(keyword);
         String foundMessage = ui.makeTasksMessage(filteredTasks);
         return WaddlesResult.makeSuccess(foundMessage);
+    }
+
+    /**
+     * Adds a tag to the task at the given index.
+     * The user input should have the format {@code tag <task_index> <tag>}.
+     */
+    private WaddlesResult handleTag(Parser parser) throws WaddlesException {
+        int taskIndex = parser.readIntegerArgument("task index", " ");
+        String tag = parser.readArgument("tag", "");
+        Task task = tasks.get(taskIndex);
+        task.getTags().addTag(tag);
+        String verificationMessage = ui.makeTaggedMessage(task);
+        return WaddlesResult.makeSuccess(verificationMessage);
+    }
+
+    /**
+     * Removes a tag from the task at the given index.
+     * The user input should have the format {@code untag <task_index> <tag>}.
+     */
+    private WaddlesResult handleUntag(Parser parser) throws WaddlesException {
+        int taskIndex = parser.readIntegerArgument("task index", " ");
+        String tag = parser.readArgument("tag", "");
+        Task task = tasks.get(taskIndex);
+        task.getTags().removeTag(tag);
+        String verificationMessage = ui.makeUntaggedMessage(task);
+        return WaddlesResult.makeSuccess(verificationMessage);
     }
 }

@@ -12,8 +12,8 @@ public class Event extends Task {
     /**
      * Constructs a new Event object.
      */
-    public Event(String description, boolean isDone, LocalDateTime start, LocalDateTime end) {
-        super(description, isDone);
+    public Event(String description, boolean isDone, Tags tags, LocalDateTime start, LocalDateTime end) {
+        super(description, isDone, tags);
         this.start = start;
         this.end = end;
     }
@@ -24,14 +24,15 @@ public class Event extends Task {
      */
     public static Event fromSerializedString(String serialized) {
         String[] fields = Task.splitSerialized(serialized);
-        assert fields.length == 4 : "Failed to deserialize event - invalid format";
+        assert fields.length == 5 : "Failed to deserialize event - invalid format";
         boolean isDone = fields[1].equals("1");
         String description = fields[2];
-        String[] timing = fields[3].split("-");
+        Tags tags = Tags.fromSerializedString(fields[3]);
+        String[] timing = fields[4].split("-");
         assert timing.length == 2 : "Failed to deserialize event timing - invalid format";
         LocalDateTime start = LocalDateTime.parse(timing[0], Task.OUTPUT_DATETIME_FORMATTER);
         LocalDateTime end = LocalDateTime.parse(timing[1], Task.OUTPUT_DATETIME_FORMATTER);
-        return new Event(description, isDone, start, end);
+        return new Event(description, isDone, tags, start, end);
     }
 
     /**
