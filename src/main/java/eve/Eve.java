@@ -220,6 +220,14 @@ public class Eve {
                     storage.save(tasks.asList());
                     return ui.renderDeleted(removed, tasks.size());
                 }
+                case FIND: {
+                    String keyword = args.trim();
+                    if (keyword.isEmpty()) {
+                        return "Please provide a keyword to search for.";
+                    }
+                    List<Task> matches = tasks.find(keyword);
+                    return ui.renderMatches(matches);
+                }
                 case BYE:
                     return "Bye. Hope to see you again soon!";
                 default:
