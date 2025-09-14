@@ -62,13 +62,11 @@ public class TaskList {
             tasks.get(index).markUndone();
             Storage.modifyTaskList(tasks);
             return "OK, I've marked this task as not done yet: " + "\n" + tasks.get(index);
-        }
-        else if (description == "mark") {
+        } else if (description == "mark") {
             tasks.get(index).markDone();
             Storage.modifyTaskList(tasks);
             return "Nice! I've marked this task as done: " + "\n" + tasks.get(index);
-        }
-        else {
+        } else {
             throw new UnknownInstructionException("expected mark/unmark, but received " + description);
         }
     }

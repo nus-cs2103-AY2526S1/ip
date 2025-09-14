@@ -26,8 +26,7 @@ public class Ui {
         try {
             if (userInput.equals("bye")) {
                 return "GoodBye!";
-            }
-            else {
+            } else {
                 return parser.findCommand(userInput);
             }
 

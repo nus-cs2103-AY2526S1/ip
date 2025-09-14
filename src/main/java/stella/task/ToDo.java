@@ -45,8 +45,7 @@ public class ToDo extends Task {
                 return new ToDo(details, Priority.valueOf(priority));
             }
             return null;
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             throw new UnknownInstructionException("Priority value");
         }
 
