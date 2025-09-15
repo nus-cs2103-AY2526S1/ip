@@ -88,7 +88,7 @@ public class ByteBot {
 
             return response;
 
-        } catch (ByteException e) {
+        } catch (ByteException | IndexOutOfBoundsException e) {
             return ui.showError(e.getMessage());
         }
     }
