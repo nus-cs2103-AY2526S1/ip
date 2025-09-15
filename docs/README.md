@@ -3,7 +3,7 @@
 ![Product screenshot](Ui.png)
 
 # Meet **BeeBong** 
-![Beebong](/src/main/resources/images/Beebong.png)
+![Beebong](images/Beebong.png)
 
 BeeBong is my friendly little chatbot that decided being a ~~serious~~ productivity assistant was boring.  
 Instead, it buzzes around and *bonks* me with reminders when I forget my tasks.
