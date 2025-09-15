@@ -1,0 +1,28 @@
+randomtextfails
+todo task1
+todo
+deadline deadlineWithoutBy
+deadline deadline /by wrongformatfail
+deadline deadline1 /by 2025-01-01 1010
+event eventNoFromOrTo
+event event /from wrongformat /to fail
+event event1 /from 2025-05-05 1010 /to 2025-06-10 1011
+list
+list extraArg
+mark
+mark 1
+mark 5
+mark notANumber
+list
+unmark
+unmark 1
+unmark 5
+unmark notANumber
+list
+find event1
+delete
+delete 1
+delete 5
+delete notANumber
+list
+bye
