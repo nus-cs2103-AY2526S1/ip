@@ -7,6 +7,9 @@ package Butler;
  * users to add, mark, unmark, delete, list, and search tasks.
  * Tasks are persisted to disk between runs.
  */
+
+// used AI to improve java docs quality for the methods of this class
+
 public class Butler {
 
     // ---------- Collaborators ----------
