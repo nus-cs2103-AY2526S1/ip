@@ -139,15 +139,21 @@ public class Parser {
         return trimmed;
     }
 
-    private static Command parseMark(String[] parts) {
-        assert parts.length == 2 : "Mark command needs an index";
-        int index = Integer.parseInt(parts[1]) - 1;
+    private static Command parseMark(String[] parts) throws ByteException {
+        String arg = parts.length >= 2 ? parts[1].trim() : "";
+        if (!arg.matches("\\d+")) {
+            throw new ByteException("Input a valid task number.");
+        }
+        int index = Integer.parseInt(arg) - 1;
         return new MarkCommand(index);
     }
 
-    private static Command parseUnmark(String[] parts) {
-        assert parts.length == 2 : "Unmark command needs an index";
-        int index = Integer.parseInt(parts[1]) - 1;
+    private static Command parseUnmark(String[] parts) throws ByteException {
+        String arg = parts.length >= 2 ? parts[1].trim() : "";
+        if (!arg.matches("\\d+")) {
+            throw new ByteException("Input a valid task number.");
+        }
+        int index = Integer.parseInt(arg) - 1;
         return new UnmarkCommand(index);
     }
 
