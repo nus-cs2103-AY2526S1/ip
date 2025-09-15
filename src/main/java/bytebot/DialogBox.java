@@ -24,6 +24,10 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     private DialogBox(String text, Image img) {
+        this(text, img, false);
+    }
+
+    private DialogBox(String text, Image img, boolean isError) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(DialogBox.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -35,6 +39,10 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        if (isError) {
+            dialog.setStyle("-fx-text-fill: #d93025;");
+        }
     }
 
     /**
@@ -53,6 +61,12 @@ public class DialogBox extends HBox {
 
     public static DialogBox getByteDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
+        db.flip();
+        return db;
+    }
+
+    public static DialogBox getByteErrorDialog(String text, Image img) {
+        DialogBox db = new DialogBox(text, img, true);
         db.flip();
         return db;
     }

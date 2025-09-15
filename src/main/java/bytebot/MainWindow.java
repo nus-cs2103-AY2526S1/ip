@@ -46,10 +46,13 @@ public class MainWindow {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = byteBot.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getByteDialog(response, byteImage)
-        );
+        boolean isError = response != null && response.startsWith("Error: ");
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
+        if (isError) {
+            dialogContainer.getChildren().add(DialogBox.getByteErrorDialog(response, byteImage));
+        } else {
+            dialogContainer.getChildren().add(DialogBox.getByteDialog(response, byteImage));
+        }
         userInput.clear();
     }
 }
