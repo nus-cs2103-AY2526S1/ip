@@ -56,6 +56,9 @@ public class TaskList implements Serializable {
      * @param taskNumber Task number of the task to be marked as done.
      */
     public Task markAsDone(int taskNumber) {
+        if (taskNumber <= 0 || taskNumber > tasks.size()) {
+            throw new LunaException("Task " + taskNumber + " doesn't exist.");
+        }
         Task task = tasks.get(taskNumber - 1);
         task.markAsDone();
         return task;
@@ -67,6 +70,9 @@ public class TaskList implements Serializable {
      * @param taskNumber Task number of the task to be unmarked as done.
      */
     public Task unmarkAsDone(int taskNumber) {
+        if (taskNumber <= 0 || taskNumber > tasks.size()) {
+            throw new LunaException("Task " + taskNumber + " doesn't exist.");
+        }
         Task task = tasks.get(taskNumber - 1);
         task.unmarkAsDone();
         return task;
