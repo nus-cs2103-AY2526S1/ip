@@ -3,6 +3,7 @@ package rafayel.command;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import rafayel.RafayelException;
 import rafayel.storage.Storage;
@@ -10,29 +11,39 @@ import rafayel.task.Task;
 import rafayel.task.TaskList;
 
 /**
- * An abstract class that represents an executable user command.
+ * Abstract base class that represents an executable user command.
+ * 
+ * All concrete command classes extend this class and 
+ * implement the execute(TaskList, Storage) method,
+ * to perform their respective operations on the task list and storage.
  */
 public abstract class Command {
 
-    // protected final String OUTPUT = "Sorry! An error occurred!";
-
+    /** Type of the command i.e. DEADLINE / EVENT */
     private final CommandHandle.CommandType commandType;
 
+    /**
+     * Constructs a Command with the given command type.
+     *
+     * @param commandType the type of this command.
+     */
     public Command(CommandHandle.CommandType commandType) {
         this.commandType = commandType;
     }
 
-    public CommandHandle.CommandType getCommandType() {
+    public CommandHandle.CommandType getCommand() {
         return commandType;
     }
 
     /**
-     * Executing the function of each command.
+     * Executes the function of each command.
      *
      * @param tasks ArrayList of tasks that will be executed on.
      * @param storage stores the list after the function is executed.
      * @return a string from the function.
      * @throws RafayelException if any errors are encountered during execution.
+     * 
+     *  Should be overridden by subclasses to implement the actual functionality.
      */
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
         return "";
@@ -43,6 +54,7 @@ public abstract class Command {
      *
      * @param input input of the date string to parse.
      * @return the parsed LocalDateTime object, null if no format matches.
+     * @throws RafayelException if no format matches.
      */
     public static LocalDateTime handleReadDate(String input) throws RafayelException {
         // check if valid format
@@ -66,9 +78,44 @@ public abstract class Command {
      *
      * @param newTask the task that was added.
      * @param counter the current number of tasks in the ArrayList.
+     * @return confirmation message.
      */
     protected static String getNewTaskString(Task newTask, int counter) {
         return String.format("Got it. I've added this task:\n %s\nNow you have %d tasks in the list.",
                 newTask.toString(), counter);
+    }
+
+    /**
+    * Formats a list of tasks with a header using varargs for flexible formatting.
+    * 
+    * @param header the header text for the list
+    * @param tasks the list of tasks to format
+    * @return formatted string with tasks numbered sequentially
+    */
+    public String formatTaskList(String header, Task... tasks) {
+        if (tasks == null || tasks.length == 0) {
+            return "";
+        }
+
+        StringBuilder result = new StringBuilder();
+        if (header != null && !header.trim().isEmpty()) {
+            result.append(header).append("\n");
+        }
+
+        for (int i = 0; i < tasks.length; i++) {
+            result.append(i + 1).append(". ").append(tasks[i].toString()).append("\n");
+        }
+
+        return result.toString();
+    }
+
+    /**
+     * Overloaded version that accepts ArrayList for convenience
+     */
+    public String formatTaskList(String header, ArrayList<Task> tasks) {
+        if (tasks == null || tasks.isEmpty()) {
+            return "";
+        }
+        return formatTaskList(header, tasks.toArray(new Task[0]));
     }
 }

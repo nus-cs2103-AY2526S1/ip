@@ -7,16 +7,19 @@ import rafayel.task.TaskList;
 import rafayel.task.Todo;
 
 /**
- * Handles the creation and addition of a new Todo task.
+ * Represents a command that creates and adds a new Todo task.
+ * A todo only requires a description.
  */
 public class TodoCommand extends Command {
+
+    /** Stores the description of the Todo task. */
     private final String description;
 
     /**
-     * Constructs a new Todo command.
+     * Constructs a new TodoCommand.
      *
-     * @param description of the Todo task.
-     * @throws RafayelException if the description is invalid.
+     * @param description the description of the todo task.
+     * @throws RafayelException if the description is invalid or empty.
      */
     public TodoCommand(String description) throws RafayelException {
         super(CommandHandle.CommandType.TODO);
@@ -27,6 +30,14 @@ public class TodoCommand extends Command {
         }
     }
 
+    /**
+    * Executes the todo command by creating a Todo task.
+    *
+    * @param tasks the current task list.
+    * @param storage the storage handler.
+    * @return confirmation message after adding the task.
+    * @throws RafayelException if saving fails.
+    */
     @Override
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
         Todo newTask = new Todo(description);

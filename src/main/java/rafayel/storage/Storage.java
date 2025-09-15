@@ -17,13 +17,20 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
- * Storage class handles all file operations for the Rafayel chatbot.
- * Responsible for saving tasks to file and loading tasks from file.
- * Manages file and directory creation if they don't exist.
+ * Handles persistent storage of tasks for the Rafayel chatbot.
+ * <p>
+ * This class is responsible for:
+ * <ul>
+ *   <li>Saving tasks to a file in a defined format.</li>
+ *   <li>Loading tasks from a file and reconstructing them.</li>
+ *   <li>Ensuring the storage file and directories exist.</li>
+ *   <li>Parsing dates from different supported formats.</li>
+ * </ul>
+ * </p>
  */
 public class Storage {
 
-    /* String to store the path to the data/files */
+    /** String to store the path to the data/files */
     protected String filePath;
 
     /**
@@ -57,6 +64,35 @@ public class Storage {
     }
 
     /**
+     * Loads tasks from the storage file.
+     * Parses each line of the file to reconstruct Task objects.
+     *
+     * @return an ArrayList of Task objects loaded from the file.
+     * @throws RafayelException if there's an error ensuring file existence.
+     * @throws IOException if there's an error reading the file.
+     */
+    public ArrayList<Task> load() throws RafayelException, IOException {
+
+        // check if directory/folder and file exists
+        ensureFileExists();
+
+        ArrayList<Task> tasks = new ArrayList<Task>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
+                    Task task = parseTask(line);
+                    if (task != null) {
+                        tasks.add(task);
+                    }
+                }
+            }
+        }
+        return tasks;
+    }
+
+    /**
      * Ensures that the storage file and its parent directories exist.
      * Creates directories and file if they don't exist.
      *
@@ -82,80 +118,92 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the storage file.
-     * Parses each line of the file to reconstruct Task objects.
+    * Parses a single line from the storage file into a Task.
+    *
+    * @param input raw line from file.
+    * @return Task object parsed from the line.
+    * @throws RafayelException if the task type is unknown or the line is invalid.
+    */
+    private Task parseTask(String input) throws RafayelException {
+        String[] parts = input.split(" \\| ");
+
+        assert parts.length >= 3 : "Task line does not have enough parts.";
+
+        String taskType = parts[0].trim();
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
+
+        return switch (taskType) {
+        case "T" -> parseTodo(description, isDone);
+        case "D" -> parseDeadline(parts, description, isDone);
+        case "E" -> parseEvent(parts, description, isDone);
+        default -> throw new RafayelException("Unknown task type imported!");
+        };
+    }
+
+    /**
+     * Parses a Todo task.
      *
-     * @return an ArrayList of Task objects loaded from the file.
-     * @throws RafayelException if there's an error ensuring file existence.
-     * @throws IOException if there's an error reading the file.
+     * @param description description of the todo task.
+     * @param isDone whether todo task is completed.
+     * @return a Todo object.
      */
-    public ArrayList<Task> load() throws RafayelException, IOException {
+    private Task parseTodo(String description, Boolean isDone) {
+        Task task = new Todo(description);
+        if (isDone) {
+            task.markAsDone();
+        }
+        return task;
+    }
 
-        final int DEADLINE_PARTS = 4;
-        final int EVENT_PARTS = 5;
+    /**
+     * Parses a Deadline task.
+     *
+     * @param parts split parts of the input line.
+     * @param description description of the deadline task.
+     * @param isDone whether deadline task is completed.
+     * @return a Deadline object.
+     * @throws RafayelException if input format is invalid.
+     */
+    private Task parseDeadline(String[] parts, String description, Boolean isDone) throws RafayelException {
+        final int DEADLINE_NUM_PARTS = 4;
+        if (parts.length < DEADLINE_NUM_PARTS) {
+            throw new RafayelException("Deadline task does not have enough parts. Expected: " + DEADLINE_NUM_PARTS
+                    + ", Got: " + parts.length);
+        }
+        LocalDateTime by = handleReadDate(parts[3].trim());
 
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        Task task = new Deadline(description, by);
+        if (isDone) {
+            task.markAsDone();
+        }
+        return task;
+    }
 
-        // check if directory/folder and file exists
-        ensureFileExists();
-
-        try {
-            FileReader reader = new FileReader(filePath);
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            String line;
-
-            while ((line = bufferedReader.readLine()) != null) {
-                if (line.trim().isEmpty()) {
-                    continue;
-                }
-
-                String[] parts = line.split(" \\| ");
-                if (parts.length < 2) {
-                    continue;
-                }
-
-                String taskType = parts[0].trim();
-                boolean isDone = parts[1].trim().equals("1");
-                String description = parts[2].trim();
-
-                Task task = null;
-
-                switch (taskType) {
-                case "T":
-                    task = new Todo(description);
-                    break;
-                case "D":
-
-                    if (parts.length >= DEADLINE_PARTS) {
-                        LocalDateTime by = handleReadDate(parts[3].trim());
-                        task = new Deadline(description, by);
-                    }
-                    break;
-                case "E":
-                    if (parts.length >= EVENT_PARTS) {
-                        LocalDateTime from = handleReadDate(parts[3].trim());
-                        LocalDateTime to = handleReadDate(parts[4].trim());
-                        task = new Event(description, from, to);
-                    }
-                    break;
-                default:
-                    throw new RafayelException("Unknown task type imported!");
-                }
-                if (task != null) {
-                    if (isDone) {
-                        task.markAsDone();
-                    }
-                    tasks.add(task);
-                }
-            }
-            bufferedReader.close();
-            reader.close();
-
-        } catch (IOException e) {
-            System.out.println("Error importing file!");
+    /**
+     * Parses an Event task.
+     *
+     * @param parts split parts of the input line.
+     * @param description description of the event task.
+     * @param isDone whether event task is completed.
+     * @return an Event object.
+     * @throws RafayelException if input format is invalid.
+     */
+    private Task parseEvent(String[] parts, String description, Boolean isDone) throws RafayelException {
+        final int EVENT_NUM_PARTS = 5;
+        if (parts.length < EVENT_NUM_PARTS) {
+            throw new RafayelException(
+                    "Event task does not have enough parts. Expected: " + EVENT_NUM_PARTS + ", Got: " + parts.length);
         }
 
-        return tasks;
+        LocalDateTime from = handleReadDate(parts[3].trim());
+        LocalDateTime to = handleReadDate(parts[4].trim());
+
+        Task task = new Event(description, from, to);
+        if (isDone) {
+            task.markAsDone();
+        }
+        return task;
     }
 
     /**

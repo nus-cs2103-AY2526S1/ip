@@ -8,7 +8,7 @@ import rafayel.RafayelException;
  * Provides methods to display messages, errors, and formatted output to the user.
  */
 public class Ui {
-    /* Default messages to send */
+    /** Default messages to send */
     private final String START_MSG = "Hello! I'm Rafayel ^-^\n" + " What can I do for you today?\n";
     private final String END_MSG = "Bye. Hope to see you again soon!\n";
     private final String LOADING_ERROR = "Loading error!";

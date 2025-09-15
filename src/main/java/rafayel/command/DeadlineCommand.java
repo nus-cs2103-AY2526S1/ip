@@ -9,10 +9,15 @@ import rafayel.task.Deadline;
 import rafayel.task.TaskList;
 
 /**
- * Handles the creation and addition of a new Deadline task.
+ * Represents a command that creates and adds a new Deadline task.
+ * A deadline requires a description and a due date (/by).
  */
 public class DeadlineCommand extends Command {
+
+    /** Stores the description and date of the Deadline task. */
     private final String descriptionDate;
+
+    /** Error message when deadline format is invalid. */
     private static final String DEADLINE_FORMAT_ERROR = "Deadline format is wrong. Example: deadline [desc] /by [time]";
 
     /**
@@ -26,6 +31,14 @@ public class DeadlineCommand extends Command {
         this.descriptionDate = descriptionDate.trim();
     }
 
+    /**
+     * Executes the deadline command by creating a {@link Deadline} task.
+     *
+     * @param tasks the current task list.
+     * @param storage the storage handler.
+     * @return confirmation message after adding the task.
+     * @throws RafayelException if input format is invalid or parsing fails.
+     */
     @Override
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
         if (descriptionDate.isEmpty()) {

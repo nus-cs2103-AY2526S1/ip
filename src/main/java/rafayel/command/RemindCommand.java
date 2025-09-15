@@ -11,6 +11,13 @@ import rafayel.storage.Storage;
 import rafayel.task.Task;
 import rafayel.task.TaskList;
 
+/**
+ * Represents a command that reminds the user of 
+ * upcoming deadlines and overdue tasks.
+ * Scans all tasks with deadlines, then classifies them into:
+ * 1. Upcoming deadlines (within 24 hours)
+ * 2. Overdue tasks (past deadline and not done)
+ */
 public class RemindCommand extends Command {
 
     /**
@@ -20,6 +27,42 @@ public class RemindCommand extends Command {
         super(CommandHandle.CommandType.REMIND);
     }
 
+    /**
+     * Gets a formatted string for both reminders and overdue tasks.
+     * Uses Java stream to easily get all tasks in the list.
+     * 
+     * @param reminderType either reminders or overdue tasks.
+     * @param tasks list of tasks that needs to be formatted.
+     * @return formatted string.
+     */
+    private String getStringReminders(String reminderType, Task... tasks) {
+        if (tasks == null || tasks.length == 0) {
+            return "";
+        }
+
+        String tasksList = IntStream.range(0, tasks.length).mapToObj(i -> (i + 1) + ". " + tasks[i].toString())
+                .collect(Collectors.joining("\n"));
+
+        return reminderType + "\n" + tasksList;
+    }
+
+    // Overloaded version for ArrayList compatibility
+    private String getStringReminders(String reminderType, ArrayList<Task> tasks) {
+        if (tasks == null || tasks.isEmpty()) {
+            return "";
+        }
+        return getStringReminders(reminderType, tasks.toArray(new Task[0]));
+    }
+
+    /**
+     * Executes the remind command by returning a list of tasks
+     * with upcoming deadlines and overdue deadlines.
+     *
+     * @param tasks   the task list
+     * @param storage the storage handler
+     * @return a formatted string containing reminders
+     * @throws RafayelException if an error occurs while processing
+     */
     @Override
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
         if (tasks.getSize() <= 0) {
@@ -45,12 +88,9 @@ public class RemindCommand extends Command {
             return "No upcoming deadlines nor overdue tasks! :D";
         }
 
-        String upcomingReminders = reminders.isEmpty() ? ""
-                : "Upcoming Deadlines:\n" + IntStream.range(0, reminders.size())
-                        .mapToObj(i -> (i + 1) + ". " + reminders.get(i).toString()).collect(Collectors.joining("\n"));
-        String overdueReminders = overdue.isEmpty() ? ""
-                : "OVERDUE TASKS:\n" + IntStream.range(0, overdue.size())
-                        .mapToObj(i -> (i + 1) + ". " + overdue.get(i).toString()).collect(Collectors.joining("\n"));
+        String upcomingReminders = getStringReminders("Upcoming deadlines:", reminders);
+        String overdueReminders = getStringReminders("OVERDUE TASKS:", overdue);
+
         return overdueReminders + upcomingReminders;
     }
 }

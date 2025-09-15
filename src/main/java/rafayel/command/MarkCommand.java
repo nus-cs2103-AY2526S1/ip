@@ -7,10 +7,15 @@ import rafayel.task.Task;
 import rafayel.task.TaskList;
 
 /**
- * Handles marking or unmarking a task as done/not done.
+ * Represents a command that marks or unmarks a task as done.
+ * The task is identified by its task number (1-based index from user input).
  */
 public class MarkCommand extends Command {
+
+    /** Stores the task number of the task to be marked/unmarked. */
     private final int taskNumber;
+
+    /** Whether to mark (true) or unmark (false) the command */
     private final boolean isMark;
 
     /**
@@ -31,6 +36,14 @@ public class MarkCommand extends Command {
 
     }
 
+    /**
+     * Executes the mark/unmark command by updating the task’s completion status.
+     *
+     * @param tasks the task list.
+     * @param storage the storage handler.
+     * @return a confirmation message of the updated task.
+     * @throws RafayelException if the task number is invalid or state is inconsistent.
+     */
     @Override
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
         if (taskNumber < 0 || taskNumber > tasks.getSize()) {
@@ -40,12 +53,12 @@ public class MarkCommand extends Command {
         Task task = tasks.get(taskNumber);
         if (isMark) {
             if (task.isDone()) {
-                throw new RafayelException("Task number " + taskNumber + " is already marked as done.");
+                throw new RafayelException("Task number " + taskNumber + 1 + " is already marked as done.");
             }
             task.markAsDone();
         } else {
             if (!task.isDone()) {
-                throw new RafayelException("Task number " + taskNumber + " is not done yet.");
+                throw new RafayelException("Task number " + taskNumber + 1 + " is already unmarked.");
             }
             task.markAsUndone();
         }

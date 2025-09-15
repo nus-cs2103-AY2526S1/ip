@@ -63,17 +63,11 @@ public class MainWindow extends AnchorPane {
      * @throws RafayelException 
      */
     public void checkAndShowReminders() {
-        try {
-            String reminderText = rafayel.getReminders();
-            if ("You have no tasks in the list!".equals(reminderText)
-                    || "No upcoming deadlines nor overdue tasks! :D".equals(reminderText)) {
-                return;
-            }
-            dialogContainer.getChildren()
-                    .addAll(DialogBox.getRafayelDialog("Reminders:\n\n" + reminderText, rafayelIcon));
-        } catch (RafayelException e) {
-            // No error
-            // throw new RafayelException("Error getting reminders, try again later!");
+        String reminderText = rafayel.getReminders();
+        if ("You have no tasks in the list!".equals(reminderText)
+                || "No upcoming deadlines nor overdue tasks! :D".equals(reminderText)) {
+            return;
         }
+        dialogContainer.getChildren().addAll(DialogBox.getRafayelDialog("Reminders:\n\n" + reminderText, rafayelIcon));
     }
 }

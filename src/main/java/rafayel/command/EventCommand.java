@@ -9,10 +9,15 @@ import rafayel.task.Event;
 import rafayel.task.TaskList;
 
 /**
- * Handles the creation and addition of a new Event task.
+ * Represents a command that creates and adds a new Event task.
+ * The event requires a description, start time (/from) and end time (/to).
  */
 public class EventCommand extends Command {
+
+    /* Stores the description and date of the Event task. */
     private final String descriptionDate;
+
+    /** Error message when event format is invalid. */
     private static final String EVENT_FORMAT_ERROR = "Event format is wrong. Example: event [desc] /from [time] /to [time]";
 
     /**
@@ -26,8 +31,14 @@ public class EventCommand extends Command {
         this.descriptionDate = descriptionDate;
     }
 
-    @Override
-    public String execute(TaskList tasks, Storage storage) throws RafayelException {
+    /**
+     * Checks the input for event task.
+     * 
+     * @param descriptionDate the input for event task.
+     * @throws RafayelException if the input is formatted wrongly.
+     */
+    private void eventInputValidation(String descriptionDate) throws RafayelException {
+        // Input Validation
         if (descriptionDate.isEmpty()) {
             throw new RafayelException(EVENT_FORMAT_ERROR + "Please add in the description of the Event task.");
         }
@@ -37,6 +48,20 @@ public class EventCommand extends Command {
         if (!descriptionDate.contains("/to")) {
             throw new RafayelException(EVENT_FORMAT_ERROR);
         }
+    }
+
+    /**
+     * Executes the event command by creating an Eventtask.
+     *
+     * @param tasks the current task list.
+     * @param storage the storage handler.
+     * @return confirmation message after adding the task.
+     * @throws RafayelException if input format is invalid or parsing fails.
+     */
+    @Override
+    public String execute(TaskList tasks, Storage storage) throws RafayelException {
+        eventInputValidation(descriptionDate);
+
         String[] taskInfo = descriptionDate.substring(6).split("/");
         String description = taskInfo[0].trim();
         LocalDateTime from = handleReadDate(taskInfo[1].substring(5).trim());

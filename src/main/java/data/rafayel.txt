@@ -1,3 +1,0 @@
-D | 0 | return book | Dec 1 2024 18:00
-E | 0 | t meeting | Dec 1 2024 14:00 - Dec 1 2024 18:00
-D | 0 | do homework | Dec 24 2025 12:24

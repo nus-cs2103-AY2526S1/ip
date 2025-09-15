@@ -22,7 +22,7 @@ public class Parser {
          */
     public static Command parseCommand(String input) throws RafayelException {
 
-        CommandHandle.CommandType commandType = CommandHandle.CommandType.parseCommand(input);
+        CommandHandle.CommandType commandType = CommandHandle.CommandType.getCommand(input);
 
         return switch (commandType) {
         case BYE -> new ByeCommand();

@@ -22,7 +22,7 @@ import rafayel.RafayelException;
  */
 public class TaskList {
 
-    /* ArrayList that stores a list of tasks */
+    /** ArrayList that stores a list of tasks */
     protected ArrayList<Task> tasks;
 
     /**

@@ -8,33 +8,40 @@ import rafayel.task.Task;
 import rafayel.task.TaskList;
 
 /**
- * Find Command that uses task number with 
+ * Represents a command that searches for tasks containing a given keyword.
+ * Returns all tasks whose description contains the specified substring.
  */
 public class FindCommand extends Command {
+
+    /** Stores the string to find in tasks. */
     private final String stringToFind;
 
     /**
-     * Constructor for finding tasks.
+     * Constructor for FindCommand.
      * 
      * @param taskNumber the string task number to find from the list of tasks.
-     * @throws RafayelException 
+     * @throws RafayelException if the input is invalid.
      */
     public FindCommand(String stringToFind) throws RafayelException {
         super(CommandHandle.CommandType.FIND);
         this.stringToFind = stringToFind;
     }
 
+    /**
+     * Executes the find command by returning a list of matching tasks.
+     *
+     * @param tasks the task list.
+     * @param storage the storage handler.
+     * @return a formatted string of all matching tasks.
+     * @throws RafayelException if an error occurs during search.
+     */
     @Override
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
 
         ArrayList<Task> matchedTasks = tasks.matchTasks(stringToFind);
         assert matchedTasks != null : "Matched tasks list should not be null";
 
-        String res = "Here are the matching tasks in your list:\n";
-        for (int i = 0; i < matchedTasks.size(); i++) {
-            res += i + 1 + "." + matchedTasks.get(i).toString() + "\n";
-        }
-        return res;
+        return formatTaskList("Here are the matching tasks in your list:", matchedTasks);
     }
 
 }

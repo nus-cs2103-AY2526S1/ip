@@ -10,6 +10,7 @@ list
 unmark 2
 list
 deadline
+remind
 delete 4
 list
 find book

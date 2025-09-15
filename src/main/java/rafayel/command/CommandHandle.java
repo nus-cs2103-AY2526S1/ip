@@ -2,8 +2,8 @@
 package rafayel.command;
 
 /**
- * Parser deals with making sense of the user command.
- * Parser parse and understands the user's commands and determines the corresponding command type.
+ * CommandHandler deals with making sense of the user command.
+ * CommandHandler parse and understands the user's commands and determines the corresponding command type.
  */
 public class CommandHandle {
 
@@ -19,7 +19,7 @@ public class CommandHandle {
          * @param input input string to be parsed.
          * @return the corresponding Command enum value.
          */
-        public static CommandType parseCommand(String input) {
+        public static CommandType getCommand(String input) {
             if (input.equals("bye")) {
                 return BYE;
             }
@@ -61,6 +61,6 @@ public class CommandHandle {
      * @return the corresponding CommandType enum value.
      */
     public static CommandType parse(String input) {
-        return CommandType.parseCommand(input);
+        return CommandType.getCommand(input);
     }
 }
