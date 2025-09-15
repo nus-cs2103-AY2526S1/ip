@@ -1,0 +1,26 @@
+package jinjja.command;
+
+import jinjja.storage.Storage;
+import jinjja.task.TaskList;
+import jinjja.ui.Ui;
+
+/**
+ * Command representing an invalid or erroneous command.
+ */
+public class InvalidCommand extends Command {
+    private String errorMessage;
+
+    public InvalidCommand(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    @Override
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
+        return ui.showMessageWithDivider(errorMessage);
+    }
+
+    @Override
+    public boolean canExit() {
+        return false;
+    }
+}
