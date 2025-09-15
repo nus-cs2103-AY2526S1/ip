@@ -37,7 +37,7 @@ public class Parser {
     public static ArrayList<Task> parseDataStringsToTasks(List<String> stringDataList) {
         ArrayList<Task> tasks = new ArrayList<>();
 
-        for(int i = 0; i < stringDataList.size(); i++) {
+        for (int i = 0; i < stringDataList.size(); i++) {
             String dataString = stringDataList.get(i);
             Task task = parseDataStringToTask(dataString);
             tasks.add(task);
@@ -114,72 +114,100 @@ public class Parser {
         if (str.equals("list")) {
             return new ListCommand();
         } else if (str.matches(MARK_REGEX)) {
-            String[] temp = str.split(" ");
-            int index = Integer.parseInt(temp[1]);
-            assert index > 0;
-            return new MarkCommand(index);
+            return parseMark(str);
         } else if (str.matches(DELETE_REGEX)) {
-            String indexStr = str.replaceFirst("delete ", "");
-            int index = Integer.parseInt(indexStr);
-            return new DeleteCommand(index);
+           return parseDelete(str);
         } else if (str.matches(TODO_REGEX)) {
-            String desc = str.replaceFirst("todo", "");
-            String[] taskInfo = {"T", "false", desc};
-            Task toDO = Task.createTask(taskInfo);
-            return new ToDoCommand(toDO);
+           return parseToDo(str);
         } else if (str.matches(EVENT_REGEX)) {
-            String withoutEvent = str.replaceFirst("event", "");
-            String[] fromSplit = withoutEvent.split("/from", 2);
-
-            if (fromSplit.length != 2) {
-                throw new IllegalArgumentException();
-            }
-
-            String desc = fromSplit[0];
-            String duration = fromSplit[1];
-            String[] times = duration.split("/to", 2);
-
-            if (times.length != 2) {
-                throw new IllegalArgumentException();
-            }
-
-            String from = times[0];
-            String to = times[1];
-
-            String[] taskInfo = {"E", "false", desc, from, to};
-            Task event = Task.createTask(taskInfo);
-            return new EventCommand(event);
+            return parseEvent(str);
         } else if (str.matches(DEADLINE_REGEX)) {
-            String withoutDeadline = str.replaceFirst("deadline", "");
-            String[] bySplit = withoutDeadline.split("/by", 2);
-
-            if (bySplit.length != 2) {
-                throw new IllegalArgumentException();
-            }
-
-            String desc = bySplit[0];
-            String by = bySplit[1];
-
-            String[] taskInfo = {"D", "false", desc, by};
-            Task deadline = Task.createTask(taskInfo);
-            return new DeadlineCommand(deadline);
+            return parseDeadline(str);
         } else if (str.matches(FIND_REGEX)) {
-            String searchStr = str.replaceFirst("find", "");
-            String cleanStr = searchStr.trim();
-            return new FindCommand(cleanStr);
+            return parseFind(str);
         } else if (str.matches(REMIND_REGEX)) {
-            String daysFromNowStr = str
-                    .replaceFirst("remind", "")
-                    .replaceFirst("/within", "")
-                    .trim();
-
-            int daysFromNow = Integer.valueOf(daysFromNowStr);
-
-            return new RemindCommand(daysFromNow);
+            return parseRemind(str);
         } else if (str.equals("bye")) {
             return new ExitCommand();
         } else {
             throw new IllegalArgumentException();
         }
+    }
+
+    private static Command parseMark(String str) {
+        String[] temp = str.split(" ");
+        int index = Integer.parseInt(temp[1]);
+        assert index > 0;
+        return new MarkCommand(index);
+    }
+
+    private static Command parseDelete(String str) {
+        String indexStr = str.replaceFirst("delete ", "");
+        int index = Integer.parseInt(indexStr);
+        return new DeleteCommand(index);
+    }
+
+    private static Command parseToDo(String str) {
+        String desc = str.replaceFirst("todo", "");
+        String[] taskInfo = {"T", "false", desc};
+        Task toDO = Task.createTask(taskInfo);
+        return new ToDoCommand(toDO);
+    }
+
+    private static Command parseEvent(String str) {
+        String withoutEvent = str.replaceFirst("event", "");
+        String[] fromSplit = withoutEvent.split("/from", 2);
+
+        if (fromSplit.length != 2) {
+            throw new IllegalArgumentException();
+        }
+
+        String desc = fromSplit[0];
+        String duration = fromSplit[1];
+        String[] times = duration.split("/to", 2);
+
+        if (times.length != 2) {
+            throw new IllegalArgumentException();
+        }
+
+        String from = times[0];
+        String to = times[1];
+
+        String[] taskInfo = {"E", "false", desc, from, to};
+        Task event = Task.createTask(taskInfo);
+        return new EventCommand(event);
+    }
+
+    private static Command parseDeadline(String str) {
+        String withoutDeadline = str.replaceFirst("deadline", "");
+        String[] bySplit = withoutDeadline.split("/by", 2);
+
+        if (bySplit.length != 2) {
+            throw new IllegalArgumentException();
+        }
+
+        String desc = bySplit[0];
+        String by = bySplit[1];
+
+        String[] taskInfo = {"D", "false", desc, by};
+        Task deadline = Task.createTask(taskInfo);
+        return new DeadlineCommand(deadline);
+    }
+
+    private static Command parseFind(String str) {
+        String searchStr = str.replaceFirst("find", "");
+        String cleanStr = searchStr.trim();
+        return new FindCommand(cleanStr);
+    }
+
+    private static Command parseRemind(String str) {
+        String daysFromNowStr = str
+                .replaceFirst("remind", "")
+                .replaceFirst("/within", "")
+                .trim();
+
+        int daysFromNow = Integer.valueOf(daysFromNowStr);
+
+        return new RemindCommand(daysFromNow);
     }
 }
