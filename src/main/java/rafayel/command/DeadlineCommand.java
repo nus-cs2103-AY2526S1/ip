@@ -18,7 +18,7 @@ public class DeadlineCommand extends Command {
     private final String descriptionDate;
 
     /** Error message when deadline format is invalid. */
-    private static final String DEADLINE_FORMAT_ERROR = "Deadline format is wrong. Example: deadline [desc] /by [time]";
+    private static final String DEADLINE_FORMAT_ERROR = "A deadline must be set with 'deadline [your task] /by [time]'. This isn't abstract art — precision is key!";
 
     /**
      * Constructs a deadline command with description and date that it is due.
@@ -42,7 +42,8 @@ public class DeadlineCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
         if (descriptionDate.isEmpty()) {
-            throw new RafayelException(DEADLINE_FORMAT_ERROR + "Please add in the description of the Deadline task.");
+            throw new RafayelException(DEADLINE_FORMAT_ERROR
+                    + "A blank canvas? How am I supposed to paint with no description? Tell me what this deadline is for.");
         }
         if (!descriptionDate.contains("/by")) {
             throw new RafayelException(DEADLINE_FORMAT_ERROR);

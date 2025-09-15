@@ -1,6 +1,7 @@
 
 package rafayel.command;
 
+import rafayel.Rafayel;
 import rafayel.RafayelException;
 import rafayel.storage.Storage;
 import rafayel.task.Task;
@@ -47,23 +48,28 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
         if (taskNumber < 0 || taskNumber > tasks.getSize()) {
-            throw new RafayelException("Invalid task number.");
+            throw new RafayelException(Rafayel.INVALID_TASK_NUM);
         }
 
         Task task = tasks.get(taskNumber);
         if (isMark) {
             if (task.isDone()) {
-                throw new RafayelException("Task number " + taskNumber + 1 + " is already marked as done.");
+                throw new RafayelException(
+                        "I can't do that, task number " + taskNumber + 1 + " is already marked as done.");
             }
             task.markAsDone();
         } else {
             if (!task.isDone()) {
-                throw new RafayelException("Task number " + taskNumber + 1 + " is already unmarked.");
+                throw new RafayelException("I can't do that, task number " + taskNumber + 1 + " is already unmarked.");
             }
             task.markAsUndone();
         }
 
+        String status = isMark ? "completed to my impeccable standards" : "regrettably left unfinished";
+        String reaction = isMark ? "Finally. I was waiting forever for that."
+                : "Hm, I'll trust you have a good reason for this delay.";
+
         storage.save(tasks.getAll());
-        return "Nice! I've marked this task as " + (isMark ? "done" : "not done") + ":\n  " + task.toString();
+        return reaction + "\nI've marked this task as " + status + ":\n  『 " + task.toString() + " 』";
     }
 }

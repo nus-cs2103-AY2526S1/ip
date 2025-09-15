@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 
 import rafayel.Rafayel;
 import rafayel.RafayelException;
+import rafayel.command.RemindCommand;
 import rafayel.ui.Ui;
 
 /**
@@ -64,7 +65,7 @@ public class MainWindow extends AnchorPane {
      */
     public void checkAndShowReminders() {
         String reminderText = rafayel.getReminders();
-        if ("You have no tasks in the list!".equals(reminderText)
+        if (RemindCommand.NO_TASK_FOR_REMINDERS.equals(reminderText)
                 || "No upcoming deadlines nor overdue tasks! :D".equals(reminderText)) {
             return;
         }

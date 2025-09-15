@@ -20,6 +20,10 @@ import rafayel.task.TaskList;
  */
 public class RemindCommand extends Command {
 
+    /** Stores the string when there's no tasks. */
+    public final static String NO_TASK_FOR_REMINDERS = "I can't remind you when there are no tasks in the list :<";
+    // for comparison purposes when reminding the user.
+
     /**
      * Constructs a Remind Command
      */
@@ -66,7 +70,7 @@ public class RemindCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
         if (tasks.getSize() <= 0) {
-            return "You have no tasks in the list!";
+            return NO_TASK_FOR_REMINDERS;
         }
         ArrayList<Task> reminders = new ArrayList<>();
         ArrayList<Task> overdue = new ArrayList<>();

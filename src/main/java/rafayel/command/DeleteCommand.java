@@ -1,5 +1,6 @@
 package rafayel.command;
 
+import rafayel.Rafayel;
 import rafayel.RafayelException;
 import rafayel.storage.Storage;
 import rafayel.task.Task;
@@ -24,7 +25,7 @@ public class DeleteCommand extends Command {
         try {
             this.taskNumber = Integer.parseInt(taskString.trim()) - 1;
         } catch (NumberFormatException e) {
-            throw new RafayelException("Invalid input format.");
+            throw new RafayelException(Rafayel.INVALID_TASK_NUM);
         }
     }
 
@@ -39,13 +40,13 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
         if (taskNumber < 0 || taskNumber > tasks.getSize()) {
-            throw new RafayelException("Invalid task number.");
+            throw new RafayelException(Rafayel.INVALID_TASK_NUM);
         }
 
         Task deletedTask = tasks.remove(taskNumber);
         storage.save(tasks.getAll());
 
-        return "Noted. I've removed this task:\n  " + deletedTask.toString() + "\nNow you have " + tasks.getSize()
-                + " tasks in the list.";
+        return "Okay, I've removed this task from our gallery:\n  " + deletedTask.toString() + "\nWe are now left with "
+                + tasks.getSize() + " tasks. A more curated collection, I suppose.";
     }
 }

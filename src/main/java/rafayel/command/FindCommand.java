@@ -39,9 +39,10 @@ public class FindCommand extends Command {
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
 
         ArrayList<Task> matchedTasks = tasks.matchTasks(stringToFind);
-        assert matchedTasks != null : "Matched tasks list should not be null";
+        assert matchedTasks != null : "Even my paintwater has more substance than this 'null' search of yours. Try again, and this time, put some thought into it.";
 
-        return formatTaskList("Here are the matching tasks in your list:", matchedTasks);
+        return formatTaskList("After sifting through the sands of your endless list, I found these. You owe me:",
+                matchedTasks);
     }
 
 }

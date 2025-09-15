@@ -18,7 +18,7 @@ public class EventCommand extends Command {
     private final String descriptionDate;
 
     /** Error message when event format is invalid. */
-    private static final String EVENT_FORMAT_ERROR = "Event format is wrong. Example: event [desc] /from [time] /to [time]";
+    private static final String EVENT_FORMAT_ERROR = "An event must be set with 'event [desc] /from [time] /to [time]'. This isn't abstract art — precision is key!";
 
     /**
      * Constructs a event task.
@@ -40,7 +40,8 @@ public class EventCommand extends Command {
     private void eventInputValidation(String descriptionDate) throws RafayelException {
         // Input Validation
         if (descriptionDate.isEmpty()) {
-            throw new RafayelException(EVENT_FORMAT_ERROR + "Please add in the description of the Event task.");
+            throw new RafayelException(EVENT_FORMAT_ERROR
+                    + "A blank canvas? How am I supposed to paint with no description? Tell me what this event is for.");
         }
         if (!descriptionDate.contains("/from")) {
             throw new RafayelException(EVENT_FORMAT_ERROR);

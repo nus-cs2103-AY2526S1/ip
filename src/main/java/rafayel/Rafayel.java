@@ -23,10 +23,13 @@ public class Rafayel {
 
     // Constants
     /** Error message when task number provided is invalid. */
-    public static final String INVALID_TASK_NUM = "Invalid task number.";
+    public static final String INVALID_TASK_NUM = "Invalid task number. This is why I prefer communicating with paint.";
 
     /** Error message when date format does not match supported formats. */
-    public static final String DATE_FORMAT_ERROR = "Please use one of: MMM d yyyy HH:mm | yyyy/MM/dd HH:mm | dd-MM-yyyy HH:mm";
+    public static final String DATE_FORMAT_ERROR = "If you're going to let me remind you, at least present the date elegantly .-. Use a format like `MMM d yyyy HH:mm` | `yyyy/MM/dd HH:mm` | `dd-MM-yyyy HH:mm`.";
+
+    /** Error message when command is not found. */
+    public static final String UNKNOWN_COMMAND_ERROR = "Did a seashell whisper that to you? Because I didn't catch a word. Use a command I actually know, little assistant :<";
 
     /** Storage object that saves the task to local file storage. */
     private final Storage storage;
@@ -111,7 +114,7 @@ public class Rafayel {
         } catch (RafayelException e) {
             return e.getMessage();
         } catch (Exception e) {
-            return "Sorry, I can't understand :c";
+            return UNKNOWN_COMMAND_ERROR;
         }
 
     }

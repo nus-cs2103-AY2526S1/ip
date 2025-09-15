@@ -118,10 +118,12 @@ public class TaskList {
      * @return 
      */
     public String getTaskList() {
-        final String EMPTY_LIST = "There's nothing in the list.";
+        final String EMPTY_LIST = "There's nothing in the list, just like my brain right now ;-;";
         return this.getSize() == 0 ? EMPTY_LIST
-                : "Here are the tasks in your list:\n" + IntStream.range(0, this.getSize())
-                        .mapToObj(i -> (i + 1) + ". " + tasks.get(i).toString()).collect(Collectors.joining("\n"));
+                : "Behold, the magnificent collection of tasks you've burdened me with:\n\n"
+                        + IntStream.range(0, this.getSize()).mapToObj(i -> (i + 1) + ". " + tasks.get(i).toString())
+                                .collect(Collectors.joining("\n"))
+                        + "\n\n...I suppose some of them are worthy of my time.";
     }
 
     /**

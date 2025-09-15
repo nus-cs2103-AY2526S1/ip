@@ -168,8 +168,8 @@ public class Storage {
     private Task parseDeadline(String[] parts, String description, Boolean isDone) throws RafayelException {
         final int DEADLINE_NUM_PARTS = 4;
         if (parts.length < DEADLINE_NUM_PARTS) {
-            throw new RafayelException("Deadline task does not have enough parts. Expected: " + DEADLINE_NUM_PARTS
-                    + ", Got: " + parts.length);
+            throw new RafayelException("Deadline task does not have enough parts, I need " + DEADLINE_NUM_PARTS
+                    + " but you gave me " + parts.length);
         }
         LocalDateTime by = handleReadDate(parts[3].trim());
 
@@ -192,8 +192,8 @@ public class Storage {
     private Task parseEvent(String[] parts, String description, Boolean isDone) throws RafayelException {
         final int EVENT_NUM_PARTS = 5;
         if (parts.length < EVENT_NUM_PARTS) {
-            throw new RafayelException(
-                    "Event task does not have enough parts. Expected: " + EVENT_NUM_PARTS + ", Got: " + parts.length);
+            throw new RafayelException("Event task does not have enough parts, I need " + EVENT_NUM_PARTS
+                    + " but you gave me " + parts.length);
         }
 
         LocalDateTime from = handleReadDate(parts[3].trim());

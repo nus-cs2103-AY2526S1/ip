@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import rafayel.Rafayel;
 import rafayel.RafayelException;
 import rafayel.storage.Storage;
 import rafayel.task.Task;
@@ -70,7 +71,7 @@ public abstract class Command {
             }
         }
 
-        throw new RafayelException("Please use one of: MMM d yyyy HH:mm | yyyy/MM/dd HH:mm | dd-MM-yyyy HH:mm");
+        throw new RafayelException(Rafayel.DATE_FORMAT_ERROR);
     }
 
     /**
@@ -81,7 +82,8 @@ public abstract class Command {
      * @return confirmation message.
      */
     protected static String getNewTaskString(Task newTask, int counter) {
-        return String.format("Got it. I've added this task:\n %s\nNow you have %d tasks in the list.",
+        return String.format(
+                "Very well. I've graciously added this new stroke to our canvas:\n\n 『 %s 』\n\nNow our collection holds %d priceless pieces. Try not to clutter my masterpiece, alright?",
                 newTask.toString(), counter);
     }
 

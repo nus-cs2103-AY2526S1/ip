@@ -1,6 +1,7 @@
 
 package rafayel.command;
 
+import rafayel.Rafayel;
 import rafayel.RafayelException;
 
 /**
@@ -35,7 +36,7 @@ public class Parser {
         case DELETE -> new DeleteCommand(removeCommand(input));
         case FIND -> new FindCommand(removeCommand(input));
         case REMIND -> new RemindCommand();
-        default -> throw new RafayelException("Command not found");
+        default -> throw new RafayelException(Rafayel.UNKNOWN_COMMAND_ERROR);
 
         };
     }
