@@ -77,7 +77,7 @@ public class Parser {
         for (String separator : separators) {
             String[] splitBySeparator = rest.split(separator, 2);
             if (splitBySeparator.length != 2) {
-                throw new LunaException("Missing arguments.");
+                throw new LunaException("Missing " + separator + " flag.");
             }
             result.add(splitBySeparator[0].trim());
             rest = splitBySeparator[1];
