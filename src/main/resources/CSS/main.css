@@ -1,5 +1,5 @@
 .root {
-    main-color: rgb(237, 255, 242);       /* Create a looked-up color called "main-color" within root. */
+    main-color: #FFCCCC;       /* Create a looked-up color called "main-color" within root. */
     -fx-background-color: main-color;
     -fx-background-image: url("https://wallpapercat.com/w/full/e/0/8/829427-1708x2562-mobile-hd-phineas-and-ferb-wallpaper-photo.jpg");
     -fx-background-size: 400px 600px;
@@ -7,17 +7,17 @@
 }
 
 .text-field {
-    -fx-background-color: #d9ffe2;
+    -fx-background-color: #FFCCFF;
     -fx-font: 20px "Arial";
 }
 
 .button {
-    -fx-background-color: mediumspringgreen;
-    -fx-font: italic bold 16px "Arial";
+    -fx-background-color: #FF99CC;
+    -fx-font: bold 16px "Arial";
 }
 
 .button:hover {
-    -fx-background-color:cyan;
+    -fx-background-color: #FFCC99;
     -fx-font-size: 18px;
 }
 
