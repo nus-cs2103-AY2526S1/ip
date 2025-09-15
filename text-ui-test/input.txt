@@ -1,0 +1,24 @@
+todo review book
+deadline return book /by 2025-12-02
+event lecture /from 2025-11-11 /to 2025-12-11
+deadline return book again /by 2025-12-07
+deadline return book again /by tmr
+list
+list /on 2025-12-02
+list /on 2025-12-07
+list /on 2025-12-12
+list /on later
+find
+find book
+delete 2
+mark 1
+mark 2
+unmark 1
+mark 5
+unmark 0
+todo
+deadline smth
+random
+event testing event /from cur /to
+list
+bye
