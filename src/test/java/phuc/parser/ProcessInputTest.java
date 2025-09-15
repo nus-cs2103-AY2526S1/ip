@@ -35,4 +35,18 @@ public class ProcessInputTest {
     void testProcessUnknownCommandThrows() {
         assertThrows(PhucException.class, () -> processInput.process("unknowncommand"));
     }
+
+    @Test
+    void testProcessInvalidCommand() {
+        assertThrows(PhucException.class, () -> {
+            processInput.process("invalid command");
+        });
+    }
+
+    @Test
+    void testProcessEmptyCommand() {
+        assertThrows(PhucException.class, () -> {
+            processInput.process("");
+        });
+    }
 }
