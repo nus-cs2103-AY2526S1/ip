@@ -15,16 +15,23 @@ import sam.ui.Ui;
  * coordinates between different components like UI, Parser, TaskList, and Storage.
  */
 public class Sam {
-    private TaskList tasks;
-    private Storage storage;
-    private Ui ui;
+    // Essential constants for configuration and error messages
+    private static final String DATA_FILE_PATH = "./data/sam.txt";
+    private static final String DEADLINE_FORMAT_ERROR = "OOPS!!! Use: deadline <description> /by <time>";
+    private static final String EVENT_FORMAT_ERROR = "OOPS!!! Use: event <description> /from <start> /to <end>";
+    private static final String FIND_KEYWORD_ERROR = "OOPS!!! Please provide a keyword to search for.";
+    private static final String TASK_NUMBER_ERROR = "OOPS!!! Task number must be an integer.";
+    
+    private final TaskList tasks;
+    private final Storage storage;
+    private final Ui ui;
 
     /**
      * Constructor for Sam class.
      */
     public Sam() {
         this.ui = new Ui();
-        this.storage = new Storage("./data/sam.txt");
+        this.storage = new Storage(DATA_FILE_PATH);
         this.tasks = new TaskList(storage.load());
     }
 
@@ -47,115 +54,190 @@ public class Sam {
         String rest = parsed[1];
 
         try {
-            switch (Command.of(verb)) {
-                case BYE:
-                    return "Bye. Hope to see you again soon!";
-
-                case LIST:
-                    if (tasks.size() == 0) {
-                        return "Your task list is empty!";
-                    }
-                    StringBuilder listOutput = new StringBuilder("Here are the tasks in your list:\n");
-                    for (int i = 0; i < tasks.size(); i++) {
-                        listOutput.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
-                    }
-                    return listOutput.toString().trim();
-
-                case MARK: {
-                    int idx = parseIndex(rest, tasks.size());
-                    tasks.get(idx).markDone();
-                    storage.save(tasks.getTasks());
-                    return "Nice! I've marked this task as done:\n" + tasks.get(idx);
-                }
-
-                case UNMARK: {
-                    int idx = parseIndex(rest, tasks.size());
-                    tasks.get(idx).unmark();
-                    storage.save(tasks.getTasks());
-                    return "OK, I've marked this task as not done yet:\n" + tasks.get(idx);
-                }
-
-                case DELETE: {
-                    int idx = parseIndex(rest, tasks.size());
-                    Task removed = tasks.remove(idx);
-                    storage.save(tasks.getTasks());
-                    return "Noted. I've removed this task:\n" + removed + 
-                           "\nNow you have " + tasks.size() + " tasks in the list.";
-                }
-
-                case TODO: {
-                    if (rest.isEmpty()) {
-                        throw new EmptyDescriptionException("todo");
-                    }
-                    tasks.add(new Todo(rest));
-                    storage.save(tasks.getTasks());
-                    return "Got it. I've added this task:\n" + tasks.get(tasks.size() - 1) + 
-                           "\nNow you have " + tasks.size() + " tasks in the list.";
-                }
-
-                case DEADLINE: {
-                    if (rest.isEmpty() || !rest.contains("/by")) {
-                        throw new SamException("OOPS!!! Use: deadline <description> /by <time>");
-                    }
-                    String[] a = rest.split("/by", 2);
-                    String descr = a[0].trim(), by = a[1].trim();
-                    if (descr.isEmpty() || by.isEmpty()) {
-                        throw new SamException("OOPS!!! Use: deadline <description> /by <time>");
-                    }
-                    tasks.add(new Deadline(descr, by));
-                    storage.save(tasks.getTasks());
-                    return "Got it. I've added this task:\n" + tasks.get(tasks.size() - 1) + 
-                           "\nNow you have " + tasks.size() + " tasks in the list.";
-                }
-
-                case EVENT: {
-                    if (rest.isEmpty() || !rest.contains("/from") || !rest.contains("/to")) {
-                        throw new SamException("OOPS!!! Use: event <description> /from <start> /to <end>");
-                    }
-                    String[] p1 = rest.split("/from", 2);
-                    String[] p2 = p1[1].split("/to", 2);
-                    String descr = p1[0].trim(), from = p2[0].trim(), to = p2[1].trim();
-                    if (descr.isEmpty() || from.isEmpty() || to.isEmpty()) {
-                        throw new SamException("OOPS!!! Use: event <description> /from <start> /to <end>");
-                    }
-                    tasks.add(new Event(descr, from, to));
-                    storage.save(tasks.getTasks());
-                    return "Got it. I've added this task:\n" + tasks.get(tasks.size() - 1) + 
-                           "\nNow you have " + tasks.size() + " tasks in the list.";
-                }
-
-                case FIND: {
-                    if (rest.isEmpty()) {
-                        throw new SamException("OOPS!!! Please provide a keyword to search for.");
-                    }
-                    StringBuilder findOutput = new StringBuilder("Here are the matching tasks in your list:\n");
-                    int matchCount = 0;
-                    for (int i = 0; i < tasks.size(); i++) {
-                        Task task = tasks.get(i);
-                        if (task.toString().toLowerCase().contains(rest.toLowerCase())) {
-                            matchCount++;
-                            findOutput.append(matchCount).append(".").append(task).append("\n");
-                        }
-                    }
-                    if (matchCount == 0) {
-                        return "No tasks found matching '" + rest + "'.";
-                    }
-                    return findOutput.toString().trim();
-                }
-
-                case PRIORITY: {
-                    return handlePriorityCommand(rest);
-                }
-
-                case UNKNOWN:
-                    throw new UnknownCommandException();
-            }
+            return switch (Command.of(verb)) {
+                case BYE -> "Bye. Hope to see you again soon!";
+                case LIST -> handleListCommand();
+                case MARK -> handleMarkCommand(rest);
+                case UNMARK -> handleUnmarkCommand(rest);
+                case DELETE -> handleDeleteCommand(rest);
+                case TODO -> handleTodoCommand(rest);
+                case DEADLINE -> handleDeadlineCommand(rest);
+                case EVENT -> handleEventCommand(rest);
+                case FIND -> handleFindCommand(rest);
+                case PRIORITY -> handlePriorityCommand(rest);
+                case UNKNOWN -> throw new UnknownCommandException();
+            };
         } catch (SamException e) {
             return e.getMessage();
         } catch (NumberFormatException e) {
-            return "OOPS!!! Task number must be an integer.";
+            return TASK_NUMBER_ERROR;
         }
-        return "";
+    }
+
+    /**
+     * Handles the list command to display all tasks.
+     * Returns a formatted string containing all tasks with their indices,
+     * or a message indicating the list is empty.
+     * @return The formatted list of tasks or empty list message
+     */
+    private String handleListCommand() {
+        // Guard clause: handle empty list case first
+        if (tasks.size() == 0) {
+            return "Your task list is empty!";
+        }
+        
+        // Happy path: build and return task list
+        StringBuilder listOutput = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            listOutput.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+        }
+        return listOutput.toString().trim();
+    }
+
+    /**
+     * Handles the mark command to mark a task as done.
+     * @param rest The task index argument
+     * @return The response message after marking the task
+     * @throws SamException If the task index is invalid
+     */
+    private String handleMarkCommand(String rest) throws SamException {
+        int idx = parseIndex(rest, tasks.size());
+        tasks.get(idx).markDone();
+        saveTasks();
+        return "Nice! I've marked this task as done:\n" + tasks.get(idx);
+    }
+
+    /**
+     * Handles the unmark command to mark a task as not done.
+     * @param rest The task index argument
+     * @return The response message after unmarking the task
+     * @throws SamException If the task index is invalid
+     */
+    private String handleUnmarkCommand(String rest) throws SamException {
+        int idx = parseIndex(rest, tasks.size());
+        tasks.get(idx).unmark();
+        saveTasks();
+        return "OK, I've marked this task as not done yet:\n" + tasks.get(idx);
+    }
+
+    /**
+     * Handles the delete command to remove a task.
+     * @param rest The task index argument
+     * @return The response message after deleting the task
+     * @throws SamException If the task index is invalid
+     */
+    private String handleDeleteCommand(String rest) throws SamException {
+        int idx = parseIndex(rest, tasks.size());
+        Task removed = tasks.remove(idx);
+        saveTasks();
+        return "Noted. I've removed this task:\n" + removed + 
+               "\nNow you have " + tasks.size() + " tasks in the list.";
+    }
+
+    /**
+     * Handles the todo command to add a new todo task.
+     * @param rest The task description
+     * @return The response message after adding the task
+     * @throws EmptyDescriptionException If the description is empty
+     */
+    private String handleTodoCommand(String rest) throws EmptyDescriptionException {
+        if (rest.isEmpty()) {
+            throw new EmptyDescriptionException("todo");
+        }
+        return addTask(new Todo(rest));
+    }
+
+    /**
+     * Handles the deadline command to add a new deadline task.
+     * @param rest The task description with /by time
+     * @return The response message after adding the task
+     * @throws SamException If the format is invalid
+     */
+    private String handleDeadlineCommand(String rest) throws SamException {
+        if (rest.isEmpty() || !rest.contains("/by")) {
+            throw new SamException(DEADLINE_FORMAT_ERROR);
+        }
+        
+        String[] parts = rest.split("/by", 2);
+        String description = parts[0].trim();
+        String by = parts[1].trim();
+        
+        if (description.isEmpty() || by.isEmpty()) {
+            throw new SamException(DEADLINE_FORMAT_ERROR);
+        }
+        
+        return addTask(new Deadline(description, by));
+    }
+
+    /**
+     * Handles the event command to add a new event task.
+     * @param rest The task description with /from and /to times
+     * @return The response message after adding the task
+     * @throws SamException If the format is invalid
+     */
+    private String handleEventCommand(String rest) throws SamException {
+        if (rest.isEmpty() || !rest.contains("/from") || !rest.contains("/to")) {
+            throw new SamException(EVENT_FORMAT_ERROR);
+        }
+        
+        String[] fromParts = rest.split("/from", 2);
+        String[] toParts = fromParts[1].split("/to", 2);
+        String description = fromParts[0].trim();
+        String from = toParts[0].trim();
+        String to = toParts[1].trim();
+        
+        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+            throw new SamException(EVENT_FORMAT_ERROR);
+        }
+        
+        return addTask(new Event(description, from, to));
+    }
+
+    /**
+     * Handles the find command to search for tasks.
+     * Performs case-insensitive search across all task descriptions
+     * and returns formatted results with match count.
+     * @param rest The search keyword
+     * @return The response message with matching tasks
+     * @throws SamException If no keyword is provided
+     */
+    private String handleFindCommand(String rest) throws SamException {
+        // Guard clause: validate input first
+        if (rest.isEmpty()) {
+            throw new SamException(FIND_KEYWORD_ERROR);
+        }
+        
+        // Happy path: search for matching tasks
+        StringBuilder findOutput = new StringBuilder("Here are the matching tasks in your list:\n");
+        int matchCount = 0;
+        String keyword = rest.toLowerCase();
+        
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.toString().toLowerCase().contains(keyword)) {
+                matchCount++;
+                findOutput.append(matchCount).append(".").append(task).append("\n");
+            }
+        }
+        
+        // Guard clause: handle no matches case
+        if (matchCount == 0) {
+            return "No tasks found matching '" + rest + "'.";
+        }
+        
+        return findOutput.toString().trim();
+    }
+
+    /**
+     * Helper method to add a task and generate the standard response.
+     * @param task The task to add
+     * @return The standard response message after adding a task
+     */
+    private String addTask(Task task) {
+        tasks.add(task);
+        saveTasks();
+        return "Got it. I've added this task:\n" + task + 
+               "\nNow you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
