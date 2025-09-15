@@ -28,34 +28,40 @@ public class Parser {
      * @param command User input
      */
     public static Command parse(String command) {
+        // Solution below adapted from ChatGPT
+        String[] keywordAndArgs = command.split(" ", 2);
+        String keyword = keywordAndArgs[0];
+        String allArgs = keywordAndArgs.length > 1 ? keywordAndArgs[1].trim() : "";
+
         try {
-            if (command.equals("bye")) {
+            switch (keyword) {
+            case "bye":
                 return new ByeCommand();
-            } else if (command.equals("list")) {
+            case "list":
                 return new ListCommand();
-            } else if (command.startsWith("mark ")) {
-                return new MarkCommand(Integer.parseInt(getParameters(command, "mark ").get(0)));
-            } else if (command.startsWith("unmark ")) {
-                return new UnmarkCommand(Integer.parseInt(getParameters(command, "unmark ").get(0)));
-            } else if (command.startsWith("delete ")) {
-                return new DeleteCommand(Integer.parseInt(getParameters(command, "delete ").get(0)));
-            } else if (command.startsWith("todo ")) {
-                return new TodoCommand(getParameters(command, "todo ").get(0));
-            } else if (command.startsWith("deadline ")) {
-                ArrayList<String> parameters = getParameters(command, "deadline ", " /by ");
-                return new DeadlineCommand(parameters.get(0), LocalDate.parse(parameters.get(1)));
-            } else if (command.startsWith("event ")) {
-                ArrayList<String> parameters = getParameters(command, "event ", " /from ", " /to ");
-                return new EventCommand(parameters.get(0), LocalDate.parse(parameters.get(1)),
-                        LocalDate.parse(parameters.get(2)));
-            } else if (command.startsWith("find ")) {
-                return new FindCommand(getParameters(command, "find ").get(0));
-            } else if (command.startsWith("task ")) {
-                ArrayList<String> parameters = getParameters(command, "task ", " /duration ");
+            case "mark":
+                return new MarkCommand(Integer.parseInt(allArgs));
+            case "unmark":
+                return new UnmarkCommand(Integer.parseInt(allArgs));
+            case "delete":
+                return new DeleteCommand(Integer.parseInt(allArgs));
+            case "find":
+                return new FindCommand(allArgs);
+            case "todo":
+                return new TodoCommand(allArgs);
+            case "deadline":
+                ArrayList<String> deadlineArgs = getParameters(command, "/by");
+                return new DeadlineCommand(deadlineArgs.get(0), LocalDate.parse(deadlineArgs.get(1)));
+            case "event":
+                ArrayList<String> eventArgs = getParameters(command, "/from", "/to");
+                return new EventCommand(eventArgs.get(0), LocalDate.parse(eventArgs.get(1)),
+                        LocalDate.parse(eventArgs.get(2)));
+            case "task":
+                ArrayList<String> taskArgs = getParameters(command, "/duration");
                 return new FixedDurationTaskCommand(
-                        parameters.get(0),
-                        Duration.ofHours(Long.parseLong(parameters.get(1))));
-            } else {
+                        taskArgs.get(0),
+                        Duration.ofHours(Long.parseLong(taskArgs.get(1))));
+            default:
                 throw new LunaException("I'm sorry, but I don't know what that means :-(");
             }
         } catch (NumberFormatException e) {
@@ -66,21 +72,19 @@ public class Parser {
     }
 
     private static ArrayList<String> getParameters(String input, String... separators) {
-        assert input.startsWith(separators[0]);
-
         ArrayList<String> result = new ArrayList<>();
-        String rest = input.substring(separators[0].length());
-        for (int i = 1; i < separators.length; i++) {
-            String[] splitBySeparator = rest.split(separators[i], 2);
+        String rest = input;
+        for (String separator : separators) {
+            String[] splitBySeparator = rest.split(separator, 2);
             if (splitBySeparator.length != 2) {
                 throw new LunaException("Missing arguments.");
             }
-            result.add(splitBySeparator[0]);
+            result.add(splitBySeparator[0].trim());
             rest = splitBySeparator[1];
         }
-        result.add(rest);
+        result.add(rest.trim());
 
-        assert result.size() == separators.length;
+        assert result.size() == separators.length + 1;
         return result;
     }
 }
