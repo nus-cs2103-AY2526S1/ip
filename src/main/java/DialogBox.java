@@ -34,6 +34,8 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        dialog.getStyleClass().add("user-label");
     }
 
     /**
@@ -44,6 +46,8 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+
+        dialog.getStyleClass().remove("user-label");
         dialog.getStyleClass().add("reply-label");
     }
 
