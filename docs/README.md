@@ -1,30 +1,76 @@
-# Duke User Guide
+# Luna User Guide
 
-// Update the title above to match the actual product name
+## Adding todos
 
-// Product screenshot goes here
+Adds a todo task.
 
-// Product intro goes here
+Format: `todo (name)`
+
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+Adds a deadline task, which has a given deadline.
 
-// Give examples of usage
+Format: `deadline (name) /by (date)`
 
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
+Date has to be given in YYYY-MM-DD format.
 
 
-## Feature XYZ
+## Adding events
 
-// Feature details
+Adds an event, which has a start and end date.
+
+Format: `event (name) /from (date) /to (date)`
+
+Date has to be given in YYYY-MM-DD format.
+
+
+## Adding tasks with a fixed duration
+
+Adds a task which has a fixed duration.
+
+Format: `task (name) /duration (hours)`
+
+Hours has to be an integer.
+
+
+## View all tasks
+
+View a list of all tasks saved with their corresponding task numbers.
+
+Format: `list`
+
+
+## Delete tasks
+
+Delete a task.
+
+Format: `delete (task number)`
+
+
+## Mark tasks
+
+Marks a task as done.
+
+Format: `mark (task number)`
+
+
+## Unmark tasks
+
+Unmarks a task as done.
+
+Format: `unmark (task number)`
+
+
+## Find tasks
+
+Find all tasks that contains a given name.
+
+Format: `find (name)`
+
+
+## Exit Luna
+
+Closes the application.
+
+Format: `bye`
