@@ -83,4 +83,31 @@ public class DateTimeProcessTest {
         String formatted = DateTimeProcess.formatForFile(dateTime);
         assertEquals("25/12/2024 2359", formatted);
     }
+
+    @Test
+    void testParseDateTimeMultipleFormats() throws PhucException {
+        // Test various valid formats
+        LocalDateTime result1 = DateTimeProcess.parseDateTime("25/12/2024 2359");
+        assertEquals(LocalDateTime.of(2024, 12, 25, 23, 59), result1);
+
+        LocalDateTime result2 = DateTimeProcess.parseDateTime("25-12-2024 2359");
+        assertEquals(LocalDateTime.of(2024, 12, 25, 23, 59), result2);
+
+        LocalDateTime result3 = DateTimeProcess.parseDateTime("2024-12-25 2359");
+        assertEquals(LocalDateTime.of(2024, 12, 25, 23, 59), result3);
+
+        LocalDateTime result4 = DateTimeProcess.parseDateTime("25/12/2024");
+        assertEquals(LocalDateTime.of(2024, 12, 25, 0, 0), result4);
+    }
+
+    @Test
+    void testParseDateTimeInvalidFormats() {
+        assertThrows(PhucException.class, () -> {
+            DateTimeProcess.parseDateTime("invalid-date");
+        });
+
+        assertThrows(PhucException.class, () -> {
+            DateTimeProcess.parseDateTime("32/13/2024"); // Invalid date
+        });
+    }
 }
