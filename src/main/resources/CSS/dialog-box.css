@@ -23,6 +23,8 @@
 
     /* Rotate image clockwise by degrees. */
     -fx-rotate: 0;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
 }
 
 .reply-label {
