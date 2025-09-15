@@ -109,8 +109,6 @@ public class Rafayel {
 
             return result;
         } catch (RafayelException e) {
-            // commandType = rafayel.command.CommandHandle.CommandType.UNKNOWN;
-            // ui.showError(e.getMessage());
             return e.getMessage();
         } catch (Exception e) {
             return "Sorry, I can't understand :c";

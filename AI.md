@@ -8,4 +8,7 @@ For the reminder function, the AI was excellent at suggesting various implementa
 
 AI also allowed me to learn through examples, like the handling date time format function. When I was unsure of the exact syntax, the AI provided immediate contextual examples. It helped me learn and apply new features correctly without breaking my flow to search through external resources.
 
+AI also suggested more test cases which covered a broader base.
+AI can help with simple designs (css) given a detailed prompt.
+
 Overall, it was a major time-saver for routine coding tasks.
