@@ -25,7 +25,7 @@ public class MainWindow extends AnchorPane {
     private BeeBong bot;
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
-    private final Image botImage = new Image(this.getClass().getResourceAsStream("/images/Beebong.jpg"));
+    private final Image botImage = new Image(this.getClass().getResourceAsStream("/images/Beebong.png"));
 
     @FXML
     public void initialize() {
@@ -43,7 +43,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing BeeBong's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
