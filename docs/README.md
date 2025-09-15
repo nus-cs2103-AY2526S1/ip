@@ -1,6 +1,6 @@
 # BeeBong User Guide
 
-![Product screenshot](docs/Ui.png)
+![Product screenshot](/docs/Ui.png)
 
 # Meet **BeeBong** 
 ![Beebong](/src/main/resources/images/Beebong.png)
