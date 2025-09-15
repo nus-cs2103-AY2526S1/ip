@@ -16,7 +16,7 @@ public class GuiUi extends Ui {
      */
     @Override
     public String showGreeting() {
-        return "Hello! I'm Byte.\nWhat can I do for you?";
+        return "Hey there! I'm here to byte down your tasks.\nWhat can I do for you today?\n";
     }
 
     /**
@@ -26,7 +26,7 @@ public class GuiUi extends Ui {
      */
     @Override
     public String showFarewell() {
-        return "Bye, hope to see you again soon!";
+        return "Bytebye, Looking forward to helping you again soon.\n";
     }
 
     /**
@@ -49,7 +49,7 @@ public class GuiUi extends Ui {
     @Override
     public String showTasks(TaskList taskList) {
         StringBuilder output = new StringBuilder();
-        output.append("Here are the tasks in your list:");
+        output.append("Here are the byte tasks what's on your list:");
         for (int i = 0; i < taskList.size(); i++) {
             output.append("\n").append(i + 1).append(".")
                     .append(taskList.get(i).toString());
@@ -65,7 +65,7 @@ public class GuiUi extends Ui {
      */
     public String showMatchingTasks(TaskList taskList) {
         StringBuilder output = new StringBuilder();
-        output.append("Here are the matching tasks in your list:");
+        output.append("Here are your byte sized tasks:");
         for (int i = 0; i < taskList.size(); i++) {
             output.append("\n").append(i + 1).append(".")
                   .append(taskList.get(i).toString());

@@ -24,7 +24,7 @@ public class Ui {
      */
     public String showGreeting() {
         String greeting = LINE
-                + "Hello! I'm Byte.\nWhat can I do for you?\n"
+                + "Hey there! I'm here to byte down your tasks.\nWhat can I do for you today?\n"
                 + LINE;
         System.out.println(greeting);
         return greeting;
@@ -35,7 +35,7 @@ public class Ui {
      */
     public String showFarewell() {
         String farewell = "\t" + LINE
-                + "\t" + "Bye, hope to see you again soon!\n"
+                + "\t" + "Bytebye, Looking forward to helping you again soon.\n"
                 + "\t" + LINE;
         System.out.println(farewell);
         return farewell;
@@ -61,7 +61,7 @@ public class Ui {
      */
     public String showTasks(TaskList taskList) {
         StringBuilder output = new StringBuilder();
-        output.append("Here are the tasks in your list:");
+        output.append("Here are the byte tasks what's on your list:");
         for (int i = 0; i < taskList.size(); i++) {
             output.append("\n\t").append(i + 1).append(".")
                     .append(taskList.get(i).toString());
@@ -80,7 +80,7 @@ public class Ui {
      */
     public String showMatchingTasks(TaskList taskList) {
         StringBuilder output = new StringBuilder();
-        output.append("Here are the matching tasks in your list:");
+        output.append("Here are your byte sized tasks:");
         for (int i = 0; i < taskList.size(); i++) {
             output.append("\n\t").append(i + 1).append(".")
                   .append(taskList.get(i).toString());

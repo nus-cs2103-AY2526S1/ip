@@ -30,7 +30,7 @@ public class OtherCommandTest {
         } finally {
             System.setOut(original);
         }
-        assertTrue(baos.toString().contains("Here are the tasks in your list"));
+        assertTrue(baos.toString().contains("Here are the byte tasks what's on your list"));
     }
 
     @Test
@@ -53,6 +53,6 @@ public class OtherCommandTest {
         } finally {
             System.setOut(original);
         }
-        assertTrue(baos.toString().contains("Bye, hope to see you again soon!"));
+        assertTrue(baos.toString().contains("Bytebye, Looking forward to helping you again soon."));
     }
 }
