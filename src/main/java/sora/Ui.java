@@ -11,7 +11,7 @@ import sora.task.Task;
  * It is responsible for displaying messages.
  */
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
 
     /**
      * Constructs a new {@code Ui} instance.

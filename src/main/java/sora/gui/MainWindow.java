@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import sora.Sora;
+import sora.SoraException;
 
 /**
  * Controller for the main GUI.
@@ -66,13 +67,23 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         assert input != null : "User input must not be null";
 
-        String response = Sora.getResponse(input);
-        assert response != null : "Sora response must not be null";
-
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getSoraDialog(response, dukeImage)
+        dialogContainer.getChildren().add(
+                DialogBox.getUserDialog(input, userImage)
         );
+
+        try {
+            String response = Sora.getResponse(input);
+            assert response != null : "Sora response must not be null";
+
+            dialogContainer.getChildren().add(
+                    DialogBox.getSoraDialog(response, dukeImage)
+            );
+        } catch (SoraException e) {
+            dialogContainer.getChildren().add(
+                    DialogBox.getErrorDialog("⚠ " + e.getMessage(), dukeImage)
+            );
+        }
+
         userInput.clear();
     }
 }

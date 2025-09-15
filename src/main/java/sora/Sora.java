@@ -14,7 +14,7 @@ public class Sora {
     private static TaskList tasks;
     private static Ui ui;
 
-    boolean isExit = false;
+    private boolean isExit = false;
 
     /**
      * Constructs a new instance of {@code Sora}.
@@ -78,11 +78,7 @@ public class Sora {
     /**
      * Generates a response for the user's chat message.
      */
-    public static String getResponse(String input) {
-        try {
-            return Parser.parse(input, tasks, ui, storage);
-        } catch (SoraException e) {
-            return e.getMessage();
-        }
+    public static String getResponse(String input) throws SoraException {
+        return Parser.parse(input, tasks, ui, storage);
     }
 }

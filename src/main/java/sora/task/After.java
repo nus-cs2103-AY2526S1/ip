@@ -43,4 +43,3 @@ public class After extends Task {
         return super.toString() + " (required: " + this.requiredToFormat() + ")";
     }
 }
-

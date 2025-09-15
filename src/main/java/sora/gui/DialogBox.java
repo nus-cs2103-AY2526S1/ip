@@ -38,6 +38,13 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
+    public static DialogBox getErrorDialog(String text, Image img) {
+        var db = getSoraDialog(text, img);
+        db.dialog.getStyleClass().add("error-label");
+        return db;
+    }
+
+
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
