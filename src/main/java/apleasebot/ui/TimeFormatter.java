@@ -6,16 +6,22 @@ import java.time.format.DateTimeFormatter;
 import apleasebot.exceptions.WrongTimeFormatException;
 
 /**
- * Encapsulates the logic that formats my time String->LocalDateTime->String
+ * Utility class for formatting and parsing date and time strings.
+ * Provides methods to convert between {@link String} and {@link LocalDateTime}
+ * using specific formats for input and display.
  */
 public class TimeFormatter {
     public static final DateTimeFormatter DISPLAY_FORMAT_DATE = DateTimeFormatter.ofPattern("dd MMM yy");
     public static final DateTimeFormatter DISPLAY_FORMAT_TIME = DateTimeFormatter.ofPattern("dd MMM yy HH:mm a");
     private static final DateTimeFormatter INPUT_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
+
     /**
-     * Method that converts my String time to LocalDateTine
-     * @param in String time
-     * @return LocalDateTime of the time input
+     * Parses a date-time string to a {@link LocalDateTime} object.
+     * If only the date is provided (length 10), assumes time as "00:00 am".
+     *
+     * @param in the input date-time string in the format "yyyy-MM-dd hh:mm a" or "yyyy-MM-dd"
+     * @return the corresponding {@link LocalDateTime} object
+     * @throws WrongTimeFormatException if the input string does not match the expected format
      */
     public static LocalDateTime getStandard(String in) {
         LocalDateTime out;
@@ -32,18 +38,20 @@ public class TimeFormatter {
     }
 
     /**
-     * Method that converts my LocalDateTime to String time in a more readable date-only form
-     * @param dateTime LocalDateTime object stored in task
-     * @return String date
+     * Formats a {@link LocalDateTime} object to a date string for display.
+     *
+     * @param dateTime the {@link LocalDateTime} to format
+     * @return a formatted date string in the format "dd MMM yy"
      */
     public static String getDate(LocalDateTime dateTime) {
         return dateTime.format(DISPLAY_FORMAT_DATE);
     }
 
     /**
-     * Method that converts my LocalDateTime to String time in a more readable but full date-time form
-     * @param dateTime LocalDateTime object stored in task
-     * @return String time
+     * Formats a {@link LocalDateTime} object to a date-time string for display.
+     *
+     * @param dateTime the {@link LocalDateTime} to format
+     * @return a formatted date-time string in the format "dd MMM yy HH:mm a"
      */
     public static String getTime(LocalDateTime dateTime) {
         return dateTime.format(DISPLAY_FORMAT_TIME);
