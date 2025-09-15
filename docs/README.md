@@ -1,5 +1,6 @@
 # 👾 ByteBot
 
+![ByteBot](Ui.png)
 > *Organize yourself, one task at a time*
 
 **ByteBot** is a task management application to help you stay productive

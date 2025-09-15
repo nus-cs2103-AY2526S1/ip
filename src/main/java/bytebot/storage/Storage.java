@@ -107,7 +107,9 @@ public class Storage {
             }
         }
         deadlines.sort(Comparator.comparing(Deadline::getBy));
-        return new TaskList((List) deadlines);
+        List<Task> asTasks = new ArrayList<>(deadlines.size());
+        asTasks.addAll(deadlines);
+        return new TaskList(asTasks);
     }
 
     /**
