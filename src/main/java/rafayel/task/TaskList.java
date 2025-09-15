@@ -70,7 +70,7 @@ public class TaskList {
      * @throws RafayelException if the task number is invalid.
      */
     public boolean checkTaskNumber(int taskNumber) throws RafayelException {
-        boolean isTaskNumberTooSmall = taskNumber <= 0;
+        boolean isTaskNumberTooSmall = taskNumber < 0;
         boolean isTaskNumberLargerThanTasksSize = taskNumber > this.getSize();
 
         if (isTaskNumberTooSmall || isTaskNumberLargerThanTasksSize) {
@@ -121,7 +121,7 @@ public class TaskList {
         final String EMPTY_LIST = "There's nothing in the list.";
         return this.getSize() == 0 ? EMPTY_LIST
                 : "Here are the tasks in your list:\n" + IntStream.range(0, this.getSize())
-                        .mapToObj(i -> (i + 1) + "." + tasks.get(i).toString()).collect(Collectors.joining("\n"));
+                        .mapToObj(i -> (i + 1) + ". " + tasks.get(i).toString()).collect(Collectors.joining("\n"));
     }
 
     /**

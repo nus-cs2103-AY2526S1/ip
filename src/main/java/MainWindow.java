@@ -1,9 +1,4 @@
 
-// import java.util.Objects;
-
-import java.util.ArrayList;
-// import java.util.List;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -14,9 +9,6 @@ import javafx.scene.layout.VBox;
 
 import rafayel.Rafayel;
 import rafayel.RafayelException;
-import rafayel.reminder.ReminderManager;
-// import rafayel.storage.Storage;
-import rafayel.task.Task;
 import rafayel.ui.Ui;
 
 /**
@@ -33,7 +25,6 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Rafayel rafayel;
-    private ReminderManager reminderManager;
 
     private Image userIcon = new Image(this.getClass().getResourceAsStream("/images/UserIcon.jpeg"));
     private Image rafayelIcon = new Image(this.getClass().getResourceAsStream("/images/RafayelIcon.png"));
@@ -46,7 +37,6 @@ public class MainWindow extends AnchorPane {
     /** Injects the Rafayel instance */
     public void setRafayel(Rafayel r) {
         rafayel = r;
-        this.reminderManager = new ReminderManager(r.getAll());
 
         // Show welcome message
         Ui ui = new Ui();
@@ -69,16 +59,21 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Retrieves and shows the reminders with a deadline.
+     * 
+     * @throws RafayelException 
      */
     public void checkAndShowReminders() {
-        ArrayList<Task> reminders = reminderManager.getUpcomingReminders();
-        if (!reminders.isEmpty()) {
-            String reminderText = reminderManager.formatReminders(reminders);
-
-            // Add the reminder to the chat dialog instead of using an Alert
+        try {
+            String reminderText = rafayel.getReminders();
+            if ("You have no tasks in the list!".equals(reminderText)
+                    || "No upcoming deadlines nor overdue tasks! :D".equals(reminderText)) {
+                return;
+            }
             dialogContainer.getChildren()
-                    .addAll(DialogBox.getRafayelDialog("⏰ Reminder!\n\n" + reminderText, rafayelIcon));
+                    .addAll(DialogBox.getRafayelDialog("Reminders:\n\n" + reminderText, rafayelIcon));
+        } catch (RafayelException e) {
+            // No error
+            // throw new RafayelException("Error getting reminders, try again later!");
         }
     }
-
 }

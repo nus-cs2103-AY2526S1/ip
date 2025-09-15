@@ -20,7 +20,7 @@ public class MarkCommand extends Command {
      * @param isMark whether to mark or unmark the task.
      */
     public MarkCommand(String taskNumber, boolean isMark) throws RafayelException {
-        super(isMark ? Parser.CommandType.MARK : Parser.CommandType.UNMARK);
+        super(isMark ? CommandHandle.CommandType.MARK : CommandHandle.CommandType.UNMARK);
 
         try {
             this.taskNumber = Integer.parseInt(taskNumber.trim()) - 1;
@@ -33,14 +33,20 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
-        if (taskNumber <= 0 || taskNumber > tasks.getSize()) {
+        if (taskNumber < 0 || taskNumber > tasks.getSize()) {
             throw new RafayelException("Invalid task number.");
         }
 
-        Task task = tasks.get(taskNumber - 1);
+        Task task = tasks.get(taskNumber);
         if (isMark) {
+            if (task.isDone()) {
+                throw new RafayelException("Task number " + taskNumber + " is already marked as done.");
+            }
             task.markAsDone();
         } else {
+            if (!task.isDone()) {
+                throw new RafayelException("Task number " + taskNumber + " is not done yet.");
+            }
             task.markAsUndone();
         }
 

@@ -1,66 +1,42 @@
 
 package rafayel.command;
 
+import rafayel.RafayelException;
+
 /**
  * Parser deals with making sense of the user command.
  * Parser parse and understands the user's commands and determines the corresponding command type.
  */
 public class Parser {
 
-    /**
-     * Enumeration of all possible commands that can be recognised by the application.
-     */
-    public enum CommandType {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, REMIND, UNKNOWN;
+    private static String removeCommand(String input) {
+        String[] parts = input.trim().split(" ", 2);
+        return parts[1].trim(); // remove command
+    }
 
-        /**
+    /**
          * Parses the input string to determine the corresponding command type.
          *
          * @param input input string to be parsed.
          * @return the corresponding Command enum value.
          */
-        public static CommandType parseCommand(String input) {
-            if (input.equals("bye")) {
-                return BYE;
-            }
-            if (input.equals("list")) {
-                return LIST;
-            }
-            if (input.startsWith("mark")) {
-                return MARK;
-            }
-            if (input.startsWith("unmark")) {
-                return UNMARK;
-            }
-            if (input.startsWith("todo")) {
-                return TODO;
-            }
-            if (input.startsWith("deadline")) {
-                return DEADLINE;
-            }
-            if (input.startsWith("event")) {
-                return EVENT;
-            }
-            if (input.startsWith("delete")) {
-                return DELETE;
-            }
-            if (input.startsWith("find")) {
-                return FIND;
-            }
-            if (input.startsWith("remind")) {
-                return REMIND;
-            }
-            return UNKNOWN;
-        }
-    }
+    public static Command parseCommand(String input) throws RafayelException {
 
-    /**
-     * Parses the user input and returns the corresponding command type.
-     *
-     * @param input user input string to be parsed.
-     * @return the corresponding CommandType enum value.
-     */
-    public static CommandType parse(String input) {
-        return CommandType.parseCommand(input);
+        CommandHandle.CommandType commandType = CommandHandle.CommandType.parseCommand(input);
+
+        return switch (commandType) {
+        case BYE -> new ByeCommand();
+        case LIST -> new ListCommand();
+        case MARK -> new MarkCommand(removeCommand(input), true);
+        case UNMARK -> new MarkCommand(removeCommand(input), false);
+        case TODO -> new TodoCommand(removeCommand(input));
+        case DEADLINE -> new DeadlineCommand(removeCommand(input));
+        case EVENT -> new EventCommand(removeCommand(input));
+        case DELETE -> new DeleteCommand(removeCommand(input));
+        case FIND -> new FindCommand(removeCommand(input));
+        case REMIND -> new RemindCommand();
+        default -> throw new RafayelException("Command not found");
+
+        };
     }
 }

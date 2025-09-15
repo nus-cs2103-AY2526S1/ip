@@ -6,7 +6,7 @@ import rafayel.task.Task;
 import rafayel.task.TaskList;
 
 /**
- * Delete Command that deleted
+ * Delete Command that deletes task with the task number.
  */
 public class DeleteCommand extends Command {
     private final int taskNumber;
@@ -15,19 +15,24 @@ public class DeleteCommand extends Command {
      * Constructor for deleting tasks.
      *
      * @param taskNumber the task number to delete from the list of tasks.
+     * @throws RafayelException 
      */
-    public DeleteCommand(int taskNumber) {
-        super(Parser.CommandType.DELETE);
-        this.taskNumber = taskNumber;
+    public DeleteCommand(String taskString) throws RafayelException {
+        super(CommandHandle.CommandType.DELETE);
+        try {
+            this.taskNumber = Integer.parseInt(taskString.trim()) - 1;
+        } catch (NumberFormatException e) {
+            throw new RafayelException("Invalid input format.");
+        }
     }
 
     @Override
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
-        if (taskNumber <= 0 || taskNumber > tasks.getSize()) {
+        if (taskNumber < 0 || taskNumber > tasks.getSize()) {
             throw new RafayelException("Invalid task number.");
         }
 
-        Task deletedTask = tasks.remove(taskNumber - 1);
+        Task deletedTask = tasks.remove(taskNumber);
         storage.save(tasks.getAll());
 
         return "Noted. I've removed this task:\n  " + deletedTask.toString() + "\nNow you have " + tasks.getSize()

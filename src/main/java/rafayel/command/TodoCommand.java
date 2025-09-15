@@ -19,7 +19,7 @@ public class TodoCommand extends Command {
      * @throws RafayelException if the description is invalid.
      */
     public TodoCommand(String description) throws RafayelException {
-        super(Parser.CommandType.TODO);
+        super(CommandHandle.CommandType.TODO);
 
         this.description = description.trim();
         if (description.isEmpty()) {

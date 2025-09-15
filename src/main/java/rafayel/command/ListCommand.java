@@ -15,8 +15,8 @@ public class ListCommand extends Command {
      *
      * @param commandType stores LIST command type.
      */
-    public ListCommand(Parser.CommandType commandType) {
-        super(Parser.CommandType.LIST);
+    public ListCommand() {
+        super(CommandHandle.CommandType.LIST);
     }
 
     @Override

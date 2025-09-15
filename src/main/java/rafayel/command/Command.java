@@ -16,13 +16,13 @@ public abstract class Command {
 
     // protected final String OUTPUT = "Sorry! An error occurred!";
 
-    private final Parser.CommandType commandType;
+    private final CommandHandle.CommandType commandType;
 
-    public Command(Parser.CommandType commandType) {
+    public Command(CommandHandle.CommandType commandType) {
         this.commandType = commandType;
     }
 
-    public Parser.CommandType getCommandType() {
+    public CommandHandle.CommandType getCommandType() {
         return commandType;
     }
 

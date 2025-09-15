@@ -8,39 +8,39 @@ import rafayel.storage.Storage;
 import rafayel.task.Event;
 import rafayel.task.TaskList;
 
-
 /**
  * Handles the creation and addition of a new Event task.
  */
 public class EventCommand extends Command {
-    private final String description;
+    private final String descriptionDate;
+    private static final String EVENT_FORMAT_ERROR = "Event format is wrong. Example: event [desc] /from [time] /to [time]";
 
     /**
      * Constructs a event task.
      *
-     * @param description of the event task.
+     * @param descriptionDate of the event task.
      */
-    public EventCommand(String description) {
-        super(Parser.CommandType.EVENT);
+    public EventCommand(String descriptionDate) {
+        super(CommandHandle.CommandType.EVENT);
 
-        this.description = description;
+        this.descriptionDate = descriptionDate;
     }
 
     @Override
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
-        if (description.isEmpty()) {
-            throw new RafayelException("Please add in the description of the Event task.");
+        if (descriptionDate.isEmpty()) {
+            throw new RafayelException(EVENT_FORMAT_ERROR + "Please add in the description of the Event task.");
         }
-        if (!description.contains("/from")) {
-            throw new RafayelException("Event format is wrong. Example: event [desc] /from [time] /to [time]");
+        if (!descriptionDate.contains("/from")) {
+            throw new RafayelException(EVENT_FORMAT_ERROR);
         }
-        if (!description.contains("/to")) {
-            throw new RafayelException("Event format is wrong. Example: event [desc] /from [time] /to [time]");
+        if (!descriptionDate.contains("/to")) {
+            throw new RafayelException(EVENT_FORMAT_ERROR);
         }
-        String[] taskInfo = description.substring(6).split("/");
+        String[] taskInfo = descriptionDate.substring(6).split("/");
+        String description = taskInfo[0].trim();
         LocalDateTime from = handleReadDate(taskInfo[1].substring(5).trim());
         LocalDateTime to = handleReadDate(taskInfo[2].substring(3).trim());
-
 
         Event newTask = new Event(description, from, to);
         tasks.add(newTask);

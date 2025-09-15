@@ -123,8 +123,4 @@ public abstract class Task {
     public LocalDateTime getDeadline() {
         return null;
     }
-
-    // public LocalDateTime getStartDate() {
-    //     return null;
-    // }
 }

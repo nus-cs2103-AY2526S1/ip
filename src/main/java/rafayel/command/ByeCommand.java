@@ -16,9 +16,9 @@ public class ByeCommand extends Command {
     /**
      * Constructs a Bye Command
      */
-    public ByeCommand(Ui ui) {
-        super(Parser.CommandType.BYE);
-        this.ui = ui;
+    public ByeCommand() {
+        super(CommandHandle.CommandType.BYE);
+        this.ui = new Ui();
     }
 
     @Override
