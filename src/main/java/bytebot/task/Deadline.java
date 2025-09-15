@@ -29,7 +29,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Get the deadline.
+     * Returns the deadline as LocalDateTime.
      *
      * @return LocalDateTime representing the deadline
      */

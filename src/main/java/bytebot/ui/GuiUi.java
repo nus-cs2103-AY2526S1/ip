@@ -1,8 +1,7 @@
 package bytebot.ui;
 
-import java.util.List;
-
 import bytebot.task.Task;
+import bytebot.task.TaskList;
 
 /**
  * GUI-specific UI implementation that returns strings instead of printing to console.
@@ -44,16 +43,16 @@ public class GuiUi extends Ui {
     /**
      * Displays a numbered list of tasks.
      *
-     * @param tasks Tasks to display
+     * @param taskList TaskList to display
      * @return Task list as formatted string
      */
     @Override
-    public String showTasks(List<Task> tasks) {
+    public String showTasks(TaskList taskList) {
         StringBuilder output = new StringBuilder();
         output.append("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             output.append("\n").append(i + 1).append(".")
-                    .append(tasks.get(i).toString());
+                    .append(taskList.get(i).toString());
         }
         return output.toString();
     }
@@ -61,15 +60,15 @@ public class GuiUi extends Ui {
     /**
      * Displays tasks that match a search term.
      *
-     * @param tasks Tasks matching the search
+     * @param taskList Tasks matching the search
      * @return Matching tasks as formatted string
      */
-    public String showMatchingTasks(List<Task> tasks) {
+    public String showMatchingTasks(TaskList taskList) {
         StringBuilder output = new StringBuilder();
         output.append("Here are the matching tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             output.append("\n").append(i + 1).append(".")
-                  .append(tasks.get(i).toString());
+                  .append(taskList.get(i).toString());
         }
         return output.toString();
     }

@@ -6,16 +6,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
 import bytebot.ByteException;
+import bytebot.parser.Parser;
 import bytebot.task.Deadline;
 import bytebot.task.Event;
-import bytebot.task.Status;
 import bytebot.task.Task;
 import bytebot.task.TaskList;
 import bytebot.task.Todo;
@@ -64,7 +63,7 @@ public class Storage {
         for (String line : lines) {
             if (!line.trim().isEmpty()) {
                 try {
-                    Task task = parseTaskFromString(line);
+                    Task task = Parser.parseTaskFromString(line);
                     tasks.add(task);
                 } catch (ByteException e) {
                     System.err.println("Invalid task line: " + line + " - " + e.getMessage());
@@ -95,20 +94,82 @@ public class Storage {
     }
 
     /**
+     * Returns all tasks sorted by due date.
+     *
+     * @return list of deadlines sorted by due date ascending
+     */
+    public TaskList getDeadlinesSorted() {
+        List<Deadline> deadlines = new ArrayList<>();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            if (task instanceof Deadline) {
+                deadlines.add((Deadline) task);
+            }
+        }
+        deadlines.sort(Comparator.comparing(Deadline::getBy));
+        return new TaskList((List) deadlines);
+    }
+
+    /**
+     * Partitions tasks into Events, Deadlines and Todos, sorts each partition,
+     * and returns a combined list in that order.
+     *
+     * - Events sorted by end time
+     * - Deadlines sorted by due time
+     * - Todos sorted lexicographically by their text representation
+     *
+     * @return combined sorted list of tasks
+     */
+    public TaskList getAllTasksSortedByType() {
+        List<Event> events = new ArrayList<>();
+        List<Deadline> deadlines = new ArrayList<>();
+        List<Todo> todos = new ArrayList<>();
+
+        partitionTasksByType(events, deadlines, todos);
+
+        events.sort(Comparator.comparing(Event::getTo));
+        deadlines.sort(Comparator.comparing(Deadline::getBy));
+        todos.sort(Comparator.comparing(Task::toString));
+
+        List<Task> combined = new ArrayList<>(events.size() + deadlines.size() + todos.size());
+        combined.addAll(events);
+        combined.addAll(deadlines);
+        combined.addAll(todos);
+        return new TaskList(combined);
+    }
+
+    /**
+     * Partitions current tasks into the provided collections by runtime type.
+     */
+    private void partitionTasksByType(List<Event> events, List<Deadline> deadlines, List<Todo> todos) {
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            if (task instanceof Event) {
+                events.add((Event) task);
+            } else if (task instanceof Deadline) {
+                deadlines.add((Deadline) task);
+            } else if (task instanceof Todo) {
+                todos.add((Todo) task);
+            }
+        }
+    }
+
+    /**
      * Finds tasks whose string representation contains the given keyword.
      *
      * @param keyword text to search for
      * @return list of matching tasks
      */
-    public List<Task> findTasksByKeyword(String keyword) {
+    public TaskList findTasksByKeyword(String keyword) {
         final String searchText = Optional.ofNullable(keyword)
                 .map(String::toLowerCase)
                 .orElse("");
 
-        return taskList.asList().stream()
+        List<Task> matches = taskList.asList().stream()
                 .filter(task -> task.toString()
                 .toLowerCase().contains(searchText))
                 .toList();
+        return new TaskList(matches);
     }
 
     /**
@@ -212,85 +273,6 @@ public class Storage {
             writer.close();
         } catch (IOException e) {
             System.err.println("Could not save tasks to file: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Parses a task from its file string representation.
-     *
-     * @param line String representation from file
-     * @return Parsed Task object
-     * @throws ByteException if the line format is invalid
-     */
-    private Task parseTaskFromString(String line) throws ByteException {
-        assert line != null : "Input line cannot be null";
-        assert !line.trim().isEmpty() : "Input line cannot be empty";
-        String[] tokens = line.split(" \\| ");
-
-        assert tokens.length >= 2 : "Serialized task line must contain status and body";
-        Status status = Status.fromString(tokens[0]);
-        String taskString = tokens[1];
-
-        Task task = switch (taskString.substring(1, 2)) {
-        case "T" -> {
-            String description = taskString.substring(taskString.indexOf("] ") + 2);
-            yield new Todo(description);
-        }
-        case "D" -> {
-            int byStart = taskString.indexOf("(by: ") + 5;
-            int byEnd = taskString.indexOf(")");
-
-            assert byStart >= 5 && byEnd > byStart : "Deadline must contain by time";
-            String by = taskString.substring(byStart, byEnd);
-            String description = taskString.substring(taskString.indexOf("] ") + 2, taskString.indexOf(" (by:"));
-            String convertedBy = convertDisplayToInput(by);
-            yield new Deadline(description, convertedBy);
-        }
-        case "E" -> {
-            int fromStart = taskString.indexOf("(from: ") + 7;
-            int fromEnd = taskString.indexOf(" to:");
-            int toStart = taskString.indexOf("to: ") + 4;
-            int toEnd = taskString.indexOf(")");
-
-            assert fromStart >= 7 && fromEnd > fromStart : "Event must contain from time";
-            assert toStart >= 4 && toEnd > toStart : "Event must contain to time";
-            String from = taskString.substring(fromStart, fromEnd);
-            String to = taskString.substring(toStart, toEnd);
-            String description = taskString.substring(taskString.indexOf("] ") + 2, taskString.indexOf(" (from:"));
-            String convertedFrom = convertDisplayToInput(from);
-            String convertedTo = convertDisplayToInput(to);
-            yield new Event(description, convertedFrom, convertedTo);
-        }
-        default -> throw new ByteException("Unknown task type in string: " + taskString);
-        };
-
-        if (status == Status.DONE) {
-            task.mark();
-        } else {
-            task.unmark();
-        }
-
-        return task;
-    }
-
-    /**
-     * Converts display format (MMM dd yyyy, h:mm a) back to input format (d/M/yyyy HHmm).
-     * This is needed when loading tasks from file.
-     *
-     * @param displayFormat The date string in display format
-     * @return The date string in input format
-     * @throws ByteException if the conversion fails
-     */
-    private String convertDisplayToInput(String displayFormat) throws ByteException {
-        assert displayFormat != null : "Display date must exist";
-        assert !displayFormat.trim().isEmpty() : "Display date cannot be empty";
-        try {
-            DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-            LocalDateTime dateTime = LocalDateTime.parse(displayFormat, displayFormatter);
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            return dateTime.format(inputFormatter);
-        } catch (Exception e) {
-            throw new ByteException("Failed to parse date from storage: " + displayFormat);
         }
     }
 }

@@ -1,9 +1,9 @@
 package bytebot.ui;
 
-import java.util.List;
 import java.util.Scanner;
 
 import bytebot.task.Task;
+import bytebot.task.TaskList;
 
 /**
  * Handles all user-facing input and output
@@ -57,14 +57,14 @@ public class Ui {
     /**
      * Displays a numbered list of tasks.
      *
-     * @param tasks Tasks to display
+     * @param taskList TaskList to display
      */
-    public String showTasks(List<Task> tasks) {
+    public String showTasks(TaskList taskList) {
         StringBuilder output = new StringBuilder();
         output.append("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             output.append("\n\t").append(i + 1).append(".")
-                    .append(tasks.get(i).toString());
+                    .append(taskList.get(i).toString());
         }
         String result = "\t" + LINE
                 + "\t" + output + "\n"
@@ -76,14 +76,14 @@ public class Ui {
     /**
      * Displays tasks that match a search term.
      *
-     * @param tasks Tasks matching the search
+     * @param taskList Tasks matching the search
      */
-    public String showMatchingTasks(List<Task> tasks) {
+    public String showMatchingTasks(TaskList taskList) {
         StringBuilder output = new StringBuilder();
         output.append("Here are the matching tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             output.append("\n\t").append(i + 1).append(".")
-                  .append(tasks.get(i).toString());
+                  .append(taskList.get(i).toString());
         }
         String result = "\t" + LINE
                 + "\t" + output + "\n"
