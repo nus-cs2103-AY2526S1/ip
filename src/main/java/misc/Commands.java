@@ -12,6 +12,7 @@ public enum Commands {
     UNMARK,
     DELETE,
     BYE,
+    UPDATE,
     ONDATE;
 
     /**

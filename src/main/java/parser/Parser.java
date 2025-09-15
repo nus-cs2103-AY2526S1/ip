@@ -10,6 +10,7 @@ import command.DeleteCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.QuitCommand;
+import command.UpdateCommand;
 import misc.Commands;
 import misc.TaskBotException;
 import task.Deadline;
@@ -63,6 +64,9 @@ public class Parser {
         case ONDATE:
             return parseOnDate(args);
 
+        case UPDATE:
+            return parseUpdate(input);
+
         default:
             throw new TaskBotException("OOPS!! I don't know what you mean by " + c);
         }
@@ -96,6 +100,25 @@ public class Parser {
 
         return new AddCommand(new Deadline(description, by));
     }
+
+    /**
+     * Handles task update execution
+     * @param input user input
+     * @return UpdateCommand object holding the new updated info
+     * @throws TaskBotException
+     */
+    public static Command parseUpdate(String input) throws TaskBotException {
+        String[] parts = input.split(" ", 4);
+        if (parts.length < 4) {
+            throw new TaskBotException("Usage: update <index> /<field> <newVal>");
+        }
+        int index = Integer.parseInt(parts[1]);
+        String field = parts[2];
+        String newValue = parts[3];
+
+        return new UpdateCommand(index, field, newValue);
+    }
+
 
     private static Command parseEvent(String args) throws TaskBotException {
         if (!args.contains("/from") || !args.contains("/to")) {

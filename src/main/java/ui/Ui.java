@@ -182,4 +182,8 @@ public class Ui {
     public static String showError(String msg) {
         return "OOPS!" + msg;
     }
+
+    public String showUpdate(Task t) {
+        return "Okay! I've updated this task: " + t;
+    }
 }

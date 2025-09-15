@@ -24,6 +24,9 @@ public class Deadline extends Task {
         return this.by;
     }
 
+    public void setBy(String newBy) {
+        this.by = LocalDate.parse(newBy);
+    }
     @Override
     public String toFileString() {
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by.toString();

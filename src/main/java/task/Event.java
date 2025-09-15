@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Class managing the internals of an Event object
  */
+@SuppressWarnings("checkstyle:Regexp")
 public class Event extends Task {
     protected LocalDate start;
     protected LocalDate end;
@@ -28,6 +29,14 @@ public class Event extends Task {
 
     public LocalDate getEnd() {
         return this.end;
+    }
+
+    public void setStart(String newStart) {
+        this.start = LocalDate.parse(newStart);
+    }
+
+    public void setEnd(String newEnd) {
+        this.end = LocalDate.parse(newEnd);
     }
 
     @Override
