@@ -20,6 +20,6 @@ public class FixedDurationTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D]%s (needs %s hours)", super.toString(), duration.toHours());
+        return String.format("[T]%s (needs %s hours)", super.toString(), duration.toHours());
     }
 }
