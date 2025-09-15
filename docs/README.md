@@ -5,7 +5,12 @@
 Dan is a chatbot that 
 
 ## Listing added tasks
+
 Command: list 
+
+Outcome: displays all the tasks in tasklist
+
+Example: `list`
 
 ## Adding deadlines
 
