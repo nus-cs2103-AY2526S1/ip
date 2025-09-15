@@ -1,5 +1,6 @@
 package bytebot;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -54,6 +55,9 @@ public class MainWindow {
             dialogContainer.getChildren().add(DialogBox.getByteDialog(response, byteImage));
         }
         userInput.clear();
+        if (input.trim().equals("bye")) {
+            Platform.exit();
+        }
     }
 }
 
