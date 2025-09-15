@@ -50,14 +50,14 @@ public class Parser {
             case "todo":
                 return new TodoCommand(allArgs);
             case "deadline":
-                ArrayList<String> deadlineArgs = getParameters(command, "/by");
+                ArrayList<String> deadlineArgs = getParameters(allArgs, "/by");
                 return new DeadlineCommand(deadlineArgs.get(0), LocalDate.parse(deadlineArgs.get(1)));
             case "event":
-                ArrayList<String> eventArgs = getParameters(command, "/from", "/to");
+                ArrayList<String> eventArgs = getParameters(allArgs, "/from", "/to");
                 return new EventCommand(eventArgs.get(0), LocalDate.parse(eventArgs.get(1)),
                         LocalDate.parse(eventArgs.get(2)));
             case "task":
-                ArrayList<String> taskArgs = getParameters(command, "/duration");
+                ArrayList<String> taskArgs = getParameters(allArgs, "/duration");
                 return new FixedDurationTaskCommand(
                         taskArgs.get(0),
                         Duration.ofHours(Long.parseLong(taskArgs.get(1))));
