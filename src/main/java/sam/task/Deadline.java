@@ -48,11 +48,11 @@ public class Deadline extends Task {
     /**
      * Returns a string representation of the deadline task.
      *
-     * @return A string containing the task type, status, description, and due date
+     * @return A string containing the task type, status, priority, description, and due date
      */
     @Override
     public String toString() {
-        return kind() + status() + " " + description + " (by: " + by + ")";
+        return kind() + status() + " [" + getPriority().getDisplayName() + "] " + description + " (by: " + by + ")";
     }
 
     /**

@@ -52,11 +52,11 @@ public class Event extends Task {
     /**
      * Returns a string representation of the event task.
      *
-     * @return A string containing the task type, status, description, start time, and end time
+     * @return A string containing the task type, status, priority, description, start time, and end time
      */
     @Override
     public String toString() {
-        return kind() + status() + " " + description + " (from: " + from + " to: " + to + ")";
+        return kind() + status() + " [" + getPriority().getDisplayName() + "] " + description + " (from: " + from + " to: " + to + ")";
     }
 
     /**
