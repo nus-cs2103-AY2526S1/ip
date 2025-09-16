@@ -65,7 +65,7 @@ public class Ui extends AnchorPane {
     }
 
     /**
-     * Display Zell messages that cannot be caught by the handler
+     * Displays Zell messages that cannot be caught by the handler
      *
      * @param message The message for Zell.
      */

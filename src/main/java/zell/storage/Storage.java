@@ -18,6 +18,10 @@ public class Storage {
     /** The file path of where the local storage is stored at */
     private final String filePath;
 
+    /**
+     * Constructs the constructor for Storage
+     * @param filePath The path for the storage file.
+     */
     public Storage(String filePath) {
         assert filePath != null : "File path is null";
 

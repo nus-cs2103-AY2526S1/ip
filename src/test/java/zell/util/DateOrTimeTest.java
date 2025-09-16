@@ -79,13 +79,16 @@ public class DateOrTimeTest {
                     + "yyyy-MM-dd or yyyy-MM-dd HH:mm.\nFor example: 2019-12-01 or 2019-12-01 18:30",
                     ze.getMessage());
         }
+    }
 
+    @Test
+    public void constructor_invalidDateTime2_exceptionThrown() {
         try {
             DateOrTime date = new DateOrTime("2025-08-10 30:07");
             fail();
         } catch (ZellException ze) {
             assertEquals("Date or DateTime should be in the respective formats "
-                    + "yyyy-MM-dd or yyyy-MM-dd HH:mm.\nFor example: 2019-12-01 or 2019-12-01 18:30",
+                            + "yyyy-MM-dd or yyyy-MM-dd HH:mm.\nFor example: 2019-12-01 or 2019-12-01 18:30",
                     ze.getMessage());
         }
 
@@ -94,7 +97,7 @@ public class DateOrTimeTest {
             fail();
         } catch (ZellException ze) {
             assertEquals("Date or DateTime should be in the respective formats "
-                    + "yyyy-MM-dd or yyyy-MM-dd HH:mm.\nFor example: 2019-12-01 or 2019-12-01 18:30",
+                            + "yyyy-MM-dd or yyyy-MM-dd HH:mm.\nFor example: 2019-12-01 or 2019-12-01 18:30",
                     ze.getMessage());
         }
 
@@ -103,11 +106,10 @@ public class DateOrTimeTest {
             fail();
         } catch (ZellException ze) {
             assertEquals("Date or DateTime should be in the respective formats "
-                    + "yyyy-MM-dd or yyyy-MM-dd HH:mm.\nFor example: 2019-12-01 or 2019-12-01 18:30",
+                            + "yyyy-MM-dd or yyyy-MM-dd HH:mm.\nFor example: 2019-12-01 or 2019-12-01 18:30",
                     ze.getMessage());
         }
     }
-
     @Test
     public void getOriginalFormat_validDate_success() throws ZellException {
         String dateString = "2025-08-09";

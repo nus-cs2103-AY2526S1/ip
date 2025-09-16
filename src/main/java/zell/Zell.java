@@ -43,7 +43,6 @@ public class Zell extends Application {
             try {
                 taskList = new TaskList(storage.loadTasks());
             } catch (ZellException ze) {
-                // ui.showMessage(ze.toString());
                 taskList = new TaskList(new ArrayList<>());
             }
 

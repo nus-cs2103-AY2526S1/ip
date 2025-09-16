@@ -11,7 +11,7 @@ public class Deadline extends Task {
     private final DateOrTime dueBy;
 
     /**
-     * Constructors the constructor for Deadline
+     * Constructs the constructor for Deadline
      * @param name The name of the task.
      * @param dueBy When this task is due by.
      */

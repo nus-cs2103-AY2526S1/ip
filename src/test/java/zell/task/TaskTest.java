@@ -73,7 +73,10 @@ public class TaskTest {
                             + "yyyy-MM-dd or yyyy-MM-dd HH:mm.\nFor example: 2019-12-01 or 2019-12-01 18:30",
                     ze.getMessage());
         }
+    }
 
+    @Test
+    public void stringToTask_invalidDeadline2_exceptionThrown() throws ZellException {
         try {
             Task task = Task.stringToTask("D | false | read book | ");
             fail();
@@ -144,7 +147,10 @@ public class TaskTest {
                             + "yyyy-MM-dd or yyyy-MM-dd HH:mm.\nFor example: 2019-12-01 or 2019-12-01 18:30",
                     ze.getMessage());
         }
+    }
 
+    @Test
+    public void stringToTask_invalidEvent2_exceptionThrown() throws ZellException {
         try {
             Task task = Task.stringToTask("E | false | go to bookstore | 08-27-2025 30:14 | 2025-08-29 15:00");
             fail();
