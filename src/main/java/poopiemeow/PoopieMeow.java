@@ -14,33 +14,40 @@ import poopiemeow.task.Task;
 import poopiemeow.ui.Ui;
 
 /**
- * Main application class for PoopieMeow, a task management system.
- * This class orchestrates the user interface, task storage, and command
- * processing.
- * It provides an interactive command-line interface for managing todos,
- * deadlines, and events.
+ * Main application class for PoopieMeow, a task management system. This class
+ * orchestrates the user interface, task storage, and command processing. It
+ * provides an interactive command-line interface for managing todos, deadlines,
+ * and events.
  *
  * @author tch1001
  * @version 1.0
  */
 public class PoopieMeow {
-    /** Storage component for persisting tasks to file */
+
+    /**
+     * Storage component for persisting tasks to file
+     */
     private Storage storage;
-    /** Task list manager for organizing and manipulating tasks */
+    /**
+     * Task list manager for organizing and manipulating tasks
+     */
     private TaskList tasks;
-    /** User interface component for displaying messages and reading input */
+    /**
+     * User interface component for displaying messages and reading input
+     */
     private Ui ui;
-    /** Scanner for reading user input from console */
+    /**
+     * Scanner for reading user input from console
+     */
     private Scanner scanner;
 
     /**
-     * Constructs a new PoopieMeow application instance.
-     * Initializes the UI, storage, and loads existing tasks from the specified
-     * file.
-     * If the file cannot be loaded, creates an empty task list.
+     * Constructs a new PoopieMeow application instance. Initializes the UI,
+     * storage, and loads existing tasks from the specified file. If the file
+     * cannot be loaded, creates an empty task list.
      *
-     * @param filePath the path to the file where tasks will be stored and loaded
-     *                 from
+     * @param filePath the path to the file where tasks will be stored and
+     * loaded from
      */
     public PoopieMeow(String filePath) {
         ui = new Ui();
@@ -55,11 +62,9 @@ public class PoopieMeow {
     }
 
     /**
-     * Runs the main application loop.
-     * Displays welcome message and continuously processes user commands until "bye"
-     * is entered.
-     * Handles all command types and provides appropriate error messages for invalid
-     * inputs.
+     * Runs the main application loop. Displays welcome message and continuously
+     * processes user commands until "bye" is entered. Handles all command types
+     * and provides appropriate error messages for invalid inputs.
      */
     public void run() {
         ui.showWelcome();
@@ -93,6 +98,11 @@ public class PoopieMeow {
                         ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
                         ui.showMatchingTasks(matchingTasks);
                     }
+                } else if (input.equals("sort")) {
+                    tasks.sortByDateTime();
+                    storage.save(tasks.getTasks());
+                    ui.showMessage("Tasks have been sorted chronologically!");
+                    ui.showTaskList(tasks.getTasks());
                 } else if (input.trim().isEmpty()) {
                     throw new EmptyDescriptionException("Please enter a command!");
                 } else {
@@ -110,9 +120,8 @@ public class PoopieMeow {
     }
 
     /**
-     * Handles the mark command to mark a task as done.
-     * Parses the task number from the input and marks the corresponding task as
-     * completed.
+     * Handles the mark command to mark a task as done. Parses the task number
+     * from the input and marks the corresponding task as completed.
      *
      * @param input the user input string starting with "mark "
      * @throws IOException if there's an error saving to file
@@ -135,9 +144,8 @@ public class PoopieMeow {
     }
 
     /**
-     * Handles the unmark command to mark a task as not done.
-     * Parses the task number from the input and marks the corresponding task as
-     * incomplete.
+     * Handles the unmark command to mark a task as not done. Parses the task
+     * number from the input and marks the corresponding task as incomplete.
      *
      * @param input the user input string starting with "unmark "
      * @throws IOException if there's an error saving to file
@@ -160,8 +168,8 @@ public class PoopieMeow {
     }
 
     /**
-     * Handles the delete command to remove a task from the list.
-     * Parses the task number from the input and removes the corresponding task.
+     * Handles the delete command to remove a task from the list. Parses the
+     * task number from the input and removes the corresponding task.
      *
      * @param input the user input string starting with "delete "
      * @throws IOException if there's an error saving to file
@@ -183,15 +191,15 @@ public class PoopieMeow {
     }
 
     /**
-     * Handles commands to add new tasks (todo, deadline, event).
-     * Parses the input and creates the appropriate task type, then adds it to the
-     * task list.
+     * Handles commands to add new tasks (todo, deadline, event). Parses the
+     * input and creates the appropriate task type, then adds it to the task
+     * list.
      *
      * @param input the user input string starting with "todo ", "deadline ", or
-     *              "event "
+     * "event "
      * @throws EmptyDescriptionException if the task description is empty
-     * @throws DateTimeParseException    if the date/time format is invalid
-     * @throws IOException               if there's an error saving to file
+     * @throws DateTimeParseException if the date/time format is invalid
+     * @throws IOException if there's an error saving to file
      */
     private void handleAddTaskCommand(String input)
             throws EmptyDescriptionException, DateTimeParseException, IOException {
@@ -202,8 +210,8 @@ public class PoopieMeow {
     }
 
     /**
-     * Handles the show command to display tasks on a specific date.
-     * Parses the date string and shows all tasks that occur on that date.
+     * Handles the show command to display tasks on a specific date. Parses the
+     * date string and shows all tasks that occur on that date.
      *
      * @param input the user input string starting with "show "
      */
@@ -243,6 +251,10 @@ public class PoopieMeow {
                     ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
                     return ui.getMatchingTasksString(matchingTasks);
                 }
+            } else if (input.equals("sort")) {
+                tasks.sortByDateTime();
+                storage.save(tasks.getTasks());
+                return "Tasks have been sorted chronologically!\n" + ui.getTaskListString(tasks.getTasks());
             } else if (input.trim().isEmpty()) {
                 throw new EmptyDescriptionException("Please enter a command!");
             } else {
@@ -341,9 +353,8 @@ public class PoopieMeow {
     }
 
     /**
-     * Main entry point for the PoopieMeow application.
-     * Creates a new application instance and runs it with the default data file
-     * path.
+     * Main entry point for the PoopieMeow application. Creates a new
+     * application instance and runs it with the default data file path.
      *
      * @param args command line arguments (not used)
      */
