@@ -2,6 +2,7 @@
 TaskLynx is your reliable partner for keeping track of your tasks and activities.
 
 Here's a look at TaskLynx:
+
 ![](docs/Ui.png)
 
 ## Adding tasks
