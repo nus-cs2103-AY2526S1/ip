@@ -1,5 +1,6 @@
 package gokschat;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -55,10 +56,24 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = goksChat.getResponse(input);
 
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
-        );
+        if (input.equals("bye")) {
+            response = "    ____________________________________________________________\n" +
+                    "    Good Day! Hope to see you again\n" +
+                    "    ____________________________________________________________";
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(response, dukeImage)
+            );
+
+            // Close the application
+            Platform.exit();
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(response, dukeImage)
+            );
+        }
+
         userInput.clear();
     }
 }
