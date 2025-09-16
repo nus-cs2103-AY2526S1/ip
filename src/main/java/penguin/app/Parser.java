@@ -9,148 +9,151 @@ import penguin.tasks.Task;
 import penguin.tasks.Todo;
 
 /**
- * Interprets and processes user commands
+ * Interprets and processes user commands.
  */
 public class Parser {
     public enum TaskType {
-        TODO,
-        DEADLINE,
-        EVENT;
+        TODO, DEADLINE, EVENT;
 
         public static TaskType convert(String str) throws PenguinException {
             switch (str.toLowerCase()) {
-            case "todo": return TODO;
-            case "deadline": return DEADLINE;
-            case "event": return EVENT;
-            default: throw new PenguinException(str);
+                case "todo": return TODO;
+                case "deadline": return DEADLINE;
+                case "event": return EVENT;
+                default: throw new PenguinException(str);
             }
         }
     }
+
+    // Command constants
+    private static final String BYE = "bye";
+    private static final String LIST = "list";
+    private static final String MARK = "mark";
+    private static final String UNMARK = "unmark";
+    private static final String DELETE = "delete";
+    private static final String FIND = "find";
+    private static final String SORT_ASC = "sort by date ascending";
+    private static final String SORT_DESC = "sort by date descending";
+
+    private static final String MSG_ALL_TASKS = "Here are the tasks in your list:";
+    private static final String MSG_MATCHING_TASKS = "Here are the matching tasks in your list:";
+    private static final String MSG_SORTED_ASC = "Here are the tasks in your list, sorted in ascending order:";
+    private static final String MSG_SORTED_DESC = "Here are the tasks in your list, sorted in descending order:";
+    private static final String MSG_UNKNOWN = "I don't understand your input.";
 
     /**
-     * Renders different actions depending on user command
-     * <p>
-     * User commands:
-     * <ul>
-     *     <li>Bye: exits the program and in doing so save all tasks in storage and say goodbye</li>
-     *     <li>List: prints list of tasks</li>
-     *     <li>mark/unmark: mark/unmark the task</li>
-     *     <li>delete: delete the task</li>
-     *     <li>
-     *         rest: if name of task specified, create the corresponding task
-     *         else, print error message
-     *     </li>
-     * </ul>
-     * @param str User command
-     * @param tasks TaskList
-     * @param ui the UI object
-     * @param storage the Storage object
-     * @return whether to exit the program
+     * Parses a user command and executes the corresponding action.
+     *
+     * @param str     User input command
+     * @param tasks   TaskList
+     * @param ui      UI object
+     * @param storage Storage object
+     * @return Response string to show in GUI
      */
     public static String parse(String str, TaskList tasks, Ui ui, Storage storage) {
-        final String BYE_COMMAND = "bye";
-        final String LIST_COMMAND = "list";
-        final String MARK_COMMAND = "mark";
-        final String UNMARK_COMMAND = "unmark";
-        final String DELETE_COMMAND = "delete";
-        final String FIND_COMMAND = "find";
-        final String PRINT_ALL_TASKS_MESSAGE = "Here are the tasks in your list:";
-        final String PRINT_MATCHING_TASKS_MESSAGE = "Here are the matching tasks in your list:";
-        final String TODO = "todo";
-        final String DEADLINE = "deadline";
-        final String EVENT = "event";
-        final String UNKNOWN_TASK_TYPE = "Unknown task type: ";
-        final String DONT_UNDERSTAND = "i dont understand ur input";
-        final String SORT_BY_DATE_ASCENDING = "sort by date ascending";
-        final String SORT_BY_DATE_DESCENDING = "sort by date descending";
-        final String PRINT_SORTED_ASCENDING_MESSAGE = "Here are the tasks in your list, " +
-                "sorted in ascending order:";
-        final String PRINT_SORTED_DESCENDING_MESSAGE = "Here are the tasks in your list, " +
-                "sorted in descending order:";
-
-        if (str.equals(BYE_COMMAND)) {
-            try {
-                storage.writeAllTasks(tasks.getTasks());
-            } catch (IOException e) {
-                return ui.printErrorMessage(e.getMessage());
+        try {
+            if (str.equalsIgnoreCase(BYE)) {
+                return handleBye(tasks, ui, storage);
             }
-            return ui.sayGoodbye();
-        } else if (str.equals(LIST_COMMAND)) {
-            return ui.printList(tasks.getTasks(), PRINT_ALL_TASKS_MESSAGE);
-        } else if (str.contains(MARK_COMMAND) || str.contains(UNMARK_COMMAND)) {
-            String[] split = str.split(" ");
-            String command = split[0];
-            int idx = Integer.parseInt(split[1]) - 1;
-            assert idx > 0 : "idx cannot be less than 0";
 
-            String msg = "";
-            if (command.equals(MARK_COMMAND)) {
-                tasks.markAsDone(idx);
-                return ui.markTask(tasks.getTask(idx));
-            } else if (command.equals(UNMARK_COMMAND)) {
-                tasks.markAsUndone(idx);
-                return ui.unmarkTask(tasks.getTask(idx));
+            switch (str.toLowerCase()) {
+            case LIST:
+                return ui.printList(tasks.getTasks(), MSG_ALL_TASKS);
+            case SORT_ASC:
+                return ui.printList(tasks.sortTasksByDate(true), MSG_SORTED_ASC);
+            case SORT_DESC:
+                return ui.printList(tasks.sortTasksByDate(false), MSG_SORTED_DESC);
             }
-        } else if (str.contains(DELETE_COMMAND)) {
-            String[] split = str.split(" ");
-            int idx = Integer.parseInt(split[1]) - 1;
-            assert idx > 0 : "idx cannot be less than 0";
-            Task task = tasks.deleteTask(idx);
-            return ui.deleteTask(tasks.getNumOfTasks(), task);
-        } else if (str.contains(FIND_COMMAND)) {
-            String[] split = str.split(" ");
-            List<Task> filtered = tasks.findTasks(split[1]);
-            return ui.printList(filtered, PRINT_MATCHING_TASKS_MESSAGE);
-        } else if (str.equals(SORT_BY_DATE_ASCENDING)) {
-            List<Task> sorted = tasks.sortTasksByDate(true);
-            return ui.printList(sorted, PRINT_SORTED_ASCENDING_MESSAGE);
-        } else if (str.equals(SORT_BY_DATE_DESCENDING)) {
-            List<Task> sorted = tasks.sortTasksByDate(false);
-            return ui.printList(sorted, PRINT_SORTED_DESCENDING_MESSAGE);
-        } else {
-            try {
-                String[] split = str.split(" ", 2);
-                TaskType taskType = TaskType.convert(split[0]);
-                String taskName = split[1].trim();
 
-                switch (taskType) {
-                case TODO:
-                    if (split.length == 1 || taskName.isEmpty()) {
-                        throw new PenguinException(TODO);
-                    }
-                    tasks.addTask(new Todo(taskName));
-                    break;
-
-                case DEADLINE:
-                    if (split.length == 1 || taskName.isEmpty()) {
-                        throw new PenguinException(DEADLINE);
-                    }
-                    String[] split2 = taskName.split("/by", 2);
-                    String description = split2[0].trim();
-                    String deadline = split2[1].trim();
-                    tasks.addTask(new Deadline(description, deadline));
-                    break;
-
-                case EVENT:
-                    if (split.length == 1 || taskName.isEmpty()) {
-                        throw new PenguinException(EVENT);
-                    }
-                    String[] nameAndDates = taskName.split("/from", 2);
-                    String name = nameAndDates[0].trim();
-                    String[] toAndFrom = nameAndDates[1].split("/to", 2);
-                    String to = toAndFrom[0].trim();
-                    String from = toAndFrom[1].trim();
-                    tasks.addTask(new Event(name, to, from));
-                    break;
-
-                default:
-                    throw new PenguinException(UNKNOWN_TASK_TYPE + taskType);
-                }
-                return ui.addTask(tasks.getNumOfTasks(), tasks.getTask(tasks.getNumOfTasks() - 1));
-            } catch (PenguinException pe) {
-                return ui.printErrorMessage(pe.toString());
+            if (str.startsWith(MARK) || str.startsWith(UNMARK)) {
+                return handleMarkUnmark(str, tasks, ui);
+            } else if (str.startsWith(DELETE)) {
+                return handleDelete(str, tasks, ui);
+            } else if (str.startsWith(FIND)) {
+                return handleFind(str, tasks, ui);
+            } else {
+                return handleAddTask(str, tasks, ui);
             }
+
+        } catch (PenguinException | IOException e) {
+            return ui.printErrorMessage(e.getMessage());
         }
-        return DONT_UNDERSTAND;
+    }
+
+    // ------------------- Helper Methods -------------------
+
+    private static String handleBye(TaskList tasks, Ui ui, Storage storage) throws IOException {
+        storage.writeAllTasks(tasks.getTasks());
+        return ui.sayGoodbye();
+    }
+
+    private static String handleMarkUnmark(String str, TaskList tasks, Ui ui) throws PenguinException {
+        String[] parts = str.split(" ");
+        if (parts.length < 2) throw new PenguinException("Task index required for mark/unmark");
+
+        int idx = Integer.parseInt(parts[1]) - 1;
+        assert idx >= 0 : "Index cannot be negative";
+
+        if (parts[0].equalsIgnoreCase(MARK)) {
+            tasks.markAsDone(idx);
+            return ui.markTask(tasks.getTask(idx));
+        } else {
+            tasks.markAsUndone(idx);
+            return ui.unmarkTask(tasks.getTask(idx));
+        }
+    }
+
+    private static String handleDelete(String str, TaskList tasks, Ui ui) throws PenguinException {
+        String[] parts = str.split(" ");
+        if (parts.length < 2) throw new PenguinException("Task index required for delete");
+
+        int idx = Integer.parseInt(parts[1]) - 1;
+        assert idx >= 0 : "Index cannot be negative";
+
+        Task removed = tasks.deleteTask(idx);
+        return ui.deleteTask(tasks.getNumOfTasks(), removed);
+    }
+
+    private static String handleFind(String str, TaskList tasks, Ui ui) throws PenguinException {
+        String[] parts = str.split(" ", 2);
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new PenguinException("Keyword required for find");
+        }
+
+        List<Task> filtered = tasks.findTasks(parts[1].trim());
+        return ui.printList(filtered, MSG_MATCHING_TASKS);
+    }
+
+    private static String handleAddTask(String str, TaskList tasks, Ui ui) throws PenguinException {
+        String[] parts = str.split(" ", 2);
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new PenguinException(parts[0]);
+        }
+
+        String taskName = parts[1].trim();
+        TaskType type = TaskType.convert(parts[0]);
+
+        switch (type) {
+        case TODO:
+            tasks.addTask(new Todo(taskName));
+            break;
+        case DEADLINE:
+            String[] deadlineParts = taskName.split("/by", 2);
+            if (deadlineParts.length < 2 || deadlineParts[1].trim().isEmpty()) {
+                throw new PenguinException("Deadline requires /by <date>");
+            }
+            tasks.addTask(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
+            break;
+        case EVENT:
+            String[] fromParts = taskName.split("/from", 2);
+            if (fromParts.length < 2) throw new PenguinException("Event requires /from <date> and /to <date>");
+            String[] toParts = fromParts[1].split("/to", 2);
+            if (toParts.length < 2) throw new PenguinException("Event requires both /from and /to dates");
+            tasks.addTask(new Event(fromParts[0].trim(), fromParts[1].trim(), toParts[1].trim()));
+            break;
+        }
+
+        return ui.addTask(tasks.getNumOfTasks(), tasks.getTask(tasks.getNumOfTasks() - 1));
     }
 }
+
