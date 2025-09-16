@@ -2,5 +2,5 @@
 
 ## Tool used: Cursor
 - Polish Javadoc
-- Polish my spacing in .java files
+- Polish README.md
 - Generate test cases for text-ui-test
