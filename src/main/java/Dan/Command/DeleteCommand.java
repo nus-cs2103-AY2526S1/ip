@@ -15,6 +15,11 @@ public class DeleteCommand extends Command {
     }
 
     public String execute(TaskList tasks) {
+
+        if (index < 0) {
+            return "Please key in a valid item number that is more than zero";
+        }
+
         assert index > 0;
         Task task = tasks.getTask(index);
         tasks.delete(index);
