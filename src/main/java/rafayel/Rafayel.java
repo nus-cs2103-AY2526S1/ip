@@ -52,7 +52,8 @@ public class Rafayel {
         try {
             tasks = new TaskList(storage.load());
         } catch (RafayelException e) {
-            ui.showLoadingError();
+            ui.showError(e.getMessage());
+            // ui.showLoadingError();
             tasks = new TaskList();
         } catch (IOException e) {
             throw new RuntimeException(e);

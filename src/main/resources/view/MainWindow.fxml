@@ -24,7 +24,7 @@
                AnchorPane.rightAnchor="0.0" />
         
         <!-- ScrollPane - anchored to top, left, right, and above the input area -->
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" vvalue="1.0"
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" vvalue="1.0"
                    AnchorPane.topAnchor="0.0"
                    AnchorPane.leftAnchor="0.0"
                    AnchorPane.rightAnchor="0.0"

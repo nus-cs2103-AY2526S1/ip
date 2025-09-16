@@ -127,18 +127,24 @@ public class Storage {
     private Task parseTask(String input) throws RafayelException {
         String[] parts = input.split(" \\| ");
 
-        assert parts.length >= 3 : "Task line does not have enough parts.";
+        if (parts.length < 3) {
+            throw new RafayelException("Task line does not have enough parts :0");
+        }
 
         String taskType = parts[0].trim();
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();
 
-        return switch (taskType) {
-        case "T" -> parseTodo(description, isDone);
-        case "D" -> parseDeadline(parts, description, isDone);
-        case "E" -> parseEvent(parts, description, isDone);
-        default -> throw new RafayelException("Unknown task type imported!");
-        };
+        try {
+            return switch (taskType) {
+            case "T" -> parseTodo(description, isDone);
+            case "D" -> parseDeadline(parts, description, isDone);
+            case "E" -> parseEvent(parts, description, isDone);
+            default -> throw new RafayelException("Unknown task type imported ;<!");
+            };
+        } catch (Exception e) {
+            throw new RafayelException("Error parsing task: " + input + " - " + e.getMessage());
+        }
     }
 
     /**
@@ -190,14 +196,15 @@ public class Storage {
      * @throws RafayelException if input format is invalid.
      */
     private Task parseEvent(String[] parts, String description, Boolean isDone) throws RafayelException {
-        final int EVENT_NUM_PARTS = 5;
+        final int EVENT_NUM_PARTS = 4;
         if (parts.length < EVENT_NUM_PARTS) {
             throw new RafayelException("Event task does not have enough parts, I need " + EVENT_NUM_PARTS
                     + " but you gave me " + parts.length);
         }
 
-        LocalDateTime from = handleReadDate(parts[3].trim());
-        LocalDateTime to = handleReadDate(parts[4].trim());
+        String[] fromTo = parts[3].trim().split("-");
+        LocalDateTime from = handleReadDate(fromTo[0].trim());
+        LocalDateTime to = handleReadDate(fromTo[1].trim());
 
         Task task = new Event(description, from, to);
         if (isDone) {
