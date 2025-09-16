@@ -9,10 +9,8 @@ import java.util.ArrayList;
  */
 public class UI {
 
-    private final String initMessage = "_________________________\n"
-            + "Hello! I'm ChatZH\n"
-            + "What can I do for you?\n"
-            + "_________________________\n";
+    private final String initMessage = "Hello! I'm ChatZH\n"
+            + "What can I do for you?\n";
 
     /**
      * Constructor for UI on Command Line Interface
