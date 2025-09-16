@@ -1,30 +1,49 @@
-# Duke User Guide
+# Penguin User Guide
 
-// Update the title above to match the actual product name
+![Ui.png](Ui.png)
 
-// Product screenshot goes here
+Penguin keeps track of all your tasks, allowing you to add and delete tasks.
 
-// Product intro goes here
+## View List of tasks
+View list of tasks
+
+Format: `list`
+
+## Adding todos
+Creates a task with no deadline
+
+Format: `todo (name of task)`
 
 ## Adding deadlines
+Creates a task with a deadline
 
-// Describe the action and its outcome.
+Format: `deadline (name of task) /by YYYY-MM-DD HHmm`
 
-// Give examples of usage
+## Adding events
+Creates a task with a start and end date
 
-Example: `keyword (optional arguments)`
+Format: `event (name of task) /from YYYY-MM-DD HHmm /to YYYY-MM-DD HHmm`
 
-// A description of the expected outcome goes here
+## Delete Task
 
-```
-expected output
-```
+Deletes a task from the list
 
-## Feature ABC
+Format: `delete (index of task)`
 
-// Feature details
+## Find by Keyword
+Search for tasks containing the keyword
 
+Format: `find (keyword)`
 
-## Feature XYZ
+## Mark/Unmark Task
 
-// Feature details
+Marks or unmarks a task as done
+
+Format: `mark/unmark (index of task)`
+
+## Sort by Date
+
+Sorts tasks by date (can be ascending/descending)
+
+Format: `sort by date ascending/descending`
+
