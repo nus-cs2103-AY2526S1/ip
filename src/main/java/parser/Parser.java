@@ -30,70 +30,77 @@ public class Parser {
         String commandWord = words[0];
 
         switch (commandWord) {
-        case "bye":
-            return new ByeCommand();
-
-        case "list":
-            return new ListCommand();
-
-        case "mark":
-            if (words.length < 2) {
-                throw new RainyException("oh no!!! please specify which task number to mark.");
-            }
-            int markIndex = Integer.parseInt(words[1]) - 1;
-            return new MarkCommand(markIndex);
-
-        case "unmark":
-            if (words.length < 2) {
-                throw new RainyException("oh no!!! please specify which task number to unmark.");
-            }
-            int unmarkIndex = Integer.parseInt(words[1]) - 1;
-            return new UnmarkCommand(unmarkIndex);
-
-        case "todo":
-            if (words.length < 2 || words[1].trim().isEmpty()) {
-                throw new RainyException("oh no!!! the description of a todo cannot be empty.");
-            }
-            return new AddTodoCommand(words[1].trim());
-
-        case "deadline":
-            if (words.length < 2) {
-                throw new RainyException("oh no!!! please specify task and deadline.");
-            }
-            String[] parts = words[1].split(" /by ");
-            if (parts.length < 2) {
-                throw new RainyException("oh no!!! please specify task and deadline.");
-            }
-            return new AddDeadlineCommand(parts[0].trim(), parts[1].trim());
-
-        case "event":
-            if (words.length < 2) {
-                throw new RainyException("oh no!!! please specify task from when to when.");
-            }
-            String[] eventParts = words[1].split(" /from | /to ");
-            if (eventParts.length < 3) {
-                throw new RainyException("oh no!!! please specify task from when to when.");
-            }
-            return new AddEventCommand(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
-
-        case "delete":
-            if (words.length < 2) {
-                throw new RainyException("oh no!!! please specify which task number to delete.");
-            }
-            int deleteIndex = Integer.parseInt(words[1]) - 1;
-            return new DeleteCommand(deleteIndex);
-
-        case "find":
-            if (words.length < 2) {
-                throw new RainyException("oh no!!! please specify a keyword to search.");
-            }
-            return new FindCommand(words[1].trim());
-
-        case "undo":
-            return new UndoCommand(null);
-
-        default:
-            throw new RainyException("oh no!!! idk what that means... :-(");
+        case "bye": return new ByeCommand();
+        case "list": return new ListCommand();
+        case "mark": return parseMark(words);
+        case "unmark": return parseUnmark(words);
+        case "todo": return parseTodo(words);
+        case "deadline": return parseDeadline(words);
+        case "event": return parseEvent(words);
+        case "delete": return parseDelete(words);
+        case "find": return parseFind(words);
+        case "undo": return new UndoCommand(null);
+        default: throw new RainyException("oh no!!! idk what that means... :-(");
         }
+    }
+
+    private static Command parseMark(String[] words) throws RainyException {
+        if (words.length < 2) {
+            throw new RainyException("oh no!!! please specify which task number to mark.");
+        }
+        int index = Integer.parseInt(words[1]) - 1;
+        return new MarkCommand(index);
+    }
+
+    private static Command parseUnmark(String[] words) throws RainyException {
+        if (words.length < 2) {
+            throw new RainyException("oh no!!! please specify which task number to unmark.");
+        }
+        int index = Integer.parseInt(words[1]) - 1;
+        return new UnmarkCommand(index);
+    }
+
+    private static Command parseTodo(String[] words) throws RainyException {
+        if (words.length < 2 || words[1].trim().isEmpty()) {
+            throw new RainyException("oh no!!! the description of a todo cannot be empty.");
+        }
+        return new AddTodoCommand(words[1].trim());
+    }
+
+    private static Command parseDeadline(String[] words) throws RainyException {
+        if (words.length < 2) {
+            throw new RainyException("oh no!!! please specify task and deadline.");
+        }
+        String[] parts = words[1].split(" /by ");
+        if (parts.length < 2) {
+            throw new RainyException("oh no!!! please specify task and deadline.");
+        }
+        return new AddDeadlineCommand(parts[0].trim(), parts[1].trim());
+    }
+
+    private static Command parseEvent(String[] words) throws RainyException {
+        if (words.length < 2) {
+            throw new RainyException("oh no!!! please specify task from when to when.");
+        }
+        String[] parts = words[1].split(" /from | /to ");
+        if (parts.length < 3) {
+            throw new RainyException("oh no!!! please specify task from when to when.");
+        }
+        return new AddEventCommand(parts[0].trim(), parts[1].trim(), parts[2].trim());
+    }
+
+    private static Command parseDelete(String[] words) throws RainyException {
+        if (words.length < 2) {
+            throw new RainyException("oh no!!! please specify which task number to delete.");
+        }
+        int index = Integer.parseInt(words[1]) - 1;
+        return new DeleteCommand(index);
+    }
+
+    private static Command parseFind(String[] words) throws RainyException {
+        if (words.length < 2) {
+            throw new RainyException("oh no!!! please specify a keyword to search.");
+        }
+        return new FindCommand(words[1].trim());
     }
 }
