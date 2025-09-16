@@ -36,70 +36,110 @@ public class Storage {
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
-        File parentDir = file.getParentFile();
 
-        if (parentDir != null && !parentDir.exists()) {
-            boolean dirCreated = parentDir.mkdirs();
-            if (!dirCreated) {
-                System.out.println("oh no!!! i can't create data directory :c");
-            }
-        }
+        ensureDataDirectory(file);
+        ensureSaveFile(file);
 
         if (!file.exists()) {
-            try {
-                boolean fileCreated = file.createNewFile();
-                if (!fileCreated) {
-                    System.out.println("oh no!!! i couldn't create save file.");
-                }
-            } catch (IOException e) {
-                System.out.println("oh no!!! i couldn't create save file: " + e.getMessage());
-            }
-            return tasks;
+            return tasks; // nothing to load yet
         }
 
         try (Scanner sc = new Scanner(file)) {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                String[] parts = line.split(" \\| ");
-                String type = parts[0];
-                boolean isDone = parts[1].equals("1");
-                String description = parts[2];
-
-                switch (type) {
-                case "T":
-                    Task todo = new Todo(parts[2]);
-                    if (isDone) {
-                        todo.markAsDone();
-                    }
-                    tasks.add(todo);
-                    break;
-                case "D":
-                    assert parts.length == 4 : "Deadline line should have 4 parts: " + line;
-                    LocalDateTime by = LocalDateTime.parse(parts[3]);
-                    Task deadline = new Deadline(description, by);
-                    if (isDone) {
-                        deadline.markAsDone();
-                    }
-                    tasks.add(deadline);
-                    break;
-                case "E":
-                    assert parts.length == 5 : "Event line should have 5 parts: " + line;
-                    LocalDateTime from = LocalDateTime.parse(parts[3]);
-                    LocalDateTime to = LocalDateTime.parse(parts[4]);
-                    Task event = new Event(description, from, to);
-                    if (isDone) {
-                        event.markAsDone();
-                    }
-                    tasks.add(event);
-                    break;
-                default:
-                    System.out.println("oh no!!! skipping corrupted line... " + line);
+                Task task = parseTask(line);
+                if (task != null) {
+                    tasks.add(task);
                 }
             }
         } catch (Exception e) {
             System.out.println("oh no!!! there is an error reading file..." + e.getMessage());
         }
+
         return tasks;
+    }
+
+    /**
+     * Ensures the parent data directory exists.
+     */
+    private void ensureDataDirectory(File file) {
+        File parentDir = file.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            if (!parentDir.mkdirs()) {
+                System.out.println("oh no!!! i can't create data directory :c");
+            }
+        }
+    }
+
+    /**
+     * Ensures the save file exists.
+     */
+    private void ensureSaveFile(File file) {
+        if (!file.exists()) {
+            try {
+                if (!file.createNewFile()) {
+                    System.out.println("oh no!!! i couldn't create save file.");
+                }
+            } catch (IOException e) {
+                System.out.println("oh no!!! i couldn't create save file: " + e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Parses a single line from the save file into a Task.
+     */
+    private Task parseTask(String line) {
+        String[] parts = line.split(" \\| ");
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        try {
+            switch (type) {
+            case "T":
+                return buildTodo(description, isDone);
+            case "D":
+                return buildDeadline(description, parts, isDone, line);
+            case "E":
+                return buildEvent(description, parts, isDone, line);
+            default:
+                System.out.println("oh no!!! skipping corrupted line... " + line);
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("oh no!!! failed to parse line: " + line);
+            return null;
+        }
+    }
+
+    private Task buildTodo(String description, boolean isDone) {
+        Task todo = new Todo(description);
+        if (isDone) {
+            todo.markAsDone();
+        }
+        return todo;
+    }
+
+    private Task buildDeadline(String description, String[] parts, boolean isDone, String line) {
+        assert parts.length == 4 : "Deadline line should have 4 parts: " + line;
+        LocalDateTime by = LocalDateTime.parse(parts[3]);
+        Task deadline = new Deadline(description, by);
+        if (isDone) {
+            deadline.markAsDone();
+        }
+        return deadline;
+    }
+
+    private Task buildEvent(String description, String[] parts, boolean isDone, String line) {
+        assert parts.length == 5 : "Event line should have 5 parts: " + line;
+        LocalDateTime from = LocalDateTime.parse(parts[3]);
+        LocalDateTime to = LocalDateTime.parse(parts[4]);
+        Task event = new Event(description, from, to);
+        if (isDone) {
+            event.markAsDone();
+        }
+        return event;
     }
 
     /**
