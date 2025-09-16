@@ -1,7 +1,7 @@
 package evansbot.command;
 
-import evansbot.Exceptions.EvansBotException;
-import evansbot.Exceptions.InvalidDeadlineException;
+import evansbot.exceptions.EvansBotException;
+import evansbot.exceptions.InvalidDeadlineException;
 import evansbot.task.Deadline;
 import evansbot.task.Storage;
 import evansbot.task.TaskList;

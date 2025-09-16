@@ -35,6 +35,12 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setEvansBot(EvansBot e) {
         evansbot = e;
+
+        // Automatically run greet command on startup
+        String greetMessage = evansbot.getResponse("greet");
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(greetMessage, dukeImage)
+        );
     }
 
     /**

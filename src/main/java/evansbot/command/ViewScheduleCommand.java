@@ -2,7 +2,7 @@ package evansbot.command;
 
 import java.time.LocalDate;
 
-import evansbot.Exceptions.EvansBotException;
+import evansbot.exceptions.EvansBotException;
 import evansbot.task.Storage;
 import evansbot.task.TaskList;
 import evansbot.ui.Ui;

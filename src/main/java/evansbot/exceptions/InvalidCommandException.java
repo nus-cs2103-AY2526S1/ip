@@ -1,4 +1,4 @@
-package evansbot.Exceptions;
+package evansbot.exceptions;
 
 /**
  * Represents an InvalidCommand exception that occurs when an invalid command is given.

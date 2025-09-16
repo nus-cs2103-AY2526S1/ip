@@ -2,7 +2,7 @@ package evansbot.gui;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import evansbot.Exceptions.EvansBotException;
+import evansbot.exceptions.EvansBotException;
 import evansbot.command.Command;
 import evansbot.task.Storage;
 import evansbot.task.Task;
@@ -45,7 +45,6 @@ public class EvansBot {
      */
     private void run() {
         boolean isExit = false;
-
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();

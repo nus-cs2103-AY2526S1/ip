@@ -3,10 +3,10 @@ package evansbot.ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import evansbot.Exceptions.EvansBotException;
-import evansbot.Exceptions.InvalidCommandException;
-import evansbot.Exceptions.InvalidDeadlineException;
-import evansbot.Exceptions.InvalidEventException;
+import evansbot.exceptions.EvansBotException;
+import evansbot.exceptions.InvalidCommandException;
+import evansbot.exceptions.InvalidDeadlineException;
+import evansbot.exceptions.InvalidEventException;
 import evansbot.command.AddDeadlineCommand;
 import evansbot.command.AddEventCommand;
 import evansbot.command.AddTodoCommand;
@@ -14,10 +14,13 @@ import evansbot.command.Command;
 import evansbot.command.DeleteCommand;
 import evansbot.command.ExitCommand;
 import evansbot.command.FindCommand;
+import evansbot.command.GreetCommand;
 import evansbot.command.ListCommand;
 import evansbot.command.MarkCommand;
 import evansbot.command.UnmarkCommand;
 import evansbot.command.ViewScheduleCommand;
+
+
 
 /**
  * Parses user input strings into corresponding Command objects for EvansBot.
@@ -34,6 +37,7 @@ public class Parser {
     private static final String CMD_DELETE = "delete";
     private static final String CMD_FIND = "find";
     private static final String CMD_VIEW = "view";
+    private static final String CMD_GREET = "greet";
     /**
      * Parses the user's input and returns the appropriate Command object.
      *
@@ -63,6 +67,7 @@ public class Parser {
         case CMD_DELETE -> parseDelete(arguments);
         case CMD_FIND -> parseFind(arguments);
         case CMD_VIEW -> parseView(arguments);
+        case CMD_GREET -> new GreetCommand();
         default -> throw new InvalidCommandException();
         };
     }

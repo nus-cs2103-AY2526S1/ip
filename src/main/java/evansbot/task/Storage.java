@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import evansbot.Exceptions.InvalidCommandException;
+import evansbot.exceptions.InvalidCommandException;
 
 /**
  * Handles reading and writing tasks to and from persistent storage.

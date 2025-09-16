@@ -1,4 +1,4 @@
-package evansbot.Exceptions;
+package evansbot.exceptions;
 
 /**
  * Represents an InvalidDeadline exception that occurs when an invalid Deadline is given.

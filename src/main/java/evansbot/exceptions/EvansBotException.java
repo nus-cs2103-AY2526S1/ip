@@ -1,4 +1,4 @@
-package evansbot.Exceptions;
+package evansbot.exceptions;
 
 /**
  * Represents a generic exception that can occur in the EvansBot application.

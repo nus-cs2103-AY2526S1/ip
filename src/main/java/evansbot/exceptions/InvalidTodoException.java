@@ -1,4 +1,4 @@
-package evansbot.Exceptions;
+package evansbot.exceptions;
 
 /**
  * Represents an Invalid ToDo exception that occurs when an invalid Event is given.

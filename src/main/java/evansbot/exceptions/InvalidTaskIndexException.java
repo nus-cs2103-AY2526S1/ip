@@ -1,4 +1,4 @@
-package evansbot.Exceptions;
+package evansbot.exceptions;
 
 /**
  * Represents an InvalidTaskIndex exception that occurs when an invalid Task Index is given.

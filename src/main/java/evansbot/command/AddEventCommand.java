@@ -1,7 +1,7 @@
 package evansbot.command;
 
-import evansbot.Exceptions.EvansBotException;
-import evansbot.Exceptions.InvalidEventException;
+import evansbot.exceptions.EvansBotException;
+import evansbot.exceptions.InvalidEventException;
 import evansbot.task.Event;
 import evansbot.task.Storage;
 import evansbot.task.TaskList;
