@@ -20,9 +20,6 @@ public class FindCommand implements Command {
         if (input.length() < 5) {
             throw new IllegalBotArgumentException("No argument found!", input); // no argument
         }
-        if (isNotInt(input, 5)) {
-            throw new IllegalBotArgumentException("Argument is not integer!", input); // non-integer argument
-        }
         String keyphrase = input.substring(5);
         TaskList filteredTasks = tasks.search(keyphrase);
         filteredTasks.sort();
