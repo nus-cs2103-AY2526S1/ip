@@ -57,4 +57,14 @@ public class DialogBox extends HBox {
         db.flip();
         return db;
     }
+
+    //Chatgpt has helped to create a DialogBox for Errors, making it more obvious that there was an error.
+    //It helped to generate this code + the css for the error-label.
+    //I made some changes to flip the db such that it would be similar to getDukeDialog.
+    public static DialogBox getErrorDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.dialog.getStyleClass().add("error-label");
+        db.flip();
+        return db;
+    }
 }

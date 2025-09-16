@@ -51,10 +51,17 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = evansbot.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
-        );
+        if (response.startsWith("Error")) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getErrorDialog(response, dukeImage)
+            );
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(response, dukeImage)
+            );
+        }
         userInput.clear();
     }
 }
