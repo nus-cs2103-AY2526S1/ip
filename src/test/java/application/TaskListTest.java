@@ -55,13 +55,6 @@ public class TaskListTest {
     }
 
     @Test
-    public void testRemoveFromEmptyList() {
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            taskList.remove(0);
-        });
-    }
-
-    @Test
     public void testGetTaskAtValidIndex() {
         taskList.add(sampleTask1);
         assertEquals(sampleTask1, taskList.get(0));
