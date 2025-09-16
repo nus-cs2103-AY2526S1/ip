@@ -82,12 +82,10 @@ public class GuiUi extends Ui {
      * Displays the welcome message for the application.
      * Shows application name and initial greeting in a formatted box.
      */
-    @Override
-    public void welcome() {
-        appendLine(SEPARATOR_LINE);
+
+    public void showWelcomeMessage() {
         appendLine(WELCOME_NAME);
         appendLine(WELCOME_PROMPT);
-        appendLine(SEPARATOR_LINE);
     }
 
     /**

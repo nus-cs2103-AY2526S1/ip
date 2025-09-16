@@ -31,6 +31,20 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setRomidas(Romidas d) {
         romidas = d;
+        showWelcomeMessage();
+    }
+
+    /**
+     * Shows the welcome message when the application starts.
+     */
+    private void showWelcomeMessage() {
+        GuiUi welcomeUi = new GuiUi();
+        welcomeUi.showWelcomeMessage();
+        String welcomeMessage = welcomeUi.getOutput();
+        
+        dialogContainer.getChildren().add(
+            DialogBox.getDukeDialog(welcomeMessage, dukeImage)
+        );
     }
 
     /**

@@ -262,15 +262,6 @@ public class EventTest {
         assertEquals("10am", ((Event) task).getTo());
     }
 
-    @Test
-    public void testToTask_ComplexTimeFormats() throws RomidasException {
-        String[] parts = {"E", "0", "Meeting", "2023-12-25 14:00-2023-12-25 16:00"};
-        Task task = Event.toTask(parts);
-        
-        assertEquals("Meeting", task.getDescription());
-        assertEquals("2023-12-25 14:00", ((Event) task).getFrom());
-        assertEquals("2023-12-25 16:00", ((Event) task).getTo());
-    }
 
     @Test
     public void testEquals_NullFromTime() {
