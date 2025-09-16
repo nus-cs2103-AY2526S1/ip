@@ -1,7 +1,7 @@
 package luke;
 
-import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -84,7 +84,7 @@ public class TaskList {
 
     /**
      * Finds tasks that match the user's search.
-     * @param input user input: [search]".
+     * @param input user input: "[search]".
      */
     public void findTasks(String input) {
         this.input = input;
@@ -110,66 +110,19 @@ public class TaskList {
      * @param input user input: E.g: "todo [description]"
      */
     public void addTask(String input) {
-        Task task;
-        String description;
-        this.input = input;
+        this.input = input.trim();
 
-        if (input.startsWith("todo ")) {
-            description = input.substring(5);
-            if (description.replaceAll("\\s", "").isEmpty()) {
-                System.out.println("Error: description cannot be empty");
-                return;
-            }
-            task = new ToDo(description);
-        } else if (input.startsWith("deadline ")) {
-            int byIndex = input.indexOf("/by ");
-            if (byIndex == -1) {
-                System.out.println("Error: luke.Deadline task must be specified with /by ");
-                return;
-            }
-            description = input.substring(9, byIndex - 1);
-            String by = input.substring(byIndex + 4);
-
-            if (by.replaceAll("\\s", "").isEmpty()) {
-                System.out.println("Error: by date cannot be empty");
-                return;
-            }
-            LocalDate byDate = LocalDate.parse(by);
-            task = new Deadline(description, byDate);
-        } else {
-            int fromIndex = input.indexOf("/from ");
-            int toIndex = input.indexOf("/to ", fromIndex);
-            if (fromIndex == -1 || toIndex == -1) {
-                System.out.println("Error: luke.Event task must be specified with /from and /to");
-                return;
-            }
-            description = input.substring(6, fromIndex - 1);
-            String from = input.substring(fromIndex + 6, toIndex - 1);
-            String to = input.substring(toIndex + 4);
-
-            if (from.replaceAll("\\s", "").isEmpty()) {
-                System.out.println("Error: from date cannot be empty");
-                return;
-            }
-            if (to.replaceAll("\\s", "").isEmpty()) {
-                System.out.println("Error: to date cannot be empty");
-                return;
-            }
-            LocalDate fromDate = LocalDate.parse(from);
-            LocalDate toDate = LocalDate.parse(to);
-            task = new Event(description, fromDate, toDate);
+        try {
+            Task task = parseTask(input);
+            tasks.add(task);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(task);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } catch (IllegalArgumentException | DateTimeParseException e) {
+            System.out.println("Error: " + e.getMessage());
         }
-
-        if (description.replaceAll("\\s", "").isEmpty()) {
-            System.out.println("Error: description cannot be empty");
-            return;
-        }
-
-        tasks.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
+
 
 
 
@@ -267,7 +220,7 @@ public class TaskList {
 
     /**
      * Finds tasks that match the user's search.
-     * @param input user input: [search]".
+     * @param input user input: "[search]".
      */
     public String findTasksGui(String input) {
         this.input = input;
@@ -291,72 +244,100 @@ public class TaskList {
      * Task must be a Todo, Deadline, or Event.
      * Deadline task must include /by [date in YYYY-MM-DD]
      * Event task must include /from [date] and /to [date]
+     * Refactoring of this method was done with ChatGPT as part of A-AiAssisted
      * @param input user input: E.g: "todo [description]"
      */
     public String addTaskGui(String input) {
-        Task task;
-        String description;
-        this.input = input;
+        this.input = input.trim();
         int oldTaskLen = tasks.size();
 
+        try {
+            Task task = parseTask(input);
+            tasks.add(task);
+            assert tasks.size() == oldTaskLen + 1;
+            return "Got it. I've added this task:\n"
+                    + task + "\n"
+                    + "Now you have " + tasks.size() + " tasks in the list.";
+        } catch (IllegalArgumentException e) {
+            return "Error: " + e.getMessage();
+        }
+    }
+
+
+
+
+    private Task parseTask(String input) {
         if (input.startsWith("todo ")) {
-            description = input.substring(5);
-            if (description.replaceAll("\\s", "").isEmpty()) {
-                return "Error: description cannot be empty";
-            }
-            task = new ToDo(description);
+            return parseTodo(input);
         } else if (input.startsWith("deadline ")) {
-            int byIndex = input.indexOf("/by ");
-            if (byIndex == -1) {
-                return "Error: Deadline task must be specified with /by ";
-            }
-            description = input.substring(9, byIndex - 1);
-            String by = input.substring(byIndex + 4);
-
-            if (by.replaceAll("\\s", "").isEmpty()) {
-                return "Error: by date cannot be empty";
-            }
-            try {
-                LocalDate byDate = LocalDate.parse(by);
-                task = new Deadline(description, byDate);
-            } catch (Exception e) {
-                return "Error: byDate not in YYYY-MM-DD format";
-            }
-
+            return parseDeadline(input);
+        } else if (input.startsWith("event ")) {
+            return parseEvent(input);
         } else {
-            int fromIndex = input.indexOf("/from ");
-            int toIndex = input.indexOf("/to ", fromIndex);
-            if (fromIndex == -1 || toIndex == -1) {
-                return "Error: Event task must be specified with /from and /to";
-            }
-            description = input.substring(6, fromIndex - 1);
-            String from = input.substring(fromIndex + 6, toIndex - 1);
-            String to = input.substring(toIndex + 4);
+            throw new IllegalArgumentException("Unrecognized task type. Use todo, deadline, or event.");
+        }
+    }
 
-            if (from.replaceAll("\\s", "").isEmpty()) {
-                return "Error: from date cannot be empty";
-            }
-            if (to.replaceAll("\\s", "").isEmpty()) {
-                return "Error: to date cannot be empty";
-            }
-            try {
-                LocalDate fromDate = LocalDate.parse(from);
-                LocalDate toDate = LocalDate.parse(to);
-                task = new Event(description, fromDate, toDate);
-            } catch (Exception e) {
-                return "Error: fromDate or toDate not in YYYY-MM-DD format";
-            }
+    private Task parseTodo(String input) {
+        String description = input.substring(5).trim();
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("description cannot be empty");
+        }
+        return new ToDo(description);
+    }
+
+    private Task parseDeadline(String input) {
+        int byIndex = input.indexOf("/by ");
+        if (byIndex == -1) {
+            throw new IllegalArgumentException("Deadline task must include /by [date]");
+        }
+        String description = input.substring(9, byIndex).trim();
+        String by = input.substring(byIndex + 4).trim();
+
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("description cannot be empty");
+        }
+        if (by.isEmpty()) {
+            throw new IllegalArgumentException("by date cannot be empty");
         }
 
-        if (description.replaceAll("\\s", "").isEmpty()) {
-            return "Error: description cannot be empty";
+        try {
+            LocalDate byDate = LocalDate.parse(by);
+            return new Deadline(description, byDate);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("by date must be in YYYY-MM-DD format");
+        }
+    }
+
+    private Task parseEvent(String input) {
+        int fromIndex = input.indexOf("/from ");
+        int toIndex = input.indexOf("/to ");
+
+        if (fromIndex == -1 || toIndex == -1 || fromIndex > toIndex) {
+            throw new IllegalArgumentException("Event task must include /from [date] and /to [date]");
         }
 
-        tasks.add(task);
-        assert tasks.size() == oldTaskLen + 1;
-        return "Got it. I've added this task:\n" +
-                task + "\n" +
-                "Now you have " + tasks.size() + " tasks in the list.";
+        String description = input.substring(6, fromIndex).trim();
+        String from = input.substring(fromIndex + 6, toIndex).trim();
+        String to = input.substring(toIndex + 4).trim();
+
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("description cannot be empty");
+        }
+        if (from.isEmpty()) {
+            throw new IllegalArgumentException("from date cannot be empty");
+        }
+        if (to.isEmpty()) {
+            throw new IllegalArgumentException("to date cannot be empty");
+        }
+
+        try {
+            LocalDate fromDate = LocalDate.parse(from);
+            LocalDate toDate = LocalDate.parse(to);
+            return new Event(description, fromDate, toDate);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("from/to date must be in YYYY-MM-DD format");
+        }
     }
 
 }

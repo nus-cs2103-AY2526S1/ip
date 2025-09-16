@@ -2,13 +2,13 @@ package luke;
 
 import java.util.ArrayList;
 
-public class Duke {
+public class LukeGui {
 
     protected final Ui ui;
     protected final Parser parser;
     protected final ArrayList<Task> tasks;
 
-    public Duke() {
+    public LukeGui() {
         Storage storage = new Storage("tasks.txt");
         storage.initialize();
         this.tasks = storage.tasks;
@@ -21,8 +21,8 @@ public class Duke {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        Duke duke = new Duke();
-        Parser parser = new Parser(input, duke.tasks);
+        LukeGui lukeGui = new LukeGui();
+        Parser parser = new Parser(input, lukeGui.tasks);
         return parser.runGui();
     }
 }
