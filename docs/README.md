@@ -1,5 +1,5 @@
 # TaskLynx User Guide
-![](docs/Ui.png)
+![](/docs/Ui.png)
 TaskLynx is your reliable partner for keeping track of your tasks and activities. 
 
 ## Adding tasks
