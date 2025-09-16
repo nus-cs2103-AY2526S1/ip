@@ -24,13 +24,13 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String getTypeofTask() {
+    public String getTypeOfTask() {
         return "[D]";
     }
 
     @Override
     public String toString() {
-        return getTypeofTask() + " " + getStatusIcon() + " " + getDesc() + " (by: " + this.by + ")";
+        return getTypeOfTask() + " " + getStatusIcon() + " " + getDesc() + " (by: " + this.by + ")";
     }
 
     /**

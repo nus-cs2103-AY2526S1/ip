@@ -57,11 +57,56 @@ public class TaskList {
         Storage.saveToFile(this.tasks);
     }
 
+    /**
+     * Finds tasks that match the given keyword in their description
+     * @param keyword The keyword to search for (case-insensitive)
+     * @return A new TaskList containing matching tasks
+     */
     public TaskList find(String keyword) {
-        ArrayList<Task> matchedTasks = new ArrayList();
-        keyword = keyword.toLowerCase();
+        ArrayList<Task> matchedTasks = new ArrayList<>();
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return new TaskList(matchedTasks); // Return empty list for invalid keyword
+        }
+        
+        String searchTerm = keyword.toLowerCase().trim();
         for (Task task : this.tasks) {
-            if (task.getDesc().toLowerCase().contains(keyword)) {
+            // Search in both description and full description (includes dates/times)
+            if (task.getDesc().toLowerCase().contains(searchTerm) ||
+                task.getFullDesc().toLowerCase().contains(searchTerm)) {
+                matchedTasks.add(task);
+            }
+        }
+        return new TaskList(matchedTasks);
+    }
+
+    /**
+     * Finds tasks by their completion status
+     * @param isDone true to find completed tasks, false to find incomplete tasks
+     * @return A new TaskList containing tasks with the specified completion status
+     */
+    public TaskList findByStatus(boolean isDone) {
+        ArrayList<Task> matchedTasks = new ArrayList<>();
+        for (Task task : this.tasks) {
+            if (task.isDone() == isDone) {
+                matchedTasks.add(task);
+            }
+        }
+        return new TaskList(matchedTasks);
+    }
+
+    /**
+     * Finds tasks by their type
+     * @param taskType The type of task to find ("[T]", "[D]", "[E]")
+     * @return A new TaskList containing tasks of the specified type
+     */
+    public TaskList findByType(String taskType) {
+        ArrayList<Task> matchedTasks = new ArrayList<>();
+        if (taskType == null) {
+            return new TaskList(matchedTasks);
+        }
+        
+        for (Task task : this.tasks) {
+            if (task.getTypeOfTask().equals(taskType)) {
                 matchedTasks.add(task);
             }
         }

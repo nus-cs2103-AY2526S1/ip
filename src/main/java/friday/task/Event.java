@@ -33,13 +33,13 @@ public class Event extends Task {
     }
 
     @Override
-    public String getTypeofTask() {
+    public String getTypeOfTask() {
         return "[E]";
     }
 
     @Override
     public String toString() {
-        return getTypeofTask() + " " + getStatusIcon() + " " + getDesc() +
+        return getTypeOfTask() + " " + getStatusIcon() + " " + getDesc() +
                " (from: " + this.from + " to: " + this.to + ")";
     }
 

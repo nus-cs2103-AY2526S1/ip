@@ -80,6 +80,24 @@ public class Ui {
     }
 
     /**
+     * Finds tasks by their completion status
+     * @param isDone true for completed tasks, false for pending tasks
+     * @return TaskList containing tasks with the specified status
+     */
+    public TaskList findByStatus(boolean isDone) {
+        return this.tasks.findByStatus(isDone);
+    }
+
+    /**
+     * Finds tasks by their type
+     * @param taskType The type of task to find
+     * @return TaskList containing tasks of the specified type
+     */
+    public TaskList findByType(String taskType) {
+        return this.tasks.findByType(taskType);
+    }
+
+    /**
      * Stops Friday's UI interactions
      */
     public void stop() {
