@@ -1,120 +1,164 @@
 # MinhGPT User Guide
 
-![alt text](image.png)
+![alt text](Ui.png)
 
-#### MinhGPT is a chatbot to help you manage your tasks
+### MinhGPT is a chatbot to help you manage your tasks
 
 ## Getting started
 
-1. Clone the repo
-2. Navigate to the root of the project
-3. Run `mkdir bin`, this folder will store our executables
-4. Run `javac -cp ./src/main/java -Xlint:none -d ./bin ./src/main/java/*.java` to compile the program
-5. Navigate to `PROJECT_ROOT/bin` folder
-6. Run `java MinhGPT` to run the program
-
-## Testing
-
-Nagivate to `PROJECT_ROOT/text-ui-test` and run `./runtest.sh` to run the test suites and verify that the program works as intended.
+1. Go to this [link](https://github.com/MinhMXC/ip/releases/tag/A-BetterGui).
+2. Under **Assets**, click on `minhgpt.jar` to download the executable.
+3. Double-click on the downloaded file on your computer to run.
+4. Alternatively, run `java -jar minhgpt.jar` on a terminal (on same directory as `minhgpt.jar`) to run.
 
 ## Features
 
 ### Task Types
 
-**Todo**: tasks without any date/time attached to it *e.g., visit new theme park*
+**Todo**: tasks without any date/time attached to it. *e.g., visit new theme park*
 
-**Deadline**: tasks that need to be done before a specific date/time *e.g., submit report by 11/10/2019 5pm
+**Deadline**: tasks that need to be done before a specific date/time. *e.g., submit report by 11/10/2019 5pm*
 
-**Event**: tasks that start at a specific date/time and ends at a specific date/time
-*e.g., (a) team project meeting 2/10/2019 2-4pm (b) orientation week 4/10/2019 to 11/10/2019*
+**Event**: tasks that start at a specific date/time and ends at a specific date/time.
+*e.g., (a) team project meeting 2/10/2019 2-4pm or (b) orientation week 4/10/2019 to 11/10/2019*
 
 ### Possible actions
 
-* **Add** tasks
-* **Mark** tasks (as done)
-* **Unmark** tasks (mark it as undone)
-* **Delete** tasks
-* **List** all tasks
+* **Add** tasks.
+* **Mark** tasks (as done).
+* **Unmark** tasks (mark it as undone).
+* **Delete** tasks.
+* **List** all tasks.
+* **Sort** all tasks.
 
-## Task display format
+### Task display format
 
 `[TYPE][STATUS] NAME (EXTRA)`
 
 `TYPE` is the type of the task: `T` for Todo tasks, `D` for deadline tasks and `E` for Event tasks
 
-`STATUS` is the status of the task: `X` for completed tasks, ` `&nbsp;(empty) for uncompleted tasks
+`STATUS` is the status of the task: `X` for completed tasks, ` `&nbsp;(empty space) for uncompleted tasks
 
 `NAME` is the name of the task
 
 `EXTRA` is addtional information about the task: none for Todo task, **deadline** for Deadline tasks, and **time period** for Event tasks
 
+### Date input format
+
+All date input must conform to `YYYY-MM-DD`. For example, `1970-01-01`
+
+### Saving & Loading
+
+The application automatically save and load your tasks.
+
+**Important**: To save your tasks, you must chat `bye` in the chatbox before you leave. Pressing X on the application window will not do any saving.
+
 ## Usage
 
 ### Add Todo task
 
-Type 'todo', followed by name of the task
+**Format**: `todo NAME`, where `NAME` is the name of the task.
 
 Example: ```todo task1```
 
-Expected output: ```(˶ᵔ ᵕ ᵔ˶) Added: [T][ ] task1```
+Expected output: 
+```
+F-fine! I added it. It's not like I wanted to or anything...
+[T][] task1
+```
 
 ### Add Deadline task
 
-Follow this input format `deadline NAME /by TIME`, where `NAME` is the name of the task and `TIME` is the deadline for the task
+**Format**: `deadline NAME /by TIME`, where `NAME` is the name of the task and `TIME` is the deadline for the task
 
 Example: ```deadline task1 /by Sunday```
 
-Expected output: ```(˶ᵔ ᵕ ᵔ˶) Added: [D][ ] task1 (by: Sunday)```
+Expected output: 
+```
+F-fine! I added it. It's not like I wanted to or anything...
+[D][] task2 (by: Jan 01 1970)
+```
 
 ### Add Event task
 
-Follow this input format `event NAME /from FROM /to TO`, where `NAME` is the name of the task, `FROM` is the **start** time for the event and `TO` is the **end** time for the event
+**Format**: `event NAME /from FROM /to TO`, where `NAME` is the name of the task, `FROM` is the **start** time for the event and `TO` is the **end** time for the event
 
 Example: ```event task1 /from Monday 12:00AM /to Friday 23:59PM```
 
-Expected output: ```(˶ᵔ ᵕ ᵔ˶) Added: [E][ ] task1 (from: Monday 12:00AM to: Friday 23:59PM)```
+Expected output: 
+```
+F-fine! I added it. It's not like I wanted to or anything...
+[E][] task3 (from: Jan 02 1970 to: Jan 04 1970)
+```
 
 ### Mark task
 
-Follow this input format `mark INDEX`, where `INDEX` is the index of the task in the list.
+**Format**: `mark INDEX`, where `INDEX` is the index of the task in the list.
 
 Example: `mark 1`
 
 Expected output: 
 ```
-(˵˃ ᗜ ˂˵) Congrats on finishing the task.
+I-It's not like I care, but... g-good job, I guess.
 [T][X] task1
 ```
 
 ### Unmark task
 
-Follow this input format `unmark INDEX`, where `INDEX` is the index of the task in the list.
+**Format**: `unmark INDEX`, where `INDEX` is the index of the task in the list.
 
 Example: `unmark 1`
 
 Expected output: 
 ```
-(¬`‸´¬) Huh? Why did you lie?
-[T][ ] task1
+H-huh?! Why did you unmark it?! Are you trying to make me do more work?!
+[T][] task1
 ```
 
 ### Delete task
 
-Follow this input format `delete INDEX`, where `INDEX` is the index of the task in the list.
+**Format**: `delete INDEX`, where `INDEX` is the index of the task in the list.
 
 Example: `delete 1`
 
-Expected output: `(˶ᵔ ᵕ ᵔ˶) Removed: [T][ ] task1`
+Expected output: 
+```
+Good riddance. I-I mean, it's removed now. Hmph.
+[T][] task1
+```
 
 ### List all tasks
 
-Type 'list'
+**Format**: `list`
 
 Example: `list`
 
 Expected output: 
 ```
-(˶˃ ᵕ ˂˶) Here are the list of tasks. You have 2 in total.
-1.[D][ ] task1 (by: Sunday)
-2.[E][ ] task1 (from: Monday 12:00AM to: Friday 23:59PM)
+Don't get the wrong idea! I'm just listing them out because... because I have to, okay?! You have 3 tasks in total.
+1.[T][] task1
+2.[D][] task2 (by: Jan 01 1970)
+3.[E][] task3 (from: Jan 02 1970 to: Jan 04 1970)
 ```
+
+### Sort all tasks
+
+**Format**: `sort`
+
+Example: `sort`
+
+Expected output: 
+```
+Don't get the wrong idea! I'm just listing them out because... because I have to, okay?! You have 3 tasks in total.
+1.[D][] task2 (by: Jan 01 1970)
+2.[E][] task3 (from: Jan 02 1970 to: Jan 04 1970)
+3.[T][] task1
+```
+
+### Exit from the application
+
+**Format**: `bye`
+
+Example: `bye`
+
+Expected behaviour: The application will exit.
