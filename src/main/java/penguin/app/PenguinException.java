@@ -8,15 +8,16 @@ public class PenguinException extends Exception {
     }
 
     @Override
-    public String toString() {
+    public String getMessage() {
         if (errorType.equals("todo") || errorType.equals("deadline") || errorType.equals("event")) {
-            return "____________________________________________________________\n"
-                    + errorType + " is fine but what do you want to do?\n"
-                        + "____________________________________________________________";
+            return errorType + " is fine but what do you want to do?";
         }
-        return "____________________________________________________________\n"
-                + "i'm smart but even i do not know what that means\n"
-                    + "____________________________________________________________";
+        return "I'm smart but even I do not know what that means";
+    }
+
+    @Override
+    public String toString() {
+        return getMessage(); // optional, keep toString consistent
     }
 }
 
