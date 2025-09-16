@@ -1,0 +1,77 @@
+package minhgpt.storage;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Scanner;
+
+import minhgpt.task.Task;
+import minhgpt.task.TaskList;
+import minhgpt.util.Logger;
+
+/**
+ * Responsible for all storage related operations.
+ */
+public class Storage {
+    private static final String FILENAME = "mem.txt";
+
+    /**
+     * Saves the provided list of tasks 'tasks' into a file.
+     *
+     * @param tasks Tasks to be saved.
+     */
+    public void saveTasks(TaskList tasks) {
+        assert (tasks != null);
+
+        try {
+            FileWriter writer = new FileWriter(FILENAME);
+            writer.write(tasks.toCommands());
+            writer.close();
+            Logger.logInfo("Tasks are saved in mem.txt.");
+        } catch (IOException e) {
+            Logger.logError(e.getMessage());
+            Logger.logError("Tasks are not saved.");
+        }
+    }
+
+    /**
+     * Loads a list of tasks from disk if it exists.
+     *
+     * @return Tasks read from disks.
+     */
+    public TaskList loadTasks() {
+        TaskList tasks = new TaskList();
+
+        try {
+            Scanner scanner = new Scanner(new File(FILENAME));
+            int i = 0;
+            while (scanner.hasNextLine()) {
+                i++;
+                String command = scanner.nextLine();
+                if (command.matches("^mark$")) {
+                    assert (tasks.size() > 0);
+
+                    // Mark the last task as done
+                    tasks.get(tasks.size() - 1).markAsDone();
+                    continue;
+                }
+
+                try {
+                    tasks.add(Task.parseTask(command));
+                } catch (ParseException e) {
+                    Logger.logError(
+                            String.format("Line %d is corrupted. Proceeding to next line.", i));
+                }
+            }
+            scanner.close();
+            Logger.logInfo("Found mem.txt, loading tasks from previous sessions."
+                    + " To disable, run with --fresh flag.");
+        } catch (FileNotFoundException e) {
+            Logger.logInfo("No memory file detected. Starting fresh.");
+        }
+
+        return tasks;
+    }
+}

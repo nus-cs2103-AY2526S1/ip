@@ -1,0 +1,145 @@
+package minhgpt.task;
+
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.function.Function;
+
+import minhgpt.ui.Ui;
+
+/**
+ * Base class for a task.
+ */
+public abstract class Task {
+    // NOTE: PRIVATE
+
+    /** Maps task regex String to constructor of the corresponding task. */
+    private static final HashMap<String, Function<String, Task>> registry = new HashMap<>();
+    /** Name of task. */
+    private String name;
+    /** True if task is done. False otherwise. */
+    private boolean isDone;
+
+    // NOTE: PROTECTED
+
+    /** Date format when tasks are saved to disk. */
+    protected static final DateTimeFormatter DATE_SAVE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    /** Date format when tasks are displayed. */
+    protected static final DateTimeFormatter DATE_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy");
+
+    /**
+     * Puts mapping into 'registry'.
+     *
+     * @param regex    Regex that the task matches.
+     * @param supplier Constructor for the task.
+     */
+    protected static void register(String regex, Function<String, Task> supplier) {
+        assert (regex != null);
+        assert (supplier != null);
+
+        registry.put(regex, supplier);
+    }
+
+    // NOTE: PUBLIC
+
+    /**
+     * Initialises the mapping in 'registry'.
+     *
+     * Must be called before using 'parseTask'.
+     */
+    public static void initialise() {
+        new TaskTodo("todo task1");
+        new TaskDeadline("deadline task1 /by 1970-01-01");
+        new TaskEvent("event task1 /from 1970-01-01 /to 1970-01-01");
+    }
+
+    /**
+     * Parses user input and return the corresponding Task.
+     *
+     * Must call 'initialise' before using this.
+     *
+     * @param input Input from user to create a task.
+     * @throws ParseException When the input string does not match any known input
+     *                        patterns.
+     */
+    public static Task parseTask(String input) throws ParseException {
+        assert (input != null);
+        Ui ui = new Ui();
+
+        try {
+            for (String regex : registry.keySet()) {
+                if (input.matches(regex)) {
+                    return registry.get(regex).apply(input);
+                }
+            }
+        } catch (DateTimeParseException e) {
+            throw new ParseException(ui.getInvalidDateFormatResponse(), 0);
+        }
+
+        // If control reaches here, there is no matching task type
+        throw new ParseException(ui.getInvalidTaskFormatResponse(), 0);
+    }
+
+    /**
+     * Constructs a basic task.
+     *
+     * @param name Name of task to be created.
+     */
+    public Task(String name) {
+        assert (name != null);
+
+        this.name = name;
+        this.isDone = false;
+    }
+
+    /**
+     * Marks the task as done.
+     */
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    /**
+     * Marks the task as undone.
+     */
+    public void markAsUndone() {
+        this.isDone = false;
+    }
+
+    /**
+     * @return True if the task name matches regex string 'query'. False otherwise.
+     */
+    public boolean matchRegex(String query) {
+        assert (query != null);
+
+        return name.toUpperCase().contains(query.toUpperCase());
+    }
+
+    /**
+     * @return Input commands to re-create this task.
+     */
+    public ArrayList<String> toCommands() {
+        ArrayList<String> commands = new ArrayList<>();
+        commands.add(name);
+        if (isDone) {
+            commands.add("mark");
+        }
+        return commands;
+    }
+
+    /**
+     * @return Date of the task, which will be used for sorting.
+     */
+    public abstract LocalDate getSortingDate();
+
+    /**
+     * @return Simple String representation of a task.
+     */
+    @Override
+    public String toString() {
+        return String.format("[%c] %s", this.isDone ? 'X' : ' ', this.name);
+    }
+}
