@@ -5,7 +5,7 @@ import minhgpt.task.TaskList;
 import minhgpt.ui.Ui;
 
 /**
- * Encapsulate the sort command, which sort the tasks by deadlines / start
+ * Encapsulates the sort command, which sort the tasks by deadlines / start
  * dates and print it.
  */
 class CommandSort extends Command {

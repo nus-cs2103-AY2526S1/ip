@@ -18,7 +18,7 @@ public class Storage {
     private static final String FILENAME = "mem.txt";
 
     /**
-     * Save the provided list of tasks 'tasks' into a file.
+     * Saves the provided list of tasks 'tasks' into a file.
      *
      * @param tasks Tasks to be saved.
      */
@@ -29,15 +29,15 @@ public class Storage {
             FileWriter writer = new FileWriter(FILENAME);
             writer.write(tasks.toCommands());
             writer.close();
-            Logger.info("Tasks are saved in mem.txt.");
+            Logger.logInfo("Tasks are saved in mem.txt.");
         } catch (IOException e) {
-            Logger.error(e.getMessage());
-            Logger.error("Tasks are not saved.");
+            Logger.logError(e.getMessage());
+            Logger.logError("Tasks are not saved.");
         }
     }
 
     /**
-     * Load list of tasks from disk if it exists.
+     * Loads a list of tasks from disk if it exists.
      *
      * @return Tasks read from disks.
      */
@@ -61,15 +61,15 @@ public class Storage {
                 try {
                     tasks.add(Task.parseTask(command));
                 } catch (ParseException e) {
-                    Logger.error(
+                    Logger.logError(
                             String.format("Line %d is corrupted. Proceeding to next line.", i));
                 }
             }
             scanner.close();
-            Logger.info("Found mem.txt, loading tasks from previous sessions."
+            Logger.logInfo("Found mem.txt, loading tasks from previous sessions."
                     + " To disable, run with --fresh flag.");
         } catch (FileNotFoundException e) {
-            Logger.info("No memory file detected. Starting fresh.");
+            Logger.logInfo("No memory file detected. Starting fresh.");
         }
 
         return tasks;

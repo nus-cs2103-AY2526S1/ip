@@ -5,7 +5,7 @@ import minhgpt.task.TaskList;
 import minhgpt.ui.Ui;
 
 /**
- * Encapsulate the list task command.
+ * Encapsulates the list task command.
  */
 class CommandList extends Command {
     static {

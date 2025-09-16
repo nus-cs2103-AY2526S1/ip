@@ -8,7 +8,7 @@ import minhgpt.task.TaskList;
 import minhgpt.ui.Ui;
 
 /**
- * Encapsulate the add task command.
+ * Encapsulates the add task command.
  */
 class CommandAdd extends Command {
     static {

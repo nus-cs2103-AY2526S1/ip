@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Encapsulate a todo task.
+ * Encapsulates a todo task.
  */
 class TaskTodo extends Task {
     static {
@@ -12,7 +12,7 @@ class TaskTodo extends Task {
     }
 
     /**
-     * Construct a basic task.
+     * Constructs an Event task.
      *
      * @param input Input from user to create a todo task.
      */

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Encapsulate a deadline task.
+ * Encapsulates a deadline task.
  */
 class TaskDeadline extends Task {
     static {
@@ -15,7 +15,7 @@ class TaskDeadline extends Task {
     private LocalDate deadline;
 
     /**
-     * Construct a basic task.
+     * Constructs a Todo task.
      *
      * @param input Input from user to create a deadline task.
      */

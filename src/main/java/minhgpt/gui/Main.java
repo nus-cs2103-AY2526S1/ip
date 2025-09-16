@@ -13,6 +13,7 @@ import minhgpt.MinhGpt;
  * GUI for MinhGPT.
  */
 public class Main extends Application {
+    /* Main logic for the application */
     private MinhGpt minhgpt = new MinhGpt(false);
 
     @Override

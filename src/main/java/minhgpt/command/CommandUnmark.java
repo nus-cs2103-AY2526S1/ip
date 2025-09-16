@@ -5,7 +5,7 @@ import minhgpt.task.TaskList;
 import minhgpt.ui.Ui;
 
 /**
- * Encapsulate the unmark task command.
+ * Encapsulates the unmark task command.
  */
 class CommandUnmark extends Command {
     static {

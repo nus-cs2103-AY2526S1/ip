@@ -31,7 +31,7 @@ public class MainWindow extends AnchorPane {
     private Image programImage = new Image(this.getClass().getResourceAsStream("/images/program.gif"));
 
     /**
-     * Initialise the window.
+     * Initialises the window.
      */
     @FXML
     public void initialize() {

@@ -5,7 +5,7 @@ import minhgpt.task.TaskList;
 import minhgpt.ui.Ui;
 
 /**
- * Encapsulate the mark task command.
+ * Encapsulates the mark task command.
  */
 class CommandMark extends Command {
     static {

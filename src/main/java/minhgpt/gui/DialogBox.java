@@ -52,10 +52,16 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * @return Dialog UI for user with the given text 'text' and image 'img'.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * @return Dialog UI for program with the given text 'text' and image 'img'.
+     */
     public static DialogBox getProgramDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

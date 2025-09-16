@@ -5,7 +5,7 @@ import minhgpt.task.TaskList;
 import minhgpt.ui.Ui;
 
 /**
- * Encapsulate the bye command.
+ * Encapsulates the bye command.
  */
 class CommandBye extends Command {
     static {

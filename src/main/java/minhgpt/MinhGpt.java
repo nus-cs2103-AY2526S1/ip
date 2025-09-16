@@ -15,7 +15,7 @@ public class MinhGpt {
     private Ui ui;
 
     /**
-     * Initialise an instance of MinhGpt.
+     * Initialises an instance of MinhGpt.
      *
      * @param isFresh If true, the program will skip reading from memory.
      */
@@ -28,7 +28,7 @@ public class MinhGpt {
     }
 
     /**
-     * Return a response given an user input 'input'.
+     * Returns a response given an user input 'input'.
      */
     public String getResponse(String input) {
         input = input.trim();

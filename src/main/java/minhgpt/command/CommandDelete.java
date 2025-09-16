@@ -5,7 +5,7 @@ import minhgpt.task.TaskList;
 import minhgpt.ui.Ui;
 
 /**
- * Encapsulate the delete task command.
+ * Encapsulates the delete task command.
  */
 class CommandDelete extends Command {
     static {

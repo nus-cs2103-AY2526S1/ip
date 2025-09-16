@@ -8,15 +8,15 @@ import minhgpt.task.TaskList;
 import minhgpt.ui.Ui;
 
 /**
- * Encapsulate an user command and what to be executed.
+ * Encapsulates an user command and what to be executed.
  */
 public abstract class Command {
 
-    /** Map command regex String to constructor of the corresponding command. */
+    /** Maps command regex String to constructor of the corresponding command. */
     private static final HashMap<String, Supplier<Command>> registry = new HashMap<>();
 
     /**
-     * Put mapping into 'registry'.
+     * Puts mapping into 'registry'.
      *
      * @param regex    Regex that the command matches.
      * @param supplier Constructor for the command.
@@ -29,7 +29,7 @@ public abstract class Command {
     }
 
     /**
-     * Execute the program logic for the command.
+     * Executes the program logic for the command.
      *
      * @param input    Input from user.
      * @param taskList Program's list of tasks.
@@ -46,7 +46,11 @@ public abstract class Command {
     }
 
     /**
-     * Initialise the mapping in 'registry'.
+     * Initialises the mapping in 'registry'.
+     *
+     * This will call the "static {}" block in all Command classes.
+     *
+     * Must be called before using 'parseCommand'.
      */
     public static void initialise() {
         new CommandAdd();
@@ -60,7 +64,9 @@ public abstract class Command {
     }
 
     /**
-     * Factory method for creating commands.
+     * Parses user input and return the corresponding command.
+     *
+     * Must call 'initialise' before using this method.
      *
      * @param input Input command from user.
      */

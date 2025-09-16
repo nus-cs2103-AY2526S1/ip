@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Encapsulate an event task.
+ * Encapsulates an event task.
  */
 class TaskEvent extends Task {
     static {
@@ -17,7 +17,7 @@ class TaskEvent extends Task {
     private LocalDate to;
 
     /**
-     * Construct a basic task.
+     * Constructs a Deadline task.
      *
      * @param input Input from user to create an event task.
      */

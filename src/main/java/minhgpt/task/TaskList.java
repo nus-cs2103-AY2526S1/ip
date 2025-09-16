@@ -11,7 +11,7 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     /**
-     * Initialise the task list with 'initialTasks'.
+     * Initialises the task list with 'initialTasks'.
      */
     public TaskList(ArrayList<Task> initialTasks) {
         assert (initialTasks != null);
@@ -20,28 +20,30 @@ public class TaskList {
     }
 
     /**
-     * Initialise an empty task list.
+     * Initialises an empty task list.
      */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
     /**
-     * Return the number of tasks in list.
+     * @return Number of tasks in list.
      */
     public int size() {
         return tasks.size();
     }
 
     /**
-     * Return the task at index 'index' in list.
+     * @return Task at index 'index' in list.
      */
     public Task get(int index) {
         return tasks.get(index);
     }
 
     /**
-     * Add 'task' to list.
+     * Adds 'task' to list.
+     *
+     * @return The recently added task.
      */
     public Task add(Task task) {
         assert (task != null);
@@ -51,7 +53,9 @@ public class TaskList {
     }
 
     /**
-     * Mark task with index 'index' in list.
+     * Marks task with index 'index' in list.
+     *
+     * @return The recently marked task.
      */
     public Task mark(int index) {
         tasks.get(index).markAsDone();
@@ -59,7 +63,9 @@ public class TaskList {
     }
 
     /**
-     * Unmark task with index 'index' in list.
+     * Unmarks task with index 'index' in list.
+     *
+     * @return The recently unmarked task.
      */
     public Task unmark(int index) {
         tasks.get(index).markAsUndone();
@@ -67,7 +73,9 @@ public class TaskList {
     }
 
     /**
-     * Delete task with index 'index' in list.
+     * Deletes task with index 'index' in list.
+     *
+     * @return The recently deleted task.
      */
     public Task delete(int index) {
         Task toBeDeleted = tasks.get(index);

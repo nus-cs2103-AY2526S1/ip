@@ -16,7 +16,7 @@ import minhgpt.ui.Ui;
 public abstract class Task {
     // NOTE: PRIVATE
 
-    /** Map task regex String to constructor of the corresponding task. */
+    /** Maps task regex String to constructor of the corresponding task. */
     private static final HashMap<String, Function<String, Task>> registry = new HashMap<>();
     /** Name of task. */
     private String name;
@@ -31,7 +31,7 @@ public abstract class Task {
     protected static final DateTimeFormatter DATE_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     /**
-     * Put mapping into 'registry'.
+     * Puts mapping into 'registry'.
      *
      * @param regex    Regex that the task matches.
      * @param supplier Constructor for the task.
@@ -46,7 +46,9 @@ public abstract class Task {
     // NOTE: PUBLIC
 
     /**
-     * Initialise the mapping in 'registry'.
+     * Initialises the mapping in 'registry'.
+     *
+     * Must be called before using 'parseTask'.
      */
     public static void initialise() {
         new TaskTodo("todo task1");
@@ -55,7 +57,9 @@ public abstract class Task {
     }
 
     /**
-     * Factory method for creating a task.
+     * Parses user input and return the corresponding Task.
+     *
+     * Must call 'initialise' before using this.
      *
      * @param input Input from user to create a task.
      * @throws ParseException When the input string does not match any known input
@@ -80,7 +84,7 @@ public abstract class Task {
     }
 
     /**
-     * Construct a basic task.
+     * Constructs a basic task.
      *
      * @param name Name of task to be created.
      */
@@ -92,21 +96,21 @@ public abstract class Task {
     }
 
     /**
-     * Mark the task as done.
+     * Marks the task as done.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Mark the task as undone.
+     * Marks the task as undone.
      */
     public void markAsUndone() {
         this.isDone = false;
     }
 
     /**
-     * Return true if the task name matches regex string 'query'. False otherwise.
+     * @return True if the task name matches regex string 'query'. False otherwise.
      */
     public boolean matchRegex(String query) {
         assert (query != null);
