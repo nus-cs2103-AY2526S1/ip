@@ -25,6 +25,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("TaskLynx");
             mainWindow = fxmlLoader.<MainWindow>getController();
             mainWindow.setTaskLynx(taskLynx);
             stage.show();

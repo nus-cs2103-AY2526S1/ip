@@ -4,7 +4,7 @@ This is a project template for a greenfield Java project. It's named after the J
 
 ## Setting up in Intellij
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+Prerequisites: JDK 17, update Intellij to the most recen![Screenshot 2025-09-15 141956.png](../../OneDrive/Pictures/Screenshots/Screenshot%202025-09-15%20141956.png)t version.
 
 1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
 1. Open the project into Intellij as follows:
