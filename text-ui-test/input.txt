@@ -1,0 +1,28 @@
+todo read book
+todo return book
+list
+mark 1
+list
+unmark 1
+deadline submit report /by 2019-10-15
+event team meeting /from 2019-10-16 1400 /to 2019-10-16 1600
+list
+mark 2
+mark 3
+list
+todo buy groceries
+deadline homework /by 2019-12-01 2359
+list
+delete 3
+list
+unmark 3
+mark 5
+list
+todo
+blah
+deadline
+mark
+unmark
+delete
+delete abc
+bye
