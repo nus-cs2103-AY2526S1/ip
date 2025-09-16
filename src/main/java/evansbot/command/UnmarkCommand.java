@@ -31,7 +31,7 @@ public class UnmarkCommand extends Command {
         try {
             return tasks.unmarkTask(index);
         } catch (InvalidTaskIndexException e) {
-            return ui.showError("Invalid task number! Please enter a number between 1 and " + e.getMaxIndex());
+            return ui.showError("Error! Invalid task number! Please enter a number between 1 and " + e.getMaxIndex());
         }
     }
 }
