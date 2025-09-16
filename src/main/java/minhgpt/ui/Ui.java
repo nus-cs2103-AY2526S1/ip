@@ -15,7 +15,8 @@ public class Ui {
      * Return initial greeting message when user enter the program.
      */
     public static String getWelcomeMessage() {
-        return "Hello! I'm MinhGPT.\nWhat can I do for you?";
+        return "Hmph! What do you want? I guess I'm MinhGPT. Whatever. \n"
+                + "Just spit it out already; what can I do for you?";
     }
 
     /**
@@ -23,8 +24,8 @@ public class Ui {
      * mark + unmark + delete operation.
      */
     public String getIndexErrorResponse() {
-        return "<( ⸝⸝•̀ - •́⸝⸝)> There is no tasks with that index."
-                + " You could have caused an IndexOutOfBoundsException.";
+        return "<( ⸝⸝•̀ - •́⸝⸝)> T-there's no task with that index, you baka! "
+                + "Don't you know how to count?";
     }
 
     /**
@@ -33,7 +34,7 @@ public class Ui {
      * @param task Task that was just added by user.
      */
     public String getAddResponse(Task task) {
-        return String.format("(˶ᵔ ᵕ ᵔ˶) Added: %s", task);
+        return String.format("F-fine! I added it. It's not like I wanted to or anything...\n%s", task);
     }
 
     /**
@@ -42,7 +43,7 @@ public class Ui {
      * @param task Task that was just marked by user.
      */
     public String getMarkResponse(Task task) {
-        return String.format("(˵˃ ᗜ ˂˵) Congrats on finishing the task.\n%s", task);
+        return String.format("I-It's not like I care, but... g-good job, I guess.\n%s", task);
     }
 
     /**
@@ -51,7 +52,8 @@ public class Ui {
      * @param task Task that was just unmarked by user.
      */
     public String getUnmarkResponse(Task task) {
-        return String.format("(¬`‸´¬) Huh? Why did you lie?\n%s", task);
+        return String.format("H-huh?! Why did you unmark it?! "
+                + "Are you trying to make me do more work?! \n%s", task);
     }
 
     /**
@@ -60,7 +62,7 @@ public class Ui {
      * @param task Task that was just deleted by user.
      */
     public String getDeleteResponse(Task task) {
-        return String.format("(˶ᵔ ᵕ ᵔ˶) Removed: %s", task);
+        return String.format("Good riddance. I-I mean, it's removed now. Hmph.\n%s", task);
     }
 
     /**
@@ -68,7 +70,9 @@ public class Ui {
      */
     public String getListResponse(TaskList taskList) {
         StringBuilder builder = new StringBuilder(String.format(
-                "(˶˃ ᵕ ˂˶) Here are the list of tasks. You have %d in total.", taskList.size()));
+                "Don't get the wrong idea! I'm just listing them out because... "
+                        + "because I have to, okay?! You have %d tasks in total.",
+                taskList.size()));
         for (int i = 0; i < taskList.size(); i++) {
             builder.append(String.format("\n%d.%s", i + 1, taskList.get(i)));
         }
@@ -82,7 +86,7 @@ public class Ui {
      */
     public String getFindResponse(ArrayList<Task> tasks) {
         StringBuilder builder = new StringBuilder(
-                String.format("(˶˃ ᵕ ˂˶) Here are the matching tasks in your list.", tasks.size()));
+                String.format("Ugh. Here are the tasks you asked for. Don't go asking me again, got it?"));
         for (int i = 0; i < tasks.size(); i++) {
             builder.append(String.format("\n%d.%s", i + 1, tasks.get(i)));
         }
@@ -93,27 +97,27 @@ public class Ui {
      * Return the message when user's input does not match any known commands.
      */
     public String getInvalidInputResponse() {
-        return "( ˶°ㅁ°) That is not a valid command!";
+        return "( ˶°ㅁ°) H-hey! That's not a valid command! S-stupid...";
     }
 
     /**
      * Return the message when user enters the wrong date format.
      */
     public String getInvalidDateFormatResponse() {
-        return "( ˶°ㅁ°) Please input date in the format: yyyy-mm-dd";
+        return "B-baka! Just input the date like this: yyyy-mm-dd. It's not that hard!";
     }
 
     /**
      * Return the message when user enters the wrong task format.
      */
     public String getInvalidTaskFormatResponse() {
-        return "( ˶°ㅁ°) That is not a valid way to input a task!";
+        return "Ugh, what is wrong with you? That's not how you're supposed to input a task!";
     }
 
     /**
      * Return the message when user exit the program.
      */
     public String getExitMessage() {
-        return "(╥﹏╥) Bye. Hope to see you again soon!";
+        return "W-wait! You're leaving already? ...It's not like I'll miss you or anything! B-bye!";
     }
 }
