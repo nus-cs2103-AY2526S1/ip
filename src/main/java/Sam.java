@@ -17,10 +17,10 @@ import sam.ui.Ui;
 public class Sam {
     // Essential constants for configuration and error messages
     private static final String DATA_FILE_PATH = "./data/sam.txt";
-    private static final String DEADLINE_FORMAT_ERROR = "OOPS!!! Use: deadline <description> /by <time>";
-    private static final String EVENT_FORMAT_ERROR = "OOPS!!! Use: event <description> /from <start> /to <end>";
-    private static final String FIND_KEYWORD_ERROR = "OOPS!!! Please provide a keyword to search for.";
-    private static final String TASK_NUMBER_ERROR = "OOPS!!! Task number must be an integer.";
+    private static final String DEADLINE_FORMAT_ERROR = "🌅 Gentle reminder: deadlines need clarity. Try: deadline <description> /by <time>";
+    private static final String EVENT_FORMAT_ERROR = "🌸 Events flow from start to end. Use: event <description> /from <start> /to <end>";
+    private static final String FIND_KEYWORD_ERROR = "🔍 To seek, one must name what they search for. Please provide a keyword.";
+    private static final String TASK_NUMBER_ERROR = "🧮 Numbers bring order to chaos. Please provide a valid task number.";
     
     private final TaskList tasks;
     private final Storage storage;
@@ -40,7 +40,7 @@ public class Sam {
      * @return The welcome message string
      */
     public String getWelcomeMessage() {
-        return "Hello! I'm Sam\nWhat can I do for you?";
+        return "🧘‍♂️ Greetings, I am Sam the Zen Master.\nIn stillness, all tasks find their place. How may I guide your productivity journey today?";
     }
 
     /**
@@ -55,7 +55,7 @@ public class Sam {
 
         try {
             return switch (Command.of(verb)) {
-                case BYE -> "Bye. Hope to see you again soon!";
+                case BYE -> "🙏 May peace accompany you on your journey. Until we meet again in mindful productivity!";
                 case LIST -> handleListCommand();
                 case MARK -> handleMarkCommand(rest);
                 case UNMARK -> handleUnmarkCommand(rest);
@@ -83,11 +83,11 @@ public class Sam {
     private String handleListCommand() {
         // Guard clause: handle empty list case first
         if (tasks.size() == 0) {
-            return "Your task list is empty!";
+            return "🍃 Your mind is clear, your task list is empty. In emptiness, there is infinite potential.";
         }
         
         // Happy path: build and return task list
-        StringBuilder listOutput = new StringBuilder("Here are the tasks in your list:\n");
+        StringBuilder listOutput = new StringBuilder("🧘‍♂️ Behold your current path of productivity:\n");
         for (int i = 0; i < tasks.size(); i++) {
             listOutput.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
@@ -104,7 +104,7 @@ public class Sam {
         int idx = parseIndex(rest, tasks.size());
         tasks.get(idx).markDone();
         saveTasks();
-        return "Nice! I've marked this task as done:\n" + tasks.get(idx);
+        return "✨ Excellent! Another step forward on your journey. Task completed with mindful intention:\n" + tasks.get(idx);
     }
 
     /**
@@ -117,7 +117,7 @@ public class Sam {
         int idx = parseIndex(rest, tasks.size());
         tasks.get(idx).unmark();
         saveTasks();
-        return "OK, I've marked this task as not done yet:\n" + tasks.get(idx);
+        return "🔄 No judgment here. Sometimes we must revisit our path. Task unmarked with compassion:\n" + tasks.get(idx);
     }
 
     /**
@@ -130,8 +130,8 @@ public class Sam {
         int idx = parseIndex(rest, tasks.size());
         Task removed = tasks.remove(idx);
         saveTasks();
-        return "Noted. I've removed this task:\n" + removed + 
-               "\nNow you have " + tasks.size() + " tasks in the list.";
+        return "🌸 Released into the void. Sometimes letting go creates space for new growth:\n" + removed + 
+               "\nYour path now holds " + tasks.size() + " mindful tasks.";
     }
 
     /**
@@ -208,7 +208,7 @@ public class Sam {
         }
         
         // Happy path: search for matching tasks
-        StringBuilder findOutput = new StringBuilder("Here are the matching tasks in your list:\n");
+        StringBuilder findOutput = new StringBuilder("🔮 The universe reveals these aligned tasks:\n");
         int matchCount = 0;
         String keyword = rest.toLowerCase();
         
@@ -222,7 +222,7 @@ public class Sam {
         
         // Guard clause: handle no matches case
         if (matchCount == 0) {
-            return "No tasks found matching '" + rest + "'.";
+            return "🔍 The search yields silence. Perhaps what you seek lies in a different path, or awaits creation.";
         }
         
         return findOutput.toString().trim();
@@ -236,8 +236,8 @@ public class Sam {
     private String addTask(Task task) {
         tasks.add(task);
         saveTasks();
-        return "Got it. I've added this task:\n" + task + 
-               "\nNow you have " + tasks.size() + " tasks in the list.";
+        return "🌱 A new intention has taken root in your journey:\n" + task + 
+               "\nYour path of mindful productivity now contains " + tasks.size() + " tasks.";
     }
 
     /**
@@ -248,12 +248,12 @@ public class Sam {
      */
     private String handlePriorityCommand(String rest) throws SamException {
         if (rest.isEmpty()) {
-            throw new SamException("OOPS!!! Use: priority <task_number> <priority_level>");
+            throw new SamException("⚖️ Priority requires both task and level. Use: priority <task_number> <priority_level>");
         }
         
         String[] parts = rest.trim().split("\\s+", 2);
         if (parts.length != 2) {
-            throw new SamException("OOPS!!! Use: priority <task_number> <priority_level>");
+            throw new SamException("⚖️ Balance needs both elements. Use: priority <task_number> <priority_level>");
         }
         
         int idx = parseIndex(parts[0], tasks.size());
@@ -263,7 +263,7 @@ public class Sam {
         task.setPriority(newPriority);
         saveTasks();
         
-        return "Nice! I've updated the priority of this task:\n" + task;
+        return "⚖️ Balance restored. The priority flows like water finding its level:\n" + task;
     }
 
     /**
