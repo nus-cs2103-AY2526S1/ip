@@ -8,7 +8,7 @@ Romidas is optimized for users who prefer typing commands over clicking buttons,
 
 ## Adding deadlines
 
-Adds a task with a specific deadline to your task list.
+Add a task with a specific deadline to your task list.
 
 **Format:** `deadline DESCRIPTION /by DATE`
 
