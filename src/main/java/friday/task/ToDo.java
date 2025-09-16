@@ -7,7 +7,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String getTypeofTask() {
+    public String getTypeOfTask() {
         return "[T]";
     }
 
@@ -22,6 +22,6 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        return getTypeofTask() + " " + getStatusIcon() + " " + getDesc();
+        return getTypeOfTask() + " " + getStatusIcon() + " " + getDesc();
     }
 }

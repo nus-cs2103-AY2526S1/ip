@@ -32,7 +32,7 @@ abstract public class Task {
      * Returns true if the task is done, false otherwise
      * @return Boolean isDone
      */
-    public Boolean IsDone() {
+    public Boolean isDone() {
         return isDone;
     }
 
@@ -58,9 +58,10 @@ abstract public class Task {
         return (isDone ? "[X]" : "[ ]");
     }
 
-    /** Abstract method to get the type of task
+    /**
+     * Abstract method to get the type of task
      * @return String type of task
      */
-    public abstract String getTypeofTask();
+    public abstract String getTypeOfTask();
 
 }
