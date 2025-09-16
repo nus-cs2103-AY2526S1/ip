@@ -25,6 +25,7 @@ public class KingParser {
         MARK,
         UNMARK,
         DELETE,
+        CLEAR,
         BYE
     }
 
@@ -33,14 +34,19 @@ public class KingParser {
     private final String dueRegex = "^due(?:\\s+(.*))?$";
     private final String findRegex = "^find(?:\\s+(.*))?$";
     private final String todoRegex = "^todo(?:\\s+(.*?)\\s*(?:/priority\\s+(.+))?)?$";
-    private final String deadlineRegex = "^deadline(?:\\s+(.*?)\\s*(?:/priority\\s+(.+?))?\\s*(?:/by\\s+(.+))?)?$";
+    private final String deadlineRegex = "^deadline(?:\\s+(.*?)\\s*"
+            + "(?:/priority\\s+(.+?))?\\s*"
+            + "(?:/by\\s+(.+))?)?$";
     private final String eventRegex = "^event(?:\\s+(.*?)\\s*"
             + "(?:/priority\\s+(.+?))?\\s*"
             + "(?:/from\\s+(.+?))?\\s*"
-            + "(?:/to\\s+(.+))?)?$";
+            + "(?:/to\\s+(.+?))?)?$";
+
+
     private final String markRegex = "^mark(?:\\s+(\\d*))?$";
     private final String unmarkRegex = "^unmark(?:\\s+(\\d*))?$";
     private final String deleteRegex = "^delete(?:\\s+(\\d*))?$";
+    private final String clearRegex = "^clear$";
     private final String endRegex = "^bye$";
     private Matcher helpMatcher;
     private Matcher listMatcher;
@@ -52,6 +58,7 @@ public class KingParser {
     private Matcher markMatcher;
     private Matcher unmarkMatcher;
     private Matcher deleteMatcher;
+    private Matcher clearMatcher;
     private Matcher endMatcher;
 
     private String input;
@@ -90,6 +97,7 @@ public class KingParser {
         markMatcher = Pattern.compile(markRegex).matcher(input);
         unmarkMatcher = Pattern.compile(unmarkRegex).matcher(input);
         deleteMatcher = Pattern.compile(deleteRegex).matcher(input);
+        clearMatcher = Pattern.compile(clearRegex).matcher(input);
         endMatcher = Pattern.compile(endRegex).matcher(input);
     }
 
@@ -122,6 +130,8 @@ public class KingParser {
             return checkUnmark();
         case DELETE:
             return checkDelete();
+        case CLEAR:
+            return clearMatcher.matches();
         case BYE:
             return endMatcher.matches();
         default:
@@ -380,6 +390,15 @@ public class KingParser {
      */
     public Matcher getDeleteMatcher() {
         return deleteMatcher;
+    }
+
+    /**
+     * Gets clear command matcher
+     *
+     * @return Clear command matcher
+     */
+    public Matcher getClearMatcher() {
+        return clearMatcher;
     }
 
     /**

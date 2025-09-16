@@ -158,6 +158,19 @@ public class KingUI {
     }
 
     /**
+     * Show confirmation for clearing all tasks
+     *
+     * @param previousSize number of tasks removed
+     * @return confirmation message
+     */
+    public String showClear(int previousSize) {
+        if (previousSize == 0) {
+            return "Your list is already empty.";
+        }
+        return "Cleared all tasks (" + previousSize + ") from your list.";
+    }
+
+    /**
      * Show bye message for bye command
      */
     public String showBye() {

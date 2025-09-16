@@ -111,6 +111,13 @@ public class KingTaskList {
     }
 
     /**
+     * Clears all tasks from the list and storage.
+     */
+    public void clearAll() {
+        resetList();
+    }
+
+    /**
      * Gets the size of the task list
      *
      * @return Size of task list

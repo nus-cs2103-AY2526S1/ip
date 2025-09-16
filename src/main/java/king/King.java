@@ -91,7 +91,7 @@ public class King {
                 // event command - creates a new event task
                 Event newTask = new Event(
                         kingParser.getEventMatcher().group(1),
-                        Task.getPriorityFromString(kingParser.getTodoMatcher().group(2)),
+                        Task.getPriorityFromString(kingParser.getEventMatcher().group(2)),
                         LocalDate.parse(kingParser.getEventMatcher().group(3)),
                         LocalDate.parse(kingParser.getEventMatcher().group(4)));
                 kingTaskList.addTask(newTask);
@@ -110,6 +110,11 @@ public class King {
                 // delete command - deletes a task
                 int idx = Integer.parseInt(kingParser.getDeleteMatcher().group(1)) - 1;
                 return kingUI.showDelete(kingTaskList.deleteTask(idx), kingTaskList.getSize());
+            } else if (kingParser.checkParser(KingParser.Commands.CLEAR)) {
+                // clear command - removes all tasks
+                int prev = kingTaskList.getSize();
+                kingTaskList.clearAll();
+                return kingUI.showClear(prev);
             } else if (kingParser.checkParser(KingParser.Commands.BYE)) {
                 // bye command - end of conversation
                 return kingUI.showBye();
