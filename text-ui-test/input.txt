@@ -1,0 +1,20 @@
+todo read book
+mark 1
+deadline return book /by 2025-10-15
+event project meeting /from 2025-10-15 /to 2025-10-16
+list
+delete 2
+list
+unmark 1
+list
+blah blah
+todo
+deadline d
+event e
+mark 26
+mark
+unmark
+list
+delete 2
+delete 1
+bye
