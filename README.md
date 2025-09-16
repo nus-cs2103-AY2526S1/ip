@@ -4,7 +4,7 @@
 
 Rafayel will help free your mind from remembering every little task. It's designed to be **simple**, **efficient** and **fast**, so you can focus on what truly matters. Rafayel will remind you of overdue tasks and upcoming deadlines, ensuring you never miss important commitments.
 
-![Rafayel Chatbot](Ui.png)
+![Rafayel Chatbot](/docs/Ui.png)
 
 ## Overview
 
