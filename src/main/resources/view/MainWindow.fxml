@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="jettvarkis.gui.MainWindow"
+      prefHeight="600.0" prefWidth="400.0" minHeight="300" minWidth="300">
+    <stylesheets>
+        <String fx:value="/css/main.css" />
+    </stylesheets>
+    <children>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+            <content>
+                <VBox fx:id="dialogContainer" prefWidth="380" />
+            </content>
+        </ScrollPane>
+        <HBox alignment="CENTER" spacing="5" style="-fx-padding: 5;">
+            <children>
+                <TextField fx:id="userInput" onAction="#handleUserInput" HBox.hgrow="ALWAYS" promptText="Type a message..." />
+                <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" text="Send" />
+            </children>
+        </HBox>
+    </children>
+</VBox>
