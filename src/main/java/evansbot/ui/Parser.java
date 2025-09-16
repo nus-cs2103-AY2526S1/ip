@@ -3,10 +3,6 @@ package evansbot.ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import evansbot.exceptions.EvansBotException;
-import evansbot.exceptions.InvalidCommandException;
-import evansbot.exceptions.InvalidDeadlineException;
-import evansbot.exceptions.InvalidEventException;
 import evansbot.command.AddDeadlineCommand;
 import evansbot.command.AddEventCommand;
 import evansbot.command.AddTodoCommand;
@@ -19,6 +15,11 @@ import evansbot.command.ListCommand;
 import evansbot.command.MarkCommand;
 import evansbot.command.UnmarkCommand;
 import evansbot.command.ViewScheduleCommand;
+import evansbot.exceptions.EvansBotException;
+import evansbot.exceptions.InvalidCommandException;
+import evansbot.exceptions.InvalidDeadlineException;
+import evansbot.exceptions.InvalidEventException;
+
 
 
 

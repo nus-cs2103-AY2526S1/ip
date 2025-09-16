@@ -2,8 +2,8 @@ package evansbot.gui;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import evansbot.exceptions.EvansBotException;
 import evansbot.command.Command;
+import evansbot.exceptions.EvansBotException;
 import evansbot.task.Storage;
 import evansbot.task.Task;
 import evansbot.task.TaskList;
