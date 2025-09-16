@@ -1,0 +1,22 @@
+list
+mark 1
+blah
+todo
+deadline
+deadline /by
+event
+event /from /to
+mark
+unmark
+delete
+delete -1
+todo buy pen
+deadline complete essay /by Monday
+event meeting /from Tue 2pm /to 4pm
+list
+mark 2
+list
+unmark 2
+delete 2
+list
+bye
