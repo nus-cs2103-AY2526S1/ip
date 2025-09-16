@@ -1,0 +1,4 @@
+T | 0 | read notes
+D | 0 | assignment | 2025-09-19
+E | 0 | midterm | 6pm | 7pm
+F | 0 | note revision | 2hrs
