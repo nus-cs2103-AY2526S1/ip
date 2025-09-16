@@ -27,7 +27,7 @@ Now you have 2 tasks in your list.
 
 ## Adding todos
 
-Adds a simple todo task to your task list.
+Add a simple todo task to your task list.
 
 **Format:** `todo DESCRIPTION`
 
