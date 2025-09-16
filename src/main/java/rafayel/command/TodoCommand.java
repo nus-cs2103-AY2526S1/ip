@@ -27,7 +27,7 @@ public class TodoCommand extends Command {
         this.description = description.trim();
         if (description.isEmpty()) {
             throw new RafayelException(
-                    "Even I can't read your mind, you know. Out with it. What is this 'todo' supposed to be?");
+                    "Even I can't read your mind, you know. What is this 'todo' supposed to be? Add a description for your todo task :c");
         }
     }
 

@@ -42,8 +42,9 @@ public class DeadlineCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
         if (descriptionDate.isEmpty()) {
-            throw new RafayelException(DEADLINE_FORMAT_ERROR
-                    + "A blank canvas? How am I supposed to paint with no description? Tell me what this deadline is for.");
+            throw new RafayelException(
+                    "A blank canvas? How am I supposed to paint with no description? Tell me what this deadline is for. "
+                            + DEADLINE_FORMAT_ERROR);
         }
         if (!descriptionDate.contains("/by")) {
             throw new RafayelException(DEADLINE_FORMAT_ERROR);

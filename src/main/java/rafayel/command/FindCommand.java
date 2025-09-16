@@ -24,6 +24,11 @@ public class FindCommand extends Command {
      */
     public FindCommand(String stringToFind) throws RafayelException {
         super(CommandHandle.CommandType.FIND);
+
+        if (stringToFind == "") {
+            throw new RafayelException("Please state what task you want to find •-•");
+        }
+
         this.stringToFind = stringToFind;
     }
 

@@ -224,10 +224,8 @@ Rafayel automatically saves your tasks to a local file after every command. The 
 
 **Q: What date/time format should I use?**
 **A:** Rafayel is flexible! It accepts the following formats:
-*   `yyyy-MM-dd HH:mm` (e.g., `2024-12-01 18:00`)
 *   `yyyy/MM/dd HH:mm` (e.g., `2024/12/01 18:00`)
 *   `dd-MM-yyyy HH:mm` (e.g., `01-12-2024 18:00`)
-*   `dd/MM/yyyy HH:mm` (e.g., `01/12/2024 18:00`)
 *   `MMM d yyyy HH:mm` (e.g., `Dec 1 2024 18:00`)
 
 [Back to Overview](#overview)

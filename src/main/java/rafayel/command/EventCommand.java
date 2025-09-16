@@ -40,8 +40,9 @@ public class EventCommand extends Command {
     private void eventInputValidation(String descriptionDate) throws RafayelException {
         // Input Validation
         if (descriptionDate.isEmpty()) {
-            throw new RafayelException(EVENT_FORMAT_ERROR
-                    + "A blank canvas? How am I supposed to paint with no description? Tell me what this event is for.");
+            throw new RafayelException(
+                    "A blank canvas? How am I supposed to add an event with no description? Tell me what this event is for. "
+                            + EVENT_FORMAT_ERROR);
         }
         if (!descriptionDate.contains("/from")) {
             throw new RafayelException(EVENT_FORMAT_ERROR);

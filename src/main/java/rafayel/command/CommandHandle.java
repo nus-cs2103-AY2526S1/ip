@@ -47,7 +47,7 @@ public class CommandHandle {
             if (input.startsWith("find")) {
                 return FIND;
             }
-            if (input.startsWith("remind")) {
+            if (input.equals("remind")) {
                 return REMIND;
             }
             return UNKNOWN;

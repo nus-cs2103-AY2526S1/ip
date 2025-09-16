@@ -25,7 +25,8 @@ public class DeleteCommand extends Command {
         try {
             this.taskNumber = Integer.parseInt(taskString.trim()) - 1;
         } catch (NumberFormatException e) {
-            throw new RafayelException(Rafayel.INVALID_TASK_NUM);
+            throw new RafayelException(
+                    "Please state the task number so I can delete the task for you :c e.g. (delete 1)");
         }
     }
 

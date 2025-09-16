@@ -32,7 +32,8 @@ public class MarkCommand extends Command {
             this.taskNumber = Integer.parseInt(taskNumber.trim()) - 1;
             this.isMark = isMark;
         } catch (NumberFormatException e) {
-            throw new RafayelException("Please state what task to be marked/unmarked.");
+            System.out.println("markcommand");
+            throw new RafayelException("Please state what task to be marked/unmarked. :c e.g. (mark 1 / unmark 1)");
         }
 
     }

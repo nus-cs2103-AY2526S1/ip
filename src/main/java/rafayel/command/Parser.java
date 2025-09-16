@@ -12,6 +12,9 @@ public class Parser {
 
     private static String removeCommand(String input) {
         String[] parts = input.trim().split(" ", 2);
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            return "";
+        }
         return parts[1].trim(); // remove command
     }
 
@@ -24,6 +27,9 @@ public class Parser {
     public static Command parseCommand(String input) throws RafayelException {
 
         CommandHandle.CommandType commandType = CommandHandle.CommandType.getCommand(input);
+        System.out.println("parser");
+        System.out.println(commandType);
+        // System.out.println(removeCommand(input));
 
         return switch (commandType) {
         case BYE -> new ByeCommand();
