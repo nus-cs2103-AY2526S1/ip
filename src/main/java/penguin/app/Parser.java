@@ -145,11 +145,21 @@ public class Parser {
             tasks.addTask(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
             break;
         case EVENT:
-            String[] fromParts = taskName.split("/from", 2);
-            if (fromParts.length < 2) throw new PenguinException("Event requires /from <date> and /to <date>");
-            String[] toParts = fromParts[1].split("/to", 2);
-            if (toParts.length < 2) throw new PenguinException("Event requires both /from and /to dates");
-            tasks.addTask(new Event(fromParts[0].trim(), fromParts[1].trim(), toParts[1].trim()));
+            String[] nameAndDates = taskName.split("(?i)/from", 2); // case-insensitive
+            if (nameAndDates.length < 2 || nameAndDates[1].trim().isEmpty()) {
+                throw new PenguinException("Event requires /from <date> and /to <date>");
+            }
+
+            String name = nameAndDates[0].trim();
+            String[] fromTo = nameAndDates[1].split("(?i)/to", 2);
+            if (fromTo.length < 2 || fromTo[0].trim().isEmpty() || fromTo[1].trim().isEmpty()) {
+                throw new PenguinException("Event requires both /from and /to dates");
+            }
+
+            String from = fromTo[0].trim();
+            String to = fromTo[1].trim();
+
+            tasks.addTask(new Event(name, from, to));
             break;
         }
 
