@@ -1,0 +1,13 @@
+list
+todo read book
+deadline return book /by 12-3-2025 1800
+event conference /from 9 Aug /to 10 Aug
+list
+mark 1
+unmark 1
+delete 1
+list
+on 9 Aug
+clear
+yes
+bye
