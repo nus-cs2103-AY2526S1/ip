@@ -78,7 +78,7 @@ public class Rainy {
     }
 
     /**
-     * Main method to start the Rainy application.
+     * Starts the Rainy application.
      */
     public static void main(String[] args) {
         new Rainy("data/rainy.txt").run();

@@ -33,8 +33,8 @@ public abstract class Command {
     }
 
     /**
-     * Undo the effect of this command.
-     * Default: do nothing.
+     * Undoes the effect of this command.
+     * The default behavior is to do nothing.
      */
     public void undo(Object... args) throws RainyException {
         throw new UnsupportedOperationException("Undo not implemented for this command");
