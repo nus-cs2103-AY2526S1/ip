@@ -43,13 +43,9 @@ public class GuiParser {
                 throw new ChatZhException("I'm sorry, but I don't know what that means :-(");
             }
         } catch (ChatZhException e) {
-            return "_________________________\n"
-                    + "OOPS!!! " + e.getMessage() + "\n"
-                    + "_________________________";
+            return "OOPS!!! " + e.getMessage() + "\n";
         } catch (Exception e) {
-            return "_________________________\n"
-                    + "OOPS!!! An unexpected error occurred: " + e.getMessage() + "\n"
-                    + "_________________________";
+            return "OOPS!!! An unexpected error occurred: " + e.getMessage() + "\n";
         }
     }
 
@@ -61,13 +57,11 @@ public class GuiParser {
      */
     private static String handleGuiListCommand(ArrayList<Task> savedTasks) {
         StringBuilder sb = new StringBuilder();
-        sb.append("_________________________\n");
         sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < savedTasks.size(); i++) {
             Task task = savedTasks.get(i);
             sb.append(i + 1).append(".").append(task.getStatusText()).append("\n");
         }
-        sb.append("_________________________");
 
         return sb.toString();
     }
@@ -105,7 +99,6 @@ public class GuiParser {
         task.setStatus(markAsDone);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("_________________________\n");
 
         if (markAsDone) {
             sb.append("Nice! I've marked this task as done:\n");
@@ -114,7 +107,6 @@ public class GuiParser {
         }
 
         sb.append(task.getStatusText()).append("\n");
-        sb.append("_________________________");
 
         return sb.toString();
     }
@@ -138,11 +130,9 @@ public class GuiParser {
         savedTasks.add(todo);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("_________________________\n");
         sb.append("Got it. I've added this task:\n");
         sb.append(todo.getStatusText()).append("\n");
         sb.append("Now you have ").append(savedTasks.size()).append(" tasks in the list.\n");
-        sb.append("_________________________");
 
         return sb.toString();
     }
@@ -181,11 +171,9 @@ public class GuiParser {
         savedTasks.add(ddl);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("_________________________\n");
         sb.append("Got it. I've added this task:\n");
         sb.append(ddl.getStatusText()).append("\n");
         sb.append("Now you have ").append(savedTasks.size()).append(" tasks in the list.\n");
-        sb.append("_________________________");
 
         return sb.toString();
     }
@@ -233,11 +221,9 @@ public class GuiParser {
         savedTasks.add(event);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("_________________________\n");
         sb.append("Got it. I've added this task:\n");
         sb.append(event.getStatusText()).append("\n");
         sb.append("Now you have ").append(savedTasks.size()).append(" tasks in the list.\n");
-        sb.append("_________________________");
 
         return sb.toString();
     }
@@ -265,11 +251,9 @@ public class GuiParser {
         Task deletedTask = savedTasks.remove(idx);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("_________________________\n");
         sb.append("Roger. I've removed this task:\n");
         sb.append(deletedTask.getStatusText()).append("\n");
         sb.append("Now you have ").append(savedTasks.size()).append(" tasks in the list.\n");
-        sb.append("_________________________");
 
         return sb.toString();
     }
@@ -290,7 +274,6 @@ public class GuiParser {
         String keyword = parts[1].trim();
 
         StringBuilder sb = new StringBuilder();
-        sb.append("_________________________\n");
         sb.append("Here are the matching tasks in your list:\n");
 
         boolean found = false;
@@ -305,8 +288,6 @@ public class GuiParser {
         if (!found) {
             sb.append("No tasks match your keyword.\n");
         }
-
-        sb.append("_________________________");
 
         return sb.toString();
     }
@@ -331,11 +312,9 @@ public class GuiParser {
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("_________________________\n");
         Task taskToBeUpdated = savedTasks.get(Character.getNumericValue(parts[1].charAt(0)) - 1);
         sb.append("I've updated Task " + parts[1] + " from "
                 + taskToBeUpdated.getDescription() + " to " + parts[2] + "\n");
-        sb.append("_________________________");
         taskToBeUpdated.setDescription(parts[2]);
 
         return sb.toString();
@@ -362,7 +341,6 @@ public class GuiParser {
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("_________________________\n");
         Task taskToBeUpdated = savedTasks.get(Character.getNumericValue(parts[1].charAt(0)) - 1);
         sb.append("I've updated Task " + parts[1] + " from " + taskToBeUpdated.getStatusText() + " to ");
 
@@ -382,7 +360,6 @@ public class GuiParser {
         }
 
         sb.append(taskToBeUpdated.getStatusText() + "\n");
-        sb.append("_________________________");
         return sb.toString();
     }
 }
