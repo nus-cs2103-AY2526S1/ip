@@ -54,6 +54,7 @@ public class Main extends Application {
                     });
                 }
             }, ONE_SECOND, FIVE_MIN);
+            // an automatically reminder will be sent every five minute 
 
         } catch (IOException e) {
             e.printStackTrace();

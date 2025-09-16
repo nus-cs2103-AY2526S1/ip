@@ -27,9 +27,6 @@ public class Parser {
     public static Command parseCommand(String input) throws RafayelException {
 
         CommandHandle.CommandType commandType = CommandHandle.CommandType.getCommand(input);
-        System.out.println("parser");
-        System.out.println(commandType);
-        // System.out.println(removeCommand(input));
 
         return switch (commandType) {
         case BYE -> new ByeCommand();

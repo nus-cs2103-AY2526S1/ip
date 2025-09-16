@@ -58,8 +58,8 @@ public class Storage {
             fw.close();
 
         } catch (IOException e) {
-            System.out.println("An error occurred while saving file.");
             e.printStackTrace();
+            throw new RafayelException("I couldn't save the file :c");
         }
     }
 

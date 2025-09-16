@@ -18,7 +18,7 @@ public class EventCommand extends Command {
     private final String descriptionDate;
 
     /** Error message when event format is invalid. */
-    private static final String EVENT_FORMAT_ERROR = "An event must be set with 'event [desc] /from [time] /to [time]'. This isn't abstract art — precision is key!";
+    private static final String EVENT_FORMAT_ERROR = "An event must be set with 'event [desc] /from [time] /to [time]'. \nThis isn't abstract art — precision is key!";
 
     /**
      * Constructs a event task.

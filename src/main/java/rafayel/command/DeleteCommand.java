@@ -40,7 +40,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
-        if (taskNumber < 0 || taskNumber > tasks.getSize()) {
+        if (taskNumber < 0 || taskNumber >= tasks.getSize()) {
             throw new RafayelException(Rafayel.INVALID_TASK_NUM);
         }
 

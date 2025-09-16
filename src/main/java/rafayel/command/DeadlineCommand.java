@@ -18,7 +18,7 @@ public class DeadlineCommand extends Command {
     private final String descriptionDate;
 
     /** Error message when deadline format is invalid. */
-    private static final String DEADLINE_FORMAT_ERROR = "A deadline must be set with 'deadline [your task] /by [time]'. This isn't abstract art — precision is key!";
+    private static final String DEADLINE_FORMAT_ERROR = "A deadline must be set with 'deadline [your task] /by [time]'. \nThis isn't abstract art — precision is key!";
 
     /**
      * Constructs a deadline command with description and date that it is due.
