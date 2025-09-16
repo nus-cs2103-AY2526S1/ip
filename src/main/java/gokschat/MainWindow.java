@@ -30,6 +30,15 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        // Welcome message
+        String welcomeMessage = "    ____________________________________________________________\n" +
+                "    What's up, what's up! I'm GoksChat\n" +
+                "    How can I assist you today?\n" +
+                "    ____________________________________________________________";
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(welcomeMessage, dukeImage)
+        );
     }
 
     /** Injects the GoksChat instance */
