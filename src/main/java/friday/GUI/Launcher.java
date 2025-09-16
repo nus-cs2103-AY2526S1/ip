@@ -1,4 +1,4 @@
-package friday.GUI;
+package src.main.java.friday.gui;
 
 import javafx.application.Application;
 

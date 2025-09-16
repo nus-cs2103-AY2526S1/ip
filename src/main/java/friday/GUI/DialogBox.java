@@ -1,4 +1,4 @@
-package friday.GUI;
+package src.main.java.friday.gui;
 
 import java.io.IOException;
 import java.util.Collections;
