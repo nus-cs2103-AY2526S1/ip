@@ -276,16 +276,16 @@ public class GuiParser {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the matching tasks in your list:\n");
 
-        boolean found = false;
+        boolean isFound = false;
         for (int i = 0; i < savedTasks.size(); i++) {
             Task task = savedTasks.get(i);
             if (task.getDescription().contains(keyword)) {
                 sb.append(i + 1).append(".").append(task.getStatusText()).append("\n");
-                found = true;
+                isFound = true;
             }
         }
 
-        if (!found) {
+        if (!isFound) {
             sb.append("No tasks match your keyword.\n");
         }
 
