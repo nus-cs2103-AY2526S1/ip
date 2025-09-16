@@ -1,0 +1,66 @@
+/* Base message styling */
+.label {
+    -fx-padding: 12px 16px;
+    -fx-background-radius: 18px;
+    -fx-border-radius: 18px;
+    -fx-font-size: 14px;
+    -fx-font-weight: 400;
+    -fx-line-spacing: 2px;
+    -fx-wrap-text: true;
+    -fx-max-width: 500px;
+    -fx-min-width: 50px;
+}
+
+/* HBox container styling for better alignment */
+.hbox {
+    -fx-spacing: 8px;
+    -fx-padding: 4px 0px;
+    -fx-alignment: top-left;
+}
+
+/* User message styling - right-aligned, blue theme */
+.user-message {
+    -fx-background-color: rgba(59, 130, 246, 0.95);
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.4), 6, 0, 0, 0);
+}
+
+/* Bot message styling - left-aligned, musical theme */
+.bot-message {
+    -fx-background-color: rgba(255, 245, 157, 0.95);
+    -fx-text-fill: #2d3748;
+    -fx-border-color: #f6ad55;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(246, 173, 85, 0.3), 6, 0, 0, 0);
+    -fx-font-weight: 500;
+}
+
+/* Error message styling - distinctive red theme */
+.error-message {
+    -fx-background-color: rgba(254, 242, 242, 0.95);
+    -fx-text-fill: #dc2626;
+    -fx-border-color: #fecaca;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(220, 38, 38, 0.3), 6, 0, 0, 0);
+    -fx-font-weight: 500;
+}
+
+/* Avatar styling - smaller, circular with subtle shadow */
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 6, 0, 0, 0);
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+}
+
+/* HBox container styling for better spacing */
+.hbox {
+    -fx-spacing: 8px;
+    -fx-padding: 4px 0px;
+}
+
+/* VBox container for message content */
+.vbox {
+    -fx-spacing: 4px;
+}
+
+

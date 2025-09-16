@@ -1,0 +1,10 @@
+T | 1 | join sports club
+T | 1 | go public
+T | 1 | read book
+T | 0 | test
+D | 0 | deadline submit report | 2024-12-15T23:59:00
+D | 0 | deadline submit report | 2024-12-20T18:00:00
+E | 0 | event team meeting | 2024-12-25T14:00:00 | 2024-12-25T16:00:00
+D | 0 | cs2103 | 2025-08-29T18:00:00
+0 | hi!
+T | 0 | Bubu
