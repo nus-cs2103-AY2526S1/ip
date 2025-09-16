@@ -1,6 +1,6 @@
 # Rainy User Guide
 
-![UI screenshot](docs/Ui.png)
+![UI screenshot](Ui.png)
 
 rainy lets u remain productive without forgetting what u need to do. it's
 
