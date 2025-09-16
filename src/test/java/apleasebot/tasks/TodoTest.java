@@ -15,6 +15,6 @@ public class TodoTest {
 
     @Test
     public void translate_storeTask_success() {
-        assertEquals("T,1,Complete", taskDone.translate());
+        assertEquals("T,1,Complete", taskDone.translateTaskToText());
     }
 }
