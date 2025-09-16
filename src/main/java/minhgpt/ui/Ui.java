@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import minhgpt.task.Task;
 import minhgpt.task.TaskList;
 
+/*
+ * NOTE: AI Usage - All the response messages here were generated using Google Gemini.
+ */
+
 /**
  * Responsible for all UI printing.
  */
