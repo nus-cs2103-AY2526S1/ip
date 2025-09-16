@@ -1,5 +1,5 @@
 # TaskLynx User Guide
-![](/docs/Ui.png)
+![TaskLynx Interface](/docs/Ui.png)
 TaskLynx is your reliable partner for keeping track of your tasks and activities. 
 
 ## Adding tasks
@@ -83,7 +83,7 @@ Removed all tasks occurring on Nov 12 2025 00:00:
 [0][E][I] taskc (from: Nov 11 2025 00:00 to: Nov 13 2025 00:00) (id:3)
 ```
 
-# Saving and Loading tasks
+## Saving and Loading tasks
 
 TaskLynx allows you to save your tasks to a data file and retrieve them anytime.
 TaskLynx also does this automatically when closing and opening the program, respectively.
@@ -99,7 +99,7 @@ Kept all your tasks!
 Caught all your tasks!
 ```
 
-# Precise search
+## Precise search
 
 For advanced users, TaskLynx lets you chain search modifiers for more specificity in your actions!
 
