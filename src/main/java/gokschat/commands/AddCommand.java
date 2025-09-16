@@ -48,6 +48,8 @@ public class AddCommand extends Command {
             String actualName = taskName.substring(0, firstSlashIndex - 1);
             String fromPlusTo = taskName.substring(firstSlashIndex + 1);
             firstSlashIndex = fromPlusTo.indexOf("/");
+            char c = fromPlusTo.charAt(firstSlashIndex);
+            assert c == '/' : "c should be '/'";
             String from = fromPlusTo.substring(5, firstSlashIndex - 1);
             String to = fromPlusTo.substring(firstSlashIndex + 4);
             newTask = new EventTask(actualName, from, to);

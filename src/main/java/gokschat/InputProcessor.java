@@ -93,6 +93,8 @@ public class InputProcessor {
                 throw new TodoException("      YIKES!!! You need to enter a description for a task!!!");
             } else if (words[0].equals("deadline")) {
                 int firstSlashIndex = restOfinput.indexOf("/");
+                char c = restOfinput.charAt(firstSlashIndex);
+                assert c == '/' : "c should be '/'";
                 String deadline = restOfinput.substring(firstSlashIndex + 4);
                 if (!isValidDate(deadline)) {
                     throw new DeadlineException("      Oh NO! This date is either invalid or incorrectly formatted!");
