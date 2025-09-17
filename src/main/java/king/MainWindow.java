@@ -48,7 +48,7 @@ public class MainWindow extends VBox {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = king.getResponse(input);
-        if (response.startsWith("BYE")) {
+        if (response.startsWith("Fare thee well!")) {
             Platform.exit();
         } else {
             dialogContainer.getChildren().addAll(

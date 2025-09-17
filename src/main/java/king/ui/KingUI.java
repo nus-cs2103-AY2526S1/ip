@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import king.KingException;
+import king.task.Deadline;
 import king.task.Task;
 
 /**
@@ -62,12 +63,13 @@ public class KingUI {
         StringBuilder response = new StringBuilder("Tasks decreed for "
                 + date.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + " are as follows:\n");
         list.stream()
-                .filter(task -> task.getType() == Task.Type.DEADLINE)
-                .forEach(task ->
-                        response.append(list.indexOf(task) + 1)
-                                .append(". ")
-                                .append(task)
-                                .append("\n"));
+            .filter(task -> task.getType() == Task.Type.DEADLINE)
+            .filter(task -> ((Deadline) task).getBy().isEqual(date))
+            .forEach(task ->
+                response.append(list.indexOf(task) + 1)
+                    .append(". ")
+                    .append(task)
+                    .append("\n"));
 
         return response.toString();
     }
