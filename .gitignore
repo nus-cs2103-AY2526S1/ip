@@ -5,7 +5,8 @@
 
 # Gradle wrapper and cache
 wrapper/dists/
-caches/jars-9/
+caches/
+.caches/
 
 # Gradle build files
 /.gradle/
