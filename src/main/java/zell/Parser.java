@@ -439,13 +439,13 @@ public class Parser {
                 // Fallthrough
             case "d":
                 formatMessage = String.format("%s should include a thing to do.\nFor example:\n%s books "
-                        + "/by  Sunday", command, command);
+                        + "/by 2025-09-01", command, command);
                 break;
             case "event":
                 // Fallthrough
             case "e":
                 formatMessage = String.format("%s should include a thing to do.\nFor example:\n%s "
-                        + "books /from Mon 2pm /to 4pm", command, command);
+                        + "books /from 2025-09-01 18:30 /to 2025-09-02 18:30", command, command);
                 break;
             case "find":
                 // Fallthrough
@@ -496,14 +496,14 @@ public class Parser {
         // Handle missing deadline name
         if (userInput.contains(splitBy) && firstByIndex == -1) {
             String formatMessage = String.format("%s should include a name.\nFor example:\n" + "%s project "
-                    + "meeting /by Mon 2pm", command, command);
+                    + "meeting /by 2025-09-01 18:30", command, command);
             throw new ZellException(formatMessage);
         }
 
         // Handle missing /by
         if (firstByIndex == -1) {
             String formatMessage = String.format("%s should include a dateline by using /by.\nFor "
-                    + "example:\n" + "%s read books /by Sunday", command, command);
+                    + "example:\n" + "%s read books /by 2025-09-02", command, command);
             throw new ZellException(formatMessage);
         }
     }
@@ -528,32 +528,36 @@ public class Parser {
         // Handle if no name for event was provided. event /from today /to tmr
         if (userInput.contains(splitFrom) && firstFromIndex == -1) {
             String formatMessage = String.format("%s should include a name.\nFor example:\n" + "%s project "
-                    + "meeting /from Mon 2pm /to 4pm", command, command);
+                    + "meeting /from 2025-09-01 18:30 /to 2025-09-02 18:30", command, command);
             throw new ZellException(formatMessage);
         }
 
         if (firstFromIndex == -1) {
             String formatMessage = String.format("%s should include a start by using /from.\nFor "
-                    + "example:\n" + "%s project meeting /from Mon 2pm /to 4pm", command, command);
+                    + "example:\n" + "%s project meeting /from 2025-09-01 18:30 /to 2025-09-02 18:30",
+                    command, command);
             throw new ZellException(formatMessage);
         }
 
         if (firstToIndex == -1) {
             String formatMessage = String.format("%s should include a end by using /to.\nFor "
-                    + "example:\n" + "%s project meeting /from Mon 2pm /to 4pm", command, command);
+                    + "example:\n" + "%s project meeting /from 2025-09-01 18:30 /to 2025-09-02 18:30",
+                    command, command);
             throw new ZellException(formatMessage);
         }
 
         // Handle exception if /to comes before /from
         if (firstFromIndex > firstToIndex) {
             String formatMessage = String.format("For %s /from should come before /to.\nFor "
-                    + "example:\n" + "%s project meeting /from Mon 2pm /to 4pm", command, command);
+                    + "example:\n" + "%s project meeting /from 2025-09-01 18:30 /to 2025-09-02 18:30",
+                    command, command);
             throw new ZellException(formatMessage);
         }
 
         if (firstFromIndex + splitFrom.length() > firstToIndex) {
             String formatMessage = String.format("For %s please include a start date/time using "
-                    + "/from.\nFor example:\n" + "%s project meeting /from Mon 2pm /to 4pm", command, command);
+                    + "/from.\nFor example:\n" + "%s project meeting /from 2025-09-01 18:30 /to 2025-09-02 18:30",
+                    command, command);
             throw new ZellException(formatMessage);
         }
     }
