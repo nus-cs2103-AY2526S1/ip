@@ -1,4 +1,5 @@
-package PACKAGE_NAME;
-
-public class MarkException {
+public class MarkException extends RuntimeException {
+    public MarkException(String message) {
+        super(message);
+    }
 }

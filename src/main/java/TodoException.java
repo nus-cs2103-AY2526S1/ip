@@ -1,5 +1,5 @@
-public class InvalidDescriptionException extends RuntimeException {
-    public InvalidDescriptionException(String message) {
+public class TodoException extends RuntimeException {
+    public TodoException(String message) {
         super(message);
     }
 }

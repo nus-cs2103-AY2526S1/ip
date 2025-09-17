@@ -1,5 +1,5 @@
-public class InvalidTimeException extends RuntimeException {
-    public InvalidTimeException(String message) {
+public class EventException extends RuntimeException {
+    public EventException(String message) {
         super(message);
     }
 }

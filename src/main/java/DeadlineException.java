@@ -1,5 +1,5 @@
-public class TaskException extends RuntimeException {
-    public TaskException(String message) {
+public class DeadlineException extends RuntimeException {
+    public DeadlineException(String message) {
         super(message);
     }
 }
