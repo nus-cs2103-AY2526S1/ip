@@ -83,7 +83,7 @@ public class King {
                 // deadline command - creates a new deadline task
                 Deadline newTask = new Deadline(
                         kingParser.getDeadlineMatcher().group(1),
-                        Task.getPriorityFromString(kingParser.getTodoMatcher().group(2)),
+                        Task.getPriorityFromString(kingParser.getDeadlineMatcher().group(2)),
                         LocalDate.parse(kingParser.getDeadlineMatcher().group(3)));
                 kingTaskList.addTask(newTask);
                 return kingUI.showTaskCreate(newTask, kingTaskList.getSize());

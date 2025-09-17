@@ -24,7 +24,7 @@ public class KingUI {
      * Show help message for help command
      */
     public String showHelp() {
-        return " Need help? Here is the list of commands you can use to use this chat bot!\n"
+        return "Need help? Here is the list of commands you can use to use this chat bot!\n"
                 + " list [/sorted] - Gets the list of tasks you currently have [and sorts by descending priority]\n"
                 + " due [YYYY-MM-DD] - Gets tasks due on specific date\n"
                 + " find [string1] [string2] ... - Finds tasks matching strings\n"
@@ -44,7 +44,7 @@ public class KingUI {
      * @param list List of all tasks
      */
     public String showAllList(ArrayList<Task> list) {
-        String response = " Here are the tasks in your list:\n";
+        String response = "Here are the tasks in your list:\n";
         for (int i = 1; i <= list.size(); i++) {
             response = response.concat(i + ". " + list.get(i - 1) + "\n");
         }
@@ -58,7 +58,7 @@ public class KingUI {
      * @param date Date of task due
      */
     public String showDueList(ArrayList<Task> list, LocalDate date) {
-        StringBuilder response = new StringBuilder(" Here are the tasks due on:"
+        StringBuilder response = new StringBuilder("Here are the tasks due on:"
                 + date.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ".\n");
         list.stream()
                 .filter(task -> task.getType() == Task.Type.DEADLINE)
@@ -78,7 +78,7 @@ public class KingUI {
      * @return Response string of all tasks
      */
     public String showSortedList(ArrayList<Task> list) {
-        StringBuilder response = new StringBuilder(" Here are the tasks sorted by decreasing priority:\n");
+        StringBuilder response = new StringBuilder("Here are the tasks sorted by decreasing priority:\n");
         list.stream().sorted((t1, t2) -> t1.getPriority().getPriorityLevel() - t2.getPriority().getPriorityLevel())
                 .forEach(task ->
                         response.append(list.indexOf(task) + 1)
