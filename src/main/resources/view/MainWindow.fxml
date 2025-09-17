@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.MainWindow"
+            prefWidth="400.0" prefHeight="600.0"
+            stylesheets="@/view/style.css"
+            styleClass="main-pane">
+
+    <children>
+        <!-- Messages area -->
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="ALWAYS"
+                    AnchorPane.topAnchor="10.0"
+                    AnchorPane.leftAnchor="10.0"
+                    AnchorPane.rightAnchor="10.0"
+                    AnchorPane.bottomAnchor="60.0"
+                    styleClass="chat-scroll">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      spacing="8.0"
+                      prefWidth="380.0"
+                      styleClass="dialog-container"/>
+            </content>
+        </ScrollPane>
+
+        <!-- Input bar -->
+        <TextField fx:id="userInput"
+                   promptText="Type a command..."
+                   onAction="#handleUserInput"
+                   AnchorPane.leftAnchor="10.0"
+                   AnchorPane.bottomAnchor="10.0"
+                   prefHeight="40.0"
+                   prefWidth="300.0"
+                   styleClass="input-field"/>
+
+        <Button fx:id="sendButton"
+                text="Send"
+                onAction="#handleUserInput"
+                AnchorPane.rightAnchor="10.0"
+                AnchorPane.bottomAnchor="10.0"
+                prefHeight="40.0"
+                prefWidth="70.0"
+                styleClass="send-button"/>
+    </children>
+
+    <padding>
+        <Insets top="0" right="0" bottom="0" left="0"/>
+    </padding>
+</AnchorPane>
