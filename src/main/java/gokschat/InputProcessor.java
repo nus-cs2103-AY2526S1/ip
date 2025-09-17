@@ -6,6 +6,7 @@ import gokschat.commands.DeleteCommand;
 import gokschat.commands.DisplayCommand;
 import gokschat.commands.FindCommand;
 import gokschat.commands.MarkCommand;
+import gokschat.commands.SortCommand;
 import gokschat.commands.UnmarkCommand;
 
 import gokschat.exceptions.DeadlineException;
@@ -77,6 +78,8 @@ public class InputProcessor {
 
         if (input.equals("list")) {
             return new DisplayCommand(this.listOfTasks, this.ui);
+        } else if (input.equals("sort")) {
+            return new SortCommand(this.listOfTasks, this.ui);
         } else if (words[0].equals("find")) {
             String keyword = words[1];
             return new FindCommand(keyword, this.listOfTasks, this.ui);
