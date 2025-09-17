@@ -40,9 +40,12 @@ public class KingResponseBox extends HBox {
     }
 
     /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * Returns the King's dialog box
+     *
+     * @param text Text to show from the King
+     * @param img  Image to use for the King
+     * @return King dialog box
      */
-
     public static KingResponseBox getKingDialog(String text, Image img) {
         return new KingResponseBox(text, img);
     }

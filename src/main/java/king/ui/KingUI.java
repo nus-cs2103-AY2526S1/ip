@@ -15,7 +15,7 @@ public class KingUI {
     private final String spacer = "    ";
 
     /**
-     * Show introduction message at start of conversation
+     * Shows introduction message at start of conversation
      */
     public String showIntroduction() {
         return ("Greetings, subject! I am King, sovereign of thine tasks.\n"
@@ -23,7 +23,7 @@ public class KingUI {
     }
 
     /**
-     * Show help message for help command
+     * Shows help message for help command
      */
     public String showHelp() {
         return "You seek counsel? Behold, the royal decrees thou may utter:\n"
@@ -45,7 +45,7 @@ public class KingUI {
     }
 
     /**
-     * Show all tasks for list command
+     * Shows all tasks for list command
      *
      * @param list List of all tasks
      */
@@ -58,7 +58,7 @@ public class KingUI {
     }
 
     /**
-     * Show specific tasks due for due command
+     * Shows specific tasks due for due command
      *
      * @param list List of all tasks
      * @param date Date of task due
@@ -79,7 +79,7 @@ public class KingUI {
     }
 
     /**
-     * Show specific tasks due for due command
+     * Shows specific tasks due for due command
      *
      * @param list List of all tasks
      * @return Response string of all tasks
@@ -117,7 +117,7 @@ public class KingUI {
 
 
     /**
-     * Show specific task created for todo / deadline / event command
+     * Shows specific task created for todo / deadline / event command
      *
      * @param task Task to be created
      * @param size Updated size of task list
@@ -130,7 +130,7 @@ public class KingUI {
     }
 
     /**
-     * Show specific task marked for mark command
+     * Shows specific task marked for mark command
      *
      * @param task Task marked
      */
@@ -141,7 +141,7 @@ public class KingUI {
     }
 
     /**
-     * Show specific task unmarked for unmark command
+     * Shows specific task unmarked for unmark command
      *
      * @param task Task unmarked
      */
@@ -152,7 +152,7 @@ public class KingUI {
     }
 
     /**
-     * Show specific task deleted for delete command
+     * Shows specific task deleted for delete command
      *
      * @param task Task deleted
      * @param size Updated size of task list
@@ -165,7 +165,7 @@ public class KingUI {
     }
 
     /**
-     * Show confirmation for clearing all tasks
+     * Shows confirmation for clearing all tasks
      *
      * @param previousSize number of tasks removed
      * @return confirmation message
@@ -178,21 +178,21 @@ public class KingUI {
     }
 
     /**
-     * Show bye message for bye command
+     * Shows bye message for bye command
      */
     public String showBye() {
         return "Fare thee well! Withdraw now from mine court, and may we meet anon!";
     }
 
     /**
-     * Show message for invalid command
+     * Shows message for invalid command
      */
     public String showInvalidCommand() {
         return "Error! That command is not recognized in mine kingdom.";
     }
 
     /**
-     * Show message for invalid task
+     * Shows message for invalid task
      *
      * @return String error message
      */
@@ -201,7 +201,7 @@ public class KingUI {
     }
 
     /**
-     * Show message for invalid date time
+     * Shows message for invalid date time
      *
      * @return String error message
      */
@@ -210,7 +210,7 @@ public class KingUI {
     }
 
     /**
-     * Show message for KingException
+     * Shows message for KingException
      *
      * @param e Exception given for error in user IO
      * @return String error message

@@ -225,35 +225,15 @@ public class KingStorage {
             ArrayList<Task> tasks = new ArrayList<>();
             while (s.hasNext()) {
                 String[] taskStrings = s.nextLine().split("\\s*\\|\\s*");
-
                 switch (taskStrings[0]) {
                 case "T":
-                    Todo newTodo = new Todo(taskStrings[3], Task.getPriorityFromString(taskStrings[2]));
-                    if (taskStrings[1].equals("2")) {
-                        newTodo.markDone();
-                    }
-                    tasks.add(newTodo);
+                    addTodoToArray(taskStrings, tasks);
                     break;
                 case "D":
-                    Deadline newDeadline = new Deadline(
-                            taskStrings[3],
-                            Task.getPriorityFromString(taskStrings[2]),
-                            LocalDate.parse(taskStrings[4]));
-                    if (taskStrings[1].equals("1")) {
-                        newDeadline.markDone();
-                    }
-                    tasks.add(newDeadline);
+                    addDeadlineToArray(taskStrings, tasks);
                     break;
                 case "E":
-                    Event newEvent = new Event(
-                            taskStrings[3],
-                            Task.getPriorityFromString(taskStrings[2]),
-                            LocalDate.parse(taskStrings[4]),
-                            LocalDate.parse(taskStrings[5]));
-                    if (taskStrings[1].equals("1")) {
-                        newEvent.markDone();
-                    }
-                    tasks.add(newEvent);
+                    addEventToArray(taskStrings, tasks);
                     break;
                 default:
                     throw new KingException(KingException.ErrorMessage.INVALID_DATABASE);
@@ -264,5 +244,57 @@ public class KingStorage {
         } catch (ArrayIndexOutOfBoundsException | FileNotFoundException e) {
             throw new KingException(KingException.ErrorMessage.INVALID_DATABASE);
         }
+    }
+
+    /**
+     * Adds todo task to tasklist
+     *
+     * @param taskStrings String array from command
+     * @param tasks       Task list
+     * @throws KingException Error from adding todo task
+     */
+    private static void addTodoToArray(String[] taskStrings, ArrayList<Task> tasks) throws KingException {
+        Todo newTodo = new Todo(taskStrings[3], Task.getPriorityFromString(taskStrings[2]));
+        if (taskStrings[1].equals("2")) {
+            newTodo.markDone();
+        }
+        tasks.add(newTodo);
+    }
+
+    /**
+     * Adds deadline task to tasklist
+     *
+     * @param taskStrings String array from command
+     * @param tasks       Task list
+     * @throws KingException Error from adding deadline task
+     */
+    private static void addDeadlineToArray(String[] taskStrings, ArrayList<Task> tasks) throws KingException {
+        Deadline newDeadline = new Deadline(
+                taskStrings[3],
+                Task.getPriorityFromString(taskStrings[2]),
+                LocalDate.parse(taskStrings[4]));
+        if (taskStrings[1].equals("1")) {
+            newDeadline.markDone();
+        }
+        tasks.add(newDeadline);
+    }
+
+    /**
+     * Adds event task to tasklist
+     *
+     * @param taskStrings String array from command
+     * @param tasks       Task list
+     * @throws KingException Error from adding event task
+     */
+    private static void addEventToArray(String[] taskStrings, ArrayList<Task> tasks) throws KingException {
+        Event newEvent = new Event(
+                taskStrings[3],
+                Task.getPriorityFromString(taskStrings[2]),
+                LocalDate.parse(taskStrings[4]),
+                LocalDate.parse(taskStrings[5]));
+        if (taskStrings[1].equals("1")) {
+            newEvent.markDone();
+        }
+        tasks.add(newEvent);
     }
 }
