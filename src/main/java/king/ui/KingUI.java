@@ -17,7 +17,8 @@ public class KingUI {
      * Show introduction message at start of conversation
      */
     public String showIntroduction() {
-        return ("Greetings, subject! I am King, sovereign of thine tasks.\nSpeak thy command! Use `help` shouldst thou require guidance.");
+        return ("Greetings, subject! I am King, sovereign of thine tasks.\n"
+                + "Speak thy command! Use `help` shouldst thou require guidance.");
     }
 
     /**
@@ -209,6 +210,6 @@ public class KingUI {
      * @return String error message
      */
     public String showError(KingException e) {
-        return "Error! An error hath arisen: " + e.getMessage();
+        return e.getMessage();
     }
 }

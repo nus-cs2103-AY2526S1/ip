@@ -31,6 +31,8 @@ public class Event extends Task {
             throw new KingException(KingException.ErrorMessage.EVENT_MISSING_FROM_DATE);
         } else if (to == null) {
             throw new KingException(KingException.ErrorMessage.EVENT_MISSING_TO_DATE);
+        } else if (from.isAfter(to)) {
+            throw new KingException(KingException.ErrorMessage.EVENT_FROM_AFTER_TO);
         } else {
             this.from = from;
             this.to = to;
