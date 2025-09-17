@@ -76,7 +76,7 @@ public class Parser {
         case "unmark":
             // Fallthrough
         case "un":
-            output = handleMarkOrUnMark(command, userInput, firstSpaceIndex, taskList);
+            output = handleMarkOrUnMark(command, userInput, firstSpaceIndex, taskList, storage);
             break;
         case "todo":
             // Fallthrough
@@ -162,14 +162,15 @@ public class Parser {
         // Get index of task to delete
         int index = getIndexFromUserInput(command, userInput, firstSpaceIndex, taskList);
 
-        // Delete the task
-        taskList.removeTask(index);
-        storage.updateTasks(taskList.getAllTasksInString());
-
         // Create output that will be displayed to user
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(ZellMessage.TASK_REMOVED.getMessage());
         stringBuilder.append(taskList.getTask(index));
+
+        // Delete the task
+        taskList.removeTask(index);
+        storage.updateTasks(taskList.getAllTasksInString());
+
         stringBuilder.append(taskList);
 
         return stringBuilder.toString();
@@ -311,11 +312,12 @@ public class Parser {
      * @param userInput The user's input.
      * @param firstSpaceIndex The index of the first space in the user's input.
      * @param taskList The {@link zell.task.TaskList} object which stores tasks.
+     * @param storage The {@link zell.storage.Storage} object for local storage.
      * @return The task messages to be printed.
      * @throws ZellException If the mark/unmark commands format is invalid.
      */
     public String handleMarkOrUnMark(String command, String userInput,
-            int firstSpaceIndex, TaskList taskList) throws ZellException {
+            int firstSpaceIndex, TaskList taskList, Storage storage) throws ZellException {
 
         // Get index of task to mark/unmark
         int index = getIndexFromUserInput(command, userInput, firstSpaceIndex, taskList);
@@ -328,9 +330,11 @@ public class Parser {
         // Perform mark or unmark on the task
         if (command.equals("mark") || command.equals("m")) {
             taskList.markTaskAsDone(index);
+            storage.updateTasks(taskList.getAllTasksInString());
             stringBuilder.append(ZellMessage.TASK_MARKED.getMessage());
         } else if (command.equals("unmark") || command.equals("un")) {
             taskList.markTaskAsNotDone(index);
+            storage.updateTasks(taskList.getAllTasksInString());
             stringBuilder.append(ZellMessage.TASK_UNMARKED.getMessage());
         } else {
             assert true : "Should not reach here for mark or unmark";
