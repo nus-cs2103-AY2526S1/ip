@@ -1,0 +1,25 @@
+blah
+blee blue
+list
+todo
+todo borrow book
+todo shoot gun
+mark
+list
+deadline return book 
+deadline return book /by Sunday
+list
+delete 2
+mark 2
+mark 3
+mark 420
+unmark 420
+list
+unmark 2
+event project meeting
+event project meeting /from Mon 2pm
+event project meeting /from Mon 2pm /to 4pm
+mark 4
+delete 1
+list
+bye
