@@ -62,6 +62,7 @@ public class TaskList {
      * @return a list of tasks whose description contains the keyword.
      */
     public TaskList find(String keyword) {
+        assert keyword != null : "String keyword should be non-null";
         TaskList matches = new TaskList();
         String kw = keyword.toLowerCase();
         for (Task task : tasks) {
