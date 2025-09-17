@@ -180,4 +180,15 @@ public final class Parser {
             );
         }
     }
+
+    public static final class SnoozeArgs {
+        public final int index;
+        public final int days;
+
+        public SnoozeArgs(int index, int days) {
+            this.index = index;
+            this.days = days;
+        }
+    }
+
 }
