@@ -205,6 +205,13 @@ public final class Parser {
             if (days.isEmpty()) {
                 throw new IllegalArgumentException();
             }
+            if (Integer.parseInt(days) <= 0) {
+                throw new PiperException(
+                        (Integer.parseInt(days) == 0)
+                                ? "HMM... You must be trolling me!"
+                                : "HMM... I can't fly back in time yet."
+                );
+            }
             return new SnoozeArgs(parseIndex(index), parseIndex(days));
         } catch (Exception e) {
             throw new PiperException(
