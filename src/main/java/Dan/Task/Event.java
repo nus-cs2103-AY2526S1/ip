@@ -42,7 +42,11 @@ public class Event extends Task {
         LocalDate fromDate = DateParser.parseDate(taskInfo.get(2));
         LocalDate toDate = DateParser.parseDate(taskInfo.get(3));
 
-        return new Event(isDone, description, fromDate, toDate);
+        if (fromDate == null || toDate == null) {
+            return null;
+        } else {
+            return new Event(isDone, description, fromDate, toDate);
+        }
     }
 
     /**

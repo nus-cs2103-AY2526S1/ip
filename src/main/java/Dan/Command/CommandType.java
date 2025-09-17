@@ -9,5 +9,6 @@ public enum CommandType {
     DEADLINE,
     FIND,
     REMINDER,
+    ERROR,
     EXIT
 }

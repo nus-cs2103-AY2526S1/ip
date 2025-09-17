@@ -5,6 +5,7 @@ import Dan.Task.Task;
 
 import Dan.Task.*;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -176,7 +177,12 @@ public class Parser {
 
         String[] taskInfo = {"E", "false", desc, from, to};
         Task event = Task.createTask(taskInfo);
-        return new EventCommand(event);
+        if (event != null) {
+            return new EventCommand(event);
+        } else {
+            String errorMessage = "Please enter in a valid date format: \nd/M/yyyy\ndd/MM/yyyy\nyyyy-MM-dd\nyyyy/MM/dd\nMMM dd yyyy";
+            return new ErrorCommand(errorMessage);
+        }
     }
 
     private static Command parseDeadline(String str) {
@@ -192,7 +198,13 @@ public class Parser {
 
         String[] taskInfo = {"D", "false", desc, by};
         Task deadline = Task.createTask(taskInfo);
-        return new DeadlineCommand(deadline);
+
+        if (deadline != null) {
+            return new DeadlineCommand(deadline);
+        } else {
+            String errorMessage = "Please enter in a valid date format: \nd/M/yyyy\ndd/MM/yyyy\nyyyy-MM-dd\nyyyy/MM/dd\nMMM dd yyyy";
+            return new ErrorCommand(errorMessage);
+        }
     }
 
     private static Command parseFind(String str) {
