@@ -1,7 +1,6 @@
 package gokschat.commands;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import gokschat.Ui;
 import gokschat.tasks.Task;

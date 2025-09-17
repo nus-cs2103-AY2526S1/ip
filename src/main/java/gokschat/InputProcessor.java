@@ -7,9 +7,11 @@ import gokschat.commands.DisplayCommand;
 import gokschat.commands.FindCommand;
 import gokschat.commands.MarkCommand;
 import gokschat.commands.UnmarkCommand;
+
 import gokschat.exceptions.DeadlineException;
 import gokschat.exceptions.InvalidPromptException;
 import gokschat.exceptions.TodoException;
+
 import gokschat.tasks.Task;
 
 import java.time.LocalDate;
@@ -17,7 +19,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.List;
-import java.util.Locale;
 
 /// The class processes user inputs
 ///
@@ -65,7 +66,7 @@ public class InputProcessor {
      * Processes the input of the user and returns a gokschat.commands.Command object.
      *
      * @param input
-     * @return gokschat.commands.Command
+     * @return Command
      * @throws InvalidPromptException
      * @throws TodoException
      */
