@@ -1,0 +1,91 @@
+package evansbot.task;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+/**
+ * Represents a deadline task with a description and a due date.
+ * The due date can be either a valid LocalDate or a raw string if parsing fails.
+ */
+public class Deadline extends Task {
+    protected LocalDate byDate;
+    protected String byRaw;
+
+    /**
+     * Constructs a Deadline task with the specified description and due date string.
+     * Attempts to parse the due date as LocalDate; if parsing fails, stores the raw string.
+     *
+     * @param description Description of the task.
+     * @param by Due date as a string.
+     */
+    public Deadline(String description, String by) {
+        super(description);
+        assert description != null && !description.isEmpty() : "Description cannot be null or empty";
+        assert by != null && !by.isEmpty() : "Deadline date string cannot be null or empty";
+        try {
+            this.byDate = LocalDate.parse(by);
+            this.byRaw = by;
+        } catch (DateTimeParseException e) {
+            this.byDate = null;
+            this.byRaw = by;
+        }
+    }
+
+    /**
+     * Constructs a Deadline task with the specified description, completion status, and due date string.
+     * Attempts to parse the due date as LocalDate; if parsing fails, stores the raw string.
+     *
+     * @param description Description of the task.
+     * @param isDone Whether the task is marked as done.
+     * @param by Due date as a string.
+     */
+    public Deadline(String description, boolean isDone, String by) {
+        super(description, isDone);
+        assert description != null && !description.isEmpty() : "Description cannot be null or empty";
+        assert by != null && !by.isEmpty() : "Deadline date string cannot be null or empty";
+        try {
+            this.byDate = LocalDate.parse(by);
+            this.byRaw = by;
+        } catch (DateTimeParseException e) {
+            this.byDate = null;
+            this.byRaw = by;
+        }
+    }
+
+    /**
+     * Returns the status on whether the task is on the same date as asked.
+     * @param date date that the task is checked with.
+     * @return boolean on whether the task is on the same date.
+     */
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        return byDate != null && byDate.equals(date);
+    }
+    /**
+     * Returns the parsed LocalDate of the task's due date.
+     *
+     * @return LocalDate representation of the due date, or null if parsing failed.
+     */
+    @Override
+    public LocalDate getStartDate() {
+        return this.byDate;
+    }
+
+    /**
+     * Returns the string representation of the Deadline task, including its description,
+     * completion status, and formatted due date.
+     *
+     * @return String representation of the Deadline task.
+     */
+    @Override
+    public String toString() {
+        String date;
+        if (byDate != null) {
+            date = byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        } else {
+            date = byRaw;
+        }
+        return "[D]" + super.toString() + " (by: " + date + ")";
+    }
+}
