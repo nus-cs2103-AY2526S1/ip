@@ -168,6 +168,21 @@ public class KingTaskListTest {
     }
 
     @Test
+    public void resetList_emptyList_success() {
+        kingTaskList.clearAll();
+        assertEquals(0, kingTaskList.getSize());
+    }
+
+    @Test
+    public void resetList_withTasks_success() {
+        kingTaskList.addTask(testBasicTodo);
+        kingTaskList.addTask(testBasicDeadline);
+        kingTaskList.clearAll();
+
+        assertEquals(0, kingTaskList.getSize());
+    }
+
+    @Test
     public void getSize_emptyList() {
         try {
             KingTaskList emptyList = new KingTaskList(true);
