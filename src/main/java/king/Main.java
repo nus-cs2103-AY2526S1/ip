@@ -22,6 +22,7 @@ public class Main extends Application {
             VBox vb = fxmlLoader.load();
             Scene scene = new Scene(vb);
             stage.setScene(scene);
+            stage.setTitle("The King Chatbot");
             fxmlLoader.<MainWindow>getController().setKing(king); // inject the King instance
             stage.show();
         } catch (IOException e) {

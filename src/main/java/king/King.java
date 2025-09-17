@@ -51,7 +51,7 @@ public class King {
         kingParser.setNewInput(input);
         try {
             if (kingParser.checkParser(KingParser.Commands.HELP)) {
-                // help command - lists the possible commands you can give to the king.King bot
+                // help command - lists the possible commands you can give to the King bot
                 return kingUI.showHelp();
             } else if (kingParser.checkParser(KingParser.Commands.LIST)) {
                 // list command - lists all the current tasks in your task list
