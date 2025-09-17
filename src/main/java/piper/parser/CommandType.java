@@ -13,7 +13,8 @@ package piper.parser;
      MARK(true),
      UNMARK(true),
      DELETE(true),
-     FIND(true);
+     FIND(true),
+     SNOOZE(true);
 
      private final boolean isRequired;
 
@@ -39,6 +40,7 @@ package piper.parser;
          case "unmark": return UNMARK;
          case "delete": return DELETE;
          case "find": return FIND;
+         case "snooze": return SNOOZE;
          default: return null;
          }
      }

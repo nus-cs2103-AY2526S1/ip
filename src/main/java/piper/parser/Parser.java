@@ -12,50 +12,60 @@ public final class Parser {
     private Parser() {}
 
     /**
-         * Result of splitting a raw input into a command and its argument.
+     * Result of splitting a raw input into a command and its argument.
+     */
+    public record ParsedString(CommandType cmdType, String arg) {
+        /**
+         * Creates a ParsedString.
+         *
+         * @param cmdType command type.
+         * @param arg     remainder of the user input or null if none.
          */
-        public record ParsedString(CommandType cmdType, String arg) {
-            /**
-             * Creates a ParsedString.
-             *
-             * @param cmdType command type.
-             * @param arg     remainder of the user input or null if none.
-             */
-            public ParsedString(CommandType cmdType, String arg) {
-                this.cmdType = cmdType;
-                assert cmdType != null : "ParsedString should be non-null";
-                this.arg = arg;
-            }
+        public ParsedString(CommandType cmdType, String arg) {
+            this.cmdType = cmdType;
+            assert cmdType != null : "ParsedString should be non-null";
+            this.arg = arg;
         }
+    }
 
     /**
-         * Structured arguments for a deadline command.
-         */
-        public record DeadlineArgs(String description, String by) {
-        /**
-         * Creates DeadlineArgs.
-         *
-         * @param description task description.
-         * @param by          by deadline text.
-         */
+     * Structured arguments for a deadline command.
+     */
+    public record DeadlineArgs(String description, String by) {
+    /**
+     * Creates DeadlineArgs.
+     *
+     * @param description task description.
+     * @param by          by deadline text.
+     */
         public DeadlineArgs {
         }
-        }
+    }
 
     /**
-         * Structured arguments for an event command.
-         */
-        public record EventArgs(String description, String from, String to) {
-        /**
-         * Creates EventArgs.
-         *
-         * @param description task description.
-         * @param from        start timing text.
-         * @param to          end timing text.
-         */
+     * Structured arguments for an event command.
+     */
+    public record EventArgs(String description, String from, String to) {
+    /**
+     * Creates EventArgs.
+     *
+     * @param description task description.
+     * @param from        start timing text.
+     * @param to          end timing text.
+     */
         public EventArgs {
         }
+    }
+
+    public static final class SnoozeArgs {
+        public final int index;
+        public final int days;
+
+        public SnoozeArgs(int index, int days) {
+            this.index = index;
+            this.days = days;
         }
+    }
 
     /**
      * Parses a raw line into a command token and its argument.
@@ -99,6 +109,9 @@ public final class Parser {
             case DELETE:
                 // missing task index
                 throw new PiperException("CHIRRUP! Which task should I peck at? Please give me the task index!");
+            case SNOOZE:
+                throw new PiperException("CUCKOO! Tell me which task to send flying into the future! "
+                        + "Please format the command as 'snooze (task index) (number of days)'!");
             default:
                 return new ParsedString(cmd, null);
             }
@@ -181,13 +194,23 @@ public final class Parser {
         }
     }
 
-    public static final class SnoozeArgs {
-        public final int index;
-        public final int days;
-
-        public SnoozeArgs(int index, int days) {
-            this.index = index;
-            this.days = days;
+    public static SnoozeArgs parseSnoozeArgs(String arg) throws PiperException {
+        try {
+            String[] indexAndDays = arg.split("\\s", 2);
+            String index = indexAndDays[0].trim();
+            if (index.isEmpty()) {
+                throw new IllegalArgumentException();
+            }
+            String days = indexAndDays[1].trim();
+            if (days.isEmpty()) {
+                throw new IllegalArgumentException();
+            }
+            return new SnoozeArgs(parseIndex(index), parseIndex(days));
+        } catch (Exception e) {
+            throw new PiperException(
+                    "EEK! Are you snoozing already? "
+                            + "Please format the command as 'snooze (task index) (days)'!"
+            );
         }
     }
 

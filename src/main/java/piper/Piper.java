@@ -160,6 +160,9 @@ public class Piper {
                     reply.append(ui.displayMatchingTasks(matches));
                     break;
                 }
+                case SNOOZE: {
+                    Parser.SnoozeArgs sa = Parser.parseSnoozeArgs(arg);
+                }
                 default:
                     throw new PiperException(
                             "CHEEP CHEEP! I can't quite sing along with '"
