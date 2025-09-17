@@ -23,13 +23,13 @@ class ParserTest {
         Parser parser = new Parser();
 
         // Valid todo
-        parser.handleCommand("todo Buy milk", tasks, ui, storage);
+        parser.handleCommand("todo Buy milk");
         assertEquals(1, tasks.size());
         assertEquals("Buy milk", tasks.getTasks().get(0).getDescription());
 
         // Empty description
         Exception exception = assertThrows(DobbyException.class, () -> {
-            parser.handleCommand("todo   ", tasks, ui, storage);
+            parser.handleCommand("todo   ");
         });
         assertEquals("Task description cannot be empty!", exception.getMessage());
     }

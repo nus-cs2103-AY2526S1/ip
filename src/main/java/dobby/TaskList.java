@@ -29,7 +29,7 @@ public class TaskList {
      *
      * @param task Task to add.
      */
-    public void add(Task task) {
+    public void addTask(Task task) {
         tasks.add(task);
     }
 
@@ -40,7 +40,7 @@ public class TaskList {
      * @return The removed task.
      * @throws InvalidTaskException If index is invalid.
      */
-    public Task delete(int index) throws InvalidTaskException {
+    public Task deleteTask(int index) throws InvalidTaskException {
         if (index < 0 || index >= tasks.size()) {
             throw new InvalidTaskException("Invalid task number.");
         }
@@ -54,7 +54,7 @@ public class TaskList {
      * @return The task.
      * @throws InvalidTaskException If index is invalid.
      */
-    public Task get(int index) throws InvalidTaskException {
+    public Task getTask(int index) throws InvalidTaskException {
         if (index < 0 || index >= tasks.size()) {
             throw new InvalidTaskException("Invalid task number.");
         }
