@@ -34,10 +34,8 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
-        String welcomeMessage = "    ____________________________________________________________\n" +
-                "    What's up, what's up! I'm GoksChat\n" +
-                "    How can I assist you today?\n" +
-                "    ____________________________________________________________";
+        String welcomeMessage =  "What's up, what's up! I'm GoksChat\n" +
+                "How can I assist you today?";
 
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(welcomeMessage, dukeImage)
@@ -59,9 +57,7 @@ public class MainWindow extends AnchorPane {
         String response = goksChat.getResponse(input);
 
         if (input.equals("bye")) {
-            response = "    ____________________________________________________________\n" +
-                    "    Good Day! Hope to see you again\n" +
-                    "    ____________________________________________________________";
+            response = "Good Day! Hope to see you again";
 
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),

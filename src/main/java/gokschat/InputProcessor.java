@@ -94,19 +94,19 @@ public class InputProcessor {
             return new DeleteCommand(index, this.listOfTasks, this.ui);
         } else if (words[0].equals("todo") || words[0].equals("deadline") || words[0].equals("event")) {
             if (words[0].equals("todo") && words.length == 1) {
-                throw new TodoException("      YIKES!!! You need to enter a description for a task!!!");
+                throw new TodoException("YIKES!!! You need to enter a description for a task!!!");
             } else if (words[0].equals("deadline")) {
                 int firstSlashIndex = restOfinput.indexOf("/");
                 char c = restOfinput.charAt(firstSlashIndex);
                 assert c == '/' : "c should be '/'";
                 String deadline = restOfinput.substring(firstSlashIndex + 4);
                 if (!isValidDate(deadline)) {
-                    throw new DeadlineException("      Oh NO! This date is either invalid or incorrectly formatted!");
+                    throw new DeadlineException("Oh NO! This date is either invalid or incorrectly formatted!");
                 }
             }
             return new AddCommand(this.listOfTasks, this.ui, restOfinput, words[0]);
         } else {
-            throw new InvalidPromptException("     YIKES!!! I do not quite understand what you just said :(");
+            throw new InvalidPromptException("YIKES!!! I do not quite understand what you just said :(");
         }
     }
 }

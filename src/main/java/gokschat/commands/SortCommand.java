@@ -1,5 +1,6 @@
 package gokschat.commands;
 
+import java.util.Collections;
 import java.util.List;
 
 import gokschat.Ui;
@@ -27,10 +28,8 @@ public class SortCommand extends Command{
 
     @Override
     public String execute() {
-        List<Task> sortedTasks = listOfTasks.stream()
-                .sorted()
-                .toList();
+        Collections.sort(listOfTasks);
 
-        return ui.displayList(sortedTasks);
+        return ui.displayList(listOfTasks);
     }
 }

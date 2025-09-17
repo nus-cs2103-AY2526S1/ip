@@ -16,12 +16,11 @@ public class Ui {
      */
     public String displayList(List<Task> listOfTasks) {
         int len = listOfTasks.size();
-        StringBuilder s = new StringBuilder("    ____________________________________________________________\n");
-        s.append("    Here are the tasks in your list!\n");
+        StringBuilder s = new StringBuilder();
+        s.append("Here are the tasks in your list!\n");
         for (int i = 1; i <= len; i++) {
             s.append("    ").append(i).append(".").append(listOfTasks.get(i - 1)).append("\n");
         }
-        s.append("    ____________________________________________________________");
         return s.toString();
     }
 
@@ -32,10 +31,8 @@ public class Ui {
      * @return The mark task message as a string.
      */
     public String markTaskMessage(Task task) {
-        return "    ____________________________________________________________\n" +
-                "    Amazing! Insane productivity la keep it up. Marked it as done:\n" +
-                "        " + task + "\n" +
-                "    ____________________________________________________________";
+        return "Amazing! Insane productivity la keep it up. Marked it as done:\n" +
+                "    " + task + "\n";
     }
 
     /**
@@ -45,10 +42,8 @@ public class Ui {
      * @return The unmark task message as a string.
      */
     public String unmarkTaskMessage(Task task) {
-        return "    ____________________________________________________________\n" +
-                "    Boooo... Do better next time bro. Marked this as not done yet:\n" +
-                "        " + task + "\n" +
-                "    ____________________________________________________________";
+        return "Boooo... Do better next time bro. Marked this as not done yet:\n" +
+                "    " + task + "\n";
     }
 
     /**
@@ -58,11 +53,9 @@ public class Ui {
      * @param listOfTasks
      */
     public String deleteTaskMessage(Task task, List<Task> listOfTasks) {
-        return "    ____________________________________________________________\n" +
-                "    Aights. I have deleted this task:\n" +
-                "        " + task + "\n" +
-                "    Now you have " + listOfTasks.size() + " tasks in the list.\n" +
-                "    ____________________________________________________________";
+        return "Aights. I have deleted this task:\n" +
+                "    " + task + "\n" +
+                "Now you have " + listOfTasks.size() + " tasks in the list.\n";
     }
 
     /**
@@ -73,11 +66,9 @@ public class Ui {
      * @return The add task message
      */
     public String addTaskMessage(Task task, List<Task> listOfTasks) {
-        return "    ____________________________________________________________\n" +
-                "    Aights. I have added this task:\n" +
-                "        " + task + "\n" +
-                "    Now you have " + listOfTasks.size() + " tasks in the list.\n" +
-                "    ____________________________________________________________";
+        return "Aights. I have added this task:\n" +
+                "    " + task + "\n" +
+                "Now you have " + listOfTasks.size() + " tasks in the list.\n";
     }
 
     /**
@@ -87,8 +78,6 @@ public class Ui {
      * @return The exception message
      */
     public String exceptionMessage(Exception e) {
-        return "    ____________________________________________________________\n" +
-                e.getMessage() + "\n" +
-                "    ____________________________________________________________";
+        return e.getMessage();
     }
 }
