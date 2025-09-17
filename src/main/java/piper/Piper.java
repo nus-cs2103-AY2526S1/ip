@@ -178,6 +178,8 @@ public class Piper {
                         throw new PiperException("I only understand ISO dates...");
                     }
                     saveToStorage();
+                    reply.append(ui.showSnoozedTask(task));
+                    break;
                 }
                 default:
                     throw new PiperException(

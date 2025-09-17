@@ -137,6 +137,10 @@ public class Ui {
         ) + task;
     }
 
+    public String showSnoozedTask(Task task) {
+        return "ZZZ...\n" + task;
+    }
+
     /**
      * Prints the current number of tasks in the list.
      *
