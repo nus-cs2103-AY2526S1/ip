@@ -3,6 +3,10 @@
 /out/
 /*.iml
 
+# Gradle wrapper and cache
+wrapper/dists/
+caches/jars-9/
+
 # Gradle build files
 /.gradle/
 /build/
