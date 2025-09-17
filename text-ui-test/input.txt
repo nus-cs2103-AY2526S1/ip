@@ -1,0 +1,55 @@
+mark blah
+unmark blah
+todo read book
+deadline return book /by 06 Sep 2025 23:59
+list
+mark 1
+mark 2
+unmark 2
+list
+event project meeting /from 2025-10-04 14:00 /to 04/10/2025 16:00
+todo join sports club
+todo borrow book
+mark 4
+list
+deadline do homework /by N/A
+deadline do homework /by 31 Dec 2025 23:59
+event project meeting /from Aug 6th 2pm /to 4pm
+event project meeting /from 2025-10-04 14:00 /to 4pm
+list
+   todo    buy     bread
+        mark 7
+       unmark 7
+
+blah blah blah
+todo
+deadline /by June 6th
+deadline return book
+deadline return book /by
+event /from 2025-10-04 14:00 /to 4pm
+event project meeting /from /to 4pm
+event project meeting /from 2025-10-04 14:00 /to
+event project meeting /to 04/10/2025 16:00 /from 2025-10-04 14:00
+deadline return book /from June 5th /by June 6th
+list /list
+bye /bye
+list
+mark blah
+mark 1 2 3
+mark 0
+mark 9
+mark -1
+mark -100
+mark 100
+unmark -100
+unmark 100
+delete 8
+delete -100
+delete 100
+list
+delete 2
+list
+delete 2
+list
+delete 5
+bye

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
+            fx:controller="haru.ui.UiController"
+            prefWidth="400" prefHeight="600">
+
+    <children>
+        <ScrollPane fx:id="scroll"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0">
+            <content>
+                <VBox fx:id="chat" fillWidth="true"/>
+            </content>
+        </ScrollPane>
+
+        <HBox fx:id="bottom"
+              spacing="0"
+              AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0"
+              AnchorPane.bottomAnchor="0.0">
+            <children>
+                <TextField fx:id="input" HBox.hgrow="ALWAYS"/>
+                <Button fx:id="send" text="Send"/>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
