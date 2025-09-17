@@ -1,3 +1,2 @@
-T | 0 | task1
-D | 0 | task2 | NOW
-E | 1 | ev | now | forever
+T | 0 | buy milk
+D | 0 | debug piper | tonight

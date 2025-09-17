@@ -117,7 +117,7 @@ public final class Parser {
         }
 
         String arg = substrings[1];
-        return new ParsedString(cmd, null);
+        return new ParsedString(cmd, arg);
     }
 
     /**
