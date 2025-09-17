@@ -18,6 +18,8 @@ public class DeleteCommand extends Command {
 
         if (index < 0) {
             return "Please key in a valid item number that is more than zero";
+        } else if(index > tasks.size()) {
+            return "This item number exceeds the tasklist size";
         }
 
         assert index > 0;

@@ -106,11 +106,12 @@ public class Parser {
      * Recognizes commands like "list", "mark", "delete", "todo", "deadline", "event", and "bye".
      * Uses regex patterns to validate and extract information from command strings.
      *
-     * @param str the user input string to be parsed
+     * @param input the user input string to be parsed
      * @return a Command object corresponding to the parsed user input
      * @throws IllegalArgumentException if the input string does not match any valid command format
      */
-    public static Command parseUserInput(String str) throws IllegalArgumentException {
+    public static Command parseUserInput(String input) throws IllegalArgumentException {
+        String str = input.trim();
         if (str.equals("list")) {
             return new ListCommand();
         } else if (str.matches(MARK_REGEX)) {
