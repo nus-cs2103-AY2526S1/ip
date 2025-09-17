@@ -27,6 +27,7 @@ public final class Parser {
          */
         public ParsedString(CommandType cmdType, String arg) {
             this.cmdType = cmdType;
+            assert cmdType != null : "ParsedString should be non-null";
             this.arg = arg;
         }
     }
@@ -84,6 +85,7 @@ public final class Parser {
             throw new PiperException("CHIRP CHIRP! Don't think you said anything there. Try tweeting a command!");
         }
         String[] substrings = userInput.split("\\s+", 2);
+        assert substrings.length > 0 : "Command string should not be empty";
         String cmdToken = substrings[0];
         CommandType cmd = CommandType.from(cmdToken);
 

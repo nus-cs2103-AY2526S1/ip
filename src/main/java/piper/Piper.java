@@ -50,6 +50,7 @@ public class Piper {
         try {
             Parser.ParsedString ps = Parser.parse(trimmed);
             CommandType cmd = ps.cmdType;
+            assert cmd != null : "Parser must return a non-null command";
             String arg = ps.arg;
 
             if (arg == null) {
@@ -76,8 +77,10 @@ public class Piper {
                         Task task = tasks.getTask(index);
                         if (cmd == CommandType.MARK) {
                             task.markDone();
+                            assert "X".equals(task.getStatusIcon()) : "Task should be marked done";
                         } else {
                             task.markUndone();
+                            assert " ".equals(task.getStatusIcon()) : "Task should be marked undone";
                         }
                         saveToStorage();
                         reply.append(ui.showTaskStatus(task));
@@ -92,9 +95,14 @@ public class Piper {
                     try {
                         int taskNumber = Parser.parseIndex(arg);
                         int index = taskNumber - 1;
+                        int initSize = tasks.getSize();
                         Task task = tasks.getTask(index);
                         tasks.deleteTask(index);
                         saveToStorage();
+                        assert tasks.getSize() == initSize - 1 : "Task deletion should decrease number of tasks by 1";
+                        if (storage != null) {
+                            storage.saveAll(tasks);
+                        }
                         reply.append(ui.showDeletedTask(task))
                                 .append(System.lineSeparator())
                                 .append(ui.showTasksSize(tasks));
@@ -106,8 +114,13 @@ public class Piper {
                 }
                 case TODO: {
                     Task task = new Todo(arg);
+                    int initSize = tasks.getSize();
                     tasks.addTask(task);
                     saveToStorage();
+                    assert tasks.getSize() == initSize + 1 : "New task addition should increase number of tasks by 1";
+                    if (storage != null) {
+                        storage.saveAll(tasks);
+                    }
                     reply.append(ui.showAddedTask(task))
                             .append(System.lineSeparator())
                             .append(ui.showTasksSize(tasks));
@@ -116,8 +129,13 @@ public class Piper {
                 case DEADLINE: {
                     Parser.DeadlineArgs da = Parser.parseDeadlineArgs(arg);
                     Task task = new Deadline(da.description, da.by);
+                    int initSize = tasks.getSize();
                     tasks.addTask(task);
                     saveToStorage();
+                    assert tasks.getSize() == initSize + 1 : "New task addition should increase number of tasks by 1";
+                    if (storage != null) {
+                        storage.saveAll(tasks);
+                    }
                     reply.append(ui.showAddedTask(task))
                             .append(System.lineSeparator())
                             .append(ui.showTasksSize(tasks));
@@ -126,8 +144,13 @@ public class Piper {
                 case EVENT: {
                     Parser.EventArgs ea = Parser.parseEventArgs(arg);
                     Task task = new Event(ea.description, ea.from, ea.to);
+                    int initSize = tasks.getSize();
                     tasks.addTask(task);
                     saveToStorage();
+                    assert tasks.getSize() == initSize + 1 : "New task addition should increase number of tasks by 1";
+                    if (storage != null) {
+                        storage.saveAll(tasks);
+                    }
                     reply.append(ui.showAddedTask(task))
                             .append(System.lineSeparator())
                             .append(ui.showTasksSize(tasks));
@@ -135,6 +158,7 @@ public class Piper {
                 }
                 case FIND: {
                     TaskList matches = tasks.find(arg);
+                    assert matches != null : "Function find(String kw) should not return null";
                     reply.append(ui.displayMatchingTasks(matches));
                     break;
                 }

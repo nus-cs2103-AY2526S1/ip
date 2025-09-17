@@ -15,6 +15,8 @@ public class Task {
      * @param description task description.
      */
     public Task(String description) {
+        assert description != null && !description.trim().isEmpty()
+                : "Task description should be non-null and non-empty";
         this.description = description;
         this.isDone = false;
     }
@@ -71,6 +73,8 @@ public class Task {
      * @return serialized single-line representation of task.
      */
     public String toSerializedLine() {
+        String type = this.getTaskType();
+        assert type != null && !type.isEmpty() : "Task subclass should have a task type";
         String doneField = this.isDone ? "1" : "0";
         return this.getTaskType() + " | " + doneField + " | " + this.description;
     }

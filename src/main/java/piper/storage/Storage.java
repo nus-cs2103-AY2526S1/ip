@@ -60,6 +60,8 @@ public class Storage {
                     continue;
                 }
                 String[] substrings = line.split(" \\| ", 5);
+                assert substrings.length >= 3 : "Serialized line should have at least 3 fields";
+
                 String taskType = substrings[0];
                 String doneField = substrings[1];
                 String description = substrings[2];
@@ -71,9 +73,11 @@ public class Storage {
                     task = new Todo(description);
                     break;
                 case "D":
+                    assert substrings.length >= 4 : "Serialized Deadline line should have 4 fields";
                     task = new Deadline(description, substrings[3]);
                     break;
                 case "E":
+                    assert substrings.length >= 5 : "Serialized Event line should have 5 fields";
                     task = new Event(description, substrings[3], substrings[4]);
                     break;
                 default:
@@ -109,6 +113,7 @@ public class Storage {
      * @throws PiperException if an I/O error prevents writing the file.
      */
     public void saveAll(TaskList tasks) throws PiperException {
+        assert tasks != null : "Tasks should be non-null when saving";
         try {
             List<String> out = new ArrayList<>();
             for (int i = 0; i < tasks.getSize(); i++) {
