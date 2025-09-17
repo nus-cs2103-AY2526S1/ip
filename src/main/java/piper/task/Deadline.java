@@ -35,6 +35,13 @@ public class Deadline extends Task {
         return (byDate != null) ? byDate.format(DISPLAYED_DATE) : this.by;
     }
 
+    /**
+     * Updates the deadline date (/by field).
+     * Accepts any string.
+     * If it matches ISO yyyy-MM-dd, then a LocalDate is stored.
+     *
+     * @param updatedBy new deadline string.
+     */
     public void updateByDate(String updatedBy) {
         this.by = updatedBy;
         try {

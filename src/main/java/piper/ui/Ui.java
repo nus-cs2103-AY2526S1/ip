@@ -137,6 +137,12 @@ public class Ui {
         ) + task;
     }
 
+    /**
+     * Returns a confirmation message after snoozing a task.
+     *
+     * @param task task that was updated.
+     * @return confirmation message string.
+     */
     public String showSnoozedTask(Task task) {
         return "ZZZ...\n" + task;
     }

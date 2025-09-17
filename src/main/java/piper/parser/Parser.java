@@ -32,39 +32,19 @@ public final class Parser {
      * Structured arguments for a deadline command.
      */
     public record DeadlineArgs(String description, String by) {
-    /**
-     * Creates DeadlineArgs.
-     *
-     * @param description task description.
-     * @param by          by deadline text.
-     */
-        public DeadlineArgs {
-        }
     }
 
     /**
      * Structured arguments for an event command.
      */
     public record EventArgs(String description, String from, String to) {
-    /**
-     * Creates EventArgs.
-     *
-     * @param description task description.
-     * @param from        start timing text.
-     * @param to          end timing text.
-     */
-        public EventArgs {
-        }
     }
 
-    public static final class SnoozeArgs {
-        public final int index;
-        public final int days;
-
-        public SnoozeArgs(int index, int days) {
-            this.index = index;
-            this.days = days;
-        }
+    /**
+     * Structured arguments for a snooze command.
+     * Contains the task index (1-based) and the number of days to shift.
+     */
+    public record SnoozeArgs(int index, int days) {
     }
 
     /**
@@ -194,6 +174,13 @@ public final class Parser {
         }
     }
 
+    /**
+     * Extracts number of days to shift from a snooze command argument.
+     *
+     * @param arg remainder of the user input after the command token.
+     * @return structured SnoozeArgs.
+     * @throws PiperException if required parts are missing, empty, or invalid.
+     */
     public static SnoozeArgs parseSnoozeArgs(String arg) throws PiperException {
         try {
             String[] indexAndDays = arg.split("\\s", 2);
@@ -213,6 +200,8 @@ public final class Parser {
                 );
             }
             return new SnoozeArgs(parseIndex(index), parseIndex(days));
+        } catch (PiperException pe) {
+            throw pe;
         } catch (Exception e) {
             throw new PiperException(
                     "EEK! Are you snoozing already? "

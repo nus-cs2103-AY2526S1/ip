@@ -21,8 +21,8 @@ public class Event extends Task {
      * Creates an Event.
      *
      * @param description task description.
-     * @param from from start text.
-     * @param to to end text.
+     * @param from event start string.
+     * @param to event end string.
      */
     public Event(String description, String from, String to) {
         super(description);
@@ -48,6 +48,14 @@ public class Event extends Task {
         return (toDate != null) ? toDate.format(DISPLAYED_DATE) : this.to;
     }
 
+    /**
+     * Updates the event date range (/from and /to fields).
+     * Accepts any strings.
+     * If they match ISO yyyy-MM-dd, then LocalDates are stored.
+     *
+     * @param updatedFrom new event start string.
+     * @param updatedTo new event end string.
+     */
     public void updateRange(String updatedFrom, String updatedTo) {
         this.from = updatedFrom;
         this.to = updatedTo;

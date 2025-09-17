@@ -155,7 +155,7 @@ public class Piper {
                 }
                 case SNOOZE: {
                     Parser.SnoozeArgs sa = Parser.parseSnoozeArgs(arg);
-                    int index = sa.index - 1;
+                    int index = sa.index() - 1;
                     try {
                         Task task = tasks.getTask(index);
                         if (task instanceof Deadline) {
@@ -163,7 +163,7 @@ public class Piper {
                             java.time.LocalDate date = java.time.LocalDate.parse(
                                     d.toSerializedLine().split(" \\| ", 4)[3]); // current /by
                             // substrings: D | doneField | description | byField
-                            java.time.LocalDate updatedDate = date.plusDays(sa.days);
+                            java.time.LocalDate updatedDate = date.plusDays(sa.days());
                             d.updateByDate(updatedDate.toString());
                         } else if (task instanceof Event) {
                             Event e = (Event) task;
@@ -171,7 +171,7 @@ public class Piper {
                             // substrings: E | doneField | description | fromField | toField
                             java.time.LocalDate from = java.time.LocalDate.parse(substrings[3]);
                             java.time.LocalDate to = java.time.LocalDate.parse(substrings[4]);
-                            e.updateRange(from.plusDays(sa.days).toString(), to.plusDays(sa.days).toString());
+                            e.updateRange(from.plusDays(sa.days()).toString(), to.plusDays(sa.days()).toString());
                         } else {
                             throw new PiperException("PEEP! Only deadlines or events can be snoozed.");
                         }
