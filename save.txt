@@ -1,0 +1,4 @@
+[T] [ ] Todo test
+[D] [X] Deadline test (by: Mon 10pm)
+[E] [ ] Event test (from: Mon 10pm to: Mon 12pm)
+[D] [ ] Deadline test 2 (by: Aug 29 2025 09:00 AM)

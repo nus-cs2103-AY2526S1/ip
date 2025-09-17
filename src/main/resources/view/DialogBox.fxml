@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" stylesheets="@../css/dialog-box.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+      <VBox fx:id="dialogWrapper" alignment="TOP_RIGHT" prefHeight="58.0" prefWidth="350.0">
+         <children>
+            <HBox fx:id="nameWrapper" alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                    <Label fx:id="name" minHeight="-Infinity" text="Label" wrapText="true">
+                     <padding>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="date" minHeight="-Infinity" text="Label" wrapText="true">
+                     <padding>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <Label fx:id="dialog" minHeight="-Infinity" text="Label" wrapText="true">
+               <padding>
+                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+               </padding>
+            </Label>
+         </children>
+         <padding>
+            <Insets right="5.0" />
+         </padding>
+      </VBox>
+        <ImageView fx:id="displayPicture" fitHeight="52.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true" />
+    </children>
+    <padding>
+        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+    </padding>
+</fx:root>

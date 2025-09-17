@@ -1,0 +1,7 @@
+todo testTodo
+deadline testDeadline /by Sunday
+event testEvent /from Mon 3pm /to 5pm
+mark 3
+list
+unmark 3
+list

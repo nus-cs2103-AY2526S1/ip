@@ -1,0 +1,24 @@
+.label {
+    -fx-font: 14px "Arial";
+}
+.label-date {
+    -fx-font: bold 14px "Arial";
+}
+
+.label-name {
+    -fx-font: gray 14px "Arial";
+}
+
+
+
+#displayPicture {
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+    -fx-border-radius: 1em 1em 1em 1em;
+}
+

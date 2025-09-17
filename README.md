@@ -1,26 +1,40 @@
-# Duke project template
+![Burrito app logo](https://i.imgur.com/7fFE1HB.png)
+# Burrito 🌯, Your Personal Task Assistant!
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Burrito is your own personal **no-frills task manager/assistant**. Submit, view, and edit your tasks all in one compact chatbot-like package.
 
-## Setting up in Intellij
+## 🚀 Features 
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+- Add, list, and delete tasks  
+- Mark/unmark tasks as completed  
+- Search tasks by keywords  
+- Support for todos, deadlines, and events  
+- Persistent storage (tasks are saved between sessions)  
+- Simple CLI-based interface  
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## 📦 Installation  
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+### Prerequisites  
+- Java **17+** (Important)  
+
+1. Head on over to the [Releases page](https://github.com/ywijie/ip/releases) to grab the latest version
+2. Open Terminal/CMD and navigate to the file directory
+3. Run the downloaded JAR file with `java -jar Burrito.jar`
+
+## 💻 Usage
+
+| Command    | Description                   | Example Usage                           |
+| ---------- | ----------------------------- | --------------------------------------- |
+| `list`     | Show all current tasks        | `list`                                  |
+| `todo`     | Add a todo task               | `todo read book`                        |
+| `deadline` | Add a deadline task           | `deadline submit report /by 2025-09-20 1300` |
+| `event`    | Add an event task             | `event meeting/from 2025-09-20 1300 /to 2025-09-20 2100` |
+| `mark`     | Mark a task as completed      | `mark 2`                                |
+| `unmark`   | Unmark a completed task       | `unmark 2`                              |
+| `delete`   | Delete a task                 | `delete 3`                              |
+| `find`     | Find tasks matching a keyword | `find report`                           |
+| `help`     | Show help message             | `help`                                  |
+| `bye`      | Exit the program              | `bye`                                   |
+
+## Demo Screenshot
+<img width="572" height="629" alt="UI" src="https://github.com/user-attachments/assets/8daddc5c-37b1-48d5-a1ab-48f1897cb3f2" />
