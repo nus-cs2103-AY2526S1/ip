@@ -101,9 +101,7 @@ public class Piper {
                         tasks.deleteTask(index);
                         saveToStorage();
                         assert tasks.getSize() == initSize - 1 : "Task deletion should decrease number of tasks by 1";
-                        if (storage != null) {
-                            storage.saveAll(tasks);
-                        }
+                        saveToStorage();
                         reply.append(ui.showDeletedTask(task))
                                 .append(System.lineSeparator())
                                 .append(ui.showTasksSize(tasks));
@@ -118,9 +116,7 @@ public class Piper {
                     tasks.addTask(task);
                     saveToStorage();
                     assert tasks.getSize() == initSize + 1 : "New task addition should increase number of tasks by 1";
-                    if (storage != null) {
-                        storage.saveAll(tasks);
-                    }
+                    saveToStorage();
                     reply.append(ui.showAddedTask(task))
                             .append(System.lineSeparator())
                             .append(ui.showTasksSize(tasks));
@@ -132,9 +128,7 @@ public class Piper {
                     tasks.addTask(task);
                     saveToStorage();
                     assert tasks.getSize() == initSize + 1 : "New task addition should increase number of tasks by 1";
-                    if (storage != null) {
-                        storage.saveAll(tasks);
-                    }
+                    saveToStorage();
                     reply.append(ui.showAddedTask(task))
                             .append(System.lineSeparator())
                             .append(ui.showTasksSize(tasks));
@@ -146,9 +140,7 @@ public class Piper {
                     tasks.addTask(task);
                     saveToStorage();
                     assert tasks.getSize() == initSize + 1 : "New task addition should increase number of tasks by 1";
-                    if (storage != null) {
-                        storage.saveAll(tasks);
-                    }
+                    saveToStorage();
                     reply.append(ui.showAddedTask(task))
                             .append(System.lineSeparator())
                             .append(ui.showTasksSize(tasks));
@@ -162,6 +154,30 @@ public class Piper {
                 }
                 case SNOOZE: {
                     Parser.SnoozeArgs sa = Parser.parseSnoozeArgs(arg);
+                    int index = sa.index - 1;
+                    Task task = tasks.getTask(index);
+                    try {
+                        if (task instanceof Deadline) {
+                            Deadline d = (Deadline) task;
+                            java.time.LocalDate date = java.time.LocalDate.parse(
+                                    d.toSerializedLine().split(" \\| ", 4)[3]); // current /by
+                            // substrings: D | doneField | description | byField
+                            java.time.LocalDate updatedDate = date.plusDays(sa.days);
+                            d.updateByDate(updatedDate.toString());
+                        } else if (task instanceof Event) {
+                            Event e = (Event) task;
+                            String[] substrings = e.toSerializedLine().split(" \\| ", 6);
+                            // substrings: E | doneField | description | fromField | toField
+                            java.time.LocalDate from = java.time.LocalDate.parse(substrings[3]);
+                            java.time.LocalDate to = java.time.LocalDate.parse(substrings[4]);
+                            e.updateRange(from.plusDays(sa.days).toString(), to.plusDays(sa.days).toString());
+                        } else {
+                            throw new PiperException("PEEP! Only deadlines or events can be snoozed.");
+                        }
+                    } catch (java.time.format.DateTimeParseException e) {
+                        throw new PiperException("I only understand ISO dates...");
+                    }
+                    saveToStorage();
                 }
                 default:
                     throw new PiperException(
