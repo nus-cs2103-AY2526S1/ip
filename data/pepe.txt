@@ -1,0 +1,7 @@
+T | 1 | read book
+D | 0 | return book | 2025-06-19 2359
+E | 0 | project meeting | 2025-08-16 1200 | 2025-08-16 1400
+T | 1 | join sports club
+E | 0 | meeting with pepe | 2000-02-16 1400 | 2000-02-16 1600
+D | 0 | return pepe | 2025-08-16 1400
+E | 0 | lunch with pepe | 2025-08-16 1400 | 2025-08-16 1600
