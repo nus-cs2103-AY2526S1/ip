@@ -1,0 +1,18 @@
+list
+todo borrow money
+event lecture /from Thursday 2pm /to 4pm
+deadline return book /by Sunday
+list
+mark 8
+mark 2
+list
+mark 1
+unmark 2
+list
+event lec /from /to 1am
+deadline /by sun
+todo
+blahblahblah
+delete 2
+list
+bye

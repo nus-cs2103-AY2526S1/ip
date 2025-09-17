@@ -1,3 +1,8 @@
+data/tasklist.txt
+
+# vscode
+.vscode
+
 # IDEA files
 /.idea/
 /out/
