@@ -48,6 +48,21 @@ public class Event extends Task {
         return (toDate != null) ? toDate.format(DISPLAYED_DATE) : this.to;
     }
 
+    public void updateRange(String updatedFrom, String updatedTo) {
+        this.from = updatedFrom;
+        this.to = updatedTo;
+        try {
+            this.fromDate = LocalDate.parse(this.from);
+        } catch (DateTimeParseException e) {
+            this.fromDate = null;
+        }
+        try {
+            this.toDate = LocalDate.parse(this.to);
+        } catch (DateTimeParseException e) {
+            this.toDate = null;
+        }
+    }
+
     @Override
     public String getTaskType() {
         return taskType;
