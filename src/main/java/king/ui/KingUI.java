@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import king.KingException;
+import king.task.Deadline;
 import king.task.Task;
 
 /**
@@ -17,7 +18,8 @@ public class KingUI {
      * Show introduction message at start of conversation
      */
     public String showIntroduction() {
-        return ("Greetings, subject! I am King, sovereign of thine tasks.\nSpeak thy command! Use `help` shouldst thou require guidance.");
+        return ("Greetings, subject! I am King, sovereign of thine tasks.\n"
+                + "Speak thy command! Use `help` shouldst thou require guidance.");
     }
 
     /**
@@ -61,12 +63,13 @@ public class KingUI {
         StringBuilder response = new StringBuilder("Tasks decreed for "
                 + date.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + " are as follows:\n");
         list.stream()
-                .filter(task -> task.getType() == Task.Type.DEADLINE)
-                .forEach(task ->
-                        response.append(list.indexOf(task) + 1)
-                                .append(". ")
-                                .append(task)
-                                .append("\n"));
+            .filter(task -> task.getType() == Task.Type.DEADLINE)
+            .filter(task -> ((Deadline) task).getBy().isEqual(date))
+            .forEach(task ->
+                response.append(list.indexOf(task) + 1)
+                    .append(". ")
+                    .append(task)
+                    .append("\n"));
 
         return response.toString();
     }
@@ -209,6 +212,6 @@ public class KingUI {
      * @return String error message
      */
     public String showError(KingException e) {
-        return "Error! An error hath arisen: " + e.getMessage();
+        return e.getMessage();
     }
 }
