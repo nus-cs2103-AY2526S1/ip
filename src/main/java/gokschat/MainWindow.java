@@ -1,7 +1,9 @@
 package gokschat;
 
 import javafx.application.Platform;
+
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -32,11 +34,11 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
-        // Welcome message
         String welcomeMessage = "    ____________________________________________________________\n" +
                 "    What's up, what's up! I'm GoksChat\n" +
                 "    How can I assist you today?\n" +
                 "    ____________________________________________________________";
+
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(welcomeMessage, dukeImage)
         );
@@ -60,6 +62,7 @@ public class MainWindow extends AnchorPane {
             response = "    ____________________________________________________________\n" +
                     "    Good Day! Hope to see you again\n" +
                     "    ____________________________________________________________";
+
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getDukeDialog(response, dukeImage)
