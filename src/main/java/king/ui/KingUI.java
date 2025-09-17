@@ -36,6 +36,7 @@ public class KingUI {
                 + " mark [index] - Mark a task as triumphant and complete\n"
                 + " unmark [index] - Return a task to its unfinished state\n"
                 + " delete [index] - Banish a task from thy sight\n"
+                + " clear - Banish all tasks from thy sight\n"
                 + " bye - Take thy leave of mine audience\n"
                 + " help - Summon once more this scroll of commands";
     }
@@ -63,13 +64,13 @@ public class KingUI {
         StringBuilder response = new StringBuilder("Tasks decreed for "
                 + date.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + " are as follows:\n");
         list.stream()
-            .filter(task -> task.getType() == Task.Type.DEADLINE)
-            .filter(task -> ((Deadline) task).getBy().isEqual(date))
-            .forEach(task ->
-                response.append(list.indexOf(task) + 1)
-                    .append(". ")
-                    .append(task)
-                    .append("\n"));
+                .filter(task -> task.getType() == Task.Type.DEADLINE)
+                .filter(task -> ((Deadline) task).getBy().isEqual(date))
+                .forEach(task ->
+                        response.append(list.indexOf(task) + 1)
+                                .append(". ")
+                                .append(task)
+                                .append("\n"));
 
         return response.toString();
     }
