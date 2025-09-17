@@ -35,6 +35,15 @@ public class Deadline extends Task {
         return (byDate != null) ? byDate.format(DISPLAYED_DATE) : this.by;
     }
 
+    public void updateByDate(String updatedBy) {
+        this.by = updatedBy;
+        try {
+            this.byDate = LocalDate.parse(this.by);
+        } catch (DateTimeParseException e) {
+            this.byDate = null;
+        }
+    }
+
     @Override
     public String getTaskType() {
         return taskType;
