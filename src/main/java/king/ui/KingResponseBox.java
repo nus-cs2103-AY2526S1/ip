@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
 import king.MainWindow;
 
 /**
@@ -31,6 +32,10 @@ public class KingResponseBox extends HBox {
         }
 
         dialog.setText(text);
+        if (text.contains("Error")) {
+            dialog.setTextFill(Paint.valueOf("#FF7F7F"));
+        }
+
         displayPicture.setImage(img);
     }
 

@@ -56,6 +56,8 @@ public class MainWindow extends VBox {
                     KingResponseBox.getKingDialog(response, kingImage)
             );
         }
-        userInput.clear();
+        if (!response.contains("Error")) {
+            userInput.clear();
+        }
     }
 }
