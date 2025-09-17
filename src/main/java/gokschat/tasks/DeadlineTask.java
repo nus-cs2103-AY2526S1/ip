@@ -1,8 +1,5 @@
 package gokschat.tasks;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 /// This class extends from gokschat.tasks.Task, representing a task with a deadline.
 ///
 /// @author Ravichandran Gokul
