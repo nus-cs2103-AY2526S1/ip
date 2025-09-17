@@ -90,6 +90,14 @@ public class Eve {
                         ui.showAdded(t, tasks.size());
                         break;
                     }
+                    case PERIOD: {
+                        Parser.PeriodParts p = Parser.parsePeriod(args);
+                        Task t = tasks.add(new DoWithinPeriod(p.desc, p.start, p.end));
+                        storage.save(tasks.asList());
+                        ui.renderAdded(t, tasks.size());
+                        break;
+                    }
+
                     case DEADLINE: {
                         DeadlineParts p = Parser.parseDeadline(args);
                         Task t = tasks.add(new Deadline(p.desc, p.when));
