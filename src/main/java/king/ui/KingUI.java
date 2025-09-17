@@ -17,25 +17,25 @@ public class KingUI {
      * Show introduction message at start of conversation
      */
     public String showIntroduction() {
-        return ("Hello! I'm King!\nWhat can I do for you? Use `help` to view all my commands.");
+        return ("Greetings, subject! I am King, sovereign of thine tasks.\nSpeak thy command! Use `help` shouldst thou require guidance.");
     }
 
     /**
      * Show help message for help command
      */
     public String showHelp() {
-        return "Need help? Here is the list of commands you can use to use this chat bot!\n"
-                + " list [/sorted] - Gets the list of tasks you currently have [and sorts by descending priority]\n"
-                + " due [YYYY-MM-DD] - Gets tasks due on specific date\n"
-                + " find [string1] [string2] ... - Finds tasks matching strings\n"
-                + " todo [task name] - Creates a new todo task\n"
-                + " deadline [task name] /by [YYYY-MM-DD] - Creates a new deadline task with a time to complete by\n"
-                + " event [task name] /from [YYYY-MM-DD] /to [YYYY-MM-DD] - Creates a new event based on a period\n"
-                + " mark [index] - Marks the task at the index to be complete\n"
-                + " unmark [index] - Marks the task at the index to be incomplete\n"
-                + " delete [index] - Deletes the task at the index\n"
-                + " bye - Ends the program\n"
-                + " help - Provides the list of commands to query the bot";
+        return "You seek counsel? Behold, the royal decrees thou may utter:\n"
+                + " list [/sorted] - Present before me all tasks in thine service [or ranked by descending priority]\n"
+                + " due [YYYY-MM-DD] - Reveal unto me tasks due upon a chosen date\n"
+                + " find [string1] [string2] ... - Summon tasks whose words match thy search\n"
+                + " todo [task name] - Command me to create a humble todo\n"
+                + " deadline [task name] /by [YYYY-MM-DD] - Declare a task with a fated deadline\n"
+                + " event [task name] /from [YYYY-MM-DD] /to [YYYY-MM-DD] - Proclaim an event spanning a period\n"
+                + " mark [index] - Mark a task as triumphant and complete\n"
+                + " unmark [index] - Return a task to its unfinished state\n"
+                + " delete [index] - Banish a task from thy sight\n"
+                + " bye - Take thy leave of mine audience\n"
+                + " help - Summon once more this scroll of commands";
     }
 
     /**
@@ -44,7 +44,7 @@ public class KingUI {
      * @param list List of all tasks
      */
     public String showAllList(ArrayList<Task> list) {
-        String response = "Here are the tasks in your list:\n";
+        String response = "Behold! These are the tasks that dwell within thy service:\n";
         for (int i = 1; i <= list.size(); i++) {
             response = response.concat(i + ". " + list.get(i - 1) + "\n");
         }
@@ -58,8 +58,8 @@ public class KingUI {
      * @param date Date of task due
      */
     public String showDueList(ArrayList<Task> list, LocalDate date) {
-        StringBuilder response = new StringBuilder("Here are the tasks due on:"
-                + date.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ".\n");
+        StringBuilder response = new StringBuilder("Tasks decreed for "
+                + date.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + " are as follows:\n");
         list.stream()
                 .filter(task -> task.getType() == Task.Type.DEADLINE)
                 .forEach(task ->
@@ -78,7 +78,7 @@ public class KingUI {
      * @return Response string of all tasks
      */
     public String showSortedList(ArrayList<Task> list) {
-        StringBuilder response = new StringBuilder("Here are the tasks sorted by decreasing priority:\n");
+        StringBuilder response = new StringBuilder("Here stand thy tasks, ranked by noble priority:\n");
         list.stream().sorted((t1, t2) -> t1.getPriority().getPriorityLevel() - t2.getPriority().getPriorityLevel())
                 .forEach(task ->
                         response.append(list.indexOf(task) + 1)
@@ -95,7 +95,7 @@ public class KingUI {
      * @param searches Search strings for tasks
      */
     public String showFindList(ArrayList<Task> list, String... searches) {
-        StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
+        StringBuilder response = new StringBuilder("Lo! These tasks dost match thy search:\n");
         list.stream()
                 .filter(task ->
                         java.util.Arrays.stream(searches)
@@ -116,9 +116,9 @@ public class KingUI {
      * @param size Updated size of task list
      */
     public String showTaskCreate(Task task, int size) {
-        String response = "Ok! I've added this task:\n";
+        String response = "It is decreed! I have added this task to thy realm:\n";
         response = response.concat(task.toString() + "\n");
-        response = response.concat("Now you have " + size + " tasks in the list.");
+        response = response.concat("Thou now hold " + size + " tasks in thy service.");
         return response;
     }
 
@@ -128,7 +128,7 @@ public class KingUI {
      * @param task Task marked
      */
     public String showMark(Task task) {
-        String response = "Nice! I've marked this task as done:\n";
+        String response = "Well done! This task is henceforth marked as complete by royal decree:\n";
         response = response.concat(task.toString());
         return response;
     }
@@ -139,7 +139,7 @@ public class KingUI {
      * @param task Task unmarked
      */
     public String showUnmark(Task task) {
-        String response = "OK :( I've marked this task as not done yet\n";
+        String response = "Alas! I have returned this task to its incomplete state:\n";
         response = response.concat(task.toString());
         return response;
     }
@@ -151,9 +151,9 @@ public class KingUI {
      * @param size Updated size of task list
      */
     public String showDelete(Task task, int size) {
-        String response = "Noted! I've deleted this task:\n";
+        String response = "By my command, this task is struck from the royal record:\n";
         response = response.concat(task.toString()) + "\n";
-        response = response.concat("Now you have " + size + " tasks in the list.");
+        response = response.concat("Thou now hold " + size + " tasks in thy service.");
         return response;
     }
 
@@ -165,23 +165,23 @@ public class KingUI {
      */
     public String showClear(int previousSize) {
         if (previousSize == 0) {
-            return "Your list is already empty.";
+            return "Thy ledger is already barren, subject.";
         }
-        return "Cleared all tasks (" + previousSize + ") from your list.";
+        return "By my will, all " + previousSize + " tasks have been swept clean from thy list.";
     }
 
     /**
      * Show bye message for bye command
      */
     public String showBye() {
-        return "BYE BYE!! Hope to see you again soon!";
+        return "Fare thee well! Withdraw now from mine court, and may we meet anon!";
     }
 
     /**
      * Show message for invalid command
      */
     public String showInvalidCommand() {
-        return "Error! Invalid command.";
+        return "Error! That command is not recognized in mine kingdom.";
     }
 
     /**
@@ -190,7 +190,7 @@ public class KingUI {
      * @return String error message
      */
     public String showInvalidTask() {
-        return "Error! Task does not exist.";
+        return "Error! Such a task existeth not in thy service.";
     }
 
     /**
@@ -199,7 +199,7 @@ public class KingUI {
      * @return String error message
      */
     public String showInvalidDateTime() {
-        return "Error! Date time format specified is incorrect. Use format YYYY-MM-DD.";
+        return "Error! Thy date is ill-formed. Present it as YYYY-MM-DD, lest chaos reign.";
     }
 
     /**
@@ -209,6 +209,6 @@ public class KingUI {
      * @return String error message
      */
     public String showError(KingException e) {
-        return e.getMessage();
+        return "Error! An error hath arisen: " + e.getMessage();
     }
 }
