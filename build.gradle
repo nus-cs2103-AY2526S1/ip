@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("friday.GUI.Launcher")
+    mainClass.set("friday.gui.Launcher")
 }
 
 checkstyle {
