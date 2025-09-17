@@ -6,14 +6,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import king.ui.DialogBox;
+import king.ui.KingResponseBox;
 
 /**
  * Controller for the main GUI.
  */
-public class MainWindow extends AnchorPane {
+public class MainWindow extends VBox {
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -53,7 +53,7 @@ public class MainWindow extends AnchorPane {
         } else {
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getKingDialog(response, kingImage)
+                    KingResponseBox.getKingDialog(response, kingImage)
             );
         }
         userInput.clear();
