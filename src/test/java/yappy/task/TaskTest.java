@@ -1,0 +1,46 @@
+package yappy.task;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import yappy.task.exception.EmptyTaskDescriptionException;
+
+public class TaskTest {
+    private Task task;
+
+
+    @BeforeEach
+    void setUp() throws EmptyTaskDescriptionException {
+        this.task = new Task("Dummy task");
+    }
+
+    @Test
+    void constructor_nonEmptyDescription_success() {
+        assertNotNull(task);
+        assertEquals("[ ] Dummy task", task.toString());
+    }
+
+    @Test
+    void constructor_emptyDescription_exceptionThrown() {
+        assertThrows(EmptyTaskDescriptionException.class, () -> {
+            new ToDoTask("");
+        });
+        assertThrows(EmptyTaskDescriptionException.class, () -> {
+            new ToDoTask(null);
+        });
+    }
+
+    @Test
+    void testMarkAndUnmark() {
+        task.markAsDone();
+        assertEquals("X", task.getStatusIcon());
+        task.unmarkAsDone();
+        assertEquals(" ", task.getStatusIcon());
+        task.markAsDone();
+        assertEquals("X", task.getStatusIcon());
+    }
+}
