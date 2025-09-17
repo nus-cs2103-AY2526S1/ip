@@ -19,6 +19,10 @@ public class DeadlineTask extends Task {
         this.deadline = deadline;
     }
 
+    public String getDeadline() {
+        return this.deadline;
+    }
+
     // toFileString overriding
     @Override
     public String toFileString() {

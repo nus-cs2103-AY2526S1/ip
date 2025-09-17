@@ -1,11 +1,13 @@
 package gokschat.tasks;
 
+import java.time.LocalDate;
+
 /**
  * This class represents a To-do task.
  *
  * @author Ravichandran Gokul
  */
-public class Task {
+public class Task implements Comparable {
     // Fields declared
     private String completionStatus;
     private String nameOfTask;
@@ -66,5 +68,21 @@ public class Task {
     @Override
     public String toString() {
         return "[T][" + completionStatus + "] " + nameOfTask;
+    }
+
+    @Override
+    public int compareTo(Object other) {
+        if (other instanceof DeadlineTask) {
+            if (!(this instanceof DeadlineTask)) {
+                return 1;
+            }
+
+            LocalDate thisDate = LocalDate.parse(((DeadlineTask) this).getDeadline());
+            LocalDate otherDate = LocalDate.parse(((DeadlineTask) other).getDeadline());
+
+            return thisDate.compareTo(otherDate);
+        }
+
+        return -1;
     }
 }
