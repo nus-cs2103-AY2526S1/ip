@@ -1,30 +1,157 @@
-# Duke User Guide
+# Ronaldo Chatbot 
 
-// Update the title above to match the actual product name
+Ronaldo is a command-line chatbot inspired by task management applications. It helps you manage your **ToDo**, **Deadline**, and **Event** tasks efficiently with priority levels. The chatbot supports marking tasks as done, unmarking them, listing tasks, finding tasks, deleting tasks, and provides user-friendly feedback for all operations.
 
-// Product screenshot goes here
+---
 
-// Product intro goes here
+## Table of Contents
 
-## Adding deadlines
+* [Features](#features)
+* [Commands](#commands)
+* [Getting Started](#getting-started)
+* [Example Usage](#example-usage)
+* [File Structure](#file-structure)
+* [Contributing](#contributing)
+* [License](#license)
 
-// Describe the action and its outcome.
+---
 
-// Give examples of usage
+## Features
 
-Example: `keyword (optional arguments)`
+* Add, delete, and list tasks.
+* Search tasks by description.
+* Support for three types of tasks:
 
-// A description of the expected outcome goes here
+    * **ToDo**: simple tasks with a description.
+    * **Deadline**: tasks with a due date/time.
+    * **Event**: tasks with a start and end time.
+* Set task priority: **Low**, **Medium**, or **High**.
+* Mark tasks as done or unmark them.
+* Clean and readable output with clear formatting.
+
+---
+
+## Commands
+
+### Add a ToDo
 
 ```
-expected output
+todo <description> /p <priority>
 ```
 
-## Feature ABC
+Example:
 
-// Feature details
+```
+todo Read book /p low
+```
+
+### Add a Deadline
+
+```
+deadline <description> /by <yyyy-mm-dd HHmm> /p <priority>
+```
+
+Example:
+
+```
+deadline Submit report /by 2025-09-14 0900 /p high
+```
+
+### Add an Event
+
+```
+event <description> /from <start time> /to <end time> /p <priority>
+```
+
+Example:
+
+```
+event Concert /from 2025-09-13 1400 /to 2025-09-13 1600 /p medium
+```
+
+### Mark a Task
+
+```
+mark <task index>
+```
+
+### Unmark a Task
+
+```
+unmark <task index>
+```
+
+### Delete a Task
+
+```
+delete <task index>
+```
+
+### Find Tasks by Description
+
+```
+find <description>
+```
+
+### List all Tasks
+
+```
+list
+```
+
+---
+
+## Getting Started
+
+### Quick Start
+
+1. Download the latest `.jar` version from the GitHub repository.
+2. Open a command terminal and navigate to the directory containing the `.jar` file.
+3. Run:
+
+```bash
+java -jar ronaldo.jar
+```
+
+4. Type commands in the command box.
+
+---
+
+## Example Usage
+
+```
+____________________________________________________________
+ Hello! I'm Ronaldo
+ What can I do for you? SIUU
+____________________________________________________________
+
+todo Help me ChatGPT /p high
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] Help me ChatGPT (priority: High)
+Now you have 1 task in the list.
+____________________________________________________________
+
+deadline Homework /by 2025-09-14 0900 /p high
+____________________________________________________________
+Got it. I've added this task:
+  [D][ ] Homework (priority: High) (by: 14 September 2025 9:00 am)
+Now you have 2 tasks in the list.
+____________________________________________________________
+
+event Concert /from 2025-09-13 1400 /to 2025-09-13 1600 /p low
+____________________________________________________________
+Got it. I've added this task:
+  [E][ ] Concert (priority: Low) (from: 2025-09-13 1400 to: 2025-09-13 1600)
+Now you have 3 tasks in the list.
+____________________________________________________________
+```
 
 
-## Feature XYZ
+## Screenshots
 
-// Feature details
+![Ronaldo UI](https://khantminn290.github.io/ip/Ui.png)
+
+---
+
+## Enjoy managing your tasks with Ronaldo! SIUU! ⚽
