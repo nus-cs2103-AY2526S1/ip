@@ -89,7 +89,8 @@ public class Piper {
                     } catch (IndexOutOfBoundsException ex) {
                         throw new PiperException(
                                 "PEEP! That task flew out of the nest. "
-                                        + "Please check using 'list' to see which tasks are home!");
+                                        + "Please check using 'list' to see which tasks are home!"
+                        );
                     }
                     break;
                 }
@@ -155,8 +156,8 @@ public class Piper {
                 case SNOOZE: {
                     Parser.SnoozeArgs sa = Parser.parseSnoozeArgs(arg);
                     int index = sa.index - 1;
-                    Task task = tasks.getTask(index);
                     try {
+                        Task task = tasks.getTask(index);
                         if (task instanceof Deadline) {
                             Deadline d = (Deadline) task;
                             java.time.LocalDate date = java.time.LocalDate.parse(
@@ -174,12 +175,17 @@ public class Piper {
                         } else {
                             throw new PiperException("PEEP! Only deadlines or events can be snoozed.");
                         }
+                        saveToStorage();
+                        reply.append(ui.showSnoozedTask(task));
+                        break;
                     } catch (java.time.format.DateTimeParseException e) {
                         throw new PiperException("I only understand ISO dates...");
+                    } catch (IndexOutOfBoundsException e) {
+                        throw new PiperException(
+                                "PEEP! That task flew out of the nest. "
+                                        + "Please check using 'list' to see which tasks are home!"
+                        );
                     }
-                    saveToStorage();
-                    reply.append(ui.showSnoozedTask(task));
-                    break;
                 }
                 default:
                     throw new PiperException(
