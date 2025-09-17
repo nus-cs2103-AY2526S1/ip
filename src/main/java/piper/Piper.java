@@ -49,9 +49,11 @@ public class Piper {
         StringBuilder reply = new StringBuilder();
         try {
             Parser.ParsedString ps = Parser.parse(trimmed);
-            CommandType cmd = ps.cmdType;
+            CommandType cmd = ps.cmdType();
             assert cmd != null : "Parser must return a non-null command";
-            String arg = ps.arg;
+            String arg = ps.arg();
+
+            int initSize = tasks.getSize();
 
             if (arg == null) {
                 switch (cmd) {
@@ -95,7 +97,6 @@ public class Piper {
                     try {
                         int taskNumber = Parser.parseIndex(arg);
                         int index = taskNumber - 1;
-                        int initSize = tasks.getSize();
                         Task task = tasks.getTask(index);
                         tasks.deleteTask(index);
                         saveToStorage();
@@ -114,7 +115,6 @@ public class Piper {
                 }
                 case TODO: {
                     Task task = new Todo(arg);
-                    int initSize = tasks.getSize();
                     tasks.addTask(task);
                     saveToStorage();
                     assert tasks.getSize() == initSize + 1 : "New task addition should increase number of tasks by 1";
@@ -128,8 +128,7 @@ public class Piper {
                 }
                 case DEADLINE: {
                     Parser.DeadlineArgs da = Parser.parseDeadlineArgs(arg);
-                    Task task = new Deadline(da.description, da.by);
-                    int initSize = tasks.getSize();
+                    Task task = new Deadline(da.description(), da.by());
                     tasks.addTask(task);
                     saveToStorage();
                     assert tasks.getSize() == initSize + 1 : "New task addition should increase number of tasks by 1";
@@ -143,8 +142,7 @@ public class Piper {
                 }
                 case EVENT: {
                     Parser.EventArgs ea = Parser.parseEventArgs(arg);
-                    Task task = new Event(ea.description, ea.from, ea.to);
-                    int initSize = tasks.getSize();
+                    Task task = new Event(ea.description(), ea.from(), ea.to());
                     tasks.addTask(task);
                     saveToStorage();
                     assert tasks.getSize() == initSize + 1 : "New task addition should increase number of tasks by 1";
@@ -190,5 +188,5 @@ public class Piper {
              storage.saveAll(tasks);
          }
      }
-
+     
 }

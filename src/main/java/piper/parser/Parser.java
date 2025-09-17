@@ -1,7 +1,6 @@
 package piper.parser;
 
 import piper.PiperException;
-import piper.parser.CommandType;
 
 /**
  * Parses raw user input into commands and structured arguments.
@@ -13,65 +12,50 @@ public final class Parser {
     private Parser() {}
 
     /**
-     * Result of splitting a raw input into a command and its argument.
-     */
-    public static final class ParsedString {
-        public final CommandType cmdType;
-        public final String arg;
-
-        /**
-         * Creates a ParsedString.
-         *
-         * @param cmdType command type.
-         * @param arg remainder of the user input or null if none.
+         * Result of splitting a raw input into a command and its argument.
          */
-        public ParsedString(CommandType cmdType, String arg) {
-            this.cmdType = cmdType;
-            assert cmdType != null : "ParsedString should be non-null";
-            this.arg = arg;
+        public record ParsedString(CommandType cmdType, String arg) {
+            /**
+             * Creates a ParsedString.
+             *
+             * @param cmdType command type.
+             * @param arg     remainder of the user input or null if none.
+             */
+            public ParsedString(CommandType cmdType, String arg) {
+                this.cmdType = cmdType;
+                assert cmdType != null : "ParsedString should be non-null";
+                this.arg = arg;
+            }
         }
-    }
 
     /**
-     * Structured arguments for a deadline command.
-     */
-    public static final class DeadlineArgs {
-        public final String description;
-        public final String by;
-
+         * Structured arguments for a deadline command.
+         */
+        public record DeadlineArgs(String description, String by) {
         /**
          * Creates DeadlineArgs.
          *
          * @param description task description.
-         * @param by by deadline text.
+         * @param by          by deadline text.
          */
-        public DeadlineArgs(String description, String by) {
-            this.description = description;
-            this.by = by;
+        public DeadlineArgs {
         }
-    }
+        }
 
     /**
-     * Structured arguments for an event command.
-     */
-    public static final class EventArgs {
-        public final String description;
-        public final String from;
-        public final String to;
-
+         * Structured arguments for an event command.
+         */
+        public record EventArgs(String description, String from, String to) {
         /**
          * Creates EventArgs.
          *
          * @param description task description.
-         * @param from start timing text.
-         * @param to end timing text.
+         * @param from        start timing text.
+         * @param to          end timing text.
          */
-        public EventArgs(String description, String from, String to) {
-            this.description = description;
-            this.from = from;
-            this.to = to;
+        public EventArgs {
         }
-    }
+        }
 
     /**
      * Parses a raw line into a command token and its argument.
@@ -100,7 +84,9 @@ public final class Parser {
                 return new ParsedString(cmd, null);
             }
             switch (cmd) {
-            case TODO:
+            case BYE, LIST:
+                break;
+                case TODO:
             case DEADLINE:
             case EVENT:
                 // missing task description

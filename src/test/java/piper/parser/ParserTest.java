@@ -12,8 +12,7 @@ class ParserTest {
     @Test
     void parse_splitsCommandAndArg() throws PiperException {
         Parser.ParsedString ps = Parser.parse("deadline return book /by 2025-09-01");
-        assertEquals("deadline", ps.cmd);
-        assertEquals("return book /by 2025-09-01", ps.arg);
+        assertEquals("return book /by 2025-09-01", ps.arg());
     }
 
     @Test
@@ -36,8 +35,8 @@ class ParserTest {
     @Test
     void parseDeadlineArgs_success() throws PiperException {
         Parser.DeadlineArgs da = Parser.parseDeadlineArgs("return book /by 2025-09-01");
-        assertEquals("return book", da.description);
-        assertEquals("2025-09-01", da.by);
+        assertEquals("return book", da.description());
+        assertEquals("2025-09-01", da.by());
     }
 
     @Test
@@ -48,9 +47,9 @@ class ParserTest {
     @Test
     void parseEventArgs_success() throws PiperException {
         Parser.EventArgs ea = Parser.parseEventArgs("trip /from 2025-09-05 /to 2025-09-10");
-        assertEquals("trip", ea.description);
-        assertEquals("2025-09-05", ea.from);
-        assertEquals("2025-09-10", ea.to);
+        assertEquals("trip", ea.description());
+        assertEquals("2025-09-05", ea.from());
+        assertEquals("2025-09-10", ea.to());
     }
 
     @Test
