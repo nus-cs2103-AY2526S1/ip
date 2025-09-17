@@ -134,7 +134,7 @@ public class King {
     /**
      * Checks the parameters of the due command and returns the list of tasks
      *
-     * @return Message for list of tasks before due date
+     * @return Message for list of tasks due on date
      */
     private String checkDueCommand() {
         return kingUI.showDueList(

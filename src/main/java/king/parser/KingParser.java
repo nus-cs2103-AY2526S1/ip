@@ -293,7 +293,6 @@ public class KingParser {
      * @return True if priority is given correctly, else false.
      */
     private boolean checkValidPriority(String priorityText) {
-        System.out.println("Checking if valid priority");
         for (Task.Priority p : Task.Priority.values()) {
             if (p.getDatabaseText().equals(priorityText)) {
                 return true;
