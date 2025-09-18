@@ -1,0 +1,12 @@
+<<<<<<< HEAD
+E | 0 | campus recruitment | 2025-09-11 | 2025-09-12
+T | 1 | buy groceries
+D | 1 | assignment | 2025-09-14
+T | 0 | top up card
+=======
+T | 1 | hi
+D | 1 | homework | 2024-08-21
+E | 0 | campus recruitment | 2025-09-11 | 2025-09-12
+T | 0 | eat
+D | 0 | assignment | 2025-12-12
+>>>>>>> a6abcba17fc79b9afd31f254c272424fdf5ccafa
