@@ -1,0 +1,106 @@
+package glendon;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import glendon.task.Deadline;
+import glendon.task.Task;
+
+/**
+ * Manages a collection of Task objects
+ */
+public class TaskList {
+    private final List<Task> tasks;
+
+    public TaskList(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public List<Task> getTasks() {
+        return this.tasks;
+    }
+
+    public int getCount() {
+        return this.tasks.size();
+    }
+
+    /**
+     * Adds the given task to the list.
+     *
+     * @param task The task to be added.
+     */
+    public void addTask(Task task) {
+        this.tasks.add(task);
+    }
+
+    /**
+     * Checks if given index is valid.
+     * @param index The index to check.
+     * @return Whether the given index is valid.
+     */
+    private boolean isValidIndex(int index) {
+        return index >= 0 && index < tasks.size();
+    }
+
+    /**
+     * Marks the specified task as done.
+     * @param index The display index of the task to be marked.
+     */
+    public Task markTask(int index) throws GlendonException {
+        if (!isValidIndex(index)) {
+            throw new GlendonException("Invalid index");
+        }
+        Task task = this.tasks.get(index);
+        task.mark();
+        return task;
+    }
+
+    /**
+     * Marks the specified task as not done.
+     * @param index The display index of the task to be unmarked.
+     */
+    public Task unmarkTask(int index) throws GlendonException {
+        if (!isValidIndex(index)) {
+            throw new GlendonException("Invalid index");
+        }
+        Task task = this.tasks.get(index);
+        task.unmark();
+        return task;
+    }
+
+    /**
+     * Deletes the specified task from the task list.
+     * @param index The display index of the task to be deleted.
+     */
+    public Task deleteTask(int index) throws GlendonException {
+        if (!isValidIndex(index)) {
+            throw new GlendonException("Invalid index");
+        }
+        Task deletedTask = this.tasks.get(index);
+        this.tasks.remove(index);
+        return deletedTask;
+    }
+
+    /**
+     * Searches the task list for tasks whose description contains the given keyword, then returns those tasks.
+     *
+     * @param keyword The keyword to search for.
+     * @return The list of tasks whose description contains the given keyword.
+     */
+    public List<Task> findTask(String keyword) {
+        return this.tasks.stream().filter(task -> task.getDescription().contains(keyword)).toList();
+    }
+
+    /**
+     * Filters out deadlines from list of tasks and returns a sorted list of deadlines.
+     *
+     * @return The sorted list of deadlines.
+     */
+    public List<Deadline> sortDeadlines() {
+        return this.tasks.stream()
+                .filter(task -> task instanceof Deadline)
+                .map(task -> (Deadline) task)
+                .sorted()
+                .toList();
+    }
+}
