@@ -45,6 +45,9 @@ public class CommandEngine {
      * @param parser  parser used to interpret raw user input
      */
     public CommandEngine(Storage storage, TaskList tasks, Parser parser) {
+        assert storage != null : "storage";
+        assert tasks != null : "tasks";
+        assert parser != null : "parser";
         this.storage = storage;
         this.tasks = tasks;
         this.parser = parser;
@@ -62,6 +65,8 @@ public class CommandEngine {
 
         try {
             Parser.Result r = parser.parse(rawInput);
+
+            assert r != null : "parser result must not be null";
 
             switch (r.type) {
                 case BYE: {

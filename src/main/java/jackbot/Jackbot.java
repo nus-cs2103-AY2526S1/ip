@@ -20,8 +20,6 @@ import jackbot.task.Task;
  * <p>On startup, Jackbot attempts to load tasks from the provided file path. If the file exists,
  * it shows an informational message and continues with the loaded list; otherwise it starts with
  * an empty list.</p>
- *
- * @author Haxatron
  */
 public class Jackbot {
 
