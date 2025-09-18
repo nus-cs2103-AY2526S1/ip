@@ -1,4 +1,4 @@
-## Week 6 – GUI Enhancements
+## Week 6 – Better GUI
 
 ### 1. Asymmetric Conversation Format
 - **Tool used**: ChatGPT
