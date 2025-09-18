@@ -34,6 +34,7 @@ Output: [] Read book
 ## Adding Deadlines
 
 Adds a task with a deadline.
+Deadline format: `dd/MM/yyyy HHmm` (e.g., `20/12/2025 2359` 
 
 **Example:** `deadline, Submit report, 20/12/2025 2359`
 
@@ -44,6 +45,8 @@ Adds a new task "Submit report" with a deadline of 20th Dec 2025, 23:59.
 ## Adding Events
 
 Adds a task with a start and end time.
+
+Start and End Date and time format: `dd/MM/yyyy HHmm` (e.g., `22/12/2025 1000`)
 
 **Example:** `event, Project meeting, 22/12/2025 1000, 22/12/2025 1200`
 
@@ -108,6 +111,8 @@ Shows all clients
 ## Adding a Client
 
 Adds a new client with the provided name, contact number, age, occupation, and current policies.
+Phone Number: Strictly a 8-digit number with no spacing or special characters in between
+Age: Must be an integer  
 
 **Example:**  
 `addclient, John Doe, 12345678, 30, Engineer, PolicyA`
@@ -138,13 +143,11 @@ Deletes client #1 from the system.
 
 ---
 
-## Exiting the Application
+## Saying Goodbye
 
-Closes the BobbyWasabi application with a farewell message.
+Sends a farewell message.
 
-**Example:** 
-`bye`
-
+**Example:** `bye`
 ---
 
 ## Handling Unrecognized Commands
