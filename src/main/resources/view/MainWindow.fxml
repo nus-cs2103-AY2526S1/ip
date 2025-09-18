@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>   <!-- add this import -->
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="jackbot.fx.MainWindow">
+
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true">
+            <content>
+                <VBox fx:id="dialogContainer" spacing="8.0" prefWidth="580.0"/>
+            </content>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <HBox spacing="8.0">
+            <!-- padding must be an Insets element -->
+            <padding>
+                <Insets topRightBottomLeft="8.0"/>
+            </padding>
+            <children>
+                <TextField fx:id="userInput"
+                           promptText="e.g., todo read book, find book, list, bye"
+                           HBox.hgrow="ALWAYS"/>
+                <Button text="Send" onAction="#handleUserInput"/>
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>
