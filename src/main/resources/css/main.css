@@ -1,0 +1,43 @@
+.root {
+    main-color: rgb(233, 217, 255);
+    -fx-background-color: main-color;
+    -fx-padding: 10px;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-font: 20px "Courier New";
+    -fx-background-radius: 20px;
+}
+
+.button {
+    -fx-background-color: white;
+    -fx-font: bold 16px "Courier New";
+    -fx-background-radius: 20px;
+}
+
+.button:hover {
+    -fx-font-size: 18px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 12px;
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.user-image {
+    -fx-border-color: white;
+    -fx-border-width: 3px;
+    -fx-border-radius: 10px;
+}

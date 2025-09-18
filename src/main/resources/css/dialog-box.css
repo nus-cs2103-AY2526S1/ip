@@ -1,0 +1,18 @@
+.label {
+    -fx-background-color: rgb(233, 217, 255);
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-background-radius: 3em 3em 0 3em;
+    -fx-border-radius: 3em 3em 0 3em;
+}
+
+.reply-label {
+    -fx-background-radius: 3em 3em 3em 0;
+    -fx-border-radius: 3em 3em 3em 0;
+}
+
+#displayPicture {
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+}
