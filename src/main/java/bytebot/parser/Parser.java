@@ -158,10 +158,14 @@ public class Parser {
     }
 
     private static Command parseDelete(String[] parts) throws ByteException {
-        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+        String arg = parts.length >= 2 ? parts[1].trim() : "";
+        if (arg.isEmpty()) {
             throw new ByteException("Specify the task number to delete");
         }
-        int index = Integer.parseInt(parts[1].trim()) - 1;
+        if (!arg.matches("\\d+")) {
+            throw new ByteException("Input a valid task number.");
+        }
+        int index = Integer.parseInt(arg) - 1;
         return new DeleteCommand(index);
     }
 
