@@ -1,0 +1,193 @@
+package udin;
+
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+
+/**
+* The main entry point and controller class for the Udin task manager application.
+* <p>
+* This class coordinates interactions between the user interface ({@link Ui}),
+* persistent data storage ({@link Storage}), and the in-memory task list ({@link TaskList}).
+* <p>
+* Responsibilities:
+* <ul>
+*   <li>Initialize the system by loading tasks from disk</li>
+*   <li>Process user input commands</li>
+*   <li>Update and display tasks accordingly</li>
+*   <li>Persist tasks back to storage</li>
+* </ul>
+*/
+public class Udin {
+
+
+   /**
+    * Help page for new users.
+    */
+   public static final String HELP =
+           "Command list: \n" +
+                   "- list: List your tasks.\n" +
+                   "- bye: End the conversation with Udin, yours truly.\n" +
+                   "- mark <task number>: Mark a task as done.\n" +
+                   "- unmark <task number>: Mark a task as not done.\n" +
+                   "- todo <description>: Create a new to-do task with a description.\n" +
+                   "- deadline <description> <deadline>: Create a new deadline task with a description and a deadline.\n" +
+                   "- event <description> <from> <to>: Create a new event task with a start and end time.\n" +
+                   "- delete <task number>: Delete a task from the task list.\n" +
+                   "- help: Show this command list.\n" +
+                   "\n" +
+                   "All times (for deadline and event commands) must be\n" +
+                   "formatted as yyyy-mm-dd hhmm.";
+
+
+   /**
+    * Handles input/output with the user (e.g., displaying messages, errors, and reading commands).
+    */
+   private final Ui ui;
+
+
+   /**
+    * Manages reading from and writing to the persistent storage file.
+    */
+   private final Storage storage;
+
+
+   /**
+    * The in-memory list of tasks that the user manages during runtime.
+    */
+   private final TaskList tasks;
+
+
+   /**
+    * Constructs a new Udin instance with the given file path for storage.
+    * <p>
+    * Attempts to load existing tasks from the specified file. If loading fails,
+    * initializes with an empty {@link TaskList}.
+    *
+    * @param filePath the file path where tasks are saved and loaded
+    */
+   public Udin(String filePath) {
+       ui = new Ui();
+       // Resolve the file path to handle JAR execution
+       String resolvedPath = resolveFilePath(filePath);
+       storage = new Storage(resolvedPath);
+       TaskList tmp;
+       try {
+           tmp = new TaskList(storage.load());
+       } catch (Exception e) {
+           ui.showError("Failed to load tasks: " + e.getMessage());
+           tmp = new TaskList();
+       }
+       tasks = tmp;
+   }
+   
+   /**
+    * Resolves the file path to work correctly both in development and JAR execution.
+    * 
+    * @param filePath the original file path
+    * @return the resolved file path
+    */
+   private String resolveFilePath(String filePath) {
+       // If it's already an absolute path, use it as-is
+       if (new File(filePath).isAbsolute()) {
+           return filePath;
+       }
+       
+       // For relative paths, try to resolve them relative to the JAR location or current directory
+       String currentDir = System.getProperty("user.dir");
+       String jarPath = getJarPath();
+       
+       // If we're running from a JAR, try to find the project root
+       if (jarPath != null) {
+           File jarFile = new File(jarPath);
+           File jarDir = jarFile.getParentFile();
+           
+           // Look for the project root by going up directories until we find the data folder
+           File current = jarDir;
+           while (current != null) {
+               File dataDir = new File(current, "data");
+               if (dataDir.exists() && dataDir.isDirectory()) {
+                   return new File(dataDir, new File(filePath).getName()).getAbsolutePath();
+               }
+               current = current.getParentFile();
+           }
+           
+           // If we can't find the data directory, create it next to the JAR
+           if (jarDir != null) {
+               return new File(jarDir, filePath).getAbsolutePath();
+           }
+       }
+       
+       // Fallback to current working directory
+       return new File(currentDir, filePath).getAbsolutePath();
+   }
+   
+   /**
+    * Gets the path to the JAR file if running from a JAR.
+    * 
+    * @return the JAR file path, or null if not running from a JAR
+    */
+   private String getJarPath() {
+       try {
+           return getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+       } catch (Exception e) {
+           return null;
+       }
+   }
+
+
+    /**
+     * Runs the interactive command loop for the Udin application.
+     * <p>
+     * The loop continues until the user issues a "bye" command.
+     * Commands are processed by delegating to the Parser class for execution.
+     * Input errors and unexpected exceptions are caught and displayed to the user.
+     */
+    public void run() {
+        ui.showWelcome();
+        ui.showLoadSuccess();
+
+        while (true) {
+            String command = ui.readCommand();
+            if (command == null) break;
+
+            if (Parser.isBye(command)) {
+                Parser.executeCommand(command, tasks, storage);
+                break;
+            } else {
+                String response = Parser.executeCommand(command, tasks, storage);
+                ui.showMessage(response);
+            }
+        }
+    }
+
+
+   /**
+    * The main entry point of the application.
+    * <p>
+    * Creates a new {@code Udin} instance with the default data file path
+    * ({@code data/tasks.txt}) and starts the program.
+    *
+    * @param args command-line arguments (not used)
+    */
+   public static void main(String[] args) {
+       new Udin("data/tasks.txt").run();
+   }
+
+
+   /**
+    * Generates a response for the user's chat message in JavaFX mode.
+    * <p>
+    * Behaves like one iteration of the CLI loop in {@link #run()}.
+    *
+    * @param input the user command
+    * @return the response string
+    */
+   public String getResponse(String input) {
+       return Parser.executeCommand(input, tasks, storage);
+   }
+
+
+}
