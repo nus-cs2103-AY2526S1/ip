@@ -67,7 +67,7 @@ public class Ui {
         }
         appendToBuffer(message);
     }
-    
+
     public void setMode(UiMode mode) {
         this.mode = mode;
     }

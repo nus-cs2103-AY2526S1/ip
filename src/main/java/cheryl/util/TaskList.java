@@ -3,6 +3,7 @@ package cheryl.util;
 import cheryl.task.Deadline;
 import cheryl.task.Event;
 import cheryl.task.Task;
+
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.List;
@@ -40,47 +41,54 @@ public class TaskList {
     }
 
     /**
-     * Deletes the task at the given index.
+     * Deletes the task at the given 1-based index.
      *
-     * @param index Index of the task to delete
+     * @param index Index of the task to delete (1-based)
+     * @return The removed Task
      * @throws IndexOutOfBoundsException If the index is invalid
      */
     public Task deleteTask(int index) {
-        assert index >= 0 && index < tasks.size() : "deleteTask : index out of bounds";
-        return tasks.remove(index);
+        int adjustedIndex = index - 1; // shift from 1-based to 0-based
+        if (adjustedIndex < 0 || adjustedIndex >= tasks.size()) {
+            throw new IndexOutOfBoundsException("Invalid task index: " + index);
+        }
+        return tasks.remove(adjustedIndex);
     }
 
     /**
-     * Returns the list of tasks.
+     * Returns the task at the given 1-based index.
      *
-     * @return List of tasks
+     * @param index Index of the task (1-based)
+     * @return The Task at the given index
      */
     public Task getTask(int index) {
-        return tasks.get(index);
+        int adjustedIndex = index - 1;
+        if (adjustedIndex < 0 || adjustedIndex >= tasks.size()) {
+            throw new IndexOutOfBoundsException("Invalid task index: " + index);
+        }
+        return tasks.get(adjustedIndex);
     }
 
     /**
-     * Marks the task at the given index as done.
+     * Marks the task at the given 1-based index as done.
      *
-     * @param index Index of the task to mark
-     * @throws IndexOutOfBoundsException If the index is invalid
+     * @param index Index of the task to mark (1-based)
      */
     public void markTask(int index) {
-        Task t = tasks.get(index);
-        boolean before = t.isDone();
+        int adjustedIndex = index - 1;
+        Task t = tasks.get(adjustedIndex);
         t.mark();
-
         assert t.isDone() : "markTask must change status to done";
     }
 
     /**
-     * Marks the task at the given index as not done.
+     * Marks the task at the given 1-based index as not done.
      *
-     * @param index Index of the task to unmark
-     * @throws IndexOutOfBoundsException If the index is invalid
+     * @param index Index of the task to unmark (1-based)
      */
     public void unmarkTask(int index) {
-        tasks.get(index).unmark();
+        int adjustedIndex = index - 1;
+        tasks.get(adjustedIndex).unmark();
     }
 
     /**
@@ -102,12 +110,12 @@ public class TaskList {
     }
 
     /**
-     * Returns a list of tasks that fall on the given date.
-     * For Deadlines, matches tasks whose due date equals the given date.
-     * For Events, matches tasks whose start or end date equals the given date.
+     * Returns tasks that match the given date.
+     * - Deadlines with matching due date
+     * - Events where start or end date equals the given date
      *
-     * @param date The LocalDate to match against
-     * @return List of tasks occurring on that date
+     * @param date The date to match
+     * @return List of matching tasks
      */
     public List<Task> getTasksForDate(LocalDate date) {
         return tasks.stream()

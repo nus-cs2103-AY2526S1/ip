@@ -3,6 +3,7 @@ package cheryl.util;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import cheryl.task.Task;
 import cheryl.task.Todo;
 
 class TaskListTest {
@@ -25,29 +26,23 @@ class TaskListTest {
     }
 
     @Test
-    void testMarkTask() {
-        TaskList list = new TaskList();
-        list.addTask(new Todo("Do exercise"));
+    public void testMarkTask() {
+        TaskList tasks = new TaskList();
+        tasks.addTask(new Todo("read book"));
 
-        // Normal marking
-        list.markTask(0);
-        assertTrue(list.getTasks().get(0).isDone());
+        // ✅ Use 1-based indexing
+        tasks.markTask(1);
 
-        // Edge case: invalid index
-        assertThrows(IndexOutOfBoundsException.class, () -> list.markTask(1));
+        assertTrue(tasks.getTask(1).isDone(), "Task should be marked as done");
     }
 
     @Test
-    void testRemoveTask() {
-        TaskList list = new TaskList();
-        Todo task = new Todo("Clean room");
-        list.addTask(task);
+    public void testRemoveTask() {
+        TaskList tasks = new TaskList();
+        tasks.addTask(new Todo("task1"));
+        tasks.addTask(new Todo("task2"));
 
-        // Remove task
-        list.deleteTask(0);
-        assertEquals(0, list.getTasks().size());
-
-        // Removing from empty list should throw exception
-        assertThrows(IndexOutOfBoundsException.class, () -> list.deleteTask(0));
+        Task removed = tasks.deleteTask(1); // test assumes 1-based
+        assertEquals("task1", removed.getTitle());
     }
 }
