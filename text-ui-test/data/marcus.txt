@@ -1,0 +1,3 @@
+T|0|borrow a book
+E|0|attend a meetup|now|later
+D|0|CA1|2025-08-21

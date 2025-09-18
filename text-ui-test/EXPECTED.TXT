@@ -1,7 +1,49 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Greetings, Marcus here!
+Reading helps quiet the world around me, turning challenges into words on a page
+I think of each task as a chapter, one step at a time, each with its own meaning, each shaping the story I live.
+I hope this way of thinking will help you face your challenges more easily too!
 
+What can I do for you today?:
+A new chapter in your story!
+added: [T][ ] borrow a book
+Now you have 1 chapters in your story
+
+What can I do for you today?:
+Here are the current chapters:
+1. [T][ ] borrow a book
+
+What can I do for you today?:
+A new chapter in your story!
+added: [E][ ] attend a meetup (from: now to: later)
+Now you have 2 chapters in your story
+
+What can I do for you today?:
+A new chapter in your story!
+added: [D][ ] CA1 (by: Aug 21 2025)
+Now you have 3 chapters in your story
+
+What can I do for you today?:
+Here are the current chapters:
+1. [T][ ] borrow a book
+2. [E][ ] attend a meetup (from: now to: later)
+3. [D][ ] CA1 (by: Aug 21 2025)
+
+What can I do for you today?:
+That chapter does not exist in your story
+
+What can I do for you today?:
+You haven't started on this chapter yet
+
+What can I do for you today?:
+A brand new chapter complete!
+[D][X] CA1 (by: Aug 21 2025)
+
+What can I do for you today?:
+This chapter has already been completed before
+
+What can I do for you today?:
+You forgot about this chapter...
+[D][ ] CA1 (by: Aug 21 2025)
+
+What can I do for you today?:
+Mission complete! Was I helpful today?
