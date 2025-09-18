@@ -34,7 +34,7 @@ public class Save {
     }
 
     /**
-     * Save the task list in human-readable format in the save file.
+     * Saves the task list in human-readable format in the save file.
      * @param taskList Task list to be saved.
      */
     public void save(TaskList taskList) throws SaveFileException {

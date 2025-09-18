@@ -19,7 +19,7 @@ public class Pengu {
     private Save save;
 
     private boolean isRunning = true;
-    private boolean saveFileOk = true;
+    private boolean isSaveFileOk = true;
     private String startupSaveFileError;
 
     /**
@@ -32,7 +32,7 @@ public class Pengu {
             save = new Save();
             taskList = save.load();
         } catch (PenguException e) {
-            saveFileOk = false;
+            isSaveFileOk = false;
             isRunning = false;
             startupSaveFileError = e.getMessage();
         }
@@ -43,7 +43,7 @@ public class Pengu {
      * If failed to load save file, returns an error message.
      */
     public String getStartupMessage() {
-        if (!saveFileOk) {
+        if (!isSaveFileOk) {
             return startupSaveFileError;
         } else {
             return ui.getGreetingMessage();

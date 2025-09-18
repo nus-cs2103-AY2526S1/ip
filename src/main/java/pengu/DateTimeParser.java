@@ -18,7 +18,7 @@ public class DateTimeParser {
             DateTimeFormatter.ofPattern(OUTPUT_DATE_TIME_FORMAT);
 
     /**
-     * Convert string to LocalDateTime object.
+     * Converts string to LocalDateTime object.
      *
      * @param str String in "yyyy-mm-dd HH:mm" format;
      * @return LocalDateTime object corresponding to string.
@@ -36,7 +36,7 @@ public class DateTimeParser {
     }
 
     /**
-     * Convert LocalDateTime object to string in "MMM dd yyyy HH:mm" format
+     * Converts LocalDateTime object to string in "MMM dd yyyy HH:mm" format
      * (e.g. Oct 15 2025 12:30)
      *
      * @param dateTime LocalDateTime object
@@ -47,7 +47,7 @@ public class DateTimeParser {
     }
 
     /**
-     * Convert LocalDateTime object to string in "yyyy-MM-dd HH:mm" format
+     * Converts LocalDateTime object to string in "yyyy-MM-dd HH:mm" format
      * (e.g. 2025-07-23 14:30)
      *
      * @param dateTime LocalDateTime object
