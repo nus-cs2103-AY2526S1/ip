@@ -73,13 +73,19 @@ public class Deadline extends Task {
     @Override
     public String toFileFormat() {
         if (deadline != null) {
-            return "D | " + getStatusIcon() + " | " + getTaskDescription() + " | " + (Objects.isNull(this.getTag()) ? "null" : this.getTag().split("#")[1]) + " | " + deadline;
+            return "D | " + getStatusIcon() + " | " + getTaskDescription() + " | "
+                    + (Objects.isNull(this.getTag()) ? "null" : this.getTag().split("#")[1])
+                    + " | " + deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         }
         if (deadlineTime != null) {
-            return "D | " + getStatusIcon() + " | " + getTaskDescription() + " | " + (Objects.isNull(this.getTag()) ? "null" : this.getTag().split("#")[1]) + " | " + deadlineTime;
-        }
-        else {
-            return "D | " + getStatusIcon() + " | " + getTaskDescription() + " | " + (Objects.isNull(this.getTag()) ? "null" : this.getTag().split("#")[1]) + " | " + detail;
+            return "D | " + getStatusIcon() + " | " + getTaskDescription() + " | "
+                    + (Objects.isNull(this.getTag()) ? "null" : this.getTag().split("#")[1])
+                    + " | " + deadlineTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        } else {
+            return "D | " + getStatusIcon() + " | " + getTaskDescription() + " | "
+                    + (Objects.isNull(this.getTag()) ? "null" : this.getTag().split("#")[1])
+                    + " | " + detail;
         }
     }
+
 }

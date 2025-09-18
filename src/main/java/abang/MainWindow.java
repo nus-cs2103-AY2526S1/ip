@@ -1,12 +1,12 @@
 package abang;
 
-import abang.ui.UI;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class MainWindow {
     @FXML
@@ -19,29 +19,22 @@ public class MainWindow {
     private Button sendButton;
 
     private Abang abang;
-    private Image userImage;
-    private Image abangImage;
+
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image abangImage = new Image(this.getClass().getResourceAsStream("/images/DaAbang.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-        abangImage = new Image(this.getClass().getResourceAsStream("/images/DaAbang.png"));
-
-        dialogContainer.getChildren().add(
-                DialogBox.getAbangDialog(UI.showWelcome(), abangImage)
-        );
     }
 
     public void setAbang(Abang a) {
-        this.abang = a;
+        abang = a;
+        dialogContainer.getChildren().add(
+                DialogBox.getAbangDialog("Hello! I'm Abang\nWhat can I do for you?", abangImage)
+        );
     }
 
-
-    /**
-     * Creates two dialog boxes, one echoing user input and the other containing Abang's reply and then appends them to the dialog container.
-     * Clears the user input after processing.
-     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
