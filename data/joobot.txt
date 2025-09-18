@@ -1,0 +1,5 @@
+E | 0 | birthday | 21 Oct | 22 Oct
+D | 1 | finish ip | 19 Sep 2025
+D | 0 | test | thisdate
+D | 0 | test2 | 3/5/2025 1300
+T | 1 | water plants

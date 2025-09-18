@@ -1,26 +1,87 @@
-# Duke project template
+# JooBot User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![Alt text](./docs/Ui.png)
 
-## Setting up in Intellij
+## Joobot
+JooBot is a simple chat-bot application to keep track of tasks.
+It has a Graphical User Interface that is built using JavaFX.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+This is an individual greenfield project for NUS module CS2103T Software Engineering.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Launching JooBot
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+1. Ensure you have Java 17
+2. Install the latest JooBot.jar
+3. Run the jar file. If that doesn't work, run using<br>
+   `java -jar JooBot.jar`
+
+## Features
+- Add Todo Task
+- Add Deadline Task
+- Add Event Task
+- List all Tasks
+- Delete Task
+- Mark Task as done / undone
+- Sort Tasks
+- Find a Task
+
+### Add Todo Task
+Command Format: `todo {description}`
+
+Example: <br>
+`todo read book`
+
+### Add Deadline Task
+Command Format: `deadline {description} /by {date}`
+
+Example: <br>
+`deadline homework /by tomorrow` <br>
+`deadline homework /by 04/05/2025 1200`
+
+- Date format can be in the form of any string or `DD/MM/YYYY HHMM`
+
+### Add Event Task
+Command Format: `event {description} /from {date} /to {date}`
+
+Example: <br>
+`event camp /from wednesday /to friday` <br>
+`event camp /from 05/06/2025 1200 /to 07/06/2025 1200`
+
+- Date format can be in the form of any string or `DD/MM/YYYY HHMM`
+
+### List all Tasks
+Command Format: `list`
+
+### Delete Task
+Command Format: `delete {index}`
+
+- Index of task can be found after typing command `list`
+
+
+### Mark Task
+Command Format: `mark {index}` or `unmark {index}`
+
+- Index of task can be found after typing command `list`
+
+### Sort Tasks
+Command Format: `sort`
+
+- Sorts tasks based on alphabetical order
+
+### Find a Task
+Command Format: `find {description}`
+
+- Prints all tasks that has that description
+
+### Command Summary
+| Command        | Format                                        | Example                          |
+|----------------|-----------------------------------------------|----------------------------------|
+| Add Todo       | `todo {description}`                          | `todo read book`                 |
+| Add Deadline   | `deadline {description} /by {date}`           | `deadline homework /by tomorrow` |
+| Add Event      | `event {description} /from {date} /to {date}` | `event camp /from wed /to fri`   |
+| List all Tasks | `list`                                        | `list`                           |
+| Delete Task    | `delete {index}`                              | `delete 1`                       |
+| Mark Task      | `mark {index}`                                | `mark 1`                         |
+| Unmark Task    | `unmark {index}`                              | `unmark 1`                       |
+| Sort Tasks     | `sort`                                        | `sort`                           |
+| Find Task      | `find {description}`                          | `find book`                      |
