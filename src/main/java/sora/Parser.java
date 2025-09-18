@@ -38,7 +38,7 @@ public class Parser {
         assert ui != null : "Ui must not be null";
         assert storage != null : "Storage must not be null";
 
-        String[] parts = command.split(" ", 2);
+        String[] parts = command.trim().split(" ", 2);
         String startWord = parts[0].trim();
         String description = parts.length == 1 ? "" : parts[1].trim();
         if (command.equals("bye")) {

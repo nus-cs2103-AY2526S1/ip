@@ -54,7 +54,7 @@ public class Storage {
         }
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
+            String line = scanner.nextLine().trim();
             String[] parts = line.split("\\|");
             String type = parts[0].trim();
             boolean isDone = parts[1].trim().equals("1");
