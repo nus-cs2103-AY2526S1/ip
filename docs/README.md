@@ -103,4 +103,4 @@ Bye. Hope to see you again soon!
 
 ## Acknowledgements
 - Based on the [iP project template](https://github.com/se-edu).
-- AI assistance was used (e.g., GitHub Copilot, ChatGPT) to improve code quality and documentation.
+- AI assistance was used (ChatGPT) to improve code quality and documentation.

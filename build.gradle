@@ -63,3 +63,9 @@ tasks.withType(JavaExec) {
             "--add-modules", javafxModules
     ]
 }
+
+tasks.named('shadowJar') {
+    archiveBaseName.set('cheryl')
+    archiveClassifier.set('')
+    mergeServiceFiles()
+}
