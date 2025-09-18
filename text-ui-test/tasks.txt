@@ -1,0 +1,5 @@
+T|0|read book
+D|0|some deadline|2025-10-02T00:00
+E|1|some event|2025-10-13T03:00:05|2025-10-15T11:55:49
+D|0|some deadline|2025-10-04T05:09:23
+T|0|buy grocery
