@@ -1,0 +1,448 @@
+package atlas.utilities;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Locale;
+import java.util.regex.Pattern;
+
+import atlas.commands.ByeCommand;
+import atlas.commands.Command;
+import atlas.commands.DeleteCommand;
+import atlas.commands.FindCommand;
+import atlas.commands.ListCommand;
+import atlas.commands.MarkCommand;
+import atlas.commands.NewDeadlineCommand;
+import atlas.commands.NewEventCommand;
+import atlas.commands.NewFixedDurationCommand;
+import atlas.commands.NewTodoCommand;
+import atlas.commands.UnknownCommand;
+import atlas.commands.UnmarkCommand;
+import atlas.exceptions.CorruptedFileException;
+import atlas.exceptions.EmptyTaskNameException;
+import atlas.exceptions.InvalidDateFormatException;
+import atlas.exceptions.InvalidDateRangeException;
+import atlas.exceptions.InvalidDurationException;
+import atlas.exceptions.InvalidFormatDeadlineException;
+import atlas.exceptions.InvalidFormatEventException;
+import atlas.exceptions.InvalidFormatFixedDurationException;
+import atlas.exceptions.InvalidTaskNumberException;
+import atlas.exceptions.MissingTaskNumberException;
+import atlas.exceptions.PastDateException;
+import atlas.items.Deadline;
+import atlas.items.Event;
+import atlas.items.FixedDuration;
+import atlas.items.Item;
+import atlas.items.Todo;
+
+/**
+ * Represents a parser.
+ * Helps with translating user input into commands.
+ */
+public class Parser {
+
+    private static final int TODO_COMMAND_LENGTH = 5;
+    private static final int DEADLINE_COMMAND_LENGTH = 9;
+    private static final int EVENT_COMMAND_LENGTH = 6;
+    private static final int FIXED_DURATION_COMMAND_LENGTH = 14;
+    private static final int MARK_COMMAND_LENGTH = 5;
+    private static final int UNMARK_COMMAND_LENGTH = 7;
+    private static final int DELETE_COMMAND_LENGTH = 7;
+    private static final int FIND_COMMAND_LENGTH = 5;
+    private static final String BY_TAG = " /by ";
+    private static final String FROM_TAG = " /from ";
+    private static final String TO_TAG = " /to ";
+    private static final String DURATION_TAG = " /duration ";
+    private static final String FILE_DATE_FORMAT = "%02d/%02d/%d %02d:%02d";
+    private static final int NAME_INDEX = 0;
+    private static final int FROM_TO_SPLIT_INDEX = 1;
+
+    /**
+     * Method to trim white spaces around each array element.
+     *
+     * @param array Input array
+     */
+    private static void trimArrayElements(String[] array) {
+        for (int i = 0; i < array.length; i++) {
+            array[i] = array[i].trim();
+        }
+    }
+
+    /**
+     * Parse a command.
+     *
+     * @param input User input string.
+     * @return The relevant Command.
+     */
+    public static Command parseCommand(String input) {
+        input = input.trim();
+
+        if (input.isEmpty()) {
+            return new UnknownCommand();
+        }
+        if (input.equals("bye")) {
+            return new ByeCommand();
+        } else if (input.equals("list")) {
+            return new ListCommand();
+        } else if (input.startsWith("mark")) {
+            return new MarkCommand(input);
+        } else if (input.startsWith("unmark")) {
+            return new UnmarkCommand(input);
+        } else if (input.startsWith("delete")) {
+            return new DeleteCommand(input);
+        } else if (input.startsWith("todo")) {
+            return new NewTodoCommand(input);
+        } else if (input.startsWith("deadline")) {
+            return new NewDeadlineCommand(input);
+        } else if (input.startsWith("event")) {
+            return new NewEventCommand(input);
+        } else if (input.startsWith("fixedDuration")) {
+            return new NewFixedDurationCommand(input);
+        } else if (input.startsWith("find")) {
+            return new FindCommand(input);
+        } else {
+            return new UnknownCommand();
+        }
+    }
+
+    /**
+     * Parses a todo command.
+     *
+     * @param input Given input by the user.
+     * @return A new Todo.
+     * @throws EmptyTaskNameException If item name is empty.
+     */
+    public static Item parseTodo(String input) throws EmptyTaskNameException {
+        if (input.length() <= TODO_COMMAND_LENGTH) {
+            throw new EmptyTaskNameException();
+        }
+        String name = input.substring(TODO_COMMAND_LENGTH).trim();
+
+        if (name.isEmpty()) {
+            throw new EmptyTaskNameException();
+        }
+
+        return new Todo(name);
+    }
+
+    /**
+     * Parses a deadline command
+     *
+     * @param input Given input by user.
+     * @return A new Deadline.
+     * @throws EmptyTaskNameException         If item name is empty.
+     * @throws InvalidFormatDeadlineException If format of item is invalid.
+     * @throws InvalidDateFormatException     If format of date is invalid.
+     * @throws PastDateException              If date entered is before current date.
+     */
+    public static Item parseDeadline(String input)
+        throws EmptyTaskNameException, InvalidFormatDeadlineException, InvalidDateFormatException, PastDateException {
+        if (input.length() <= DEADLINE_COMMAND_LENGTH) {
+            throw new EmptyTaskNameException();
+        } else if (!input.contains(BY_TAG)) {
+            throw new InvalidFormatDeadlineException();
+        }
+
+        String fullItem = input.substring(DEADLINE_COMMAND_LENGTH).trim();
+        if (fullItem.isEmpty()) {
+            throw new EmptyTaskNameException();
+        }
+
+        String[] fullItemParts = fullItem.split(Pattern.quote(BY_TAG));
+        trimArrayElements(fullItemParts);
+        String name = fullItemParts[NAME_INDEX];
+        String byText = fullItemParts[FROM_TO_SPLIT_INDEX];
+
+        if (name.isEmpty() || byText.isEmpty()) {
+            throw new InvalidFormatDeadlineException();
+        }
+
+        LocalDateTime by = parseDate(byText);
+
+        return new Deadline(name, by);
+    }
+
+    /**
+     * Parses an event command.
+     *
+     * @param input Given input by user.
+     * @return A new Event.
+     * @throws EmptyTaskNameException      If item name is empty.
+     * @throws InvalidFormatEventException If format of item is invalid.
+     * @throws InvalidDateFormatException  If format of date is invalid.
+     * @throws PastDateException           If date entered is before current date.
+     * @throws InvalidDateRangeException   If end date is before start date.
+     */
+    public static Item parseEvent(String input)
+        throws EmptyTaskNameException, InvalidFormatEventException, InvalidDateFormatException, PastDateException, InvalidDateRangeException {
+        if (input.length() <= EVENT_COMMAND_LENGTH) {
+            throw new EmptyTaskNameException();
+        } else if (!(input.contains(FROM_TAG) && input.contains(TO_TAG))) {
+            throw new InvalidFormatEventException();
+        }
+
+        String fullItem = input.substring(EVENT_COMMAND_LENGTH).trim();
+        if (fullItem.isEmpty()) {
+            throw new EmptyTaskNameException();
+        }
+
+        // Get name
+        String[] parts = fullItem.split(Pattern.quote(FROM_TAG));
+        trimArrayElements(parts);
+        String name = parts[NAME_INDEX];
+        String[] parts2 = parts[FROM_TO_SPLIT_INDEX].split(Pattern.quote(TO_TAG));
+        trimArrayElements(parts2);
+        String fromText = parts2[NAME_INDEX];
+        String toText = parts2[FROM_TO_SPLIT_INDEX];
+
+        if (name.isEmpty() || fromText.isEmpty() || toText.isEmpty()) {
+            throw new InvalidFormatEventException();
+        }
+
+        LocalDateTime from = parseDate(fromText);
+        LocalDateTime to = parseDate(toText);
+        if (from.isAfter(to)) {
+            throw new InvalidDateRangeException();
+        }
+
+        return new Event(name, from, to);
+    }
+
+    /**
+     * Parses a deadline command
+     *
+     * @param input Given input by user.
+     * @return A new Deadline.
+     * @throws EmptyTaskNameException               If item name is empty.
+     * @throws InvalidFormatFixedDurationException  If format of item is invalid.
+     * @throws InvalidDurationException             If the duration given is invalid.
+     */
+    public static Item parseFixedDuration(String input)
+        throws EmptyTaskNameException, InvalidFormatFixedDurationException, InvalidDurationException {
+        if (input.length() <= FIXED_DURATION_COMMAND_LENGTH) {
+            throw new EmptyTaskNameException();
+        } else if (!input.contains(DURATION_TAG)) {
+            throw new InvalidFormatFixedDurationException();
+        }
+
+        String fullItem = input.substring(FIXED_DURATION_COMMAND_LENGTH).trim();
+        if (fullItem.isEmpty()) {
+            throw new EmptyTaskNameException();
+        }
+
+        String[] fullItemParts = fullItem.split(Pattern.quote(DURATION_TAG));
+        trimArrayElements(fullItemParts);
+        String name = fullItemParts[NAME_INDEX];
+        String durationText = fullItemParts[FROM_TO_SPLIT_INDEX];
+
+        if (name.isEmpty() || durationText.isEmpty()) {
+            throw new InvalidFormatFixedDurationException();
+        }
+        int duration = parseDuration(durationText);
+        return new FixedDuration(name, duration);
+    }
+
+    /**
+     * Parses a date command.
+     *
+     * @param input Given input by user.
+     * @return LocalDateTime object.
+     * @throws InvalidDateFormatException If format of date is invalid.
+     * @throws PastDateException          If date entered is before current date.
+     */
+    public static LocalDateTime parseDate(String input) throws InvalidDateFormatException, PastDateException {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        try {
+            LocalDateTime dateTime = LocalDateTime.parse(input, dateFormatter);
+            if (dateTime.isBefore(LocalDateTime.now())) {
+                throw new PastDateException();
+            }
+            return dateTime;
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateFormatException();
+        }
+    }
+
+    /**
+     * Returns a date in the relevant format.
+     *
+     * @param input LocalDateTime input.
+     * @return Formatted date string.
+     */
+    public static String outputDate(LocalDateTime input) {
+        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MMM", Locale.ENGLISH);
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+        String month = input.format(monthFormatter);
+        String time = input.format(timeFormatter);
+        return input.getDayOfMonth() + " " + month + " " + input.getYear() + " " + time;
+    }
+
+    /**
+     * Formats a LocalDateTime for file storage.
+     *
+     * @param dateTime The LocalDateTime to format.
+     * @return Formatted date string for file storage.
+     */
+    public static String formatDateForFile(LocalDateTime dateTime) {
+        return String.format(FILE_DATE_FORMAT,
+            dateTime.getDayOfMonth(),
+            dateTime.getMonthValue(),
+            dateTime.getYear(),
+            dateTime.getHour(),
+            dateTime.getMinute());
+    }
+
+    /**
+     * Parses an isDone String.
+     *
+     * @param isDone The isDone string.
+     * @return The relevant isDone boolean.
+     * @throws CorruptedFileException       If isDone is neither "true" nor "false".
+     */
+    public static boolean parseIsDone(String isDone) throws CorruptedFileException {
+        if (isDone.equals("true")) {
+            return true;
+        } else if (isDone.equals("false")) {
+            return false;
+        } else {
+            throw new CorruptedFileException();
+        }
+    }
+
+    /**
+     * Parses a markAsDone command.
+     *
+     * @param input User input.
+     * @param size Size of list.
+     * @return Index of the item.
+     * @throws InvalidTaskNumberException   If number is not valid (e.g. not an integer / negative / more than size).
+     * @throws MissingTaskNumberException   If number is missing.
+     */
+    public static int parseMarkAsDone(String input, int size)
+        throws InvalidTaskNumberException, MissingTaskNumberException {
+        if (input.length() <= MARK_COMMAND_LENGTH) {
+            throw new MissingTaskNumberException(size);
+        }
+        String numberString = input.substring(MARK_COMMAND_LENGTH).trim();
+
+        if (numberString.isEmpty()) {
+            throw new MissingTaskNumberException(size);
+        }
+
+        int number;
+        try {
+            number = Integer.parseInt(numberString);
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskNumberException(size);
+        }
+        if (number <= 0 || number > size) {
+            throw new InvalidTaskNumberException(size);
+        }
+        return number - 1;
+    }
+
+    /**
+     * Parses a markAsNotDone command.
+     *
+     * @param input User input.
+     * @param size Size of list.
+     * @return Index of the item.
+     * @throws InvalidTaskNumberException   If number is not valid (e.g. not an integer / negative / more than size).
+     * @throws MissingTaskNumberException   If number is missing.
+     */
+    public static int parseMarkAsNotDone(String input, int size)
+        throws InvalidTaskNumberException, MissingTaskNumberException {
+        if (input.length() <= UNMARK_COMMAND_LENGTH) {
+            throw new MissingTaskNumberException(size);
+        }
+        String numberString = input.substring(UNMARK_COMMAND_LENGTH).trim();
+
+        if (numberString.isEmpty()) {
+            throw new MissingTaskNumberException(size);
+        }
+
+        int number;
+        try {
+            number = Integer.parseInt(numberString);
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskNumberException(size);
+        }
+        if (number <= 0 || number > size) {
+            throw new InvalidTaskNumberException(size);
+        }
+        return number - 1;
+    }
+
+    /**
+     * Parses a delete command.
+     *
+     * @param input User input.
+     * @param size Size of list.
+     * @return Index of the item.
+     * @throws InvalidTaskNumberException   If number is not valid (e.g. not an integer / negative / more than size).
+     * @throws MissingTaskNumberException   If number is missing.
+     */
+    public static int parseDelete(String input, int size)
+        throws InvalidTaskNumberException, MissingTaskNumberException {
+        if (input.length() <= DELETE_COMMAND_LENGTH) {
+            throw new MissingTaskNumberException(size);
+        }
+        String numberString = input.substring(DELETE_COMMAND_LENGTH).trim();
+
+        if (numberString.isEmpty()) {
+            throw new MissingTaskNumberException(size);
+        }
+
+        int number;
+        try {
+            number = Integer.parseInt(numberString);
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskNumberException(size);
+        }
+        if (number <= 0 || number > size) {
+            throw new InvalidTaskNumberException(size);
+        }
+        return number - 1;
+    }
+
+    /**
+     * Parses a find command.
+     *
+     * @param input User input.
+     * @param size Size of list.
+     * @return Name of item.
+     * @throws EmptyTaskNameException   If task name is empty.
+     */
+    public static String parseFind(String input, int size) throws EmptyTaskNameException {
+        if (input.length() <= FIND_COMMAND_LENGTH) {
+            throw new EmptyTaskNameException();
+        }
+        String name = input.substring(FIND_COMMAND_LENGTH).trim();
+
+        if (name.isEmpty()) {
+            throw new EmptyTaskNameException();
+        }
+
+        return name;
+    }
+
+    /**
+     * Parses an duration String.
+     *
+     * @param duration The duration string.
+     * @return The relevant isDone boolean.
+     * @throws InvalidDurationException         If the duration given is invalid.
+     */
+    public static int parseDuration(String duration) throws InvalidDurationException {
+        int number;
+        try {
+            number = Integer.parseInt(duration);
+        } catch (NumberFormatException e) {
+            throw new InvalidDurationException();
+        }
+        if (number <= 0) {
+            throw new InvalidDurationException();
+        }
+        return number;
+    }
+}
