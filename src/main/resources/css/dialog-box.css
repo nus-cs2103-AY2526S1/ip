@@ -1,5 +1,5 @@
 .label {
-    -fx-background-color: #fffaf0; /* warm cream base */
+    -fx-background-color: #fffaf0;
     -fx-border-color: transparent;
     -fx-background-radius: 16px;
     -fx-border-radius: 16px;
@@ -11,26 +11,26 @@
 }
 
 .reply-label {
-    -fx-background-color: #e8f5e9; /* soft leaf green */
+    -fx-background-color: #e8f5e9;
     -fx-text-fill: #1b5e20;
     -fx-background-radius: 16px 16px 16px 4px;
     -fx-border-radius: 16px 16px 16px 4px;
 }
 
 .add-label {
-    -fx-background-color: #81c784; /* muted green */
+    -fx-background-color: #81c784;
     -fx-text-fill: #fff;
     -fx-background-radius: 16px;
 }
 
 .marked-label {
-    -fx-background-color: #fdd835; /* warm sunlight yellow */
+    -fx-background-color: #fdd835;
     -fx-text-fill: #3e2723;
     -fx-background-radius: 16px;
 }
 
 .delete-label {
-    -fx-background-color: #e53935; /* softer sakura red */
+    -fx-background-color: #e53935;
     -fx-text-fill: #fff;
     -fx-background-radius: 16px;
 }
