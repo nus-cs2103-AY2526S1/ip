@@ -5,8 +5,8 @@ package cheryl.task;
  * Provides operations to mark/unmark the task as done and retrieve its details.
  */
 public class Task {
-    String title;
-    boolean isDone;
+    private final String title;
+    private boolean isDone;
 
     /**
      * Creates a new Task with the given title.

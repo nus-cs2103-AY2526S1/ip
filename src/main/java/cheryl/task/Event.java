@@ -18,6 +18,9 @@ public class Event extends Task {
      */
     public Event(String title, LocalDate from, LocalDate to) {
         super(title);
+        if (from == null || to == null) {
+            throw new IllegalArgumentException("Event dates cannot be null");
+        }
         this.from = from;
         this.to = to;
     }

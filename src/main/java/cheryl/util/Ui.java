@@ -12,6 +12,8 @@ public class Ui {
     private Scanner sc;
     private StringBuilder outputBuffer = new StringBuilder();
     private boolean isCliMode = true;
+    public enum UiMode { CLI, GUI }
+    private UiMode mode = UiMode.CLI;
 
     /**
      * Creates a new Ui object and initializes the input scanner.
@@ -60,10 +62,14 @@ public class Ui {
      * @param message The message to display
      */
     public void showMessage(String message) {
-        if (isCliMode) {
+        if (mode == UiMode.CLI) {
             System.out.println(message);
         }
         appendToBuffer(message);
+    }
+    
+    public void setMode(UiMode mode) {
+        this.mode = mode;
     }
 
     public void showLine() {
