@@ -133,14 +133,14 @@ public class Parser {
             String[] eventParts = args.split("/from", 2);
 
             if (eventParts.length < 2) {
-                throw new TaskBotException("Error");
+                throw new TaskBotException("Error: event input incomplete");
             }
 
             description = eventParts[0].trim();
             String[] timeParts = eventParts[1].split("/to", 2);
 
             if (timeParts.length < 2) {
-                throw new TaskBotException("Error");
+                throw new TaskBotException("Error: event time details incomplete");
             }
 
             from = timeParts[0].trim();
@@ -171,7 +171,7 @@ public class Parser {
 
     private static Command parseMark(String args, boolean isMarked) throws TaskBotException {
         if (args.trim().isEmpty()) {
-            throw new TaskBotException("Which task would you like to " + (isMarked ? "mark" : "unmark"));
+            throw new TaskBotException("Which task would you like to " + (isMarked ? "mark?" : "unmark?"));
         }
         try {
             int index = Integer.parseInt(args.trim()) - 1;
