@@ -120,28 +120,15 @@ public class TaskList {
         }
 
         for (Task task : listOfTasks) {
-            if (task instanceof Deadline deadline) {
-                if (deadline.getDescription().contains(description)) {
-                    result.add(task);
-                }
-            } else if (task instanceof Event event) {
-                if (event.getDescription().contains(description)) {
-                    result.add(task);
-                }
-            } else if (task instanceof ToDo todo) {
-                if (todo.getDescription().contains(description)) {
-                    result.add(task);
-                }
+            String taskDescLower = task.getDescription().toLowerCase();
+            if (taskDescLower.contains(description)) {
+                result.add(task);
             }
         }
 
         if (result.isEmpty()) {
             throw new NoSuchTaskException();
         } else {
-            for (Task t : result) {
-                assert t.getDescription().contains(description)
-                        : "Filtered task does not match search description";
-            }
             return new TaskList(result);
         }
     }

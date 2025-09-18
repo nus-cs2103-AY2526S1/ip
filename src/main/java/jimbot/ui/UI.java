@@ -129,7 +129,7 @@ public class UI {
      */
     public String clear() {
         return """
-                   (＾∀＾)ゞ I've cleared your tasks! Go play~
+                  (＾∀＾)ゞ I've cleared your tasks! Go play~
                 """;
     }
 
@@ -163,7 +163,8 @@ public class UI {
         return """
                   Here are the commands you can use:
                     (input date in dd/MM/yyyy)
-                    bye/goodbye
+                    bai/bye/goodbye
+                    clear
                     deadline
                     delete
                     event
