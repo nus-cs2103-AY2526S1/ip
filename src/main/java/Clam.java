@@ -1,6 +1,9 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
+import java.io.File;
 
 enum DukeAction {
     CREATE_TODO,
@@ -23,9 +26,15 @@ public class Clam {
 
         greet();
 
+        try {
+            loadSaveFile();
+        } catch (IOException e) {
+            chatbotPrint("It seems there's an error with loading the save file :(");
+        }
+
         boolean end = false;
         Scanner sc = new Scanner(System.in);
-        while(!end) {
+        while (!end) {
             try {
                 String input = sc.nextLine();
                 chatbotPrint(HORIZONTAL_LINE);
@@ -64,6 +73,7 @@ public class Clam {
                     default:
                         //default
                 }
+                saveToFile();
             } catch (Exception e) {
                 chatbotPrint(e.toString());
             }
@@ -192,11 +202,62 @@ public class Clam {
             int item = Integer.parseInt(input.substring(7));
             Task taskToDelete = tasks.get(item - 1);
             tasks.remove(item - 1);
-            chatbotPrint("I've deleted the task:\n      "
-                    + taskToDelete);
+            chatbotPrint("I've deleted the task:\n      " + taskToDelete);
             chatbotPrint("Now you have " + tasks.size() + " tasks in the list.");
         } catch (Exception e) {
             throw new DeleteException("I'm not sure which item you're trying to delete. Try again?");
         }
+    }
+
+    public static void loadSaveFile() throws IOException {
+        File f = new File("./save.txt");
+        if (f.exists()) {
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                loadTask(s.nextLine());
+            }
+        }
+    }
+
+    public static void loadTask(String input) {
+        String[] args = input.split("\\|");
+        switch (parseInput(input)) {
+            case CREATE_TODO:
+                ToDo td = new ToDo(args[2]);
+                if (Objects.equals(args[1], "1")) td.markAsDone();
+                tasks.add(td);
+                break;
+            case CREATE_DEADLINE:
+                Deadline dl = new Deadline(args[2], args[3]);
+                if (Objects.equals(args[1], "1")) dl.markAsDone();
+                tasks.add(dl);
+                break;
+            case CREATE_EVENT:
+                Event ev = new Event(args[2], args[3], args[4]);
+                if(Objects.equals(args[1], "1")) ev.markAsDone();
+                tasks.add(ev);
+                break;
+            default:
+                // TODO error handling
+        }
+    }
+
+    public static void saveToFile() throws IOException {
+        File f = new File("./save.txt");
+        FileWriter fw = new FileWriter(f);
+        StringBuilder sb = new StringBuilder();
+        for (Task i : tasks) {
+            if (i instanceof ToDo td) {
+                sb.append("todo|").append(td.isDone ? "1|" : "0|").append(td.description).append(System.lineSeparator());
+            } else if (i instanceof Deadline dl) {
+                sb.append("deadline|").append(dl.isDone ? "1|" : "0|").append(dl.description).append("|").append(dl.deadline)
+                        .append(System.lineSeparator());
+            } else if (i instanceof Event ev) {
+                sb.append("event|").append(ev.isDone ? "1|" : "0|").append(ev.description).append("|").append(ev.from)
+                        .append("|").append(ev.to).append(System.lineSeparator());
+            }
+        }
+        fw.write(sb.toString());
+        fw.close();
     }
 }
