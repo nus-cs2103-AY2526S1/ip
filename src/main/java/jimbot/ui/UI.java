@@ -47,7 +47,7 @@ public class UI {
      * @return Formatted string showing the unmarked task.
      */
     public String unmarkRes(TaskList userList, int index) {
-        String header = "  OK, I've marked this task as not done yet: \n    ";
+        String header = "  Ogayy, I've marked this task as not done yet: \n    ";
         return header + userList.getTask(index) + "\n  (｀_´)ゞ";
     }
 
@@ -59,8 +59,8 @@ public class UI {
      * @return Formatted string showing the added task and total count.
      */
     public String addTask(Task task, int taskCount) {
-        String header = "  Got it. I've added this task: \n    ";
-        String closer = "\n  Now you have " + taskCount + " tasks in the list!\n  (￣^￣)ゞ";
+        String header = "  Cool beans~ I've added this task: \n    ";
+        String closer = "\n  You now have " + taskCount + " tasks in the list!\n  (￣^￣)ゞ";
 
         return header + task + closer;
     }
@@ -73,8 +73,8 @@ public class UI {
      * @return Formatted string showing the deleted task and remaining count.
      */
     public String deleteTask(Task task, int taskCount) {
-        String header = "  Noted. I've removed this task:\n    ";
-        String closer = "\n  Now you have " + taskCount + " tasks in the list! \n  (─.─)ゞ";
+        String header = "  Aite! I've removed this task:\n    ";
+        String closer = "\n  You now have " + taskCount + " tasks in the list! \n  (─.─)ゞ";
         return header + task + closer;
     }
 
@@ -115,9 +115,9 @@ public class UI {
 
         String header;
         if (isToday) {
-            header = "  Here are your tasks for today: ";
+            header = "  Your tasks for today: ";
         } else {
-            header = "  Here are your tasks for that date:";
+            header = "  Your tasks for that date:";
         }
 
         return header + listContent + "    (・ω・)ノ";
@@ -130,7 +130,7 @@ public class UI {
      * @return Formatted greeting string.
      */
     public String greet(String name) {
-        return "  Hello! I'm " + name + "!"
+        return "  Hello♪ I'm " + name + "!"
                         + "  What can I do for you?\n"
                         + " (^з^)-☆";
     }
@@ -142,7 +142,7 @@ public class UI {
      */
     public String goodBye() {
         return """
-                    \\(^O^) Bye! Hope to see you again soon!
+                    \\(^O^) Baiii~ Hope to see you again soon!
                     """;
     }
 
@@ -153,7 +153,7 @@ public class UI {
      * @return Formatted string indicating the command was not recognized.
      */
     public String respond(String userInput) {
-        return "Sorry I don't recognize this command:\n"
+        return "Oops I don't recognize this command:\n"
                 + "  \"" + userInput + "\"\n"
                 + "Type \"help\" for the list possible commands.";
     }
@@ -170,12 +170,12 @@ public class UI {
                     delete
                     event
                     find
+                    hi
                     list
                     mark
                     today
                     todo
-                    unmark
-                   _(•̀ω•́ 」∠)_
+                   unmark         _(•̀ω•́ 」∠)_
                 """;
     }
 }
