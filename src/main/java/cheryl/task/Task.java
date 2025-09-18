@@ -1,7 +1,8 @@
 package cheryl.task;
 
 /**
- * Represents a generic task with a description and completion status.
+ * Represents a generic task with a title and completion status.
+ * Provides operations to mark/unmark the task as done and retrieve its details.
  */
 public class Task {
     String title;
@@ -58,9 +59,9 @@ public class Task {
     }
 
     /**
-     * Returns the string representation of the task.
+     * Returns a string representation of the task.
      *
-     * @return String in the format "[X] title" or "[ ] title"
+     * @return "[X] title" if the task is done, "[ ] title" otherwise
      */
     @Override
     public String toString() {

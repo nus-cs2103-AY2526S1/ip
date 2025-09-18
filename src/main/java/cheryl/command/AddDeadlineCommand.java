@@ -22,8 +22,9 @@ public class AddDeadlineCommand implements Command {
     /**
      * Creates a new AddDeadlineCommand with the given arguments.
      *
-     * @param arguments The deadline arguments in format "title /by yyyy-MM-dd"
-     * @throws DukeException If the input format is invalid or date is wrong
+     * @param arguments The deadline arguments in format "title /by date"
+     *                  where date can be in formats: yyyy-MM-dd, dd-MM-yyyy, or dd/MM/yyyy.
+     * @throws DukeException If the input format is invalid or date parsing fails.
      */
     public AddDeadlineCommand(String arguments) throws DukeException {
         try {

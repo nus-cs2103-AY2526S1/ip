@@ -101,6 +101,14 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Returns a list of tasks that fall on the given date.
+     * For Deadlines, matches tasks whose due date equals the given date.
+     * For Events, matches tasks whose start or end date equals the given date.
+     *
+     * @param date The LocalDate to match against
+     * @return List of tasks occurring on that date
+     */
     public List<Task> getTasksForDate(LocalDate date) {
         return tasks.stream()
                 .filter(t -> {

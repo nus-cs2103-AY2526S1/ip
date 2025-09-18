@@ -3,7 +3,7 @@ package cheryl.task;
 import java.time.LocalDate;
 
 /**
- * Represents an event task with a start and end time.
+ * Represents an event task with a start and end date.
  */
 public class Event extends Task {
     private LocalDate from;
@@ -13,8 +13,8 @@ public class Event extends Task {
      * Creates a new Event task.
      *
      * @param title The title of the event
-     * @param from  The start time of the event
-     * @param to    The end time of the event
+     * @param from  The start date of the event
+     * @param to    The end date of the event
      */
     public Event(String title, LocalDate from, LocalDate to) {
         super(title);
@@ -41,9 +41,9 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the event.
+     * Returns the string representation of the event.
      *
-     * @return String in the format "[E][ ] title (from: from to: to)"
+     * @return String in the format "[E][ ] title (from: MMM d yyyy to: MMM d yyyy)"
      */
     @Override
     public String toString() {

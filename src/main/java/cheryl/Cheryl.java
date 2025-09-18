@@ -23,6 +23,10 @@ public class Cheryl {
         }
     }
 
+    /**
+     * Runs the Cheryl chatbot in CLI mode, continuously reading user input
+     * and executing commands until an exit command is given.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -56,6 +60,12 @@ public class Cheryl {
         return ui.getLastOutput();
     }
 
+    /**
+     * Returns the chatbot's response to a user input.
+     *
+     * @param input The full user command string
+     * @return The response string to display in the GUI
+     */
     public String getResponse(String input) {
         ui.clearLastOutput();
 

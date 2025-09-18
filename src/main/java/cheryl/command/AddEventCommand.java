@@ -22,7 +22,7 @@ public class AddEventCommand implements Command {
      * Creates a new AddEventCommand with the given arguments.
      *
      * @param arguments The event arguments in format "title /from yyyy-MM-dd /to yyyy-MM-dd"
-     * @throws DukeException If the input format is invalid
+     * @throws DukeException If the input format is invalid or date parsing fails.
      */
     public AddEventCommand(String arguments) throws DukeException {
         try {
@@ -54,7 +54,7 @@ public class AddEventCommand implements Command {
      * @param tasks   The TaskList to add the Event to
      * @param ui      The Ui to display messages
      * @param storage The Storage to save the updated list
-     * @throws DukeException If an error occurs during saving
+     * @throws DukeException If saving tasks fails
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task task = new Event(title, from, to);

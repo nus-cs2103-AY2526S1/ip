@@ -70,6 +70,12 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Appends a string to the output buffer.
+     * Used to collect messages for GUI display.
+     *
+     * @param s The string to append
+     */
     private void appendToBuffer(String s) {
         if (s == null) return;
         if (outputBuffer.length() > 0) {
@@ -77,9 +83,11 @@ public class Ui {
         }
         outputBuffer.append(s);
     }
+
     /**
-     * Returns the last output
-     * @return the variable lastOutput
+     * Returns all output collected since the last clear.
+     *
+     * @return Concatenated string of the last output
      */
     public String getLastOutput() {
         return outputBuffer.toString();
