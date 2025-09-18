@@ -6,19 +6,22 @@ import cheryl.util.DukeException;
 import cheryl.util.Storage;
 import cheryl.util.TaskList;
 import cheryl.util.Ui;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a command to add an Event task.
  */
 public class AddEventCommand implements Command {
     private String title;
-    private String from;
-    private String to;
+    private LocalDate from;
+    private LocalDate to;
 
     /**
      * Creates a new AddEventCommand with the given arguments.
      *
-     * @param arguments The event arguments in format "title /from start /to end"
+     * @param arguments The event arguments in format "title /from yyyy-MM-dd /to yyyy-MM-dd"
      * @throws DukeException If the input format is invalid
      */
     public AddEventCommand(String arguments) throws DukeException {
@@ -28,12 +31,18 @@ public class AddEventCommand implements Command {
                 throw new DukeException("OOPS!!! The description of an event cannot be empty.");
             }
             title = parts[0].trim();
+
             String[] times = parts[1].split("/to", 2);
             if (times.length < 2 || times[0].trim().isEmpty() || times[1].trim().isEmpty()) {
                 throw new DukeException("OOPS!!! Start and end time of an event cannot be empty.");
             }
-            from = times[0].trim();
-            to = times[1].trim();
+
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            from = LocalDate.parse(times[0].trim(), fmt);
+            to = LocalDate.parse(times[1].trim(), fmt);
+
+        } catch (DateTimeParseException e) {
+            throw new DukeException("OOPS!!! Please use yyyy-MM-dd format for events.");
         } catch (Exception e) {
             throw new DukeException("Invalid event format! Use: event <title> /from <start> /to <end>");
         }

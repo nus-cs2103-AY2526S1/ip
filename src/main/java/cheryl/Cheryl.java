@@ -18,7 +18,7 @@ public class Cheryl {
         try {
             tasks = new TaskList(storage.load());
         } catch (Exception e) {
-            ui.showError("Warning: could not load tasks (file may be corrupted).");
+            ui.showError("Warning: could not load tasks (file may be corrupted). Starting with an empty list.");
             tasks = new TaskList();
         }
     }

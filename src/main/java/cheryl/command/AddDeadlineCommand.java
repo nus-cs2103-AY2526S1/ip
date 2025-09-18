@@ -7,7 +7,10 @@ import cheryl.util.Storage;
 import cheryl.util.TaskList;
 import cheryl.util.Ui;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Represents a command to add a Deadline task.
@@ -28,11 +31,35 @@ public class AddDeadlineCommand implements Command {
             if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
                 throw new DukeException("OOPS!!! The description or date of a deadline cannot be empty.");
             }
+
             this.title = parts[0].trim();
             String byStr = parts[1].trim();
-            this.by = LocalDate.parse(byStr);
-        } catch (DateTimeParseException e) {
-            throw new DukeException("OOPS!!! Please use yyyy-MM-dd format for deadlines.");
+
+            // ✅ Accept multiple formats
+            List<DateTimeFormatter> formatters = Arrays.asList(
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd"),
+                    DateTimeFormatter.ofPattern("dd-MM-yyyy"),
+                    DateTimeFormatter.ofPattern("dd/MM/yyyy")
+            );
+
+            LocalDate parsed = null;
+            for (DateTimeFormatter fmt : formatters) {
+                try {
+                    parsed = LocalDate.parse(byStr, fmt);
+                    break;
+                } catch (DateTimeParseException ignored) {
+                    // keep trying next format
+                }
+            }
+
+            if (parsed == null) {
+                throw new DukeException("OOPS!!! Please use one of the following date formats: yyyy-MM-dd, dd-MM-yyyy, or dd/MM/yyyy.");
+            }
+
+            this.by = parsed;
+
+        } catch (DukeException e) {
+            throw e; // rethrow nicely formatted error
         } catch (Exception e) {
             throw new DukeException("Invalid deadline format! Use: deadline <title> /by <date>");
         }

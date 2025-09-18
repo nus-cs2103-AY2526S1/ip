@@ -11,12 +11,17 @@ import java.util.Scanner;
 public class Ui {
     private Scanner sc;
     private StringBuilder outputBuffer = new StringBuilder();
+    private boolean isCliMode = true;
 
     /**
      * Creates a new Ui object and initializes the input scanner.
      */
     public Ui() {
         this.sc = new Scanner(System.in);
+    }
+
+    public void setCliMode(boolean isCli) {
+        this.isCliMode = isCli;
     }
 
     /**
@@ -43,7 +48,9 @@ public class Ui {
      * @param error The error message to display
      */
     public void showError(String error) {
-        System.out.println(error);
+        if (isCliMode) {
+            System.out.println(error);
+        }
         appendToBuffer(error);
     }
 
@@ -53,7 +60,9 @@ public class Ui {
      * @param message The message to display
      */
     public void showMessage(String message) {
-        System.out.println(message);
+        if (isCliMode) {
+            System.out.println(message);
+        }
         appendToBuffer(message);
     }
 

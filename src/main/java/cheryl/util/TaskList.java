@@ -108,7 +108,7 @@ public class TaskList {
                         return ((Deadline) t).getDueDate().equals(date);
                     } else if (t instanceof Event) {
                         Event e = (Event) t;
-                        return e.getFrom().equals(date.toString()) || e.getTo().equals(date.toString());
+                        return e.getFrom().equals(date) || e.getTo().equals(date);
                     }
                     return false;
                 })

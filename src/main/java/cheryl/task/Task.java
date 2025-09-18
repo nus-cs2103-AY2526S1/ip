@@ -12,11 +12,14 @@ public class Task {
      *
      * @param title The description/title of the task
      */
-     public Task (String title) {
+    public Task(String title) {
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException("Task title cannot be blank.");
+        }
         this.title = title;
-        assert !this.title.isBlank() : "Task title should not be blank";
         this.isDone = false;
     }
+
 
     /**
      * Marks the task as done.
@@ -61,7 +64,9 @@ public class Task {
      */
     @Override
     public String toString() {
-        assert title != null : "title must not be null";
+        if (title == null) {
+            throw new IllegalStateException("Task title must not be null.");
+        }
         return "[" + (isDone ? "X" : " ") + "] " + title;
     }
 }
