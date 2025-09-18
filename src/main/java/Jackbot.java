@@ -1,173 +1,125 @@
-import java.io.*;
-import java.util.*;
+import java.util.List;
 
 public class Jackbot {
 
-    private static final String TASK_FILE_PATH = "./tasks.txt";
+    private final Ui ui;
+    private final Storage storage;
+    private TaskList tasks;
+    private final Parser parser;
 
-    // Helper function to print framed messages
-    private static void printFramed(String msg) {
-        System.out.println("____________________________________________________________\n");
-        System.out.println(msg);
-        System.out.println("____________________________________________________________\n");
-    }
+    public Jackbot(String filePath) {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        this.parser = new Parser();
 
-    // Helper function to add task
-    private static void addTask(List<Task> tasklist, Task task) {
-        tasklist.add(task);
-        printFramed("Got it. I've added this task\n"
-                  + "  " + task + "\n"
-                  + "Now you have " + tasklist.size() + " tasks in the list.");
-    }
-
-    // Helper function to handle empty description
-    private static boolean checkDescription(String description) {
-        if (description.length() == 0) {
-          printFramed("ERROR: Task description cannot be empty");
-          return false;
+        try {
+            List<Task> loaded = storage.load();
+            this.tasks = new TaskList(loaded);
+            if (!loaded.isEmpty()) {
+                ui.showInfo("Previously saved task file detected. Loading task list from file...");
+            }
+        } catch (JackbotException e) {
+            ui.showLoadingError();
+            this.tasks = new TaskList(); // start empty if load failed
         }
-        return true;
     }
 
-    private static List<Task> loadTaskFileIfExists() {
-        List<Task> tasklist = new ArrayList<>();
-        File file = new File(TASK_FILE_PATH);
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            printFramed("Previously saved task file detected. Loading task list from file...");
-            String line;
-            while ((line = reader.readLine()) != null) {
-                try {
-                    Task t = Task.deserialize(line);
-                    tasklist.add(t);
-                } catch (Exception e) {
-                    printFramed("ERROR: Failed to load tasks from task file, continuing with empty task list.");
+    public void run() {
+        ui.showWelcome();
+
+        boolean exit = false;
+        while (!exit && ui.hasNextLine()) {
+            String input = ui.readLine();
+
+            try {
+                Parser.Result r = parser.parse(input);
+
+                switch (r.type) {
+                    case BYE:
+                        exit = true;
+                        break;
+
+                    case LIST:
+                        ui.showList(tasks.asList());
+                        break;
+
+                    case MARK: {
+                        Task t = tasks.get(r.index);
+                        if (t.isDone()) {
+                            throw new JackbotException("Task is already marked");
+                        }
+                        t.mark();
+                        storage.save(tasks.asList());
+                        ui.showMarked(t);
+                        break;
+                    }
+
+                    case UNMARK: {
+                        Task t = tasks.get(r.index);
+                        if (!t.isDone()) {
+                            throw new JackbotException("Task is already unmarked");
+                        }
+                        t.unmark();
+                        storage.save(tasks.asList());
+                        ui.showUnmarked(t);
+                        break;
+                    }
+
+                    case DELETE: {
+                        Task removed = tasks.delete(r.index);
+                        storage.save(tasks.asList());
+                        ui.showDeleted(removed, tasks.size());
+                        break;
+                    }
+
+                    case TODO: {
+                        ensureNotEmpty(r.text, "Task description cannot be empty");
+                        Task t = new Todo(r.text);
+                        tasks.add(t);
+                        storage.save(tasks.asList());
+                        ui.showAdded(t, tasks.size());
+                        break;
+                    }
+
+                    case DEADLINE: {
+                        ensureNotEmpty(r.text, "Task description cannot be empty");
+                        // Keep your original behavior: pass raw text to Deadline constructor
+                        Task t = new Deadline(r.text);
+                        tasks.add(t);
+                        storage.save(tasks.asList());
+                        ui.showAdded(t, tasks.size());
+                        break;
+                    }
+
+                    case EVENT: {
+                        ensureNotEmpty(r.text, "Task description cannot be empty");
+                        // Keep your original behavior: pass raw text to Event constructor
+                        Task t = new Event(r.text);
+                        tasks.add(t);
+                        storage.save(tasks.asList());
+                        ui.showAdded(t, tasks.size());
+                        break;
+                    }
+
+                    default:
+                        throw new JackbotException("Command doesn't exist");
                 }
+
+            } catch (JackbotException e) {
+                ui.showError(e.getMessage());
+            } catch (Exception e) {
+                ui.showError("Unexpected error: " + e.getMessage());
             }
-        } catch (IOException e) {}
-        return tasklist;
+        }
+
+        ui.showGoodbye();
     }
 
-    private static void saveTaskFile(List<Task> tasklist) {
-        File file = new File(TASK_FILE_PATH);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            for (Task t : tasklist) {
-                writer.write(t.serialize());
-                writer.newLine();
-            }
-        } catch (IOException e) {}
+    private void ensureNotEmpty(String s, String msg) throws JackbotException {
+        if (s == null || s.trim().isEmpty()) throw new JackbotException(msg);
     }
 
     public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-        List<Task> tasklist = loadTaskFileIfExists();
-
-        // Start session
-        printFramed("Hello! I'm Jackbot\nWhat can I do for you?");
-
-        // Event loop
-        while (sc.hasNextLine()) {
-            String input = sc.nextLine();
-
-            if (input.equalsIgnoreCase("bye")) {
-                break;
-            } else if (input.equalsIgnoreCase("list")) {
-                StringBuilder sb = new StringBuilder("Your previous entries:");
-                for (int i = 0; i < tasklist.size(); i++) {
-                    sb.append("\n").append(i + 1).append(". ").append(tasklist.get(i));
-                }
-                printFramed(sb.toString());
-            } else if (input.toLowerCase().startsWith("mark ")) {
-                Integer idx;
-
-                // Parse index number
-                try {
-                    idx = Integer.parseInt(input.substring(5).trim());
-                } catch (Exception e) {
-                    printFramed("ERROR: Failed to parse task index number");
-                    continue;
-                }
-
-                Task task;
-                try {
-                    task = tasklist.get(idx - 1);
-                } catch (Exception e) {
-                    printFramed("ERROR: Task not found");
-                    continue;
-                }
-
-                if (task.isDone()) {
-                    printFramed("ERROR: Task is already marked");
-                    continue;
-                }
-
-                task.mark();
-                printFramed("Nice, I've marked this task as done:\n"
-                          + "  " + task);
-            } else if (input.toLowerCase().startsWith("unmark ")) {
-                Integer idx;
-                try {
-                    idx = Integer.parseInt(input.substring(7).trim());
-                } catch (Exception e) {
-                    printFramed("ERROR: Failed to parse task index number");
-                    continue;
-                }
-
-                Task task;
-                try {
-                    task = tasklist.get(idx - 1);
-                } catch (Exception e) {
-                    printFramed("ERROR: Task not found");
-                    continue;
-                }
-
-                if (!task.isDone()) {
-                    printFramed("ERROR: Task is already unmarked");
-                    continue;
-                }
-
-                task.unmark();
-                printFramed("OK, I've marked this task as not done:\n"
-                          + "  " + task);
-            } else if (input.toLowerCase().startsWith("delete ")) {
-                Integer idx;
-                try {
-                    idx = Integer.parseInt(input.substring(7).trim());
-                } catch (Exception e) {
-                    printFramed("ERROR: Failed to parse task index number");
-                    continue;
-                }
-
-                try {
-                    Task task = tasklist.remove(idx - 1);
-                    printFramed("Noted. I've removed this task:\n"
-                              + "  " + task + "\n"
-                              + "Now you have " + tasklist.size() + " tasks in the list.");
-                } catch (Exception e) {
-                    printFramed("ERROR: Task not found");
-                    continue;
-                }
-            } else if (input.toLowerCase().startsWith("todo ")) {
-                input = input.substring(5);
-                if (!checkDescription(input)) continue;
-                addTask(tasklist, new Todo(input));
-            } else if (input.toLowerCase().startsWith("deadline ")) {
-                input = input.substring(9);
-                if (!checkDescription(input)) continue;
-                addTask(tasklist, new Deadline(input));
-            } else if (input.toLowerCase().startsWith("event ")) {
-                input = input.substring(6);
-                if (!checkDescription(input)) continue;
-                addTask(tasklist, new Event(input));
-            } else {
-                printFramed("ERROR: Command doesn't exist");
-            }
-
-            saveTaskFile(tasklist);
-        }
-
-        // End session
-        printFramed("Bye. Hope to see you again soon!\n");
-        sc.close();
+        new Jackbot("./tasks.txt").run();
     }
 }
