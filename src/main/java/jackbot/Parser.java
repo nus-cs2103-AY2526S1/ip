@@ -1,3 +1,5 @@
+package jackbot;
+
 public class Parser {
 
     public enum Type {
@@ -32,7 +34,7 @@ public class Parser {
         String input = rawInput == null ? "" : rawInput.trim();
         if (input.isEmpty()) {
             // Treat empty as no-op (stay in loop)
-            return Result.of(Type.LIST); // or throw if you prefer strict behavior
+            return Result.of(Type.LIST);
         }
 
         // Fast paths

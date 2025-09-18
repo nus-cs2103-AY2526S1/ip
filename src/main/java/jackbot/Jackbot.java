@@ -1,3 +1,10 @@
+package jackbot;
+
+import jackbot.task.Task;
+import jackbot.task.Todo;
+import jackbot.task.Deadline;
+import jackbot.task.Event;
+
 import java.util.List;
 
 public class Jackbot {
@@ -83,7 +90,6 @@ public class Jackbot {
 
                     case DEADLINE: {
                         ensureNotEmpty(r.text, "Task description cannot be empty");
-                        // Keep your original behavior: pass raw text to Deadline constructor
                         Task t = new Deadline(r.text);
                         tasks.add(t);
                         storage.save(tasks.asList());
@@ -93,7 +99,6 @@ public class Jackbot {
 
                     case EVENT: {
                         ensureNotEmpty(r.text, "Task description cannot be empty");
-                        // Keep your original behavior: pass raw text to Event constructor
                         Task t = new Event(r.text);
                         tasks.add(t);
                         storage.save(tasks.asList());

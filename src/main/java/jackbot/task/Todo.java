@@ -1,4 +1,4 @@
-// Basic Task
+package jackbot.task;
 
 public class Todo extends Task {
     public Todo(String description) {

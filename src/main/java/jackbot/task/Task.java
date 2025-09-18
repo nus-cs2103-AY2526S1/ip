@@ -1,3 +1,5 @@
+package jackbot.task;
+
 public abstract class Task {
     private final String description;
     private boolean done;
@@ -19,7 +21,7 @@ public abstract class Task {
         return checkbox() + " " + description;
     }
 
-    abstract String serialize();
+    abstract public String serialize();
 
     public static Task deserialize(String data) throws Exception {
         String[] parts = data.split("\\|");
