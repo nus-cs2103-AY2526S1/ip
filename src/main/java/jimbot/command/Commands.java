@@ -2,6 +2,10 @@ package jimbot.command;
 
 import java.util.function.Function;
 
+import jimbot.exception.InvalidInputException;
+import jimbot.exception.InvalidToDoException;
+import jimbot.exception.JimbotException;
+
 /**
  * Represents the different commands that Jimbot can recognize.
  * Provides a utility method to parse a string input into a Commands value.
@@ -21,11 +25,12 @@ public enum Commands {
     MARK(MarkCommand::new),
     TODAY(FindDateCommand::new),
     TODO(AddToDoCommand::new),
-    UNKNOWN(ResponseCommand::new),
     UNMARK(UnmarkCommand::new);
 
     private final Function<String, Command> factory;
 
+    // I used AI to find a way for me to implement both enums and commands.
+    // factory used to construct the command objects based on the command enums.
     Commands(Function<String, Command> factory) {
         this.factory = factory;
     }
@@ -38,9 +43,9 @@ public enum Commands {
      * @param cmd Extracted command word from the input.
      * @return {@link Command} object corresponding to the user input.
      */
-    public static Command fromString(String input, String cmd) {
+    public static Command fromString(String input, String cmd) throws JimbotException {
         if (input == null || input.isEmpty()) {
-            return UNKNOWN.factory.apply(input);
+            throw new InvalidToDoException();
         }
 
         // Check for date command
@@ -61,7 +66,7 @@ public enum Commands {
         case "today" -> TODAY.factory.apply(input);
         case "todo" -> TODO.factory.apply(input);
         case "unmark" -> UNMARK.factory.apply(input);
-        default -> UNKNOWN.factory.apply(input);
+        default -> throw new InvalidInputException(input);
         };
     }
 }

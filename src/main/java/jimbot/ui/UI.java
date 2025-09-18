@@ -147,18 +147,6 @@ public class UI {
     }
 
     /**
-     * Returns a response string for unrecognized commands.
-     *
-     * @param userInput User input string that could not be parsed.
-     * @return Formatted string indicating the command was not recognized.
-     */
-    public String respond(String userInput) {
-        return "Oops I don't recognize this command:\n"
-                + "  \"" + userInput + "\"\n"
-                + "Type \"help\" for the list possible commands.";
-    }
-
-    /**
      * Prints a list of all possible commands.
      */
     public String commandList() {
