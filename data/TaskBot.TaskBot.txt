@@ -1,2 +1,3 @@
 T | 0 | Week 5 iP tasks
 T | 0 | finish iP
+D | 0 | CS3230 midterm | 2025-10-04
