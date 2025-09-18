@@ -1,0 +1,18 @@
+todo
+deadline submit assignment
+event Christmas party /from 25th December
+
+blah
+todo walk dog
+deadline submit assignment /by Sunday 2359
+event Christmas party /from 25th December 7pm /to 10pm
+list
+mark 5
+mark 1
+list
+mark 2
+unmark 1
+list
+delete 2
+list
+bye
