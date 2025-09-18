@@ -95,19 +95,8 @@ Removed all tasks occurring on Nov 12 2025 00:00:
 
 ## Saving and Loading tasks
 
-TaskLynx allows you to save your tasks to a data file and retrieve them anytime.
+TaskLynx allows you to save your tasks to a data file using `save` and retrieve them anytime using `reload`.
 TaskLynx also does this automatically when closing and opening the app, respectively.
-
-Example:
-```
-save
-reload
-```
-
-```
-Kept all your tasks!
-Caught all your tasks!
-```
 
 ## Precise search
 
