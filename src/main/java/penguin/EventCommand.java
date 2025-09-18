@@ -1,0 +1,32 @@
+package penguin;
+
+import java.io.IOException;
+
+/**
+ * Command to create and add an Event task to tasklist.
+ */
+public class EventCommand extends Command {
+    public EventCommand(String input) {
+        super(input);
+    }
+
+    @Override
+    public boolean execute(TaskList tasks, Ui ui, Storage storage) throws PenguinException {
+        Task t = Parser.parseEvent(input);
+
+        if (!tasks.addIfAbsent(t)) {
+            ui.say("You must be excited for this event to want to include it in the tasklist twice.");
+            return false;
+        }
+
+        ui.showAddedTask(t, tasks.size());
+
+        try {
+            storage.save(tasks.getTasks());
+        } catch (IOException e) {
+            // user might have deleted file mid-run
+        }
+
+        return false;
+    }
+}
