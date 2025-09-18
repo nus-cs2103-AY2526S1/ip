@@ -58,6 +58,7 @@ checkstyle {
 
 application {
     mainClass.set("Launcher")
+    applicationDefaultJvmArgs = ['-ea']   // enable assertions for `./gradlew run`
 }
 
 shadowJar {
