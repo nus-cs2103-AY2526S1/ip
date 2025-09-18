@@ -15,7 +15,7 @@ public class LynxException extends Exception {
      * Summons a... Lynx?
      */
     public static LynxException secret() {
-        LynxException secret = new LynxException("* unskippable monologue *");
+        LynxException secret = new LynxException("*unskippable monologue*\n(The command seems to be invalid.)");
         secret.isSecret = true;
         return secret;
     }
