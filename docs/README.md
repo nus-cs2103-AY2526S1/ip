@@ -6,90 +6,103 @@
 **ByteBot** is a task management application to help you stay productive
 
 
-## 📋 Commands
+## Quickstart
 
-1. **Add Tasks**:
-   - `todo <description>` - Add a simple todo task
-   - `deadline <description> /by <date>` - Add a task with deadline
-   - `event <description> /from <start> /to <end>` - Add an event task
-
-2. **Manage Tasks**:
-   - `list` - Display all tasks
-   - `mark <task_number>` - Mark a task as complete
-   - `unmark <task_number>` - Mark a task as incomplete
-   - `delete <task_number>` - Remove a task
-
-3. **Navigation**:
-   - `find <keyword>` - Search for description
-   - `bye` - Exit the application
-
-## 💻 Driver Code
-
-```java
-public class ByteBot {
-    private final Ui ui;
-    private final Storage storage;
-    
-    public void run() {
-        ui.showGreeting();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(ui, storage);
-                isExit = c.isExit();
-            } catch (ByteException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-        ui.closeScanner();
-    }
-}
-```
-
-## Try ByteBot NOW!
-
-```bash
-> todo Buy groceries
-> deadline Submit report /by 01/01/2024 1000
-> list
-> mark 1
-> find report
-> bye
-```
-
-## ✅ Functionality
-
-- [x] **`Core Task Management`** - Add, delete, mark tasks
-- [x] **`Handle multiple tasks`** - Todo, Deadline, Event
-- [x] **`Search Functionality`** - Find tasks by keyword
-- [x] **`Data Persistence`** - Save/load tasks from file
-- [x] **`Error Handling`** - Exception handling
+1. Ensure you have Java 17 installed.
+2. Download the latest bytebot.jar file from the releases page [here](https://github.com/lhurr/ip/releases).
+3. Run `java -jar bytebot.jar` in your terminal.
+4. A chat window will appear where you can start typing commands.
+5. Type a command and press Enter to execute it.
 
 
-## 🤝 Releases
+## Features
 
-Here is how you access the releases:
-
-1. Find the release and download [here](https://github.com/lhurr/ip/releases/tag/v0.1)
-2. Add your tasks freely!
-3. Manage your tasks seamlessly with Bytebot!
-
-
-## 📄 Source code link
-
-[Link to ByteBot](https://github.com/lhurr/ip/tree/master)
+### List all tasks
+Show all tasks in the list. It will be shown order it is added. Details like Index
+- **Format**: `list`
+- **Example**: `list`
 
 
-## Bug Reports
+### Add: Todo
+Add a simple todo task with a description. By default it is not done.
+- **Format**: `todo DESCRIPTION`
+- **Example**: `todo study`
 
-Found a bug? Please report it:
-- A clear description of the problem
-- Steps to reproduce the issue
-- Expected vs actual behavior
-- Other information
 
----
+### Add deadlines: Deadline
+Add a task that has a due date and time.
+- **Format**: `deadline DESCRIPTION /by <d/M/yyyy HHmm>`
+- **Example**
+    - `deadline CS2100 /by 01/01/2026 1000`
+    - `deadline CS2103 /by 05/05/2026 1200`
 
-*~~procrastination~~ productivity starts with good organization*
+### Add events: Event
+Add an event with a start and end date/time.
+- **Format**: `event DESCRIPTION /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>`
+- **Example**:
+    - `event meeting /from 02/01/2025 1400 /to 02/01/2025 1500`
+    - `event teaching /from 02/01/2025 1600 /to 02/01/2025 1900`
+
+
+### Mark tasks as done
+Mark a task as done by its number shown in `list`. Marked tasks will show a [X] symbol, and tasks that are already marked will stay marked
+- **Format**: `mark TASK_NUMBER`
+- **Example**: `mark 1`
+
+
+### Unmark task as not done
+Mark a task as not done by its number shown in `list`. Unmark tasks will show a [ ] symbol, and tasks that are already unmarked will stay marked 
+- **Format**: `unmark TASK_NUMBER`
+- **Example**: `unmark 1`
+
+
+### Deleting tasks
+Remove a task by its number shown in `list`.
+- **Format**: `delete TASK_NUMBER`
+- **Example**: `delete 3`
+
+
+### Finding tasks
+Search for tasks with descriptions that contain the given keyword.
+- **Format**: `find KEYWORD`
+- **Example**: `find report`
+
+
+### Sort tasks
+Display tasks in a sorted view.
+- **Format**:
+  - `sort deadline` or `sort deadlines` - show only deadlines, sorted by due date
+  - `sort all` - show all tasks grouped by type (deadlines sorted by due date)
+- **Examples**: `sort deadlines`, `sort all`
+
+
+### Bye
+Exit the application.
+- **Format**: `bye`
+- **Example**: `bye`
+
+
+## FAQ
+
+### What is the difference between a Deadline and an Event?
+
+- Deadline: A task with a single due date/time.
+- Event: A task that spans a time range with a start and end.
+
+## Command summary
+
+
+| Command | Format | Example |
+|---|---|---|
+| Todo | `todo <description>` | `todo study` |
+| Deadline | `deadline <description> /by <d/M/yyyy HHmm>` | `deadline CS2100 /by 01/01/2026 1000` |
+| Event | `event <description> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>` | `event Meeting /from 02/01/2025 1400 /to 02/01/2025 1500` |
+| List | `list` | `list` |
+| Mark | `mark <task_number>` | `mark 1` |
+| Unmark | `unmark <task_number>` | `unmark 1` |
+| Delete | `delete <task_number>` | `delete 3` |
+| Find | `find <keyword>` | `find report` |
+| Sort deadlines | `sort deadline` or `sort deadlines` | `sort deadlines` |
+| Sort all | `sort all` | `sort all` |
+| Bye | `bye` | `bye` |
+
