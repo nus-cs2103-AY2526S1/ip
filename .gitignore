@@ -8,10 +8,13 @@
 /build/
 src/main/resources/docs/
 
+# VSCode files
+/.vscode/
+
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
 bin/
-
+/data/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
