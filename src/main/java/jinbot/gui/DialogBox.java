@@ -60,6 +60,13 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns dialog box on user side.
+     *
+     * @param text text from user.
+     * @param img Image represents user's avatar.
+     * @return Dialog box on user side.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.setAlignment(Pos.TOP_RIGHT);
@@ -67,6 +74,13 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Returns dialog box on jinbot side.
+     *
+     * @param text Text form jinbot
+     * @param img Represents jinbot's avatar.
+     * @return Dialog box containing error message.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.flip();
@@ -74,12 +88,18 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Returns dialog box containing error message.
+     *
+     * @param text EError text.
+     * @param img
+     * @return
+     */
     public static DialogBox getErrorDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.flip();
         db.dialog.getStyleClass().add("error-bubble");
         return db;
     }
-
 }
 
