@@ -1,0 +1,39 @@
+package luke;
+
+import java.util.ArrayList;
+
+/**
+ * A chatbot for managing tasks.
+ */
+public class Luke {
+
+    protected final Ui ui;
+    protected final Parser parser;
+
+    public Luke() {
+        Storage storage = new Storage("tasks.txt");
+        storage.initialize();
+        ArrayList<Task> tasks = storage.tasks;
+
+        this.ui = new Ui();
+        this.parser = new Parser("", tasks);
+    }
+
+    /**
+     * Greets the user, parses user input.
+     * Says goodbye when user input is "bye".
+     */
+    public void run() {
+        ui.greet();
+        parser.run();
+        ui.bye();
+    }
+
+    /**
+     * Starts the chatbot.
+     * @param args command line arguments
+     */
+    public static void main(String[] args) {
+        new Luke().run();
+    }
+}
