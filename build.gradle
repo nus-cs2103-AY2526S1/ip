@@ -52,7 +52,7 @@ test {
 }
 
 application {
-    mainClass.set("bobbywasabi.Main")
+    mainClass.set("bobbywasabi.Launcher")
 
 }
 
