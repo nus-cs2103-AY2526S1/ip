@@ -13,3 +13,27 @@
 - **Files modified**: `DialogBox.java`, `dialog.css`
 - **How AI helped**: Suggested CSS styling and integration into JavaFX. Showed how to add a conditional check in `DialogBox` for error-type messages and apply a CSS class.
 - **Reflection**: Learned how JavaFX can apply CSS classes dynamically.
+
+---
+
+### 3. Styling & Layout
+- **Task**: Adjusted padding, fonts, colors, and spacing for better readability.
+- **Files**: `dialog.css`, `DialogBox.fxml`
+- **AI help**: Provided CSS rules (`-fx-padding`, `-fx-font-size`, etc.).
+- **Reflection**: Small tweaks made UI cleaner and easier to read.
+
+---
+
+### 4. Resizable Window
+- **Task**: Enabled resizing, made content scale with window size.
+- **Files**: `MainWindow.fxml`, `Main.java`
+- **AI help**: Explained anchors, `fitToWidth`, and `fillWidth`.
+- **Reflection**: Learned how to build responsive JavaFX layouts.
+
+---
+
+### 5. Profile Pictures
+- **Task**: Cropped avatars into circles for a polished look.
+- **Files**: `DialogBox.java`, `DialogBox.fxml`
+- **AI help**: Suggested `Circle` clip for `ImageView` and transparent PNGs.
+- **Reflection**: Learned how clipping and image scaling interact. 
