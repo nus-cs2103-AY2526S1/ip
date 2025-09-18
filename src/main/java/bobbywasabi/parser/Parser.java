@@ -86,7 +86,7 @@ public class Parser {
             throw new BobbyWasabiException("Please input the command and the keyword to find!");
         }
 
-        String keyword = wordList[1];
+        String keyword = wordList[1].trim();
         if (keyword.trim().isEmpty()) {
             throw new BobbyWasabiException("Please input a keyword!");
         }
