@@ -17,7 +17,7 @@ public class Jimbot {
     private final Storage userStorage;
     private final TaskList userList;
     private final UI user;
-    private String commandType;
+    private Command commandType;
 
     /**
      * Initializes a new Jimbot instance.
@@ -39,16 +39,15 @@ public class Jimbot {
      */
     public String getResponse(String userInput) {
         try {
-            commandType = userInput.split(" ")[0];
-            Command cmd = Commands.fromString(userInput, commandType);
+            commandType = Commands.fromString(userInput);
 
-            return cmd.execute(userList, userStorage, user);
+            return commandType.execute(userList, userStorage, user);
         } catch (JimbotException e) {
             return e.getMessage();
         }
     }
 
-    public String getCommandType() {
+    public Command getCommandType() {
         return commandType;
     }
 }

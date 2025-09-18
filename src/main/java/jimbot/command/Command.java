@@ -13,4 +13,12 @@ import jimbot.ui.UI;
  */
 public interface Command {
     String execute(TaskList userList, Storage userStorage, UI user) throws JimbotException;
+
+    /**
+     * Indicates if this command should terminate the program.
+     * Default is false; ExitCommand overrides this.
+     */
+    default boolean isExit() {
+        return false;
+    }
 }

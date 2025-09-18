@@ -93,6 +93,10 @@ public class UI {
             listContent += "\n    " + (i + 1) + ". " + task;
         }
 
+        if (listContent.isEmpty()) {
+            return "  ( ㄏ-᷅_-᷄)ㄏ You've nothing to do...";
+        }
+
         String header = "  Here are the tasks in your list: ";
         return header + listContent + "    ノ( ゜-゜ノ)";
     }
@@ -121,6 +125,17 @@ public class UI {
         }
 
         return header + listContent + "    (・ω・)ノ";
+    }
+
+    /**
+     * Prints a response after clearing user task list.
+     *
+     * @return Formatted string stating task list has been cleared.
+     */
+    public String clear() {
+        return """
+                   (＾∀＾)ゞ I've cleared your tasks! Go play~
+                """;
     }
 
     /**

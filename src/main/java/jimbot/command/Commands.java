@@ -15,6 +15,7 @@ import jimbot.exception.JimbotException;
 public enum Commands {
     HI(GreetCommand::new),
     BYE(input -> new ExitCommand()),
+    CLEAR(ClearCommand -> new ClearCommand()),
     DATE(FindDateCommand::new),
     DEADLINE(AddDeadlineCommand::new),
     DELETE(DeleteCommand::new),
@@ -40,13 +41,14 @@ public enum Commands {
      * {@link Command} object.
      *
      * @param input User input string to be converted into a command.
-     * @param cmd Extracted command word from the input.
      * @return {@link Command} object corresponding to the user input.
      */
-    public static Command fromString(String input, String cmd) throws JimbotException {
+    public static Command fromString(String input) throws JimbotException {
         if (input == null || input.isEmpty()) {
             throw new InvalidToDoException();
         }
+
+        String cmd = input.trim().split(" ")[0];
 
         // Check for date command
         if (cmd.contains("/")) {
@@ -55,7 +57,8 @@ public enum Commands {
 
         return switch (cmd) {
         case "hi" -> HI.factory.apply("Jimbot");
-        case "bye", "goodbye" -> BYE.factory.apply(input);
+        case "bai", "bye", "goodbye" -> BYE.factory.apply(input);
+        case "clear" -> CLEAR.factory.apply(input);
         case "deadline" -> DEADLINE.factory.apply(input);
         case "delete" -> DELETE.factory.apply(input);
         case "event" -> EVENT.factory.apply(input);

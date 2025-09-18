@@ -24,4 +24,9 @@ public class ExitCommand implements Command {
     public String execute(TaskList userList, Storage userStorage, UI user) {
         return user.goodBye();
     }
+
+    @Override
+    public boolean isExit() {
+        return true;
+    }
 }

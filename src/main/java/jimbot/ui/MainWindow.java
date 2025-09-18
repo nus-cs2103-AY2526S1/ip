@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import jimbot.Jimbot;
+import jimbot.command.Command;
 
 /**
  * Controller for the main GUI.
@@ -49,15 +50,17 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = jimbot.getResponse(input);
-        String commandType = jimbot.getCommandType();
+        String cmdString = input.split(" ")[0];
+        Command cmd = jimbot.getCommandType();
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getJimbotDialog(response, jimbotImage, commandType)
+                DialogBox.getJimbotDialog(response, jimbotImage, cmdString)
         );
 
         userInput.clear();
-        if (commandType.contains("bye")) {
+
+        if (cmd.isExit()) {
             javafx.animation.PauseTransition delay = new javafx.animation.PauseTransition(
                     javafx.util.Duration.millis(500));
             delay.setOnFinished(event -> System.exit(0));

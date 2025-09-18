@@ -91,6 +91,10 @@ public class TaskList {
         return listOfTasks.size();
     }
 
+    public void clearList() {
+        listOfTasks.clear();
+    }
+
     /**
      * Finds tasks in the list whose description contains the given string.
      *
