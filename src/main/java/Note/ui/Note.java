@@ -116,8 +116,9 @@ public class Note {
 
                 case "find":
                     if (arguments.isEmpty()) throw new NoteException("Please provide a keyword to search for.");
+                    String keyword = arguments.toLowerCase(); // convert the search keyword to lowercase
                     List<Task> matching = tasks.getAllTasks().stream()
-                            .filter(t -> t.getDescription().contains(arguments))
+                            .filter(t -> t.getDescription().toLowerCase().contains(keyword)) // compare in lowercase
                             .toList();
                     if (matching.isEmpty()) return "No matching tasks found.";
                     StringBuilder sbMatch = new StringBuilder("Here are the matching tasks in your list:");

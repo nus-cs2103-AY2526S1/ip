@@ -1,11 +1,8 @@
 package Note.ui;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +12,8 @@ import java.util.List;
 public class Storage {
 
     private String filePath;
+    private static final DateTimeFormatter STORAGE_FORMATTER =
+            DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /**
      * Constructs a Storage object for the given file path.
@@ -27,30 +26,36 @@ public class Storage {
 
     /**
      * Saves a list of tasks to the file.
-     * Each task is stored in a line in the format:
-     * <Type> | <Done status> | <Description> | <Additional info>
+     *
+     * Format:
+     * Todo: T | 0/1 | description
+     * Deadline: D | 0/1 | description | d/M/yyyy HHmm
+     * Event: E | 0/1 | description | d/M/yyyy HHmm to d/M/yyyy HHmm
      *
      * @param tasks the list of tasks to save
-     * @throws IOException if an I/O error occurs while writing to the file
+     * @throws IOException if an I/O error occurs
      */
     public void save(List<Task> tasks) throws IOException {
         File folder = new File(filePath).getParentFile();
-        if (!folder.exists()) {
-            folder.mkdirs(); // create folder if it doesn't exist
-        }
+        if (!folder.exists()) folder.mkdirs();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task t : tasks) {
                 String line = "";
-                switch (t.getTypeIcon()) { // use getTypeIcon() instead of getType()
+                switch (t.getTypeIcon()) {
                     case "T":
                         line = "T | " + (t.isDone() ? "1" : "0") + " | " + t.getDescription();
                         break;
                     case "D":
-                        line = "D | " + (t.isDone() ? "1" : "0") + " | " + t.getDescription() + " | " + ((Deadline) t).getBy();
+                        Deadline d = (Deadline) t;
+                        line = "D | " + (d.isDone() ? "1" : "0") + " | " + d.getDescription()
+                                + " | " + d.getByDateTime().format(STORAGE_FORMATTER);
                         break;
                     case "E":
-                        line = "E | " + (t.isDone() ? "1" : "0") + " | " + t.getDescription() + " | " + ((Event) t).getFrom() + " to " + ((Event) t).getTo();
+                        Event e = (Event) t;
+                        line = "E | " + (e.isDone() ? "1" : "0") + " | " + e.getDescription()
+                                + " | " + e.getFromDateTime().format(STORAGE_FORMATTER)
+                                + " to " + e.getToDateTime().format(STORAGE_FORMATTER);
                         break;
                 }
                 writer.write(line);
@@ -61,10 +66,9 @@ public class Storage {
 
     /**
      * Loads tasks from the file.
-     * Parses each line according to the format used in {@link #save(List)}.
      *
-     * @return a list of tasks loaded from the file
-     * @throws IOException if an I/O error occurs while reading the file
+     * @return list of tasks loaded from storage
+     * @throws IOException if an I/O error occurs
      */
     public List<Task> load() throws IOException {
         List<Task> tasks = new ArrayList<>();
@@ -74,7 +78,7 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                try { // catch parsing exceptions per line
+                try {
                     String[] parts = line.split(" \\| ");
                     String type = parts[0];
                     boolean isDone = parts[1].equals("1");
@@ -87,25 +91,28 @@ public class Storage {
                             tasks.add(todo);
                             break;
                         case "D":
-                            Deadline deadline = new Deadline(desc, parts[3]);
+                            LocalDateTime by = LocalDateTime.parse(parts[3], STORAGE_FORMATTER);
+                            Deadline deadline = new Deadline(desc, by.format(STORAGE_FORMATTER));
                             if (isDone) deadline.markAsDone();
                             tasks.add(deadline);
                             break;
                         case "E":
                             String[] fromTo = parts[3].split(" to ");
-                            Event event = new Event(desc, fromTo[0], fromTo[1]);
+                            LocalDateTime from = LocalDateTime.parse(fromTo[0], STORAGE_FORMATTER);
+                            LocalDateTime to = LocalDateTime.parse(fromTo[1], STORAGE_FORMATTER);
+                            Event event = new Event(desc, from.format(STORAGE_FORMATTER), to.format(STORAGE_FORMATTER));
                             if (isDone) event.markAsDone();
                             tasks.add(event);
                             break;
+                        default:
+                            System.err.println("Unknown task type in storage: " + line);
                     }
-                } catch (IllegalArgumentException e) {
+                } catch (Exception e) {
                     System.err.println("Skipping invalid task in storage: " + line);
-                    // optionally show GUI message or log somewhere
                 }
             }
         }
 
         return tasks;
     }
-
 }
