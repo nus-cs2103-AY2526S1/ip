@@ -34,11 +34,11 @@ Output: [] Read book
 ## Adding Deadlines
 
 Adds a task with a deadline.
-Deadline format: `dd/MM/yyyy HHmm` (e.g., `20/12/2025 2359` 
+Deadline format: `dd/MM/yyyy HHmm` (e.g., `20/12/2025 2359`) 
 
 **Example:** `deadline, Submit report, 20/12/2025 2359`
 
-Adds a new task "Submit report" with a deadline of 20th Dec 2025, 23:59.
+Adds a new task "Submit report" with a deadline of Dec 20 2025 2359.
 
 ---
 
@@ -50,7 +50,7 @@ Start and End Date and time format: `dd/MM/yyyy HHmm` (e.g., `22/12/2025 1000`)
 
 **Example:** `event, Project meeting, 22/12/2025 1000, 22/12/2025 1200`
 
-Adds a new event "Project meeting" from 10:00 to 12:00 on 22nd Dec 2025.
+Adds a new event "Project meeting" from Dec 22 2025 1000 to Dec 22 2025 1200.
 
 ---
 
@@ -111,7 +111,9 @@ Shows all clients
 ## Adding a Client
 
 Adds a new client with the provided name, contact number, age, occupation, and current policies.
+
 Phone Number: Strictly a 8-digit number with no spacing or special characters in between
+
 Age: Must be an integer  
 
 **Example:**  
@@ -124,6 +126,8 @@ Adds "John Doe" as a new client in the system.
 ## Editing a Client
 
 Updates the specified field (name, contact number, age, occupation, or current policies) of the client at the given index. Indexing starts from 1.
+
+Field names: `name`, `contactnumber`, `age`, `occupation`, `currentpolicies`
 
 **Example:**  
 `editclient, 1, name, Jane Doe`
