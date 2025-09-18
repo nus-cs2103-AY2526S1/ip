@@ -7,15 +7,15 @@ Here's a look at TaskLynx:
 
 ## User Command Guide
 
-TaskLynx provides an in-app command guide which displays information on the valid command usages.  
+TaskLynx provides an in-app command guide which displays information on the valid command usages. 
 Type `help` in the app to access this guide whenever you need to refer to it.
 
 ## Adding tasks
 
-TaskLynx tracks 3 types of tasks:  
+TaskLynx tracks 3 types of tasks:
 - todo tasks that support a description
 - deadline tasks that support a description and a deadline
-- event tasks that support a description, a start time and an end time  
+- event tasks that support a description, a start time and an end time
 TaskLynx also lets you attach an optional priority to tasks!
 
 Example: 
@@ -35,7 +35,7 @@ todo priority five task /p 5
 
 ## Listing tasks
 
-TaskLynx allows you to view your tasks, based on:  
+TaskLynx allows you to view your tasks, based on:
 - name using `/key`
 - date using `/on`
 - status using `/status`
@@ -67,10 +67,10 @@ Here are all tasks:
 
 ## Marking, Unmarking, Deleting tasks
 
-TaskLynx also lets you:  
+TaskLynx also lets you:
 - Mark tasks as complete
 - Unmark tasks as incomplete
-- Delete tasks from the list  
+- Delete tasks from the list
 Using the same variety of search modifiers as mentioned under "Listing tasks"!
 
 Example:
@@ -93,7 +93,7 @@ Removed all tasks occurring on Nov 12 2025 00:00:
 
 ## Saving and Loading tasks
 
-TaskLynx allows you to save your tasks to a data file and retrieve them anytime.  
+TaskLynx allows you to save your tasks to a data file and retrieve them anytime.
 TaskLynx also does this automatically when closing and opening the app, respectively.
 
 Example:
