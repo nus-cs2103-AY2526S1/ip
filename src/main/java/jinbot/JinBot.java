@@ -61,7 +61,7 @@ public class JinBot {
             } catch (JinBotException e) {
                 ui.printBox(e.getMessage());
             } catch (IndexOutOfBoundsException e) {
-                ui.printBox("Invalid task number. Task number must be positive integer "
+                ui.printBox("Error! Invalid task number. Task number must be positive integer "
                     + "within size of the current task list");
             } catch (Exception e) {
                 ui.printBox("Oops! Something went wrong. Please try again.");
@@ -90,7 +90,7 @@ public class JinBot {
         } catch (JinBotException e) {
             return e.getMessage();
         } catch (IndexOutOfBoundsException e) {
-            return "Invalid task number. Task number must be positive integer "
+            return "Error! Invalid task number. Task number must be positive integer "
                     + "within size of the current task list";
         } catch (Exception e) {
             return "Oops! Something went wrong. Please try again.";

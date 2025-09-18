@@ -51,9 +51,13 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = jinbot.getResponse(input);
+        boolean isError = response.startsWith("OOPS") || response.contains("Error");
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, jinbotImage)
+                isError
+                        ? DialogBox.getErrorDialog(response, jinbotImage)
+                        : DialogBox.getDukeDialog(response, jinbotImage)
         );
         userInput.clear();
     }
