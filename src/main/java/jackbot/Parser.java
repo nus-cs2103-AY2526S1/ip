@@ -3,12 +3,12 @@ package jackbot;
 public class Parser {
 
     public enum Type {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND
     }
 
     public static class Result {
         public final Type type;
-        public final String text; // payload for todo/deadline/event
+        public final String text; // payload for todo/deadline/event/find
         public final int index;   // 1-based index for mark/unmark/delete
 
         private Result(Type type, String text, int index) {
@@ -42,13 +42,14 @@ public class Parser {
         if (equalsIgnoreCase(input, "list")) return Result.of(Type.LIST);
 
         // Commands with arguments
-        if (startsWithIgnoreCase(input, "mark "))   return Result.index(Type.MARK,   parseIndex(input.substring(5)));
-        if (startsWithIgnoreCase(input, "unmark ")) return Result.index(Type.UNMARK, parseIndex(input.substring(7)));
-        if (startsWithIgnoreCase(input, "delete ")) return Result.index(Type.DELETE, parseIndex(input.substring(7)));
+        if (startsWithIgnoreCase(input, "mark "))     return Result.index(Type.MARK,     parseIndex(input.substring(5)));
+        if (startsWithIgnoreCase(input, "unmark "))   return Result.index(Type.UNMARK,   parseIndex(input.substring(7)));
+        if (startsWithIgnoreCase(input, "delete "))   return Result.index(Type.DELETE,   parseIndex(input.substring(7)));
 
-        if (startsWithIgnoreCase(input, "todo "))     return Result.text(Type.TODO,     input.substring(5).trim());
-        if (startsWithIgnoreCase(input, "deadline ")) return Result.text(Type.DEADLINE, input.substring(9).trim());
-        if (startsWithIgnoreCase(input, "event "))    return Result.text(Type.EVENT,    input.substring(6).trim());
+        if (startsWithIgnoreCase(input, "todo "))     return Result.text(Type.TODO,      input.substring(5).trim());
+        if (startsWithIgnoreCase(input, "deadline ")) return Result.text(Type.DEADLINE,  input.substring(9).trim());
+        if (startsWithIgnoreCase(input, "event "))    return Result.text(Type.EVENT,     input.substring(6).trim());
+        if (startsWithIgnoreCase(input, "find "))     return Result.text(Type.FIND,      input.substring(5).trim());
 
         throw new JackbotException("Command doesn't exist");
     }

@@ -30,13 +30,35 @@ public class TaskList {
 
     public Task delete(int index) throws JackbotException {
         int idx = index - 1;
-        if (idx < 0 || idx >= tasks.size()) throw new JackbotException("Task not found");
+        if (idx < 0 || idx >= tasks.size()) {
+            throw new JackbotException("Task not found");
+        }
         return tasks.remove(idx);
     }
 
     public Task get(int index) throws JackbotException {
         int idx = index - 1;
-        if (idx < 0 || idx >= tasks.size()) throw new JackbotException("Task not found");
+        if (idx < 0 || idx >= tasks.size()) {
+            throw new JackbotException("Task not found");
+        }
         return tasks.get(idx);
+    }
+
+    /**
+     * Finds tasks whose description contains the given keyword (case-insensitive).
+     * Returns an empty list if the keyword is null/blank or no matches are found.
+     */
+    public List<Task> find(String keyword) {
+        List<Task> result = new ArrayList<>();
+        if (keyword == null || keyword.isBlank()) {
+            return result;
+        }
+        String k = keyword.toLowerCase();
+        for (Task t : tasks) {
+            if (t.getDescription() != null && t.getDescription().toLowerCase().contains(k)) {
+                result.add(t);
+            }
+        }
+        return result;
     }
 }

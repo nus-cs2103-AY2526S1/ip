@@ -65,6 +65,17 @@ public class Ui {
         frame(sb.toString());
     }
 
+    public void showFound(List<Task> found) {
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:");
+        for (int i = 0; i < found.size(); i++) {
+            sb.append("\n").append(i + 1).append(". ").append(found.get(i));
+        }
+        if (found.isEmpty()) {
+            sb.append("\n(none)");
+        }
+        frame(sb.toString());
+    }
+
     public boolean hasNextLine() {
         return sc.hasNextLine();
     }
