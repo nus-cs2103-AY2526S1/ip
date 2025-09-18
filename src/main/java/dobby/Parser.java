@@ -27,6 +27,7 @@ public class Parser {
      * Interprets a raw user command and returns the output string.
      */
     public String handleCommand(String input) throws DobbyException {
+        assert input != null : "Input cannot be null";
         input = input.trim();
 
         if (input.equalsIgnoreCase("bye")) {

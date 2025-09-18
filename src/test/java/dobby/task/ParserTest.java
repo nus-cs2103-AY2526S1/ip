@@ -2,12 +2,11 @@ package dobby;
 
 import dobby.exceptions.DobbyException;
 import dobby.task.ToDo;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.io.TempDir;
-
-import java.nio.file.Path;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class ParserTest {
 
@@ -20,7 +19,7 @@ class ParserTest {
         Ui ui = new Ui();
         Path testFile = tempDir.resolve("test.txt"); // safe test file
         Storage storage = new Storage(testFile);
-        Parser parser = new Parser();
+        Parser parser = new Parser(tasks, storage);
 
         // Valid todo
         parser.handleCommand("todo Buy milk");

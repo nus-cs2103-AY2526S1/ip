@@ -2,6 +2,7 @@
 /.idea/
 /out/
 /*.iml
+*.jar
 
 # Gradle wrapper and cache
 wrapper/dists/
