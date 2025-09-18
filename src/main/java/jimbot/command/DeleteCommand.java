@@ -1,5 +1,6 @@
 package jimbot.command;
 
+import jimbot.exception.EmptyListException;
 import jimbot.exception.JimbotException;
 import jimbot.storage.Storage;
 import jimbot.tasktype.Task;
@@ -44,6 +45,10 @@ public class DeleteCommand implements Command {
      */
     @Override
     public String execute(TaskList userList, Storage userStorage, UI user) throws JimbotException {
+        if (userList.getTaskList().isEmpty()) {
+            throw new EmptyListException("delete");
+        }
+
         int taskCount = userList.getTaskCount();
         int index = Parser.parseIndex(userInput, "delete", taskCount);
 

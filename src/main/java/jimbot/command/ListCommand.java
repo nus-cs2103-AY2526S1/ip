@@ -1,6 +1,6 @@
-
 package jimbot.command;
 
+import jimbot.exception.EmptyListException;
 import jimbot.storage.Storage;
 import jimbot.tasktype.TaskList;
 import jimbot.ui.UI;
@@ -19,9 +19,13 @@ public class ListCommand implements Command {
      * @param userStorage Storage handler for persisting tasks (not used in this command).
      * @param user UI component for formatting responses.
      * @return A string representing all tasks in the user's task list.
+     * @throws EmptyListException If userList is empty.
      */
     @Override
-    public String execute(TaskList userList, Storage userStorage, UI user) {
+    public String execute(TaskList userList, Storage userStorage, UI user) throws EmptyListException {
+        if (userList.getTaskList().isEmpty()) {
+            throw new EmptyListException("do");
+        }
         return user.printList(userList.getTaskList());
     }
 }

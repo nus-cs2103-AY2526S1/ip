@@ -21,54 +21,54 @@ class CommandsTest {
 
     @Test
     void testHiCommand() throws JimbotException {
-        Command cmd = Commands.fromString("hi", "hi");
+        Command cmd = Commands.fromString("hi");
         assertNotNull(cmd);
         assertInstanceOf(GreetCommand.class, cmd);
     }
 
     @Test
     void testByeCommand() throws JimbotException {
-        Command cmd = Commands.fromString("bye", "bye");
+        Command cmd = Commands.fromString("bye");
         assertNotNull(cmd);
         assertInstanceOf(ExitCommand.class, cmd);
     }
 
     @Test
     void testTodoCommand() throws JimbotException {
-        Command cmd = Commands.fromString("todo read book", "todo");
+        Command cmd = Commands.fromString("todo read book");
         assertNotNull(cmd);
         assertInstanceOf(AddToDoCommand.class, cmd);
     }
 
     @Test
     void testDeadlineCommand() throws JimbotException {
-        Command cmd = Commands.fromString("deadline submit report /by tomorrow", "deadline");
+        Command cmd = Commands.fromString("deadline submit report /by tomorrow");
         assertNotNull(cmd);
         assertInstanceOf(AddDeadlineCommand.class, cmd);
     }
 
     @Test
     void testEventCommand() throws JimbotException {
-        Command cmd = Commands.fromString("event meeting /at office", "event");
+        Command cmd = Commands.fromString("event meeting /at office");
         assertNotNull(cmd);
         assertInstanceOf(AddEventCommand.class, cmd);
     }
 
     @Test
     void testDateCommandWithSlash() throws JimbotException {
-        Command cmd = Commands.fromString("2025/09/18", "2025/09/18");
+        Command cmd = Commands.fromString("2025/09/18");
         assertNotNull(cmd);
         assertInstanceOf(FindDateCommand.class, cmd);
     }
 
     @Test
     void testEmptyInputThrowsInvalidToDoException() {
-        assertThrows(InvalidToDoException.class, () -> Commands.fromString("", ""));
+        assertThrows(InvalidToDoException.class, () -> Commands.fromString(""));
     }
 
     @Test
     void testUnknownCommandThrowsInvalidInputException() {
-        assertThrows(InvalidInputException.class, () -> Commands.fromString("foobar", "foobar"));
+        assertThrows(InvalidInputException.class, () -> Commands.fromString("foobar"));
     }
 }
 

@@ -3,6 +3,7 @@ package jimbot.command;
 import java.time.LocalDate;
 import java.util.List;
 
+import jimbot.exception.EmptyListException;
 import jimbot.exception.JimbotException;
 import jimbot.storage.Storage;
 import jimbot.tasktype.Task;
@@ -41,6 +42,14 @@ public class FindDateCommand implements Command {
      */
     @Override
     public String execute(TaskList userList, Storage userStorage, UI user) throws JimbotException {
+        if (userList.getTaskList().isEmpty()) {
+            if (userInput.equals("today")) {
+                throw new EmptyListException("do today");
+            } else {
+                throw new EmptyListException("do that day");
+            }
+        }
+
         LocalDate date = LocalDate.now();
 
         if (!userInput.equals("today")) {

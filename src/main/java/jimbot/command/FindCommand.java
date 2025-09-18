@@ -2,6 +2,8 @@ package jimbot.command;
 
 import java.util.List;
 
+import jimbot.exception.EmptyListException;
+import jimbot.exception.JimbotException;
 import jimbot.exception.NoSuchTaskException;
 import jimbot.storage.Storage;
 import jimbot.tasktype.Task;
@@ -44,9 +46,14 @@ public class FindCommand implements Command {
      * @param user The UI manager used to format and display results.
      * @return A formatted string of all matching tasks.
      * @throws NoSuchTaskException If there is no task in the list that matches the description.
+     * @throws EmptyListException If the list is empty.
      */
     @Override
-    public String execute(TaskList userList, Storage userStorage, UI user) throws NoSuchTaskException {
+    public String execute(TaskList userList, Storage userStorage, UI user) throws JimbotException {
+        if (userList.getTaskList().isEmpty()) {
+            throw new EmptyListException("find");
+        }
+
         String description = userInput.toLowerCase()
                 .substring(4)
                 .trim();

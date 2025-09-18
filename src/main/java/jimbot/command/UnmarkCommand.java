@@ -1,5 +1,7 @@
 package jimbot.command;
 
+import jimbot.exception.EmptyListException;
+import jimbot.exception.JimbotException;
 import jimbot.exception.NoSuchTaskException;
 import jimbot.storage.Storage;
 import jimbot.tasktype.Task;
@@ -35,9 +37,14 @@ public class UnmarkCommand implements Command {
      * @param user The UI instance used to generate the response message.
      * @return A string message confirming the task has been unmarked.
      * @throws NoSuchTaskException If the specified task index does not exist.
+     * @throws EmptyListException If the userList is empty.
      */
     @Override
-    public String execute(TaskList userList, Storage userStorage, UI user) throws NoSuchTaskException {
+    public String execute(TaskList userList, Storage userStorage, UI user) throws JimbotException {
+        if (userList.getTaskList().isEmpty()) {
+            throw new EmptyListException("unmark");
+        }
+
         int index = Parser.parseIndex(userInput, "unmark", userList.getTaskCount());
 
         Task task = userList.getTask(index);

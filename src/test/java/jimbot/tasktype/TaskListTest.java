@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import jimbot.exception.EmptyListException;
 import jimbot.exception.NoSuchTaskException;
 import jimbot.exception.TaskLimitException;
 
@@ -78,7 +79,7 @@ public class TaskListTest {
     }
 
     @Test
-    void testFindTasksAtDate_withDeadline() throws TaskLimitException, NoSuchTaskException {
+    void testFindTasksAtDate_withDeadline() throws TaskLimitException, EmptyListException {
         LocalDateTime dueDate = LocalDateTime.of(2025, 9, 18, 23, 59);
         Task deadline = new Deadline("Finish assignment", dueDate);
 
@@ -90,7 +91,7 @@ public class TaskListTest {
     }
 
     @Test
-    void testFindTasksAtDate_withEvent() throws TaskLimitException, NoSuchTaskException {
+    void testFindTasksAtDate_withEvent() throws TaskLimitException, EmptyListException {
         LocalDateTime start = LocalDateTime.of(2025, 9, 20, 10, 0);
         LocalDateTime end = LocalDateTime.of(2025, 9, 22, 18, 0);
         Task event = new Event("Conference", start, end);

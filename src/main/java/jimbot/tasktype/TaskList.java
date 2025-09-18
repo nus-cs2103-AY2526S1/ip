@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import jimbot.exception.EmptyListException;
 import jimbot.exception.NoSuchTaskException;
 import jimbot.exception.TaskLimitException;
 
@@ -91,7 +92,15 @@ public class TaskList {
         return listOfTasks.size();
     }
 
-    public void clearList() {
+    /**
+     * Clears the task list of all tasks.
+     *
+     * @throws EmptyListException If list is already empty.
+     */
+    public void clearList() throws EmptyListException {
+        if (listOfTasks.isEmpty()) {
+            throw new EmptyListException("clear");
+        }
         listOfTasks.clear();
     }
 
@@ -142,9 +151,9 @@ public class TaskList {
      *
      * @param date Date to match tasks against.
      * @return TaskList containing tasks matching the given date.
-     * @throws NoSuchTaskException If no tasks match the date.
+     * @throws EmptyListException If no tasks match the date.
      * */
-    public TaskList findTasksAtDate(LocalDate date) throws NoSuchTaskException {
+    public TaskList findTasksAtDate(LocalDate date) throws EmptyListException {
         assert date != null : "Search date should not be null";
         List<Task> result = new ArrayList<>();
 
@@ -162,7 +171,11 @@ public class TaskList {
         }
 
         if (result.isEmpty()) {
-            throw new NoSuchTaskException();
+            if (date.equals(LocalDate.now())) {
+                throw new EmptyListException("do today");
+            } else {
+                throw new EmptyListException("do that day");
+            }
         } else {
             for (Task t : result) {
                 assert t instanceof Deadline || t instanceof Event : "Unexpected task type in date search result";

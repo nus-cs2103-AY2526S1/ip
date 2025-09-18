@@ -1,5 +1,6 @@
 package jimbot.command;
 
+import jimbot.exception.EmptyListException;
 import jimbot.storage.Storage;
 import jimbot.tasktype.TaskList;
 import jimbot.ui.UI;
@@ -19,9 +20,14 @@ public class ClearCommand implements Command {
      * @param userStorage Storage manager to update after clearing.
      * @param user UI manager used to generate the response message.
      * @return Response message confirming deletion of the task.
+     * @throws EmptyListException If userList is empty already.
      */
     @Override
-    public String execute(TaskList userList, Storage userStorage, UI user) {
+    public String execute(TaskList userList, Storage userStorage, UI user) throws EmptyListException {
+        if (userList.getTaskList().isEmpty()) {
+            throw new EmptyListException("clear");
+        }
+
         userList.clearList();
         userStorage.update(userList);
         return user.clear();

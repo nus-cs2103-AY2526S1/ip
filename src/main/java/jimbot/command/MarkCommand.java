@@ -1,5 +1,7 @@
 package jimbot.command;
 
+import jimbot.exception.EmptyListException;
+import jimbot.exception.JimbotException;
 import jimbot.exception.NoSuchTaskException;
 import jimbot.storage.Storage;
 import jimbot.tasktype.Task;
@@ -32,9 +34,14 @@ public class MarkCommand implements Command {
      * @param user The UI component used to generate formatted responses.
      * @return A string confirming the task has been marked as done.
      * @throws NoSuchTaskException If the task index is invalid or does not exist.
+     * @throws EmptyListException If the userlist is empty.
      */
     @Override
-    public String execute(TaskList userList, Storage userStorage, UI user) throws NoSuchTaskException {
+    public String execute(TaskList userList, Storage userStorage, UI user) throws JimbotException {
+        if (userList.getTaskList().isEmpty()) {
+            throw new EmptyListException("mark");
+        }
+
         int index = Parser.parseIndex(userInput, "mark", userList.getTaskCount());
 
         Task task = userList.getTask(index);

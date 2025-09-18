@@ -86,15 +86,10 @@ public class UI {
      */
     public String printList(List<Task> list) {
         int taskCount = list.size();
-
         String listContent = "";
         for (int i = 0; i < taskCount; i++) {
             Task task = list.get(i);
             listContent += "\n    " + (i + 1) + ". " + task;
-        }
-
-        if (listContent.isEmpty()) {
-            return "  ( ㄏ-᷅_-᷄)ㄏ You've nothing to do...";
         }
 
         String header = "  Here are the tasks in your list: ";
