@@ -1,0 +1,124 @@
+package mimi;
+
+/**
+ * Stateless helpers that parse user input into command parts.
+ * Throws {@link MiMiException} for malformed input.
+ * Note: Some programmer assumptions are guarded with Java {@code assert}
+ * Statements are : parseIndex & parseEvent
+ * Enable assertions during development with {@code -ea}.
+ */
+public class Parser {
+    // Due to this week's topic on code quality, I had to change the whole
+    // structure cause if not we have a lot of magic strings and numbers again haizz
+    private static final String by = "/by";
+    private static final String from = "/from";
+    private static final String to = "/to";
+    private static final int by_length = by.length();
+    private static final int from_length = from.length();
+    private static final int to_length = to.length();
+
+    /** Returns the first word (command) from the input. */
+    public static String commandWord(String input) {
+        String s = (input == null) ? "" : input.trim();
+        int sp = s.indexOf(' ');
+        return (sp == -1) ? s : s.substring(0, sp);
+    }
+
+    /** Returns everything after the first word (trimmed, may be empty). */
+    public static String afterWord(String input) {
+        String s = (input == null) ? "" : input.trim();
+        int sp = s.indexOf(' ');
+        return (sp == -1) ? "" : s.substring(sp + 1).trim();
+    }
+
+    /**
+     * Parses a 1-based index and returns a 0-based index.
+     * @throws MiMiException if not a positive integer
+     */
+    public static int parseIndex(String arg) throws MiMiException {
+        assert arg != null : "parseIndex expects non null arg, please enter correctly";
+        try {
+            int i = Integer.parseInt(arg.trim());
+            if (i <= 0) {
+                throw new NumberFormatException();
+            }
+            return i - 1;
+        } catch (Exception e) {
+            throw new MiMiException("Please give a valid positive number.");
+        }
+    }
+
+    /** Parses a todo command and returns a non-empty description. */
+    public static String parseTodo(String rest) throws MiMiException {
+        String desc = (rest == null) ? "" : rest.trim();
+        if (desc.isEmpty()) {
+            throw new MiMiException("How can there be nothing to do, there is always something to do!"
+                    + "Please enter your description correctly!");
+        }
+        return desc;
+    }
+
+    /**
+     * Parses a deadline command of the form: {@code deadline <desc> /by <when>}.
+     * @return {desc, when}
+     */
+    public static String[] parseDeadline(String rest) throws MiMiException {
+        int pos = rest.indexOf(by);
+        if (pos == -1) {
+            throw new MiMiException("Use /by for deadlines (e.g., deadline return book /by 2019-10-15)");
+        }
+        String desc = rest.substring(0, pos).trim();
+        String when = rest.substring(pos + by_length).trim();
+        if (desc.isEmpty() || when.isEmpty()) {
+            throw new MiMiException(
+                    "Please provide both a description and a deadline, e.g., 'deadline return book /by 2019-10-15'");
+        }
+        return new String[] { desc, when };
+    }
+
+    /**
+     * Parses an event command of the form: {@code event <desc> /from <a> /to <b>}.
+     * @return {desc, from, to}
+     */
+    public static String[] parseEvent(String rest) throws MiMiException {
+        assert rest != null : "parseEvent expects non null input";
+        String desc = rest;
+        String from = "";
+        String to = "";
+        int f = rest.indexOf(Parser.from);
+        if (f != -1) {
+            desc = rest.substring(0, f).trim();
+            String afterFrom = rest.substring(f + from_length).trim();
+            int t = afterFrom.indexOf(Parser.to);
+            if (t == -1) {
+                from = afterFrom.trim();
+            } else {
+                from = afterFrom.substring(0, t).trim();
+                to = afterFrom.substring(t + to_length).trim();
+            }
+        }
+        if (desc.isEmpty()) {
+            throw new MiMiException(
+                    "Please provide an event description and optionally '/from ...' and '/to ...'.");
+        }
+        return new String[] { desc, from, to };
+    }
+
+    /**
+     * Parses a within command: {@code within <desc> /from <a> /to <b>}.
+     */
+    public static String[] parseWithin(String rest) throws MiMiException {
+        int f = rest.indexOf("/from");
+        int t = rest.indexOf("/to");
+        if (f == -1 || t == -1 || f > t) {
+            throw new MiMiException("Use /from and /to, e.g., within collect cert /from 2025-01-15 /to 2025-01-25");
+        }
+        String desc = rest.substring(0, f).trim();
+        String from = rest.substring(f + 5, t).replace("/", "").trim();
+        String to = rest.substring(t + 3).replace("/", "").trim();
+        if (desc.isEmpty() || from.isEmpty() || to.isEmpty()) {
+            throw new MiMiException("Please provide a description, a from-date and a to-date.");
+        }
+        return new String[]{desc, from, to};
+    }
+}
