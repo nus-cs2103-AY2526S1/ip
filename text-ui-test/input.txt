@@ -1,0 +1,6 @@
+list
+todo eat food
+deadline go home /tonight
+event chiikawa birthday party /tomorrow 2pm / tomorrow 10pm
+list
+bye
