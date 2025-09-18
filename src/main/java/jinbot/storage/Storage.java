@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import jinbot.JinBotException;
 import jinbot.task.Deadline;
 import jinbot.task.Event;
 import jinbot.task.Priority;
@@ -127,7 +128,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            System.err.println("An error occurred while loading tasks: " + e.getMessage());
+            System.err.println("Error! Failed to load tasks from file: " + file.getAbsolutePath());
         }
         return loadedTasks;
     }
@@ -136,8 +137,9 @@ public class Storage {
      * Saves all tasks in the given task list to disk, overwriting the existing save file.
      *
      * @param tasks The task list whose tasks are to be saved.
+     * @throws JinBotException if IOException is caught.
      */
-    public void saveTasks(TaskList tasks) {
+    public void saveTasks(TaskList tasks) throws JinBotException {
         File file = new File(DATA_DIR, FILE_NAME);
         try (FileWriter fileWriter = new FileWriter(file)) {
             for (int i = 0; i < tasks.getSize(); i++) {
@@ -146,7 +148,7 @@ public class Storage {
                 fileWriter.write(System.lineSeparator());
             }
         } catch (IOException e) {
-            System.err.println("An error occurred while saving tasks: " + e.getMessage());
+            throw new JinBotException("Error! Failed to save tasks. Please try again.");
         }
     }
 }
