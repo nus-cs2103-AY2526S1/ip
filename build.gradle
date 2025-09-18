@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'jacoco'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -15,7 +16,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
-
+    finalizedBy jacocoTestReport
     testLogging {
         events "passed", "skipped", "failed"
 
@@ -24,6 +25,14 @@ test {
         showCauses true
         showStackTraces true
         showStandardStreams = false
+    }
+}
+
+jacocoTestReport {
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+        csv.required.set(false)
     }
 }
 

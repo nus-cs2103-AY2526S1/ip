@@ -7,6 +7,25 @@ import jackbot.task.Event;
 
 import java.util.List;
 
+/**
+ * Main entry point and command loop for the Jackbot CLI todo manager.
+ * <p>
+ * Responsibilities:
+ * <ul>
+ *   <li>Load and persist tasks via {@link Storage}.</li>
+ *   <li>Parse user input via {@link Parser} and execute commands on {@link TaskList}.</li>
+ *   <li>Interact with the user through {@link Ui}.</li>
+ * </ul>
+ *
+ * <p>Supported commands (delegated from {@link Parser}): LIST, MARK, UNMARK, DELETE, TODO,
+ * DEADLINE, EVENT, BYE.</p>
+ *
+ * <p>On startup, Jackbot attempts to load tasks from the provided file path. If the file exists,
+ * it shows an informational message and continues with the loaded list; otherwise it starts with
+ * an empty list.</p>
+ *
+ * @author Haxatron
+ */
 public class Jackbot {
 
     private final Ui ui;
@@ -14,6 +33,11 @@ public class Jackbot {
     private TaskList tasks;
     private final Parser parser;
 
+    /**
+     * Constructs a new {@code Jackbot} bound to a storage file.
+     *
+     * @param filePath path to the tasks file used by {@link Storage}
+     */
     public Jackbot(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -31,6 +55,11 @@ public class Jackbot {
         }
     }
 
+    /**
+     * Runs the interactive REPL: reads user commands, executes them,
+     * persists state when it changes, and prints results to the UI.
+     * Terminates when the user issues the BYE command or when input ends.
+     */
     public void run() {
         ui.showWelcome();
 
@@ -120,10 +149,22 @@ public class Jackbot {
         ui.showGoodbye();
     }
 
+    /**
+     * Ensures a string is not null/blank.
+     *
+     * @param s   the string to check
+     * @param msg error message for the thrown exception
+     * @throws JackbotException if {@code s} is null or blank
+     */
     private void ensureNotEmpty(String s, String msg) throws JackbotException {
         if (s == null || s.trim().isEmpty()) throw new JackbotException(msg);
     }
 
+    /**
+     * Program entry point.
+     *
+     * @param args command-line arguments (ignored). The app stores tasks under {@code ./tasks.txt}.
+     */
     public static void main(String[] args) {
         new Jackbot("./tasks.txt").run();
     }
