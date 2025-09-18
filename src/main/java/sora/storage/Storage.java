@@ -55,10 +55,10 @@ public class Storage {
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            String[] parts = line.split(" \\| ");
-            String type = parts[0];
-            boolean isDone = parts[1].equals("1");
-            String description = parts[2];
+            String[] parts = line.split("\\|");
+            String type = parts[0].trim();
+            boolean isDone = parts[1].trim().equals("1");
+            String description = parts[2].trim();
 
             switch (type) {
             case "T":
@@ -69,7 +69,7 @@ public class Storage {
                 tasks.addTask(todo);
                 break;
             case "D":
-                LocalDateTime by = LocalDateTime.parse(parts[3], format);
+                LocalDateTime by = LocalDateTime.parse(parts[3].trim(), format);
                 Deadline deadline = new Deadline(description, by);
                 if (isDone) {
                     deadline.markAsDone();
@@ -77,8 +77,8 @@ public class Storage {
                 tasks.addTask(deadline);
                 break;
             case "E":
-                LocalDateTime from = LocalDateTime.parse(parts[3], format);
-                LocalDateTime to = LocalDateTime.parse(parts[4], format);
+                LocalDateTime from = LocalDateTime.parse(parts[3].trim(), format);
+                LocalDateTime to = LocalDateTime.parse(parts[4].trim(), format);
                 Event event = new Event(description, from, to);
                 if (isDone) {
                     event.markAsDone();
@@ -86,7 +86,7 @@ public class Storage {
                 tasks.addTask(event);
                 break;
             case "A":
-                LocalDateTime required = LocalDateTime.parse(parts[3], format);
+                LocalDateTime required = LocalDateTime.parse(parts[3].trim(), format);
                 After after = new After(description, required);
                 if (isDone) {
                     after.markAsDone();

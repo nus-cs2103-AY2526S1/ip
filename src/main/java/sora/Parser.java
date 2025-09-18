@@ -39,8 +39,8 @@ public class Parser {
         assert storage != null : "Storage must not be null";
 
         String[] parts = command.split(" ", 2);
-        String startWord = parts[0];
-        String description = parts.length == 1 ? "" : parts[1];
+        String startWord = parts[0].trim();
+        String description = parts.length == 1 ? "" : parts[1].trim();
         if (command.equals("bye")) {
             return ui.showGoodbye();
         } else {
@@ -99,9 +99,9 @@ public class Parser {
                     if (!description.contains("/by")) {
                         throw new SoraException("Lack of deadline time!");
                     }
-                    String[] time = description.split(" /by ");
-                    LocalDateTime by = LocalDateTime.parse(time[1], format);
-                    Task deadline = new Deadline(time[0], by);
+                    String[] time = description.split("/by");
+                    LocalDateTime by = LocalDateTime.parse(time[1].trim(), format);
+                    Task deadline = new Deadline(time[0].trim(), by);
                     tasks.addTask(deadline);
                     return ui.showAddedTask(deadline, tasks.size());
                 }
@@ -112,9 +112,9 @@ public class Parser {
                     if (!description.contains("/required")) {
                         throw new SoraException("Lack of required time!");
                     }
-                    String[] time = description.split(" /required ");
-                    LocalDateTime required = LocalDateTime.parse(time[1], format);
-                    Task after = new After(time[0], required);
+                    String[] time = description.split("/required");
+                    LocalDateTime required = LocalDateTime.parse(time[1].trim(), format);
+                    Task after = new After(time[0].trim(), required);
                     tasks.addTask(after);
                     return ui.showAddedTask(after, tasks.size());
                 }
@@ -125,14 +125,14 @@ public class Parser {
                     if (!description.contains("/from")) {
                         throw new SoraException("Lack of start time!");
                     }
-                    String[] time = description.split(" /from ");
-                    if (!time[1].contains("/to")) {
+                    String[] time = description.split("/from");
+                    if (!time[1].trim().contains("/to")) {
                         throw new SoraException("Lack of end time!");
                     }
-                    String[] range = time[1].split(" /to ");
-                    LocalDateTime from = LocalDateTime.parse(range[0], format);
-                    LocalDateTime to = LocalDateTime.parse(range[1], format);
-                    Task event = new Event(time[0], from, to);
+                    String[] range = time[1].trim().split("/to");
+                    LocalDateTime from = LocalDateTime.parse(range[0].trim(), format);
+                    LocalDateTime to = LocalDateTime.parse(range[1].trim(), format);
+                    Task event = new Event(time[0].trim(), from, to);
                     tasks.addTask(event);
                     return ui.showAddedTask(event, tasks.size());
                 }
