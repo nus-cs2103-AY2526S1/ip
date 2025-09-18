@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane minHeight="400.0" minWidth="350.0"
+            prefHeight="600.0" prefWidth="450.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="billy.MainWindow">
+    <children>
+        <!--Resizing added by claude-->
+        <ScrollPane fx:id="scrollPane"
+                    hbarPolicy="NEVER"
+                    fitToWidth="true"
+                    AnchorPane.topAnchor="10.0"
+                    AnchorPane.leftAnchor="10.0"
+                    AnchorPane.rightAnchor="10.0"
+                    AnchorPane.bottomAnchor="60.0">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      spacing="5.0">
+                    <padding>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+        <HBox spacing="8.0" fillHeight="false"
+              AnchorPane.bottomAnchor="10.0"
+              AnchorPane.leftAnchor="10.0"
+              AnchorPane.rightAnchor="10.0">
+            <children>
+                <TextField fx:id="userInput"
+                           onAction="#handleUserInput"
+                           promptText="Type your command here..."
+                           maxWidth="1.7976931348623157E308"
+                           HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton"
+                        mnemonicParsing="false"
+                        onAction="#handleUserInput"
+                        minWidth="-Infinity"
+                        prefWidth="70.0"
+                        text="Send" />
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
+
