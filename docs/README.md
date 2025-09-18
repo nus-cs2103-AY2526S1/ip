@@ -16,6 +16,7 @@ TaskLynx tracks 3 types of tasks:
 - todo tasks that support a description
 - deadline tasks that support a description and a deadline
 - event tasks that support a description, a start time and an end time
+
 TaskLynx also lets you attach an optional priority to tasks!
 
 Example: 
@@ -71,6 +72,7 @@ TaskLynx also lets you:
 - Mark tasks as complete
 - Unmark tasks as incomplete
 - Delete tasks from the list
+
 Using the same variety of search modifiers as mentioned under "Listing tasks"!
 
 Example:
