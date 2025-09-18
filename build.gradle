@@ -55,7 +55,7 @@ application {
     mainClass.set("phuc.gui.Launcher")
 }
 
-mainClassName = 'phuc.Launcher'
+mainClassName = 'phuc.gui.Launcher'
 
 shadowJar {
     archiveFileName = 'Phuc.jar'
