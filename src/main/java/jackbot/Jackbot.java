@@ -1,11 +1,8 @@
 package jackbot;
 
-import jackbot.task.Deadline;
-import jackbot.task.Event;
-import jackbot.task.Task;
-import jackbot.task.Todo;
-
 import java.util.List;
+
+import jackbot.task.Task;
 
 /**
  * Main entry point and command loop for the Jackbot CLI todo manager.
@@ -13,12 +10,12 @@ import java.util.List;
  * Responsibilities:
  * <ul>
  *   <li>Load and persist tasks via {@link Storage}.</li>
- *   <li>Parse user input via {@link Parser} and execute commands on {@link TaskList}.</li>
+ *   <li>Delegate command parsing/execution to {@link CommandEngine} (which wraps {@link Parser} and {@link TaskList}).</li>
  *   <li>Interact with the user through {@link Ui}.</li>
  * </ul>
  *
- * <p>Supported commands (delegated from {@link Parser}): LIST, MARK, UNMARK, DELETE, TODO,
- * DEADLINE, EVENT, BYE.</p>
+ * <p>Supported commands (handled by {@link CommandEngine}): LIST, MARK, UNMARK, DELETE, TODO,
+ * DEADLINE, EVENT, FIND, BYE.</p>
  *
  * <p>On startup, Jackbot attempts to load tasks from the provided file path. If the file exists,
  * it shows an informational message and continues with the loaded list; otherwise it starts with
@@ -58,112 +55,31 @@ public class Jackbot {
     /**
      * Runs the interactive REPL: reads user commands, executes them,
      * persists state when it changes, and prints results to the UI.
+     * <p>
+     * Implementation note: command logic is delegated to {@link CommandEngine}
+     * so both CLI and JavaFX UI share identical behavior and messages.
      * Terminates when the user issues the BYE command or when input ends.
      */
     public void run() {
         ui.showWelcome();
 
+        CommandEngine engine = new CommandEngine(storage, tasks, parser);
         boolean exit = false;
+
         while (!exit && ui.hasNextLine()) {
             String input = ui.readLine();
 
-            try {
-                Parser.Result r = parser.parse(input);
+            CommandEngine.Response resp = engine.process(input);
 
-                switch (r.type) {
-                    case BYE:
-                        exit = true;
-                        break;
-
-                    case LIST:
-                        ui.showList(tasks.asList());
-                        break;
-
-                    case MARK: {
-                        Task t = tasks.get(r.index);
-                        if (t.isDone()) {
-                            throw new JackbotException("Task is already marked");
-                        }
-                        t.mark();
-                        storage.save(tasks.asList());
-                        ui.showMarked(t);
-                        break;
-                    }
-
-                    case UNMARK: {
-                        Task t = tasks.get(r.index);
-                        if (!t.isDone()) {
-                            throw new JackbotException("Task is already unmarked");
-                        }
-                        t.unmark();
-                        storage.save(tasks.asList());
-                        ui.showUnmarked(t);
-                        break;
-                    }
-
-                    case DELETE: {
-                        Task removed = tasks.delete(r.index);
-                        storage.save(tasks.asList());
-                        ui.showDeleted(removed, tasks.size());
-                        break;
-                    }
-
-                    case TODO: {
-                        ensureNotEmpty(r.text, "Task description cannot be empty");
-                        Task t = new Todo(r.text);
-                        tasks.add(t);
-                        storage.save(tasks.asList());
-                        ui.showAdded(t, tasks.size());
-                        break;
-                    }
-
-                    case DEADLINE: {
-                        ensureNotEmpty(r.text, "Task description cannot be empty");
-                        Task t = new Deadline(r.text);
-                        tasks.add(t);
-                        storage.save(tasks.asList());
-                        ui.showAdded(t, tasks.size());
-                        break;
-                    }
-
-                    case EVENT: {
-                        ensureNotEmpty(r.text, "Task description cannot be empty");
-                        Task t = new Event(r.text);
-                        tasks.add(t);
-                        storage.save(tasks.asList());
-                        ui.showAdded(t, tasks.size());
-                        break;
-                    }
-
-                    case FIND: {
-                        ensureNotEmpty(r.text, "Search keyword cannot be empty");
-                        ui.showFound(tasks.find(r.text));
-                        break;
-                    }
-
-                    default:
-                        throw new JackbotException("Command doesn't exist");
-                }
-
-            } catch (JackbotException e) {
-                ui.showError(e.getMessage());
-            } catch (Exception e) {
-                ui.showError("Unexpected error: " + e.getMessage());
+            // Render each message using the existing Ui framing
+            for (String msg : resp.messages) {
+                ui.showInfo(msg);
             }
+
+            exit = resp.exit;
         }
 
         ui.showGoodbye();
-    }
-
-    /**
-     * Ensures a string is not null/blank.
-     *
-     * @param s   the string to check
-     * @param msg error message for the thrown exception
-     * @throws JackbotException if {@code s} is null or blank
-     */
-    private void ensureNotEmpty(String s, String msg) throws JackbotException {
-        if (s == null || s.trim().isEmpty()) throw new JackbotException(msg);
     }
 
     /**
