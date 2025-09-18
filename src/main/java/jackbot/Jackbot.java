@@ -1,9 +1,9 @@
 package jackbot;
 
-import jackbot.task.Task;
-import jackbot.task.Todo;
 import jackbot.task.Deadline;
 import jackbot.task.Event;
+import jackbot.task.Task;
+import jackbot.task.Todo;
 
 import java.util.List;
 
