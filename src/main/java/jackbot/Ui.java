@@ -139,6 +139,25 @@ public class Ui {
     }
 
     /**
+     * Displays the result of a {@code find} command.
+     * <p>
+     * Renders the matching tasks with 1-based numbering. If there are no matches,
+     * shows {@code (none)}.
+     *
+     * @param found list of tasks that matched the search (never {@code null})
+     */
+    public void showFound(List<Task> found) {
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:");
+        for (int i = 0; i < found.size(); i++) {
+            sb.append("\n").append(i + 1).append(". ").append(found.get(i));
+        }
+        if (found.isEmpty()) {
+            sb.append("\n(none)");
+        }
+        frame(sb.toString());
+    }
+
+    /**
      * Returns whether there is another input line available from the scanner.
      *
      * @return {@code true} if another line is available; {@code false} otherwise

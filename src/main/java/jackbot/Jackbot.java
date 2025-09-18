@@ -135,6 +135,12 @@ public class Jackbot {
                         break;
                     }
 
+                    case FIND: {
+                        ensureNotEmpty(r.text, "Search keyword cannot be empty");
+                        ui.showFound(tasks.find(r.text));
+                        break;
+                    }
+
                     default:
                         throw new JackbotException("Command doesn't exist");
                 }

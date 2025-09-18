@@ -96,4 +96,22 @@ public class TaskList {
         }
         return tasks.get(idx);
     }
+
+    /**
+     * Finds tasks whose description contains the given keyword (case-insensitive).
+     * Returns an empty list if the keyword is null/blank or no matches are found.
+     */
+    public List<Task> find(String keyword) {
+        List<Task> result = new ArrayList<>();
+        if (keyword == null || keyword.isBlank()) {
+            return result;
+        }
+        String k = keyword.toLowerCase();
+        for (Task t : tasks) {
+            if (t.getDescription() != null && t.getDescription().toLowerCase().contains(k)) {
+                result.add(t);
+            }
+        }
+        return result;
+    }
 }

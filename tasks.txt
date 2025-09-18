@@ -1,4 +1,11 @@
 T|1|5
 T|1|5
+<<<<<<< HEAD
 D|0|submit report|2025-12-31T23:59:59
 E|0|conference|2025-12-30T09:00|2025-12-30T17:00
+=======
+T|0|A
+T|0|BEEEEEEEEE
+T|0|read book
+T|0|return book
+>>>>>>> branch-Level-9
