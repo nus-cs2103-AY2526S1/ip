@@ -32,11 +32,19 @@ public class MainWindow {
 
     public void setByteBot(ByteBot byteBot) {
         this.byteBot = byteBot;
+        if (this.byteBot != null && this.byteImage != null) {
+            String greeting = this.byteBot.getGreeting();
+            dialogContainer.getChildren().add(DialogBox.getByteDialog(greeting, this.byteImage));
+        }
     }
 
     public void setAvatarImages(Image userImage, Image byteImage) {
         this.userImage = userImage;
         this.byteImage = byteImage;
+        if (this.byteBot != null && this.byteImage != null) {
+            String greeting = this.byteBot.getGreeting();
+            dialogContainer.getChildren().add(DialogBox.getByteDialog(greeting, this.byteImage));
+        }
     }
 
     /**

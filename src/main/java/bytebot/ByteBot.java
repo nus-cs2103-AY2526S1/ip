@@ -94,6 +94,16 @@ public class ByteBot {
     }
 
     /**
+     * Returns the greeting message for display in the UI.
+     * Used by the GUI to show an initial bot message on startup.
+     *
+     * @return Greeting message
+     */
+    public String getGreeting() {
+        return ui.showGreeting();
+    }
+
+    /**
      * Application entry point.
      *
      * @param args CLI arguments
