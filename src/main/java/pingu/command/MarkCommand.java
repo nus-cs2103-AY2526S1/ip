@@ -14,9 +14,10 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws PinguException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws PinguException {
         Task task = tasks.markTask(taskIndex);
-        ui.showMessage("Nice! I've marked this task as done:\n  " + task);
+
         storage.save(tasks.getTasks());
+        return "Nice! I've marked this task as done:\n  " + task;
     }
 }

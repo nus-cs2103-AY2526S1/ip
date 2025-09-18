@@ -14,10 +14,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws PinguException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws PinguException {
         Task removedTask = tasks.deleteTask(taskIndex);
-        ui.showMessage("Noted. I've removed this task:\n  " + removedTask);
-        ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
         storage.save(tasks.getTasks());
+
+        return "Noted. I've removed this task:\n  " + removedTask + "\n" + "Now you have " + tasks.size()
+                + " tasks in the list.";
     }
 }

@@ -17,7 +17,7 @@ public abstract class Command {
      * @param storage The Storage to save or load tasks.
      * @throws PinguException If an error occurs during execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws PinguException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws PinguException;
 
     /**
      * Returns true if the command is an exit command.

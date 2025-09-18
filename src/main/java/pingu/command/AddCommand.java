@@ -14,10 +14,11 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws PinguException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws PinguException {
         tasks.addTask(taskToAdd);
-        ui.showMessage("Got it. I've added this task:\n  " + taskToAdd);
-        ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
         storage.save(tasks.getTasks());
+
+        return "Got it. I've added this task:\n  " + taskToAdd + "\n" + "Now you have " + tasks.size()
+                + " tasks in the list.";
     }
 }
