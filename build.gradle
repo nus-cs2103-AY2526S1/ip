@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'jacoco'
+    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -34,6 +35,10 @@ jacocoTestReport {
         xml.required.set(true)
         csv.required.set(false)
     }
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
 }
 
 application {
