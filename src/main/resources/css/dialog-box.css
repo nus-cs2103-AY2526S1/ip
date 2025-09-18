@@ -1,0 +1,63 @@
+.label {
+    background:white;
+    -fx-background-color: background;
+    -fx-border-color: #7393B3;
+    -fx-border-width: 3px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: ladder(background, white 49%, black 50%);
+    -fx-padding: 6px;
+    -fx-border-insets: 0px 7px 0px 7px;
+    -fx-background-insets: 0px 7px 0px 7px;
+}
+
+.reply-label {
+    -fx-border-width: 3px;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.salutations-label {
+    -fx-background-color: #A9D6E5;
+}
+
+.add-label {
+    -fx-background-color: #B5E48C;
+}
+
+.marked-label {
+    -fx-background-color: #FFD8BE;
+}
+
+.delete-label {
+    -fx-background-color: #FFC8DD;
+}
+
+.list-label {
+    -fx-background-color: #FDF0D5;
+}
+
+.find-label {
+    -fx-background-color: #E7ECEF;
+}
+
+.error-label {
+    -fx-background-color: #ffdddd; /* light red background */
+    -fx-text-fill: #a30000;        /* dark red text */
+    -fx-border-color: #a30000;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+

@@ -1,30 +1,91 @@
-# Duke User Guide
+# Rainy User Guide
 
-// Update the title above to match the actual product name
+![UI screenshot](Ui.png)
 
-// Product screenshot goes here
+rainy lets u remain productive without forgetting what u need to do. it's
 
-// Product intro goes here
+- text-based
+- simple
+- ~~FAST~~ **SUPER FAST** to use
 
-## Adding deadlines
+## Adding tasks
 
-// Describe the action and its outcome.
+add todo, deadlines and events easily!
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+Example: `deadline play with cat /by 2025-09-16 2359`
 
 ```
-expected output
+oki! i've added this task:
+  [D][ ] play with cat (by: Sep 16 2025 11:59 pm)
+now you have 3 tasks left!
+```
+## List
+
+view your list of things at a glance!
+
+Example: `list`
+
+```
+oki! here are the tasks in your list:
+  1. [T][ ] read book
+  2. [D][ ] feed cat (by: Sep 16 2025 09:00 pm)
+  3. [D][ ] play with cat (by: Sep 16 2025 11:59 pm)
+```
+## Mark and Unmark
+
+done with task? mark them as done! or unmark if not done!
+
+Example: `mark 1`
+
+```
+yay! :D i've marked this task as done:
+  [T][X] read book
+```
+Example: `unmark 1`
+
+```
+oki, i've marked this task as not done yet:
+  [T][ ] read book
+```
+## Delete
+
+want to remove a task? delete them!
+
+Example: `delete 3`
+
+```
+oki! i've removed this task:
+  [D][ ] play with cat (by: Sep 16 2025 11:59 pm)
+now you have 2 tasks left!
+```
+## Find
+
+finds specific task
+
+Example: `find cat`
+
+```
+here are the matching tasks in your list:
+  1. [D][ ] feed cat (by: Sep 16 2025 09:00 pm)
 ```
 
-## Feature ABC
+## Undo 
 
-// Feature details
+made mistakes? simply undo them!
 
+Example: `undo`
 
-## Feature XYZ
+```
+undo oki! restored this deadline:
+  [D][ ] play with cat (by: Sep 16 2025 11:59 pm)
+now you have 3 tasks left!
+```
+## Bye
 
-// Feature details
+exit rainy
+
+Example: `bye`
+
+```
+bai bai! see you again >_<
+```
