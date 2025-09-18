@@ -100,6 +100,8 @@ public class TaskList {
     /**
      * Finds tasks whose description contains the given keyword (case-insensitive).
      * Returns an empty list if the keyword is null/blank or no matches are found.
+     * @param keyword the keyword to search for
+     * @return the list of tasks matching the keyword
      */
     public List<Task> find(String keyword) {
         List<Task> result = new ArrayList<>();

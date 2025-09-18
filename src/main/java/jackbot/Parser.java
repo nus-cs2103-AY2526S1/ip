@@ -14,6 +14,7 @@ package jackbot;
  *   <li><b>todo &lt;text&gt;</b> &rarr; {@link Type#TODO}</li>
  *   <li><b>deadline &lt;text&gt;</b> &rarr; {@link Type#DEADLINE}</li>
  *   <li><b>event &lt;text&gt;</b> &rarr; {@link Type#EVENT}</li>
+ *   <li><b>find &lt;text&gt;</b> &rarr; {@link Type#FIND}</li>
  * </ul>
  *
  * <p>Notes:
