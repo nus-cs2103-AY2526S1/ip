@@ -83,6 +83,23 @@ public class Main extends Application {
 
         dialogContainer.getChildren().addAll(userDialog, dobbyDialog);
         userInput.clear();
+
+        // Exit GUI if input is "bye" (case-insensitive)
+        if (input.trim().equalsIgnoreCase("bye")) {
+            // Close the Stage after a short delay so the user sees the message
+            new Thread(() -> {
+                try {
+                    Thread.sleep(500); // half a second
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                javafx.application.Platform.runLater(() -> {
+                    Stage stage = (Stage) scene.getWindow();
+                    stage.close();
+                });
+            }).start();
+        }
+    }
     }
 
 
