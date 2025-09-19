@@ -49,25 +49,32 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.dialog.getStyleClass().add("user-label");
+        return db;
     }
 
     public static DialogBox getPaulDialog(String text, Image img, String commandType) {
         var db = new DialogBox(text, img);
         db.flip();
-        db.changeDialogStyle(commandType);
+        db.changeDialogStyle(commandType, text);
         return db;
     }
 
-    private void changeDialogStyle(String commandType) {
+    private void changeDialogStyle(String commandType, String text) {
+        if (text.startsWith("Error:")) {
+            dialog.getStyleClass().add("error-label");
+            return;
+        }
+
         switch(commandType) {
-        case "AddCommand":
+        case "TODO", "DEADLINE", "EVENT":
             dialog.getStyleClass().add("add-label");
             break;
-        case "ChangeMarkCommand":
+        case "MARK", "UNMARK":
             dialog.getStyleClass().add("marked-label");
             break;
-        case "DeleteCommand":
+        case "DELETE":
             dialog.getStyleClass().add("delete-label");
             break;
         default:

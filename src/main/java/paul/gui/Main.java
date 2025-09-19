@@ -25,8 +25,9 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
 
-            stage.setMinHeight(220);
+            stage.setMinHeight(637);
             stage.setMinWidth(417);
+            stage.setResizable(true);
             fxmlLoader.<MainWindow>getController().setPaul(paul); // inject the Paul instance
             stage.show();
         } catch (IOException e) {

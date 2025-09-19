@@ -2,6 +2,7 @@ package paul.gui;
 
 import java.util.Objects;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,12 +11,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import paul.Paul;
 
 /**
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
+    private static final int EXIT_DELAY = 1;
+    private static final double SCROLL_SENSITIVITY = 0.005;
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -32,9 +37,21 @@ public class MainWindow extends AnchorPane {
     private final Image paulImage = new Image(
             Objects.requireNonNull(this.getClass().getResourceAsStream("/images/Paul.png")));
 
+    /** Initialize the main window */
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.heightProperty().addListener((obs, oldVal, newVal) -> {
+            scrollPane.setVvalue(1.0);
+        });
+
+        dialogContainer.setOnScroll(event -> {
+            double deltaY = event.getDeltaY() * SCROLL_SENSITIVITY; // tweak for sensitivity
+            scrollPane.setVvalue(scrollPane.getVvalue() - deltaY);
+            event.consume(); // prevent double-handling
+        });
+
+        // Optional: make ScrollPane focusable for keyboard/mouse wheel events
+        scrollPane.setFocusTraversable(true);
     }
 
     /** Injects the Paul instance */
@@ -46,7 +63,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Paul's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -62,8 +79,12 @@ public class MainWindow extends AnchorPane {
 
         // Exit when user says bye
         if (paul.getCommandType().equals("BYE")) {
-            Platform.exit();
-            System.exit(0);
+            // Create a delay when exiting
+            PauseTransition delay = new PauseTransition(Duration.seconds(EXIT_DELAY));
+            delay.setOnFinished(event -> {
+                Platform.exit(); // closes the application
+            });
+            delay.play();
         }
     }
 }
