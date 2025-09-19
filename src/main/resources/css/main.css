@@ -1,6 +1,12 @@
 .root {
-    /* Softer gradient with light tones, easier on the eyes */
-    -fx-background-color: linear-gradient(to bottom right, #edf7f3, #d9ffe2);
+    /* Use an image as the background */
+    -fx-background-image: url("/images/background.jpg");
+    -fx-background-size: 100% 100%;
+    /* Adjust how the image is displayed */
+    -fx-background-repeat: no-repeat;      /* or repeat, repeat-x, repeat-y */
+    -fx-background-position: center center;/* center the image *//* cover = scale to fill while keeping aspect ratio */
+
+    /* Optional padding around the content */
     -fx-padding: 10;
 }
 
