@@ -80,13 +80,4 @@ public class Jackbot {
 
         ui.showGoodbye();
     }
-
-    /**
-     * Program entry point.
-     *
-     * @param args command-line arguments (ignored). The app stores tasks under {@code ./tasks.txt}.
-     */
-    public static void main(String[] args) {
-        new Jackbot("./tasks.txt").run();
-    }
 }
