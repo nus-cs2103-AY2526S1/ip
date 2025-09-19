@@ -15,6 +15,7 @@ public class Parser {
      * @return returns the Command to be executed based on the input
      */
     public static Command parse(String input) {
+        assert input != null : "input into parser should not be null";
         String[] tmp = input.split(" ");
         String command = tmp[0];
         return switch (command) {
