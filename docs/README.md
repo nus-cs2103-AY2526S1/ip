@@ -94,7 +94,7 @@ Schedule a task over a time range.
     ____________________________________________________________
 
     Got it. I've added this task
-      [E][ ] team sync (from: 2025-10-01T09:00 to: 2025-10-01T10:00)
+      [E][ ] team sync (from: 2025-10-01 09:00 to: 2025-10-01 10:00)
     Now you have 2 tasks in the list.
     ____________________________________________________________
 ```
@@ -121,7 +121,7 @@ Add a task due at a specific time.
     ____________________________________________________________
 
     Got it. I've added this task
-      [D][ ] return book (by: 2025-12-31T23:59:59)
+      [D][ ] return book (by: 2025-12-31 23:59:59)
     Now you have 3 tasks in the list.
     ____________________________________________________________
 ```
@@ -145,8 +145,8 @@ List all current tasks saved in the current session.
 
     Your previous entries:
     1. [T][ ] read book
-    2. [E][ ] team sync (from: 2025-10-01T09:00 to: 2025-10-01T10:00)
-    3. [D][ ] return book (by: 2025-12-31T23:59:59)
+    2. [E][ ] team sync (from: 2025-10-01 09:00 to: 2025-10-01 10:00)
+    3. [D][ ] return book (by: 2025-12-31 23:59:59)
     ____________________________________________________________
 ```
 **Tips & Notes:**
@@ -206,7 +206,7 @@ Delete a specified task by index from the list.
     ____________________________________________________________
 
     Noted. I've removed this task:
-      [E][ ] team sync (from: 2025-10-01T09:00 to: 2025-10-01T10:00)
+      [E][ ] team sync (from: 2025-10-01 09:00 to: 2025-10-01 10:00)
     Now you have 2 tasks in the list.
     ____________________________________________________________
 ```
