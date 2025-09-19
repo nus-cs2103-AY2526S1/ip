@@ -1,0 +1,26 @@
+package mininic;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Tests the Event class.
+ */
+public class EventTest {
+
+    @Test
+    void eventFromTo() {
+        Event e = new Event(
+                "project meeting",
+                LocalDateTime.parse("2019-12-02T14:00"),
+                LocalDateTime.parse("2019-12-02T16:00"));
+        String s = e.toString();
+        assertTrue(s.startsWith("[E][ ] project meeting"), "prefix wrong: " + s);
+        assertTrue(s.contains("(from:"), "missing 'from:' part: " + s);
+        assertTrue(s.contains("to:"), "missing 'to:' part: " + s);
+        assertTrue(s.contains("2019"), "should include year: " + s);
+    }
+}

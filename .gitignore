@@ -2,10 +2,15 @@
 /.idea/
 /out/
 /*.iml
+*.class
+*.log
+.settings/
+/data/
 
 # Gradle build files
 /.gradle/
 /build/
+*.jar
 src/main/resources/docs/
 
 # MacOS custom attributes files created by Finder
@@ -15,3 +20,6 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# VS Code
+/.vscode/
