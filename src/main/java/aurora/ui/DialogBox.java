@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a custom dialog box consisting of a text label and an image.
@@ -44,6 +45,15 @@ public class DialogBox extends HBox {
 
         dialog.setText(s);
         displayPicture.setImage(i);
+
+        double size = 50.0;
+        displayPicture.setFitWidth(size);
+        displayPicture.setFitHeight(size);
+        displayPicture.setPreserveRatio(true);
+        displayPicture.setSmooth(true);
+
+        Circle clip = new Circle(size / 2, size / 2, size / 2);
+        displayPicture.setClip(clip);
     }
 
     /**
