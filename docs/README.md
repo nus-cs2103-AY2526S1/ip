@@ -1,9 +1,9 @@
-# 👾 ByteBot
+# 👾 ByteBot User Guide
 
 ![ByteBot](Ui.png)
 > *Organize yourself, one task at a time*
 
-**ByteBot** is a task management application to help you stay productive
+**ByteBot** is a task management application to help you stay productive, assisting you to organize your deadlines, todos, and events through a simple chat interface.
 
 
 ## Quickstart
