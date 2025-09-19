@@ -34,6 +34,24 @@ public class Storage {
      */
     public Storage(String dir, String fileName) throws PiperException {
         this.savePath = Paths.get(dir, fileName);
+
+        try {
+            java.nio.file.Path directory  = savePath.getParent();
+            if (directory != null) java.nio.file.Files.createDirectories(directory);
+            if (!java.nio.file.Files.exists(savePath)) {
+                java.nio.file.Files.createFile(savePath);
+            }
+            if (!java.nio.file.Files.isReadable(savePath)) {
+                throw new PiperException("SQUAWK! I can't read from " + savePath + " (permission denied).");
+            }
+            if (!java.nio.file.Files.isWritable(savePath)) {
+                throw new PiperException("SQUAWK! I can't write to " + savePath + " (permission denied).");
+            }
+        } catch (PiperException pe) {
+            throw pe;
+        } catch (Exception e) {
+            throw new PiperException("SQUAWK! I can't access " + savePath + ": " + e.getMessage());
+        }
     }
 
     /**

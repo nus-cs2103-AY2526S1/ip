@@ -1,5 +1,7 @@
 package piper.task;
 
+import piper.PiperException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -21,9 +23,18 @@ public class Deadline extends Task {
      * @param description task description.
      * @param by by deadline text.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws PiperException {
         super(description);
+
+        if (description == null || description.trim().isEmpty()) {
+            throw new PiperException("Deadline needs a description.");
+        }
+        if (by == null) {
+            throw new PiperException("/by cannot be empty.");
+        }
+
         this.by = by;
+
         try {
             this.byDate = LocalDate.parse(this.by);
         } catch (DateTimeParseException e) {
@@ -31,6 +42,11 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Formats /by string to date if in yyyy-MM-dd format.
+     *
+     * @return formatted by date.
+     */
     private String formatByDate() {
         return (byDate != null) ? byDate.format(DISPLAYED_DATE) : this.by;
     }
@@ -44,6 +60,7 @@ public class Deadline extends Task {
      */
     public void updateByDate(String updatedBy) {
         this.by = updatedBy;
+
         try {
             this.byDate = LocalDate.parse(this.by);
         } catch (DateTimeParseException e) {

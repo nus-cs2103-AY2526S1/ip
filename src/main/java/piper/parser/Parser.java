@@ -12,6 +12,17 @@ public final class Parser {
     private Parser() {}
 
     /**
+     * Trims and collapses inner whitespace runs to single spaces.
+     *
+     * @param s input string.
+     * @return normalized string.
+     */
+    private static String normalize(String s) {
+        if (s == null) return "";
+        return s.replaceAll("\\s+", " ").trim();
+    }
+
+    /**
      * Result of splitting a raw input into a command and its argument.
      */
     public record ParsedString(CommandType cmdType, String arg) {
@@ -55,10 +66,11 @@ public final class Parser {
      * @throws PiperException if the line is empty or the command is invalid or incomplete.
      */
     public static ParsedString parse(String userInput) throws PiperException {
-        if (userInput == null || userInput.isEmpty()) {
+        if (userInput == null || userInput.trim().isEmpty()) {
             throw new PiperException("CHIRP CHIRP! Don't think you said anything there. Try tweeting a command!");
         }
-        String[] substrings = userInput.split("\\s+", 2);
+        final String normalizedInput = normalize(userInput);
+        String[] substrings = normalizedInput.split("\\s+", 2);
         assert substrings.length > 0 : "Command string should not be empty";
         String cmdToken = substrings[0];
         CommandType cmd = CommandType.from(cmdToken);
@@ -76,7 +88,7 @@ public final class Parser {
             switch (cmd) {
             case BYE, LIST:
                 break;
-                case TODO:
+            case TODO:
             case DEADLINE:
             case EVENT:
                 // missing task description
@@ -109,8 +121,13 @@ public final class Parser {
      * @throws PiperException if the string is not a valid integer.
      */
     public static int parseIndex(String index) throws PiperException {
+        String idxRaw = index == null ? "" : index.trim();
+        if (idxRaw.isEmpty()) {
+            throw new PiperException("Please provide a task index.");
+        }
+
         try {
-            return Integer.parseInt(index.trim());
+            return Integer.parseInt(idxRaw);
         } catch (Exception e) {
             throw new PiperException("PEEP! Please give me a numeric task index!");
         }
@@ -124,6 +141,24 @@ public final class Parser {
      * @throws PiperException if required parts are missing or empty.
      */
     public static DeadlineArgs parseDeadlineArgs(String arg) throws PiperException {
+        final String normalizedArg = normalize(arg);
+        int byIdx = normalizedArg.indexOf("/by");
+        if (byIdx < 0) {
+            throw new PiperException("DEADLINE needs `/by <date or date time>`, e.g., `deadline submit /by 2025-10-02 23:00`.");
+        }
+        if (normalizedArg.indexOf("/by", byIdx + 3) >= 0) {
+            throw new PiperException("EEEP! You used `/by` more than once.");
+        }
+
+        String desc = normalize(normalizedArg.substring(0, byIdx));
+        String byRaw = normalize(normalizedArg.substring(byIdx + 3)); // after "/by"
+        if (desc.isEmpty()) {
+            throw new PiperException("DEADLINE needs a description before `/by`.");
+        }
+        if (byRaw.isEmpty()) {
+            throw new PiperException("`/by` needs a value.");
+        }
+
         try {
             String[] descriptionAndBy = arg.split("/by ", 2);
             String description = descriptionAndBy[0].trim();
@@ -150,6 +185,38 @@ public final class Parser {
      * @throws PiperException if required parts are missing or empty.
      */
     public static EventArgs parseEventArgs(String arg) throws PiperException {
+        final String normalizedArg = normalize(arg);
+
+        int fromIdx = normalizedArg.indexOf("/from");
+        int toIdx   = normalizedArg.indexOf("/to");
+
+        if (fromIdx < 0 || toIdx < 0) {
+            throw new PiperException("EVENT needs `/from <start>` and `/to <end>`, e.g., `event demo /from 2025-10-02 09:00 /to 2025-10-02 11:00`.");
+        }
+        if (normalizedArg.indexOf("/from", fromIdx + 5) >= 0) {
+            throw new PiperException("EEEP! You used `/from` more than once.");
+        }
+        if (normalizedArg.indexOf("/to", toIdx + 3) >= 0) {
+            throw new PiperException("EEEP! You used `/to` more than once.");
+        }
+
+        String beforeFlags = normalize(
+                normalizedArg.substring(0, Math.min(fromIdx, toIdx))
+        );
+        if (beforeFlags.isEmpty()) {
+            throw new PiperException("EVENT needs a description before `/from` and `/to`.");
+        }
+        String fromRaw, toRaw;
+        if (fromIdx < toIdx) {
+            fromRaw = normalize(normalizedArg.substring(fromIdx + 5, toIdx));
+            toRaw   = normalize(normalizedArg.substring(toIdx + 3));
+        } else {
+            toRaw   = normalize(normalizedArg.substring(toIdx + 3, fromIdx));
+            fromRaw = normalize(normalizedArg.substring(fromIdx + 5));
+        }
+        if (fromRaw.isEmpty()) throw new PiperException("`/from` needs a value.");
+        if (toRaw.isEmpty())   throw new PiperException("`/to` needs a value.");
+
         try {
             String[] descriptionAndFrom = arg.split("/from ", 2);
             String description = descriptionAndFrom[0].trim();

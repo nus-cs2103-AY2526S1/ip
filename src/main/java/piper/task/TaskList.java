@@ -1,5 +1,7 @@
 package piper.task;
 
+import piper.PiperException;
+
 import java.util.ArrayList;
 
 /**
@@ -39,7 +41,20 @@ public class TaskList {
      *
      * @param task task to add.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws PiperException {
+        if (task == null) {
+            throw new PiperException("Cannot add an empty task.");
+        }
+        for (int i = 0; i < this.getSize(); i++) {
+            Task existing = this.getTask(i);
+            if (existing.getClass().equals(task.getClass())) {
+                boolean same = existing.toSerializedLine().equals(task.toSerializedLine());
+                if (same) {
+                    throw new PiperException("This task already exists exactly as specified.");
+                }
+            }
+        }
+
         tasks.add(task);
     }
 
@@ -47,10 +62,9 @@ public class TaskList {
      * Removes and returns the task at the given index.
      *
      * @param index position in the list.
-     * @return deleted task.
      */
-    public Task deleteTask(int index) {
-        return tasks.remove(index);
+    public void deleteTask(int index) {
+        tasks.remove(index);
     }
 
     /**
@@ -61,7 +75,7 @@ public class TaskList {
      * @param keyword keyword to search for.
      * @return a list of tasks whose description contains the keyword.
      */
-    public TaskList find(String keyword) {
+    public TaskList find(String keyword) throws PiperException {
         assert keyword != null : "String keyword should be non-null";
         TaskList matches = new TaskList();
         String kw = keyword.toLowerCase();

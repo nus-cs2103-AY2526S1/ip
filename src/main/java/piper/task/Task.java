@@ -15,14 +15,13 @@ public class Task {
      * @param description task description.
      */
     public Task(String description) {
-        assert description != null && !description.trim().isEmpty()
-                : "Task description should be non-null and non-empty";
         this.description = description;
         this.isDone = false;
     }
 
     /**
      * Returns a single letter to identify task type.
+     * "T" for Task, "D" for Deadline, "E" for Event.
      *
      * @return task type identifier.
      */
