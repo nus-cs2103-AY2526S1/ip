@@ -1,0 +1,10 @@
+todo read book
+deadline some deadline /by 2025-10-02 00:00:00
+event some event /from 2025-10-13 03:00:05 /to 2025-10-15 11:55:49
+deadline some deadline /by 2025-10-04 05:09:23
+todo buy grocery
+mark 3
+mark 5
+unmark 5
+list
+bye
