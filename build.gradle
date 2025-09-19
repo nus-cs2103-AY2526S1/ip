@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+repositories { mavenCentral() }
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(17) }
+}
+
+javafx {
+    version = '17.0.2'
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+}
+
+test { useJUnitPlatform() }
+
+application {
+    mainClass = 'hhvrfn.Launcher'
+    applicationDefaultJvmArgs = ['-ea']
+}
+
+shadowJar {
+    archiveBaseName = "hhvrfn"
+    archiveClassifier = null
+}
+
+checkstyle {
+    toolVersion = '10.12.4'
+    configFile = file('config/checkstyle/checkstyle.xml')
+}
+
+tasks.withType(Checkstyle).configureEach {
+    ignoreFailures = false
+    maxWarnings = 0
+}
+
+run {
+    standardInput = System.in
+}
