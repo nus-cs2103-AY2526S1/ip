@@ -22,8 +22,8 @@ public class MainWindow extends AnchorPane {
 
     private LunarBot lunarbot;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/LunarBot/images/DaUser.png"));
-    private Image lunarImage = new Image(this.getClass().getResourceAsStream("/LunarBot/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/LunarBot/images/user.png"));
+    private Image lunarImage = new Image(this.getClass().getResourceAsStream("/LunarBot/images/lunar.png"));
 
     @FXML
     public void initialize() {
