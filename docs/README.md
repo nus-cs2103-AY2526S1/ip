@@ -17,7 +17,7 @@ John is a lightweight, fast task manager that works in both **JavaFX GUI** and *
 * **Run (CLI):**
 
   ```bash
-  java -cp out john.core.John
+  java -cp out john.core.Launcher
   ```
 * **Default storage:** `./data.txt` (next to the app).
   Override with `-Djohn.data=/path/to/tasks.txt`.
