@@ -67,7 +67,10 @@ application {
 
 shadowJar {
     archiveBaseName = "jackbot"
-    archiveClassifier = "all"
+    archiveClassifier.set('all')
+    manifest {
+        attributes('Main-Class': application.mainClass.get())
+    }
 }
 
 run{
