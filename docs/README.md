@@ -1,6 +1,6 @@
 # John User Guide
 
-![Product screenshot](./docs/Ui.png)
+![Product screenshot](./Ui.png)
 
 John is a lightweight, fast task manager that works in both **JavaFX GUI** and **CLI**. It supports **to-dos, deadlines, events, search, marking/unmarking, deletion**, and **postponing**. Data is saved automatically to a simple text file.
 
