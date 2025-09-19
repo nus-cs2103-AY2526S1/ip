@@ -3,6 +3,8 @@ package paul.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import paul.exception.PaulException;
+
 /**
  * An event task for Paul.
  * Includes a from date and to date, in MMM dd yyyy format.
@@ -18,9 +20,16 @@ public class Event extends Task {
      * @param description The description of the task.
      * @param from The start date in yyyy-mm-dd format.
      * @param to The end date in yyyy-mm-dd format.
+     * @throws PaulException if the to date is before the from date.
      */
-    public Event(String description, LocalDate from, LocalDate to) {
+    public Event(String description, LocalDate from, LocalDate to) throws PaulException {
         super(description);
+
+        if (to.isBefore(from)) {
+            throw new PaulException("Hey! Your /to date is earlier than your /from date. "
+                    + "Time travelling Paul isn't real!");
+        }
+
         this.from = from;
         this.to = to;
     }

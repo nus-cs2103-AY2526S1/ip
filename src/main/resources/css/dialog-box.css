@@ -6,6 +6,7 @@
     -fx-border-radius: 2em 2em 0 2em;
     -fx-padding: 6 9 6 9;
     -fx-text-fill: white;
+    /* Credit to @Joulenergy for ASCII art to display nicely */
     -fx-font-family: "Consolas", "Courier New", monospace;
 }
 

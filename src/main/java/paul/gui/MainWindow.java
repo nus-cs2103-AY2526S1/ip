@@ -19,7 +19,7 @@ import paul.Paul;
  */
 public class MainWindow extends AnchorPane {
     private static final int EXIT_DELAY = 1;
-    private static final double SCROLL_SENSITIVITY = 0.005;
+    private static final double SCROLL_SENSITIVITY = 0.003;
 
     @FXML
     private ScrollPane scrollPane;
@@ -40,17 +40,19 @@ public class MainWindow extends AnchorPane {
     /** Initialize the main window */
     @FXML
     public void initialize() {
+        // Credit to @salmonkarp to fix scrollbar not working properly
         dialogContainer.heightProperty().addListener((obs, oldVal, newVal) -> {
             scrollPane.setVvalue(1.0);
         });
 
+        // ChatGPT was used to help generate this section of code
         dialogContainer.setOnScroll(event -> {
             double deltaY = event.getDeltaY() * SCROLL_SENSITIVITY; // tweak for sensitivity
             scrollPane.setVvalue(scrollPane.getVvalue() - deltaY);
             event.consume(); // prevent double-handling
         });
 
-        // Optional: make ScrollPane focusable for keyboard/mouse wheel events
+        // Make ScrollPane focusable for keyboard/mouse wheel events
         scrollPane.setFocusTraversable(true);
     }
 
@@ -78,6 +80,7 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
 
         // Exit when user says bye
+        // ChatGPT was used to help with this section of code
         if (paul.getCommandType().equals("BYE")) {
             // Create a delay when exiting
             PauseTransition delay = new PauseTransition(Duration.seconds(EXIT_DELAY));
