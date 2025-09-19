@@ -56,7 +56,7 @@ jar {
 }
 
 shadowJar {
-    archiveBaseName = "sora.jar"
+    archiveBaseName = 'sora'
     archiveClassifier = null
 }
 
