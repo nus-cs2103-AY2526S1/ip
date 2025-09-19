@@ -1,0 +1,66 @@
+.label {
+    background:#1D61B4;
+    -fx-background-color: #1D61B4;
+    -fx-border-color: #72A8E8;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: ladder(background, white 49%, black 50%);
+}
+
+.user-label {
+    -fx-background-color: #e1ebed;
+    -fx-border-color: #00bcf0 #ffe556 #00bcf0 #ffe556;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: black;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.add-label {
+    -fx-background-color: yellow;
+    -fx-text-fill: black;
+}
+
+.mark-label {
+    -fx-background-color: palegreen;
+    -fx-text-fill: black;
+}
+
+.unmark-label {
+    -fx-background-color: #FFDAB9;
+    -fx-text-fill: black;
+}
+
+.delete-label {
+    -fx-background-color: lightpink;
+    -fx-text-fill: black;
+}
+
+.update-label {
+    -fx-background-color: #ADD8E6;
+    -fx-text-fill: black;
+}
+
+.error-label {
+    -fx-background-color: derive(red, 0.5);
+    -fx-text-fill: yellow
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+
