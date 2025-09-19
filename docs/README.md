@@ -26,20 +26,22 @@ Show all tasks in the list. It will be shown order it is added. Details like Ind
 ### Add: Todo
 Add a simple todo task with a description. By default it is not done.
 - **Format**: `todo DESCRIPTION`
-- **Example**: `todo study`
+- **Examples**: 
+    - `todo study`
+    - `todo peer evaluation`
 
 
 ### Add deadlines: Deadline
 Add a task that has a due date and time.
 - **Format**: `deadline DESCRIPTION /by <d/M/yyyy HHmm>`
-- **Example**
+- **Examples**:
     - `deadline CS2100 /by 01/01/2026 1000`
     - `deadline CS2103 /by 05/05/2026 1200`
 
 ### Add events: Event
 Add an event with a start and end date/time.
 - **Format**: `event DESCRIPTION /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>`
-- **Example**:
+- **Examples**:
     - `event meeting /from 02/01/2025 1400 /to 02/01/2025 1500`
     - `event teaching /from 02/01/2025 1600 /to 02/01/2025 1900`
 
