@@ -1,0 +1,15 @@
+E | 0 | project meeting | Mon 2pm || 
+E | 0 | prepare slides |  || 
+T | 1 | read book
+D | 0 | submit assignment | 2025-12-01
+E | 0 | team meeting | 2025-12-02 10am || 
+E | 0 | incomplete |  || 
+T | 0 | test
+T | 0 | another
+T | 0 | test
+E | 1 | make unit tests | 9pm || 11pm
+E | 0 | Meeting | 10am || 12pm
+T | 0 | A-CodeQuality
+T | 0 | study midterms /from tomorrow /to friday!
+T | 0 | study midterms
+E | 0 | study midterms | 1am || 3am
