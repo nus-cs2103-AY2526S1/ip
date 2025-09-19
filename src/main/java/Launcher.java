@@ -48,7 +48,7 @@ public class Launcher {
             app.run();
         } else {
             // Pass file path on to JavaFX
-            Application.launch(jackbot.fx.Main.class, "--file=" + file);
+            Application.launch(jackbot.fx.Main.class, file);
         }
     }
 }
