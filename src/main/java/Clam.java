@@ -179,7 +179,7 @@ public class Clam {
             chatbotPrint("Now you have " + tasks.size() + " tasks in the list.");
             chatbotPrint(HORIZONTAL_LINE);
         } catch (Exception e) {
-            throw new DeadlineException("To create a new deadline item, the command is: deadline /by [due date]");
+            throw new DeadlineException("To create a new deadline item, the command is: deadline /by [due date (yyyy-mm-dd)]");
         }
     }
 
@@ -193,7 +193,7 @@ public class Clam {
             chatbotPrint("Now you have " + tasks.size() + " tasks in the list.");
             chatbotPrint(HORIZONTAL_LINE);
         } catch (Exception e) {
-            throw new EventException("To create a new event item, the command is: event /from [start] /to [end]");
+            throw new EventException("To create a new event item, the command is: event /from [start (yyyy-mm-dd)] /to [end (yyyy-mm-dd)]");
         }
     }
 
