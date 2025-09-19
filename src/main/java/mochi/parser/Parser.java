@@ -1,0 +1,321 @@
+package mochi.parser;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import mochi.Mochi;
+import mochi.exception.MochiException;
+
+/**
+ * Parser class for parsing user input.
+ * This class delegates the task of parsing user input to the appropriate methods.
+ * It also handles exceptions and provides feedback to the user in case of errors.
+ */
+public class Parser {
+
+    /**
+     * Parses user input and invokes the appropriate parsing, or Mochi methods to handle the input.
+     * <p>
+     * @param mochi The Mochi instance to be used for parsing and invoking actions.
+     * @param input The user input to be parsed.
+     * @throws MochiException If any error occurs while parsing the input or invoking the appropriate action.
+     */
+    public static String parseGeneralInput(Mochi mochi, String input) throws MochiException {
+        String trimmed = (input == null) ? "" : input.trim();
+        if (trimmed.isEmpty()) {
+            throw new MochiException("Input cannot be empty!");
+        }
+
+        String command = trimmed.split("\\s+", 2)[0];
+
+        switch (command) {
+        case "bye":
+            return mochi.exit();
+        case "list":
+            return mochi.printList();
+        case "mark", "unmark", "delete", "tag", "untag":
+            return parseNumberedAction(mochi, trimmed, command);
+        case "todo", "deadline", "event":
+            return parseAddTask(mochi, trimmed, command);
+        case "find":
+            return parseFindTask(mochi, trimmed, command);
+        default:
+            throw new MochiException("Oops! I'm sorry but I don't know what that means!");
+        }
+    }
+
+    /**
+     * Parses user input for adding tasks.
+     * <p>
+     * This method delegates the task of parsing user input to the appropriate parsing methods.
+     * It also handles exceptions and provides feedback to the user in case of errors.
+     *
+     * @param mochi The Mochi instance to be used for parsing and invoking actions.
+     * @param input The user input to be parsed.
+     * @param command The command indicating the type of task to be added.
+     * @throws MochiException If any error occurs while parsing the input or invoking the appropriate action.
+     */
+    public static String parseAddTask(Mochi mochi, String input, String command) throws MochiException {
+        String description = "";
+        try {
+            // If task provided without description, splitting of string throws ArrayIndexOutfBoundsException
+            description = input.split(" ", 2)[1].strip();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MochiException("Task description cannot be empty!");
+        }
+
+        assert !description.isEmpty();
+
+        switch (command) {
+        case "todo":
+            return parseTodo(mochi, command, description);
+        case "deadline":
+            return parseDeadline(mochi, command, description);
+        case "event":
+            return parseEvent(mochi, command, description);
+        default:
+            throw new AssertionError("Something went wrong in parseAddTask");
+        }
+    }
+
+    /**
+     * Parses the "todo" command and description provided by the user, and adds the task to the Mochi instance.
+     *
+     * @param mochi The Mochi instance to which the task will be added.
+     * @param command The command string representing the type of task ("todo" in this case).
+     * @param description The description of the task to be added.
+     * @throws MochiException If an error occurs while adding the task.
+     */
+    public static String parseTodo(Mochi mochi, String command, String description) throws MochiException {
+        String[] results = {command, description};
+        return mochi.addTask(results);
+    }
+
+    /**
+     * Parses the "deadline" command and description provided by the user, and adds the task to the Mochi instance.
+     *
+     * @param mochi The Mochi instance to which the task will be added.
+     * @param command The command string representing the type of task ("deadline" in this case).
+     * @param input The description of the task to be added.
+     * @throws MochiException If an error occurs while adding the task.
+     */
+    public static String parseDeadline(Mochi mochi, String command, String input) throws MochiException {
+        int byIndex = input.indexOf("/by");
+        // Check if "/by" exists
+        if (byIndex == -1) {
+            throw new MochiException("Please specify a deadline using /by");
+        }
+
+        // Second part title, Third part deadline
+        String[] results = {
+            command,
+            input.split("\\s*/by\\s*", 2)[0],
+            input.split("\\s*/by\\s*", 2)[1]};
+
+        if (results[2].isEmpty()) {
+            throw new MochiException("Please specify a date/time after /by");
+        }
+
+        return mochi.addTask(results);
+    }
+
+    /**
+     * Parses the "event" command and description provided by the user and adds the task to the Mochi instance.
+     *
+     * @param mochi The Mochi instance to which the task will be added.
+     * @param command The command string representing the type of task ("event" in this case).
+     * @param input The description of the task to be added.
+     * @throws MochiException If an error occurs while adding the task.
+     */
+    public static String parseEvent(Mochi mochi, String command, String input) throws MochiException {
+
+        // Checks if /from and /to exists
+        int fromIndex = input.indexOf("/from");
+        int toIndex = input.indexOf("/to");
+        if (fromIndex == -1) {
+            throw new MochiException("Please specify a start date or time using /from");
+        }
+        if (toIndex == -1) {
+            throw new MochiException("Please specify a end date or time using /to");
+        }
+        if (toIndex < fromIndex) {
+            throw new MochiException("/from must come before /to");
+        }
+
+        // First part description, second part duration
+        String[] parts = input.split("\\s*/from\\s*");
+
+        // First part is from, second part is to
+        String[] duration = parts[1].split("\\s*/to\\s*");
+
+        String from = "";
+        String to = "";
+
+        try {
+            from = duration[0].trim();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MochiException("Please provide a start date or time after /from");
+        }
+
+        try {
+            to = duration[1].trim();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MochiException("Please provide an end date or time after /to");
+        }
+
+        if (from.isEmpty()) {
+            throw new MochiException("Please provide a start date or time after /from");
+        }
+        if (to.isEmpty()) {
+            throw new MochiException("Please provide an end date or time after /to");
+        }
+
+        String[] result = {command, parts[0], from, to};
+        return mochi.addTask(result);
+    }
+
+    /**
+     * Parses user input for marking, unmarking or deleting tasks.
+     * <p>
+     * This method checks the validity of the task number provided by the user, and
+     * delegates the task of parsing user input to the appropriate parsing methods.
+     *
+     * @param mochi The Mochi instance to be used for parsing and invoking actions.
+     * @param input The task number provided by the user.
+     * @param command The command indicating the type of action to be performed.
+     * @throws MochiException If any error occurs while parsing the input or invoking the appropriate action.
+     */
+    public static String parseNumberedAction(Mochi mochi, String input, String command) throws MochiException {
+        int taskPosition = 0;
+        // Check if a task number is inputted
+        try {
+            taskPosition = Integer.parseInt(input.split(" ")[1]) - 1;
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            throw new MochiException("Please input the task number!");
+        }
+        // Check if the task number is valid
+        if (taskPosition < 0 || taskPosition >= mochi.getTasksCount()) {
+            throw new MochiException("Please input a valid task number!");
+        }
+
+        switch (command) {
+        case "mark":
+            return mochi.markTask(taskPosition);
+        case "unmark":
+            return mochi.unmarkTask(taskPosition);
+        case "delete":
+            return mochi.deleteTask(taskPosition);
+        case "tag":
+            return parseTagTask(mochi, taskPosition, input);
+        case "untag":
+            return mochi.untagTask(taskPosition);
+        default:
+            throw new AssertionError("Something went wrong in parseNumberedAction");
+        }
+    }
+
+    /**
+     * Parses the "tag" command and tags the task at the specified position in the task list.
+     *
+     * @param mochi The Mochi instance used for tagging tasks.
+     * @param taskPosition The zero-based index of the task to be tagged.
+     * @param input The full input string provided by the user, which includes the command and tag.
+     * @return A string indicating the success of the tagging operation.
+     * @throws MochiException If the input does not contain a tag after the task number.
+     */
+    public static String parseTagTask(Mochi mochi, int taskPosition, String input) throws MochiException {
+        String tag = "";
+        try {
+            tag = input.split(" ", 3)[2];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MochiException("Please input a tag after the task number!");
+        }
+        tag = tag.trim();
+
+        assert !tag.isEmpty();
+        return mochi.tagTask(taskPosition, tag);
+    }
+
+    /**
+     * Parses the "find" command and retrieves tasks from the Mochi instance that match the provided keyword.
+     *
+     * @param mochi The Mochi instance used for managing and searching tasks.
+     * @param input The full input string provided by the user, which includes the command and keyword.
+     * @param command The command string, which in this case is expected to be "find".
+     * @throws MochiException If the input does not contain a keyword after the command.
+     */
+    public static String parseFindTask(Mochi mochi, String input, String command) throws MochiException {
+        String keyword = "";
+        try {
+            keyword = input.split(" ", 2)[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MochiException("Please input a keyword after find!");
+        }
+        keyword = keyword.trim();
+
+        assert !keyword.isEmpty();
+        return mochi.find(keyword);
+    }
+
+
+    /**
+     * Converts a date and time string into a {@code LocalDateTime} object.
+     * <p>
+     * The method supports multiple date formats such as "yyyy/MM/dd" or "yyyy-MM-dd",
+     * and also allows for special keywords like "today" or "tomorrow".
+     * If the time part is missing, the default time is set to 23:59 (end of the day).
+     *
+     * @param dateTimeString The input string containing a date and time to be converted.
+     *                       Accepted formats include "yyyy/MM/dd HHmm", "yyyy-MM-dd HHmm",
+     *                       "today HHmm", or "tomorrow HHmm".
+     * @return A {@code LocalDateTime} object representing the date and time specified in the input string.
+     * @throws MochiException If the input string is not in a recognized format or invalid.
+     */
+    public static LocalDateTime stringToLocalDateTime(String dateTimeString) throws MochiException {
+        assert dateTimeString != null : "dateTimeString cannot be null";
+
+        LocalDate date;
+        String[] dateTimeParts = dateTimeString.split(" ", 2);
+        String dateString = dateTimeParts[0];
+        // Parse date first, according to two different formats
+        try {
+            if (dateString.contains("/")) {
+                date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+            } else if (dateString.contains("-")) {
+                date = LocalDate.parse(dateString);
+            } else if (dateString.equals("tomorrow")) {
+                date = LocalDate.now().plusDays(1);
+            } else if (dateString.equals("today")) {
+                date = LocalDate.now();
+            } else {
+                throw new MochiException("Please input a proper date and time in the format [yyyy/MM/dd HHmm]");
+            }
+        } catch (DateTimeParseException e) {
+            // Prompt for new input
+            throw new MochiException("Please input a proper date and time in the format [yyyy/MM/dd HHmm]");
+        }
+        assert date != null : "date cannot be null";
+        // Parse time
+        LocalDateTime dateTime;
+        try {
+            // If timeString does not exist, ArrayIndexOutOfBoundsException will be thrown.
+            String timeString = dateTimeParts[1];
+            if (timeString.isEmpty()) {
+                dateTime = date.atTime(23, 59);
+            } else {
+                dateTime = date.atTime(LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HHmm")));
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            dateTime = date.atTime(23, 59);
+        } catch (DateTimeParseException e) {
+            throw new MochiException("Please input a proper date and time in the format [yyyy/MM/dd HHmm]");
+        }
+
+        assert dateTime != null : "dateTime cannot be null";
+        return dateTime;
+
+    }
+}
