@@ -1,0 +1,11 @@
+list
+mark 1
+todo buy bread
+deadline submit homework /by friday
+event conference /from 18 aug /to 20 aug
+mark 1
+mark 2
+unmark 1
+delete 3
+list
+bye
