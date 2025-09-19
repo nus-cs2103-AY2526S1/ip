@@ -14,6 +14,8 @@ public class LunarBot {
             ui.showMessage("Loading error!");
             taskList = new TaskList();
         }
+
+        assert taskList != null : "TaskList should not be null";
     }
 
     /**
