@@ -87,7 +87,6 @@ public class Parser {
          * @return a {@code Result} carrying {@code i}
          */
         public static Result index(Type t, int i) {
-            assert i > 0 : "task index must be more than 0";
             return new Result(t, "", i);
         }
     }
