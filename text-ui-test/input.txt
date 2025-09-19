@@ -1,0 +1,26 @@
+hi
+help
+add:
+add:find nemo
+add:finish iP /by
+add:finish iP /by 29/8/2025 4:00pm 
+add:finish iP /by 4:00pm /start 5pm
+add:finish iP /by /start 5pm /end
+add:exco meeting /start 29/8/2025 5pm /end 29/8/2025 6pm
+list
+mark:2
+list
+mark:3
+list
+unmark:2
+list
+remove:
+remove:2
+list
+remove:2
+list
+remove:2
+remove:1
+list
+remove:1
+bye
