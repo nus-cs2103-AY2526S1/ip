@@ -34,6 +34,8 @@ public class Parser {
             return "Bye! Hope to see you again soon!";
         } else if (input.equalsIgnoreCase("list")) {
             return handleList();
+        } else if (input.equalsIgnoreCase("help")) {   // <-- new help command
+            return handleHelp();
         } else if (input.startsWith("mark")) {
             return handleMark(input);
         } else if (input.startsWith("unmark")) {
@@ -135,4 +137,18 @@ public class Parser {
             throw new InvalidCommandException("Invalid event command: " + e.getMessage());
         }
     }
+
+    private String handleHelp() {
+        return "Here are the available commands:\n"
+                + "1. list - Display all tasks\n"
+                + "2. todo <description> - Add a ToDo task\n"
+                + "3. deadline <description> /by <yyyy-MM-dd HHmm> - Add a Deadline task\n"
+                + "4. event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm> - Add an Event\n"
+                + "5. mark <task number> - Mark a task as done\n"
+                + "6. unmark <task number> - Mark a task as not done\n"
+                + "7. delete <task number> - Delete a task\n"
+                + "8. help - Show this help message\n"
+                + "9. bye - Exit the application";
+    }
+
 }
