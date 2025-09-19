@@ -144,19 +144,19 @@ public final class Parser {
         final String normalizedArg = normalize(arg);
         int byIdx = normalizedArg.indexOf("/by");
         if (byIdx < 0) {
-            throw new PiperException("DEADLINE needs `/by <date or date time>`, e.g., `deadline submit /by 2025-10-02 23:00`.");
+            throw new PiperException("DEADLINE needs /by (date).");
         }
         if (normalizedArg.indexOf("/by", byIdx + 3) >= 0) {
-            throw new PiperException("EEEP! You used `/by` more than once.");
+            throw new PiperException("EEP! You used /by more than once.");
         }
 
         String desc = normalize(normalizedArg.substring(0, byIdx));
         String byRaw = normalize(normalizedArg.substring(byIdx + 3)); // after "/by"
         if (desc.isEmpty()) {
-            throw new PiperException("DEADLINE needs a description before `/by`.");
+            throw new PiperException("DEADLINE needs a description before /by.");
         }
         if (byRaw.isEmpty()) {
-            throw new PiperException("`/by` needs a value.");
+            throw new PiperException("/by needs a value.");
         }
 
         try {
@@ -191,20 +191,20 @@ public final class Parser {
         int toIdx   = normalizedArg.indexOf("/to");
 
         if (fromIdx < 0 || toIdx < 0) {
-            throw new PiperException("EVENT needs `/from <start>` and `/to <end>`, e.g., `event demo /from 2025-10-02 09:00 /to 2025-10-02 11:00`.");
+            throw new PiperException("EVENT needs /from (start) and /to (end).");
         }
         if (normalizedArg.indexOf("/from", fromIdx + 5) >= 0) {
-            throw new PiperException("EEEP! You used `/from` more than once.");
+            throw new PiperException("EEP! You used /from more than once.");
         }
         if (normalizedArg.indexOf("/to", toIdx + 3) >= 0) {
-            throw new PiperException("EEEP! You used `/to` more than once.");
+            throw new PiperException("EEP! You used /to more than once.");
         }
 
         String beforeFlags = normalize(
                 normalizedArg.substring(0, Math.min(fromIdx, toIdx))
         );
         if (beforeFlags.isEmpty()) {
-            throw new PiperException("EVENT needs a description before `/from` and `/to`.");
+            throw new PiperException("EVENT needs a description before /from and /to.");
         }
         String fromRaw, toRaw;
         if (fromIdx < toIdx) {
@@ -214,8 +214,8 @@ public final class Parser {
             toRaw   = normalize(normalizedArg.substring(toIdx + 3, fromIdx));
             fromRaw = normalize(normalizedArg.substring(fromIdx + 5));
         }
-        if (fromRaw.isEmpty()) throw new PiperException("`/from` needs a value.");
-        if (toRaw.isEmpty())   throw new PiperException("`/to` needs a value.");
+        if (fromRaw.isEmpty()) throw new PiperException("/from needs a value.");
+        if (toRaw.isEmpty())   throw new PiperException("/to needs a value.");
 
         try {
             String[] descriptionAndFrom = arg.split("/from ", 2);
