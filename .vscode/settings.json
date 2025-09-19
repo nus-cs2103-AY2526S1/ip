@@ -1,0 +1,14 @@
+{
+  "[java]": {
+    "editor.insertSpaces": true
+  },
+  "search.useIgnoreFiles": false,
+  "java.checkstyle.configuration": "${workspaceFolder}/config/checkstyle/checkstyle.xml",
+  "files.trimTrailingWhitespace": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "java.format.settings.url": ".vscode/eclipse-java-formatter.xml",
+  "java.project.sourcePaths": ["src/main/java"]
+}

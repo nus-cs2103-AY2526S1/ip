@@ -1,0 +1,41 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "runtest.sh",
+      "type": "shell",
+      "command": "./runtest.sh",
+      "options": {
+        "cwd": "${workspaceFolder}/text-ui-test"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "testoutput.sh",
+      "type": "shell",
+      "command": "./testoutput.sh",
+      "options": {
+        "cwd": "${workspaceFolder}/text-ui-test"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "checkstyle",
+      "type": "shell",
+      "command": "./gradlew checkstyleMain; ./gradlew checkstyleTest;",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$gradle"]
+    },
+    {
+      "label": "gradle run",
+      "type": "shell",
+      "command": "./gradlew run",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$gradle"]
+    }
+  ]
+}
