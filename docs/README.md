@@ -38,29 +38,29 @@ todo read book
 
 ### 2. Add a Deadline
 ```text
-deadline TASK_DESCRIPTION /by yyyy-mm-dd HHmm
+deadline TASK_DESCRIPTION /by dd/mm/yyyy HHmm
 ```
 Example:
 ```text
-deadline return book /by 2019-10-15 2359
+deadline return book /by 15/10/2025 2359
 ```
 
 ### 3. Add an After
 ```text
-after TASK_DESCRIPTION /required yyyy-mm-dd HHmm
+after TASK_DESCRIPTION /required dd/mm/yyyy HHmm
 ```
 Example:
 ```text
-after return book /required 2019-10-15 2359
+after return book /required 15/10/2025 2359
 ```
 
 ### 4. Add an Event
 ```text
-event TASK_DESCRIPTION /from yyyy-mm-dd HHmm /to yyyy-mm-dd HHmm
+event TASK_DESCRIPTION /from dd/mm/yyyy HHmm /to dd/mm/yyyy HHmm
 ```
 Example:
 ```text
-event project meeting /from 2019-08-06 1400 /to 2019-08-06 1600
+event project meeting /from 15/10/2025 1400 /to 15/10/2025 1600
 ```
 
 ### 5. List All Tasks
@@ -118,4 +118,4 @@ Bye. Hope to see you again soon!
 
 ## 📸 Screenshot
 
-![UI](docs/Ui.png)
+![UI](./docs/Ui.png)
