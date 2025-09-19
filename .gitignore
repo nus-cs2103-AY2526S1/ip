@@ -1,3 +1,9 @@
+# VScode
+.vscode/
+
+# Data
+/data/
+
 # IDEA files
 /.idea/
 /out/
@@ -7,6 +13,10 @@
 /.gradle/
 /build/
 src/main/resources/docs/
+
+# .class files
+**/*.class
+
 
 # MacOS custom attributes files created by Finder
 .DS_Store
