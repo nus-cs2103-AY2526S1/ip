@@ -20,63 +20,63 @@ There are also three ways to specify time, which will come in useful when adding
 2. dd-mm-yyyy-hhmm (e.g. 12-06-2025-2359, which is displayed as 23:59, 06 June 2025 in the application)
 3. Or any other format you prefer (e.g. Today, next Monday, this afternoon)
 
-# Adding tasks
-## Adding todos
-### Command Option 1: `todo <description>`
+## Adding tasks
+### Adding todos
+#### Command Option 1: `todo <description>`
 The task with the following description will be added to the task list. By default, the priority level of the task will be UNDECIDED.
 
-Example of usage: `todo read book`
+Example of usage: `todo read book`  
 Expected outcome:
 ```
-added: [T][] read book (Priotity: UNDECIDED)
+added: [T][] read book (Priority: UNDECIDED)
 Now you have 1 task(s) in the list
 ```
-### Command Option 2: `todo <description>/<priority level>`
+#### Command Option 2: `todo <description>/<priority level>`
 The task with the following description, and a specified priority level, will be added to the task list. As a reminder, there are only 4 valid priority value: HIGH, MIDDLE, LOW, UNDECIDED.
 
-Example of usage: `todo skating/LOW`
+Example of usage: `todo skating/LOW`  
 Expected outcome:
 ```
-added: [T][] skating (Priotity: LOW)
+added: [T][] skating (Priority: LOW)
 Now you have 2 task(s) in the list
 ```
-## Adding deadlines
-### Command Option 1: `deadline <description>/<deadline>`
+### Adding deadlines
+#### Command Option 1: `deadline <description>/<deadline>`
 The task with the following description and deadline will be added to the task list. By default, the priority level of the task will be UNDECIDED. There are 3 ways to specify the deadline, as explained in the **Specifying time** subsection above. 
 
-Example of usage: `deadline math homework/this wednesday`
+Example of usage: `deadline math homework/this wednesday`  
 Expected outcome:
 ```
-added: [D][] math homework (by: this wednesday)
+added: [D][] math homework (by: this wednesday) 
 (Priority: UNDECIDED)
 Now you have 3 task(s) in the list
 ```
 
-### Command Option 2: `deadline <description>/<deadline>/<priority level>`
+#### Command Option 2: `deadline <description>/<deadline>/<priority level>`
 The task with the following description, deadline and the specified priority level, will be added to the task list. 
 
-Example of usage: `deadline return book/01-06-2025/HIGH`
+Example of usage: `deadline return book/01-06-2025/HIGH`  
 Expected outcome:
 ```
-added: [D][] return book (by: 01 June 2025) (Priority:
+added: [D][] return book (by: 01 June 2025) (Priority: 
 HIGH)
 Now you have 4 task(s) in the list
 ```
-## Adding events
-### Command Option 1: `event <description>/<start>/<end>`
+### Adding events
+#### Command Option 1: `event <description>/<start>/<end>`
 The task with the following description, start and end time will be added to the task list. By default, the priority level of the task will be UNDECIDED. There are 3 ways to specify the start and end time, as explained in the **Specifying time** subsection above. 
 
-Example of usage: `event lunch with friends/02-06-2025-1200/02-06-2025-1400`
+Example of usage: `event lunch with friends/02-06-2025-1200/02-06-2025-1400`  
 Expected outcome:
 ```
 added: [E][] lunch with friends (from: 12:00, 02 June 
 2025 | to: 14:00, 02 June 2025) (Priority: UNDECIDED)
 Now you have 5 task(s) in the list
 ```
-### Command Option 2: `event <description>/<start>/<end>/<priority_level>`
-The task with the following description, start, end and the specified priority level, will be added to the task list. 
+#### Command Option 2: `event <description>/<start>/<end>/<priority_level>`
+The task with the following description, start, end and specified priority level, will be added to the task list. 
 
-Example of usage: `event CCA interview/03-06-2025-1200/03-06-2025-1400/HIGH`
+Example of usage: `event CCA interview/03-06-2025-1200/03-06-2025-1400/HIGH`  
 Expected outcome:
 ```
 added: [E][] CCA interview (from: 12:00, 03 June 
@@ -86,36 +86,36 @@ Now you have 6 task(s) in the list
 
 ## Other Features
 ### View the whole task list
-Command: `list`
+Command: `list`  
 Allow you to view the current task list.
 
 ### Find tasks that contain the keyword
-Command: `find <keyword>'
-Example of usage: `find book`
-Expected outcome: The list of tasks that contain the `book` keyword
+Command: `find <keyword>`  
+Example of usage: `find book`  
+Expected outcome: The list of tasks that contain the `book` keyword.
 
 ### Mark a task that is completed
-Command: `mark <index>`
-Example of usage: `mark 1`
+Command: `mark <index>`  
+Example of usage: `mark 1`  
 Expected outcome: The first task in the list will be marked as completed.
 
 _Tips: You can first use the_ `list` _command before the_ `find` _command
-if you are unsure what index a particular task have_
+if you are unsure what index a particular task have._
 
 ### Unmark a task 
-Command: `unmark <index>`
-Example of usage: `unmark 1`
+Command: `unmark <index>`  
+Example of usage: `unmark 1`  
 Expected outcome: The first task in the list will be marked as uncompleted.
 
-_Tips: the_ `unmark` _command can come in useful when you have marked the wrong task, and you want to unmark that particular task_
+_Tips: the_ `unmark` _command can come in useful when you have marked the wrong task, and you want to unmark that particular task._
 
 ### Delete a task
-Command: `delete <index>`
-Example of usage: `delete 1`
+Command: `delete <index>`  
+Example of usage: `delete 1`  
 Expected outcome: The first task in the list will be deleted.
 
 _Tips: List is getting too long? Perhaps, you can consider using the_ `delete` _command._
 
 ### Saying goodbye to Stella
-Command: `bye`
+Command: `bye`  
 After saying goodbye to Stella, it is time to start working on your tasks!
