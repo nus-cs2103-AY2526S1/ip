@@ -1,30 +1,29 @@
-# Duke User Guide
+# MeowTheCat — User Guide 🐱
 
-// Update the title above to match the actual product name
+## Overview
 
-// Product screenshot goes here
+MeowTheCat is a simple task chatbot for adding/listing/managing **todos**, **deadlines**, and **events**. This guide only explains how to *use* the bot.
 
-// Product intro goes here
+## Quick usage
 
-## Adding deadlines
+* **Date format:** `yyyy-MM-dd` (e.g. `2025-06-06`).
 
-// Describe the action and its outcome.
+### Commands
 
-// Give examples of usage
+* `todo <description>` — add a todo.
+* `deadline <description> /by <yyyy-MM-dd>` — add a deadline.
+* `event <description> /from <yyyy-MM-dd> /to <yyyy-MM-dd>` — add an event.
+* `list` — show all tasks.
+* `mark <n>` — mark task number `n` done.
+* `unmark <n>` — mark task number `n` not done.
+* `delete <n>` — remove task number `n`.
+* `find <keyword>` — show tasks containing `keyword`.
+* `clear` — remove all tasks.
+* `undo` — undo the last action.
+* `bye` — exit the app.
 
-Example: `keyword (optional arguments)`
+### Examples
 
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+* `todo buy milk`
+* `deadline submit report /by 2025-09-30`
+* `event meeting /from 2025-10-01 /to 2025-10-01`
