@@ -69,8 +69,25 @@ public class Main extends Application {
         sendButton.setOnAction(event -> handleUserInput());
         userInput.setOnAction(event -> handleUserInput());
 
+        // Add initial welcome message
+        showWelcomeMessage();
+
         stage.show();
     }
+
+    private void showWelcomeMessage() {
+        String welcomeText = "Hello! I'm Dobby 🤖\n"
+                + "Here are some commands you can try:\n"
+                + "1. list - Display all tasks\n"
+                + "2. todo <description> - Add a ToDo task\n"
+                + "3. deadline <description> /by <yyyy-MM-dd HHmm> - Add a Deadline task\n"
+                + "4. event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm> - Add an Event\n"
+                + "5. mark <task number> - Mark a task as done\n"
+                + "6. unmark <task number> - Mark a task as not done\n"
+                + "7. delete <task number> - Delete a task\n"
+                + "8. find <keyword> - Search tasks by keyword\n"
+                + "9. help - Show help message\n"
+                + "10. bye - Exit the application";
 
 
     private void handleUserInput() {
@@ -100,12 +117,7 @@ public class Main extends Application {
             }).start();
         }
     }
-    }
 
-
-    private String getResponse(String input) {
-        return "Dobby says: " + input;
-    }
 
     public static class DialogBox extends HBox {
 

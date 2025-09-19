@@ -180,8 +180,9 @@ public class Parser {
                 + "5. mark <task number> - Mark a task as done\n"
                 + "6. unmark <task number> - Mark a task as not done\n"
                 + "7. delete <task number> - Delete a task\n"
-                + "8. help - Show this help message\n"
-                + "9. bye - Exit the application";
+                + "8. find <task name> - Search for a task\n"
+                + "9. help - Show this help message\n"
+                + "10. bye - Exit the application";
     }
 
 }
