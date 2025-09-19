@@ -75,12 +75,12 @@ event <description> /from <start> /to <end>
 
 **Example:**
 
-event team meeting /from 2pm /to 4pm
+event team meeting /from 2025-09-20 /to 2025-09-21
 
 **Expected Outcome:**
 
 Got it. I've added this task:
-[E][ ] team meeting (from: 2pm to: 4pm)
+[E][ ] team meeting (from: 2025-09-20 to: 2025-09-21)
 Now you have 5 tasks in the list.
 
 ---
@@ -101,7 +101,7 @@ Here are your tasks:
 
 [D][ ] submit report (by: 2025-09-20)
 
-[E][ ] team meeting (from: 2pm to: 4pm)
+[E][ ] team meeting (from: 2025-09-20 to: 2025-09-21)
 
 ---
 
