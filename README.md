@@ -1,26 +1,126 @@
-# Duke project template
+# Arvee Chatbot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Arvee is a simple chatbot application built for managing tasks. It allows you to add, list, delete, mark, find, and sort tasks, with both CLI and GUI support (JavaFX).
 
-## Setting up in Intellij
+## Features
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+- Add tasks (todo, deadline, event)
+- List all tasks
+- Mark and unmark tasks as done
+- Delete tasks
+- Find tasks by keyword
+- Sort tasks chronologically (ascending/descending)
+- Interactive GUI with JavaFX
+- Data persistence with file storage
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+--- 
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## Getting Started
+
+### Prerequisites
+- **Java 17 or later** must be installed.  
+- **Gradle** is recommended for building and running.
+
+--- 
+
+### Installation
+Clone the repository:
+```bash
+git clone https://github.com/YOUR_USERNAME/ip.git
+cd ip
+```
+
+Build the project with Gradle:
+```bash
+./gradlew build
+```
+
+Run the chatbot:
+```bash
+./gradlew run
+```
+
+Or run using the JAR file:
+```bash
+java -jar arvee.jar
+```
+---
+
+## User Guide
+
+### Adding a Task
+- **Todo**
+  ```text
+  todo read book
+  ```
+- **Deadline**
+  ```text
+  deadline submit report /by 2025-09-21
+  ```
+- **Event**
+  ```text
+  event project meeting /at 2025-09-25 14:00
+  ```
+
+### Listing Tasks
+```text
+list
+```
+
+### Marking and Unmarking
+```text
+mark 2
+unmark 2
+```
+
+### Deleting a Task
+```text
+delete 3
+```
+
+### Finding Tasks
+```text
+find book
+```
+
+### Sorting Tasks
+```text
+sort asc
+sort desc
+```
+
+### Exiting
+```text
+bye
+```
+---
+### Command Summary
+
+| Command      | Format                                        |
+|--------------|-----------------------------------------------|
+| **Todo**     | `todo DESCRIPTION`                            |
+| **Deadline** | `deadline DESCRIPTION /by YYYY-MM-DD [HH:MM]` |
+| **Event**    | `event DESCRIPTION /at YYYY-MM-DD HH:MM`      |
+| **List**     | `list`                                        |
+| **Mark**     | `mark INDEX`                                  |
+| **Unmark**   | `unmark INDEX`                                |
+| **Delete**   | `delete INDEX`                                |
+| **Find**     | `find KEYWORD`                                |
+| **Sort**     | `sort asc` or `sort desc`                     |
+| **Exit**     | `bye`                                         |
+---
+## Screenshots
+
+Here’s a preview of Arvee’s GUI:
+
+![Screenshot of Arvee chatbot](./docs/Ui.png)
+
+---
+## Development
+
+This project uses:
+- Java 17
+- JavaFX
+- Gradle
+- JUnit 5
+
