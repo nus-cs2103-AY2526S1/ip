@@ -63,7 +63,7 @@ public class TaskReaderTest {
 
     @Test
     void fromText_validTodo_returnsTodo() {
-        Task task = TaskReader.fromText("T|true|read a book");
+        Task task = TaskReader.fromText("T|true|read a book|");
         assertInstanceOf(Todo.class, task);
         assertEquals("read a book", task.getDescription());
         assertTrue(task.isDone());
@@ -71,7 +71,7 @@ public class TaskReaderTest {
 
     @Test
     void fromText_validDeadline_returnsDeadline() {
-        Task task = TaskReader.fromText("D|false|medical checkup|2025-09-20");
+        Task task = TaskReader.fromText("D|false|medical checkup||2025-09-20");
         assertInstanceOf(Deadline.class, task);
         assertEquals("medical checkup", task.getDescription());
         assertFalse(task.isDone());
@@ -79,7 +79,7 @@ public class TaskReaderTest {
 
     @Test
     void fromText_validEvent_returnsEvent() {
-        Task task = TaskReader.fromText("E|true|basketball|2025-11-01|2025-11-02");
+        Task task = TaskReader.fromText("E|true|basketball||2025-11-01|2025-11-02|");
         assertInstanceOf(Event.class, task);
         assertEquals("basketball", task.getDescription());
         assertTrue(task.isDone());

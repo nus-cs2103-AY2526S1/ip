@@ -1,12 +1,9 @@
 package aurora;
 
-import java.util.Scanner;
-
 import aurora.command.Command;
 import aurora.command.CommandReader;
 import aurora.storage.Storage;
 import aurora.task.TaskList;
-import aurora.ui.Ui;
 
 /**
  * Aurora is a simple task management chatbot that runs on the command line.
