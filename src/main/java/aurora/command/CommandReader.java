@@ -1,5 +1,7 @@
 package aurora.command;
 
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,86 +31,72 @@ public class CommandReader {
      *         if the input does not match any known command format
      */
     public static Command read(String input) {
-        if (input.toLowerCase().startsWith("list")) {
-            if (input.equalsIgnoreCase("list")) {
-                return new ListCommand();
-            } else {
-                return new InvalidCommand("Invalid list command.\n"
-                        + "enter \"list\" to see your added tasks.");
-            }
+        // Refactored command parsing logic to reduce duplication and simplify the read() method.
+        // Original logic was rewritten with helper methods for maintainability and cleaner code.
+        // AI assistance used for code structure and helper function design.
+        String lower = input.toLowerCase();
+
+        if (lower.startsWith("list")) {
+            return parseSimpleCommand(input, "list", new ListCommand());
         }
 
-        if (input.toLowerCase().startsWith("help")) {
-            if (input.equalsIgnoreCase("help")) {
-                return new HelpCommand();
-            } else {
-                return new InvalidCommand("Invalid help command.\n"
-                        + "enter \"help\" to see all existing commands.");
-            }
+        if (lower.startsWith("help")) {
+            return parseSimpleCommand(input, "help", new HelpCommand());
         }
 
-        if (input.toLowerCase().startsWith("mark")) {
-            Matcher matcher = MARK.matcher(input);
-            if (matcher.matches()) {
-                int index = Integer.parseInt(matcher.group(1));
-                return new MarkCommand(index);
-            } else {
-                return new InvalidCommand("Invalid mark command.\n"
-                        + "enter \"mark <task number>\" to mark tasks as complete.");
-            }
+        if (lower.startsWith("mark")) {
+            return parseIndexedCommand(input, MARK, "mark <task number>", MarkCommand::new);
         }
 
-        if (input.toLowerCase().startsWith("delete")) {
-            Matcher matcher = DELETE.matcher(input);
-            if (matcher.matches()) {
-                int index = Integer.parseInt(matcher.group(1));
-                return new DeleteCommand(index);
-            } else {
-                return new InvalidCommand("Invalid delete command.\n"
-                        + "enter \"delete <task number>\" to remove task from list.");
-            }
+        if (lower.startsWith("delete")) {
+            return parseIndexedCommand(input, DELETE, "delete <task number>", DeleteCommand::new);
         }
 
-        if (input.toLowerCase().startsWith("find")) {
+        if (lower.startsWith("find")) {
             Matcher matcher = FIND.matcher(input);
-            if (matcher.matches()) {
-                String search = matcher.group(1);
-                return new FindCommand(search);
-            } else {
-                return new InvalidCommand("Invalid find command.\n"
-                        + "enter \"find <content>\" to find task from list.");
-            }
+            return matcher.matches()
+                    ? new FindCommand(matcher.group(1))
+                    : new InvalidCommand("Invalid find command.\nenter \"find <content>\" for correct usage.");
         }
 
-        if (input.toLowerCase().startsWith("tag")) {
-            Matcher matcher = TAG.matcher(input);
-            if (matcher.matches()) {
-                int index = Integer.parseInt(matcher.group(1));
-                String tag = matcher.group(2);
-                return new TagCommand(index, tag);
-            } else {
-                return new InvalidCommand("Invalid tag command.\n"
-                        + "enter \"tag <task number> <tag>\" to tag a task in the list.");
-            }
+        if (lower.startsWith("tag")) {
+            return parseTaggedCommand(input, TAG, "tag <task number> <tag>", TagCommand::new);
         }
 
-        if (input.toLowerCase().startsWith("untag")) {
-            Matcher matcher = UNTAG.matcher(input);
-            if (matcher.matches()) {
-                int index = Integer.parseInt(matcher.group(1));
-                String tag = matcher.group(2);
-                return new UntagCommand(index, tag);
-            } else {
-                return new InvalidCommand("Invalid untag command.\n"
-                        + "enter \"untag <task number> <tag>\" to untag a task in the list.");
-            }
+        if (lower.startsWith("untag")) {
+            return parseTaggedCommand(input, UNTAG, "untag <task number> <tag>", UntagCommand::new);
         }
 
         try {
-            Task task = TaskReader.read(input);
-            return new AddCommand(task);
+            return new AddCommand(TaskReader.read(input));
         } catch (InvalidTaskException e) {
             return new InvalidCommand(e.getMessage());
         }
+    }
+
+    private static Command parseSimpleCommand(String input, String commandName, Command command) {
+        return input.equalsIgnoreCase(commandName)
+                ? command
+                : new InvalidCommand("Invalid " + commandName + " command.\n"
+                + "enter \"" + commandName + "\" for correct usage.");
+    }
+
+    private static Command parseIndexedCommand(String input, Pattern pattern, String usage, Function<Integer, Command> creator) {
+        Matcher matcher = pattern.matcher(input);
+        if (matcher.matches()) {
+            int index = Integer.parseInt(matcher.group(1));
+            return creator.apply(index);
+        }
+        return new InvalidCommand("Invalid command.\nenter \"" + usage + "\" for correct usage.");
+    }
+
+    private static Command parseTaggedCommand(String input, Pattern pattern, String usage, BiFunction<Integer, String, Command> creator) {
+        Matcher matcher = pattern.matcher(input);
+        if (matcher.matches()) {
+            int index = Integer.parseInt(matcher.group(1));
+            String tag = matcher.group(2);
+            return creator.apply(index, tag);
+        }
+        return new InvalidCommand("Invalid command.\nenter \"" + usage + "\" for correct usage.");
     }
 }

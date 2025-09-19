@@ -8,15 +8,25 @@ import aurora.task.TaskList;
 public class HelpCommand implements Command {
     @Override
     public String execute(TaskList list) {
+        // Help command text expanded to include all commands supported by CommandReader.
+        // AI assistance used for formatting and ensuring consistency with existing commands.
         return """
-                To add a todo, enter "todo <description>"
-                To add a deadline, enter "deadline <description> /by: <deadline>"
-                To add an event, enter "event <description> /from: <start> /to: <end>"
-                To see a list of all added tasks, enter "list"
-                To mark a task as complete, enter "mark <task number>"
-                To remove a task in the list, enter "delete <task number>"
-                To exit Aurora, enter "bye"
-                To see list of existing commands, enter "help"
+                Available commands:
+                
+                To add a todo:               todo <description>
+                To add a deadline:           deadline <description> /by: <deadline>
+                To add an event:             event <description> /from: <start> /to: <end>
+                
+                To see all tasks:            list
+                To mark a task complete:     mark <task number>
+                To delete a task:            delete <task number>
+                To find tasks by keyword:    find <keyword>
+                
+                To tag a task:               tag <task number> <tag>
+                To remove a tag:             untag <task number> <tag>
+                
+                To exit Aurora:              bye / close the app
+                To see this help message:    help
                 """;
     }
 }
