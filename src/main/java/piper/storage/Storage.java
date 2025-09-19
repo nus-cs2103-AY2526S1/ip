@@ -59,58 +59,21 @@ public class Storage {
      * If the directory or file does not exist, then they are created and an empty Tasklist is returned.
      *
      * @return a TaskList populated with tasks read from disk.
-     * @throws PiperException if the file cannot be created or read.
      */
     public TaskList load() throws PiperException {
         TaskList tasks = new TaskList();
         try {
-            Path dir = savePath.getParent();
-            if (dir != null && !Files.exists(dir)) {
-                Files.createDirectories(dir);
-            }
-            if (!Files.exists(savePath)) {
-                Files.createFile(savePath);
-            }
+            ensureSaveFileReady();
 
             List<String> lines = Files.readAllLines(savePath, StandardCharsets.UTF_8);
             for (String line : lines) {
-                if (line == null || line.isEmpty()) {
-                    continue;
-                }
-                String[] substrings = line.split(" \\| ", 5);
-                assert substrings.length >= 3 : "Serialized line should have at least 3 fields";
-
-                String taskType = substrings[0];
-                String doneField = substrings[1];
-                String description = substrings[2];
-                boolean isDone = "1".equals(doneField);
-
-                Task task = null;
-                switch (taskType) {
-                case "T":
-                    task = new Todo(description);
-                    break;
-                case "D":
-                    assert substrings.length >= 4 : "Serialized Deadline line should have 4 fields";
-                    task = new Deadline(description, substrings[3]);
-                    break;
-                case "E":
-                    assert substrings.length >= 5 : "Serialized Event line should have 5 fields";
-                    task = new Event(description, substrings[3], substrings[4]);
-                    break;
-                default:
-                    throw new PiperException("Unknown task type in storage: " + taskType);
-                }
-
-                if (isDone) {
-                    task.markDone();
-                }
+                if (line == null || line.isEmpty()) continue;
+                Task task = parseSerializedLine(line);
                 tasks.addTask(task);
             }
         } catch (IOException e) {
             throw new PiperException("SQUAWK! Can't seem to read the save file at " + savePath + ": " + e.getMessage());
         }
-
         return tasks;
     }
 
@@ -142,4 +105,61 @@ public class Storage {
             throw new PiperException("SQUAWK! Can't seem to write tasks to " + savePath + ": " + e.getMessage());
         }
     }
+
+    /**
+     * Ensures that the save file and its parent directories exist and are ready for use.
+     * If the directory or file does not exist, they are created.
+     *
+     * @throws IOException if the file or directories cannot be created.
+     */
+    private void ensureSaveFileReady() throws IOException {
+        Path dir = savePath.getParent();
+        if (dir != null && !Files.exists(dir)) {
+            Files.createDirectories(dir);
+        }
+        if (!Files.exists(savePath)) {
+            Files.createFile(savePath);
+        }
+    }
+
+    /**
+     * Parses a serialized line from the save file into a Task instance.
+     *
+     * @param line a single serialized line from the save file.
+     * @return a reconstructed Task.
+     * @throws PiperException if the task type is unrecognized or fields are missing.
+     */
+    private Task parseSerializedLine(String line) throws PiperException {
+        // Keep your field split and assertions exactly as-is.
+        String[] substrings = line.split(" \\| ", 5);
+        assert substrings.length >= 3 : "Serialized line should have at least 3 fields";
+
+        String taskType = substrings[0];
+        String doneField = substrings[1];
+        String description = substrings[2];
+        boolean isDone = "1".equals(doneField);
+
+        Task task;
+        switch (taskType) {
+            case "T":
+                task = new Todo(description);
+                break;
+            case "D":
+                assert substrings.length >= 4 : "Serialized Deadline line should have 4 fields";
+                task = new Deadline(description, substrings[3]);
+                break;
+            case "E":
+                assert substrings.length >= 5 : "Serialized Event line should have 5 fields";
+                task = new Event(description, substrings[3], substrings[4]);
+                break;
+            default:
+                throw new PiperException("Unknown task type in storage: " + taskType);
+        }
+
+        if (isDone) {
+            task.markDone();
+        }
+        return task;
+    }
+
 }
