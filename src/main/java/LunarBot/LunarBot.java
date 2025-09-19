@@ -23,7 +23,6 @@ public class LunarBot {
      */
     public void quit() {
         storage.writeFile(taskList.all());
-        System.exit(0);
     }
 
     /**

@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 /**
  * Controller for the main GUI.
  */
@@ -43,8 +44,10 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = lunarbot.getResponse(input);
-        if (input == "Hope to see you again!") {
+        if (response.equals("Hope to see you again!")) {
             lunarbot.quit();
+            Stage stage = (Stage) dialogContainer.getScene().getWindow();
+            stage.close();
         }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
