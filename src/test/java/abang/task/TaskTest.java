@@ -2,46 +2,57 @@ package abang.task;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class TaskTest {
+class TaskTest {
 
-
-    static class DummyTask extends Task {
+    private static class DummyTask extends Task {
         public DummyTask(String description) {
             super(description);
         }
 
         @Override
         public String toFileFormat() {
-            return "dummy|" + getTaskDescription();
+            return "DUMMY|" + getStatusIcon() + "|" + getTaskDescription();
         }
     }
 
     @Test
-    public void constructor_setsDescriptionCorrectly() {
-        Task task = new DummyTask("read book");
-        assertEquals("read book", task.getTaskDescription());
-        assertEquals("[ ] read book", task.toString());
+    void constructor_validDescription_initializesCorrectly() {
+        Task task = new DummyTask("Test Task");
+        assertEquals("Test Task", task.getTaskDescription());
         assertEquals("0", task.getStatusIcon());
+        assertNull(task.getTag());
     }
 
     @Test
-    public void done_marksTaskAsFinished() {
-        Task task = new DummyTask("write code");
+    void done_setsTaskToFinished() {
+        Task task = new DummyTask("Finish report");
         task.done();
-        assertTrue(task.toString().contains("[X]"));
         assertEquals("1", task.getStatusIcon());
+        assertTrue(task.toString().startsWith("[X]"));
     }
 
     @Test
-    public void notDone_marksTaskAsUnfinished() {
-        Task task = new DummyTask("test app");
+    void notDone_resetsTaskToNotFinished() {
+        Task task = new DummyTask("Read book");
         task.done();
         task.notDone();
-        assertFalse(task.toString().contains("[X]"));
         assertEquals("0", task.getStatusIcon());
+        assertTrue(task.toString().startsWith("[ ]"));
+    }
+
+    @Test
+    void tag_addsHashtagPrefix() {
+        Task task = new DummyTask("Do laundry");
+        task.tag("urgent");
+        assertEquals("#urgent", task.getTag());
+        assertTrue(task.toString().contains("#urgent"));
+    }
+
+    @Test
+    void toFileFormat_returnsExpectedFormat() {
+        Task task = new DummyTask("Submit assignment");
+        assertEquals("DUMMY|0|Submit assignment", task.toFileFormat());
     }
 }
