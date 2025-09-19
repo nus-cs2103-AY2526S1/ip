@@ -32,8 +32,8 @@ public class Event extends Task {
 
     /** Accepted input formats for the user-facing constructor. */
     private static final DateTimeFormatter[] INPUT_CANDIDATES = new DateTimeFormatter[] {
-            DateTimeFormatter.ISO_LOCAL_DATE_TIME,             // 2025-09-19T21:30:00
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss") // 2025-09-19 21:30:00
+        DateTimeFormatter.ISO_LOCAL_DATE_TIME, // 2025-09-19T21:30:00
+        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss") // 2025-09-19 21:30:00
     };
 
     private final LocalDateTime from;
@@ -50,7 +50,7 @@ public class Event extends Task {
         super(extractDesc(description));
         String[] range = extractRange(description); // [fromStr, toStr]
         this.from = parseWhen(range[0]);
-        this.to   = parseWhen(range[1]);
+        this.to = parseWhen(range[1]);
     }
 
     /**
@@ -65,7 +65,7 @@ public class Event extends Task {
     public Event(String description, String from, String to) {
         super(description);
         this.from = LocalDateTime.parse(from, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        this.to   = LocalDateTime.parse(to,   DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        this.to = LocalDateTime.parse(to, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     }
 
     /**
@@ -98,7 +98,8 @@ public class Event extends Task {
         String[] parts = combined.split(" \\/from ", 2);
         if (parts.length < 2) {
             throw new IllegalArgumentException(
-                    "Missing ' /from ' delimiter. Example: event Standup /from 2025-09-19 09:00:00 /to 2025-09-19 09:15:00");
+                    "Missing ' /from ' delimiter. Example: event"
+                    + "Standup /from 2025-09-19 09:00:00 /to 2025-09-19 09:15:00");
         }
         return parts[0].trim();
     }
@@ -118,12 +119,20 @@ public class Event extends Task {
     }
 
     private static LocalDateTime parseWhen(String s) {
+        IllegalArgumentException lastError = null;
         for (DateTimeFormatter fmt : INPUT_CANDIDATES) {
             try {
                 return LocalDateTime.parse(s, fmt);
-            } catch (DateTimeParseException ignored) { }
+            } catch (DateTimeParseException ex) {
+                // Keep the last failure to provide context if all formats fail
+                lastError = new IllegalArgumentException(
+                    "Failed to parse with format: " + fmt, ex);
+            }
         }
+
         throw new IllegalArgumentException(
-                "Invalid datetime. Use 'yyyy-MM-dd HH:mm:ss' or ISO 'yyyy-MM-dd'T'HH:mm:ss'");
+            "Invalid datetime. Use 'yyyy-MM-dd HH:mm:ss' or ISO 'yyyy-MM-dd'T'HH:mm:ss'",
+            lastError
+        );
     }
 }

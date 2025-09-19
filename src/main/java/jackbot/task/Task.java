@@ -21,28 +21,46 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    /** Marks the task as done. */
-    public void mark()   { this.isDone = true; }
+    /**
+     * Marks the task as done.
+     */
+    public void mark() {
+        this.isDone = true;
+    }
 
-    /** Marks the task as not done. */
-    public void unmark() { this.isDone = false; }
+    /**
+     * Marks the task as not done.
+     */
+    public void unmark() {
+        this.isDone = false;
+    }
 
     /**
      * Returns the checkbox prefix used in UI lists.
      *
      * @return {@code "[X]"} if done, else {@code "[ ]"}
      */
-    public String checkbox() { return isDone ? "[X]" : "[ ]"; }
+    public String checkbox() {
+        return isDone ? "[X]" : "[ ]";
+    }
 
-    /** Returns whether this task is marked done.
-     *  @return {@code true} if done, else {@code false}
+    /**
+     * Returns whether this task is marked done.
+     *
+     * @return {@code true} if done, else {@code false}
      */
-    public boolean isDone() { return isDone; }
+    public boolean isDone() {
+        return isDone;
+    }
 
-    /** Returns the human-readable description of this task.
-     *  @return the description text
+    /**
+     * Returns the human-readable description of this task.
+     *
+     * @return the description text
      */
-    public String getDescription() { return description; }
+    public String getDescription() {
+        return description;
+    }
 
     @Override
     public String toString() {
@@ -68,6 +86,7 @@ public abstract class Task {
         if (data == null) {
             throw new JackbotException("Null task record");
         }
+
         String[] parts = data.split("\\|", -1);
         if (parts.length < 3) {
             throw new JackbotException("Malformed task record: too few fields");
@@ -75,49 +94,56 @@ public abstract class Task {
 
         String type = parts[0].trim();
         String doneStr = parts[1].trim();
-        final boolean isDone;
+
+        final boolean isDoneFlag;
         if ("1".equals(doneStr)) {
-            isDone = true;
+            isDoneFlag = true;
         } else if ("0".equals(doneStr)) {
-            isDone = false;
+            isDoneFlag = false;
         } else {
             throw new JackbotException("Malformed task record: done flag must be 0 or 1");
         }
 
         final Task task;
         switch (type) {
-            case "T": {
-                // T|d|desc
-                String desc = parts[2].trim();
-                task = new Todo(desc);
-                break;
+
+        case "T": {
+            // T|d|desc
+            String desc = parts[2].trim();
+            task = new Todo(desc);
+            break;
+        }
+        case "D": {
+            // D|d|desc|due
+            if (parts.length < 4) {
+                throw new JackbotException("Malformed Deadline record: missing due");
             }
-            case "D": {
-                // D|d|desc|due
-                if (parts.length < 4) {
-                    throw new JackbotException("Malformed Deadline record: missing due");
-                }
-                String desc = parts[2].trim();
-                String due  = parts[3].trim();
-                task = new Deadline(desc, due);
-                break;
+            String desc = parts[2].trim();
+            String due = parts[3].trim();
+            task = new Deadline(desc, due);
+            break;
+        }
+        case "E": {
+            // E|d|desc|from|to
+            if (parts.length < 5) {
+                throw new JackbotException("Malformed Event record: missing time range");
             }
-            case "E": {
-                // E|d|desc|from|to
-                if (parts.length < 5) {
-                    throw new JackbotException("Malformed Event record: missing time range");
-                }
-                String desc = parts[2].trim();
-                String from = parts[3].trim();
-                String to   = parts[4].trim();
-                task = new Event(desc, from, to);
-                break;
-            }
-            default:
-                throw new JackbotException("Unknown task type: " + type);
+            String desc = parts[2].trim();
+            String from = parts[3].trim();
+            String to = parts[4].trim();
+            task = new Event(desc, from, to);
+            break;
+        }
+        default: {
+            throw new JackbotException("Unknown task type: " + type);
         }
 
-        if (isDone) task.mark();
+        }
+
+        if (isDoneFlag) {
+            task.mark();
+        }
+
         return task;
     }
 }

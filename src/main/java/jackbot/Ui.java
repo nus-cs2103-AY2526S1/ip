@@ -1,9 +1,9 @@
 package jackbot;
 
-import jackbot.task.Task;
-
 import java.util.List;
 import java.util.Scanner;
+
+import jackbot.task.Task;
 
 /**
  * Console user interface for Jackbot.
@@ -23,11 +23,11 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    /** Creates a new console UI bound to {@code System.in/out}. */
-    public Ui() { }
-
     /** Scanner bound to {@code System.in} for interactive input. */
     private final Scanner sc = new Scanner(System.in);
+
+    /** Creates a new console UI bound to {@code System.in/out}. */
+    public Ui() { }
 
     /**
      * Renders a message inside a fixed ASCII frame and prints it to {@code System.out}.

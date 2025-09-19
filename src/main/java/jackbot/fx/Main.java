@@ -1,17 +1,17 @@
 package jackbot.fx;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import java.util.List;
+
 import jackbot.JackbotException;
 import jackbot.Parser;
 import jackbot.Storage;
 import jackbot.TaskList;
 import jackbot.task.Task;
-
-import java.util.List;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * JavaFX entry point that loads {@code MainWindow.fxml} and wires
@@ -47,8 +47,7 @@ public class Main extends Application {
             tasks = new TaskList();
         }
         Parser parser = new Parser();
-        controller.initCore(storage, tasks, parser);  // <-- now resolves
-
+        controller.initCore(storage, tasks, parser);
         stage.setTitle("Jackbot");
         stage.setScene(new Scene(root, 600, 480));
         stage.show();
