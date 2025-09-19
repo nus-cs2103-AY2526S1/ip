@@ -19,6 +19,14 @@ public class LunarBot {
     }
 
     /**
+     * Save data to storage before quitting
+     */
+    public void quit() {
+        storage.writeFile(taskList.all());
+        System.exit(0);
+    }
+
+    /**
      * Main loop of the function
      */
     public void run() {

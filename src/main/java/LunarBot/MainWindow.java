@@ -43,6 +43,9 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = lunarbot.getResponse(input);
+        if (input == "Hope to see you again!") {
+            lunarbot.quit();
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getLunarDialog(response, lunarImage)
