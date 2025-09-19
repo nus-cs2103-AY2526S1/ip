@@ -48,7 +48,7 @@ When parsing succeeds, Abang **displays** the time as:
 **Expected output**
 
     Got it. I've added this task:
-      [D][ ] submit report (by: Sep 21 2025 18:00)
+      [D][ ][]submit report (by: Sep 21 2025 18:00)
     Now you have 1 task in the list.
 
 ---
@@ -67,7 +67,7 @@ Adds a simple task without date or time.
 **Expected output**
 
     Got it. I've added this task:
-      [T][ ] read book
+      [T][ ][] read book
     Now you have 2 tasks in the list.
 
 ---
@@ -97,7 +97,7 @@ When parsing succeeds, Abang **displays** times as:
 **Expected output**
 
     Got it. I've added this task:
-      [E][ ] team meeting (from: Sep 21 2025 14:00 to: Sep 21 2025 15:30)
+      [E][ ][] team meeting (from: Sep 21 2025 14:00 to: Sep 21 2025 15:30)
     Now you have 3 tasks in the list.
 
 ---
@@ -112,9 +112,9 @@ Shows all tasks in the list.
 **Expected output**
 
     Here are the tasks in your list:
-    1.[T][ ] read book
-    2.[D][ ] submit report (by: Sep 21 2025 18:00)
-    3.[E][ ] team meeting (from: Sep 21 2025 14:00 to: Sep 21 2025 15:30)
+    1.[T][ ][] read book
+    2.[D][ ][] submit report (by: Sep 21 2025 18:00)
+    3.[E][ ][] team meeting (from: Sep 21 2025 14:00 to: Sep 21 2025 15:30)
 
 ---
 
@@ -133,7 +133,7 @@ Marks or unmarks a task as done.
 **Expected output**
 
     Nice! I've marked this task as done:
-      [T][X] read book
+      [T][X][] read book
 
 ---
 
@@ -151,7 +151,7 @@ Deletes a task from the list.
 **Expected output**
 
     Noted. I've removed this task:
-      [D][ ] submit report (by: Sep 21 2025 18:00)
+      [D][ ][] submit report (by: Sep 21 2025 18:00)
     Now you have 2 tasks in the list.
 
 ---
@@ -188,7 +188,7 @@ Tags a task with a label.
 **Expected output**
 
     Got it. I've tagged this task:
-      [E][ ] [#urgent] team meeting (from: Sep 21 2025 14:00 to: Sep 21 2025 15:30)
+      [E][ ][#urgent]team meeting (from: Sep 21 2025 14:00 to: Sep 21 2025 15:30)
 
 ---
 
