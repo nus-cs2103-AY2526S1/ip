@@ -8,9 +8,9 @@ Paul is your friendly **personal assistant** for managing tasks.
 
 Here's how you can start!
 
-1. Download it from [here](https://github.com/TeoShiYuan/ip/releases/tag/A-Jar).
+1. Download it from [here](https://github.com/TeoShiYuan/ip/releases/tag/A-Release).
 2. Open a command window in the folder with the `jar` file.
-3. Run it with `java -jar Paul.jar`.
+3. Run it with `java -jar paul.jar`.
 4. Add your tasks and deadlines.
 5. Let Paul manage your life for you. 🎉
 
@@ -18,12 +18,12 @@ Here's how you can start!
 
 Here are some features of Paul:
 
-* [x] **Add tasks**: ToDos, Deadlines and Events.
-* [X] **List** all your tasks that you have added.
-* [x] **Mark / Unmark tasks** to track progress _easily_.
-* [x] **Delete tasks** after completing them.
-* [x] **Find tasks** _quickly_ by keyword.
-* [x] **Storing and loading** of tasks to _save_ your progress.
+* [x]  **Add tasks**: ToDos, Deadlines and Events.
+* [X]  **List** all your tasks that you have added.
+* [x]  **Mark / Unmark tasks** to track progress _easily_.
+* [x]  **Delete tasks** after completing them.
+* [x]  **Find tasks** _quickly_ by keyword.
+* [x]  **Storing and loading** of tasks to _save_ your progress.
 
 ## Adding tasks
 
@@ -74,7 +74,7 @@ Format: `event <description> /from <start> /to <end>`
 * Adds an event task with the given description and start/end date.
 * `description` cannot be empty.
 * `/from` and `/to` must be present in the command.
-* `<start>` and `end` must be a date in the format `yyyy-mm-dd`. e.g. `2019-10-15`
+* `<start>` and `<end>` must be a date in the format `yyyy-mm-dd`. e.g. `2019-10-15`
 
 Example: `event recess /from 2025-09-22 /to 2025-09-26`
 
