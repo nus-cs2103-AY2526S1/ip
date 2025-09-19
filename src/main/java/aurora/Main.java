@@ -32,6 +32,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setResizable(true);
+            stage.setTitle("Aurora");
             fxmlLoader.<MainWindow>getController().setAurora(aurora); // inject the Duke instance
             stage.show();
         } catch (IOException e) {
