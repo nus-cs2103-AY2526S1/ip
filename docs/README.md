@@ -17,13 +17,13 @@
 
 ## Features
 
-### List all tasks
-Show all tasks in the list. It will be shown order it is added. Details like Index
+### View all tasks: `list`
+Show all tasks in the list with their completion status. It will be shown order it is added.
 - **Format**: `list`
 - **Example**: `list`
 
 
-### Add: Todo
+### Add todo tasks: `todo`
 Add a simple todo task with a description. By default it is not done.
 - **Format**: `todo DESCRIPTION`
 - **Examples**: 
@@ -31,14 +31,14 @@ Add a simple todo task with a description. By default it is not done.
     - `todo peer evaluation`
 
 
-### Add deadlines: Deadline
+### Add deadline tasks: `deadline`
 Add a task that has a due date and time.
 - **Format**: `deadline DESCRIPTION /by <d/M/yyyy HHmm>`
 - **Examples**:
     - `deadline CS2100 /by 01/01/2026 1000`
     - `deadline CS2103 /by 05/05/2026 1200`
 
-### Add events: Event
+### Add events tasks: `event`
 Add an event with a start and end date/time.
 - **Format**: `event DESCRIPTION /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>`
 - **Examples**:
@@ -46,31 +46,31 @@ Add an event with a start and end date/time.
     - `event teaching /from 02/01/2025 1600 /to 02/01/2025 1900`
 
 
-### Mark tasks as done
+### Mark tasks as done: `mark`
 Mark a task as done by its number shown in `list`. Marked tasks will show a [X] symbol, and tasks that are already marked will stay marked
 - **Format**: `mark TASK_NUMBER`
 - **Example**: `mark 1`
 
 
-### Unmark task as not done
+### Unmark task as not done: `unmark`
 Mark a task as not done by its number shown in `list`. Unmark tasks will show a [ ] symbol, and tasks that are already unmarked will stay marked 
 - **Format**: `unmark TASK_NUMBER`
 - **Example**: `unmark 1`
 
 
-### Deleting tasks
+### Delete a task: `delete`
 Remove a task by its number shown in `list`.
 - **Format**: `delete TASK_NUMBER`
 - **Example**: `delete 3`
 
 
-### Finding tasks
+### Finding tasks: `find`
 Search for tasks with descriptions that contain the given keyword.
 - **Format**: `find KEYWORD`
 - **Example**: `find report`
 
 
-### Sort tasks
+### Sort tasks: `sort`
 Display tasks in a sorted view.
 - **Format**:
   - `sort deadline` or `sort deadlines` - show only deadlines, sorted by due date
@@ -78,10 +78,9 @@ Display tasks in a sorted view.
 - **Examples**: `sort deadlines`, `sort all`
 
 
-### Bye
-Exit the application.
+### Exit the program: `bye`
+Closes ByteBot application.
 - **Format**: `bye`
-- **Example**: `bye`
 
 
 ## FAQ
@@ -96,15 +95,15 @@ Exit the application.
 
 | Command | Format | Example |
 |---|---|---|
-| Todo | `todo <description>` | `todo study` |
-| Deadline | `deadline <description> /by <d/M/yyyy HHmm>` | `deadline CS2100 /by 01/01/2026 1000` |
-| Event | `event <description> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>` | `event Meeting /from 02/01/2025 1400 /to 02/01/2025 1500` |
-| List | `list` | `list` |
-| Mark | `mark <task_number>` | `mark 1` |
+| Add todo | `todo <description>` | `todo study` |
+| Add deadline | `deadline <description> /by <d/M/yyyy HHmm>` | `deadline CS2100 /by 01/01/2026 1000` |
+| Add event | `event <description> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>` | `event Meeting /from 02/01/2025 1400 /to 02/01/2025 1500` |
+| List tasks | `list` | `list` |
+| Mark as done | `mark <task_number>` | `mark 1` |
 | Unmark | `unmark <task_number>` | `unmark 1` |
-| Delete | `delete <task_number>` | `delete 3` |
-| Find | `find <keyword>` | `find report` |
+| Delete tasks | `delete <task_number>` | `delete 3` |
+| Find tasks | `find <keyword>` | `find report` |
 | Sort deadlines | `sort deadline` or `sort deadlines` | `sort deadlines` |
 | Sort all | `sort all` | `sort all` |
-| Bye | `bye` | `bye` |
+| Exit | `bye` | `bye` |
 
