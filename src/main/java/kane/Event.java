@@ -28,7 +28,7 @@ public class Event extends Task {
             this.from = LocalDateTime.parse(from, INPUT_FORMAT);
             this.to = LocalDateTime.parse(to, INPUT_FORMAT);
         } catch (DateTimeParseException e) {
-
+            throw new IllegalArgumentException("Invalid date format! Please use yyyy-MM-dd HHmm, e.g. 2019-12-02 1800.");
         }
     }
 

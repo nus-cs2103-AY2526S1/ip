@@ -86,20 +86,30 @@ public class Kane {
                 + "\nNow you have " + tasks.getSize() + " tasks in the list.";
     }
 
+    // Used Gemini to add the try-catch block for error handling for invalid date formats
     private String addDeadline(String input) throws KaneException {
-        Task newDeadline = Parser.parseDeadline(input);
-        tasks.addTask(newDeadline);
-        storage.save(tasks.getTasks());
-        return "Got it. I've added this task:\n  " + newDeadline
-                + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+        try {
+            Task newDeadline = Parser.parseDeadline(input);
+            tasks.addTask(newDeadline);
+            storage.save(tasks.getTasks());
+            return "Got it. I've added this task:\n  " + newDeadline
+                    + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        }
     }
 
+    // Used Gemini to add the try-catch block for error handling for invalid date formats
     private String addEvent(String input) throws KaneException {
-        Task newEvent = Parser.parseEvent(input);
-        tasks.addTask(newEvent);
-        storage.save(tasks.getTasks());
-        return "Got it. I've added this task:\n  " + newEvent
-                + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+        try {
+            Task newEvent = Parser.parseEvent(input);
+            tasks.addTask(newEvent);
+            storage.save(tasks.getTasks());
+            return "Got it. I've added this task:\n  " + newEvent
+                    + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        }
     }
 
     private String findTasks(String input) throws KaneException {
