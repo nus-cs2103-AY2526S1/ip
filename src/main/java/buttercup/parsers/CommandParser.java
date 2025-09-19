@@ -60,6 +60,8 @@ public class CommandParser {
             10. find {keyword} - Find tasks containing the keyword
 
             Proceed to track your tasks now! :D""";
+    private static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
+
     private final Storage storage;
 
     /**
@@ -132,6 +134,9 @@ public class CommandParser {
             break;
         case HELP:
             result = HELP_MESSAGE;
+            break;
+        case BYE:
+            result = EXIT_MESSAGE;
             break;
         default:
             return result;
