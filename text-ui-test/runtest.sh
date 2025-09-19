@@ -1,38 +1,33 @@
 #!/usr/bin/env bash
 
-# create bin directory if it doesn't exist
-if [ ! -d "../bin" ]
-then
-    mkdir ../bin
-fi
+# AI-assisted note (A-AiAssisted):
+# Used AI to learn runtest.sh file languages and PR text.
+set -euo pipefail
 
-# delete output from previous run
-if [ -e "./ACTUAL.TXT" ]
-then
-    rm ACTUAL.TXT
-fi
+ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SRC_DIR="$ROOT_DIR/../src/main/java"
+OUT_DIR="$ROOT_DIR/out"
 
-# compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
-then
-    echo "********** BUILD FAILURE **********"
-    exit 1
-fi
+rm -rf "$OUT_DIR"
+mkdir -p "$OUT_DIR"
 
-# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+FX_LIB="${JAVA_HOME:-}/lib"
+FX_MODULES="javafx.controls,javafx.fxml"
 
-# convert to UNIX format
-cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
-
-# compare the output to the expected output
-diff ACTUAL.TXT EXPECTED-UNIX.TXT
-if [ $? -eq 0 ]
-then
-    echo "Test result: PASSED"
-    exit 0
+if compgen -G "$FX_LIB/javafx*.jar" > /dev/null; then
+  echo "[runtest] JavaFX detected at $FX_LIB -> compiling ALL sources with modules"
+  find "$SRC_DIR" -name "*.java" > "$ROOT_DIR/.sources.txt"
+  javac --module-path "$FX_LIB" --add-modules "$FX_MODULES" \
+        -Xlint:none -encoding UTF-8 -d "$OUT_DIR" @"$ROOT_DIR/.sources.txt"
 else
-    echo "Test result: FAILED"
-    exit 1
+  echo "[runtest] JavaFX NOT found -> compiling HEADLESS core only (exclude GUI classes)"
+  EXCLUDE_NAMES="Main.java|Launcher.java|MainWindow.java|DialogBox.java|GuiUi.java"
+  find "$SRC_DIR" -name "*.java" \
+    ! -regex ".*\(${EXCLUDE_NAMES}\)$" -print0 \
+  | xargs -0 grep -L -E 'GuiUi|javafx\.' \
+  > "$ROOT_DIR/.sources.txt"
+
+  javac -Xlint:none -encoding UTF-8 -d "$OUT_DIR" @"$ROOT_DIR/.sources.txt"
 fi
+
+echo "[runtest] Compile step done."

@@ -1,0 +1,40 @@
+.root {
+  -fx-background-color: #E6F2FF;
+  -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  -fx-font-size: 13px;
+}
+
+/* Generic dialog box */
+.dialog-box {
+  -fx-alignment: TOP_LEFT;
+  -fx-spacing: 8;
+}
+
+/* Label inside dialog box */
+.dialog-text {
+  -fx-padding: 10 14;
+  -fx-background-radius: 14;
+  -fx-border-radius: 14;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0.2, 0, 1);
+  -fx-text-fill: #333333;
+}
+
+/* Program bubble: yellow */
+.dialog-box.program .dialog-text {
+  -fx-background-color: #FFF3A3;
+  -fx-text-fill: #333333;
+}
+
+/* User bubble: white */
+.dialog-box.user .dialog-text {
+  -fx-background-color: white;
+  -fx-text-fill: #333333;
+  -fx-border-color: rgba(0,0,0,0.06);
+  -fx-border-width: 1;
+}
+
+/* Avatar image tweaks in DialogBox */
+.dialog-avatar {
+  -fx-fit-width: 64;
+  -fx-fit-height: 64;
+}

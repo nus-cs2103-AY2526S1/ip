@@ -1,0 +1,64 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion = '10.12.4'
+}
+
+tasks.withType(Checkstyle).configureEach {
+    configFile = file("$rootDir/config/checkstyle/checkstyle.xml")
+    configProperties = [
+            'checkstyle.suppressions.file': "$rootDir/config/checkstyle/suppressions.xml"
+    ]
+    classpath = files()
+}
+
+repositories {
+    mavenCentral()
+}
+
+def os = org.gradle.internal.os.OperatingSystem.current()
+def platform = os.isMacOsX() ? "mac-aarch64" : (os.isLinux() ? "linux" : "win")
+
+dependencies {
+    implementation "org.openjfx:javafx-base:17:${platform}"
+    implementation "org.openjfx:javafx-graphics:17:${platform}"
+    implementation "org.openjfx:javafx-controls:17:${platform}"
+    implementation "org.openjfx:javafx-fxml:17:${platform}"
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly  'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+}
+
+group = 'ip'
+version = '0.2.0'
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(17) }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+application {
+    mainClass.set("planner.Launcher")
+}
+
+shadowJar {
+    archiveBaseName.set('ip')
+    archiveClassifier.set('all')
+    manifest {
+        attributes(
+                'Main-Class': 'planner.Launcher'
+        )
+    }
+}
+
+run {
+    standardInput = System.in
+}

@@ -1,0 +1,360 @@
+package planner;
+
+/**
+ * Represents an executable user command.
+ * Subclasses implement the behavior in {@link #execute(TaskList, Ui, Storage)}.
+ */
+public abstract class Command {
+    /**
+     * Executes the command.
+     *
+     * @param tasks task list to operate on
+     * @param ui user interface to show output
+     * @param storage storage to persist changes
+     * @throws Exception if the command cannot be executed
+     */
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws Exception;
+
+    /**
+     * Returns whether this command should terminate the program loop.
+     *
+     * @return true if the program should exit
+     */
+    public boolean isExit() {
+        return false;
+    }
+
+    /**
+     * Parses a 1-based integer index from user input.
+     *
+     * @param arg argument string
+     * @return parsed index
+     * @throws Exception if parsing fails or index is negative
+     */
+    static int parseIndex1Based(String arg) throws Exception {
+        assert arg != null : "index argument must not be null";
+        try {
+            int idx = Integer.parseInt(arg.trim());
+            assert idx > 0 : "index must be positive";
+            return idx;
+        } catch (NumberFormatException e) {
+            throw new Exception("Please provide a valid positive index.");
+        }
+    }
+}
+
+/**
+ * Command that ends the program.
+ */
+class ExitCommand extends Command {
+    /** {@inheritDoc} */
+    @Override public void execute(TaskList t, Ui ui, Storage s) {
+        assert ui != null : "Ui must not be null";
+        ui.showBye();
+    }
+
+    /** {@inheritDoc} */
+    @Override public boolean isExit() {
+        return true;
+    }
+}
+
+/**
+ * Command that lists all current tasks.
+ */
+class ListCommand extends Command {
+    /** {@inheritDoc} */
+    @Override
+    public void execute(TaskList t, Ui ui, Storage s) {
+        assert t != null && ui != null : "dependencies must not be null";
+        if (t.size() == 0) {
+            ui.show("No tasks yet."); return;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < t.size(); i++) {
+            sb.append(i + 1).append(". ").append(t.get(i)).append('\n');
+        }
+        ui.show(sb.toString().trim());
+    }
+}
+
+/**
+ * Command returned when user input does not match a known command.
+ */
+class UnknownCommand extends Command {
+    private final String raw;
+
+    /**
+     * Creates an unknown command wrapper.
+     *
+     * @param r the raw user input
+     */
+    UnknownCommand(String r) {
+        this.raw = r;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void execute(TaskList t, Ui ui, Storage s) {
+        assert ui != null : "Ui must not be null";
+        ui.show("Unknown command: " + raw);
+    }
+}
+
+/**
+ * Command that adds a generic task.
+ */
+class AddCommand extends Command {
+    private final String desc;
+
+    /**
+     * @param d description of the task
+     */
+    AddCommand(String d) {
+        this.desc = d;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void execute(TaskList t, Ui ui, Storage s) throws Exception {
+        assert t != null && ui != null && s != null : "dependencies must not be null";
+        if (desc == null || desc.isBlank()) {
+            throw new Exception("Description cannot be empty.");
+        }
+        Task task = new Task(desc);
+        t.add(task);
+        s.save(t.asList());
+        ui.show("added: " + task);
+    }
+}
+
+/**
+ * Command that adds a {@link Todo}.
+ */
+class AddTodoCommand extends Command {
+    private final String desc;
+
+    /**
+     * @param d description of the todo
+     */
+    AddTodoCommand(String d) {
+        this.desc = d;
+    }
+
+    /** {@inheritDoc} */
+    @Override public void execute(TaskList t, Ui ui, Storage s) throws Exception {
+        assert t != null && ui != null && s != null : "dependencies must not be null";
+        if (desc == null || desc.isBlank()) {
+            throw new Exception("The description of a todo cannot be empty.");
+        }
+        Task task = new Todo(desc);
+        t.add(task);
+        s.save(t.asList());
+        ui.show("added: " + task);
+    }
+}
+
+/**
+ * Command that adds a {@link Deadline}.
+ */
+class AddDeadlineCommand extends Command {
+    private final String args;
+
+    /**
+     * @param a raw argument string
+     */
+    AddDeadlineCommand(String a) {
+        this.args = a;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void execute(TaskList t, Ui ui, Storage s) throws Exception {
+        assert t != null && ui != null && s != null : "dependencies must not be null";
+        assert args != null : "args must not be null";
+
+        String[] split = args.split("\\s+/by\\s+", 2);
+        if (split.length < 2 || split[0].isBlank() || split[1].isBlank()) {
+            throw new Exception("Usage: deadline <description> /by <yyyy-MM-dd>");
+        }
+
+        Task task = new Deadline(split[0].trim(), split[1].trim());
+        t.add(task);
+        s.save(t.asList());
+        ui.show("added: " + task);
+    }
+}
+
+/**
+ * Command that adds an {@link Event}.
+ */
+class AddEventCommand extends Command {
+    private final String args;
+
+    /**
+     * @param a raw argument string
+     */
+    AddEventCommand(String a) {
+        this.args = a;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void execute(TaskList t, Ui ui, Storage s) throws Exception {
+        assert t != null && ui != null && s != null : "dependencies must not be null";
+        assert args != null : "args must not be null";
+
+        String[] pFrom = args.split("\\s+/from\\s+", 2);
+        if (pFrom.length < 2 || pFrom[0].isBlank()) {
+            throw new Exception("Usage: event <description> /from <start> /to <end>");
+        }
+        String[] pTo = pFrom[1].split("\\s+/to\\s+", 2);
+        if (pTo.length < 2 || pTo[0].isBlank() || pTo[1].isBlank()) {
+            throw new Exception("Usage: event <description> /from <start> /to <end>");
+        }
+        Task task = new Event(pFrom[0].trim(), pTo[0].trim(), pTo[1].trim());
+        t.add(task);
+        s.save(t.asList());
+        ui.show("added: " + task);
+    }
+}
+
+/**
+ * Command that marks a task as completed.
+ */
+class MarkCommand extends Command {
+    private final String arg;
+
+    /**
+     * @param a 1-based index argument
+     */
+    MarkCommand(String a) {
+        this.arg = a;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void execute(TaskList t, Ui ui, Storage s) throws Exception {
+        assert t != null && ui != null && s != null : "dependencies must not be null";
+        int idx = parseIndex1Based(arg) - 1;
+        Task task = t.get(idx);
+        task.markDone();
+        s.save(t.asList());
+        ui.show("I've marked this task as done:\n" + task);
+    }
+}
+
+/**
+ * Command that unmarks a task as completed.
+ */
+class UnmarkCommand extends Command {
+    private final String arg;
+
+    /**
+     * @param a 1-based index argument
+     */
+    UnmarkCommand(String a) {
+        this.arg = a;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void execute(TaskList t, Ui ui, Storage s) throws Exception {
+        assert t != null && ui != null && s != null : "dependencies must not be null";
+        int idx = parseIndex1Based(arg) - 1;
+        Task task = t.get(idx);
+        task.markNotDone();
+        s.save(t.asList());
+        ui.show("OK, I've marked this task as not done yet:\n" + task);
+    }
+}
+
+/**
+ * Command that deletes a task by index.
+ */
+class DeleteCommand extends Command {
+    private final String arg;
+
+    /**
+     * @param a 1-based index argument
+     */
+    DeleteCommand(String a) {
+        this.arg = a;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void execute(TaskList t, Ui ui, Storage s) throws Exception {
+        assert t != null && ui != null && s != null : "dependencies must not be null";
+        int idx = parseIndex1Based(arg) - 1;
+        Task removed = t.remove(idx);
+        s.save(t.asList());
+        ui.show("Noted. I've removed this task:\n" + removed
+                + "\nNow you have " + t.size() + " tasks in the list.");
+    }
+}
+
+/**
+ * Lists only deadlines within an inclusive period.
+ * Usage: list between yyyy-MM-dd yyyy-MM-dd
+ */
+class ListBetweenCommand extends Command {
+    private final String range;
+
+    /**
+     * Creates a list-between command.
+     *
+     * @param range two dates separated by space, both in yyyy-MM-dd
+     */
+    ListBetweenCommand(String range) {
+        this.range = range;
+    }
+
+    /**
+     * Shows only {@link Deadline} tasks whose due date is within the inclusive range.
+     *
+     * @param t  task list
+     * @param ui UI to print messages
+     * @param s  storage (unused)
+     * @throws Exception if the input is invalid
+     */
+    @Override
+    public void execute(TaskList t, Ui ui, Storage s) throws Exception {
+        assert t != null && ui != null : "dependencies must not be null";
+        if (range == null || range.isBlank()) {
+            throw new Exception("Usage: list between <yyyy-MM-dd> <yyyy-MM-dd>");
+        }
+
+        String[] parts = range.trim().split("\\s+");
+        if (parts.length != 2) {
+            throw new Exception("Usage: list between <yyyy-MM-dd> <yyyy-MM-dd>");
+        }
+
+        String start = parts[0];
+        String end   = parts[1];
+
+        try {
+            java.time.LocalDate.parse(start);
+            java.time.LocalDate.parse(end);
+        } catch (java.time.format.DateTimeParseException ex) {
+            throw new Exception("Dates must be in yyyy-MM-dd.");
+        }
+        if (start.compareTo(end) > 0) {
+            throw new Exception("The start date must not be after the end date.");
+        }
+
+        StringBuilder sb = new StringBuilder();
+        int shown = 0;
+        for (int i = 0; i < t.size(); i++) {
+            Task task = t.get(i);
+            if (task instanceof Deadline) {
+                String iso = ((Deadline) task).getByIso();
+                if (iso.compareTo(start) >= 0 && iso.compareTo(end) <= 0) {
+                    sb.append(++shown).append(". ").append(task).append('\n'); // 1..n 번호
+                }
+            }
+        }
+        ui.show(shown == 0 ? "No deadlines in the given period."
+                : sb.toString().trim());
+    }
+}
