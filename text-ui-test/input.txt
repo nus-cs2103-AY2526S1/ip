@@ -1,0 +1,15 @@
+list
+deadline homework /by 2/12/2025 1800
+list
+todo cs2103
+list
+event carnival /from 15/12/2025 1400 /to 15/12/2025 1800
+event birthday /from 20/8/2025 1000 /to 21/8/2025 2200
+mark 2
+list
+mark 1
+list
+unmark 1
+list
+delete 1
+bye

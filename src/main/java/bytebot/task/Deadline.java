@@ -1,0 +1,66 @@
+package bytebot.task;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import bytebot.ByteException;
+
+/**
+ * Represents a task that needs to be completed by a specific time.
+ */
+public class Deadline extends Task {
+    private static final DateTimeFormatter INPUT_FORMATTER =
+            DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter DISPLAY_FORMATTER =
+            DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+
+    private final LocalDateTime by;
+
+    /**
+     * Creates a deadline task.
+     *
+     * @param description Description of the task
+     * @param by          Deadline as a string in format "d/M/yyyy HHmm"
+     */
+    public Deadline(String description, String by) throws ByteException {
+        super(description);
+        this.by = parseDateTime(by);
+    }
+
+    /**
+     * Returns the deadline as LocalDateTime.
+     *
+     * @return LocalDateTime representing the deadline
+     */
+    public LocalDateTime getBy() {
+        return by;
+    }
+
+    /**
+     * Parses a date-time string into LocalDateTime.
+     * Supports format: d/M/yyyy HHmm
+     *
+     * @param dateTimeString The date-time string to parse
+     * @return LocalDateTime object
+     * @throws ByteException if the date format is invalid
+     */
+    private LocalDateTime parseDateTime(String dateTimeString) throws ByteException {
+        try {
+            return LocalDateTime.parse(dateTimeString, INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new ByteException("Invalid date format, use format: dd/MM/yyyy HHmm");
+        }
+    }
+
+    /**
+     * Returns the string representation prefixed with [D] and the deadline time.
+     */
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + by.format(DISPLAY_FORMATTER) + ")";
+    }
+}
+
+
+
