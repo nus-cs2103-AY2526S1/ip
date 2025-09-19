@@ -37,8 +37,11 @@ public class Main extends Application {
         Parent root = loader.load();
         MainWindow controller = loader.getController();
 
+        // Obtain file to read from
+        String file = getParameters().getUnnamed().get(0);
+
         // Wire core
-        Storage storage = new Storage("./tasks.txt");
+        Storage storage = new Storage(file);
         TaskList tasks;
         try {
             List<Task> loaded = storage.load();
