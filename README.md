@@ -111,7 +111,7 @@ Searches tasks containing the keyword.
 
 ## 🛠 Troubleshooting
 
-- Ensure you are running **Java 11+**.  
+- Ensure you are running **Java 17+**.  
 - If using `--file=path`, check that the file path is valid and writable.  
 - On first run, the file is created automatically if it doesn’t exist.  
 
