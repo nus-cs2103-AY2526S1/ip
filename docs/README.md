@@ -1,6 +1,6 @@
 # Stella User Guide
 
-![Screenshot of Stella] (./Ui.png)
+![Screenshot of Stella](./Ui.png)
 
 ## Product Introduction
 Stella is a desktop application that allows you to keep track of the various tasks you need to complete. Your task list will be automatically save when you close the app, allowing you to continue right from where you left off!
