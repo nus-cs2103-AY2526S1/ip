@@ -1,0 +1,17 @@
+create list
+todo read book
+todo borrow book
+list
+deadline return book /by 2025-10-12
+mark 1
+mark 2
+mark 3
+event project meeting /from 2025-12-04 1400 /to 2025-12-04 1600
+list
+mark 4
+mark 5
+list
+delete 2
+delete 3
+list
+bye
