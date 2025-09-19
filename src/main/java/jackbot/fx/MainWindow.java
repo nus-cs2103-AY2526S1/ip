@@ -5,43 +5,57 @@ import jackbot.Parser;
 import jackbot.Storage;
 import jackbot.TaskList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
  * Controller for {@code MainWindow.fxml}.
  *
  * <p>Delegates all command parsing/execution to {@link CommandEngine},
- * keeping behavior/messages in sync with the CLI.</p>
+ * keeping behavior/messages in sync with the CLI. Minimal changes version
+ * that renders user/bot lines as chat rows with small avatar images
+ * (no custom DialogBox class required).</p>
  */
 public class MainWindow {
-
 
     /** Shared core components. */
     private Storage storage;
     private TaskList tasks;
     private Parser parser;
 
-    /** JavaFX core components */
+    /** Central engine used by both GUI and CLI. */
+    private CommandEngine engine;
+
+    /** JavaFX core components. */
     @FXML private VBox dialogContainer;
     @FXML private TextField userInput;
     @FXML private ScrollPane scrollPane;
 
-    /** Central engine used by both GUI and CLI. */
-    private CommandEngine engine;
+    /**
+     * Avatars for right/left chat rows. Ensure these resources exist on classpath:
+     * /images/User.png and /images/Jackbot.png
+     */
+    private Image userImage;
+    private Image jackbotImage;
 
     /** Creates a new {@code MainWindow} controller. */
     public MainWindow() { }
 
     /**
      * Called by the JavaFX runtime after FXML fields are injected.
-     * Binds the scroll pane to auto-scroll as new dialog nodes are added.
+     * Binds scroll to auto-scroll as messages are added and loads avatars.
      */
     @FXML
     private void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
+        jackbotImage = new Image(this.getClass().getResourceAsStream("/images/Jackbot.jpg"));
     }
 
     /**
@@ -58,14 +72,13 @@ public class MainWindow {
         this.parser = parser;
         this.engine = new CommandEngine(storage, tasks, parser);
 
-        dialog("> Hi! Jackbot at your service. Try: todo read book, find book, list, bye");
+        dialogJackbot("Hi! Jackbot at your service. Try: todo read book, find book, list, bye");
     }
 
     /**
-     * Reads text from the input box, echoes it to the dialog area, delegates
-     * processing to {@link CommandEngine}, and renders the engine's messages.
-     * Disables input if the engine signals exit (i.e., {@code bye}).
-     * Bound to the Send button and the TextField’s Enter action.
+     * Reads text from the input box, displays user message row (right-aligned),
+     * processes via {@link CommandEngine}, then displays bot rows (left-aligned).
+     * Disables input if engine signals exit (e.g., 'bye').
      */
     @FXML
     private void handleUserInput() {
@@ -75,18 +88,13 @@ public class MainWindow {
         }
         input = input.trim();
 
-        // Echo the user's line
-        dialog("> " + input);
+        dialogUser(input);
 
-        // Single source of truth: parse/execute via the engine
         CommandEngine.Response resp = engine.process(input);
-
-        // Render all messages produced by the engine
         for (String msg : resp.messages) {
-            dialog(msg);
+            dialogJackbot(msg);
         }
 
-        // Handle exit state
         if (resp.exit) {
             userInput.setDisable(true);
         }
@@ -95,11 +103,45 @@ public class MainWindow {
     }
 
     /**
-     * Appends a single line of text to the dialog area.
+     * Adds a right-aligned HBox row: [Label][User Avatar].
      *
-     * @param text line to display
+     * @param text message to display
      */
-    private void dialog(String text) {
-        dialogContainer.getChildren().add(new Label(text));
+    private void dialogUser(String text) {
+        HBox row = new HBox(8);
+        row.setAlignment(Pos.TOP_LEFT);
+
+        Label lbl = new Label(text);
+        lbl.setWrapText(true);
+
+        ImageView avatar = new ImageView(userImage);
+        avatar.setFitWidth(128);
+        avatar.setFitHeight(128);
+        avatar.setPreserveRatio(true);
+
+        row.getChildren().addAll(avatar, lbl);
+        dialogContainer.getChildren().add(row);
+    }
+
+    /**
+     * Adds a left-aligned HBox row: [Jackbot Avatar][Label].
+     *
+     * @param text message to display
+     */
+
+    private void dialogJackbot(String text) {
+        HBox row = new HBox(8);
+        row.setAlignment(Pos.TOP_RIGHT);
+
+        ImageView avatar = new ImageView(jackbotImage);
+        avatar.setFitWidth(128);
+        avatar.setFitHeight(128);
+        avatar.setPreserveRatio(true);
+
+        Label lbl = new Label(text);
+        lbl.setWrapText(true);
+
+        row.getChildren().addAll(lbl, avatar);
+        dialogContainer.getChildren().add(row);
     }
 }
