@@ -1,0 +1,5 @@
+help
+todo prereading
+deadline iP \by Fri 4pm
+event iP help \from 5pm \to 6pm
+bye

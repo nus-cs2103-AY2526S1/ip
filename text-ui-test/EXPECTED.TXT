@@ -1,7 +1,60 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+________________________________________
+Hello! I'm apleasebot.ui.APleaseBot
+What can I do for you?
+________________________________________
+
+________________________________________
+List of commands
+help - list commands
+bye - close program
+list - list tasks
+mark <task-number>
+unmark <task-number>
+todo <task-name>
+deadline <task-name> \by <deadline>
+event <event-name> \from <time> \to <time>
+________________________________________
+
+________________________________________
+Hello! I'm APleaseBot
+What can I do for you?
+________________________________________
+
+________________________________________
+Got it. I've added this task:
+  [T][ ] prereading
+Now you have 1 tasks in the list
+________________________________________
+
+________________________________________
+Hello! I'm APleaseBot
+What can I do for you?
+________________________________________
+
+________________________________________
+Got it. I've added this task:
+  [D][ ] iP  (by:  Fri 4pm)
+Now you have 2 tasks in the list
+________________________________________
+
+________________________________________
+Hello! I'm APleaseBot
+What can I do for you?
+________________________________________
+
+we got here
+________________________________________
+Got it. I've added this task:
+  [E][ ] iP help  (from: 5pm  to: 6pm)
+Now you have 3 tasks in the list
+________________________________________
+
+________________________________________
+Hello! I'm APleaseBot
+What can I do for you?
+________________________________________
+
+________________________________________
+Bye. Hope to see you again soon!
+________________________________________
 
