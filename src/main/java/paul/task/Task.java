@@ -61,7 +61,7 @@ public abstract class Task {
     }
 
     /**
-     * Checks if the given object id equal to a Task.
+     * Checks if the given object is equal to a Task.
      *
      * @param obj the reference object with which to compare.
      * @return true if this is equal to the Task.

@@ -65,7 +65,7 @@ public class Storage {
                 tasks.add(task);
             }
         } catch (FileNotFoundException e) {
-            throw new PaulException("Error: File not found: " + e.getMessage());
+            throw new PaulException("File not found: " + e.getMessage());
         }
 
         return tasks;
@@ -122,7 +122,7 @@ public class Storage {
             fw.write(taskSaveString.toString());
             fw.close();
         } catch (IOException e) {
-            throw new PaulException("Error: Unable to save tasks: " + e.getMessage());
+            throw new PaulException("Unable to save tasks: " + e.getMessage());
         }
     }
 }

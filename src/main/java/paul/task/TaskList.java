@@ -52,7 +52,7 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the TaskList based on the user's command and saves it in the storage.
+     * Adds a task to the TaskList based on the user's command.
      *
      * @param parsedCommand The String array after parsing the command.
      * @return The task that was added.
@@ -61,7 +61,8 @@ public class TaskList {
     public Task addTask(String[] parsedCommand) throws PaulException {
         Parser.CommandType commandType = Parser.getCommandType(parsedCommand[0]);
         if (parsedCommand.length < 2) {
-            throw new PaulException("The description of a " + commandType + " cannot be empty!");
+            throw new PaulException("Hey! You forgot the description. I can’t add a "
+                    + commandType + " with nothing in it.");
         }
         String description = parsedCommand[1].trim();
 
@@ -75,7 +76,7 @@ public class TaskList {
         //CHECKSTYLE.ON: Indentation
         assert newTask != null : "Task creation failed in addTask()";
         if (isDuplicate(newTask)) {
-            throw new PaulException("This task already exists!");
+            throw new PaulException("Uhh you already added this task. No duplicates allowed!");
         }
 
         return newTask;
@@ -90,14 +91,14 @@ public class TaskList {
         String[] deadlineStr = description.split(" /by ");
 
         if (deadlineStr.length < 2 || deadlineStr[0].isBlank() || deadlineStr[1].isBlank()) {
-            throw new PaulException("A deadline must have a description and a /by date!");
+            throw new PaulException("Hey! A deadline requires a /by date for me to keep track!");
         }
 
         try {
             LocalDate date = LocalDate.parse(deadlineStr[1]);
             newTask = new Deadline(deadlineStr[0].trim(), date);
         } catch (DateTimeParseException e) {
-            throw new PaulException("/by must be in yyyy-mm-dd format! (e.g., 2019-10-15)");
+            throw new PaulException("Hey! Your /by date looks wrong. Use yyyy-mm-dd, e.g. 2019-10-15.");
         }
         return newTask;
     }
@@ -107,7 +108,8 @@ public class TaskList {
         String[] eventStr = description.split(" /from | /to ");
 
         if (eventStr.length < 3 || eventStr[0].isBlank() || eventStr[1].isBlank() || eventStr[2].isBlank()) {
-            throw new PaulException("An event must have a description, /from, and /to!");
+            throw new PaulException("Hey! An event requires a /from, and /to date! "
+                    + "Otherwise I won't be able to understand :(");
         }
 
         try {
@@ -115,7 +117,8 @@ public class TaskList {
             LocalDate toDate = LocalDate.parse(eventStr[2]);
             newTask = new Event(eventStr[0].trim(), fromDate, toDate);
         } catch (DateTimeParseException e) {
-            throw new PaulException("/from and /to must be in yyyy-mm-dd format! (e.g., 2019-10-15)");
+            throw new PaulException("Hey! /from and /to dates must follow yyyy-mm-dd format! (e.g., 2019-10-15) "
+                    + "Otherwise, I get confused.");
         }
         return newTask;
     }
@@ -129,17 +132,17 @@ public class TaskList {
      */
     public Task deleteTask(String[] parsedCommand) throws PaulException {
         if (parsedCommand.length < 2) {
-            throw new PaulException("The description of a delete cannot be empty!");
+            throw new PaulException("Delete what? I need the number of the task to delete.");
         }
         Task task;
         try {
-            int index = Integer.parseInt(parsedCommand[1]);
+            int index = Integer.parseInt(parsedCommand[1].trim());
             task = this.get(index);
             tasks.remove(index - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new PaulException("Oops! Invalid task number for delete command.");
+            throw new PaulException("That task number doesn’t exist. Double-check your list?");
         } catch (NumberFormatException e) {
-            throw new PaulException("Please input a valid task number!");
+            throw new PaulException("That doesn't look like a number, try again!");
         }
         assert task != null : "Deleted task should not be null";
         return task;
@@ -169,10 +172,10 @@ public class TaskList {
 
     private Task updateTaskStatus(String[] parsedCommand, boolean mark) throws PaulException {
         if (parsedCommand.length < 2) {
-            throw new PaulException("The description of a mark/unmark cannot be empty!");
+            throw new PaulException("Mark what? You didn't give me a task number.");
         }
         try {
-            int index = Integer.parseInt(parsedCommand[1]);
+            int index = Integer.parseInt(parsedCommand[1].trim());
             Task task = get(index);
             if (mark) {
                 task.markTask();
@@ -181,9 +184,9 @@ public class TaskList {
             }
             return task;
         } catch (IndexOutOfBoundsException e) {
-            throw new PaulException("Oops! Invalid task number for mark/unmark command.");
+            throw new PaulException("That task number doesn’t exist. Double-check your list?");
         } catch (NumberFormatException e) {
-            throw new PaulException("Please input a valid task number!");
+            throw new PaulException("That doesn't look like a number, try again!");
         }
     }
 
@@ -196,11 +199,11 @@ public class TaskList {
      */
     public TaskList findTasks(String[] parsedCommand) throws PaulException {
         if (parsedCommand.length < 2) {
-            throw new PaulException("The description of a find cannot be empty!");
+            throw new PaulException("You didn’t give me anything to search for. What keyword should I use?");
         }
 
         TaskList foundTasks = new TaskList();
-        String keyword = parsedCommand[1];
+        String keyword = parsedCommand[1].trim();
         for (Task task : tasks) {
             if (task.description.toLowerCase().contains(keyword.toLowerCase())) {
                 foundTasks.add(task);

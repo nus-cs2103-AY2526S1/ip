@@ -65,8 +65,8 @@ public class Parser {
             case DELETE -> handleDeleteTask(tasks, storage, ui, parsedCommand);
             case FIND -> handleFindTasks(tasks, ui, parsedCommand);
             case BYE -> handleByeUser(ui);
-            case UNKNOWN -> throw new PaulException("Sorry! I do not know what that means :(");
-            default -> throw new PaulException("Error! Not a valid command for parsing."); // Should not reach here
+            case UNKNOWN -> throw new PaulException("Huh? I do not know what you are saying :(");
+            default -> throw new PaulException("Not a valid command for parsing!"); // Should not reach here
         };
         //CHECKSTYLE.ON: Indentation
     }
