@@ -178,23 +178,6 @@ bye
 
 ---
 
-## Saving the data
-
-Dobby saves data automatically after any command that changes tasks. Manual saving is not required.
-
----
-
-## Editing the data file
-
-Data is stored as a JSON file at:
-
-```text
-[application folder]/data/tasks.json
-```
-
-Advanced users may edit this file directly.
-
----
 
 ## Command summary
 
