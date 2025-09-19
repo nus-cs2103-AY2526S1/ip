@@ -8,8 +8,9 @@ It supports todos, deadlines, and events, with persistent storage in CSV format 
 ## 🚀 Getting Started
 
 1. **Run the bot**
-   ```bash
-   java LunarBot
+   ```
+   java -jar LunarBot.jar
+   ```
 
 2. **You'll see a greeting message. Start typing commands to interact with the bot!**
 
