@@ -75,7 +75,7 @@ Adds a new todo task to the task list
 
 Usage: `deadline {task name} /by {datetime of due}` or `d {task name} /by {datetime of due}`
 
-> [!NOTE]
+
 > Datetime should be in the following format: yyyy-MM-dd or yyyy-MM-dd HH:mm
 
 Examples:
@@ -102,7 +102,7 @@ Adds a new todo task to the task list
 
 Usage: `event {task name} /from {datetime of start} /to {datetime of end}` <br> or `event {task name} /from {datetime of start} /to {datetime of end}`
 
-> [!NOTE]
+
 > Datetime should be in the following format: yyyy-MM-dd or yyyy-MM-dd HH:mm
 
 Examples:
