@@ -24,6 +24,7 @@ public class Main extends Application {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
             stage.setScene(scene);
+            stage.setTitle("LunarBot");
             fxmlLoader.<MainWindow>getController().setLunar(lunar);
             stage.show();
         } catch (IOException e) {
