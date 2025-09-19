@@ -36,8 +36,11 @@ It supports todos, deadlines, and events, with persistent storage in CSV format 
 ## Storage
 - Tasks are saved in a CSV file automatically after graceful termination with the "bye" command
 - The format includes
-    - Task ID
     - Task Type
     - Completion status
     - Task name
     - Date field (if applicable)
+
+# Example:
+`T,false,Buy Groceries`
+`D,false,Submit report,2025-09-30 23:59`
