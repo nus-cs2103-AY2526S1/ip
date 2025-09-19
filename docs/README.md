@@ -8,7 +8,7 @@ John is a lightweight, fast task manager that works in both **JavaFX GUI** and *
 
 ## Getting Started
 
-* **Requirements:** Java 11+
+* **Requirements:** Java 17+
 * **Run (GUI):**
 
   ```bash
