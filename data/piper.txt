@@ -1,0 +1,5 @@
+T | 1 | do laundry
+D | 0 | buy groceries | 2025-09-26
+E | 0 | hackathon | 10 October | 12 October
+D | 0 | submit cs2103t ip | 2025-09-22
+T | 0 | write birthday letter

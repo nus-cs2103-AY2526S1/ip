@@ -26,6 +26,7 @@ public class Main extends Application {
             MainWindow controller = fxmlLoader.getController();
             controller.setPiper(piper);
             controller.showGreeting(piper.getGreeting());
+            stage.setTitle("Piper");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -15,7 +15,7 @@ public class Ui {
 
     /** ASCII art used in the greeting. */
     private static final String ASCII_GREET =
-            " _______\n"
+            " ______\n"
                     + "|_   __ \\ ( ) .\\\n"
                     + "  | |__) |__  | ''\\   .---.  _ .--.\n"
                     + "  |  ___/[  | | /'\\\\ / /__\\\\[  /''\\|\n"
