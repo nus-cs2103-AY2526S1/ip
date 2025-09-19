@@ -1,0 +1,4 @@
+T | 0 | read book
+D | 1 | return book | 2025-12-02
+E | 0 | winter holiday | from 2025-12-12 | to 2025-12-29
+T | 1 | join sports club

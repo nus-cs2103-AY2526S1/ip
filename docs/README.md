@@ -1,30 +1,52 @@
-# Duke User Guide
+# Jerome
+Jerome is a chatbot that helps you manage your tasks.
 
-// Update the title above to match the actual product name
+## Adding todo task
+Adds a todo task.  
+Format: todo description   
+Example: `todo read book`
 
-// Product screenshot goes here
+## Adding deadline task
+Adds a deadline task.  
+Format: deadline description /by yyyy-mm-dd  
+Example: `deadline return book /by 2025-12-02`
 
-// Product intro goes here
+## Adding event task
+Adds an event task.  
+Format: event description /from yyyy-mm-dd /to yyyy-mm-dd  
+Example: `event winter holiday /from 2025-12-12 /to 2025-12-29`
 
-## Adding deadlines
+## List all tasks
+Lists all tasks.  
+Format: list
 
-// Describe the action and its outcome.
+## Mark task
+Marks task as done.  
+Format: mark taskIndex  
+Example: `mark 1`
 
-// Give examples of usage
+## Unmark task
+Marks task as not done.  
+Format: unmark taskIndex  
+Example: `unmark 1`
 
-Example: `keyword (optional arguments)`
+## Delete task
+Deletes task from list.  
+Format: delete taskIndex  
+Example: `delete 1`
 
-// A description of the expected outcome goes here
+## Find tasks
+Finds all tasks that contain given keyword.  
+Format: find keyword  
+Example: `find book`
 
-```
-expected output
-```
+## Reschedule task
+Reschedules a deadline or event task
 
-## Feature ABC
+- Deadline task
+  - Format for deadline: reschedule taskIndex(of deadline task) yyyy-mm-dd
+  - Example: `reschedule 2 2025-12-15`  
 
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+- Event task 
+  - Format for event: reschedule taskIndex(of event task) yyyy-mm-dd yyyy-mm-dd
+  - Example: `reschedule 3 2025-11-12 2025-11-29`
