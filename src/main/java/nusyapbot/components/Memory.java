@@ -1,0 +1,151 @@
+package nusyapbot.components;
+
+import nusyapbot.exceptions.NUSYapBotException;
+import nusyapbot.tasktype.Task;
+import nusyapbot.tasktype.ToDo;
+import nusyapbot.tasktype.Deadline;
+import nusyapbot.tasktype.Event;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+/**
+ * Handles all the retrieval and writing of data to permanent data storage.
+ */
+public class Memory {
+    private String storageLocation;
+
+    public Memory(String loc) {
+        this.storageLocation = loc;
+    }
+
+    public String getStorageLocation() {
+        return storageLocation;
+    }
+
+    /**
+     * Loads the list of tasks from the storage file.
+     * If the file exists, it will read each line and convert them
+     * back into Task objects (ToDo, Deadline, or Event).
+     * If the file does not exist, a new empty list is returned.
+     *
+     * @return an ArrayList containing all tasks read from the file
+     */
+    public ArrayList<Task> getTaskList() {
+        //save task from hard disk to an arrayList
+        ArrayList<Task> taskList = new ArrayList<>();
+
+        try {
+            //load the task list saved previously
+            File f = new File(storageLocation);
+            if (f.createNewFile()) {
+                return taskList;
+            }
+
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String taskLine = s.nextLine();
+                //Format: Type | T/F | title | other-var
+                String[] taskDetail = taskLine.split(" \\| ");
+                assert taskDetail.length >= 3 : "Invalid task format in file: " + taskLine;
+
+                String title = taskDetail[2];
+
+                if (taskDetail[0].equals("T")) {
+                    taskList.add(new ToDo(taskDetail[2],
+                            taskDetail[1].equals("T")));
+
+                } else if (taskDetail[0].equals("D")) {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+                    LocalDateTime date = LocalDateTime.parse(taskDetail[3], formatter);
+
+                    taskList.add(new Deadline(taskDetail[2],
+                            date, taskDetail[1].equals("T")));
+
+                } else if (taskDetail[0].equals("E")) {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+                    LocalDateTime start = LocalDateTime.parse(taskDetail[3], formatter);
+                    LocalDateTime end = LocalDateTime.parse(taskDetail[4], formatter);
+
+                    taskList.add(new Event(taskDetail[2], start, end, taskDetail[1].equals("T")));
+                } else {
+                    throw new NUSYapBotException("Data is stored in wrong format in storage.");
+                }
+
+            }
+            s.close();
+        } catch (IOException | NUSYapBotException e) {
+            System.out.println("We run into some error during retrieval/writing of data:");
+            System.out.println(e.getMessage());
+        }
+        return taskList;
+    }
+    /**
+     * Formats the task object into String and write to file
+     * The task is written in a specific format depending on its type
+     * (ToDo, Deadline, or Event).
+     *
+     * @param task the task object to be added
+     * @throws IOException if the file cannot be written
+     */
+    public void addTask(FileWriter fw, Task task) throws IOException {
+        //Format: Type | T/F | title | other-var
+        String line = task.getType() + " | "  
+                + (task.getIsCompleted() ? "T" : "F")
+                + " | " + task.getTitle();
+        if (task.getType() == 'D') {
+            Deadline taskD = (Deadline) task;
+            String ddl = taskD.getDeadline().format(
+                    DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+            line += " | " + ddl;
+        } else if (task.getType() == 'E') {
+            Event taskE = (Event) task;
+            String start = taskE.getStartDate().format(
+                    DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+            String end = taskE.getEndDate().format(
+                    DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+
+            line += " | " + start + " | " + end;
+        } 
+        fw.write(line + "\n");
+    }
+
+    /**
+     * Saves a new task by appending it to the storage file.
+     * <p>
+     * The task is written in a specific format depending on its type
+     * (ToDo, Deadline, or Event).
+     *
+     * @param task the task object to be added
+     * @throws IOException if the file cannot be written
+     */
+    public void addNewTask(Task task) throws IOException {
+        FileWriter fw = new FileWriter(storageLocation, true);
+        addTask(fw, task);
+        fw.close();
+    }
+
+    /**
+     * Overwrites the existing storage file with the current list of task.
+     * The task is written in a specific format depending on its type
+     * (ToDo, Deadline, or Event).
+     *
+     * @param taskList the new taskList that will overwrite the existing list of tasks.
+     * @throws IOException if the file cannot be written
+     */
+    public void rewriteMemory(ArrayList<Task> taskList) throws IOException {
+        FileWriter fw = new FileWriter(storageLocation, false); //false indicate overwrite mode
+        for (Task task: taskList) {
+            this.addTask(fw, task);
+        }
+        fw.close();
+    }
+
+}

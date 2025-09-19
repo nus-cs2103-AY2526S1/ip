@@ -1,0 +1,15 @@
+todo read book
+deadline complete Task 1 /by 26 Aug
+event conference /from 2pm /to 4pm
+deadline submit hw1 /by 22 Aug
+todo get laundry
+list
+mark 1
+mark 2
+unmark 1
+mark 7
+try
+todo
+event /to 111
+deadline idk
+mark

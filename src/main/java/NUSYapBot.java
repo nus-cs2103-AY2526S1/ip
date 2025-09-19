@@ -1,0 +1,87 @@
+//components
+import javafx.application.Platform;
+import nusyapbot.command.Command;
+import nusyapbot.components.Memory;
+import nusyapbot.components.Parser;
+import nusyapbot.components.Ui;
+//tasktype
+import nusyapbot.exceptions.*;
+import nusyapbot.tasktype.Task;
+//exceptions
+
+import java.util.ArrayList;
+
+import java.io.IOException;
+
+/**
+ * Main class for the NUSYapBot program.
+ * <p>
+ * This bot allows users to create, manage, and save tasks.
+ * Tasks are stored in a text file so they can be retrieved
+ * the next time the program is run.
+ */
+public class NUSYapBot {
+    private ArrayList<Task> taskList;
+    private Memory memory;
+    private static String STORAGE_PATH = "./data/data.txt";
+
+    public NUSYapBot() {
+        taskList = new ArrayList<>();
+        memory = new Memory(STORAGE_PATH);
+        taskList = memory.getTaskList();
+
+    }
+    /**
+     * Runs the main execution loop of NUSYapBot
+     */
+    public void run() {
+        boolean isRunning = true;
+        Ui.printWelcomeMessage(taskList, memory);
+
+        while (isRunning) {
+            try {
+                String answer = Ui.readInput();
+                // Step 1: Extract command type
+                Command command = Parser.parse(answer);
+                // Step 2: Execute the command and save response to taskList
+                String response = command.execute(taskList, memory);
+                System.out.println(response);
+                // Step 3: Check if loop should continue
+                isRunning = !command.getIsBye();
+            } catch (NUSYapBotException e) {
+                System.out.println(e.getMessage());
+            } catch (IOException e) {
+                System.out.println("We run into some error during retrieval/writing of data:");
+                System.out.println(e.getMessage());
+            }
+
+        }
+    }
+
+    public static void main(String[] args) {
+        new NUSYapBot().run();
+    }
+
+    // Solution below adapted from @@author pei886
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            // Step 1: Extract command type
+            Command command = Parser.parse(input);
+            // Step 2: Execute the command and save response
+            // to taskList & memory
+            String response = command.execute(taskList, memory);
+
+            // if it is a bye command, exit the GUI
+            if (command.getIsBye()) {
+                Platform.exit();
+            }
+            // Step 4: Return response to UI
+            return response;
+        } catch (NUSYapBotException | IOException e) {
+            return e.getMessage();
+        }
+    }
+}

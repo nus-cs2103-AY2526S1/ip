@@ -1,0 +1,8 @@
+T | T | get flower
+T | T | dance
+T | T | hand in homework
+D | F | submit assignment 1 | 06-09-2025 0000
+D | F | send application | 02-09-2025 0000
+T | F | buy birthday present
+E | F | KOL fan-meet | 12-09-2025 1000 | 12-09-2025 1130
+
