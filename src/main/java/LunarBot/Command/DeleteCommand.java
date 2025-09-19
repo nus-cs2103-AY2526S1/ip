@@ -7,7 +7,7 @@ public class DeleteCommand extends Command {
     private final int index;
 
     public DeleteCommand(int i) {
-        this.index = i;
+        this.index = i-1;
     }
 
     /**
