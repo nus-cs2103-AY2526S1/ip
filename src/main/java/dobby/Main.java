@@ -47,7 +47,7 @@ public class Main extends Application {
         stage.setMinWidth(400.0);
         mainLayout.setPrefSize(400.0, 600.0);
 
-        // --- Anchors ---
+        // Anchors
         AnchorPane.setTopAnchor(scrollPane, 1.0);
         AnchorPane.setBottomAnchor(scrollPane, 50.0); // leave space for input
         AnchorPane.setLeftAnchor(scrollPane, 1.0);
@@ -63,7 +63,7 @@ public class Main extends Application {
         scene = new Scene(mainLayout);
         stage.setScene(scene);
 
-        // --- Auto-scroll ---
+        // Auto-scroll
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
         sendButton.setOnAction(event -> handleUserInput());
@@ -87,7 +87,6 @@ public class Main extends Application {
 
 
     private String getResponse(String input) {
-        // Later you’ll call your Duke logic here
         return "Dobby says: " + input;
     }
 
@@ -100,16 +99,16 @@ public class Main extends Application {
             text = new Label(s);
             displayPicture = new ImageView(i);
 
-            // --- Resize image ---
+            // Resize image
             double size = 50.0; // desired diameter
             displayPicture.setFitWidth(size);
             displayPicture.setFitHeight(size);
 
-            // --- Make circular ---
+            // Make circular
             Circle clip = new Circle(size / 2, size / 2, size / 2);
             displayPicture.setClip(clip);
 
-            // Optional: add a border by snapshotting the clip
+            // Add a border by snapshotting the clip
             SnapshotParameters parameters = new SnapshotParameters();
             WritableImage image = displayPicture.snapshot(parameters, null);
             displayPicture.setClip(null);

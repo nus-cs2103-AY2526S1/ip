@@ -48,7 +48,10 @@ public class Parser {
             return handleDeadline(input);
         } else if (input.startsWith("event")) {
             return handleEvent(input);
-        } else {
+        } else if (input.startsWith("find")) {
+            return handleFind(input);
+        }
+        else {
             throw new InvalidCommandException("Unknown command: " + input);
         }
     }
@@ -98,14 +101,20 @@ public class Parser {
     }
 
     private String handleTodo(String input) throws DobbyException {
+        if (input.length() <= 4) {
+            throw new InvalidTaskException("Task description cannot be empty!");
+        }
         String desc = input.substring(5).trim();
-        if (desc.isEmpty()) throw new InvalidTaskException("Task description cannot be empty!");
+        if (desc.isEmpty()) {
+            throw new InvalidTaskException("Task description cannot be empty!");
+        }
         Task t = new ToDo(desc);
         taskList.addTask(t);
         storage.saveTasks(taskList.getTasks());
         return "Got it. I've added this task:\n  " + t +
                 "\nNow you have " + taskList.getTasks().size() + " tasks in the list.";
     }
+
 
     private String handleDeadline(String input) throws DobbyException {
         try {
@@ -137,6 +146,30 @@ public class Parser {
             throw new InvalidCommandException("Invalid event command: " + e.getMessage());
         }
     }
+
+    private String handleFind(String input) throws DobbyException {
+        String keyword = input.substring(4).trim(); // extract text after "find"
+        if (keyword.isEmpty()) {
+            throw new InvalidCommandException("Please provide a keyword to search for.");
+        }
+
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+        for (int i = 0; i < taskList.getTasks().size(); i++) {
+            Task t = taskList.getTasks().get(i);
+            if (t.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                if (count == 0) sb.append("Here are the matching tasks in your list:\n");
+                sb.append(count + 1).append(".").append(t).append("\n");
+                count++;
+            }
+        }
+
+        if (count == 0) {
+            return "No matching tasks found for keyword: " + keyword;
+        }
+        return sb.toString();
+    }
+
 
     private String handleHelp() {
         return "Here are the available commands:\n"
