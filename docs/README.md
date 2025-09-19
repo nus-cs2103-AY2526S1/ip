@@ -1,30 +1,146 @@
-# Duke User Guide
+# Nailong 🐣 - Your Task Manager
 
-// Update the title above to match the actual product name
+A cheerful JavaFX-based task management application featuring Nailong, your adorable digital assistant who helps you organize your daily tasks with a warm, encouraging personality.
 
-// Product screenshot goes here
+## Motivation
+This project was created as part of the **CS2103T Software Engineering** course at NUS.  
+In an era where LLMs are integrated into almost every application, Nailong is designed to reflect simplicity and charm — showing that even a cute, lightweight bot can still be fun and useful.
 
-// Product intro goes here
+## Features
+- **Task Management**: Create, view, mark, unmark, delete, and undo tasks
+- **Multiple Task Types**:
+    - **Todo** – Simple tasks without dates
+    - **Deadline** – Tasks with due dates
+    - **Event** – Tasks with start and end times
+- **Search Functionality**: Find tasks by keyword
+- **Persistent Storage**: Tasks are automatically saved and loaded from file
+- **GUI Interface**: Modern JavaFX-based graphical interface with Nailong’s cheerful personality
 
-## Adding deadlines
+## Getting Started
+### Prerequisites
+* Java 17 or later
+* JavaFX 17.0.14.fx-zulu (included in dependencies)
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+### Installation
+1. Clone the repository:
 ```
-expected output
+git clone <repository-url>
+cd ip
 ```
 
-## Feature ABC
+### Building
+```
+./gradlew build
+```
+### Run the application
+```
+./gradlew run
+```
 
-// Feature details
+## Usage
+### Basic Commands 
+* Add Tasks: 
+You can add three types of tasks:
+* **Todo Tasks** – Simple tasks without deadlines
+```
+todo borrow book
+```
+* **Deadline Tasks**: Tasks with specific due dates (dd/MM/yyyy format)
+```
+deadline return book /by 25/12/2025
+```
+* **Event Tasks**: Tasks with start and end times
+```
+event boot camp /from 22/09/2025 /to 24/09/2025
+```
+Other supported features include:
+* **List Tasks** :
+```
+list
+```
+* **Track completion status of tasks** : `mark/unmark <task_number>`
+```
+mark 1
+```
+* **Delete task** : `delete <task_number>`
+```
+delete 1
+```
+* **Find Task**: `find <keyword>`
+```
+find book
+```
+* **Undo command**:
+```
+undo
+```
+* **Exit**:
+```
+bye
+```
 
+## Date Formats
+The application supports the following date format: `dd/MM/yyyy` (e.g. 25/12/2025)
 
-## Feature XYZ
+## Project Structure
+```
+src/
+├── main/
+│   ├── java/
+│   │   ├── nailong/
+│   │   │   ├── Nailong.java          # Main application controller
+│   │   │   ├── Parser.java           # Command parsing and validation
+│   │   │   ├── TaskList.java         # Task collection management
+│   │   │   ├── Storage.java          # File I/O operations
+│   │   │   ├── Ui.java               # User interface messages
+│   │   │   ├── CommandHistory.java   # Undo functionality
+│   │   │   └── task/
+│   │   │       ├── Task.java         # Abstract base task class
+│   │   │       ├── Todo.java         # Simple task implementation
+│   │   │       ├── Deadline.java     # Task with due date
+│   │   │       └── Event.java        # Task with time period
+│   │   └── ui/
+│   │       ├── Main.java             # JavaFX application entry
+│   │       ├── Launcher.java         # Application launcher
+│   │       ├── MainWindow.java       # Primary GUI controller
+│   │       └── DialogBox.java        # Chat bubble components
+│   └── resources/
+│       ├── view/
+│       │   ├── MainWindow.fxml       # Main UI layout
+│       │   └── DialogBox.fxml        # Chat bubble layout
+│       ├── images/
+│       │   ├── User.png              # User avatar
+│       │   ├── Nailong.png           # Bot avatar
+│       │   └── background.jpg        # Background image
+│       └── styles/
+│           ├── main.css              # Main application styles
+│           └── dialog-box.css        # Chat bubble styles
 
-// Feature details
+data/
+└── Nailong.txt                       # Task storage file (created at runtime)
+```
+
+## Development
+### Building
+```
+./gradlew build
+```
+### Testing
+```
+./gradlew testing
+```
+### Code Style
+The project uses **Checkstyle** for code quality. Run checks with:
+```
+./gradlew checkstyleMain
+```
+### Creating Distribution
+Generate a shadow JAR with all dependencies: 
+```
+./gradlew shadowJar
+```
+
+## Storage
+All tasks are saved automatically in `./data/nailong.txt` in a human-readable format.  
+The folder and file will be created for you on the first run if they do not already exist.
+
