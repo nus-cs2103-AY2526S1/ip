@@ -2,11 +2,11 @@ package LunarBot.Tasks;
 
 public class Task {
     String name;
-    Boolean completed;
+    Boolean isCompleted;
 
     public Task(String name, Boolean completed) {
         this.name = name;
-        this.completed = completed;
+        this.isCompleted = completed;
     }
 
     /**
@@ -15,7 +15,7 @@ public class Task {
      * @param bool Boolean to set the completeness of the task to
      */
     public void setCompleted(Boolean bool) {
-        this.completed = bool;
+        this.isCompleted = bool;
     }
 
     /**
@@ -24,7 +24,7 @@ public class Task {
      * @return string of task
      */
     public String print() {
-        return "[" + (this.completed ? "X" : " ") + "] " + this.name;
+        return "[" + (this.isCompleted ? "X" : " ") + "] " + this.name;
     }
 
     /**
@@ -33,7 +33,7 @@ public class Task {
      * @return comma separated value
      */
     public String getAsCsv() {
-        return "X," + this.completed.toString() + "," + this.name;
+        return "X," + this.isCompleted.toString() + "," + this.name;
     }
 
     /**
