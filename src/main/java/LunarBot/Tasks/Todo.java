@@ -2,8 +2,8 @@ package LunarBot.Tasks;
 
 public class Todo extends Task {
     // Todos
-    public Todo(String name, Boolean completed) {
-        super(name, completed);
+    public Todo(String name, Boolean isCompleted) {
+        super(name, isCompleted);
     }
 
     /**
@@ -11,7 +11,7 @@ public class Todo extends Task {
      */
     @Override
     public String print() {
-        return "[T] [" + (this.completed ? "X" : " ") + "] " + this.name;
+        return "[T] [" + (this.isCompleted ? "X" : " ") + "] " + this.name;
     }
 
     /**
@@ -19,6 +19,6 @@ public class Todo extends Task {
      */
     @Override
     public String getAsCsv() {
-        return "T," + this.completed.toString() + "," + this.name;
+        return "T," + this.isCompleted.toString() + "," + this.name;
     }
 }

@@ -10,8 +10,8 @@ public class Deadline extends Task {
     private static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     // Deadlines
-    public Deadline(String name, Boolean completed, LocalDateTime by) {
-        super(name, completed);
+    public Deadline(String name, Boolean isCompleted, LocalDateTime by) {
+        super(name, isCompleted);
         this.by = by;
     }
 
@@ -20,7 +20,7 @@ public class Deadline extends Task {
      */
     @Override
     public String print() {
-        return "[D] [" + (this.completed ? "X" : " ") + "] " + this.name +
+        return "[D] [" + (this.isCompleted ? "X" : " ") + "] " + this.name +
                 " (by: " + this.by.format(FORMAT) + ")";
     }
 
@@ -29,6 +29,6 @@ public class Deadline extends Task {
      */
     @Override
     public String getAsCsv() {
-        return "D," + this.completed.toString() + "," + this.name + "," + this.by.format(SAVE_FORMAT);
+        return "D," + this.isCompleted.toString() + "," + this.name + "," + this.by.format(SAVE_FORMAT);
     }
 }

@@ -11,8 +11,8 @@ public class Event extends Task {
     private static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     // Events
-    public Event(String name, Boolean completed, LocalDateTime from, LocalDateTime to) {
-        super(name, completed);
+    public Event(String name, Boolean isCompleted, LocalDateTime from, LocalDateTime to) {
+        super(name, isCompleted);
         this.to = to;
         this.from = from;
     }
@@ -22,7 +22,7 @@ public class Event extends Task {
      */
     @Override
     public String print() {
-        return "[E] [" + (this.completed ? "X" : " ") + "] " + this.name +
+        return "[E] [" + (this.isCompleted ? "X" : " ") + "] " + this.name +
                 " (from: " + this.from.format(FORMAT) + " to: " + this.to.format(FORMAT) + ")";
     }
 
@@ -31,7 +31,7 @@ public class Event extends Task {
      */
     @Override
     public String getAsCsv() {
-        return "E," + this.completed.toString() + "," + this.name + "," + this.from.format(SAVE_FORMAT) + "," +
+        return "E," + this.isCompleted.toString() + "," + this.name + "," + this.from.format(SAVE_FORMAT) + "," +
                 this.to.format(SAVE_FORMAT);
     }
 }
