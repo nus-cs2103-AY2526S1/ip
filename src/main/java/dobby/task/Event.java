@@ -11,6 +11,9 @@ public class Event extends Task {
         super(description, TaskType.EVENT);
         this.start = start;
         this.end = end;
+        assert description != null && !description.isEmpty() : "Description cannot be null or empty";
+        assert start != null : "Event date 'from' cannot be null";
+        assert end != null : "Event date 'to' cannot be null";
     }
 
     @Override
