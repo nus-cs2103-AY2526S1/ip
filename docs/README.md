@@ -1,6 +1,6 @@
 # Aurora User Guide
 
-![Aurora Chatbot Screenshot](docs/Ui.png)
+![Aurora Chatbot Screenshot](Ui.png)
 
 Aurora is a simple chatbot application designed to help users manage tasks via a command-line or GUI interface.  
 It supports adding todos, deadlines, events, tagging, searching, and more.
