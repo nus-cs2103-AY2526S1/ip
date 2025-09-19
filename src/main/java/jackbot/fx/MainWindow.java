@@ -1,39 +1,39 @@
 package jackbot.fx;
 
+import jackbot.CommandEngine;
+import jackbot.Parser;
+import jackbot.Storage;
+import jackbot.TaskList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import jackbot.CommandEngine;
-import jackbot.Parser;
-import jackbot.Storage;
-import jackbot.TaskList;
 
 /**
  * Controller for {@code MainWindow.fxml}.
  *
  * <p>Delegates all command parsing/execution to {@link CommandEngine},
  * keeping behavior/messages in sync with the CLI.</p>
- *
- * @since 1.0
  */
 public class MainWindow {
 
-    /** Creates a new {@code MainWindow} controller. */
-    public MainWindow() { }
-
-    @FXML private VBox dialogContainer;
-    @FXML private TextField userInput;
-    @FXML private ScrollPane scrollPane;
 
     /** Shared core components. */
     private Storage storage;
     private TaskList tasks;
     private Parser parser;
 
+    /** JavaFX core components */
+    @FXML private VBox dialogContainer;
+    @FXML private TextField userInput;
+    @FXML private ScrollPane scrollPane;
+
     /** Central engine used by both GUI and CLI. */
     private CommandEngine engine;
+
+    /** Creates a new {@code MainWindow} controller. */
+    public MainWindow() { }
 
     /**
      * Called by the JavaFX runtime after FXML fields are injected.

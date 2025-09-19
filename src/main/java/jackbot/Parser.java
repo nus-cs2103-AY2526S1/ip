@@ -87,6 +87,7 @@ public class Parser {
          * @return a {@code Result} carrying {@code i}
          */
         public static Result index(Type t, int i) {
+            assert i > 0 : "task index must be more than 0";
             return new Result(t, "", i);
         }
     }
@@ -101,34 +102,48 @@ public class Parser {
      *   <li>Index arguments are parsed as integers via {@link Integer#parseInt(String)}</li>
      * </ul>
      *
-     * @param rawInput the user input; may be {@code null}
+     * @param input the user input; may be {@code null}
      * @return the parsed {@link Result}
      * @throws JackbotException if the command is unknown or an index cannot be parsed
      */
-    public Result parse(String rawInput) throws JackbotException {
-        String input = rawInput == null ? "" : rawInput.trim();
-        if (input.isEmpty()) {
-            // Treat empty as no-op (stay in loop)
-            return Result.of(Type.LIST);
+    public Result parse(String input) throws JackbotException {
+        if (input == null) {
+            throw new JackbotException("Command doesn't exist");
         }
 
-        // Fast paths
-        if (equalsIgnoreCase(input, "bye"))  return Result.of(Type.BYE);
-        if (equalsIgnoreCase(input, "list")) return Result.of(Type.LIST);
+        String trimmed = input.trim();
+        String lower = trimmed.toLowerCase();
 
-        // Commands with arguments
-        if (startsWithIgnoreCase(input, "mark "))     return Result.index(Type.MARK,     parseIndex(input.substring(5)));
-        if (startsWithIgnoreCase(input, "unmark "))   return Result.index(Type.UNMARK,   parseIndex(input.substring(7)));
-        if (startsWithIgnoreCase(input, "delete "))   return Result.index(Type.DELETE,   parseIndex(input.substring(7)));
+        // Split into command and remainder (argument)
+        String[] parts = lower.split("\\s+", 2);
+        String command = parts[0];
+        String argument = parts.length > 1 ? trimmed.substring(trimmed.indexOf(' ') + 1).trim() : "";
 
-        if (startsWithIgnoreCase(input, "todo "))     return Result.text(Type.TODO,      input.substring(5).trim());
-        if (startsWithIgnoreCase(input, "deadline ")) return Result.text(Type.DEADLINE,  input.substring(9).trim());
-        if (startsWithIgnoreCase(input, "event "))    return Result.text(Type.EVENT,     input.substring(6).trim());
-        if (startsWithIgnoreCase(input, "find "))     return Result.text(Type.FIND,      input.substring(5).trim());
+        switch (command) {
 
-        throw new JackbotException("Command doesn't exist");
+        case "bye":
+            return Result.of(Type.BYE);
+        case "list":
+            return Result.of(Type.LIST);
+        case "mark":
+            return Result.index(Type.MARK, parseIndex(argument));
+        case "unmark":
+            return Result.index(Type.UNMARK, parseIndex(argument));
+        case "delete":
+            return Result.index(Type.DELETE, parseIndex(argument));
+        case "todo":
+            return Result.text(Type.TODO, argument);
+        case "deadline":
+            return Result.text(Type.DEADLINE, argument);
+        case "event":
+            return Result.text(Type.EVENT, argument);
+        case "find":
+            return Result.text(Type.FIND, argument);
+        default:
+            throw new JackbotException("Command doesn't exist");
+
+        }
     }
-
     // ----- helpers -----
 
     /**

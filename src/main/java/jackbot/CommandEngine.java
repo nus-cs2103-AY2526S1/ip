@@ -69,98 +69,98 @@ public class CommandEngine {
             assert r != null : "parser result must not be null";
 
             switch (r.type) {
-                case BYE: {
-                    exit = true;
-                    out.add("Bye. Hope to see you again soon!");
-                    break;
-                }
+            case BYE: {
+                exit = true;
+                out.add("Bye. Hope to see you again soon!");
+                break;
+            }
 
-                case LIST: {
-                    StringBuilder sb = new StringBuilder("Your previous entries:");
-                    List<Task> list = tasks.asList();
-                    for (int i = 0; i < list.size(); i++) {
-                        sb.append("\n").append(i + 1).append(". ").append(list.get(i));
-                    }
-                    out.add(sb.toString());
-                    break;
+            case LIST: {
+                StringBuilder sb = new StringBuilder("Your previous entries:");
+                List<Task> list = tasks.asList();
+                for (int i = 0; i < list.size(); i++) {
+                    sb.append("\n").append(i + 1).append(". ").append(list.get(i));
                 }
+                out.add(sb.toString());
+                break;
+            }
 
-                case MARK: {
-                    Task t = tasks.get(r.index);
-                    if (t.isDone()) {
-                        throw new JackbotException("Task is already marked");
-                    }
-                    t.mark();
-                    storage.save(tasks.asList());
-                    out.add("Nice, I've marked this task as done:\n  " + t);
-                    break;
+            case MARK: {
+                Task t = tasks.get(r.index);
+                if (t.isDone()) {
+                    throw new JackbotException("Task is already marked");
                 }
+                t.mark();
+                storage.save(tasks.asList());
+                out.add("Nice, I've marked this task as done:\n  " + t);
+                break;
+            }
 
-                case UNMARK: {
-                    Task t = tasks.get(r.index);
-                    if (!t.isDone()) {
-                        throw new JackbotException("Task is already unmarked");
-                    }
-                    t.unmark();
-                    storage.save(tasks.asList());
-                    out.add("OK, I've marked this task as not done:\n  " + t);
-                    break;
+            case UNMARK: {
+                Task t = tasks.get(r.index);
+                if (!t.isDone()) {
+                    throw new JackbotException("Task is already unmarked");
                 }
+                t.unmark();
+                storage.save(tasks.asList());
+                out.add("OK, I've marked this task as not done:\n  " + t);
+                break;
+            }
 
-                case DELETE: {
-                    Task removed = tasks.delete(r.index);
-                    storage.save(tasks.asList());
-                    out.add("Noted. I've removed this task:\n  " + removed
-                            + "\nNow you have " + tasks.size() + " tasks in the list.");
-                    break;
+            case DELETE: {
+                Task removed = tasks.delete(r.index);
+                storage.save(tasks.asList());
+                out.add("Noted. I've removed this task:\n  " + removed
+                        + "\nNow you have " + tasks.size() + " tasks in the list.");
+                break;
+            }
+
+            case TODO: {
+                ensureNotEmpty(r.text, "Task description cannot be empty");
+                Task t = new Todo(r.text);
+                tasks.add(t);
+                storage.save(tasks.asList());
+                out.add("Got it. I've added this task\n  " + t
+                        + "\nNow you have " + tasks.size() + " tasks in the list.");
+                break;
+            }
+
+            case DEADLINE: {
+                ensureNotEmpty(r.text, "Task description cannot be empty");
+                Task t = new Deadline(r.text);
+                tasks.add(t);
+                storage.save(tasks.asList());
+                out.add("Got it. I've added this task\n  " + t
+                        + "\nNow you have " + tasks.size() + " tasks in the list.");
+                break;
+            }
+
+            case EVENT: {
+                ensureNotEmpty(r.text, "Task description cannot be empty");
+                Task t = new Event(r.text);
+                tasks.add(t);
+                storage.save(tasks.asList());
+                out.add("Got it. I've added this task\n  " + t
+                        + "\nNow you have " + tasks.size() + " tasks in the list.");
+                break;
+            }
+
+            case FIND: {
+                ensureNotEmpty(r.text, "Search keyword cannot be empty");
+                List<Task> found = tasks.find(r.text);
+                StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:");
+                for (int i = 0; i < found.size(); i++) {
+                    sb.append("\n").append(i + 1).append(". ").append(found.get(i));
                 }
-
-                case TODO: {
-                    ensureNotEmpty(r.text, "Task description cannot be empty");
-                    Task t = new Todo(r.text);
-                    tasks.add(t);
-                    storage.save(tasks.asList());
-                    out.add("Got it. I've added this task\n  " + t
-                            + "\nNow you have " + tasks.size() + " tasks in the list.");
-                    break;
+                if (found.isEmpty()) {
+                    sb.append("\n(none)");
                 }
+                out.add(sb.toString());
+                break;
+            }
 
-                case DEADLINE: {
-                    ensureNotEmpty(r.text, "Task description cannot be empty");
-                    Task t = new Deadline(r.text);
-                    tasks.add(t);
-                    storage.save(tasks.asList());
-                    out.add("Got it. I've added this task\n  " + t
-                            + "\nNow you have " + tasks.size() + " tasks in the list.");
-                    break;
-                }
-
-                case EVENT: {
-                    ensureNotEmpty(r.text, "Task description cannot be empty");
-                    Task t = new Event(r.text);
-                    tasks.add(t);
-                    storage.save(tasks.asList());
-                    out.add("Got it. I've added this task\n  " + t
-                            + "\nNow you have " + tasks.size() + " tasks in the list.");
-                    break;
-                }
-
-                case FIND: {
-                    ensureNotEmpty(r.text, "Search keyword cannot be empty");
-                    List<Task> found = tasks.find(r.text);
-                    StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:");
-                    for (int i = 0; i < found.size(); i++) {
-                        sb.append("\n").append(i + 1).append(". ").append(found.get(i));
-                    }
-                    if (found.isEmpty()) {
-                        sb.append("\n(none)");
-                    }
-                    out.add(sb.toString());
-                    break;
-                }
-
-                default:
-                    throw new JackbotException("Command doesn't exist");
+            default:
+                throw new JackbotException("Command doesn't exist");
             }
 
         } catch (JackbotException e) {

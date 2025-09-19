@@ -10,7 +10,8 @@ import jackbot.task.Task;
  * Responsibilities:
  * <ul>
  *   <li>Load and persist tasks via {@link Storage}.</li>
- *   <li>Delegate command parsing/execution to {@link CommandEngine} (which wraps {@link Parser} and {@link TaskList}).</li>
+ *   <li>Delegate command parsing/execution to {@link CommandEngine}
+ *       (which wraps {@link Parser} and {@link TaskList}).</li>
  *   <li>Interact with the user through {@link Ui}.</li>
  * </ul>
  *

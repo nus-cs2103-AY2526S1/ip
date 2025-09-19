@@ -1,9 +1,9 @@
 package jackbot;
 
-import jackbot.task.Task;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import jackbot.task.Task;
 
 /**
  * Mutable in-memory list of {@link Task} objects with 1-based indexing for

@@ -34,8 +34,8 @@ public class Deadline extends Task {
 
     /** Accepted input formats for the user-facing constructor. */
     private static final DateTimeFormatter[] INPUT_CANDIDATES = new DateTimeFormatter[] {
-            DateTimeFormatter.ISO_LOCAL_DATE_TIME,           // 2025-09-19T21:30:00
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss") // 2025-09-19 21:30:00
+        DateTimeFormatter.ISO_LOCAL_DATE_TIME, // 2025-09-19T21:30:00
+        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss") // 2025-09-19 21:30:00
     };
 
     private final LocalDateTime by;

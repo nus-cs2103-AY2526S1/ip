@@ -15,5 +15,7 @@ public class JackbotException extends Exception {
      *
      * @param message human-readable explanation of the error
      */
-    public JackbotException(String message) { super(message); }
+    public JackbotException(String message) {
+        super(message);
+    }
 }
