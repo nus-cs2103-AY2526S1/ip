@@ -15,6 +15,7 @@ import paul.Paul;
 public class Main extends Application {
 
     private static final String FILE_PATH = "./data/paul.txt";
+    private static final String TITLE_NAME = "Paul";
     private final Paul paul = new Paul(FILE_PATH);
 
     @Override
@@ -24,6 +25,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle(TITLE_NAME);
 
             stage.setMinHeight(637);
             stage.setMinWidth(417);
