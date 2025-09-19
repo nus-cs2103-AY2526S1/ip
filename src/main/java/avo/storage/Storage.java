@@ -1,0 +1,108 @@
+package avo.storage;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Scanner;
+
+import avo.parser.Parser;
+import avo.tasks.Task;
+import avo.tasks.TaskList;
+
+
+/**
+ * Represents the storage file and contains methods with regard to it
+ */
+public class Storage {
+    private String filePath;
+    private File storageFile;
+    private Scanner fileScanner;
+
+    /**
+     * constructor for this class
+     * @param filePath file path of storage file (./data/avo.txt)
+     */
+    public Storage(String filePath) throws IOException, URISyntaxException {
+        try {
+            assert !Objects.equals(filePath, "")
+                    : "Empty string used as file path!";
+            this.filePath = filePath;
+            storageFile = new File(filePath);
+            fileScanner = new Scanner(storageFile);
+        } catch (FileNotFoundException e) {
+            handleFileNotFound();
+            fileScanner = new Scanner(storageFile);
+        }
+    }
+
+    /**
+     * Creates the avo.txt file in the working directory
+     */
+    public void handleFileNotFound() throws IOException, URISyntaxException {
+        Path jarDir = Path.of(Storage.class
+                        .getProtectionDomain()
+                        .getCodeSource()
+                        .getLocation()
+                        .toURI())
+                .getParent();
+
+        Path dataDir = jarDir.resolve("data");
+        Path avoFile = dataDir.resolve("avo.txt");
+
+        Files.createDirectories(dataDir);
+
+        if (!Files.exists(avoFile)) {
+            Files.createFile(avoFile);
+        }
+    }
+
+    /**
+     * Adds a storage string to the end of the storage file
+     * @param textToAdd text to be added to the bottom of storage file
+     */
+    public void appendToFile(String textToAdd) {
+        try {
+            FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+            fw.write(textToAdd + "\n");
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Rewrites the storage file, writing the input tasks as their respective storage strings
+     * @param tasks task list itself
+     */
+    public void rewriteFileFromList(ArrayList<Task> tasks) {
+        try {
+            FileWriter fileClearer = new FileWriter(filePath, false);
+            fileClearer.append("");
+            tasks.stream().forEach(task -> appendToFile(task.getStorageString()));
+            fileClearer.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File is not found. If you want your tasks to be saved,\n "
+                   + "add the file and start the program again");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Reads the storage file and adds the stored tasks to the Task List
+     */
+    public void readFile(TaskList taskList) {
+        while (fileScanner.hasNext()) {
+            String nextEntry = fileScanner.nextLine();
+            Task nextTask = Parser.parseTaskFromStorage(nextEntry);
+            taskList.addTask(nextTask, false);
+        }
+        fileScanner.close();
+    }
+}
