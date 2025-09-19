@@ -9,5 +9,3 @@
 2. Marking & Unmarking Tasks
 3. Listing out Tasks, Event & Deadlines
 
-To run Dobby, run `Dobby.java`
-
