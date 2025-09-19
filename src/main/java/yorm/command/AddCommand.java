@@ -1,0 +1,39 @@
+package yorm.command;
+
+import yorm.storage.Storage;
+import yorm.task.Task;
+import yorm.tasklist.TaskList;
+import yorm.ui.Ui;
+
+/**
+ * Command to add a task to existing tasks.
+ */
+public class AddCommand extends Command {
+    /** Task to be added */
+    protected final Task task;
+
+    public AddCommand(Task task) {
+        this.task = task;
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        tasks.add(this.task);
+        ui.showAddedTask(task, tasks);
+        storage.save(tasks);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (super.equals(o)) {
+            AddCommand other = (AddCommand) o;
+            return this.task.equals(other.task);
+        }
+        return false;
+    }
+}
