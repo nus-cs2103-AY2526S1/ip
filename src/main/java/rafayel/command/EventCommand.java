@@ -16,7 +16,7 @@ import rafayel.task.TaskList;
 public class EventCommand extends Command {
 
     /** Error message when event format is invalid. */
-    private static final String EVENT_FORMAT_ERROR = "An event must be set with 'event [desc] /from [time] /to [time]'."
+    public static final String EVENT_FORMAT_ERROR = "An event must be set with 'event [desc] /from [time] /to [time]'."
             + " \nThis isn't abstract art — precision is key!";
 
     /* Stores the description and date of the Event task. */
@@ -58,6 +58,23 @@ public class EventCommand extends Command {
     }
 
     /**
+     * Validates that the 'from' date is before the 'to' date and they are not the same.
+     * Throws a RafayelException if the time period is invalid.
+     *
+     * @param from the start date-time of the event
+     * @param to the end date-time of the event
+     * @throws RafayelException if 'to' is before 'from' or if both dates are the same
+     */
+    private void validateTimePeriod(LocalDateTime from, LocalDateTime to) throws RafayelException {
+        long hoursBetweenFromTo = ChronoUnit.HOURS.between(from, to);
+        if (hoursBetweenFromTo < 0) {
+            throw new RafayelException("Invalid time period :< 'To' should be after 'From' date.");
+        } else if (hoursBetweenFromTo == 0) {
+            throw new RafayelException("The 'To' and 'From' is the same date <:C");
+        }
+    }
+
+    /**
      * Executes the event command by creating an Event task.
      *
      * @param tasks the current task list.
@@ -69,18 +86,13 @@ public class EventCommand extends Command {
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
         eventInputValidation(descriptionDate);
 
-        String[] taskInfo = descriptionDate.trim().split("/");
-        String description = taskInfo[0].trim();
-        LocalDateTime from = handleReadDate(taskInfo[1].substring(5).trim());
-        LocalDateTime to = handleReadDate(taskInfo[2].substring(3).trim());
+        String[] taskInfo = descriptionDate.split("/from|/to");
 
-        // Check from to hours
-        long hoursBetweenFromTo = ChronoUnit.HOURS.between(from, to);
-        if (hoursBetweenFromTo < 0) {
-            throw new RafayelException("Invalid time period :< 'To' should be after 'From' date.");
-        } else if (hoursBetweenFromTo == 0) {
-            throw new RafayelException("The 'To' and 'From' is the same date <:C");
-        }
+        String description = taskInfo[0].trim();
+        LocalDateTime from = handleReadDate(taskInfo[1].trim());
+        LocalDateTime to = handleReadDate(taskInfo[2].trim());
+
+        validateTimePeriod(from, to);
 
         Event newTask = new Event(description, from, to);
         tasks.add(newTask);

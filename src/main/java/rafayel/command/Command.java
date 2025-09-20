@@ -13,8 +13,8 @@ import rafayel.task.TaskList;
 
 /**
  * Abstract base class that represents an executable user command.
- * 
- * All concrete command classes extend this class and 
+ *
+ * All concrete command classes extend this class and
  * implement execute(TaskList, Storage) method,
  * to perform their respective operations on the task list and storage.
  */
@@ -60,6 +60,7 @@ public abstract class Command {
         // check if valid format
         DateTimeFormatter[] differentTimeFormatters = new DateTimeFormatter[] {
                 DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"),
+                DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"),
                 DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"),
                 DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm") };
 

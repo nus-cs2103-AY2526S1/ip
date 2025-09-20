@@ -1,11 +1,6 @@
 
 package rafayel.storage;
 
-import rafayel.RafayelException;
-import rafayel.task.Deadline;
-import rafayel.task.Event;
-import rafayel.task.Task;
-import rafayel.task.Todo;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,6 +10,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import rafayel.RafayelException;
+import rafayel.task.Deadline;
+import rafayel.task.Event;
+import rafayel.task.Task;
+import rafayel.task.Todo;
 
 /**
  * Handles persistent storage of tasks for the Rafayel chatbot.
@@ -222,7 +223,9 @@ public class Storage {
     public static LocalDateTime handleReadDate(String input) {
         // check if valid format
         DateTimeFormatter[] differentTimeFormatters = new DateTimeFormatter[] {
-                DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"), DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"),
+                DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"),
+                DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"),
+                DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"),
                 DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm") };
 
         for (DateTimeFormatter formatter : differentTimeFormatters) {

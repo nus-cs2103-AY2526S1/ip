@@ -1,8 +1,12 @@
+
 package rafayel.command;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import static org.junit.jupiter.api.Assertions.*;
 
 import rafayel.RafayelException;
 import rafayel.storage.Storage;
@@ -27,7 +31,6 @@ public class ByeCommandTest {
 
     private TaskList mockTasks;
     private Storage mockStorage;
-    private final String testExitMessage = "Goodbye! Hope to see you again soon!";
 
     @Test
     public void testByeCommandConstructor_setsCorrectCommandType() {
@@ -62,6 +65,7 @@ public class ByeCommandTest {
     @Test
     public void testExecute_withMockUi_returnsExpectedMessage() throws RafayelException {
         // This test demonstrates the ideal unit test if we could inject the Ui dependency.
+        String testExitMessage = "Goodbye! Hope to see you again soon!";
         Ui testUi = new MockUi(testExitMessage);
 
         assertEquals(testExitMessage, testUi.showExit());

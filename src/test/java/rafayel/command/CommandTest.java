@@ -9,9 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import rafayel.RafayelException;
 
-
-
-
 public class CommandTest {
     @Test
     public void testHandleReadDate_validFormats_success() throws RafayelException {

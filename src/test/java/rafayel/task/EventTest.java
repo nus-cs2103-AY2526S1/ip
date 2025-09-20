@@ -1,9 +1,11 @@
 package rafayel.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class EventTest {
 
@@ -23,7 +25,7 @@ public class EventTest {
     }
 
     @Test
-    public void testSaveTaskName_Undone_returnsCorrectFormat() {
+    public void testSaveTaskName_undone_returnsCorrectFormat() {
         // check SaveTaskName() and markAsUndone()
         String description = "Return book";
         LocalDateTime startDate = LocalDateTime.of(2024, 9, 12, 12, 0);

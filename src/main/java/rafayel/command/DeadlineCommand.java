@@ -14,11 +14,17 @@ import rafayel.task.TaskList;
  */
 public class DeadlineCommand extends Command {
 
+    /** Error message when deadline format is invalid. */
+    public static final String DEADLINE_FORMAT_ERROR = "A deadline must be set with 'deadline [your task] /by [time]'"
+            + ". \nThis isn't abstract art — precision is key!";
+
+    /** Error message when the description is empty */
+    public static final String EMPTY_DESC_ERROR = "A blank canvas? How am I supposed to paint with no description? "
+            + "Tell me what this deadline is for. ";
+
     /** Stores the description and date of the Deadline task. */
     private final String descriptionDate;
 
-    /** Error message when deadline format is invalid. */
-    private static final String DEADLINE_FORMAT_ERROR = "A deadline must be set with 'deadline [your task] /by [time]'. \nThis isn't abstract art — precision is key!";
 
     /**
      * Constructs a deadline command with description and date that it is due.
@@ -42,16 +48,25 @@ public class DeadlineCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
         if (descriptionDate.isEmpty()) {
-            throw new RafayelException(
-                    "A blank canvas? How am I supposed to paint with no description? Tell me what this deadline is for. "
-                            + DEADLINE_FORMAT_ERROR);
+            throw new RafayelException(EMPTY_DESC_ERROR + DEADLINE_FORMAT_ERROR);
         }
-        if (!descriptionDate.contains("/by")) {
+        if (!descriptionDate.contains("/by ")) {
             throw new RafayelException(DEADLINE_FORMAT_ERROR);
         }
 
-        String[] taskInfo = descriptionDate.split("/by ");
+        String[] taskInfo = descriptionDate.split("/by", 2);
+
+        if (taskInfo.length < 2 || taskInfo[1].trim().isEmpty()) {
+            throw new RafayelException(
+                    "A deadline without a due date? How very... abstract. "
+                            + "Please specify when this masterpiece is due. "
+                            + DEADLINE_FORMAT_ERROR);
+        }
+
         String description = taskInfo[0].trim();
+        if (description.isEmpty()) {
+            throw new RafayelException(EMPTY_DESC_ERROR + DEADLINE_FORMAT_ERROR);
+        }
         LocalDateTime by = handleReadDate(taskInfo[1].trim());
 
         Deadline newTask = new Deadline(description, by);
