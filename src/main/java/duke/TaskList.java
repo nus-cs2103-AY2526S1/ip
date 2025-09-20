@@ -135,16 +135,13 @@ public class TaskList {
                     Deadline d1 = (Deadline) t1;
                     Deadline d2 = (Deadline) t2;
                     return d1.getBy().compareTo(d2.getBy()); // Latest to earliest
-                }
                 // If only one is a deadline, deadline comes first
-                else if (t1 instanceof Deadline && !(t2 instanceof Deadline)) {
+                } else if (t1 instanceof Deadline && !(t2 instanceof Deadline)) {
                     return -1;
-                }
-                else if (!(t1 instanceof Deadline) && t2 instanceof Deadline) {
+                } else if (!(t1 instanceof Deadline) && t2 instanceof Deadline) {
                     return 1;
-                }
-                // If neither are deadlines, maintain original order
-                else {
+                } else {
+                    // If neither are deadlines, maintain original order
                     return 0;
                 }
             }
