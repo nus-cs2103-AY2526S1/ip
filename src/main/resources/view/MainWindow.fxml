@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane prefHeight="700" prefWidth="600" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="katsu.ui.MainWindow">
+    <children>
+        <!-- Text input stretches horizontally -->
+        <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="41" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="90" />
+
+        <!-- Send button stays bottom-right -->
+        <Button fx:id="sendButton" defaultButton="true" onAction="#handleUserInput" prefHeight="41" prefWidth="70" text="Send" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10" />
+
+        <!-- ScrollPane resizes with window -->
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" AnchorPane.bottomAnchor="60" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="10">
+            <content>
+                <VBox fx:id="dialogContainer" spacing="5">
+                    <padding>
+                        <Insets right="5" left="5"/>
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>
