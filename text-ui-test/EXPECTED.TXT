@@ -1,7 +1,22 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! I'm ming.app.Ming
+What can I do for you?
+I have now added:
+[T][ ]  borrow book
+Now you have 1 tasks in the list.
+____________________________________________________________
+I have now added:
+[D][ ]  return book (by: Dec 9 2019 1800)
+Now you have 2 tasks in the list.
+____________________________________________________________
+I have now added:
+[E][ ]  project meeting (from: Dec 9 2019 2000 to: Dec 9 2019 2200)
+Now you have 3 tasks in the list.
+____________________________________________________________
+I've marked this task as done:
+[D][X]  return book (by: Dec 9 2019 1800)
+____________________________________________________________
+I've unmarked this task:
+[D][ ]  return book (by: Dec 9 2019 1800)
+____________________________________________________________
+Bye!
+____________________________________________________________
