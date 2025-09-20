@@ -1,5 +1,6 @@
 package duke;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -59,5 +60,10 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getPenguinDialog(response, penguinImage)
         );
         userInput.clear();
+
+        // Close the application if user types "bye"
+        if (input.trim().equalsIgnoreCase("bye")) {
+            Platform.exit();
+        }
     }
 }
