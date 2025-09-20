@@ -6,15 +6,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Dobby {
+    private static Storage storage;
+    private static TaskList taskList;
+    private static Parser parser;
 
-    private static final Path FILE_PATH = Paths.get("data", "dobby.txt");
-    private static Storage storage = new Storage(FILE_PATH);
-    private static TaskList taskList = new TaskList();
-    private static Parser parser = new Parser(taskList, storage);
+    public static void init(Storage s, TaskList t) {
+        storage = s;
+        taskList = t;
+        parser = new Parser(taskList, storage);
+    }
 
-    /**
-     * Entry point for GUI: takes user input and returns Dobby's response.
-     */
     public static String getResponse(String input) {
         try {
             return parser.handleCommand(input);

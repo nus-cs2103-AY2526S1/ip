@@ -1,6 +1,9 @@
 package dobby.task;
 
-public abstract class Task {
+import java.io.Serializable;
+
+public abstract class Task implements Serializable {
+    private static final long serialVersionUID = 1L;
     protected String description;
     protected boolean isDone;
     private TaskType type;

@@ -1,9 +1,11 @@
 package dobby.task;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task {
+public class Event extends Task implements Serializable {
+    private static final long serialVersionUID = 1L;
     protected LocalDateTime start;
     protected LocalDateTime end;
 

@@ -1,5 +1,6 @@
 package dobby;
 
+import dobby.task.Task;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -17,6 +18,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
+
 public class Main extends Application {
 
     private ScrollPane scrollPane;
@@ -27,6 +31,8 @@ public class Main extends Application {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
     private Image dobbyImage = new Image(this.getClass().getResourceAsStream("/images/dobby.jpg"));
+    private Storage storage;
+    private TaskList taskList;
 
     @Override
     public void start(Stage stage) {
@@ -70,6 +76,11 @@ public class Main extends Application {
         userInput.setOnAction(event -> handleUserInput());
 
         // Add initial welcome message
+        storage = new Storage(Path.of("./data/dobby.txt"));
+        taskList = new TaskList(storage.loadTasks());
+        Dobby.init(storage, taskList);
+
+
         showWelcomeMessage();
 
         stage.show();
@@ -89,14 +100,32 @@ public class Main extends Application {
                 + "9. help - Show help message\n"
                 + "10. bye - Exit the application";
 
+        DialogBox dobbyDialog = new DialogBox(welcomeText, dobbyImage);
+        dialogContainer.getChildren().add(dobbyDialog);
+        // Now show saved tasks immediately after
+        if (taskList.size() > 0) {
+            dialogContainer.getChildren().add(DialogBox.getDobbyDialog(
+                    "Here are your saved tasks from previous sessions:", dobbyImage
+            ));
+
+            for (Task task : taskList.getTasks()) {
+                dialogContainer.getChildren().add(DialogBox.getDobbyDialog(task.toString(), dobbyImage));
+            }
+        } else {
+            dialogContainer.getChildren().add(DialogBox.getDobbyDialog(
+                    "You don't have any saved tasks yet. Try adding one with 'todo <description>'!", dobbyImage
+            ));
+        }
+
+    }
+
 
     private void handleUserInput() {
         String input = userInput.getText();
-        DialogBox userDialog = new DialogBox(input, userImage);
 
-        // Use Dobby.getResponse() instead of just echoing
+        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);  // right
         String response = Dobby.getResponse(input);
-        DialogBox dobbyDialog = new DialogBox(response, dobbyImage);
+        DialogBox dobbyDialog = DialogBox.getDobbyDialog(response, dobbyImage); // left
 
         dialogContainer.getChildren().addAll(userDialog, dobbyDialog);
         userInput.clear();
@@ -118,7 +147,6 @@ public class Main extends Application {
         }
     }
 
-
     public static class DialogBox extends HBox {
 
         private Label text;
@@ -128,27 +156,44 @@ public class Main extends Application {
             text = new Label(s);
             displayPicture = new ImageView(i);
 
-            // Resize image
-            double size = 50.0; // desired diameter
+            double size = 50.0;
             displayPicture.setFitWidth(size);
             displayPicture.setFitHeight(size);
 
-            // Make circular
             Circle clip = new Circle(size / 2, size / 2, size / 2);
             displayPicture.setClip(clip);
 
-            // Add a border by snapshotting the clip
             SnapshotParameters parameters = new SnapshotParameters();
             WritableImage image = displayPicture.snapshot(parameters, null);
             displayPicture.setClip(null);
             displayPicture.setImage(image);
 
-            // Styling the dialog box
             text.setWrapText(true);
-            this.setAlignment(Pos.TOP_RIGHT);
-
+            this.setAlignment(Pos.TOP_RIGHT); // default user alignment
             this.getChildren().addAll(text, displayPicture);
         }
 
+        /** Flips the dialog box for the bot (left side) */
+        public void flip() {
+            this.setAlignment(Pos.TOP_LEFT);
+            this.getChildren().clear();
+            this.getChildren().addAll(displayPicture, text);
+        }
+
+        /** Factory method for user dialog (right) */
+        public static DialogBox getUserDialog(String s, Image i) {
+            return new DialogBox(s, i); // no flip, stays right
+        }
+
+        /** Factory method for bot dialog (left) */
+        public static DialogBox getDobbyDialog(String s, Image i) {
+            DialogBox db = new DialogBox(s, i);
+            db.flip(); // flip to left
+            return db;
+        }
     }
+
+
+
+
 }
