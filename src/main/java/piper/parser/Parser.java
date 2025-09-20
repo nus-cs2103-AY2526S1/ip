@@ -1,0 +1,280 @@
+package piper.parser;
+
+import piper.PiperException;
+
+/**
+ * Parses raw user input into commands and structured arguments.
+ * Provides helpers to split the command token from the rest of the input.
+ * Extracts fields for Deadline abd Event classes.
+ */
+public final class Parser {
+    /** Utility class that is not instantiated. */
+    private Parser() {}
+
+    /**
+     * Trims and collapses inner whitespace runs to single spaces.
+     *
+     * @param s input string.
+     * @return normalized string.
+     */
+    private static String normalize(String s) {
+        if (s == null) return "";
+        return s.replaceAll("\\s+", " ").trim();
+    }
+
+    /**
+     * Result of splitting a raw input into a command and its argument.
+     */
+    public record ParsedString(CommandType cmdType, String arg) {
+        /**
+         * Creates a ParsedString.
+         *
+         * @param cmdType command type.
+         * @param arg     remainder of the user input or null if none.
+         */
+        public ParsedString(CommandType cmdType, String arg) {
+            this.cmdType = cmdType;
+            assert cmdType != null : "ParsedString should be non-null";
+            this.arg = arg;
+        }
+    }
+
+    /**
+     * Structured arguments for a deadline command.
+     */
+    public record DeadlineArgs(String description, String by) {
+    }
+
+    /**
+     * Structured arguments for an event command.
+     */
+    public record EventArgs(String description, String from, String to) {
+    }
+
+    /**
+     * Structured arguments for a snooze command.
+     * Contains the task index (1-based) and the number of days to shift.
+     */
+    public record SnoozeArgs(int index, int days) {
+    }
+
+    /**
+     * Parses a raw line into a command token and its argument.
+     *
+     * @param userInput trimmed line entered by the user.
+     * @return a ParsedString containing the command and argument or null.
+     * @throws PiperException if the line is empty or the command is invalid or incomplete.
+     */
+    public static ParsedString parse(String userInput) throws PiperException {
+        if (userInput == null || userInput.trim().isEmpty()) {
+            throw new PiperException("CHIRP CHIRP! Don't think you said anything there. Try tweeting a command!");
+        }
+        final String normalizedInput = normalize(userInput);
+        String[] substrings = normalizedInput.split("\\s+", 2);
+        assert substrings.length > 0 : "Command string should not be empty";
+        String cmdToken = substrings[0];
+        CommandType cmd = CommandType.from(cmdToken);
+
+        if (cmd == null) {
+            throw new PiperException(
+                    "CHIRP CHIRP! I don't recognise the tune called '" + cmdToken + "'. Try another command?"
+            );
+        }
+
+        if (substrings.length < 2) {
+            if (!cmd.requiresArg()) {
+                return new ParsedString(cmd, null);
+            }
+            switch (cmd) {
+            case BYE, LIST:
+                break;
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                // missing task description
+                throw new PiperException("TWEET TWEET! What are we supposed to do? Please specify the description!");
+            case FIND:
+                // missing keyword
+                throw new PiperException("TWEET TWEET! What should we look for? Please specify a keyword!");
+            case MARK:
+            case UNMARK:
+            case DELETE:
+                // missing task index
+                throw new PiperException("CHIRRUP! Which task should I peck at? Please give me the task index!");
+            case SNOOZE:
+                throw new PiperException("CUCKOO! Tell me which task to send flying into the future! "
+                        + "Please format the command as 'snooze (task index) (number of days)'!");
+            default:
+                return new ParsedString(cmd, null);
+            }
+        }
+
+        String arg = substrings[1];
+        return new ParsedString(cmd, arg);
+    }
+
+    /**
+     * Parses a 1-based index from user input.
+     *
+     * @param index string containing the index.
+     * @return parsed integer value.
+     * @throws PiperException if the string is not a valid integer.
+     */
+    public static int parseIndex(String index) throws PiperException {
+        String idxRaw = index == null ? "" : index.trim();
+        if (idxRaw.isEmpty()) {
+            throw new PiperException("Please provide a task index.");
+        }
+
+        try {
+            return Integer.parseInt(idxRaw);
+        } catch (Exception e) {
+            throw new PiperException("PEEP! Please give me a numeric task index!");
+        }
+    }
+
+    /**
+     * Extracts description and /by fields for a deadline.
+     *
+     * @param arg remainder of the user input after the command token.
+     * @return structured DeadlineArgs.
+     * @throws PiperException if required parts are missing or empty.
+     */
+    public static DeadlineArgs parseDeadlineArgs(String arg) throws PiperException {
+        final String normalizedArg = normalize(arg);
+        int byIdx = normalizedArg.indexOf("/by");
+        if (byIdx < 0) {
+            throw new PiperException("DEADLINE needs /by (date).");
+        }
+        if (normalizedArg.indexOf("/by", byIdx + 3) >= 0) {
+            throw new PiperException("EEP! You used /by more than once.");
+        }
+
+        String desc = normalize(normalizedArg.substring(0, byIdx));
+        String byRaw = normalize(normalizedArg.substring(byIdx + 3)); // after "/by"
+        if (desc.isEmpty()) {
+            throw new PiperException("DEADLINE needs a description before /by.");
+        }
+        if (byRaw.isEmpty()) {
+            throw new PiperException("/by needs a value.");
+        }
+
+        try {
+            String[] descriptionAndBy = arg.split("/by ", 2);
+            String description = descriptionAndBy[0].trim();
+            if (description.isEmpty()) {
+                throw new IllegalArgumentException();
+            }
+            String by = descriptionAndBy[1].trim();
+            if (by.isEmpty()) {
+                throw new IllegalArgumentException();
+            }
+            return new DeadlineArgs(description, by);
+        } catch (Exception e) {
+            throw new PiperException(
+                    "OOPS! That deadline's off key. Please format the task as 'deadline (description) /by (deadline)'!"
+            );
+        }
+    }
+
+    /**
+     * Extracts description, /from, and /to fields for an event.
+     *
+     * @param arg remainder of the user input after the command token.
+     * @return structured EventArgs.
+     * @throws PiperException if required parts are missing or empty.
+     */
+    public static EventArgs parseEventArgs(String arg) throws PiperException {
+        final String normalizedArg = normalize(arg);
+
+        int fromIdx = normalizedArg.indexOf("/from");
+        int toIdx   = normalizedArg.indexOf("/to");
+
+        if (fromIdx < 0 || toIdx < 0) {
+            throw new PiperException("EVENT needs /from (start) and /to (end).");
+        }
+        if (normalizedArg.indexOf("/from", fromIdx + 5) >= 0) {
+            throw new PiperException("EEP! You used /from more than once.");
+        }
+        if (normalizedArg.indexOf("/to", toIdx + 3) >= 0) {
+            throw new PiperException("EEP! You used /to more than once.");
+        }
+
+        String beforeFlags = normalize(
+                normalizedArg.substring(0, Math.min(fromIdx, toIdx))
+        );
+        if (beforeFlags.isEmpty()) {
+            throw new PiperException("EVENT needs a description before /from and /to.");
+        }
+        String fromRaw, toRaw;
+        if (fromIdx < toIdx) {
+            fromRaw = normalize(normalizedArg.substring(fromIdx + 5, toIdx));
+            toRaw   = normalize(normalizedArg.substring(toIdx + 3));
+        } else {
+            toRaw   = normalize(normalizedArg.substring(toIdx + 3, fromIdx));
+            fromRaw = normalize(normalizedArg.substring(fromIdx + 5));
+        }
+        if (fromRaw.isEmpty()) throw new PiperException("/from needs a value.");
+        if (toRaw.isEmpty())   throw new PiperException("/to needs a value.");
+
+        try {
+            String[] descriptionAndFrom = arg.split("/from ", 2);
+            String description = descriptionAndFrom[0].trim();
+            if (description.isEmpty()) {
+                throw new IllegalArgumentException();
+            }
+            String[] fromAndTo = descriptionAndFrom[1].split("/to ", 2);
+            String from = fromAndTo[0].trim();
+            if (from.isEmpty()) {
+                throw new IllegalArgumentException();
+            }
+            String to = fromAndTo[1].trim();
+            if (to.isEmpty()) {
+                throw new IllegalArgumentException();
+            }
+            return new EventArgs(description, from, to);
+        } catch (Exception e) {
+            throw new PiperException(
+                    "EEP! Your event's missing a few notes. "
+                            + "Please format the event as 'event (description) /from (start time) /to (end time)'!"
+            );
+        }
+    }
+
+    /**
+     * Extracts number of days to shift from a snooze command argument.
+     *
+     * @param arg remainder of the user input after the command token.
+     * @return structured SnoozeArgs.
+     * @throws PiperException if required parts are missing, empty, or invalid.
+     */
+    public static SnoozeArgs parseSnoozeArgs(String arg) throws PiperException {
+        try {
+            String[] indexAndDays = arg.split("\\s", 2);
+            String index = indexAndDays[0].trim();
+            if (index.isEmpty()) {
+                throw new IllegalArgumentException();
+            }
+            String days = indexAndDays[1].trim();
+            if (days.isEmpty()) {
+                throw new IllegalArgumentException();
+            }
+            if (Integer.parseInt(days) <= 0) {
+                throw new PiperException(
+                        (Integer.parseInt(days) == 0)
+                                ? "HMM... You must be trolling me!"
+                                : "HMM... I can't fly back in time yet."
+                );
+            }
+            return new SnoozeArgs(parseIndex(index), parseIndex(days));
+        } catch (PiperException pe) {
+            throw pe;
+        } catch (Exception e) {
+            throw new PiperException(
+                    "EEK! Are you snoozing already? "
+                            + "Please format the command as 'snooze (task index) (days)'!"
+            );
+        }
+    }
+
+}
