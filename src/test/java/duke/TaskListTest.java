@@ -3,7 +3,9 @@ package duke;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-
+/**
+ * Unit tests for the TaskList class.
+ */
 public class TaskListTest {
     @Test
     public void constructor_emptyList_sizeIsZero() {
