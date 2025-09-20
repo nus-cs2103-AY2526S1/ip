@@ -39,9 +39,6 @@ public class Rafayel {
     /** TaskList stores the list of tasks */
     private TaskList tasks;
 
-    /** Manages the ui of Rafayel */
-    private final Ui ui;
-
     /** Whether the user exit the program or not */
     private boolean isExit;
 
@@ -52,9 +49,9 @@ public class Rafayel {
      * @throws RafayelException if there is an error initialising the storage.
      */
     public Rafayel(String filePath) throws RafayelException {
-        this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.isExit = false;
+        Ui ui = new Ui();
         try {
             tasks = new TaskList(storage.load());
         } catch (RafayelException e) {
@@ -77,7 +74,7 @@ public class Rafayel {
 
     /**
      * Saves the current tasks into the storage location
-     * 
+     *
      * @throws RafayelException if there is an error writing to storage.
      */
     public void save() throws RafayelException {
@@ -91,8 +88,7 @@ public class Rafayel {
      */
     public String getReminders() {
         try {
-            String result = getResponse("remind");
-            return result;
+            return getResponse("remind");
         } catch (RafayelException e) {
             // Should not have exception
             // Ignore
@@ -102,7 +98,7 @@ public class Rafayel {
 
     /**
      * Generates a response for the user's chat message.
-     * 
+     *
      * @param input the user’s raw command
      * @return chatbot’s response as a string
      * @throws RafayelException if there's any error while executing user commands

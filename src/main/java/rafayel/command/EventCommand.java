@@ -2,6 +2,7 @@
 package rafayel.command;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 import rafayel.RafayelException;
 import rafayel.storage.Storage;
@@ -35,7 +36,7 @@ public class EventCommand extends Command {
 
     /**
      * Checks the input for event task.
-     * 
+     *
      * @param descriptionDate the input for event task.
      * @throws RafayelException if the input is formatted wrongly.
      */
@@ -53,13 +54,11 @@ public class EventCommand extends Command {
         if (!descriptionDate.contains("/to")) {
             throw new RafayelException(EVENT_FORMAT_ERROR);
         }
+
     }
 
-
-//    public static boolean checkValidTimePeriod()
-
     /**
-     * Executes the event command by creating an Eventtask.
+     * Executes the event command by creating an Event task.
      *
      * @param tasks the current task list.
      * @param storage the storage handler.
@@ -74,6 +73,12 @@ public class EventCommand extends Command {
         String description = taskInfo[0].trim();
         LocalDateTime from = handleReadDate(taskInfo[1].substring(5).trim());
         LocalDateTime to = handleReadDate(taskInfo[2].substring(3).trim());
+
+        // Check from to hours
+        long hoursBetweenFromTo = ChronoUnit.HOURS.between(from, to);
+        if (hoursBetweenFromTo < 0) {
+            throw new RafayelException("Invalid time period :< 'To' should be after 'From' date.");
+        }
 
         Event newTask = new Event(description, from, to);
         tasks.add(newTask);

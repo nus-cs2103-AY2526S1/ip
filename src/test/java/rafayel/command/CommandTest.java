@@ -61,9 +61,8 @@ public class CommandTest {
         };
 
         for (String input : invalidInputs) {
-            assertThrows(RafayelException.class, () -> {
-                Command.handleReadDate(input);
-            }, "Should throw RafayelException for invalid input: " + input);
+            assertThrows(RafayelException.class, () -> Command.handleReadDate(input),
+                    "Should throw RafayelException for invalid input: " + input);
         }
     }
 

@@ -6,7 +6,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import rafayel.Rafayel;
 import rafayel.RafayelException;
 import rafayel.command.RemindCommand;
@@ -52,8 +51,9 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Rafayel's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing Rafayel's reply
+     * and then appends them to the dialog container.
+     * Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() throws RafayelException {
@@ -72,8 +72,8 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Retrieves and shows the reminders with a deadline.
-     * 
-     * @throws RafayelException 
+     *
+     * @throws RafayelException if encountered error during retrieval of reminders.
      */
     public void checkAndShowReminders() {
         String reminderText = rafayel.getReminders();
@@ -81,6 +81,7 @@ public class MainWindow extends AnchorPane {
                 || "No upcoming deadlines nor overdue tasks! :D".equals(reminderText)) {
             return;
         }
-        dialogContainer.getChildren().addAll(DialogBox.getRafayelDialog("Reminders:\n\n" + reminderText, rafayelIcon));
+        dialogContainer.getChildren().addAll(DialogBox.getRafayelDialog(
+                "Reminders:\n\n" + reminderText, rafayelIcon));
     }
 }

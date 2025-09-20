@@ -12,7 +12,7 @@ import rafayel.task.Task;
 import rafayel.task.TaskList;
 
 /**
- * Represents a command that reminds the user of 
+ * Represents a command that reminds the user of
  * upcoming deadlines and overdue tasks.
  * Scans all tasks with deadlines, then classifies them into:
  * 1. Upcoming deadlines (within 24 hours)
@@ -21,7 +21,7 @@ import rafayel.task.TaskList;
 public class RemindCommand extends Command {
 
     /** Stores the string when there's no tasks. */
-    public final static String NO_TASK_FOR_REMINDERS = "I can't remind you when there are no tasks in the list :<";
+    public static final String NO_TASK_FOR_REMINDERS = "I can't remind you when there are no tasks in the list :<";
     // for comparison purposes when reminding the user.
 
     /**
@@ -34,7 +34,7 @@ public class RemindCommand extends Command {
     /**
      * Gets a formatted string for both reminders and overdue tasks.
      * Uses Java stream to easily get all tasks in the list.
-     * 
+     *
      * @param reminderType either reminders or overdue tasks.
      * @param tasks list of tasks that needs to be formatted.
      * @return formatted string.
@@ -59,7 +59,7 @@ public class RemindCommand extends Command {
     }
 
     /**
-     * Executes the remind command by returning a list of tasks
+     * Executes the Remind command by returning a list of tasks
      * with upcoming deadlines and overdue deadlines.
      *
      * @param tasks   the task list
