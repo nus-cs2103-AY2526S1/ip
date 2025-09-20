@@ -44,8 +44,9 @@ public class MainWindow extends AnchorPane {
         assert d != null : "SumTingWong instance cannot be null";
         
         sumTingWong = d;
-        String welcomeMessage = getDivider() + "Hello! I'm SumTingWong\n"
-                + "What can I do for you? -.-\n" + getDivider();
+        String welcomeMessage = "Ugh, what you want now?\n"
+                + "I'm SumTingWong, your grumpy task manager.\n"
+                + "Just tell me what you need and don't waste my time. -.-";
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(welcomeMessage, dukeImage)
         );

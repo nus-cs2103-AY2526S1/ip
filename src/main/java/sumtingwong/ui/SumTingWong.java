@@ -59,7 +59,7 @@ public class SumTingWong {
         assert this.taskList != null : "TaskList must be initialized before processing input";
         
         StringBuilder sb = new StringBuilder();
-        TextUI guiUi = new TextUI(taskList, sb::append);
+        TextUI guiUi = new TextUI(taskList, sb::append, false);
         Parser guiParser = new Parser(guiUi, taskList);
         try {
             guiParser.parseCommand(input);
