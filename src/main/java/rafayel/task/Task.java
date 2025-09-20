@@ -1,0 +1,115 @@
+
+package rafayel.task;
+
+import java.time.LocalDateTime;
+
+/**
+ * Abstract task with description and completion status. Subclasses should
+ * define the specific types of tasks.
+ */
+public abstract class Task {
+    protected String description;
+    protected boolean isDone;
+
+    /**
+     * Creates a new task with the given description. 
+     * By default, the task is marked as not done.
+     *
+     * @param description Description of the task.
+     */
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
+
+    /**
+     * @return true if the task is completed, false otherwise.
+     */
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    /**
+     * Returns the status icon representing whether the task is done. 
+     * Aims to simplify the toString() function.
+     *
+     * @return "X" if task is done, blank otherwise.
+     */
+    public String getStatusIcon() {
+        return (this.isDone ? "X" : " "); // mark done task with X
+    }
+
+    /**
+     * Returns the task completion marker used for saving tasks.
+     * Aims to simplify the saveTaskName() function.
+     *
+     * @return "1" if task is done, "0" otherwise.
+     */
+    public String getTaskIcon() {
+        return (this.isDone ? "1" : "0"); // mark done task with X
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Marks task as completed.
+     */
+    public void markAsDone() {
+        assert !isDone : "Task is already marked as done";
+        this.isDone = true;
+    }
+
+    /**
+     * Marks task as uncompleted.
+     */
+    public void markAsUndone() {
+        assert !isDone : "Task is already marked as NOT done";
+        this.isDone = false;
+    }
+
+    /**
+     * Returns a string representation of this task.
+     * The string includes the completion status and the description.
+     *
+     * @return String representation of the task.
+     */
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.getDescription();
+    }
+
+    /**
+     * Returns a formatted string representation of the task
+     * suitable for saving to a file.
+     *
+     * @return String in the format " | <status> | <description>".
+     */
+    public String saveTaskName() {
+        return String.format(" | %s | %s", this.getTaskIcon(), this.description);
+    }
+
+    /**
+     * Find substring in the description.
+     *
+     * @param substring user input string that is searched in the description.
+     * @return true if the substring is found in the description.
+     */
+    public boolean findSubstring(String substring) {
+        return this.description.contains(substring);
+    }
+
+    /**
+     * @return true if the task has a deadline (deadline/event), false otherwise.
+     */
+    public boolean hasDeadline() {
+        return false;
+    }
+
+    /**
+     * @return deadline LocalDateTime, null by default.
+     */
+    public LocalDateTime getDeadline() {
+        return null;
+    }
+}

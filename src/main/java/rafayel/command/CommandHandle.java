@@ -1,0 +1,66 @@
+
+package rafayel.command;
+
+/**
+ * CommandHandler deals with making sense of the user command.
+ * CommandHandler parse and understands the user's commands and determines the corresponding command type.
+ */
+public class CommandHandle {
+
+    /**
+     * Enumeration of all possible commands that can be recognised by the application.
+     */
+    public enum CommandType {
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, REMIND, UNKNOWN;
+
+        /**
+         * Parses the input string to determine the corresponding command type.
+         *
+         * @param input input string to be parsed.
+         * @return the corresponding Command enum value.
+         */
+        public static CommandType getCommand(String input) {
+            if (input.equals("bye")) {
+                return BYE;
+            }
+            if (input.equals("list")) {
+                return LIST;
+            }
+            if (input.startsWith("mark")) {
+                return MARK;
+            }
+            if (input.startsWith("unmark")) {
+                return UNMARK;
+            }
+            if (input.startsWith("todo")) {
+                return TODO;
+            }
+            if (input.startsWith("deadline")) {
+                return DEADLINE;
+            }
+            if (input.startsWith("event")) {
+                return EVENT;
+            }
+            if (input.startsWith("delete")) {
+                return DELETE;
+            }
+            if (input.startsWith("find")) {
+                return FIND;
+            }
+            if (input.equals("remind")) {
+                return REMIND;
+            }
+            return UNKNOWN;
+        }
+    }
+
+    /**
+     * Parses the user input and returns the corresponding command type.
+     *
+     * @param input user input string to be parsed.
+     * @return the corresponding CommandType enum value.
+     */
+    public static CommandType parse(String input) {
+        return CommandType.getCommand(input);
+    }
+}

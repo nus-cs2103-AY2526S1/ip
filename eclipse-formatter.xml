@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<profiles version="13">
+  <profile kind="CodeFormatterProfile" name="NoIndentCase" version="13">
+    <setting id="org.eclipse.jdt.core.formatter.indent_switchstatements_compare_to_switch" value="false"/>
+    <setting id="org.eclipse.jdt.core.formatter.indent_switchstatements_compare_to_cases" value="true"/>
+  </profile>
+</profiles>
