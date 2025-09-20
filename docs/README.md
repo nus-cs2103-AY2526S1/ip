@@ -1,6 +1,6 @@
 # Penguin Chatbot User Guide
 
-![Penguin Logo](../src/main/resources/images/DaPenguin.png)
+![Penguin Logo](Ui.png)
 
 Penguin is a task management chatbot designed to help users organize and track their tasks efficiently. It supports various types of tasks, including todos, deadlines, and events, and provides functionality to add, delete, mark/unmark, list, find, and sort tasks.
 
