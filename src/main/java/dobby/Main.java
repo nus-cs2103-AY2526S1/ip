@@ -87,6 +87,11 @@ public class Main extends Application {
     }
 
     private void showWelcomeMessage() {
+        showIntroMessage();
+        showSavedTasks();
+    }
+
+    private void showIntroMessage() {
         String welcomeText = "Hello! I'm Dobby 🤖\n"
                 + "Here are some commands you can try:\n"
                 + "1. list - Display all tasks\n"
@@ -99,15 +104,14 @@ public class Main extends Application {
                 + "8. find <keyword> - Search tasks by keyword\n"
                 + "9. help - Show help message\n"
                 + "10. bye - Exit the application";
+        dialogContainer.getChildren().add(new DialogBox(welcomeText, dobbyImage));
+    }
 
-        DialogBox dobbyDialog = new DialogBox(welcomeText, dobbyImage);
-        dialogContainer.getChildren().add(dobbyDialog);
-        // Now show saved tasks immediately after
+    private void showSavedTasks() {
         if (taskList.size() > 0) {
             dialogContainer.getChildren().add(DialogBox.getDobbyDialog(
                     "Here are your saved tasks from previous sessions:", dobbyImage
             ));
-
             for (Task task : taskList.getTasks()) {
                 dialogContainer.getChildren().add(DialogBox.getDobbyDialog(task.toString(), dobbyImage));
             }
@@ -116,8 +120,8 @@ public class Main extends Application {
                     "You don't have any saved tasks yet. Try adding one with 'todo <description>'!", dobbyImage
             ));
         }
-
     }
+
 
 
     private void handleUserInput() {

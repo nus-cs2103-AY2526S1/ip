@@ -26,11 +26,11 @@ public abstract class Task implements Serializable {
         return this.description;
     }
 
-    public void setDone() {
+    public void markDone() {
         this.isDone = true;
     }
 
-    public void markUndone() {
+    public void markNotDone() {
         this.isDone = false;
     }
 

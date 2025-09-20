@@ -69,7 +69,7 @@ public class Parser {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             Task t = taskList.getTasks().get(index);
-            t.setDone();
+            t.markDone();
             storage.saveTasks(taskList.getTasks());
             return "Nice! I've marked this task as done:\n  " + t;
         } catch (Exception e) {
@@ -81,7 +81,7 @@ public class Parser {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             Task t = taskList.getTasks().get(index);
-            t.markUndone();
+            t.markNotDone();
             storage.saveTasks(taskList.getTasks());
             return "Nice! I've marked this task as not done:\n  " + t;
         } catch (Exception e) {
