@@ -1,0 +1,4 @@
+T | 0 | CS2100 Assignment 1
+D | 0 | presentation | 2025-09-18 1200
+E | 0 | Cars 2 | 2025-09-17 1800 | 2025-09-17 2000
+F | 0 | Lectures | 4

@@ -1,7 +1,68 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+________________________________________________
+Good Morning! I'm pickle.chat.Pickle
+What can I do for you?
+________________________________________________
+________________________________________________
+Aights. pickle.task.Task added:
+[T][ ] borrow book
+You got 1 tasks in the list.
+________________________________________________
+________________________________________________
+Here is your list:
+1.[T][ ] borrow book
+________________________________________________
+________________________________________________
+Nice! I've marked this task as done:
+[T][X] borrow book
+________________________________________________
+________________________________________________
+Aights. pickle.task.Task added:
+[D][ ] return book (by: sunday)
+You got 2 tasks in the list.
+________________________________________________
+________________________________________________
+Aights. pickle.task.Task added:
+[E][ ] project meeting (from: 2pm to: 4pm)
+You got 3 tasks in the list.
+________________________________________________
+________________________________________________
+Here is your list:
+1.[T][X] borrow book
+2.[D][ ] return book (by: sunday)
+3.[E][ ] project meeting (from: 2pm to: 4pm)
+________________________________________________
+________________________________________________
+Nice! I've marked this task as done:
+[D][X] return book (by: sunday)
+________________________________________________
+________________________________________________
+OK, I've marked this task as not done yet:
+[T][ ] borrow book
+________________________________________________
+________________________________________________
+Here is your list:
+1.[T][ ] borrow book
+2.[D][X] return book (by: sunday)
+3.[E][ ] project meeting (from: 2pm to: 4pm)
+________________________________________________
+________________________________________________
+Yikes!!! There is nothing to do.... Try Again!!!
+________________________________________________
+________________________________________________
+Yikes!!! My bad, I don't know what that means. Try Again!!!
+________________________________________________
+________________________________________________
+Yikes!!! I'm sorry, I'm not sure what you meant. Format should be deadline <description> /by <date> Try Again!!!
+________________________________________________
+________________________________________________
+Ok! I've removed this task:
+[D][X] return book (by: sunday)
+You got 2 tasks in the list.
+________________________________________________
+________________________________________________
+Here is your list:
+1.[T][ ] borrow book
+2.[E][ ] project meeting (from: 2pm to: 4pm)
+________________________________________________
+Bye. Hope you have a nice day!
+________________________________________________
