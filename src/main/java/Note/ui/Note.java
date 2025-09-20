@@ -2,6 +2,7 @@ package Note.ui;
 
 import java.io.IOException;
 import java.util.List;
+import javafx.application.Platform;
 
 /**
  * The Note class represents a simple command-line task manager chatbot.
@@ -54,6 +55,7 @@ public class Note {
         try {
             switch (command) {
                 case "bye":
+                    Platform.exit();
                     return "Bye! Hope to see you again soon!";
 
                 case "list":
