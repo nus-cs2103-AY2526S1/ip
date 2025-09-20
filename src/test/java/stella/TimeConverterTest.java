@@ -18,6 +18,12 @@ public class TimeConverterTest {
     }
 
     @Test
+    public void convertDate_nonStandardTiming_rawFormat() {
+        assertEquals("before Mon",
+                TimeConverter.convertDate("before Mon"));
+    }
+
+    @Test
     public void convertDate_nonExistentDate_exceptionThrown() {
         try {
             assertEquals("Unknown Timing",
@@ -37,9 +43,9 @@ public class TimeConverterTest {
     }
 
     @Test
-    public void convertDate_nonStandardTiming_exceptionThrown() {
-            assertEquals("before Mon",
-                    TimeConverter.convertDate("before Mon"));
+    public void convertDateWithTime_nonStandardTiming_rawFormat() {
+            assertEquals("by Monday night",
+                    TimeConverter.convertDateWithTime("by Monday night"));
     }
 
     @Test
