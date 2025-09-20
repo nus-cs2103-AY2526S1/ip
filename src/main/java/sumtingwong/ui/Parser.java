@@ -102,7 +102,7 @@ public class Parser {
             handleByeCommand();
             break;
         default:
-            throw new UnknownEventException(command);
+            handleUnknownCommand(command);
         }
     }
 
@@ -385,6 +385,21 @@ public class Parser {
         }
         
         textUI.showFilteredTasksMessage(results.toString(), description.trim());
+    }
+
+    /**
+     * Handles unknown commands by providing a helpful response.
+     *
+     * @param command the unknown command that was entered
+     */
+    private void handleUnknownCommand(String command) {
+        // Check if it's a greeting or casual input
+        String lowerCommand = command.toLowerCase();
+        if (lowerCommand.matches("(hi|hello|hey|sup|what's up|how are you|good morning|good afternoon|good evening)")) {
+            textUI.showGreetingMessage();
+        } else {
+            textUI.showUnknownCommandMessage(command);
+        }
     }
 
     /**

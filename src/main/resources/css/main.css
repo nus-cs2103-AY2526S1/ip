@@ -1,5 +1,5 @@
 .root {
-    -fx-background-color: #f8f9fa;
+    -fx-background-color: #2c3e50;
     -fx-font-family: "Segoe UI", "Arial", sans-serif;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .button {
-    -fx-background-color: #007bff;
+    -fx-background-color: #e74c3c;
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
@@ -29,17 +29,17 @@
     -fx-border-radius: 8px;
     -fx-padding: 12px 20px;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0, 123, 255, 0.3), 3, 0, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(231, 76, 60, 0.3), 3, 0, 0, 1);
 }
 
 .button:hover {
-    -fx-background-color: #0056b3;
-    -fx-effect: dropshadow(gaussian, rgba(0, 123, 255, 0.4), 4, 0, 0, 2);
+    -fx-background-color: #c0392b;
+    -fx-effect: dropshadow(gaussian, rgba(231, 76, 60, 0.4), 4, 0, 0, 2);
 }
 
 .button:pressed {
-    -fx-background-color: #004085;
-    -fx-effect: dropshadow(gaussian, rgba(0, 123, 255, 0.2), 2, 0, 0, 1);
+    -fx-background-color: #a93226;
+    -fx-effect: dropshadow(gaussian, rgba(231, 76, 60, 0.2), 2, 0, 0, 1);
 }
 
 .scroll-pane,

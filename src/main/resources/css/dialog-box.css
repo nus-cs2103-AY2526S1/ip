@@ -1,37 +1,40 @@
 /* User message styling - right aligned, blue theme */
 .label {
-    -fx-background-color: #007bff;
+    -fx-background-color: #3498db;
     -fx-text-fill: white;
     -fx-background-radius: 18px 18px 4px 18px;
     -fx-font-size: 14px;
     -fx-font-weight: 500;
-    -fx-effect: dropshadow(gaussian, rgba(0, 123, 255, 0.3), 3, 0, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.3), 3, 0, 0, 1);
 }
 
-/* Bot message styling - left aligned, light theme */
+/* Bot message styling - left aligned, grumpy theme */
 .reply-label {
-    -fx-background-color: #ffffff;
-    -fx-text-fill: #333333;
+    -fx-background-color: #34495e;
+    -fx-text-fill: #ecf0f1;
     -fx-background-radius: 18px 18px 18px 4px;
-    -fx-border-color: #e9ecef;
+    -fx-border-color: #2c3e50;
     -fx-border-width: 1px;
     -fx-border-radius: 18px 18px 18px 4px;
     -fx-font-size: 14px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 2, 0, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 2, 0, 0, 1);
 }
 
-/* Error message styling - left aligned, red theme */
+/* Error message styling - left aligned, angry red theme */
 .error-label {
-    -fx-background-color: #dc3545;
+    -fx-background-color: #e74c3c;
     -fx-text-fill: white;
     -fx-background-radius: 18px 18px 18px 4px;
     -fx-font-size: 14px;
-    -fx-font-weight: 500;
-    -fx-effect: dropshadow(gaussian, rgba(220, 53, 69, 0.4), 4, 0, 0, 2);
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(231, 76, 60, 0.6), 4, 0, 0, 2);
 }
 
 /* Profile picture styling - circular, subtle */
 #displayPicture {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 3, 0, 0, 1);
     -fx-clip: circle(20px center);
+    -fx-fit-width: 40px;
+    -fx-fit-height: 40px;
+    -fx-preserve-ratio: true;
 }

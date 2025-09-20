@@ -31,6 +31,7 @@ public class Main extends Application {
             
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("SumTingWong - Your Grumpy Task Manager");
 
             // set limit to window size
             stage.setMinHeight(220);
