@@ -22,3 +22,12 @@ CLAUDE.md
 
 # Compiled class files
 *.class
+
+# Local testing files
+smoke-test.sh
+test-windows.bat
+WINDOWS_TEST_INSTRUCTIONS.md
+test_input.txt
+test_commands.txt
+Dockerfile
+download/
