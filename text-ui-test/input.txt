@@ -1,0 +1,13 @@
+todo read book
+deadline return book /by next friday
+todo eat lunch
+event party /from now /to tomorrow
+mark 1
+unmark 1
+mark 2
+unmark 17
+list
+test
+delete 3
+list
+bye
