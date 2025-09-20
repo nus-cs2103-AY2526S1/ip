@@ -1,30 +1,42 @@
-# Eve User Guide
+# Eve Chatbot
 
-// Update the title above to match the actual product name
+Eve is a small Java-based chatbot project (built with JavaFX) that helps you manage tasks in a fun and engaging way.  
+Unlike a plain to-do manager, Eve speaks with a **cute and lively personality** inspired by the character Eve from *Stellar Blade* ✨.
 
-// Product screenshot goes here
+---
 
-// Product intro goes here
+## ✨ Features
 
-## Adding deadlines
+- **Task Management**
+  - Add tasks (`todo`, `deadline`, `event`, `period`)
+  - Mark tasks as done/undone
+  - Delete tasks
+  - Find tasks by keyword
+  - List all tasks
 
-// Describe the action and its outcome.
+- **Personalized Responses**
+  - Eve replies with energetic, friendly messages
+  - Uses cute kaomoji and playful tones instead of plain system text
+  - Separate styles for CLI and GUI
 
-// Give examples of usage
+- **Dual Interface**
+  - **CLI Mode**: ASCII-styled, works directly in the terminal
+  - **GUI Mode**: JavaFX-based chat window with:
+    - Chat bubbles for user and Eve
+    - Distinct fonts and colors for better readability
+    - A **stylized text logo** replacing the old ASCII logo
 
-Example: `keyword (optional arguments)`
+---
 
-// A description of the expected outcome goes here
+## 🚀 Getting Started
 
-```
-expected output
-```
+### Prerequisites
+- Java 17 or above
+- JavaFX SDK (if running locally outside Gradle/Maven)
 
-## Feature ABC
+### Build & Run
+If you are using Gradle:
 
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+```bash
+./gradlew build
+./gradlew run
