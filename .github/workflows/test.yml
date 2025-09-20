@@ -31,11 +31,12 @@ jobs:
 
     - name: Test JAR in headless mode
       run: |
-        echo "list" | java -Djava.awt.headless=true -jar build/libs/buddy.jar
+        printf "list\nbye\n" | java -Djava.awt.headless=true -jar build/libs/buddy.jar
 
     - name: Test JAR with sample commands
+      shell: bash
       run: |
-        echo -e "list\ntodo test task\nlist\nbye" | java -Djava.awt.headless=true -jar build/libs/buddy.jar
+        printf "list\ntodo test task\nlist\nbye\n" | java -Djava.awt.headless=true -jar build/libs/buddy.jar
 
     - name: Upload JAR artifact
       if: matrix.os == 'ubuntu-latest'
