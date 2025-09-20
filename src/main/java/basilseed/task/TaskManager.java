@@ -172,7 +172,7 @@ public class TaskManager {
 
     /**
      * Archives current task list by saving it to another file
-     * and then clear the current tasks in both TaskManager and the data file.
+     * and then clear the current tasks in both TaskManager and the data file
      *
      * @return a String stating tasks has been archived
      * @throws BasilSeedIoException If an I/O error occurs while updating storage.
