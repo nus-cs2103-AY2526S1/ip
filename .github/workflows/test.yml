@@ -29,14 +29,34 @@ jobs:
     - name: Build JAR with Gradle
       run: ./gradlew clean shadowJar
 
-    - name: Test JAR in headless mode
+    - name: Test JAR in headless mode (Unix)
+      if: runner.os != 'Windows'
       run: |
         printf "list\nbye\n" | java -Djava.awt.headless=true -jar build/libs/buddy.jar
 
-    - name: Test JAR with sample commands
+    - name: Test JAR in headless mode (Windows)
+      if: runner.os == 'Windows'
+      shell: cmd
+      run: |
+        echo list> test_input.txt
+        echo bye>> test_input.txt
+        type test_input.txt | java -Djava.awt.headless=true -jar build/libs/buddy.jar
+
+    - name: Test JAR with sample commands (Unix)
+      if: runner.os != 'Windows'
       shell: bash
       run: |
         printf "list\ntodo test task\nlist\nbye\n" | java -Djava.awt.headless=true -jar build/libs/buddy.jar
+
+    - name: Test JAR with sample commands (Windows)
+      if: runner.os == 'Windows'
+      shell: cmd
+      run: |
+        echo list> test_commands.txt
+        echo todo test task>> test_commands.txt
+        echo list>> test_commands.txt
+        echo bye>> test_commands.txt
+        type test_commands.txt | java -Djava.awt.headless=true -jar build/libs/buddy.jar
 
     - name: Upload JAR artifact
       if: matrix.os == 'ubuntu-latest'
