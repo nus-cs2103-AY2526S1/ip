@@ -95,6 +95,6 @@ public class RemindCommand extends Command {
         String upcomingReminders = getStringReminders("Upcoming deadlines:", reminders);
         String overdueReminders = getStringReminders("OVERDUE TASKS:", overdue);
 
-        return overdueReminders + upcomingReminders;
+        return overdueReminders + (!upcomingReminders.isEmpty() ? "\n\n" : "") + upcomingReminders;
     }
 }

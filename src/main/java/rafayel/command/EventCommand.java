@@ -69,7 +69,7 @@ public class EventCommand extends Command {
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
         eventInputValidation(descriptionDate);
 
-        String[] taskInfo = descriptionDate.substring(6).split("/");
+        String[] taskInfo = descriptionDate.trim().split("/");
         String description = taskInfo[0].trim();
         LocalDateTime from = handleReadDate(taskInfo[1].substring(5).trim());
         LocalDateTime to = handleReadDate(taskInfo[2].substring(3).trim());
@@ -78,6 +78,8 @@ public class EventCommand extends Command {
         long hoursBetweenFromTo = ChronoUnit.HOURS.between(from, to);
         if (hoursBetweenFromTo < 0) {
             throw new RafayelException("Invalid time period :< 'To' should be after 'From' date.");
+        } else if (hoursBetweenFromTo == 0) {
+            throw new RafayelException("The 'To' and 'From' is the same date <:C");
         }
 
         Event newTask = new Event(description, from, to);
