@@ -15,6 +15,7 @@ public class ToDo extends Task implements Serializable {
      */
     public ToDo(String description) {
         super(description, TaskType.TODO);
+        assert description != null && !description.isEmpty() : "Description cannot be null or empty";
     }
 
     /** Returns a formatted string representation of the to-do task. */
