@@ -5,9 +5,16 @@ import chash.exception.ChashException;
 import chash.parser.CommandParser;
 import chash.storage.ChashDb;
 import chash.task.TaskList;
+import chash.ui.ChashConsole;
 import chash.ui.ChashUi;
+import chash.ui.gui.MainWindow;
 
 import java.io.IOException;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /*
 Dependancy Priority:
@@ -22,15 +29,34 @@ Chash.java
 */
 
 /** Main entry point for CHASH application. */
-public class Chash {
+public class Chash extends Application {
+    //If need to run anything before javafx start
+    /*@Override
+    public void init() {}*/
+
+    //JavaFX entrypoint
+    @Override
+    public void start(Stage stage) {
+        AnchorPane ap = new MainWindow();
+        Scene scene = new Scene(ap);
+        stage.setScene(scene);
+
+        //Configure stage window
+        stage.setTitle("Crysis Heir Activity Sentre Hepdesk");
+        stage.setMinHeight(220);
+        stage.setMinWidth(417);
+
+        stage.show();
+    }
+
     /** 
-     * Application entry point.
+     * CLI only application entry point.
      *
      * @param args Command-line arguments
      */
     public static void main(String[] args) {
         //Startup
-        ChashUi ui = new ChashUi();
+        ChashUi ui = new ChashConsole();
         ChashDb db = new ChashDb();
         TaskList tasks;
         try {

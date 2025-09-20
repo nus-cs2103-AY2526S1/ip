@@ -48,7 +48,7 @@ checkstyle {
 }
 
 application {
-    mainClass.set("chash.Chash")
+    mainClass.set("chash.ChashLauncher")
 }
 
 shadowJar {
