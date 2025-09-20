@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import rafayel.command.Command;
+import rafayel.command.CommandHandle;
 import rafayel.command.Parser;
 import rafayel.storage.Storage;
 import rafayel.task.Task;
@@ -13,10 +14,9 @@ import rafayel.ui.Ui;
 
 /**
  * Main chatbot class for Rafayel.
- * 
- * Rafayel is a task management chatbot that allows users to add, 
- * delete, mark, unmark, find, and list tasks. 
- * It supports different task types: 
+ * Rafayel is a task management chatbot that allows users to add,
+ * delete, mark, unmark, find, and list tasks.
+ * It supports different task types:
  * Todo, Deadline and Event, and stores data persistently.
  */
 public class Rafayel {
@@ -26,10 +26,12 @@ public class Rafayel {
     public static final String INVALID_TASK_NUM = "Invalid task number. This is why I prefer communicating with paint.";
 
     /** Error message when date format does not match supported formats. */
-    public static final String DATE_FORMAT_ERROR = "If you're going to let me remind you, at least present the date elegantly .-. \nUse a format like `MMM d yyyy HH:mm` | `yyyy/MM/dd HH:mm` | `dd-MM-yyyy HH:mm`.";
+    public static final String DATE_FORMAT_ERROR = "If you're going to let me remind you, at least present the date "
+            + "elegantly .-. \nUse a format like `MMM d yyyy HH:mm` | `yyyy/MM/dd HH:mm` | `dd-MM-yyyy HH:mm`.";
 
     /** Error message when command is not found. */
-    public static final String UNKNOWN_COMMAND_ERROR = "Did a seashell whisper that to you? Because I didn't catch a word. \nUse a command I actually know, little assistant :<";
+    public static final String UNKNOWN_COMMAND_ERROR = "Did a seashell whisper that to you? Because I didn't catch "
+            + "a word. \nUse a command I actually know, little assistant :<";
 
     /** Storage object that saves the task to local file storage. */
     private final Storage storage;
@@ -40,6 +42,9 @@ public class Rafayel {
     /** Manages the ui of Rafayel */
     private final Ui ui;
 
+    /** Whether the user exit the program or not */
+    private boolean isExit;
+
     /**
      * Constructs a new Rafayel chatbot instance with the specified file path for data storage.
      *
@@ -49,6 +54,7 @@ public class Rafayel {
     public Rafayel(String filePath) throws RafayelException {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
+        this.isExit = false;
         try {
             tasks = new TaskList(storage.load());
         } catch (RafayelException e) {
@@ -62,7 +68,7 @@ public class Rafayel {
 
     /**
      * Returns all tasks in the task list.
-     * 
+     *
      * @return the TaskList in ArrayList form.
      */
     public ArrayList<Task> getAll() {
@@ -107,16 +113,28 @@ public class Rafayel {
         assert tasks != null : "TaskList cannot be null";
         assert storage != null : "Storage cannot be null";
 
+        if (isExit) {
+            System.exit(0);
+        }
+
         try {
             Command command = Parser.parseCommand(input);
             String result = command.execute(tasks, storage);
+            this.isExit = command.getCommand() == CommandHandle.CommandType.BYE;
 
             return result;
+
         } catch (RafayelException e) {
             return e.getMessage();
         } catch (Exception e) {
             return UNKNOWN_COMMAND_ERROR;
         }
+    }
 
+    /**
+     * Returns whether the chatbot should exit
+     */
+    public boolean shouldExit() {
+        return isExit;
     }
 }

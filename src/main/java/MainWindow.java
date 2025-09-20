@@ -25,6 +25,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
+    private Runnable exitHandler;
+
     private Rafayel rafayel;
 
     private Image userIcon = new Image(this.getClass().getResourceAsStream("/images/UserIcon.jpeg"));
@@ -45,6 +47,10 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(DialogBox.getRafayelDialog(welcomeMessage, rafayelIcon));
     }
 
+    public void setExitHandler(Runnable exitHandler) {
+        this.exitHandler = exitHandler;
+    }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Rafayel's reply and then appends them to
      * the dialog container. Clears the user input after processing.
@@ -53,9 +59,15 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() throws RafayelException {
         String input = userInput.getText();
         String response = rafayel.getResponse(input);
-        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userIcon),
-                DialogBox.getRafayelDialog(response, rafayelIcon));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userIcon),
+                DialogBox.getRafayelDialog(response, rafayelIcon)
+        );
         userInput.clear();
+
+        if (rafayel.shouldExit() && exitHandler != null) {
+            exitHandler.run();
+        }
     }
 
     /**

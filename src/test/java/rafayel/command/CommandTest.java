@@ -1,13 +1,16 @@
 package rafayel.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.Test;
 
 import rafayel.RafayelException;
 
-import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class CommandTest {
     @Test
@@ -43,22 +46,24 @@ public class CommandTest {
     }
 
     @Test
-    public void testHandleReadDate_invalidFormats_returnsNull() throws RafayelException {
+    public void testHandleReadDate_invalidFormats_throwsException() {
         // Invalid inputs
-        String[] invalidInputs = { "Invalid date format", "2023-01-01 14:30", // Wrong separator for format 2
-                "01/01/2023 16:30", // Wrong separator for format 3
-                "Jan 32 2023 14:30", // Invalid day
-                "2023/13/01 14:30", // Invalid month
-                "2023/01/01 25:00", // Invalid hour
-                "2023/01/01 14:60", // Invalid minute
-                "Jan 1 2023", // Missing time
-                "14:30", // Missing date
-                //                "2023/02/29 18:30" // Invalid date (non-leap year)
+        String[] invalidInputs = {
+            "Invalid date format",
+            "2023-01-01 14:30", // Wrong separator for format 2
+            "01/01/2023 16:30", // Wrong separator for format 3
+            "Jan 32 2023 14:30", // Invalid day
+            "2023/13/01 14:30", // Invalid month
+            "2023/01/01 25:00", // Invalid hour
+            "2023/01/01 14:60", // Invalid minute
+            "Jan 1 2023", // Missing time
+            "14:30", // Missing date
         };
 
         for (String input : invalidInputs) {
-            LocalDateTime result = Command.handleReadDate(input);
-            assertNull(result, "Should return null or empty input");
+            assertThrows(RafayelException.class, () -> {
+                Command.handleReadDate(input);
+            }, "Should throw RafayelException for invalid input: " + input);
         }
     }
 

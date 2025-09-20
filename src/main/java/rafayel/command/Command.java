@@ -15,7 +15,7 @@ import rafayel.task.TaskList;
  * Abstract base class that represents an executable user command.
  * 
  * All concrete command classes extend this class and 
- * implement the execute(TaskList, Storage) method,
+ * implement execute(TaskList, Storage) method,
  * to perform their respective operations on the task list and storage.
  */
 public abstract class Command {
@@ -38,13 +38,12 @@ public abstract class Command {
 
     /**
      * Executes the function of each command.
+     * Should be overridden by subclasses to implement the actual functionality.
      *
      * @param tasks ArrayList of tasks that will be executed on.
      * @param storage stores the list after the function is executed.
      * @return a string from the function.
      * @throws RafayelException if any errors are encountered during execution.
-     * 
-     *  Should be overridden by subclasses to implement the actual functionality.
      */
     public String execute(TaskList tasks, Storage storage) throws RafayelException {
         return "";
@@ -60,7 +59,8 @@ public abstract class Command {
     public static LocalDateTime handleReadDate(String input) throws RafayelException {
         // check if valid format
         DateTimeFormatter[] differentTimeFormatters = new DateTimeFormatter[] {
-                DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"), DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"),
+                DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"),
+                DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"),
                 DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm") };
 
         for (DateTimeFormatter formatter : differentTimeFormatters) {
@@ -74,6 +74,7 @@ public abstract class Command {
         throw new RafayelException(Rafayel.DATE_FORMAT_ERROR);
     }
 
+
     /**
      * Gets the confirmation message when a new task is added to the list
      *
@@ -83,13 +84,14 @@ public abstract class Command {
      */
     protected static String getNewTaskString(Task newTask, int counter) {
         return String.format(
-                "Very well. I've graciously added this new stroke to our canvas:\n\n 『 %s 』\n\nNow our collection holds %d priceless pieces. Try not to clutter my masterpiece, alright?",
+                "Very well. I've graciously added this new stroke to our canvas:\n\n "
+                        + "『 %s 』\n\nNow our collection holds %d priceless pieces. "
+                        + "Try not to clutter my masterpiece, alright?",
                 newTask.toString(), counter);
     }
 
     /**
     * Formats a list of tasks with a header using varargs for flexible formatting.
-    * 
     * @param header the header text for the list
     * @param tasks the list of tasks to format
     * @return formatted string with tasks numbered sequentially

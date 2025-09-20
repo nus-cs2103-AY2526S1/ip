@@ -9,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import rafayel.Rafayel;
 import rafayel.RafayelException;
 
@@ -18,7 +17,7 @@ import rafayel.RafayelException;
  */
 public class Main extends Application {
 
-    private final Rafayel rafayel = new Rafayel("src/main/java/data/rafayel.txt");
+    private final Rafayel rafayel = new Rafayel("data/rafayel.txt");
     private MainWindow mainWindow;
     private Timer reminderTimer;
 
@@ -42,10 +41,12 @@ public class Main extends Application {
             mainWindow = fxmlLoader.<MainWindow>getController();
             mainWindow.setRafayel(rafayel);
 
+            mainWindow.setExitHandler(this::handleExit);
+
             stage.show();
 
-            // Schedule reminder checks 
-            Timer reminderTimer = new Timer();
+            // Schedule reminder checks
+            reminderTimer = new Timer();
             reminderTimer.schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -54,12 +55,42 @@ public class Main extends Application {
                     });
                 }
             }, ONE_SECOND, FIVE_MIN);
-            // an automatically reminder will be sent every five minute 
+            // an automatic reminder will be sent every five minute
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Handles the delayed exit when BYE command is received
+     */
+    private void handleExit() {
+        new Thread(() -> {
+            try {
+                Thread.sleep(3000); // wait for 3 seconds
+
+                Platform.runLater(() -> {
+                    try {
+                        rafayel.save();
+                    } catch (RafayelException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (reminderTimer != null) {
+                        reminderTimer.cancel();
+                    }
+
+                    Platform.exit();
+                    System.exit(0);
+                });
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
 
     /**
      * Override stop function to stop timer and exit platform.

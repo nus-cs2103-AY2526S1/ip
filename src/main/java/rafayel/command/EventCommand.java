@@ -14,14 +14,16 @@ import rafayel.task.TaskList;
  */
 public class EventCommand extends Command {
 
+    /** Error message when event format is invalid. */
+    private static final String EVENT_FORMAT_ERROR = "An event must be set with 'event [desc] /from [time] /to [time]'."
+            + " \nThis isn't abstract art — precision is key!";
+
     /* Stores the description and date of the Event task. */
     private final String descriptionDate;
 
-    /** Error message when event format is invalid. */
-    private static final String EVENT_FORMAT_ERROR = "An event must be set with 'event [desc] /from [time] /to [time]'. \nThis isn't abstract art — precision is key!";
 
     /**
-     * Constructs a event task.
+     * Constructs an event task.
      *
      * @param descriptionDate of the event task.
      */
@@ -41,7 +43,8 @@ public class EventCommand extends Command {
         // Input Validation
         if (descriptionDate.isEmpty()) {
             throw new RafayelException(
-                    "A blank canvas? How am I supposed to add an event with no description? Tell me what this event is for. "
+                    "A blank canvas? How am I supposed to add an event with no description? "
+                            + "Tell me what this event is for. "
                             + EVENT_FORMAT_ERROR);
         }
         if (!descriptionDate.contains("/from")) {
@@ -51,6 +54,9 @@ public class EventCommand extends Command {
             throw new RafayelException(EVENT_FORMAT_ERROR);
         }
     }
+
+
+//    public static boolean checkValidTimePeriod()
 
     /**
      * Executes the event command by creating an Eventtask.
