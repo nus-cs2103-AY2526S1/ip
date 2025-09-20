@@ -36,17 +36,15 @@ public class MainWindow extends AnchorPane {
 
         // Optional debug logs
         System.out.println("Classpath root -> " + getClass().getResource("/"));
-        System.out.println("Check /images/cat1.PNG -> " + getClass().getResource("/images/cat1.PNG"));
-        System.out.println("Check /images/cat.PNG -> " + getClass().getResource("/images/cat.PNG"));
         System.out.println("Check /view/DialogBox.fxml -> " + getClass().getResource("/view/DialogBox.fxml"));
         System.out.println("Check /view/MainWindow.fxml -> " + getClass().getResource("/view/MainWindow.fxml"));
 
-        assert getClass().getResourceAsStream("/images/cat1.PNG") != null : "User image resource not found";
-        assert getClass().getResourceAsStream("/images/cat.PNG") != null : "Eve image resource not found";
+        assert getClass().getResourceAsStream("/images/EVE.PNG") != null : "Eve image resource not found";
+        assert getClass().getResourceAsStream("/images/USER.PNG") != null : "User image resource not found";
 
         // Load user and Eve image from resources
-        userImage = new Image(this.getClass().getResourceAsStream("/images/cat1.PNG"));
-        eveImage = new Image(this.getClass().getResourceAsStream("/images/cat.PNG"));
+        userImage = new Image(this.getClass().getResourceAsStream("/images/USER.PNG"));
+        eveImage = new Image(this.getClass().getResourceAsStream("/images/EVE.PNG"));
     }
 
     /** Injects the Eve instance */

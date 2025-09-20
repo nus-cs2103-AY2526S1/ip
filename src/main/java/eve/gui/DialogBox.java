@@ -33,10 +33,12 @@ public class DialogBox extends HBox {
             fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("DialogBox.fxml loading error");
+            System.out.println("Loading DialogBox.fxml returns an error");
         }
 
         dialog.setText(text);
+        dialog.setMaxWidth(350);
+        dialog.setMinHeight(Label.USE_PREF_SIZE);
         displayPicture.setImage(img);
     }
 
@@ -48,16 +50,34 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+        setAlignment(Pos.TOP_RIGHT);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        // User bubble style
+        db.dialog.setStyle(
+                "-fx-font-family: 'Segoe UI';"
+                        + "-fx-font-size: 13px;"
+                        + "-fx-padding: 8 12 8 12;"
+                        + "-fx-background-color: #b7f56cff;"
+                        + "-fx-background-radius: 12;"
+                        + "-fx-text-fill: #222;");
+        return db;
     }
 
     public static DialogBox getEveDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
         db.flip();
+        // Bot bubble style
+        db.dialog.setStyle(
+                "-fx-font-family: 'Segoe UI Semilight';"
+                        + "-fx-font-size: 13px;"
+                        + "-fx-padding: 8 12 8 12;"
+                        + "-fx-background-color: #aecef5ff;"
+                        + "-fx-background-radius: 12;"
+                        + "-fx-text-fill: #0c0c0cff;"
+                        + "-fx-line-spacing: 3px;");
         return db;
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import eve.tasks.Task;
 
 public class Ui {
-    private static final String LINE = "____________________________________________________________";
+    private static final String LINE = "_____________________________________________";
     private static final String LOGO = " ______   __      __   ______ \n"
             + "| _____|  \\ \\    / /  | _____|\n"
             + "| |__      \\ \\  / /   | |__  \n"
@@ -125,16 +125,16 @@ public class Ui {
         return String.join("\n",
                 LINE,
                 " Commands:",
-                "  help                  - Show this help",
-                "  list                  - List tasks",
-                "  todo <desc>           - Add todo",
-                "  deadline <d> /by <t>  - Add deadline",
+                "  help                      - Show this help",
+                "  list                        - List tasks",
+                "  todo <desc>             - Add todo",
+                "  deadline <d> /by <t>    - Add deadline",
                 "  event <d> /from <s> /to <e> - Add event",
                 "  mark <n> / unmark <n> - Toggle done",
                 "  delete <n>            - Delete task",
                 "  find <kw>             - Search tasks (if you implemented Level-9)",
                 "  bye                   - Exit",
-                "  period <desc> /from /to    : Adds a 'do within period' task",
+                "  period <desc> /from /to    - Adds a 'do within period' task",
                 LINE);
     }
 
