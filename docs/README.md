@@ -3,6 +3,8 @@ Welcome to the Noah User Guide!
 Noah is your personal task management application designed to help you keep track of your tasks efficiently. 
 This guide will walk you through the features of Noah and how to use them effectively.
 
+![Screenshot](Ui.png)
+
 ## Before getting started
 ### Prerequisites
 * Java 17 (Windows)
