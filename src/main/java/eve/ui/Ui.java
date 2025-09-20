@@ -6,7 +6,6 @@ import java.util.List;
 import eve.tasks.Task;
 
 public class Ui {
-    private static final String LINE = "_____________________________________________";
     private final Scanner sc = new Scanner(System.in);
 
     public String renderWelcome() {
@@ -16,8 +15,9 @@ public class Ui {
     }
 
     public String readCommand() {
-        if (!sc.hasNextLine())
+        if (!sc.hasNextLine()) {
             return null; // EOF
+        }
         return sc.nextLine();
     }
 
@@ -67,7 +67,7 @@ public class Ui {
                     "Hehe, your list is totally empty right now~ (⁀ᗢ⁀) Want to add something?");
         }
         StringBuilder sb = new StringBuilder();
-        sb.append(LINE).append("\nHere’s everything I’m keeping track of for you:\n");
+        sb.append("Here’s everything I’m keeping track of for you:\n");
         for (int i = 0; i < tasks.size(); i++) {
             sb.append(" ").append(i + 1).append(". ").append(tasks.get(i).toString()).append("\n");
         }
@@ -79,7 +79,7 @@ public class Ui {
             return String.join("\n", "Hmm… no matching tasks found (｡•́︿•̀｡)");
         }
         StringBuilder sb = new StringBuilder();
-        sb.append(LINE).append("\nHere are the matching tasks I found for you:\n");
+        sb.append("\nHere are the matching tasks I found for you:\n");
         for (int i = 0; i < matches.size(); i++) {
             sb.append(" ").append(i + 1).append(". ").append(matches.get(i)).append("\n");
         }
@@ -88,7 +88,6 @@ public class Ui {
 
     public String renderHelp() {
         return String.join("\n",
-                LINE,
                 "Here are the commands you can ask me to do~ (｡•ᴗ-)✧:",
                 "   help      - Show this help message.",
                 "   list      - Show all tasks and status.",
@@ -104,10 +103,6 @@ public class Ui {
 
     public void showHelp() {
         System.out.println(renderHelp());
-    }
-
-    public void showLine() {
-        System.out.println(LINE);
     }
 
     public void showGoodbye() {

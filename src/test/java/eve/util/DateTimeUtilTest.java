@@ -5,12 +5,13 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DateTimeUtilTest {
 
     @Test
-    void parseDateTime_isoDateOnly_becomesMidnight() {
+    void parseDateTimeIsoDateOnlyBecomesMidnight() {
         Optional<LocalDateTime> dt = DateTimeUtil.parseDateTime("2019-12-02");
         assertTrue(dt.isPresent());
         assertEquals("2019-12-02T00:00", dt.get().toString());
@@ -18,7 +19,7 @@ public class DateTimeUtilTest {
     }
 
     @Test
-    void parseDateTime_spaceSeparatedMDY_withTime_colon() {
+    void parseDateTimeSpaceSeparatedMdyWithTimeColon() {
         Optional<LocalDateTime> dt = DateTimeUtil.parseDateTime("12 2 2019 12:00");
         assertTrue(dt.isPresent());
         assertEquals("2019-12-02T12:00", dt.get().toString());
@@ -26,7 +27,7 @@ public class DateTimeUtilTest {
     }
 
     @Test
-    void parseDateTime_slashDMY_compactTime_ok() {
+    void parseDateTimeSlashDmyCompactTimeOk() {
         Optional<LocalDateTime> dt = DateTimeUtil.parseDateTime("2/12/2019 1800");
         assertTrue(dt.isPresent());
         assertEquals("2019-12-02T18:00", dt.get().toString());
@@ -34,7 +35,7 @@ public class DateTimeUtilTest {
     }
 
     @Test
-    void parseDateTime_garbage_returnsEmpty() {
+    void parseDateTimeGarbageReturnsEmpty() {
         assertTrue(DateTimeUtil.parseDateTime("not a date").isEmpty());
     }
 }

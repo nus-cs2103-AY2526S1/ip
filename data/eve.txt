@@ -1,6 +1,5 @@
 T | 0 | sleep
 T | 0 | get some sleep
-T | 0 | no sleep
 T | 0 | food
 P | 0 | sth | now | future
-T | 0 | take photo
+T | 0 | shower

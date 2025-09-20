@@ -35,26 +35,11 @@ public class Eve {
     /** Encapsulates the in-memory list of tasks. */
     private TaskList tasks;
 
-    /**
-     * Constructs a new {@code Eve} chatbot.
-     * <p>
-     * Loads previously saved tasks from storage into memory.
-     * </p>
-     */
     public Eve() {
         List<Task> loaded = storage.load();
         tasks = new TaskList(loaded);
     }
 
-    /**
-     * Starts the main chatbot loop.
-     * <p>
-     * Continuously reads user input, parses it into a {@link Command},
-     * executes the command, and updates the task list and storage
-     * accordingly. Terminates when the user enters the {@code bye}
-     * command or when end-of-file (EOF) is reached.
-     * </p>
-     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -65,8 +50,9 @@ public class Eve {
                 break;
             } // EOF
             full = full.trim();
-            if (full.isEmpty())
+            if (full.isEmpty()) {
                 continue;
+            }
 
             Command cmd = Parser.parseCommand(full);
             if (cmd == null) {
@@ -97,7 +83,6 @@ public class Eve {
                         ui.renderAdded(t, tasks.size());
                         break;
                     }
-
                     case DEADLINE: {
                         DeadlineParts p = Parser.parseDeadline(args);
                         Task t = tasks.add(new Deadline(p.desc, p.when));
@@ -119,6 +104,10 @@ public class Eve {
                     }
                     case MARK: {
                         int n = Parser.parseIndex(args, true);
+                        if (tasks.isEmpty()) {
+                            ui.showError("There aren’t any tasks yet~ (✿◠‿◠) Add one first!");
+                            break;
+                        }
                         if (n < 1 || n > tasks.size()) {
                             ui.showError("Please provide a valid task number (1-" + tasks.size() + ").");
                             break;
@@ -130,6 +119,10 @@ public class Eve {
                     }
                     case UNMARK: {
                         int n = Parser.parseIndex(args, false);
+                        if (tasks.isEmpty()) {
+                            ui.showError("There aren’t any tasks yet~ (✿◠‿◠) Add one first!");
+                            break;
+                        }
                         if (n < 1 || n > tasks.size()) {
                             ui.showError("Please provide a valid task number (1-" + tasks.size() + ").");
                             break;
@@ -141,6 +134,10 @@ public class Eve {
                     }
                     case DELETE: {
                         int n = Parser.parseDeleteIndex(args);
+                        if (tasks.isEmpty()) {
+                            ui.showError("There aren’t any tasks yet~ (✿◠‿◠) Add one first!");
+                            break;
+                        }
                         if (n < 1 || n > tasks.size()) {
                             ui.showError("Please provide a valid task number (1-" + tasks.size() + ").");
                             break;
@@ -162,24 +159,19 @@ public class Eve {
         ui.showGoodbye();
     }
 
-    /**
-     * Application entry point.
-     *
-     * @param args command-line arguments (not used)
-     */
     public static void main(String[] args) {
         new Eve().run();
     }
 
     public String getResponse(String full) {
-        if (full == null)
+        if (full == null || full.trim().isEmpty()) {
             return "Please type a command.";
+        }
         full = full.trim();
-        if (full.isEmpty())
-            return "Please type a command.";
         Command cmd = Parser.parseCommand(full);
-        if (cmd == null)
+        if (cmd == null) {
             return "Sorry, I don't know that command (T_T) \nMaybe try 'help' so I can guide you?";
+        }
 
         String args = Parser.args(full);
         try {
@@ -208,16 +200,18 @@ public class Eve {
                 }
                 case MARK: {
                     int n = Parser.parseIndex(args, true);
-                    if (n < 1 || n > tasks.size())
+                    if (n < 1 || n > tasks.size()) {
                         return "Please provide a valid task number (1-" + tasks.size() + ").";
+                    }
                     Task t = tasks.setDone(n - 1, true);
                     storage.save(tasks.asList());
                     return ui.renderMarked(t, true);
                 }
                 case UNMARK: {
                     int n = Parser.parseIndex(args, false);
-                    if (n < 1 || n > tasks.size())
+                    if (n < 1 || n > tasks.size()) {
                         return "Please provide a valid task number (1-" + tasks.size() + ").";
+                    }
                     Task t = tasks.setDone(n - 1, false);
                     storage.save(tasks.asList());
                     return ui.renderMarked(t, false);
@@ -230,8 +224,9 @@ public class Eve {
                 }
                 case DELETE: {
                     int n = Parser.parseDeleteIndex(args);
-                    if (n < 1 || n > tasks.size())
+                    if (n < 1 || n > tasks.size()) {
                         return "Please provide a valid task number (1-" + tasks.size() + ").";
+                    }
                     Task removed = tasks.deleteAt(n - 1);
                     storage.save(tasks.asList());
                     return ui.renderDeleted(removed, tasks.size());

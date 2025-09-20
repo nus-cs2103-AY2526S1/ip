@@ -1,9 +1,15 @@
 package eve.storage;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
-import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
 
 import eve.tasks.Task;
 import eve.tasks.Todo;
@@ -15,13 +21,13 @@ import eve.tasks.Event;
  * Handles loading and saving tasks to persistent storage on disk.
  * <p>
  * Tasks are stored in a plain text file with a simple line-based format:
- * 
+ *
  * <pre>
  *   T | 1 | read book
  *   D | 0 | return book | 2019-12-02
  *   E | 0 | meeting | 2019-12-02T14:00 | 2019-12-02T16:00
  * </pre>
- * 
+ *
  * Each line represents a task of type {@code Todo}, {@code Deadline}, or
  * {@code Event}.
  * Parsing of dates/times is delegated to the individual task classes.
@@ -122,8 +128,9 @@ public class Storage {
      * @return the corresponding {@link Task}, or {@code null} if parsing failed
      */
     private Task parseLine(String line) {
-        if (line == null)
+        if (line == null) {
             return null;
+        }
         String[] parts = line.split("\\s*\\|\\s*");
         assert parts.length >= 3 : "Malformed line with fewer than 3 parts: " + line;
 
@@ -134,16 +141,19 @@ public class Storage {
             switch (type) {
                 case "T": {
                     Task t = new Todo(parts[2].trim());
-                    if (isDone)
+                    if (isDone) {
                         t.markAsDone();
+                    }
                     return t;
                 }
                 case "D": {
-                    if (parts.length < 4)
+                    if (parts.length < 4) {
                         return null;
+                    }
                     Task t = new Deadline(parts[2].trim(), parts[3].trim());
-                    if (isDone)
+                    if (isDone) {
                         t.markAsDone();
+                    }
                     return t;
                 }
                 case "E": {
@@ -151,20 +161,21 @@ public class Storage {
                     String from = (parts.length >= 4 ? parts[3].trim() : "");
                     String to = (parts.length >= 5 ? parts[4].trim() : "");
                     Task t = new Event(desc, from, to);
-                    if (isDone)
+                    if (isDone) {
                         t.markAsDone();
+                    }
                     return t;
                 }
-
                 case "P": {
-                    if (parts.length < 5)
+                    if (parts.length < 5) {
                         return null;
+                    }
                     Task t = new DoWithinPeriod(parts[2].trim(), parts[3].trim(), parts[4].trim());
-                    if (isDone)
+                    if (isDone) {
                         t.markAsDone();
+                    }
                     return t;
                 }
-
                 default:
                     return null;
             }

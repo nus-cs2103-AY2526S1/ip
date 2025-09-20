@@ -61,6 +61,35 @@ application {
     mainClass = 'eve.gui.Launcher'
 }
 
+tasks.named("distZip") {
+    dependsOn tasks.named("shadowJar")
+}
+tasks.named("distTar") {
+    dependsOn tasks.named("shadowJar")
+}
+tasks.named("startScripts") {
+    dependsOn tasks.named("shadowJar")
+}
+tasks.named("startShadowScripts") {
+    dependsOn tasks.named("shadowJar")
+}
+tasks.named("shadowDistZip") {
+    dependsOn tasks.named("shadowJar")
+}
+tasks.named("shadowDistTar") {
+    dependsOn tasks.named("shadowJar")
+}
+
+// Ensure distributions use shadowJar instead of plain jar
+tasks.named("jar") {
+    enabled = false // disable the plain jar if you don't need it
+}
+
+tasks.named("shadowJar") {
+    archiveBaseName.set("eve") // ensures the jar name matches "eve.jar"
+    archiveClassifier.set("")  // prevents "-all" suffix
+}
+
 shadowJar {
     archiveBaseName = "eve"
     archiveClassifier = null

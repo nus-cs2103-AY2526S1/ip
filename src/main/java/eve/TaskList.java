@@ -43,6 +43,15 @@ public class TaskList {
     }
 
     /**
+     * Returns whether the task list is empty.
+     *
+     * @return true if no tasks are stored, false otherwise
+     */
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
+    /**
      * Returns the task at the given zero-based index.
      *
      * @param idx0 zero-based index of the task

@@ -2,22 +2,24 @@ package eve.parser;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static eve.parser.Parser.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserTest {
 
     @Test
-    void parseCommand_variousTokens_ok() {
-        assertEquals(Command.TODO, Parser.parseCommand("todo read"));
-        assertEquals(Command.DEADLINE, Parser.parseCommand("deadline x /by 2019-12-02"));
-        assertEquals(Command.EVENT, Parser.parseCommand("event m /from a /to b"));
+    void parseCommandVariousTokensOk() {
+        assertEquals(Parser.Command.TODO, Parser.parseCommand("todo read"));
+        assertEquals(Parser.Command.DEADLINE, Parser.parseCommand("deadline x /by 2019-12-02"));
+        assertEquals(Parser.Command.EVENT, Parser.parseCommand("event m /from a /to b"));
         assertNull(Parser.parseCommand("unknownStuff"));
     }
 
     @Test
-    void parseDeadline_goodAndBadInputs() throws EveException {
-        DeadlineParts p = Parser.parseDeadline("return book /by 2019-12-02");
+    void parseDeadlineGoodAndBadInputs() throws EveException {
+        Parser.DeadlineParts p = Parser.parseDeadline("return book /by 2019-12-02");
         assertEquals("return book", p.desc);
         assertEquals("2019-12-02", p.when);
 
@@ -31,9 +33,9 @@ public class ParserTest {
     }
 
     @Test
-    void parseEvent_checksOrderIfParsable_allowsRawOtherwise() throws EveException {
+    void parseEventChecksOrderIfParsableAllowsRawOtherwise() throws EveException {
         // valid range
-        EventParts ok = Parser.parseEvent("mtg /from 2019-12-02 1400 /to 2019-12-02 1600");
+        Parser.EventParts ok = Parser.parseEvent("mtg /from 2019-12-02 1400 /to 2019-12-02 1600");
         assertEquals("mtg", ok.desc);
 
         // invalid range (both parse → reject)
@@ -42,13 +44,13 @@ public class ParserTest {
         assertTrue(badRange.getMessage().contains("start is after end"));
 
         // one side not parseable → allowed (we can’t compare)
-        EventParts raw = Parser.parseEvent("orient /from next Mon 2pm /to 4pm");
+        Parser.EventParts raw = Parser.parseEvent("orient /from next Mon 2pm /to 4pm");
         assertEquals("next Mon 2pm", raw.from);
         assertEquals("4pm", raw.to);
     }
 
     @Test
-    void parseEvent_missingPieces_errorsMatch() {
+    void parseEventMissingPiecesErrorsMatch() {
         EveException noFrom = assertThrows(EveException.class,
                 () -> Parser.parseEvent("x /to 2019-12-02 10:00"));
         assertTrue(noFrom.getMessage().startsWith("Oops, I need more info."));

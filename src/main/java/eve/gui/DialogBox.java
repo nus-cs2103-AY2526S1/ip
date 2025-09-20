@@ -55,6 +55,7 @@ public class DialogBox extends HBox {
 
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
+        db.flip();
         // User bubble style
         db.dialog.setStyle(
                 "-fx-font-family: 'Segoe UI';"
@@ -68,7 +69,6 @@ public class DialogBox extends HBox {
 
     public static DialogBox getEveDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
-        db.flip();
         // Bot bubble style
         db.dialog.setStyle(
                 "-fx-font-family: 'Segoe UI Semilight';"
