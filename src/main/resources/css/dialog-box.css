@@ -1,0 +1,53 @@
+.label {
+    -fx-background-color: #303030;
+    -fx-border-color: #303030;
+    -fx-border-width: 1px;
+    -fx-background-radius: 2em 2em 0 2em;
+    -fx-border-radius: 2em 2em 0 2em;
+    -fx-padding: 6 9 6 9;
+    -fx-text-fill: white;
+    /* Credit to @Joulenergy for ASCII art to display nicely */
+    -fx-font-family: "Consolas", "Courier New", monospace;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+/* Paste this below reply-label */
+.add-label {
+    -fx-background-color: #828200;
+}
+
+.marked-label {
+    -fx-background-color: #6fb86f;
+}
+
+.delete-label {
+    -fx-background-color: #a6767d;
+}
+
+.error-label {
+    -fx-background-color: #af0000;
+    -fx-font-weight: bold;
+}
+
+.user-label {
+    -fx-background-color: #303030;
+    -fx-background-radius: 2em 2em 0 2em;
+    -fx-border-radius: 2em 2em 0 2em;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+
