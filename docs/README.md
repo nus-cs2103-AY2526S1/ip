@@ -153,6 +153,17 @@ delete 3
 ```
 
 ---
+### Finding tasks by keyword : `find`
+
+Displays all tasks in your task list that matches the keyword.
+
+**Format:**
+
+```text
+find <keyword>
+```
+
+---
 
 ### Listing all tasks : `list`
 
