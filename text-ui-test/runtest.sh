@@ -12,19 +12,32 @@ then
     rm ACTUAL.TXT
 fi
 
-# compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
+# clear data file to start fresh
+if [ -e "../data/lyra.txt" ]
+then
+    rm ../data/lyra.txt
+fi
+
+# also clear data file in current directory (in case program runs from here)
+if [ -e "./data/lyra.txt" ]
+then
+    rm ./data/lyra.txt
+fi
+
+# compile all Java sources into the bin folder, terminate if error occurs
+find ../src/main/java -name "*.java" > sources.txt
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin @sources.txt
 then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
+rm -f sources.txt
 
-# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+# run the program (package main class), feed commands and capture output
+java -classpath ../bin lyra.Lyra < input.txt > ACTUAL.TXT
 
 # convert to UNIX format
-cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
+dos2unix ACTUAL.TXT
 
 # compare the output to the expected output
 diff ACTUAL.TXT EXPECTED-UNIX.TXT

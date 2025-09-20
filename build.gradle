@@ -1,0 +1,195 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+repositories {
+    mavenCentral()
+}
+
+// JavaFX version - using LTS version for better compatibility
+def javaFxVersion = '17.0.2'
+
+dependencies {
+    // Test dependencies
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    testImplementation 'org.mockito:mockito-core:5.5.0'
+
+    // JavaFX dependencies - comprehensive cross-platform setup
+    // Core modules WITHOUT platform classifier (gets current platform)
+    implementation "org.openjfx:javafx-base:${javaFxVersion}"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}"
+    
+    // Explicitly include ALL platform-specific native libraries for fat JAR
+    // Windows
+    runtimeOnly "org.openjfx:javafx-base:${javaFxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    
+    // macOS
+    runtimeOnly "org.openjfx:javafx-base:${javaFxVersion}:mac"
+    runtimeOnly "org.openjfx:javafx-controls:${javaFxVersion}:mac"
+    runtimeOnly "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    runtimeOnly "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
+    
+    // Linux
+    runtimeOnly "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    runtimeOnly "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    runtimeOnly "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+    runtimeOnly "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+}
+
+// Java configuration
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+test {
+    useJUnitPlatform()
+    
+    testLogging {
+        events "passed", "skipped", "failed"
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass.set("lyra.Launcher")
+}
+
+javafx {
+    version = javaFxVersion
+    modules = [
+        'javafx.base',
+        'javafx.controls', 
+        'javafx.fxml',
+        'javafx.graphics'
+    ]
+}
+
+// Comprehensive shadowJar configuration for cross-platform JavaFX support
+shadowJar {
+    archiveBaseName = "lyra"
+    archiveClassifier = null
+    archiveVersion = ""
+    
+    // Merge service files to avoid conflicts
+    mergeServiceFiles()
+    
+    // Handle duplicate files - INCLUDE to ensure all platform libraries are present
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    
+    manifest {
+        attributes(
+            'Main-Class': 'lyra.Launcher',
+            'Implementation-Title': 'Lyra Task Manager',
+            'Implementation-Version': '1.0'
+        )
+    }
+    
+    // Exclude problematic signature files but keep everything else
+    exclude 'META-INF/*.RSA'
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.DSA'
+    
+    // Transform to handle services properly
+    transform(com.github.jengelman.gradle.plugins.shadow.transformers.ServiceFileTransformer)
+    
+    // Relocate conflicting packages if needed (uncomment if issues arise)
+    // relocate 'com.sun.glass', 'shadow.com.sun.glass'
+    // relocate 'com.sun.javafx', 'shadow.com.sun.javafx'
+}
+
+run {
+    standardInput = System.in
+    enableAssertions = true
+    
+    // Add JavaFX module path for development runs
+    jvmArgs = [
+        '--module-path', configurations.runtimeClasspath.asPath,
+        '--add-modules', 'javafx.controls,javafx.fxml,javafx.graphics,javafx.base'
+    ]
+}
+
+// Task to verify JavaFX modules are included
+task verifyJavaFX {
+    group = 'verification'
+    description = 'Verifies that all required JavaFX modules are included in the JAR'
+    dependsOn shadowJar
+    
+    doLast {
+        def jarFile = file("${buildDir}/libs/lyra.jar")
+        if (jarFile.exists()) {
+            def javafxFiles = []
+            def nativeLibs = []
+            
+            zipTree(jarFile).visit { element ->
+                if (element.path.contains('javafx')) {
+                    javafxFiles.add(element.path)
+                }
+                if (element.path.endsWith('.dll') || element.path.endsWith('.so') || element.path.endsWith('.dylib')) {
+                    nativeLibs.add(element.path)
+                }
+            }
+            
+            println "Found ${javafxFiles.size()} JavaFX files in JAR"
+            println "Found ${nativeLibs.size()} native library files in JAR"
+            
+            if (javafxFiles.size() > 0) {
+                println "✓ JavaFX modules are included in the JAR"
+            } else {
+                println "✗ No JavaFX modules found in the JAR"
+            }
+            
+            if (nativeLibs.size() > 0) {
+                println "✓ Native libraries are included in the JAR"
+                println "Native libraries found:"
+                nativeLibs.take(10).each { println "  - ${it}" }
+                if (nativeLibs.size() > 10) {
+                    println "  ... and ${nativeLibs.size() - 10} more"
+                }
+            } else {
+                println "✗ No native libraries found in the JAR"
+            }
+            
+            // Check JAR size
+            def sizeInMB = jarFile.length() / (1024 * 1024)
+            println "JAR size: ${sizeInMB.round(1)} MB"
+        }
+    }
+}
+
+// Windows-specific launch script generation
+task createWindowsLaunchScript {
+    group = 'distribution'
+    description = 'Creates a Windows batch file to launch the application'
+    dependsOn shadowJar
+    
+    doLast {
+        def launchScript = file("${buildDir}/libs/launch-lyra.bat")
+        launchScript.text = '''@echo off
+echo Starting Lyra Task Manager...
+java -Djava.awt.headless=false ^
+     --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.base ^
+     -jar lyra.jar
+if errorlevel 1 (
+    echo.
+    echo Failed to start Lyra. Please ensure you have Java 11 or later installed.
+    echo If the issue persists, try running: java -version
+    pause
+)
+'''
+        println "Created Windows launch script: ${launchScript.absolutePath}"
+    }
+}
