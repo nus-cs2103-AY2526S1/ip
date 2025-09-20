@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // JUnit for testing
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+
+    // JavaFX dependencies for all platforms (fat JAR)
+    // Windows
+    implementation "org.openjfx:javafx-base:17.0.7:win"
+    implementation "org.openjfx:javafx-controls:17.0.7:win"
+    implementation "org.openjfx:javafx-graphics:17.0.7:win"
+    implementation "org.openjfx:javafx-fxml:17.0.7:win"
+
+    // Linux
+    implementation "org.openjfx:javafx-base:17.0.7:linux"
+    implementation "org.openjfx:javafx-controls:17.0.7:linux"
+    implementation "org.openjfx:javafx-graphics:17.0.7:linux"
+    implementation "org.openjfx:javafx-fxml:17.0.7:linux"
+
+    // macOS Intel + Apple Silicon (arm64)
+    implementation "org.openjfx:javafx-base:17.0.7:mac"
+    implementation "org.openjfx:javafx-controls:17.0.7:mac"
+    implementation "org.openjfx:javafx-graphics:17.0.7:mac"
+    implementation "org.openjfx:javafx-fxml:17.0.7:mac"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+application {
+    mainClass = 'Note.ui.Launcher'
+}
+
+shadowJar {
+    archiveBaseName = "note"
+    archiveClassifier = null
+    archiveVersion = null
+    mergeServiceFiles() // ensures JavaFX services are merged properly
+}
+
+run {
+    standardInput = System.in
+}
