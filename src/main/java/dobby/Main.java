@@ -1,6 +1,5 @@
 package dobby;
 
-import dobby.task.Task;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,9 +17,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+import dobby.task.Task;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+/**
+ * Entry point for the Dobby task management application.
+ * Sets up the JavaFX user interface and handles user interactions.
+ */
 public class Main extends Application {
 
     private ScrollPane scrollPane;
@@ -34,6 +38,11 @@ public class Main extends Application {
     private Storage storage;
     private TaskList taskList;
 
+    /**
+     * Starts the JavaFX application and initializes UI components.
+     *
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         scrollPane = new ScrollPane();
@@ -123,7 +132,10 @@ public class Main extends Application {
     }
 
 
-
+    /**
+     * Handles user input from the text field and updates the dialog container.
+     * Closes the application if the user types "bye".
+     */
     private void handleUserInput() {
         String input = userInput.getText();
 
@@ -151,8 +163,18 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Represents a dialog box containing text and an avatar image.
+     * Can be flipped to distinguish between user and Dobby messages.
+     */
     public static class DialogBox extends HBox {
 
+        /**
+         * Creates a dialog box with the given text and image.
+         *
+         * @param s Message text.
+         * @param i Image to display (e.g., user or Dobby avatar).
+         */
         private Label text;
         private ImageView displayPicture;
 
