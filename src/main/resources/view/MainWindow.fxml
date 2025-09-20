@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="Infinity" maxWidth="Infinity" minHeight="100.0" minWidth="100.0" prefHeight="600.0"
+            prefWidth="400.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="cody.ui.MainWindow">
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox fx:id="dialogContainer" spacing="16.0">
+            <padding>
+                <Insets bottom="16.0" left="8.0" right="8.0" top="16.0"/>
+            </padding>
+        </VBox>
+    </ScrollPane>
+    <AnchorPane prefHeight="56.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0">
+        <padding>
+            <Insets bottom="12.0" left="8.0" right="8.0" top="12.0"/>
+        </padding>
+        <TextField fx:id="userInput" onAction="#handleUserInput" AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="0.0"/>
+        <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleUserInput" prefWidth="40.0"
+                AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <graphic>
+                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/images/send.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+    </AnchorPane>
+</AnchorPane>

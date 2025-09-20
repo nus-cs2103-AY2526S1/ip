@@ -1,0 +1,133 @@
+package cody.ui;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+
+import cody.CodyApp;
+
+/**
+ * Handles the UI of the JavaFX application.
+ */
+public class Ui {
+    private static final String WELCOME_MSG = "Hello! I'm Cody. \nWhat can I do for you?";
+    private static final String GOODBYE_MSG = "Bye. Hope to see you again soon!";
+
+    private MainWindow mainWindow;
+    private Image codyImage;
+    private Image userImage;
+
+    /**
+     * Starts the application and loads the UI.
+     *
+     * @param stage the main stage of the application.
+     */
+    public void start(CodyApp cody, Stage stage) {
+        Parent mainNode;
+        try {
+            URL fxmlUrl = getClass().getResource("/view/MainWindow.fxml");
+            InputStream fontStream = getClass().getResourceAsStream("/fonts/ubuntu-mono.ttf");
+            // Source: https://www.flaticon.com/free-icon/development_15414154
+            InputStream codyImageStream = getClass().getResourceAsStream("/images/cody.png");
+            // Source: https://www.flaticon.com/free-icon/user_1077012
+            InputStream userImageStream = getClass().getResourceAsStream("/images/user.png");
+
+            assert fxmlUrl != null;
+            assert fontStream != null;
+            assert codyImageStream != null;
+            assert userImageStream != null;
+
+            FXMLLoader fxmlLoader = new FXMLLoader(fxmlUrl);
+            mainNode = fxmlLoader.load();
+            mainWindow = fxmlLoader.getController();
+            mainWindow.setCody(cody);
+
+            Font.loadFont(fontStream, 14);
+            codyImage = new Image(codyImageStream);
+            userImage = new Image(userImageStream);
+
+            Scene scene = new Scene(mainNode);
+            stage.setScene(scene);
+            stage.setTitle("Cody");
+            stage.getIcons().add(codyImage);
+            stage.show();
+        } catch (IOException e) {
+            showFatalError(e.getMessage());
+        }
+    }
+
+    /**
+     * Creates a JavaFX alert.
+     *
+     * @param message the error message in the alert.
+     * @return the alert to be displayed.
+     */
+    private static Alert createAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Cody");
+        alert.setHeaderText("An error has occurred!");
+        alert.setContentText(message);
+        return alert;
+    }
+
+    /**
+     * Displays an alert showing the error message. App continues to run after closing the alert.
+     */
+    public static void showNonFatalError(String message) {
+        createAlert(message).show();
+    }
+
+    /**
+     * Displays an alert showing the error message. Closes the application after alert is closed.
+     */
+    public static void showFatalError(String message) {
+        createAlert(message).showAndWait();
+        close();
+    }
+
+    /**
+     * Closes the application.
+     */
+    public static void close() {
+        Platform.exit();
+    }
+
+    /**
+     * Displays Cody's response to user command.
+     */
+    public void showCodyResponse(String text) {
+        DialogBox dialog = DialogBox.getCodyDialog(text, codyImage);
+        mainWindow.insertNode(dialog);
+    }
+
+    /**
+     * Displays user's command.
+     */
+    public void showUserCommand(String text) {
+        DialogBox dialog = DialogBox.getUserDialog(text, userImage);
+        mainWindow.insertNode(dialog);
+    }
+
+    /**
+     * Displays welcome message.
+     */
+    public void showWelcome() {
+        showCodyResponse(WELCOME_MSG);
+    }
+
+    /**
+     * Displays goodbye message.
+     */
+    public void showGoodbye() {
+        showCodyResponse(GOODBYE_MSG);
+    }
+}

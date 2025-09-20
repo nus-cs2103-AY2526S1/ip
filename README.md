@@ -1,6 +1,6 @@
-# Duke project template
+# Cody
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Cody is a chat bot that helps with managing tasks. It is based on a project template for a greenfield Java project, Duke, which is named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
 ## Setting up in Intellij
 
@@ -13,14 +13,17 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    1. If there are any further prompts, accept the defaults.
 1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+1. After that, locate the `src/main/java/cody/Cody.java` file, right-click it, and choose `Run Cody.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see the below GUI:
+<img width="320" alt="Cody GUI" src="docs/Ui.png" />
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## Attributions
+
+Icons used in the app are sourced from [Flaticon](https://www.flaticon.com/).
+
+| <img src="src/main/resources/images/cody.png" alt="cody icon" width="48"> | <img src="src/main/resources/images/user.png" alt="user icon" width="48"> |
+|----------------------|----------------------|
+| <a href="https://www.flaticon.com/free-icon/development_15414154" title="droid icons">Cody icon created by brajaomar_j - Flaticon</a> | <a href="https://www.flaticon.com/free-icon/user_1077012" title="user icon">User icon created by Freepik - Flaticon</a> |
+
+## AI Use
+
+GitHub Copilot was mainly used for writing test code, as part of the `A-MoreTesting` increment. Further details can be found in [AI.md](AI.md).
