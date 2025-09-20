@@ -1,7 +1,22 @@
 package duke;
 /**
- * Penguin chatbot that manages a list of user tasks.
- * Uses OOP design with separate classes for UI, Storage, Parser, and TaskList.
+ * Penguin is a task management chatbot designed to help users organize and track their tasks efficiently.
+ * This chatbot supports various types of tasks, including todos, deadlines, and events. It provides
+ * functionality to add, delete, mark/unmark, list, find, and sort tasks. The application follows
+ * object-oriented design principles with separation of concerns using dedicated classes for user
+ * interface (Ui), data storage (Storage), command parsing (Parser), and task management (TaskList).
+ * Key Features:
+ * - Todo tasks: Simple tasks without specific timing
+ * - Deadline tasks: Tasks with a specific due date
+ * - Event tasks: Tasks with start and end times
+ * - Task marking/unmarking as done
+ * - Task deletion by index
+ * - Task searching by keyword
+ * - Task sorting by deadline
+ * - Persistent storage to file
+ * The Penguin chatbot can operate in both command-line interface (CLI) mode and graphical user
+ * interface (GUI) mode through JavaFX. It ensures a smooth user experience by handling errors
+ * gracefully and providing informative feedback to the user.
  */
 
 public class Penguin {
@@ -11,8 +26,17 @@ public class Penguin {
     private Ui ui;
 
     /**
-     * Creates a Penguin instance with the specified file path.
-     * @param filePath The path to the data file
+     * Creates a new instance of the Penguin chatbot with the specified file path for data storage.
+     * This constructor initializes the core components of the Penguin chatbot, including:
+     * - User Interface (Ui): Manages interactions with the user, displaying messages and reading input.
+     * - Storage: Handles the loading and saving of tasks to a specified file, ensuring data persistence.
+     * - TaskList: Maintains the list of tasks, providing operations to add, remove, and modify tasks.
+     * The constructor attempts to load existing tasks from the specified file path. If the file does not
+     * exist or an error occurs during loading, it initializes an empty task list and displays an error
+     * message to the user. This ensures that the chatbot can start even if previous data cannot be loaded.
+     * @param filePath The path to the data file where tasks are stored and retrieved. This path is used
+     *                 for both reading existing tasks and saving new tasks. If the file does not exist,
+     *                 it will be created when the first task is saved.
      */
     public Penguin(String filePath) {
         ui = new Ui();
