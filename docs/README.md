@@ -1,8 +1,9 @@
 # Eve — User Guide
 
-Welcome to **Eve** ✨  
+Hiiiiiiii, I'm **Eve** ✨  
 Eve is your cute and energetic chatbot assistant.  
-She helps you keep track of tasks: ToDos, Deadlines, Events, and more.
+Adapted from its ancestor Duke, Eve grows with more features, better UI design, and so on, waiting for you to explore.
+As your assistant, she helps you keep track of tasks: ToDos, Deadlines, and so much more.
 
 ![UI](Ui.png)
 
@@ -26,52 +27,50 @@ She helps you keep track of tasks: ToDos, Deadlines, Events, and more.
 ---
 
 ## Quick Start
-1. Ensure you have Java 17+ installed.
-2. Build the fat JAR:
+1. Ensure you have environment Java-17 set up correctly
+2. Download the eve.jar from the latest release in [Release](https://github.com/Lzkkuan/ip/releases)
+3. Run the file in terminal with command
+
 ```bash
-   ./gradlew clean shadowJar
+   java -jar eve.jar
 ````
 
-3. Run:
-
-   ```bash
-   java -jar build/libs/Quokka.jar
-   ```
-4. Type a command in the input bar (bottom right). Press **Enter** or click **Send**.
+4. Input messages to get started! Or simply type in "help" if donno where to get started
 
 ---
 
 ## Features
 
+All what you might try out with eve:
+
 ### Add a Todo
 
 ```
-todo <description>
+todo <desc>
 ```
 
-* Example: `todo read book`
+* Example: `todo sleep`
 
 ### Add a Deadline
 
 ```
-deadline <description> /by <date>
+deadline <desc> /by <time>
 ```
 
-* Example: `deadline submit report /by 2025-09-10`
-* Dates are parsed strictly (e.g., **Feb 30** is rejected).
+* Example: `deadline complete CS2103T iP /by 2025/09/21`
+* The time here can also be in other descriptions, just use whatever fits you the best!
 
 ### Add an Event
 
 ```
-event <description> /from <start-date> /to <end-date>
+event <descn> /from <start> /to <end>
 ```
 
-* Example: `event camp /from 2025-09-10 /to 2025-09-12`
-* Start must be **strictly before** end.
+* Example: `event play CS /from 4pm /to 6pm`
 
 ### Add a Period
 ```
-period <description> /from <start> /to <end>
+period <desc> /from <start> /to <end>
 
 ```
 
@@ -92,7 +91,7 @@ list
 find <keyword>
 ```
 
-* Example: `find book`
+* Example: `find sleep`
 
 ### Mark / Unmark / Delete
 
@@ -109,17 +108,21 @@ help
 ```
 
 ---
+### Error Handling
 
-## Error Handling
+Eve is cheerful but firm when something goes wrong, she will help you find out what is going wrong and hopefully we can solve it together:
 
-Quokka aims to be forgiving and clear:
+- Unknown command → e.g., “Ehh? I don’t quite get that… (・・;) Maybe try 'help'?”
 
-* **Unknown command** → e.g., “Alas… I do not know this incantation: …”
-* **Empty parts / missing flags** → e.g., missing `/by`, or `/from`…`/to`.
-* **Invalid dates** → impossible calendar dates (e.g., `2025-02-30`) are rejected.
-* **Event range** → start must be **before** end.
-* **Duplicates** → adding an identical task warns without crashing.
-* **Data file issues** → Quokka auto-creates the folder/file, **skips corrupted lines**, and continues running.
+- Missing flags → e.g., missing /by, /from, or /to.
+
+- Invalid dates → impossible dates (e.g., 2025-02-30) are rejected.
+
+- Event/Period ranges → start must be before end.
+
+- Duplicates → adding an identical task warns without crashing.
+
+- Data file issues → Eve auto-creates the folder/file, skips corrupted lines, and continues running.
 
 ---
 
