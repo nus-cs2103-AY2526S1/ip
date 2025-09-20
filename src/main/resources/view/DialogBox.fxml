@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<!-- CHANGE: Remove fixed prefWidth to allow natural sizing -->
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+         spacing="10.0" styleClass="dialog-box" type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <!-- CHANGE: Enhanced label with better wrapping and max width -->
+        <Label fx:id="dialog" maxWidth="250.0" minHeight="-Infinity" text="Label" wrapText="true">
+            <HBox.margin>
+                <!-- CHANGE: Added margin for better spacing -->
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </HBox.margin>
+        </Label>
+        <!-- CHANGE: Set fixed size for profile pictures for consistency -->
+        <ImageView fx:id="displayPicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="false">
+            <HBox.margin>
+                <!-- CHANGE: Added margin for profile picture -->
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </HBox.margin>
+        </ImageView>
+    </children>
+    <!-- CHANGE: Overall padding for the dialog box -->
+    <padding>
+        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+    </padding>
+</fx:root>
+
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+
+<!--<?import javafx.geometry.Insets?>-->
+<!--<?import javafx.scene.control.Label?>-->
+<!--<?import javafx.scene.image.ImageView?>-->
+<!--<?import javafx.scene.layout.HBox?>-->
+
+<!--<fx:root alignment="TOP_RIGHT"-->
+<!--         maxHeight="1.7976931348623157E308"-->
+<!--         maxWidth="1.7976931348623157E308"-->
+<!--         prefWidth="400.0"-->
+<!--         type="javafx.scene.layout.HBox"-->
+<!--         xmlns="http://javafx.com/javafx/17"-->
+<!--         xmlns:fx="http://javafx.com/fxml/1">-->
+<!--    <children>-->
+<!--        <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity"/>-->
+<!--        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />-->
+<!--    </children>-->
+<!--    <padding>-->
+<!--        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />-->
+<!--    </padding>-->
+<!--</fx:root>-->

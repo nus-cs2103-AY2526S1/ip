@@ -1,0 +1,108 @@
+/* chatbot.css - Place this file in src/main/resources/styles/ */
+
+/* CHANGE: Overall container styling for better visual appeal */
+.dialog-container {
+    -fx-spacing: 8px;
+    -fx-padding: 10px;
+    -fx-background-color: #f8f9fa;
+}
+
+/* CHANGE: Enhanced scroll pane appearance */
+.chat-scroll-pane {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: transparent;
+}
+
+.chat-scroll-pane .viewport {
+    -fx-background-color: #f8f9fa;
+}
+
+/* CHANGE: User message styling - blue bubble on right */
+.user-message {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-background-radius: 15px;
+    -fx-padding: 10px 15px;
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-wrap-text: true;
+    -fx-max-width: 300px;
+    -fx-alignment: center-right;
+}
+
+/* CHANGE: Penny message styling - gray bubble on left */
+.penny-message {
+    -fx-background-color: #e9ecef;
+    -fx-text-fill: #212529;
+    -fx-background-radius: 15px;
+    -fx-padding: 10px 15px;
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-wrap-text: true;
+    -fx-max-width: 300px;
+    -fx-alignment: center-left;
+}
+
+/* CHANGE: Input field styling for modern appearance */
+.chat-input {
+    -fx-background-color: white;
+    -fx-border-color: #ced4da;
+    -fx-border-width: 1px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-padding: 8px 15px;
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.chat-input:focused {
+    -fx-border-color: #007bff;
+    -fx-border-width: 2px;
+}
+
+/* CHANGE: Send button styling for better visual hierarchy */
+.send-button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-background-radius: 20px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #0056b3;
+}
+
+.send-button:pressed {
+    -fx-background-color: #004085;
+}
+
+/* CHANGE: Dialog box container styling for proper spacing */
+.dialog-box {
+    -fx-spacing: 10px;
+    -fx-padding: 5px;
+    /* Remove default alignment here; set per message type in DialogBox.java */
+}
+
+/* CHANGE: Subtle scroll bar styling */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: #f1f3f4;
+    -fx-border-color: transparent;
+    -fx-background-radius: 4px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #c1c1c1;
+    -fx-background-radius: 4px;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #a8a8a8;
+}
