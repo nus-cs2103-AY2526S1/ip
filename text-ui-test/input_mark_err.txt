@@ -1,0 +1,11 @@
+todo study
+deadline test game /by 2025-08-13
+event go school /from 2025-08-13 14:00 /to 2025-08-13 17:00
+list
+mark 1
+mark
+marks
+mark a
+mark 100
+mark 0
+bye

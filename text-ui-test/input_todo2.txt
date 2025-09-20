@@ -1,0 +1,9 @@
+todo play game
+list
+todo buy game
+list
+todo find game
+list
+todo borrow game
+list
+bye

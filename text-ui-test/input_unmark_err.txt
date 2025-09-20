@@ -1,0 +1,15 @@
+todo study
+deadline do homework /by 2025-08-11
+event go school /from 2025-08-11 14:00 /to 2025-08-11 17:00
+list
+mark 1
+mark 2
+mark 3
+list
+unmark 2
+list
+unmarks
+unmark a
+unmark 100
+unmark 0
+bye

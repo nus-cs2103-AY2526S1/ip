@@ -1,0 +1,19 @@
+todo read book
+list
+mark 1
+todo buy book
+list
+mark 2
+todo find book
+list
+mark 3
+deadline play game /by 2025-08-11
+list
+deadline read game manual /by 2025-08-19
+list
+deadline buy game /by 2025-08-11
+list
+mark 4
+deadline test game /by 2025-08-13
+list
+bye
