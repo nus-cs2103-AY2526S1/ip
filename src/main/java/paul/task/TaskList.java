@@ -61,7 +61,7 @@ public class TaskList {
     public Task addTask(String[] parsedCommand) throws PaulException {
         Parser.CommandType commandType = Parser.getCommandType(parsedCommand[0]);
         if (parsedCommand.length < 2) {
-            throw new PaulException("Hey! You forgot the description. I can’t add a "
+            throw new PaulException("Hey! You forgot the description. I can't add a "
                     + commandType + " with nothing in it.");
         }
         String description = parsedCommand[1].trim();
@@ -140,7 +140,7 @@ public class TaskList {
             task = this.get(index);
             tasks.remove(index - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new PaulException("That task number doesn’t exist. Double-check your list?");
+            throw new PaulException("That task number doesn't exist. Double-check your list?");
         } catch (NumberFormatException e) {
             throw new PaulException("That doesn't look like a number, try again!");
         }
@@ -184,7 +184,7 @@ public class TaskList {
             }
             return task;
         } catch (IndexOutOfBoundsException e) {
-            throw new PaulException("That task number doesn’t exist. Double-check your list?");
+            throw new PaulException("That task number doesn't exist. Double-check your list?");
         } catch (NumberFormatException e) {
             throw new PaulException("That doesn't look like a number, try again!");
         }
@@ -199,7 +199,7 @@ public class TaskList {
      */
     public TaskList findTasks(String[] parsedCommand) throws PaulException {
         if (parsedCommand.length < 2) {
-            throw new PaulException("You didn’t give me anything to search for. What keyword should I use?");
+            throw new PaulException("You didn't give me anything to search for. What keyword should I use?");
         }
 
         TaskList foundTasks = new TaskList();
