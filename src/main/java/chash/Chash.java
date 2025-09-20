@@ -7,10 +7,13 @@ import chash.storage.ChashDb;
 import chash.task.TaskList;
 import chash.ui.ChashConsole;
 import chash.ui.ChashUi;
+import chash.ui.gui.MainWindow;
 
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /*
@@ -34,7 +37,16 @@ public class Chash extends Application {
     //JavaFX entrypoint
     @Override
     public void start(Stage stage) {
-        //
+        AnchorPane ap = new MainWindow();
+        Scene scene = new Scene(ap);
+        stage.setScene(scene);
+
+        //Configure stage window
+        stage.setTitle("Crysis Heir Activity Sentre Hepdesk");
+        stage.setMinHeight(220);
+        stage.setMinWidth(417);
+
+        stage.show();
     }
 
     /** 
