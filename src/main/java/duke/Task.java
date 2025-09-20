@@ -12,7 +12,7 @@ public class Task {
      * @param description The description of the task
      */
     public Task(String description) {
-        assert description != null: "Task description should not be null";
+        assert description != null : "Task description should not be null";
         this.description = description;
     }
 

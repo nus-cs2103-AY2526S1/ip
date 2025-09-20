@@ -60,6 +60,10 @@ public class Penguin {
             handleUnmarkCommand(command.getTaskNumber());
             break;
 
+        case DELETE:
+            handleDeleteCommand(command.getTaskNumber());
+            break;
+
         case TODO:
             handleTodoCommand(command.getDescription());
             break;
@@ -142,6 +146,26 @@ public class Penguin {
                 Task task = tasks.unmarkTask(idx);
                 storage.save(tasks.getTasks());
                 ui.showTaskUnmarked(task);
+            } else {
+                ui.showInvalidTask();
+            }
+        } catch (NumberFormatException e) {
+            ui.showInvalidTask();
+        }
+    }
+
+    /**
+     * Handles the delete command.
+     * @param num The task number as string
+     * @throws PenguinException if there's an error
+     */
+    private void handleDeleteCommand(String num) throws PenguinException {
+        try {
+            int idx = Integer.parseInt(num) - 1;
+            if (tasks.isValidIndex(idx)) {
+                Task task = tasks.remove(idx);
+                storage.save(tasks.getTasks());
+                ui.showTaskDeleted(task, tasks.size());
             } else {
                 ui.showInvalidTask();
             }
@@ -234,6 +258,8 @@ public class Penguin {
                 return handleMarkCommandGui(command.getTaskNumber());
             case UNMARK:
                 return handleUnmarkCommandGui(command.getTaskNumber());
+            case DELETE:
+                return handleDeleteCommandGui(command.getTaskNumber());
             case TODO:
                 return handleTodoCommandGui(command.getDescription());
             case DEADLINE:
@@ -289,6 +315,24 @@ public class Penguin {
                 Task task = tasks.unmarkTask(idx);
                 storage.save(tasks.getTasks());
                 return "Nice! I've marked this task as not done yet:\n" + task;
+            } else {
+                return "OOPS!!! Invalid task number.";
+            }
+        } catch (NumberFormatException e) {
+            return "OOPS!!! Please provide a valid task number.";
+        } catch (PenguinException e) {
+            return "OOPS!!! " + e.getMessage();
+        }
+    }
+
+    private String handleDeleteCommandGui(String taskNumber) {
+        try {
+            int idx = Integer.parseInt(taskNumber) - 1;
+            if (tasks.isValidIndex(idx)) {
+                Task task = tasks.remove(idx);
+                storage.save(tasks.getTasks());
+                return "Noted. I've removed this task:\n  " + task
+                    + "\nNow you have " + tasks.size() + " tasks in the list.";
             } else {
                 return "OOPS!!! Invalid task number.";
             }

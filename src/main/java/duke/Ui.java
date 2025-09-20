@@ -71,6 +71,16 @@ public class Ui {
     }
 
     /**
+     * Shows a message when a task is deleted.
+     * @param task The task that was deleted
+     * @param taskCount The remaining number of tasks
+     */
+    public void showTaskDeleted(Task task, int taskCount) {
+        System.out.println("Noted. I've removed this task:\n  " + task
+                + "\nNow you have " + taskCount + " tasks in the list.");
+    }
+
+    /**
      * Shows the list of tasks.
      * @param tasks The TaskList containing all tasks
      */

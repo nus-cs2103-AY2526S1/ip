@@ -9,7 +9,7 @@ public class Parser {
      * Represents the different types of commands.
      */
     public enum CommandType {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, FIND, SORT, INVALID
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND, SORT, INVALID
     }
 
     /**
@@ -70,6 +70,10 @@ public class Parser {
             return cmd;
         } else if (trimmedInput.startsWith("unmark ")) {
             Command cmd = new Command(CommandType.UNMARK);
+            cmd.taskNumber = trimmedInput.substring(7).trim();
+            return cmd;
+        } else if (trimmedInput.startsWith("delete ")) {
+            Command cmd = new Command(CommandType.DELETE);
             cmd.taskNumber = trimmedInput.substring(7).trim();
             return cmd;
         } else if (trimmedInput.startsWith("todo")) {
