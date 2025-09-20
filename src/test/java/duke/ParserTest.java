@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit tests for the Parser class.
+ */
 public class ParserTest {
     @Test
     public void parse_byeCommand_returnsByeType() {
