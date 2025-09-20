@@ -2,11 +2,14 @@ package eve.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import eve.ui.Ui;
 
 /**
  * Controller for the main GUI.
@@ -25,6 +28,7 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage;
     private Image eveImage;
+    private final Ui UI = new Ui();
 
     @FXML
     public void initialize() {
@@ -45,6 +49,20 @@ public class MainWindow extends AnchorPane {
         // Load user and Eve image from resources
         userImage = new Image(this.getClass().getResourceAsStream("/images/USER.PNG"));
         eveImage = new Image(this.getClass().getResourceAsStream("/images/EVE.PNG"));
+
+        dialogContainer.getChildren().add(
+                DialogBox.getEveDialog(UI.renderWelcome(), eveImage));
+
+        // Stylized text logo (separate element, looks like a header)
+        Label logoLabel = new Label("E V E");
+        logoLabel.setStyle(
+                "-fx-font-family: 'Segoe UI Black';" +
+                        "-fx-font-size: 28px;" +
+                        "-fx-text-fill: #315bf7ff;" + // hot pink (cute vibe)
+                        "-fx-effect: dropshadow(gaussian, rgba(0, 255, 221, 0.6), 10,0,0,2);");
+
+        // Add the logo to the top of the chat container
+        dialogContainer.getChildren().add(0, logoLabel);
     }
 
     /** Injects the Eve instance */

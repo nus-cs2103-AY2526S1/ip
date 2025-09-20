@@ -7,19 +7,12 @@ import eve.tasks.Task;
 
 public class Ui {
     private static final String LINE = "_____________________________________________";
-    private static final String LOGO = " ______   __      __   ______ \n"
-            + "| _____|  \\ \\    / /  | _____|\n"
-            + "| |__      \\ \\  / /   | |__  \n"
-            + "|  __|      \\ \\/ /    |  __| \n"
-            + "| |____      \\  /     | |____ \n"
-            + "|______|      \\/      |______|\n";
     private final Scanner sc = new Scanner(System.in);
 
-    public void showWelcome() {
-        System.out.println(LINE);
-        System.out.println("Hello, I am Eve!\n" + LOGO);
-        System.out.println(" What can I do for you?");
-        System.out.println(LINE);
+    public String renderWelcome() {
+        return String.join("\n",
+                "Hiii, Eve here~ (≧▽≦)✧",
+                "What shall we do today? ♡");
     }
 
     public String readCommand() {
@@ -28,166 +21,129 @@ public class Ui {
         return sc.nextLine();
     }
 
-    public void showLine() {
-        System.out.println(LINE);
+    public String renderGoodbye() {
+        return String.join("\n",
+                "Bye bye~! Take care and come back soon, okay? (｡•́︿•̀｡)ﾉﾞ");
     }
 
-    public void showGoodbye() {
-        System.out.println(LINE);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(LINE);
+    public String renderUnknown() {
+        return String.join("\n",
+                "Ehh? I don’t quite get that… (・・;) Maybe try 'help' so I can guide you?");
     }
 
-    public void showUnknown() {
-        printWithLines("Sorry, I don't understand that. Type 'help' to see available commands.");
+    public String renderError(String msg) {
+        return String.join("\n", " " + msg);
     }
 
-    public void showError(String msg) {
-        printWithLines(msg);
+    public String renderAdded(Task t, int count) {
+        return String.join("\n",
+                "Yay~! I've added this to your list:",
+                "   " + t.toString(),
+                " Now you have " + count + (count == 1
+                        ? " little task to look after. ♡"
+                        : " tasks to keep track of! ✨"));
     }
 
-    public void showAdded(Task t, int count) {
-        System.out.println(LINE);
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + t);
-        System.out.println(" Now you have " + count + (count == 1 ? " task" : " tasks") + " in the list.");
-        System.out.println(LINE);
+    public String renderMarked(Task t, boolean done) {
+        return String.join("\n",
+                done
+                        ? "Ooo nice~! Task completed, good job! (๑˃ᴗ˂)و"
+                        : "Got it! I've set this task back to 'not done'~ (｡•̀ᴗ-)✧",
+                "   " + t.toString());
     }
 
-    public void showMarked(Task t, boolean toDone) {
-        System.out.println(LINE);
-        if (toDone)
-            System.out.println(" Nice! I've marked this task as done:");
-        else
-            System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println("   " + t);
-        System.out.println(LINE);
+    public String renderDeleted(Task t, int size) {
+        return String.join("\n",
+                "Poof~! Task deleted. (╯✧▽✧)╯",
+                "   " + t.toString(),
+                " Now you’ve got " + size + (size == 1
+                        ? " task left, easy peasy~ ♡"
+                        : " tasks left to handle!"));
     }
 
-    public void showDeleted(Task removed, int newCount) {
-        System.out.println(LINE);
-        System.out.println(" Noted. I've removed this task:");
-        System.out.println("   " + removed);
-        System.out.println(" Now you have " + newCount + (newCount == 1 ? " task" : " tasks") + " in the list.");
-        System.out.println(LINE);
-    }
-
-    public void showList(List<Task> tasks) {
-        System.out.println(LINE);
+    public String renderList(List<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println(" No tasks yet.");
-        } else {
-            System.out.println(" Here are the tasks in your list:");
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(" " + (i + 1) + "." + tasks.get(i));
-            }
+            return String.join("\n",
+                    "Hehe, your list is totally empty right now~ (⁀ᗢ⁀) Want to add something?");
         }
-        System.out.println(LINE);
+        StringBuilder sb = new StringBuilder();
+        sb.append(LINE).append("\nHere’s everything I’m keeping track of for you:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(" ").append(i + 1).append(". ").append(tasks.get(i).toString()).append("\n");
+        }
+        return sb.toString();
     }
 
-    /** Print search results in the required format. */
-    public void showFindResults(java.util.List<eve.tasks.Task> matches) {
-        System.out.println(LINE);
+    public String renderMatches(List<Task> matches) {
         if (matches.isEmpty()) {
-            System.out.println(" No matching tasks found.");
-        } else {
-            System.out.println(" Here are the matching tasks in your list:");
-            for (int i = 0; i < matches.size(); i++) {
-                System.out.println(" " + (i + 1) + "." + matches.get(i));
-            }
+            return String.join("\n", "Hmm… no matching tasks found (｡•́︿•̀｡)");
         }
-        System.out.println(LINE);
-    }
-
-    public void showHelp() {
-        System.out.println(LINE);
-        System.out.println(" Available commands:");
-        System.out.println("   help                             - Show this help message.");
-        System.out.println("   list                             - Show all tasks and status.");
-        System.out.println("   find <keyword>                   - Search tasks by keyword.");
-        System.out.println("   todo <desc>                      - Add a ToDo task.");
-        System.out.println("   deadline <desc> /by <time>       - Add a Deadline.");
-        System.out.println("   event <desc> /from <start> /to <end> - Add an Event.");
-        System.out.println("   mark N                           - Mark task N as done.");
-        System.out.println("   unmark N                         - Mark task N as not done.");
-        System.out.println("   delete N                         - Delete task N.");
-        System.out.println("   bye                              - Exit the program.");
-        System.out.println(LINE);
-    }
-
-    public void printWithLines(String message) {
-        System.out.println(LINE);
-        System.out.println(" " + message);
-        System.out.println(LINE);
+        StringBuilder sb = new StringBuilder();
+        sb.append(LINE).append("\nHere are the matching tasks I found for you:\n");
+        for (int i = 0; i < matches.size(); i++) {
+            sb.append(" ").append(i + 1).append(". ").append(matches.get(i)).append("\n");
+        }
+        return sb.toString();
     }
 
     public String renderHelp() {
         return String.join("\n",
                 LINE,
-                " Commands:",
-                "  help                      - Show this help",
-                "  list                        - List tasks",
-                "  todo <desc>             - Add todo",
-                "  deadline <d> /by <t>    - Add deadline",
-                "  event <d> /from <s> /to <e> - Add event",
-                "  mark <n> / unmark <n> - Toggle done",
-                "  delete <n>            - Delete task",
-                "  find <kw>             - Search tasks (if you implemented Level-9)",
-                "  bye                   - Exit",
-                "  period <desc> /from /to    - Adds a 'do within period' task",
-                LINE);
+                "Here are the commands you can ask me to do~ (｡•ᴗ-)✧:",
+                "   help      - Show this help message.",
+                "   list      - Show all tasks and status.",
+                "   find <kw> - Search tasks by keyword.",
+                "   todo <d>  - Add a cute little ToDo.",
+                "   deadline <d> /by <t> - Add a Deadline.",
+                "   event <d> /from <s> /to <e> - Add an Event.",
+                "   mark N    - Mark task N as done ✓",
+                "   unmark N  - Mark task N as not done ✗",
+                "   delete N  - Delete task N (poof~!)",
+                "   bye       - Exit the program.");
     }
 
-    /**
-     * Renders a list of matching tasks found by the FIND command.
-     *
-     * @param matches List of tasks that match the keyword.
-     * @return A string displaying all matching tasks, or a message if none found.
-     */
-    public String renderMatches(List<Task> matches) {
-        if (matches.isEmpty()) {
-            return "No matching tasks found.";
-        }
-        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
-        for (int i = 0; i < matches.size(); i++) {
-            sb.append((i + 1)).append(". ").append(matches.get(i)).append("\n");
-        }
-        return sb.toString().trim();
+    public void showHelp() {
+        System.out.println(renderHelp());
     }
 
-    public String renderList(List<Task> tasks) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(LINE).append("\n Here are the tasks in your list:\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append(" ").append(i + 1).append(".").append(tasks.get(i).toString()).append("\n");
-        }
-        sb.append(LINE);
-        return sb.toString();
+    public void showLine() {
+        System.out.println(LINE);
     }
 
-    public String renderAdded(Task t, int size) {
-        return String.join("\n",
-                LINE,
-                " Got it. I've added this task:",
-                "   " + t.toString(),
-                " Now you have " + size + " tasks in the list.",
-                LINE);
+    public void showGoodbye() {
+        System.out.println(renderGoodbye());
     }
 
-    public String renderMarked(Task t, boolean done) {
-        return String.join("\n",
-                LINE,
-                done ? " Nice! I've marked this task as done:" : " OK, I've marked this task as not done yet:",
-                "   " + t.toString(),
-                LINE);
+    public void showFindResults(List<Task> matches) {
+        System.out.println(renderMatches(matches));
     }
 
-    public String renderDeleted(Task t, int size) {
-        return String.join("\n",
-                LINE,
-                " Noted. I've removed this task:",
-                "   " + t.toString(),
-                " Now you have " + size + " tasks in the list.",
-                LINE);
+    public void showList(List<Task> tasks) {
+        System.out.println(renderList(tasks));
     }
+
+    public void showDeleted(Task removed, int newCount) {
+        System.out.println(renderDeleted(removed, newCount));
+    }
+
+    public void showAdded(Task t, int count) {
+        System.out.println(renderAdded(t, count));
+    }
+
+    public void showMarked(Task t, boolean toDone) {
+        System.out.println(renderMarked(t, toDone));
+    }
+
+    public void showError(String msg) {
+        System.out.println(renderError(msg));
+    }
+
+    public void showUnknown() {
+        System.out.println(renderUnknown());
+    }
+
+    public void showWelcome() {
+        System.out.println(renderWelcome());
+    }
+
 }

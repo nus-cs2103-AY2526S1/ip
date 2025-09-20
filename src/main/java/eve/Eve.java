@@ -179,7 +179,7 @@ public class Eve {
             return "Please type a command.";
         Command cmd = Parser.parseCommand(full);
         if (cmd == null)
-            return "Sorry, I don't know that command. Type `help` for a list.";
+            return "Sorry, I don't know that command (T_T) \nMaybe try 'help' so I can guide you?";
 
         String args = Parser.args(full);
         try {
