@@ -11,7 +11,7 @@ public class ListCommand extends Command {
 
     @Override
     public void execute(TaskList t, Ui u, Storage s) {
-        u.chatbotPrint(t.toString());
+        u.chatbotPrint("Here are the tasks in your list:" + t.toString());
     }
 
     @Override

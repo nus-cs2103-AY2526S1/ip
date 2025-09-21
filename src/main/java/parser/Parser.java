@@ -23,6 +23,8 @@ public class Parser {
             return new DeadlineCommand(input);
         } else if (input.startsWith("event")) {
             return new EventCommand(input);
+        } else if (input.startsWith("find")) {
+            return new FindCommand(input);
         } else {
             return new UnknownCommand(input);
         }
@@ -48,6 +50,8 @@ public class Parser {
             return DukeAction.CREATE_DEADLINE;
         } else if (input.startsWith("event")) {
             return DukeAction.CREATE_EVENT;
+        } else if (input.startsWith("find")) {
+            return DukeAction.FIND_TASKS;
         } else {
             return DukeAction.ERROR;
         }

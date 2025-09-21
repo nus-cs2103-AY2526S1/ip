@@ -50,11 +50,22 @@ public class TaskList {
         tasks.remove(i);
     }
 
+    public TaskList filter(String input) {
+        TaskList filtered = new TaskList();
+        for (Task t : tasks) {
+            if (t.description.matches(".*" + input + ".*")) {
+                filtered.add(t);
+            }
+        }
+
+        return filtered;
+    }
+
     @Override
     public String toString() {
         StringBuilder list = new StringBuilder();
         int index = 0;
-        list.append("Here are the tasks in your list:\n");
+        list.append("\n");
         for (Task i : tasks) {
             index++;
             list.append("    ").append(index).append(".").append(i).append("\n");
