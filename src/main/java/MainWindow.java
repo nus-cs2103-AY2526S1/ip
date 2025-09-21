@@ -53,7 +53,7 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
         
         // Check if user wants to exit
-        if (response.equals("Bye. Hope to see you again soon!")) {
+        if (response.equals("🙏 May peace accompany you on your journey. Until we meet again in mindful productivity!")) {
             // Close the application after a short delay
             javafx.application.Platform.runLater(() -> {
                 javafx.application.Platform.exit();
