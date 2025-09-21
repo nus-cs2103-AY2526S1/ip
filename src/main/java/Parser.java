@@ -1,6 +1,7 @@
 public class Parser {
     
     public static String parseCommand(String userInput) {
+        // Identify the command type from user input
         if (userInput.equals("bye")) {
             return "bye";
         } else if (userInput.equals("list")) {

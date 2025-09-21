@@ -19,24 +19,21 @@ public class Deadline extends Task {
 
     private LocalDateTime parseDateTime(String dateTimeStr) {
         try {
-            // Try yyyy-MM-dd HHmm format first
             return LocalDateTime.parse(dateTimeStr, INPUT_FORMAT);
         } catch (DateTimeParseException e) {
             try {
-                // Try yyyy-MM-dd format (default to 23:59)
+                // Default to 11:59 PM if no time specified
                 return LocalDateTime.parse(dateTimeStr + " 2359", INPUT_FORMAT);
             } catch (DateTimeParseException e2) {
                 try {
-                    // Try M/d/yyyy HHmm format
+                    // Try US date format
                     DateTimeFormatter altFormat = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
                     return LocalDateTime.parse(dateTimeStr, altFormat);
                 } catch (DateTimeParseException e3) {
                     try {
-                        // Try M/d/yyyy format (default to 23:59)
                         DateTimeFormatter altFormat = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
                         return LocalDateTime.parse(dateTimeStr + " 2359", altFormat);
                     } catch (DateTimeParseException e4) {
-                        // If all parsing fails, throw a more informative exception
                         throw new IllegalArgumentException("Invalid date format. Please use yyyy-MM-dd, yyyy-MM-dd HHmm, M/d/yyyy, or M/d/yyyy HHmm format.");
                     }
                 }

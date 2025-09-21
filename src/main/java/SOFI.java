@@ -12,6 +12,7 @@ public class SOFI {
         try {
             tasks = new TaskList(storage.load());
         } catch (IOException e) {
+            // Start fresh if can't load existing tasks
             ui.showLoadingError();
             tasks = new TaskList();
         }
@@ -42,7 +43,7 @@ public class SOFI {
                         throw new SofiException("A todo needs a description. Try: todo read book");
                     }
                     tasks.addTask(new Todo(taskDescription));
-                    try { storage.save(tasks.getTasks()); } catch (IOException ignore) {}
+                    try { storage.save(tasks.getTasks()); } catch (IOException ignore) {} // Save after each change
                     ui.showTaskAdded(tasks.getTask(tasks.size() - 1), tasks.size());
                 }
 

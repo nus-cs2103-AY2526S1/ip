@@ -19,11 +19,11 @@ public class Storage {
         File file = new File(filePath);
         File parent = file.getParentFile();
         if (parent != null && !parent.exists()) {
-            parent.mkdirs();
+            parent.mkdirs(); // Create data directory if it doesn't exist
         }
         if (!file.exists()) {
             file.createNewFile();
-            return new ArrayList<>();
+            return new ArrayList<>(); // Return empty list for new file
         }
 
         ArrayList<Task> tasks = new ArrayList<>();
@@ -34,7 +34,7 @@ public class Storage {
                 if (line.isEmpty()) continue;
                 String[] parts = line.split("\\s*\\|\\s*");
                 if (parts.length < 3) {
-                    continue;
+                    continue; // Skip malformed lines
                 }
                 String type = parts[0];
                 boolean isDone = "1".equals(parts[1]);
