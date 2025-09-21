@@ -1,3 +1,5 @@
+package sofi;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -101,13 +103,19 @@ public class Storage {
 
     private String serialize(Task task) {
         if (task instanceof Todo) {
-            return "T | " + (task.getStatusIcon().equals("[X]") ? "1" : "0") + " | " + escape(task.description);
+            String status = task.getStatusIcon().equals("[X]") ? "1" : "0";
+            return "T | " + status + " | " + escape(task.description);
         } else if (task instanceof Deadline) {
             Deadline d = (Deadline) task;
-            return "D | " + (task.getStatusIcon().equals("[X]") ? "1" : "0") + " | " + escape(task.description) + " | " + escape(d.getBy().format(STORAGE_FORMAT));
+            String status = task.getStatusIcon().equals("[X]") ? "1" : "0";
+            return "D | " + status + " | " + escape(task.description) 
+                    + " | " + escape(d.getBy().format(STORAGE_FORMAT));
         } else if (task instanceof Event) {
             Event e = (Event) task;
-            return "E | " + (task.getStatusIcon().equals("[X]") ? "1" : "0") + " | " + escape(task.description) + " | " + escape(e.getFrom().format(STORAGE_FORMAT)) + " | " + escape(e.getTo().format(STORAGE_FORMAT));
+            String status = task.getStatusIcon().equals("[X]") ? "1" : "0";
+            return "E | " + status + " | " + escape(task.description) 
+                    + " | " + escape(e.getFrom().format(STORAGE_FORMAT)) 
+                    + " | " + escape(e.getTo().format(STORAGE_FORMAT));
         }
         return "";
     }

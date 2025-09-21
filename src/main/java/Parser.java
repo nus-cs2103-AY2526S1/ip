@@ -1,3 +1,5 @@
+package sofi;
+
 /**
  * Utility class for parsing user input commands and extracting relevant information.
  * Provides static methods to parse different types of commands and their parameters.

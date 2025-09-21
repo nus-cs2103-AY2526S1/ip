@@ -1,3 +1,5 @@
+package sofi;
+
 /**
  * Abstract base class for all types of tasks in the SOFI application.
  * Provides common functionality for task management including status tracking.
@@ -37,6 +39,24 @@ public abstract class Task {
      */
     public String getStatusIcon() {
         return isDone ? "[X]" : "[ ]";
+    }
+
+    /**
+     * Returns the description of this task.
+     * 
+     * @return the task description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Returns whether this task is completed.
+     * 
+     * @return true if completed, false otherwise
+     */
+    public boolean isDone() {
+        return isDone;
     }
 
     /**
