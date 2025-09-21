@@ -206,6 +206,18 @@ public class SOFI {
      * 
      * @param args command line arguments (not used)
      */
+    public TaskList getTasks() {
+        return tasks;
+    }
+    
+    public void saveTasks() {
+        try {
+            storage.save(tasks.getTasks());
+        } catch (IOException ignore) {
+            // Ignore save errors
+        }
+    }
+
     public static void main(String[] args) {
         String filePath = "." + java.io.File.separator + "data" 
                 + java.io.File.separator + "duke.txt";

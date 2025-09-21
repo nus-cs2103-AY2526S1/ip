@@ -87,6 +87,12 @@ public class Parser {
         return Integer.parseInt(tokens[1].trim()) - 1;
     }
 
+    /**
+     * Extracts the search keyword from a find command.
+     * 
+     * @param userInput the find command input
+     * @return the search keyword, empty string if not found
+     */
     public static String parseFindKeyword(String userInput) {
         return userInput.length() >= 5 ? userInput.substring(5).trim() : "";
     }
