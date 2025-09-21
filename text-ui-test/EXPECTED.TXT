@@ -1,7 +1,41 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! I am Jeff! Your own personal chatbot.
+What can I do for you?
+Loaded 0 task(s) from storage.
+______________________________
+Task has been added: todo borrow book
+You now have 1 tasks in the list.
+______________________________
+Tasks saved successfully!
+______________________________
+Task has been added: deadline return book /by 17/09/2025 1800
+You now have 2 tasks in the list.
+______________________________
+Tasks saved successfully!
+______________________________
+Task has been added: event project meeting /at 17/09/2025 1400
+You now have 3 tasks in the list.
+______________________________
+Tasks saved successfully!
+EXCUSEEE MEEEE. THIS IS A INVALID COMMAND??!!! Try again.
+1. [T] [ ] borrow book
+2. [D] [ ] (by: Sept 17 2025 6:00pm)
+3. [E] [ ] project meeting (at: Sept 17 2025 2:00pm)
+Tasks saved successfully!
+Task marked as done!
+[D] [X] (by: Sept 17 2025 6:00pm)
+______________________________
+Tasks saved successfully!
+Task marked as undone!
+[D] [ ] (by: Sept 17 2025 6:00pm)
+______________________________
+Tasks saved successfully!
+Task has been deleted.
+You now have 2 tasks in the list.
+______________________________
+Tasks saved successfully!
+Invalid task number. Please try again.
+1. [T] [ ] borrow book
+2. [E] [ ] project meeting (at: Sept 17 2025 2:00pm)
+Tasks saved successfully!
+Tasks saved successfully!
+Bye! Hope to you see you again soon!
