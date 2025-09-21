@@ -1,3 +1,5 @@
+package sofi;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -17,6 +19,14 @@ public abstract class Task {
 
     public String getStatusIcon() {
         return isDone ? "[X]" : "[ ]";
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 
     public abstract String toString();

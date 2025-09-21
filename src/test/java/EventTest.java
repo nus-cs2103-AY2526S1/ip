@@ -3,13 +3,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDateTime;
 
+import sofi.Event;
+
 public class EventTest {
 
     @Test
     public void testEventWithDateTime() {
         Event event = new Event("team meeting", "2019-12-03 1400", "2019-12-03 1500");
-        assertEquals("team meeting", event.description);
-        assertFalse(event.isDone);
+        assertEquals("team meeting", event.getDescription());
+        assertFalse(event.isDone());
         assertTrue(event.toString().contains("from: Dec 03 2019, 2:00 pm"));
         assertTrue(event.toString().contains("to: Dec 03 2019, 3:00 pm"));
     }
@@ -17,8 +19,8 @@ public class EventTest {
     @Test
     public void testEventWithDateOnly() {
         Event event = new Event("conference", "2019-12-15", "2019-12-16");
-        assertEquals("conference", event.description);
-        assertFalse(event.isDone);
+        assertEquals("conference", event.getDescription());
+        assertFalse(event.isDone());
         assertTrue(event.toString().contains("from: Dec 15 2019, 12:00 am"));
         assertTrue(event.toString().contains("to: Dec 16 2019, 12:00 am"));
     }
@@ -26,8 +28,8 @@ public class EventTest {
     @Test
     public void testEventWithMDYFormat() {
         Event event = new Event("meeting", "12/3/2019 1400", "12/3/2019 1500");
-        assertEquals("meeting", event.description);
-        assertFalse(event.isDone);
+        assertEquals("meeting", event.getDescription());
+        assertFalse(event.isDone());
         assertTrue(event.toString().contains("from: Dec 03 2019, 2:00 pm"));
         assertTrue(event.toString().contains("to: Dec 03 2019, 3:00 pm"));
     }
@@ -35,8 +37,8 @@ public class EventTest {
     @Test
     public void testEventWithMDYFormatDateOnly() {
         Event event = new Event("workshop", "12/15/2019", "12/16/2019");
-        assertEquals("workshop", event.description);
-        assertFalse(event.isDone);
+        assertEquals("workshop", event.getDescription());
+        assertFalse(event.isDone());
         assertTrue(event.toString().contains("from: Dec 15 2019, 12:00 am"));
         assertTrue(event.toString().contains("to: Dec 16 2019, 12:00 am"));
     }
@@ -46,8 +48,8 @@ public class EventTest {
         LocalDateTime from = LocalDateTime.of(2019, 12, 3, 14, 0);
         LocalDateTime to = LocalDateTime.of(2019, 12, 3, 15, 0);
         Event event = new Event("team meeting", from, to);
-        assertEquals("team meeting", event.description);
-        assertFalse(event.isDone);
+        assertEquals("team meeting", event.getDescription());
+        assertFalse(event.isDone());
         assertEquals(from, event.getFrom());
         assertEquals(to, event.getTo());
     }
@@ -55,9 +57,9 @@ public class EventTest {
     @Test
     public void testEventMarkAsDone() {
         Event event = new Event("team meeting", "2019-12-03 1400", "2019-12-03 1500");
-        assertFalse(event.isDone);
+        assertFalse(event.isDone());
         event.markAsDone();
-        assertTrue(event.isDone);
+        assertTrue(event.isDone());
         assertTrue(event.toString().contains("[X]"));
     }
 
@@ -65,9 +67,9 @@ public class EventTest {
     public void testEventMarkAsNotDone() {
         Event event = new Event("team meeting", "2019-12-03 1400", "2019-12-03 1500");
         event.markAsDone();
-        assertTrue(event.isDone);
+        assertTrue(event.isDone());
         event.markAsNotDone();
-        assertFalse(event.isDone);
+        assertFalse(event.isDone());
         assertTrue(event.toString().contains("[ ]"));
     }
 
@@ -128,7 +130,7 @@ public class EventTest {
     @Test
     public void testEventCrossDay() {
         Event event = new Event("overnight event", "2019-12-03 2300", "2019-12-04 0100");
-        assertEquals("overnight event", event.description);
+        assertEquals("overnight event", event.getDescription());
         assertTrue(event.toString().contains("from: Dec 03 2019, 11:00 pm"));
         assertTrue(event.toString().contains("to: Dec 04 2019, 1:00 am"));
     }

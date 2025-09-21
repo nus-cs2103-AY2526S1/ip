@@ -1,3 +1,5 @@
+package sofi;
+
 public class Parser {
     
     public static String parseCommand(String userInput) {

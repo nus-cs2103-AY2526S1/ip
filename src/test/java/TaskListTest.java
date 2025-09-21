@@ -4,6 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
+import sofi.TaskList;
+import sofi.Todo;
+import sofi.Deadline;
+import sofi.Task;
+
 public class TaskListTest {
     private TaskList taskList;
     private Todo todo1;
@@ -102,20 +107,20 @@ public class TaskListTest {
     @Test
     public void testMarkTaskAsDone() {
         taskList.addTask(todo1);
-        assertFalse(todo1.isDone);
+        assertFalse(todo1.isDone());
         
         taskList.markTask(0, true);
-        assertTrue(todo1.isDone);
+        assertTrue(todo1.isDone());
     }
 
     @Test
     public void testMarkTaskAsNotDone() {
         taskList.addTask(todo1);
         todo1.markAsDone();
-        assertTrue(todo1.isDone);
+        assertTrue(todo1.isDone());
         
         taskList.markTask(0, false);
-        assertFalse(todo1.isDone);
+        assertFalse(todo1.isDone());
     }
 
     @Test

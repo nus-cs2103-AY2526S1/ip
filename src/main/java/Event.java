@@ -1,3 +1,5 @@
+package sofi;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -37,7 +39,8 @@ public class Event extends Task {
                         DateTimeFormatter altFormat = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
                         return LocalDateTime.parse(dateTimeStr + " 0000", altFormat);
                     } catch (DateTimeParseException e4) {
-                        throw new IllegalArgumentException("Invalid date format. Please use yyyy-MM-dd, yyyy-MM-dd HHmm, M/d/yyyy, or M/d/yyyy HHmm format.");
+                        throw new IllegalArgumentException("Invalid date format. Please use yyyy-MM-dd, "
+                                + "yyyy-MM-dd HHmm, M/d/yyyy, or M/d/yyyy HHmm format.");
                     }
                 }
             }

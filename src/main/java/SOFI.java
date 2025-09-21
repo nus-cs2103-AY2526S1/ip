@@ -1,3 +1,5 @@
+package sofi;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -43,7 +45,11 @@ public class SOFI {
                         throw new SofiException("A todo needs a description. Try: todo read book");
                     }
                     tasks.addTask(new Todo(taskDescription));
-                    try { storage.save(tasks.getTasks()); } catch (IOException ignore) {} // Save after each change
+                    try {
+                        storage.save(tasks.getTasks());
+                    } catch (IOException ignore) {
+                        // Save after each change
+                    }
                     ui.showTaskAdded(tasks.getTask(tasks.size() - 1), tasks.size());
                 }
 
@@ -61,7 +67,11 @@ public class SOFI {
                         throw new SofiException("The /by time cannot be empty.");
                     }
                     tasks.addTask(new Deadline(taskDescription, by));
-                    try { storage.save(tasks.getTasks()); } catch (IOException ignore) {}
+                    try {
+                        storage.save(tasks.getTasks());
+                    } catch (IOException ignore) {
+                        // Ignore save errors
+                    }
                     ui.showTaskAdded(tasks.getTask(tasks.size() - 1), tasks.size());
                 }
 
@@ -80,7 +90,11 @@ public class SOFI {
                         throw new SofiException("Both /from and /to times must be provided.");
                     }
                     tasks.addTask(new Event(taskDescription, from, to));
-                    try { storage.save(tasks.getTasks()); } catch (IOException ignore) {}
+                    try {
+                        storage.save(tasks.getTasks());
+                    } catch (IOException ignore) {
+                        // Ignore save errors
+                    }
                     ui.showTaskAdded(tasks.getTask(tasks.size() - 1), tasks.size());
                 }
 
@@ -99,7 +113,11 @@ public class SOFI {
                         throw new SofiException("Task number out of range. You have " + tasks.size() + " task(s).");
                     }
                     tasks.markTask(taskNumber, true);
-                    try { storage.save(tasks.getTasks()); } catch (IOException ignore) {}
+                    try {
+                        storage.save(tasks.getTasks());
+                    } catch (IOException ignore) {
+                        // Ignore save errors
+                    }
                     ui.showTaskMarked(tasks.getTask(taskNumber), true);
                 }
 
@@ -118,7 +136,11 @@ public class SOFI {
                         throw new SofiException("Task number out of range. You have " + tasks.size() + " task(s).");
                     }
                     tasks.markTask(taskNumber, false);
-                    try { storage.save(tasks.getTasks()); } catch (IOException ignore) {}
+                    try {
+                        storage.save(tasks.getTasks());
+                    } catch (IOException ignore) {
+                        // Ignore save errors
+                    }
                     ui.showTaskMarked(tasks.getTask(taskNumber), false);
                 }
 
@@ -137,7 +159,11 @@ public class SOFI {
                         throw new SofiException("Task number out of range. You have " + tasks.size() + " task(s).");
                     }
                     Task removed = tasks.removeTask(taskNumber);
-                    try { storage.save(tasks.getTasks()); } catch (IOException ignore) {}
+                    try {
+                        storage.save(tasks.getTasks());
+                    } catch (IOException ignore) {
+                        // Ignore save errors
+                    }
                     ui.showTaskRemoved(removed, tasks.size());
                 }
 
@@ -152,7 +178,9 @@ public class SOFI {
     }
 
     public static void main(String[] args) {
-        new SOFI("." + java.io.File.separator + "data" + java.io.File.separator + "duke.txt").run();
+        String filePath = "." + java.io.File.separator + "data" 
+                + java.io.File.separator + "duke.txt";
+        new SOFI(filePath).run();
     }
 }
 
