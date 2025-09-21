@@ -158,7 +158,7 @@ public class Wowo {
                 throw new UnknownCommandException();
             }
         } catch (WowoException e) {
-            return e.getMessage();
+            return "[error] " + e.getMessage();
         }
     }
 

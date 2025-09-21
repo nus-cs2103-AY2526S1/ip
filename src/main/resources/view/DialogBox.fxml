@@ -4,18 +4,41 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
 
 <fx:root type="javafx.scene.layout.HBox"
          xmlns="http://javafx.com/javafx/17"
          xmlns:fx="http://javafx.com/fxml/1"
-         alignment="TOP_RIGHT">
+         alignment="TOP_LEFT"
+         spacing="8"
+         fillHeight="true">
+
     <children>
-        <Label fx:id="dialog" wrapText="true" minHeight="-Infinity"/>
+        <!-- Avatar on the LEFT for bot baseline -->
         <ImageView fx:id="displayPicture"
-                   fitHeight="99.0" fitWidth="99.0"
-                   pickOnBounds="true" preserveRatio="true"/>
+                   fitHeight="40.0" fitWidth="40.0"
+                   pickOnBounds="true" preserveRatio="true" smooth="true">
+            <!-- Circle crop -->
+            <clip>
+                <Circle centerX="20" centerY="20" radius="20"/>
+            </clip>
+        </ImageView>
+
+        <!-- Bubble text on the RIGHT -->
+        <Label fx:id="dialog"
+               wrapText="true"
+               maxWidth="Infinity"
+               HBox.hgrow="ALWAYS"
+               style="-fx-padding:10 12 10 12; -fx-background-radius:14;
+                      -fx-background-color:#f2f3f5; -fx-border-color:#e5e6eb;
+                      -fx-border-radius:14; -fx-text-fill:#111;">
+            <padding>
+                <Insets top="0" right="0" bottom="0" left="0"/>
+            </padding>
+        </Label>
     </children>
+
     <padding>
-        <Insets top="15.0" right="5.0" bottom="15.0" left="5.0"/>
+        <Insets top="8.0" right="8.0" bottom="8.0" left="8.0"/>
     </padding>
 </fx:root>

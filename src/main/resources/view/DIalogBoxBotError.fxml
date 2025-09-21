@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+
+<fx:root type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1"
+         alignment="TOP_RIGHT"
+         spacing="8" fillHeight="true">
+
+    <!-- bubble first, avatar last -> sits on the RIGHT -->
+    <children>
+        <Label fx:id="dialog"
+               wrapText="true" maxWidth="Infinity"
+               HBox.hgrow="ALWAYS"
+               style="-fx-padding:10 12 10 12; -fx-background-radius:14;
+                      -fx-background-color:#ffe8e6; -fx-text-fill:#9f2d2d;
+                      -fx-border-color:#ffb3ac; -fx-border-radius:14;"/>
+        <ImageView fx:id="displayPicture"
+                   fitHeight="40.0" fitWidth="40.0"
+                   preserveRatio="true" smooth="true" pickOnBounds="true">
+            <clip><Circle centerX="20" centerY="20" radius="20"/></clip>
+        </ImageView>
+    </children>
+
+    <padding><Insets top="8" right="8" bottom="8" left="8"/></padding>
+</fx:root>

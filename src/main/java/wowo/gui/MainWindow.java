@@ -65,11 +65,16 @@ public class MainWindow {
         }
 
         String response = bot.getResponse(input);
+        boolean isError = response.startsWith("[error] ");
+        String clean = isError ? response.substring(8) : response;
 
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBotDialog(response, botImage)
-        );
+        var userBox = DialogBox.getUserDialog(input, userImage);
+        var botBox = DialogBox.getBotDialog(clean, botImage);
+        if (isError) {
+            botBox.markAsError();
+        }
+
+        dialogContainer.getChildren().addAll(userBox, botBox);
 
         userInput.clear();
     }

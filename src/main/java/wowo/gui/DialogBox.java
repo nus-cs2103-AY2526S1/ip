@@ -18,6 +18,20 @@ import javafx.scene.layout.HBox;
  * Containing the dialog logic between bot and user
  */
 public class DialogBox extends HBox {
+    private static final String BOT_STYLE =
+            "-fx-padding:10 12 10 12; -fx-background-radius:14;"
+                    + "-fx-background-color:#f2f3f5; -fx-text-fill:#111;"
+                    + "-fx-border-color:#e5e6eb; -fx-border-radius:14;";
+
+    private static final String ERROR_STYLE =
+            "-fx-padding:10 12 10 12; -fx-background-radius:14;"
+                    + "-fx-background-color:#ffe8e6; -fx-text-fill:#9f2d2d;"
+                    + "-fx-border-color:#ffb3ac; -fx-border-radius:14;";
+
+    private static final String USER_STYLE =
+            "-fx-padding:10 12 10 12; -fx-background-radius:14;"
+                    + "-fx-background-color:#2f6fed; -fx-text-fill:white;";
+
     @FXML private Label dialog;
     @FXML private ImageView displayPicture;
 
@@ -42,28 +56,46 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
-    /** Flip so the avatar is on the left and text on the right (bot style). */
+    /** Flip so the avatar is on the left and text on the right (user side). */
     private void flip() {
-        assert this.getChildren() != null : "DialogBox children must not be null";
-
         this.setAlignment(Pos.TOP_LEFT);
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        ObservableList<Node> tmp = FXCollections.observableArrayList(getChildren());
         Collections.reverse(tmp);
-        this.getChildren().setAll(tmp);
+        getChildren().setAll(tmp);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        assert text != null : "User dialog text must not be null";
-        assert img != null : "User dialog image must not be null";
-
-        return new DialogBox(text, img);
-    }
-
-    public static DialogBox getBotDialog(String text, Image img) {
-        assert text != null : "Bot dialog text must not be null";
-        assert img != null : "Bot dialog image must not be null";
         DialogBox db = new DialogBox(text, img);
         db.flip();
+        db.dialog.setStyle(USER_STYLE);
         return db;
+    }
+
+    public static DialogBox getBotErrorDialog(String text, Image img) {
+        try {
+            FXMLLoader loader =
+                    new FXMLLoader(MainWindow.class.getResource("/view/DialogBoxBotError.fxml"));
+            DialogBox db = new DialogBox(text, img); // reuse your ctor path if you prefer
+            loader.setController(db);
+            loader.setRoot(db);
+            loader.load();
+            db.dialog.setText(text);
+            db.displayPicture.setImage(img);
+            return db;
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load DialogBoxBotError.fxml", e);
+        }
+    }
+
+    /** Bot on the RIGHT (no flip) + gray bubble. */
+    public static DialogBox getBotDialog(String text, Image img) {
+        DialogBox db = new DialogBox(text, img);
+        // do NOT flip -> bot stays on RIGHT
+        db.dialog.setStyle(BOT_STYLE); // gray by default
+        return db;
+    }
+
+    public void markAsError() {
+        dialog.setStyle(ERROR_STYLE);
     }
 }

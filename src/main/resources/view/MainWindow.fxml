@@ -2,37 +2,53 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="wowo.gui.MainWindow"
-            prefWidth="400.0" prefHeight="600.0">
-
+            prefWidth="400.0" prefHeight="600.0"
+            style="
+              -fx-background-image: url('/images/chat-bg.jpg');
+              -fx-background-repeat: no-repeat;
+              -fx-background-position: center;
+              -fx-background-size: cover;">
     <children>
+
         <TextField fx:id="userInput"
                    layoutY="558.0"
                    prefWidth="324.0" prefHeight="41.0"
+                   promptText="Type a message…"
                    onAction="#handleUserInput"
-                   AnchorPane.bottomAnchor="1.0" />
+                   AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0" />
 
         <Button fx:id="sendButton"
-                text="Send"
+                text="Send" defaultButton="true"
                 layoutX="324.0" layoutY="558.0"
                 prefWidth="76.0" prefHeight="41.0"
                 onAction="#handleUserInput"
                 AnchorPane.rightAnchor="0.0"
-                AnchorPane.bottomAnchor="1.0" />
+                AnchorPane.bottomAnchor="0.0" />
 
         <ScrollPane fx:id="scrollPane"
                     hbarPolicy="NEVER"
+                    fitToWidth="true"
                     vvalue="1.0"
                     prefWidth="400.0" prefHeight="557.0"
-                    AnchorPane.topAnchor="1.0"
-                    AnchorPane.leftAnchor="1.0"
-                    AnchorPane.rightAnchor="1.0">
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.bottomAnchor="42.0"
+                    style="-fx-background-color: transparent; -fx-background: transparent;">
             <content>
-                <VBox fx:id="dialogContainer" prefWidth="388.0" prefHeight="552.0" />
+                <VBox fx:id="dialogContainer"
+                      prefWidth="388.0" prefHeight="552.0"
+                      spacing="8" fillWidth="true"
+                      style="-fx-background-color: transparent;">
+                </VBox>
             </content>
         </ScrollPane>
+
     </children>
 </AnchorPane>
