@@ -1,0 +1,12 @@
+T | 0 | read book
+D | 1 | return book | 2019-12-02
+D | 0 | submit report | 2019-12-02 1800
+E | 0 | project meeting | 2019-12-02 | 2019-12-03
+E | 0 | seminar | 2019-12-02 1800 | 2019-12-02 2000
+T | 0 | read book
+T | 0 | read book
+D | 0 | submit assignment | Monday
+T | 0 | read book
+D | 0 | submit assignment | Monday
+T | 0 | odoro
+T | 0 | presentation
