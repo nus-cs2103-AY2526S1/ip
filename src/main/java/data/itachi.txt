@@ -1,0 +1,4 @@
+T | 1 | dance
+T | 1 | play ball
+D | 1 | ball | 9pm
+E | 0 | dance  |  3pm  |  4pm

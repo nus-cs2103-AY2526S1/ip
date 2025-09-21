@@ -1,0 +1,19 @@
+todo run a 100m sprint
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+list
+mark 2
+list
+unmark 2
+list
+todo
+hi
+deadline 
+deadline 3pm
+deadline /by
+event
+event 2pm
+event /from /to
+event /from 3pm /to
+
+bye
