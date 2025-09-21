@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane
+        xmlns="http://javafx.com/javafx/17"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="jett.MainWindow"
+        stylesheets="@styles.css"
+        style="-fx-background-image: url('/images/Background.jpg');
+           -fx-background-repeat: no-repeat;
+           -fx-background-position: center center;
+           -fx-background-size: cover;">
+
+    <children>
+
+        <!-- Messages area -->
+        <ScrollPane fx:id="scrollPane"
+                    hbarPolicy="NEVER"
+                    fitToWidth="true"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.bottomAnchor="52.0"
+                    style="-fx-background-color: transparent; -fx-background: transparent;">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      spacing="8.0"
+                      style="-fx-background-color: transparent; -fx-background: transparent; -fx-padding: 10;" />
+            </content>
+        </ScrollPane>
+
+        <!-- Input bar pinned to bottom -->
+        <HBox spacing="8.0"
+              AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0"
+              AnchorPane.bottomAnchor="0.0"
+              style="-fx-padding: 8;">
+            <children>
+                <TextField fx:id="userInput"
+                           promptText="Type a command…"
+                           onAction="#handleUserInput"
+                           HBox.hgrow="ALWAYS"
+                           style="-fx-font-size: 11pt; -fx-pref-height: 40px;"/>
+                <Button fx:id="sendButton"
+                        text="Send"
+                        defaultButton="true"
+                        onAction="#handleUserInput"
+                        style="-fx-font-size: 11pt; -fx-pref-height: 35px; -fx-pref-width: 90px;"/>
+            </children>
+        </HBox>
+
+    </children>
+</AnchorPane>
