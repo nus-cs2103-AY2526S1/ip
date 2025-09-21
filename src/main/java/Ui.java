@@ -77,6 +77,15 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    public void showFoundTasks(ArrayList<Task> tasks) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i).toString());
+        }
+        System.out.println("____________________________________________________________");
+    }
+
     public void close() {
         scanner.close();
     }
