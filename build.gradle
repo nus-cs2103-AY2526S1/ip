@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("Hachiware.Launcher")
+    mainClass.set("hachiware.Launcher")
 }
 
 shadowJar {
@@ -53,6 +53,7 @@ shadowJar {
 
 run{
     standardInput = System.in
+    enableAssertions = true;
 }
 
 checkstyle {
