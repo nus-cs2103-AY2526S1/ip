@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import java.util.Objects;
 import parser.Parser;
 
+/**
+ * Represents a list of tasks, the main data structure for the Clam program.
+ * <p>
+ * This class manages the addition, removal and retrieval of {@link Task} objects
+ * within its arraylist. It also contains other auxiliary functions such as {@code size()}.
+ * </p>
+ */
 public class TaskList {
     public ArrayList<Task> tasks;
 
@@ -11,6 +18,14 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Loads tasks into the task list, specifically from the delimited format that is used
+     * to store task data in the save file.
+     *
+     * @param input the individual lines of text data in the save file, where one line corresponds to
+     *              one task
+     * @throws Exception if an error occurs while trying to load a task
+     */
     public void loadTask(String input) throws Exception {
         String[] args = input.split("\\|");
         switch (Parser.parseInput(input)) {
