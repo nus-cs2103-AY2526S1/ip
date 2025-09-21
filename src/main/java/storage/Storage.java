@@ -15,15 +15,24 @@ public class Storage {
         this.filepath = filepath;
     }
 
-    public TaskList loadSaveFile() throws FileNotFoundException {
+    public TaskList loadSaveFile() throws Exception {
         File f = new File(filepath);
         TaskList tasks = new TaskList();
-        if(f.exists()) {
+        if (f.exists()) {
             Scanner s = new Scanner(f);
-            while(s.hasNext()) {
-                tasks.loadTask(s.nextLine());
+            boolean error = false;
+            StringBuilder errorStack = new StringBuilder();
+            while (s.hasNext()) {
+                try {
+                    tasks.loadTask(s.nextLine());
+                } catch (Exception e) {
+                    error = true;
+                    errorStack.append(e.getMessage()).append("\n");
+                }
             }
+            if (error) throw new Exception(errorStack.toString());
         }
+
 
         return tasks;
     }

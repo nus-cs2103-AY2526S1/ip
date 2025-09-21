@@ -8,6 +8,7 @@ import task.Task;
 import ui.Ui;
 import task.TaskList;
 
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
@@ -25,10 +26,13 @@ public class Clam {
 
         try {
             tasks = storage.loadSaveFile();
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             // show error
             tasks = new TaskList();
             ui.chatbotPrint("It seems there's an error with loading the save file :(");
+        } catch (Exception e) {
+            ui.showError(e.getMessage());
+        } finally {
             ui.printLine();
         }
     }

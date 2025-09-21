@@ -11,7 +11,7 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
-    public void loadTask(String input) {
+    public void loadTask(String input) throws Exception {
         String[] args = input.split("\\|");
         switch (Parser.parseInput(input)) {
             case CREATE_TODO:
@@ -30,7 +30,7 @@ public class TaskList {
                 tasks.add(ev);
                 break;
             default:
-                // TODO error handling
+                throw new Exception("couldn't load task: " + input);
         }
     }
 
