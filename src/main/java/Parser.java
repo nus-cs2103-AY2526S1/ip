@@ -18,6 +18,8 @@ public class Parser {
             return "unmark";
         } else if (userInput.startsWith("delete")) {
             return "delete";
+        } else if (userInput.startsWith("find")) {
+            return "find";
         } else {
             return "unknown";
         }
@@ -47,5 +49,9 @@ public class Parser {
     public static int parseTaskNumber(String userInput) {
         String[] tokens = userInput.split(" ", 2);
         return Integer.parseInt(tokens[1].trim()) - 1;
+    }
+
+    public static String parseFindKeyword(String userInput) {
+        return userInput.length() >= 5 ? userInput.substring(5).trim() : "";
     }
 }

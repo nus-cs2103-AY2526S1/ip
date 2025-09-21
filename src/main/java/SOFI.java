@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class SOFI {
     private Storage storage;
@@ -141,8 +142,17 @@ public class SOFI {
                     ui.showTaskRemoved(removed, tasks.size());
                 }
 
+                else if (command.equals("find")) {
+                    String searchTerm = Parser.parseFindKeyword(userInput);
+                    if (searchTerm.isEmpty()) {
+                        throw new SofiException("Please provide a search term. Example: find book");
+                    }
+                    ArrayList<Task> matchingTasks = tasks.findTasks(searchTerm);
+                    ui.showFoundTasks(matchingTasks);
+                }
+
                 else {
-                    throw new SofiException("I don't recognize that command. Try: list, todo, deadline, event, mark, unmark, bye");
+                    throw new SofiException("I don't recognize that command. Try: list, todo, deadline, event, mark, unmark, delete, find, bye");
                 }
             } catch (SofiException e) {
                 ui.showError(e.getMessage());
