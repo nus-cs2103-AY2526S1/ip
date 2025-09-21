@@ -132,7 +132,7 @@ cd ip
 ### With jar
 
 ### 1. Download the JAR File
-- Download the JAR file from [here](https://github.com/Ruileirei/ip/releases/tag/v0.2)
+- Download the JAR file from [here](https://github.com/Ruileirei/ip/releases/tag/v0.4)
 ### 2. Run the JAR File
 - **Double-click** the downloaded JAR file to run the application.
 ### 3. Add Your Tasks
