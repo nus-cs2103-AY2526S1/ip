@@ -8,6 +8,16 @@ repositories {
     mavenCentral()
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.release = 17
+}
+
 dependencies {
     String javaFxVersion = '17.0.7'
 

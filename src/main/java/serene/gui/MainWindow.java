@@ -31,7 +31,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(
-                DialogBox.getSereneDialog("Hi! I'm Serene 😄\nWhat can I do for you today?", sereneImage)
+                DialogBox.getSereneDialog("Hi! I'm Serene :)\nWhat can I do for you today?", sereneImage)
         );
     }
 
