@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    String javaFxVersion = '17.0.7'
+    String javaFxVersion = '17.0.7';
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
@@ -48,7 +48,7 @@ application {
 
 shadowJar {
     archiveBaseName = "stella"
-    archiveVersion = "v0.1"
+    archiveVersion = "v0.2"
     archiveClassifier = null
 }
 
