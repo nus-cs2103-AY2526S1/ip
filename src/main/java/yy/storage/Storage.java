@@ -1,0 +1,227 @@
+package yy.storage;
+
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+import yy.task.Deadline;
+import yy.task.Event;
+import yy.task.Task;
+import yy.task.Todo;
+
+/**
+ * Handles loading and saving the task list to disk.
+ * <p>
+ * Uses a simple line-based format stored at a relative path (default: {@code data/yy.txt}).
+ * Lines are pipe-delimited with optional whitespace around the delimiter:
+ * <pre>
+ *   T | 0/1 | &lt;description&gt;
+ *   D | 0/1 | &lt;description&gt; | &lt;by-ISO&gt;
+ *   E | 0/1 | &lt;description&gt; | &lt;from-ISO&gt; | &lt;to-ISO&gt;
+ * </pre>
+ * where {@code 1} means done and {@code 0} means not done.
+ */
+public final class Storage {
+    private final Path file;
+
+    /**
+     * Creates a Storage that reads from and writes to {@code data/yy.txt}.
+     */
+    public Storage() {
+        this(Paths.get("data", "yy.txt"));
+    }
+
+    /**
+     * Creates a Storage instance backed by the given file path.
+     *
+     * @param file path to the data file to use
+     */
+    public Storage(Path file) {
+        this.file = file;
+    }
+
+    /**
+     * Loads tasks from disk.
+     * <p>
+     * If the file (or its parent directory) does not exist, this method creates them and
+     * returns an empty list. Malformed lines are skipped.
+     *
+     * @return a list of tasks reconstructed from the save file
+     */
+    public ArrayList<Task> load() {
+        ensureParentFolder();
+        createFileIfMissing();
+        List<String> lines = readAllLinesOrEmpty();
+        return parseTasks(lines);
+    }
+
+    /**
+     * Creates the data file if it does not exist. Best-effort; logs on failure.
+     */
+    private void createFileIfMissing() {
+        if (Files.exists(file)) {
+            return;
+        }
+        try {
+            Files.createFile(file);
+        } catch (IOException e) {
+            System.err.println("[Storage] Could not create save file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Reads all lines from the data file using UTF-8. Returns an empty list on failure.
+     */
+    private List<String> readAllLinesOrEmpty() {
+        try {
+            return Files.readAllLines(file, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            // best-effort: if anything goes wrong, start with an empty list
+            return List.of();
+        }
+    }
+
+    /**
+     * Parses the list of raw lines into tasks, skipping malformed lines gracefully.
+     */
+    private ArrayList<Task> parseTasks(List<String> lines) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        for (String raw : lines) {
+            if (raw == null) {
+                continue;
+            }
+            String line = raw.trim();
+            if (line.isEmpty()) {
+                continue;
+            }
+            Task t = parseLine(line);
+            if (t != null) {
+                tasks.add(t);
+            }
+        }
+        return tasks;
+    }
+
+    /**
+     * Parses a single line into a Task. Returns null if the line is malformed.
+     * Expected formats:
+     *   T | 0/1 | &lt;description&gt;
+     *   D | 0/1 | &lt;description&gt; | &lt;by-ISO&gt;
+     *   E | 0/1 | &lt;description&gt; | &lt;from-ISO&gt; | &lt;to-ISO&gt;
+     */
+    private Task parseLine(String line) {
+        String[] parts = line.split("\\s*\\|\\s*");
+        if (parts.length < 3) {
+            return null;
+        }
+
+        String type = parts[0];
+        boolean isDone = "1".equals(parts[1]);
+        String desc = parts[2];
+
+        Task t = null;
+        switch (type) {
+        case "T": {
+            t = new Todo(desc);
+            break;
+        }
+        case "D": {
+            if (parts.length >= 4) {
+                String by = parts[3];
+                t = new Deadline(desc, by);
+            }
+            break;
+        }
+        case "E": {
+            if (parts.length >= 5) {
+                String from = parts[3];
+                String to = parts[4];
+                t = new Event(desc, from, to);
+            }
+            break;
+        }
+        default:
+        }
+
+        if (t != null && isDone) {
+            t.mark();
+        }
+        return t;
+    }
+
+    /**
+     * Saves the provided tasks to disk.
+     * <p>
+     * Writes to a temporary file and then moves it into place to reduce corruption risk.
+     * This is a best-effort operation; I/O errors are swallowed.
+     *
+     * @param tasks tasks to persist
+     */
+    public void save(List<Task> tasks) {
+        ensureParentFolder();
+        List<String> lines = new ArrayList<>(tasks.size());
+        for (Task t : tasks) {
+            lines.add(serialize(t));
+        }
+
+        Path tmp = file.resolveSibling(file.getFileName() + ".tmp");
+        try (BufferedWriter out = Files.newBufferedWriter(tmp, StandardCharsets.UTF_8)) {
+            for (String line : lines) {
+                out.write(line);
+                out.newLine();
+            }
+        } catch (IOException e) {
+            return; // best effort: silently skip on save failure
+        }
+        try {
+            Files.move(tmp, file, java.nio.file.StandardCopyOption.REPLACE_EXISTING,
+                    java.nio.file.StandardCopyOption.ATOMIC_MOVE);
+        } catch (IOException e) {
+            // fallback if atomic move not supported
+            try {
+                Files.move(tmp, file, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e2) {
+                System.err.println("[Storage] Save failed during fallback move: " + e2.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Ensures the parent directory for the data file exists, creating it if necessary.
+     */
+    private void ensureParentFolder() {
+        try {
+            Path parent = file.getParent();
+            if (parent != null && !Files.exists(parent)) {
+                Files.createDirectories(parent);
+            }
+        } catch (IOException e) {
+            System.err.println("[Storage] Could not create data directory: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Converts a {@link Task} into its single-line save representation.
+     *
+     * @param t task to serialize
+     * @return line to be written to the save file
+     */
+    private String serialize(Task t) {
+        boolean done = "[X]".equals(t.checkbox());
+        int d = done ? 1 : 0;
+
+        if (t instanceof Todo) {
+            return "T | " + d + " | " + t.getDescription();
+        } else if (t instanceof Deadline dl) {
+            return "D | " + d + " | " + dl.getDescription() + " | " + dl.getByIso();
+        } else if (t instanceof Event ev) {
+            return "E | " + d + " | " + ev.getDescription() + " | " + ev.getFromIso() + " | " + ev.getToIso();
+        }
+        return "T | " + d + " | " + t;
+    }
+}

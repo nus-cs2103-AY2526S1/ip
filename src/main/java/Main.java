@@ -1,0 +1,33 @@
+import java.io.IOException;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+/**
+ * A GUI for YY using FXML.
+ */
+public class Main extends Application {
+
+    private final YY yy = new YY();
+
+    @Override
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            stage.setTitle("YY");
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
+            stage.setMaxWidth(417);
+            fxmlLoader.<MainWindow>getController().setDuke(yy); // inject the Duke instance
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
