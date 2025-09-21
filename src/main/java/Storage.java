@@ -7,14 +7,29 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Handles file I/O operations for persisting task data.
+ * Provides methods to load tasks from file and save tasks to file.
+ */
 public class Storage {
     private final String filePath;
     private static final DateTimeFormatter STORAGE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     * 
+     * @param filePath the path to the file for storing tasks
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the storage file.
+     * 
+     * @return ArrayList of loaded tasks
+     * @throws IOException if there is an error reading the file
+     */
     public ArrayList<Task> load() throws IOException {
         File file = new File(filePath);
         File parent = file.getParentFile();
@@ -64,6 +79,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the given list of tasks to the storage file.
+     * 
+     * @param tasks the list of tasks to save
+     * @throws IOException if there is an error writing to the file
+     */
     public void save(ArrayList<Task> tasks) throws IOException {
         File file = new File(filePath);
         File parent = file.getParentFile();

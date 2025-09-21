@@ -1,11 +1,21 @@
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * SOFI is a task management application that allows users to manage their tasks.
+ * It supports three types of tasks: Todo, Deadline, and Event.
+ * The application provides a command-line interface for task management.
+ */
 public class SOFI {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a new SOFI instance with the specified file path for data storage.
+     * 
+     * @param filePath the path to the file where tasks will be stored
+     */
     public SOFI(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -18,6 +28,10 @@ public class SOFI {
         }
     }
 
+    /**
+     * Starts the main application loop, processing user commands until the user exits.
+     * Handles all user interactions including adding, listing, marking, and deleting tasks.
+     */
     public void run() {
         ui.showWelcome();
         String userInput;
@@ -151,6 +165,11 @@ public class SOFI {
         ui.close();
     }
 
+    /**
+     * Main entry point for the SOFI application.
+     * 
+     * @param args command line arguments (not used)
+     */
     public static void main(String[] args) {
         new SOFI("." + java.io.File.separator + "data" + java.io.File.separator + "duke.txt").run();
     }
