@@ -5,7 +5,7 @@ import java.util.Objects;
 import parser.Parser;
 
 public class TaskList {
-    public ArrayList<Task> tasks;
+    public final ArrayList<Task> tasks;
 
     public TaskList() {
         tasks = new ArrayList<>();

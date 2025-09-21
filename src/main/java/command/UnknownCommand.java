@@ -10,7 +10,7 @@ public class UnknownCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList t, Ui u, Storage s) throws Exception {
+    public void execute(TaskList t, Ui u, Storage s) {
         u.showError("I'm not sure what command you're trying to run. Try again?");
     }
 

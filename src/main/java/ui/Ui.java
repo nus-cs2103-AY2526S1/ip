@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Ui {
     public static final String HORIZONTAL_LINE = "____________________________________________________________";
 
-    private Scanner s;
+    private final Scanner s;
 
     public Ui() {
         s = new Scanner(System.in);

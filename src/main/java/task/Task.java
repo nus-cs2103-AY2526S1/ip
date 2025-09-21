@@ -1,7 +1,7 @@
 package task;
 
 public class Task {
-    public String description;
+    public final String description;
     public boolean isDone;
 
     public Task (String description) {

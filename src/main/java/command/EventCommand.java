@@ -5,13 +5,10 @@ import task.TaskList;
 import ui.Ui;
 import storage.Storage;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import exception.EventException;
 
 public class EventCommand extends Command {
-    private LocalDate start;
-    private LocalDate end;
 
     public EventCommand(String input) {
         super(input);

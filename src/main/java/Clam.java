@@ -1,24 +1,15 @@
 import command.Command;
-import exception.TodoException;
 import parser.Parser;
 import storage.Storage;
-import task.Deadline;
-import task.Event;
-import task.Task;
 import ui.Ui;
 import task.TaskList;
 
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Objects;
-import java.util.Scanner;
-import java.io.File;
 
 public class Clam {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     public Clam(String filepath) {
         storage = new Storage(filepath);

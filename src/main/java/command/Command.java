@@ -5,7 +5,7 @@ import ui.Ui;
 import storage.Storage;
 
 public abstract class Command {
-    protected String input;
+    protected final String input;
     public Command(String input) {
         this.input = input;
     }

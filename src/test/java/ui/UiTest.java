@@ -6,12 +6,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.nio.charset.Charset;
 import java.util.Random;
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class UiTest {
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
@@ -45,7 +42,7 @@ public class UiTest {
         u.printLine();
         try {
             u.close();
-            String s = u.getInput();
+            u.getInput();
         } catch (Exception e) {
             assertEquals("Scanner closed", e.getMessage());
         } finally {
