@@ -18,7 +18,7 @@ import stella.task.ToDo;
  * Loads tasks from the local storage and saves tasks to the local storage.
  */
 public class Storage {
-    private static final String DATA_STORAGE_PATH = "../data/stella.txt";
+    private static final String DATA_STORAGE_PATH = "data/stella.txt";
     private static final String TASK_PREFIX_EXAMPLE = "[T][X] ";
     private static final int TASK_PREFIX_LENGTH = TASK_PREFIX_EXAMPLE.length();
 
@@ -126,7 +126,7 @@ public class Storage {
 
                 return tasks;
             } catch (FileNotFoundException e) {
-                File folder = new File("../data");
+                File folder = new File("data");
                 folder.mkdirs();
                 new File(DATA_STORAGE_PATH);
             } catch (IOException e) {
