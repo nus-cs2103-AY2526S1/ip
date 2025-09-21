@@ -12,17 +12,28 @@ repositories {
 dependencies {
     String javaFxVersion = '17.0.7'
     
-    // JavaFX modules - using runtimeOnly to ensure they're included in shadow JAR
-    runtimeOnly "org.openjfx:javafx-base:${javaFxVersion}:mac"
-    runtimeOnly "org.openjfx:javafx-controls:${javaFxVersion}:mac"
-    runtimeOnly "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
-    runtimeOnly "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
-    
-    // Also include for compilation
+    // JavaFX modules for all platforms
     implementation "org.openjfx:javafx-base:${javaFxVersion}"
     implementation "org.openjfx:javafx-controls:${javaFxVersion}"
     implementation "org.openjfx:javafx-fxml:${javaFxVersion}"
     implementation "org.openjfx:javafx-graphics:${javaFxVersion}"
+    
+    // Platform-specific JavaFX runtime dependencies for cross-platform JAR
+    runtimeOnly "org.openjfx:javafx-base:${javaFxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-base:${javaFxVersion}:mac"
+    runtimeOnly "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    
+    runtimeOnly "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-controls:${javaFxVersion}:mac"
+    runtimeOnly "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    
+    runtimeOnly "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
+    runtimeOnly "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+    
+    runtimeOnly "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    runtimeOnly "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
     
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
