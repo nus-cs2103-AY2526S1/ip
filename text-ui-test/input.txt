@@ -1,0 +1,36 @@
+todo Wake up
+deadline Go to lecture /by 2022-07-21 00:00
+event Eat lunch /from 2022-07-21 12:00 /to 2022-07-22 01:00
+list
+mark 1
+mark 3
+list
+unmark 1
+list
+event Jump_Around_Like_This /from 2025-06-30 11:00 /to 2025-06-30 13:00
+mark 0
+unmark 0
+mark 5
+unmark 5
+mark bob
+unmark alice
+blah
+todo
+deadline hello
+event go out /from 2025-06-30 11:00
+delete 0
+delete 5
+delete nothing
+delete 2
+list
+mark
+unmark
+delete
+deadline run around /by 2025-06-30
+event run up /from 2025-06-30 11:00 /to 2025-06-30
+event run down /from 2025-06-30 /to 2025-06-30 11:00
+todo Cook lunch
+find lunch
+find from
+find t l
+bye
