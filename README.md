@@ -1,26 +1,53 @@
-# Duke project template
+# Prometheus 
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+```
+  _____                          _   _                    
+ |  __ \                        | | | |                   
+ | |__) | __ ___  _ __ ___   ___| |_| |__   ___ _   _ ___ 
+ |  ___/ '__/ _ \| '_ ` _ \ / _ \ __| '_ \ / _ \ | | / __|
+ | |   | | | (_) | | | | | |  __/ |_| | | |  __/ |_| \__ \
+ |_|   |_|  \___/|_| |_| |_|\___|\__|_| |_|\___|\__,_|___/
+                                                                                                       
+```
+> Prometheus stole fire from the gods
 
-## Setting up in Intellij
+## Pros
+- text-based
+- easy to learn
+- _SUPER FAST_ 🚀
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+> [!TIP]
+> Prometheus works even on low-end machines — no lag!
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Steps
+1. **Download** [here](https://github.com/Rihiz/ip)
+2. Run `java -jar Prometheus.jar` from your terminal
+3. ~~Complain about lag~~ just Enjoy 😄
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## Features
+- [ ] Managing Task, Events, Deadline
+- [ ] Searching tasks by keyword
+- [ ] Exporting task list
+
+## Example Usage
+Here’s how you add a todo task using the CLI:
+
+```bash
+todo finish CS2103 assignment
+
+```
+Expected outcome
+```
+Got it. I've added this task:
+  [T][ ] finish CS2103 assignment
+Now you have 1 tasks in the list.
+```
+
+Launcher Class
+```Java
+public class Launcher {
+    public static void main(String[] args) {
+        Application.launch(Main.class, args);
+    }
+}
+```
