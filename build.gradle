@@ -12,7 +12,13 @@ repositories {
 dependencies {
     String javaFxVersion = '17.0.7'
     
-    // JavaFX modules
+    // JavaFX modules - using runtimeOnly to ensure they're included in shadow JAR
+    runtimeOnly "org.openjfx:javafx-base:${javaFxVersion}:mac"
+    runtimeOnly "org.openjfx:javafx-controls:${javaFxVersion}:mac"
+    runtimeOnly "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
+    runtimeOnly "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    
+    // Also include for compilation
     implementation "org.openjfx:javafx-base:${javaFxVersion}"
     implementation "org.openjfx:javafx-controls:${javaFxVersion}"
     implementation "org.openjfx:javafx-fxml:${javaFxVersion}"
@@ -43,6 +49,7 @@ application {
 // Shadow JAR configuration
 shadowJar {
     archiveFileName = 'sam.jar'
+    mergeServiceFiles()
 }
 
 run{
