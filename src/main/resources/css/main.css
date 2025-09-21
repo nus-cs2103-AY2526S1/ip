@@ -1,0 +1,22 @@
+.root {
+    -fx-background-image: url("../images/Background.jpg");
+    -fx-background-size: cover;
+}
+
+.button {
+    -fx-background-color: rgb(255, 197, 197);
+	-fx-font: bold 14px Calibri;
+
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+}
+
+.scroll-pane {
+    -fx-background: url("/images/Background.jpg");
+	-fx-background-color: rgba(236, 236, 236, 0.3);
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}

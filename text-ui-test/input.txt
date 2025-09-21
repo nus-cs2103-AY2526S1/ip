@@ -1,0 +1,18 @@
+HELLO
+todo buy milk
+todo buy milk
+deadline submit report /by Monday
+deadline submit report /by Tuesday
+deadline task by Tuesday
+deadline task
+event project meeting /from Monday /to Friday
+event project meeting /to Monday /from Friday
+event project meeting /from Tuesday /to Thursday
+event project /from /to Wednesday
+event gg
+list
+mark 1
+unmark 1
+delete 0
+delete 1
+bye

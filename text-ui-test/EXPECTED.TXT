@@ -1,7 +1,55 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+
+____________________________________________________________
+Merlie: Hello! I'm Merlie the Merlion
+Merlie: What can I do for you?
+____________________________________________________________
+You: Merlie: Echo after you AH!: HELLO
+____________________________________________________________
+You: Merlie: Got it! I've added this to your task list:
+	[T][ ] buy milk
+Merlie: Now you have 1 tasks in the list.
+____________________________________________________________
+You: Merlie: Rawrr, buy milk is already in your list!
+____________________________________________________________
+You: Merlie: Got it! I've added this task:
+	 [D][ ] submit report (by: Monday)
+Merlie: Now you have 2 tasks in the list.
+____________________________________________________________
+You: Merlie: Ooo, updated the task for: [D][ ] submit report (by: Tuesday)
+____________________________________________________________
+You: Merlie: Rawrr, provide a deadline using '/by' in the correct syntax  (deadline <task> /by <deadline>
+____________________________________________________________
+You: Merlie: Rawrr, provide a deadline using '/by' in the correct syntax  (deadline <task> /by <deadline>
+____________________________________________________________
+You: Merlie: Got it! I've added this task:
+	 [E][ ] project meeting (from: Monday to: Friday)
+Merlie: Now you have 3 tasks in the list.
+____________________________________________________________
+You: Rawrr, create the event task in the correct syntax(event <task> /from <start> /to <end>
+____________________________________________________________
+You: Merlie: Ooo, updated the task for: [E][ ] project meeting (from: Tuesday to: Thursday)
+____________________________________________________________
+You: Rawrr, create the event task in the correct syntax(event <task> /from <start> /to <end>
+____________________________________________________________
+You: Merlie: Rawrr, provide a date range in the correct syntax (event <task> /from <start> /to <end>
+____________________________________________________________
+You: Merlie: Here’s what you’ve got:
+  1. [T][ ] buy milk
+  2. [D][ ] submit report (by: Tuesday)
+  3. [E][ ] project meeting (from: Tuesday to: Thursday)
+____________________________________________________________
+You:  Merlie: Congratulations on completing your task:
+     [T][X] buy milk
+____________________________________________________________
+You: Merlie: Rawrr, I've marked this task as not done (YET):
+     [T][ ] buy milk
+____________________________________________________________
+You: Merlie: Rawrr, enter a valid task number
+____________________________________________________________
+You: Merlie: Okie, I've sprayed water on the task, so it has EXSTINGUISHED...:
+     [T][ ] buy milk
+Merlie: Now you have 2 tasks in the list.
+____________________________________________________________
+You: Merlie: Hope to see you again soon! Majulah Singapura!
+____________________________________________________________
 
