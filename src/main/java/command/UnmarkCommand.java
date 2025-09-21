@@ -20,6 +20,8 @@ public class UnmarkCommand extends Command {
         } catch (Exception e) {
             throw new MarkException("I'm not sure which item you're trying to unmark. Try again?");
         }
+
+        s.saveToFile(t);
     }
 
     @Override

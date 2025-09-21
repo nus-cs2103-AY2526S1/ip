@@ -20,6 +20,8 @@ public class MarkCommand extends Command {
         } catch (Exception e) {
             throw new MarkException("I'm not sure which item you're trying to mark. Try again?");
         }
+
+        s.saveToFile(t);
     }
 
     @Override
