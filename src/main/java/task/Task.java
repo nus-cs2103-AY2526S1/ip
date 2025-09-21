@@ -7,7 +7,7 @@ package task;
  * {@link Event} and {@link Deadline}).
  */
 public class Task {
-    public String description;
+    public final String description;
     public boolean isDone;
 
     /**

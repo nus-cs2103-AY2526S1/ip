@@ -11,7 +11,7 @@ public class Ui {
      */
     public static final String HORIZONTAL_LINE = "____________________________________________________________";
 
-    private Scanner s;
+    private final Scanner s;
 
     /**
      * Constructs a {@link Ui} object with a {@link Scanner} reading {@code System.in}.

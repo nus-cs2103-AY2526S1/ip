@@ -11,8 +11,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
-    public LocalDate from;
-    public LocalDate to;
+    public final LocalDate from;
+    public final LocalDate to;
 
     /**
      * Constructs an {@link Event} task with the given description, start date and end date as strings.

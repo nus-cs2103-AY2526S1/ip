@@ -11,6 +11,7 @@ import storage.Storage;
  * method and {@link #isExit()} method.
  */
 public abstract class Command {
+    protected final String input;
     protected String input;
 
     /**

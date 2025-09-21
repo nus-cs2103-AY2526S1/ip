@@ -12,7 +12,7 @@ import parser.Parser;
  * </p>
  */
 public class TaskList {
-    public ArrayList<Task> tasks;
+    public final ArrayList<Task> tasks;
 
     public TaskList() {
         tasks = new ArrayList<>();

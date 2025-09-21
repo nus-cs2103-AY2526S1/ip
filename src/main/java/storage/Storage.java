@@ -3,7 +3,6 @@ package storage;
 import task.*;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -16,7 +15,7 @@ import java.util.Scanner;
  * </p>
  */
 public class Storage {
-    private String filepath;
+    private final String filepath;
 
     /**
      * Constructs a {@link Storage} object with a specified filepath.
