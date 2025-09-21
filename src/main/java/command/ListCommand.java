@@ -26,6 +26,11 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList tasklist, Ui ui, Storage storage) {
-        ui.chatbotPrint(tasklist.toString());
+        ui.chatbotPrint("Here are the tasks in your list:" + tasklist.toString());
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
     }
 }

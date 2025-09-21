@@ -14,8 +14,7 @@ public class TaskListTest {
         } catch (Exception ignored) {
 
         }
-        assertEquals("Here are the tasks in your list:\n" +
-                "    1.[T][X] homework\n",tl.toString());
+        assertEquals("\n    1.[T][X] homework\n",tl.toString());
     }
 
     @Test
