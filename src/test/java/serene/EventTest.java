@@ -17,7 +17,7 @@ public class EventTest {
     @Test
     void testToString() {
         Event event = new Event("Meeting", "2025-09-19 14:00", "2025-09-19 15:00");
-        String expected = "E |   | Meeting (from: Sep 19 2025 14:00 to: Sep 19 2025 15:00)";
+        String expected = "E |  | Meeting (from: Sep 19 2025 14:00 to: Sep 19 2025 15:00)";
         assertEquals(expected, event.toString());
     }
 
