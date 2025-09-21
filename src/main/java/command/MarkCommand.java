@@ -1,31 +1,47 @@
 package command;
 
 import exception.MarkException;
+import task.Event;
 import task.TaskList;
 import ui.Ui;
 import storage.Storage;
 
+import java.io.IOException;
+
+/**
+ * Represents the command to mark a task in the task list as done.
+ */
 public class MarkCommand extends Command {
+    /**
+     * Constructs a {@link MarkCommand} with the relevant user input.
+     *
+     * @param input the raw user input that triggered the command
+     */
     public MarkCommand(String input) {
         super(input);
     }
 
+    /**
+     * Executes the mark command: marks the indicated task in the task list as done,
+     * displays a success/failure message and updates the save file accordingly.
+     *
+     * @param tasklist the {@link TaskList} where tasks are stored
+     * @param ui       the {@link Ui} that the user interacts with
+     * @param storage  the {@link Storage} that retrieves and updates the save file
+     * @throws MarkException if there is an invalid input
+     * @throws IOException if there is an error with updating the save file
+     */
     @Override
-    public void execute(TaskList t, Ui u, Storage s) throws Exception {
+    public void execute(TaskList tasklist, Ui ui, Storage storage) throws MarkException, IOException {
         try {
             int item = Integer.parseInt(input.substring(5));
-            t.get(item - 1).markAsDone();
-            u.chatbotPrint("Nice! I've marked this task as done:\n    "
-                    + t.get(item - 1));
+            tasklist.get(item - 1).markAsDone();
+            ui.chatbotPrint("Nice! I've marked this task as done:\n    "
+                    + tasklist.get(item - 1));
         } catch (Exception e) {
             throw new MarkException("I'm not sure which item you're trying to mark. Try again?");
         }
 
-        s.saveToFile(t);
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
+        storage.saveToFile(tasklist);
     }
 }
