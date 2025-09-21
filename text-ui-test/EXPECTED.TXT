@@ -1,7 +1,11 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Wassup wassup! Life ok? Vibes ok? Family ok? I am thopz your virtual chatbot. How may I help you?
+Orrite, I have added todo homework
+You have 1 tasks
+Orrite, I have added deadline eat chicken/ Monday
+You have 2 tasks
+Orrite, I have added event concert/ Monday/ Wednesday
+You have 3 tasks
+1. [T][] homework
+2. [D][] eat chicken (due by  Monday)
+3. [E][] concert (Starts on :  Monday, ends by :  Wednesday)
+Chaoz. See you !
