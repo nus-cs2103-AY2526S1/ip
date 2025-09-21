@@ -1,6 +1,6 @@
 # Oreo User Guide
 
-![Oreo GUI](../docs/Ui.png)
+![Oreo GUI](Ui.png)
 
 Oreo is a task management application designed to help users organize and track their tasks efficiently. This guide provides an overview of the key features and functionalities of Oreo.
 
