@@ -15,3 +15,19 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Documentation folders (hidden from git)
+.docs/
+CLAUDE.md
+
+# Compiled class files
+*.class
+
+# Local testing files
+smoke-test.sh
+test-windows.bat
+WINDOWS_TEST_INSTRUCTIONS.md
+test_input.txt
+test_commands.txt
+Dockerfile
+download/
