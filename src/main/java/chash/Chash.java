@@ -41,6 +41,8 @@ public class Chash extends Application {
      */
     @Override
     public void start(Stage stage) {
+        assert stage != null;
+
         //Startup
         AnchorPane ap = new MainWindow();
         Scene scene = new Scene(ap);

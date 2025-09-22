@@ -14,11 +14,14 @@ public class Event extends Task {
      * Creates a new {@code Event} task.
      *
      * @param description Task description
-     * @param starttime Raw start time string
-     * @param endtime Raw end time string
+     * @param startTime Raw start time string
+     * @param endTime Raw end time string
      */
     public Event(String description, String startTime, String endTime) {
         super(description);
+        assert startTime != null;
+        assert endTime != null;
+
         this.rawStart = startTime;
         this.rawEnd = endTime;
         this.parsedStart = TaskDateParser.tryParse(startTime);

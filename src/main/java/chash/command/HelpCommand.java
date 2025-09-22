@@ -14,6 +14,8 @@ public class HelpCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, ChashUi ui, ChashDb db) {
+        assert ui != null;
+
         ui.printMsg(
                 "Crysis Heir Activity Sentre Hepdesk Commands:\n"
                 + "HELP - Print this help message\n"

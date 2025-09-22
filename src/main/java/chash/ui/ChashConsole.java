@@ -43,6 +43,8 @@ public class ChashConsole extends ChashUi {
      */
     @Override
     public void printMsg(String txt) {
+        assert txt != null;
+
         //todo: does not check for empty txt string
         //does not enforce print line max length
         Stream<String> lineStream = Stream.<String>of(txt.split("\n"));
@@ -67,6 +69,8 @@ public class ChashConsole extends ChashUi {
      */
     @Override
     public void printErr(String txt) {
+        assert txt != null;
+
         printLineSeparator();
         System.err.println(ChashConsole.LINEINDENT + txt);
         printLineSeparator();

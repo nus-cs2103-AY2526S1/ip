@@ -20,6 +20,8 @@ public class ChashGui extends ChashUi {
      * @param chatHistBox Main window's output box assigned to chatbot
      * */
     public ChashGui(VBox chatHistBox) {
+        assert chatHistBox != null;
+
         this.chatHistBox = chatHistBox;
         this.userImage = new Image(
                 Objects.requireNonNull(this.getClass().getResourceAsStream("/images/user.png"))
@@ -45,6 +47,8 @@ public class ChashGui extends ChashUi {
      */
     @Override
     public void printMsg(String txt) {
+        assert txt != null;
+
         this.chatHistBox.getChildren().add(
                 DialogBox.getResponseDialog(txt, this.chashImage)
         );
@@ -57,6 +61,8 @@ public class ChashGui extends ChashUi {
      */
     @Override
     public void printUserInput(String txt) {
+        assert txt != null;
+
         this.chatHistBox.getChildren().add(
                 DialogBox.getUserDialog(txt, this.userImage)
         );
@@ -69,6 +75,8 @@ public class ChashGui extends ChashUi {
      */
     @Override
     public void printErr(String txt) {
+        assert txt != null;
+
         this.chatHistBox.getChildren().add(
                 DialogBox.getErrResponseDialog(txt, this.chashErrImage)
         );

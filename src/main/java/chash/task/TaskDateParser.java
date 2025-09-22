@@ -16,6 +16,8 @@ public class TaskDateParser {
      * @return Parsed {@code LocalDateTime}, or {@code null} if parsing fails
      */
     public static LocalDateTime tryParse(String input) {
+        assert input != null;
+
         try {
             return LocalDateTime.parse(input);
         } catch (DateTimeParseException e) {
@@ -33,6 +35,8 @@ public class TaskDateParser {
      * @return Formatted string
      */
     public static String format(LocalDateTime dateTime, String dateStr) {
+        assert dateStr != null;
+
         return (dateTime != null) ? dateTime.format(TaskDateParser.PRINT_FORMAT)
                 : dateStr;
     }

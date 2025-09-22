@@ -21,6 +21,9 @@ public class AddCommand extends Command {
      * @param args Task arguments (e.g. description, by, from, to)
      */
     public AddCommand(CommandTypeEnum type, String args) {
+        assert type != null;
+        assert args != null;
+
         this.type = type;
         this.args = args;
     }
@@ -31,6 +34,10 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, ChashUi ui, ChashDb db) {
+        assert tasks != null;
+        assert ui != null;
+        assert db != null;
+
         //Create task
         Task task;
         try {

@@ -28,6 +28,8 @@ public class TaskParser {
      * @throws ChashException If string format is invalid
      */
     public static Task fromExportString(String line) throws ChashException {
+        assert line != null;
+
         String[] parts = line.split(" \\| ");
         //Sanity check
         if (parts.length < 3) {
@@ -80,6 +82,9 @@ public class TaskParser {
      * @throws ChashException If arguments are invalid
      */
     public static Task fromChashString(CommandTypeEnum type, String args) throws ChashException {
+        assert type != null;
+        assert args != null;
+
         Matcher m;
         switch (type) {
         case TODO:

@@ -14,6 +14,8 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, ChashUi ui, ChashDb db) {
+        assert ui != null;
+
         ui.printMsg("Bye. Hope to see you again soon!");
     }
 
