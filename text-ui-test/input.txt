@@ -1,0 +1,20 @@
+todo watch CS2100 Lecture
+deadline do ST2334 quiz /by Wed 15pm
+event harmonica practice /from Fri 7:30pm /to 10pm
+list
+mark
+2
+unmark
+2
+list
+blah
+deadline
+todo
+event
+deadline buy food
+event birthday party /from 6pm
+delete
+2
+mark
+6
+bye

@@ -1,7 +1,66 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+-------------------------------------------------------------
+Hello! Hello! Hello! I'm broccoli, Your Green Task Buddy!
+Tell me what you gonna do and I will help you track them!
+-------------------------------------------------------------
+-------------------------------------------------------------
+Got it. I've added this task:
+[T] [ ]  watch CS2100 Lecture
+Hurry up! You have 1 tasks unfinished!
+-------------------------------------------------------------
+-------------------------------------------------------------
+Got it. I've added this task:
+[D] [ ]  do ST2334 quiz (by: Wed 15pm)
+Hurry up! You have 2 tasks unfinished!
+-------------------------------------------------------------
+-------------------------------------------------------------
+Got it. I've added this task:
+[E] [ ]  harmonica practice (from:  Fri 7:30pm to: 10pm)
+Hurry up! You have 3 tasks unfinished!
+-------------------------------------------------------------
+-------------------------------------------------------------
+Quickly go and finish all the UNDONE tasks!
+1. [T] [ ]  watch CS2100 Lecture
+2. [D] [ ]  do ST2334 quiz (by: Wed 15pm)
+3. [E] [ ]  harmonica practice (from:  Fri 7:30pm to: 10pm)
+-------------------------------------------------------------
+Which task would you like to mark as done? Please enter the number:
+1. [T] [ ]  watch CS2100 Lecture
+2. [D] [ ]  do ST2334 quiz (by: Wed 15pm)
+3. [E] [ ]  harmonica practice (from:  Fri 7:30pm to: 10pm)
+-------------------------------------------------------------
+Nice! I've marked this task as done:
+[D] [X]  do ST2334 quiz (by: Wed 15pm)
+Which task would you like to unmark as done? Please enter the number:
+1. [T] [ ]  watch CS2100 Lecture
+2. [D] [X]  do ST2334 quiz (by: Wed 15pm)
+3. [E] [ ]  harmonica practice (from:  Fri 7:30pm to: 10pm)
+-------------------------------------------------------------
+OK, I've marked this task as not done yet:
+[D] [ ]  do ST2334 quiz (by: Wed 15pm)
+-------------------------------------------------------------
+Quickly go and finish all the UNDONE tasks!
+1. [T] [ ]  watch CS2100 Lecture
+2. [D] [ ]  do ST2334 quiz (by: Wed 15pm)
+3. [E] [ ]  harmonica practice (from:  Fri 7:30pm to: 10pm)
+-------------------------------------------------------------
+OOPS! Please enter a correct task start with proper task type(todo/deadline/event)
+Please enter the name of the task!
+Please enter the name of the task!
+Please enter the name of the task!
+Please enter the deadline!
+Please enter the ending time!
+Which task would you like to delete? Please enter the number:
+1. [T] [ ]  watch CS2100 Lecture
+2. [D] [ ]  do ST2334 quiz (by: Wed 15pm)
+3. [E] [ ]  harmonica practice (from:  Fri 7:30pm to: 10pm)
+-------------------------------------------------------------
+Noted. I've removed this task:
+[D] [ ]  do ST2334 quiz (by: Wed 15pm)
+Hurry up! You have 2 tasks unfinished!
+Which task would you like to mark as done? Please enter the number:
+1. [T] [ ]  watch CS2100 Lecture
+2. [E] [ ]  harmonica practice (from:  Fri 7:30pm to: 10pm)
+-------------------------------------------------------------
+Task does not exist, please re-enter a valid one!
+Bye! Wish you come back with tasks done!
+-------------------------------------------------------------
