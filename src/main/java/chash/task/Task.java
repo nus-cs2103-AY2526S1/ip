@@ -54,7 +54,9 @@ public abstract class Task {
         //Note: This string may have to be base64 encoded to avoid possible delimiter issues
         return String.format(
                 "%d | %s",
+                //CHECKSTYLE.OFF: SeparatorWrap
                 (this.isDone) ? 1 : 0,
+                //CHECKSTYLE.ON: SeparatorWrap
                 this.description
         );
     }
@@ -68,7 +70,9 @@ public abstract class Task {
     public String toString() {
         return String.format(
                 "[%c] %s",
+                //CHECKSTYLE.OFF: SeparatorWrap
                 (this.isDone) ? 'X' : ' ',
+                //CHECKSTYLE.ON: SeparatorWrap
                 this.description
         );
     }

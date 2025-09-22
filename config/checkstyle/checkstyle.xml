@@ -6,6 +6,9 @@
 <!--
     This configuration file enforces rules for the coding standard at
     https://se-education.org/guides/conventions/java/intermediate.html
+
+    Sample file at
+    https://se-education.org/guides/tutorials/checkstyle.html
 -->
 
 <module name="Checker">
