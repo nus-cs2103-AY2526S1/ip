@@ -69,7 +69,7 @@ public class Amadeus {
         try {
             // Handle special case for "bye" command
             if (input.trim().equalsIgnoreCase("bye")) {
-                return "Bye. Hope to see you again soon!";
+                return "Hmph… already leaving? Fine, bye. Don’t mess up next time.";
             }
             
             // Use a custom UI that captures the response as a string
