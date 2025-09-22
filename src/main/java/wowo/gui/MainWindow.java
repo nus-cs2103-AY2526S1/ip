@@ -48,7 +48,9 @@ public class MainWindow {
         this.bot = bot;
         // optional greeting
         dialogContainer.getChildren().add(
-                DialogBox.getBotDialog("Hello! I'm Wowo.\nHow can I help?", botImage)
+                DialogBox.getBotDialog("Hello! I'm Wowo, Your grumpy personal assistant.\n" +
+                        "OKE GAS OKE GAS\n" +
+                        "How can I help?", botImage)
         );
     }
 
