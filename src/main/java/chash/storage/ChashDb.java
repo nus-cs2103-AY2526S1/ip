@@ -59,9 +59,10 @@ public class ChashDb {
      *
      * @param ui UI for error reporting
      * @return List of loaded tasks
+     * @throws ChashException If the file did not exist and was just created
      * @throws IOException If file cannot be read
      */
-    public ArrayList<Task> loadDb(ChashUi ui) throws IOException {
+    public ArrayList<Task> loadDb(ChashUi ui) throws ChashException, IOException {
         assert ui != null;
 
         try {
@@ -73,7 +74,7 @@ public class ChashDb {
             //Read file and parse input
             Path path = Paths.get(this.fileLocation);
             ArrayList<Task> tasks = new ArrayList<Task>();
-            Scanner scanner = new Scanner(path);
+            Scanner scanner = new Scanner(path, StandardCharsets.UTF_8);
             for (int i = 1; scanner.hasNextLine(); i += 1) {
                 String dataline = scanner.nextLine();
                 //Process line if not blank
