@@ -82,7 +82,7 @@ public class Amadeus {
             // Return the captured response
             return stringUi.getCapturedOutput();
         } catch (Exception e) {
-            return "Oops! Something went wrong: " + e.getMessage();
+            return "Seriously? Something went wrong. What did you even type? → " + e.getMessage();
         }
     }
 
