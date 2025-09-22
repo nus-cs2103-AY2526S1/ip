@@ -171,8 +171,56 @@ public class MainWindow extends AnchorPane {
                 }
                 ArrayList<Task> matchingTasks = sofi.getTasks().findTasks(searchTerm);
                 return formatFoundTasks(matchingTasks);
+            } else if (command.equals("tag")) {
+                String[] parts = Parser.parseTagCommand(input);
+                String taskNumberStr = parts[0];
+                String tag = parts[1];
+                
+                if (taskNumberStr.isEmpty() || tag.isEmpty()) {
+                    return "Please provide a task number and tag. Example: tag 1 fun";
+                }
+                
+                int taskNumber;
+                try {
+                    taskNumber = Integer.parseInt(taskNumberStr) - 1;
+                } catch (NumberFormatException e) {
+                    return "That doesn't look like a number. Try: tag 1 fun";
+                }
+                
+                if (!sofi.getTasks().isValidIndex(taskNumber)) {
+                    return "Task number out of range. You have " + sofi.getTasks().size() + " task(s).";
+                }
+                
+                Task task = sofi.getTasks().getTask(taskNumber);
+                task.addTag(tag);
+                sofi.saveTasks();
+                return "Nice! I've tagged this task with #" + tag + ":\n   " + task.toString();
+            } else if (command.equals("untag")) {
+                String[] parts = Parser.parseUntagCommand(input);
+                String taskNumberStr = parts[0];
+                String tag = parts[1];
+                
+                if (taskNumberStr.isEmpty() || tag.isEmpty()) {
+                    return "Please provide a task number and tag. Example: untag 1 fun";
+                }
+                
+                int taskNumber;
+                try {
+                    taskNumber = Integer.parseInt(taskNumberStr) - 1;
+                } catch (NumberFormatException e) {
+                    return "That doesn't look like a number. Try: untag 1 fun";
+                }
+                
+                if (!sofi.getTasks().isValidIndex(taskNumber)) {
+                    return "Task number out of range. You have " + sofi.getTasks().size() + " task(s).";
+                }
+                
+                Task task = sofi.getTasks().getTask(taskNumber);
+                task.removeTag(tag);
+                sofi.saveTasks();
+                return "OK, I've removed the #" + tag + " tag from this task:\n   " + task.toString();
             } else {
-                return "I don't recognize that command. Try: list, todo, deadline, event, mark, unmark, delete, find, bye";
+                return "I don't recognize that command. Try: list, todo, deadline, event, mark, unmark, delete, find, tag, untag, bye";
             }
     }
     
