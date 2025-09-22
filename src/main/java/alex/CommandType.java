@@ -77,4 +77,5 @@ public enum CommandType {
         }
         return UNKNOWN;
     }
+    // Above method was done with the help of AI
 }

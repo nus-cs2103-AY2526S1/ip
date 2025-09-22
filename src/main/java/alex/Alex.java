@@ -59,6 +59,7 @@ public class Alex {
             e.printStackTrace();
         }
     }
+    // Above method was done with the help of AI
 
     /**
      * Returns the chatbot's response to the specified user input.
@@ -71,4 +72,4 @@ public class Alex {
     }
 }
 
-
+// JavaDocs was done with the help of AI
