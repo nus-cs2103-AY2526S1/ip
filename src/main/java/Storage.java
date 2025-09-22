@@ -77,6 +77,14 @@ public class Storage {
                 if (isDone) {
                     task.markAsDone();
                 }
+                
+                // Load tags if they exist (parts[5] and beyond)
+                for (int i = 5; i < parts.length; i++) {
+                    if (!parts[i].trim().isEmpty()) {
+                        task.addTag(parts[i].trim());
+                    }
+                }
+                
                 tasks.add(task);
             }
         }
@@ -109,25 +117,35 @@ public class Storage {
     private String serialize(Task task) {
         assert task != null : "Task cannot be null";
         assert task.getDescription() != null : "Task description cannot be null";
+        
+        String baseLine;
+        String status = task.getStatusIcon().equals("[X]") ? "1" : "0";
+        
         if (task instanceof Todo) {
-            String status = task.getStatusIcon().equals("[X]") ? "1" : "0";
-            return "T | " + status + " | " + escape(task.description);
+            baseLine = "T | " + status + " | " + escape(task.getDescription());
         } else if (task instanceof Deadline) {
             Deadline d = (Deadline) task;
             assert d.getBy() != null : "Deadline 'by' time cannot be null";
-            String status = task.getStatusIcon().equals("[X]") ? "1" : "0";
-            return "D | " + status + " | " + escape(task.description) 
+            baseLine = "D | " + status + " | " + escape(task.getDescription()) 
                     + " | " + escape(d.getBy().format(STORAGE_FORMAT));
         } else if (task instanceof Event) {
             Event e = (Event) task;
             assert e.getFrom() != null : "Event 'from' time cannot be null";
             assert e.getTo() != null : "Event 'to' time cannot be null";
-            String status = task.getStatusIcon().equals("[X]") ? "1" : "0";
-            return "E | " + status + " | " + escape(task.description) 
+            baseLine = "E | " + status + " | " + escape(task.getDescription()) 
                     + " | " + escape(e.getFrom().format(STORAGE_FORMAT)) 
                     + " | " + escape(e.getTo().format(STORAGE_FORMAT));
+        } else {
+            return "";
         }
-        return "";
+        
+        // Add tags to the serialized line
+        StringBuilder result = new StringBuilder(baseLine);
+        for (String tag : task.getTags()) {
+            result.append(" | ").append(escape(tag));
+        }
+        
+        return result.toString();
     }
 
     private String escape(String s) {

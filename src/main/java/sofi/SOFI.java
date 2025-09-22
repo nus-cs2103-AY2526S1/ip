@@ -20,6 +20,8 @@ public class SOFI {
     private static final String COMMAND_UNMARK = "unmark";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_FIND = "find";
+    private static final String COMMAND_TAG = "tag";
+    private static final String COMMAND_UNTAG = "untag";
     
     // Error message constants
     private static final String ERROR_TODO_DESCRIPTION = "A todo needs a description. Try: todo read book";
@@ -35,7 +37,10 @@ public class SOFI {
     private static final String ERROR_NOT_A_NUMBER = "That doesn't look like a number. Try: ";
     private static final String ERROR_TASK_OUT_OF_RANGE = "Task number out of range. You have ";
     private static final String ERROR_FIND_TERM = "Please provide a search term. Example: find book";
-    private static final String ERROR_UNKNOWN_COMMAND = "I don't recognize that command. Try: list, todo, deadline, event, mark, unmark, delete, find, bye";
+    private static final String ERROR_TAG_TASK_NUMBER = "Please provide a task number and tag. Example: tag 1 fun";
+    private static final String ERROR_UNTAG_TASK_NUMBER = "Please provide a task number and tag. Example: untag 1 fun";
+    private static final String ERROR_TAG_EMPTY = "Tag cannot be empty. Example: tag 1 fun";
+    private static final String ERROR_UNKNOWN_COMMAND = "I don't recognize that command. Try: list, todo, deadline, event, mark, unmark, delete, find, tag, untag, bye";
     
     private Storage storage;
     private TaskList tasks;
@@ -91,6 +96,10 @@ public class SOFI {
                     handleDeleteCommand(userInput);
                 } else if (command.equals(COMMAND_FIND)) {
                     handleFindCommand(userInput);
+                } else if (command.equals(COMMAND_TAG)) {
+                    handleTagCommand(userInput);
+                } else if (command.equals(COMMAND_UNTAG)) {
+                    handleUntagCommand(userInput);
                 } else {
                     throw new SofiException(ERROR_UNKNOWN_COMMAND);
                 }
@@ -268,6 +277,70 @@ public class SOFI {
         }
         ArrayList<Task> matchingTasks = tasks.findTasks(searchTerm);
         ui.showFoundTasks(matchingTasks);
+    }
+
+    /**
+     * Handles the tag command.
+     * 
+     * @param userInput the user input containing the tag command
+     * @throws SofiException if the task number or tag is invalid
+     */
+    private void handleTagCommand(String userInput) throws SofiException {
+        String[] parts = Parser.parseTagCommand(userInput);
+        String taskNumberStr = parts[0];
+        String tag = parts[1];
+        
+        if (taskNumberStr.isEmpty() || tag.isEmpty()) {
+            throw new SofiException(ERROR_TAG_TASK_NUMBER);
+        }
+        
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(taskNumberStr) - 1;
+        } catch (NumberFormatException e) {
+            throw new SofiException(ERROR_NOT_A_NUMBER + "tag 1 fun");
+        }
+        
+        if (!tasks.isValidIndex(taskNumber)) {
+            throw new SofiException(ERROR_TASK_OUT_OF_RANGE + tasks.size() + " task(s).");
+        }
+        
+        Task task = tasks.getTask(taskNumber);
+        task.addTag(tag);
+        saveTasks();
+        ui.showTaskTagged(task, tag, true);
+    }
+    
+    /**
+     * Handles the untag command.
+     * 
+     * @param userInput the user input containing the untag command
+     * @throws SofiException if the task number or tag is invalid
+     */
+    private void handleUntagCommand(String userInput) throws SofiException {
+        String[] parts = Parser.parseUntagCommand(userInput);
+        String taskNumberStr = parts[0];
+        String tag = parts[1];
+        
+        if (taskNumberStr.isEmpty() || tag.isEmpty()) {
+            throw new SofiException(ERROR_UNTAG_TASK_NUMBER);
+        }
+        
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(taskNumberStr) - 1;
+        } catch (NumberFormatException e) {
+            throw new SofiException(ERROR_NOT_A_NUMBER + "untag 1 fun");
+        }
+        
+        if (!tasks.isValidIndex(taskNumber)) {
+            throw new SofiException(ERROR_TASK_OUT_OF_RANGE + tasks.size() + " task(s).");
+        }
+        
+        Task task = tasks.getTask(taskNumber);
+        task.removeTag(tag);
+        saveTasks();
+        ui.showTaskTagged(task, tag, false);
     }
 
     /**

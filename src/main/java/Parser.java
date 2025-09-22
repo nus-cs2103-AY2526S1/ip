@@ -15,6 +15,8 @@ public class Parser {
     private static final String COMMAND_UNMARK = "unmark";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_FIND = "find";
+    private static final String COMMAND_TAG = "tag";
+    private static final String COMMAND_UNTAG = "untag";
     private static final String COMMAND_UNKNOWN = "unknown";
     
     // Command prefixes for parsing
@@ -25,6 +27,8 @@ public class Parser {
     private static final String PREFIX_UNMARK = "unmark";
     private static final String PREFIX_DELETE = "delete";
     private static final String PREFIX_FIND = "find";
+    private static final String PREFIX_TAG = "tag";
+    private static final String PREFIX_UNTAG = "untag";
     
     // Parsing constants
     private static final int TODO_PREFIX_LENGTH = 5;
@@ -65,6 +69,10 @@ public class Parser {
             return COMMAND_DELETE;
         } else if (userInput.startsWith(PREFIX_FIND)) {
             return COMMAND_FIND;
+        } else if (userInput.startsWith(PREFIX_TAG)) {
+            return COMMAND_TAG;
+        } else if (userInput.startsWith(PREFIX_UNTAG)) {
+            return COMMAND_UNTAG;
         } else {
             return COMMAND_UNKNOWN;
         }
@@ -144,5 +152,41 @@ public class Parser {
         assert userInput != null : "User input cannot be null";
         assert userInput.startsWith("find") : "Input should start with 'find'";
         return userInput.length() >= 5 ? userInput.substring(5).trim() : "";
+    }
+
+    /**
+     * Parses a tag command to extract task number and tag.
+     * 
+     * @param userInput the tag command input
+     * @return array containing [taskNumber, tag]
+     */
+    public static String[] parseTagCommand(String userInput) {
+        assert userInput != null : "User input cannot be null";
+        assert userInput.startsWith("tag") : "Input should start with 'tag'";
+        String[] parts = userInput.split(" ", 3);
+        if (parts.length < 3) {
+            return new String[]{"", ""};
+        }
+        String taskNumber = parts[1].trim();
+        String tag = parts[2].trim();
+        return new String[]{taskNumber, tag};
+    }
+
+    /**
+     * Parses an untag command to extract task number and tag.
+     * 
+     * @param userInput the untag command input
+     * @return array containing [taskNumber, tag]
+     */
+    public static String[] parseUntagCommand(String userInput) {
+        assert userInput != null : "User input cannot be null";
+        assert userInput.startsWith("untag") : "Input should start with 'untag'";
+        String[] parts = userInput.split(" ", 3);
+        if (parts.length < 3) {
+            return new String[]{"", ""};
+        }
+        String taskNumber = parts[1].trim();
+        String tag = parts[2].trim();
+        return new String[]{taskNumber, tag};
     }
 }

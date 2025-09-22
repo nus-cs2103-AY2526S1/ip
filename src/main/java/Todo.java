@@ -8,6 +8,8 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + getStatusIcon() + " " + description;
+        String tagsString = getTagsString();
+        return "[T]" + getStatusIcon() + " " + description + 
+               (tagsString.isEmpty() ? "" : " " + tagsString);
     }
 }
