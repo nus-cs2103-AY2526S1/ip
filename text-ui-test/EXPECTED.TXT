@@ -1,7 +1,48 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+_____________________________
+Wassup, I'm jerome.jerome!
+What can I do for you?
+_____________________________
+_____________________________
+Gotchu mahomes! I added:
+[T][ ] read book
+There are now 1 tasks!
+_____________________________
+_____________________________
+Gotchu mahomes! I added:
+[D][ ] return book(by: Dec 2 2019, 6:00 pm)
+There are now 2 tasks!
+_____________________________
+_____________________________
+Gotchu mahomes! I added:
+[E][ ] project meeting(from: Dec 2 2019, 2:00 pm to: Dec 2 2019, 4:00 pm)
+There are now 3 tasks!
+_____________________________
+Here are your tasks broski:
+1. [T][ ] read book
+2. [D][ ] return book(by: Dec 2 2019, 6:00 pm)
+3. [E][ ] project meeting(from: Dec 2 2019, 2:00 pm to: Dec 2 2019, 4:00 pm)
+_____________________________
+Nice! I have marked the following task as complete!
+[D][x] return book(by: Dec 2 2019, 6:00 pm)
+Aww! I will unmark the following task...
+[D][ ] return book(by: Dec 2 2019, 6:00 pm)
+_____________________________
+Alright matey! I have removed this task:
+[T][ ] read book
+There are now 2 task(s)!
+_____________________________
+Here are your tasks broski:
+1. [D][ ] return book(by: Dec 2 2019, 6:00 pm)
+2. [E][ ] project meeting(from: Dec 2 2019, 2:00 pm to: Dec 2 2019, 4:00 pm)
+_____________________________
+_____________________________
+Oh deary me... I'm sorry, but I don't know what task this is :-(
+_____________________________
+_____________________________
+Im soooo Sorry... deadline is missing fields...
+_____________________________
+_____________________________
+Aww, todo does not take in the argument(s) 'by'
+_____________________________
+Bye gng. Dap a homie up before you go will ya!
+_____________________________
