@@ -5,6 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TaskListTest {
+    /*
+     * AI Tool: ChatGPT 5 Free
+     *
+     * The tool helped to analyze some of the more complex source files and help me write sample
+     * test cases. I then cross referenced it to write my test cases as I have a better context
+     * compared to the tool.
+     * */
+
     @Test
     public void addTask_increasesSize() {
         TaskList tasks = new TaskList();

@@ -11,6 +11,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 public class CommandParserTest {
+    /*
+    * AI Tool: ChatGPT 5 Free
+    *
+    * The tool helped to analyze some of the more complex source files and help me write sample
+    * test cases. I then cross referenced it to write my test cases as I have a better context
+    * compared to the tool.
+    * */
+
     @Test
     void parse_bye_returnsExitCommand() throws Exception {
         Command cmd = CommandParser.parse("bye");
