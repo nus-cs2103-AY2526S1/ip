@@ -22,8 +22,6 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Clam clam;
 
@@ -49,6 +47,7 @@ public class MainWindow extends AnchorPane {
         assert !Objects.isNull(clam);
         String input = userInput.getText();
         String response = clam.getResponse(input);
+
         if(response.startsWith("Bye.")) {
             Platform.exit();
         }

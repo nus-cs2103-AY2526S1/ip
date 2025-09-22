@@ -33,10 +33,11 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList tasklist, Ui ui, Storage storage) throws MarkException, IOException {
         try {
-            int item = Integer.parseInt(input.substring(7));
-            tasklist.get(item - 1).markAsUndone();
-            ui.chatbotPrint("Ok, I've marked this task as not done yet:\n    "
-                    + tasklist.get(item - 1));
+            String index = input.substring(7);
+            int item = Integer.parseInt(index) - 1;
+
+            tasklist.get(item).markAsUndone();
+            ui.chatbotPrint("Ok, I've marked this task as not done yet:\n    " + tasklist.get(item));
         } catch (Exception e) {
             throw new MarkException("I'm not sure which item you're trying to unmark. Try again?");
         }

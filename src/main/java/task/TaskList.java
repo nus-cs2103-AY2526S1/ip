@@ -81,9 +81,14 @@ public class TaskList {
         StringBuilder list = new StringBuilder();
         int index = 0;
         list.append("\n");
+
         for (Task i : tasks) {
             index++;
-            list.append("    ").append(index).append(".").append(i).append("\n");
+            list.append("    ")
+                    .append(index)
+                    .append(".")
+                    .append(i)
+                    .append("\n");
         }
         return list.toString();
     }

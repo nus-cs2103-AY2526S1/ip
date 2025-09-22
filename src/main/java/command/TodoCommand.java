@@ -35,9 +35,12 @@ public class TodoCommand extends Command {
     @Override
     public void execute(TaskList tasklist, Ui ui, Storage storage) throws TodoException, IOException {
         try {
-            if (input.substring(5).isEmpty()) throw new Exception();
-            ToDo td = new ToDo(input.substring(5));
+            String desc = input.substring(5);
+            if (desc.isEmpty()) throw new Exception();
+
+            ToDo td = new ToDo(desc);
             tasklist.add(td);
+
             ui.chatbotPrint("Got it. I've added this task:\n      " + td);
             ui.chatbotPrint("Now you have " + tasklist.size() + " tasks in the list.");
         } catch (Exception e) {

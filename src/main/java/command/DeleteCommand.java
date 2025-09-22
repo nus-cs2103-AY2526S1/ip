@@ -34,9 +34,12 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasklist, Ui ui, Storage storage) throws DeleteException, IOException {
         try {
-            int item = Integer.parseInt(input.substring(7));
+            String desc = input.substring(7);
+            int item = Integer.parseInt(desc);
+
             Task taskToDelete = tasklist.get(item - 1);
             tasklist.remove(item - 1);
+
             ui.chatbotPrint("I've deleted the task:\n      " + taskToDelete);
             ui.chatbotPrint("Now you have " + tasklist.size() + " tasks in the list.");
         } catch (Exception e) {
