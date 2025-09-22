@@ -20,6 +20,7 @@ public class Parser {
      * @return the {@link Command} corresponding to the input
      */
     public static Command parse(String input) {
+        assert !input.isEmpty();
         if (input.startsWith("list")) {
             return new ListCommand(input);
         } else if (input.startsWith("bye")) {
@@ -55,6 +56,7 @@ public class Parser {
      * @return the {@link DukeAction} enum value corresponding to the input
      */
     public static DukeAction parseInput(String input) {
+        assert !input.isEmpty();
         if (input.startsWith("list")) {
             return DukeAction.LIST_TASKS;
         } else if (input.startsWith("bye")) {

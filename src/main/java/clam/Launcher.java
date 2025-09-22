@@ -1,4 +1,4 @@
-package Clam;
+package clam;
 
 import javafx.application.Application;
 
