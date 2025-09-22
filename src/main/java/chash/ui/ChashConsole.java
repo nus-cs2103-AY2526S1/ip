@@ -47,7 +47,7 @@ public class ChashConsole extends ChashUi {
 
         //todo: does not check for empty txt string
         //does not enforce print line max length
-        Stream<String> lineStream = Stream.<String>of(txt.split("\n"));
+        Stream<String> lineStream = Stream.<String>of(txt.split("\n")); //streams here
         printLineSeparator();
         lineStream.forEach(line -> printLine(line)); //lambda can replace with mtd ref this::printLine
         printLineSeparator();
