@@ -1,0 +1,58 @@
+.root {
+    -fx-background-color: #FAF3DD; /* warm café-like */
+}
+
+.text-field {
+    -fx-background-color: #D9FFE2;
+    -fx-background-radius: 10;
+    -fx-padding: 8 12 8 12;
+    -fx-font: 16px "Nunito";
+}
+
+.button {
+    -fx-background-color: linear-gradient(mediumspringgreen, #00C08A);
+    -fx-text-fill: white;
+    -fx-background-radius: 12;
+    -fx-font: italic bold 16px "Nunito";
+    -fx-padding: 8 14 8 14;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 6, 0.3, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(cyan, #13D49B);
+    -fx-font-size: 18px;
+    -fx-cursor: hand;
+}
+
+.button:pressed {
+    -fx-background-color: orange;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #FF9CB4;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+/*
+I prompted AI to give me a set of colour palette and fonts suitable for
+my chatbot. Given it is themed after cats, I want something that is
+give a cat-cafe vibe. From which I modified the css and java files
+accordingly.
+*/

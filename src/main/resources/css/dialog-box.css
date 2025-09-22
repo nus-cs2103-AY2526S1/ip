@@ -1,0 +1,50 @@
+/* shared bubble look */
+.bubble {
+    -fx-padding: 8 12 8 12;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 6, 0.3, 0, 1);
+    -fx-text-fill: #2a2a2a;
+    -fx-font-family: "Nunito", "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+}
+
+.user-bubble {
+    -fx-background-color: linear-gradient(to bottom right, #d5f5e3, #a9dfbf);
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
+    -fx-border-width: 2px;
+    -fx-border-insets: 0 7 0 7;
+    -fx-background-insets: 0 7 0 7;
+}
+
+.bot-bubble {
+    -fx-background-color: linear-gradient(to bottom right, #cde7f0, #aed6f1);
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-border-color: #6fa3ef;
+    -fx-border-width: 2px;
+}
+
+.user-bubble, .bot-bubble {
+    -fx-font-family: "Nunito", "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #2a2a2a;
+}
+
+.user-bubble:hover, .bot-bubble:hover {
+    -fx-opacity: 0.9;
+    -fx-cursor: hand;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 8, 0.3, 0, 2);
+    -fx-background-radius: 50%; /* if you want to mask with a circle */
+}
+
+/*
+I prompted AI to give me a set of colour palette and fonts suitable for
+my chatbot. Given it is themed after cats, I want something that is
+give a cat-cafe vibe. It also suggested me to have two separate bubble
+classes instead of the original approach.
+*/

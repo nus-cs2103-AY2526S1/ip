@@ -1,7 +1,185 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+ __  __   ____    ____    _   _
+|  \/  | / __ \  / __ \  | \ | |     __      _
+| |\/| || |  | || | () | |  \| |   o'')}____//
+| |  | || |__| || @ . o| | |\  |    `_/      )
+|_|  |_| \____/  \____/  |_| \_|    (_(_/-(_/
+	Moon: Woof woof! I'm Moon! Your personal assistant! 🐾
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf? Are you sure you have the correct commands?: 'lst'. Do you mean 'list'?
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: You haven't added anything to your list yet. Time to start tasking! A-wooooo!
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf? Are you sure you have the correct commands?: 'todone'. Do you mean 'todo'?
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! Your task name cannot be empty!. You should follow this syntax: 'todo {task description}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Copy that! I've added this task!
+			[T][ ] read books
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf? Are you sure you have the correct commands?: 'dead'. Do you mean 'deadline'?
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! Your task name cannot be empty!. You should follow this syntax: 'deadline {task description} /by {deadline time}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! Are you missing a dash '/' or a commands somewhere?. You should follow this syntax: 'deadline {task description} /by {deadline time}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! I think you make a mistake here: 'from'. You should follow this syntax: 'deadline {task description} /by {deadline time}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! Your deadline time cannot be empty!. You should follow this syntax: 'deadline {task description} /by {deadline time}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Copy that! I've added this task!
+			[D][ ] buy lunch (by: 2pm today)
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf? Are you sure you have the correct commands?: 'evernt'. Do you mean 'event'?
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! Are you missing a dash '/' or a commands somewhere?. You should follow this syntax: 'event {task description} /from {start time} /by {end time}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! Your task name cannot be empty!. You should follow this syntax: 'event {task description} /from {start time} /by {end time}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! Both your start and end time cannot be empty!. You should follow this syntax: 'event {task description} /from {start time} /by {end time}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Copy that! I've added this task!
+			[E][ ] class (from: 2pm to: 3pm today)
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Here are the items in your list!
+		  1. [T][ ] read books
+		  2. [D][ ] buy lunch (by: 2pm today)
+		  3. [E][ ] class (from: 2pm to: 3pm today)
+		  Woof!
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Copy that! I've added this task!
+			[E][ ] class (from: 2pm to: 3pm today)
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! Your index is out of range!. You should follow this syntax: 'delete {task number}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! I don't think you put in an integer?. You should follow this syntax: 'mark {task number}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! Your index is out of range!. You should follow this syntax: 'delete {task number}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Nicely done! I've pawed this as done! Woof!
+			[T][X] read books
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: I see you have already marked/unmarked this task!
+			[T][X] read books
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! Your index is out of range!. You should follow this syntax: 'delete {task number}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Here are the items in your list!
+		  1. [T][X] read books
+		  2. [D][ ] buy lunch (by: 2pm today)
+		  3. [E][ ] class (from: 2pm to: 3pm today)
+		  4. [E][ ] class (from: 2pm to: 3pm today)
+		  Woof!
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! Your index is out of range!. You should follow this syntax: 'delete {task number}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! I don't think you put in an integer?. You should follow this syntax: 'unmark {task number}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! Your index is out of range!. You should follow this syntax: 'delete {task number}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: I see you have already marked/unmarked this task!
+			[D][ ] buy lunch (by: 2pm today)
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: No worries! I've pawed this as not done! You can do it! Woof!
+			[T][ ] read books
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! Your index is out of range!. You should follow this syntax: 'delete {task number}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Here are the items in your list!
+		  1. [T][ ] read books
+		  2. [D][ ] buy lunch (by: 2pm today)
+		  3. [E][ ] class (from: 2pm to: 3pm today)
+		  4. [E][ ] class (from: 2pm to: 3pm today)
+		  Woof!
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! Your index is out of range!. You should follow this syntax: 'delete {task number}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! I don't think you put in an integer?. You should follow this syntax: 'delete {task number}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Wuf! Your index is out of range!. You should follow this syntax: 'delete {task number}'.
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Copy that! I've deleted this task! Woof!
+			[D][ ] buy lunch (by: 2pm today)
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Here are the items in your list!
+		  1. [T][ ] read books
+		  2. [E][ ] class (from: 2pm to: 3pm today)
+		  3. [E][ ] class (from: 2pm to: 3pm today)
+		  Woof!
+	____________________________________________________________
+	Moon: How may I help you?
+	____________________________________________________________
+	Moon: Byeee! Hope to see you again! A-woooooooooooo! 🐾
+	____________________________________________________________

@@ -1,0 +1,38 @@
+lst
+list
+todone
+todo
+todo read books
+dead line buy lunch /by 2pm today
+deadline /by 2pm
+deadline buy lunch
+deadline buy lunch /from 2pm
+deadline buy lunch /by
+deadline buy lunch /by 2pm today
+evernt workshop /from 2pm /to 3pm today
+event /by 2
+event /from 2pm /to 3pm today
+event class /from 2pm /to
+event class /from 2pm /to 3pm today
+list
+event class /from 2pm /to 3pm today
+mark 0
+mark 1.0
+mark -1
+mark 1
+mark 1
+mark 6
+list
+unmark 0
+unmark 1.0
+unmark -1
+unmark 2
+unmark 1
+unmark 6
+list
+delete 0
+delete 1.0
+delete -1
+delete 2
+list
+bye

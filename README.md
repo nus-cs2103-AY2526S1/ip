@@ -1,26 +1,88 @@
-# Duke project template
+# Moon
+> “Your mind is for having ideas, not holding them.” – David Allen
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+***Moon* frees your mind of having to remember things you need to do. It's,**
 
-## Setting up in Intellij
+- text-based
+- easy to learn
+- ***~~FAST~~ SUPER FAST*** to use
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+All you need to do is,
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+1. download it from [here](https://github.com/duyLeu/ip/releases/tag/v3.1).
+2. double-click it.
+3. add your *tasks*.
+4. let it manage your tasks for you :stuck_out_tongue_winking_eye:
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+And it is **FREE!**
+
+## Features
+### 1. Add tasks
+#### ToDos
+Tasks without any date/time attached to it e.g., visit new theme park
+```declarative
+todo {task description}
+```
+
+#### Deadlines
+Tasks that need to be done before a specific date/time e.g., submit report by 11/10/2019 5pm
+```declarative
+deadline {task description} /by dd/mm/yyyy HHMM {deadline time}
+```
+(`HHMM` time is optional)
+
+#### Events
+Tasks that start at a specific date/time and ends at a specific date/time e.g.,
+- team project meeting 2/10/2019 2-4pm
+- orientation week 4/10/2019 to 11/10/2019
+```declarative
+event {task description} /from dd/mm/yyyy HHMM {start time} /by dd/mm/yyyy HHMM {end time}
+```
+(`HHMM` time is optional)
+
+### 2. Show list of tasks
+After adding allllll your new tasks, you can ask Moon to show all of them, all at once!
+```declarative
+list
+```
+
+### 3. Mark/Unmark tasks
+You can also choose to **mark**, or **unmark** tasks to show that you have done them, or you still have unfinished tasks!
+```declarative
+mark {task number}
+
+unmark {task number}
+```
+
+### 4. Delete tasks
+Once you finished your tasks, you can **delete** it to free up space for new tasks!
+```declarative
+delete {task number}
+```
+
+### 5. Find tasks
+Too many tasks and don't know where to find them? @-@ Don't worry! Moon has got you covered!
+Just put in a keyword, or even *part of a keyword*, and Moon will help you find that tasks along with its index number in the task list!
+```declarative
+find {keyword}
+```
+### 6. Practice Java!
+Additionally, if you are a Java programmer, you can use it to practice Java too. Here's the Launcher method:
+
+```java
+public class Launcher {
+    /**
+     * Launches the JavaFX application.
+     *
+     * @param args command-line arguments
+     */
+    public static void main(String[] args) {
+        Application.launch(Main.class, args);
+    }
+}
+```
+## Upcoming features
+Sit tight, because we have a whole host of new features coming to you as soon as possible
+- [X] Search tasks
+- [ ] Managing deadlines (coming soon)
+- [ ] Reminders (coming soon)
