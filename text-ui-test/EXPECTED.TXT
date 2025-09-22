@@ -1,7 +1,65 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+____________________________________________________________
+Hello! I'm klalopz.klalopz!
+What can I do for you today?
+____________________________________________________________
+Your input:
+____________________________________________________________
+Got it. I've added this task:
+[T][ ] borrow book
+Now you have 1 tasks in the list.
+____________________________________________________________
+Your input:
+____________________________________________________________
+Got it. I've added this task:
+[D][ ] return book  (by: Sunday)
+Now you have 2 tasks in the list.
+____________________________________________________________
+Your input:
+____________________________________________________________
+Got it. I've added this task:
+[E][ ] project meeting  (from: Mon 2pm  to: 4pm)
+Now you have 3 tasks in the list.
+____________________________________________________________
+Your input:
+____________________________________________________________
+No | klalopz.tasks.Task type | Completed? | Title
+-----------------------------------
+1. [T][ ] borrow book
+2. [D][ ] return book  (by: Sunday)
+3. [E][ ] project meeting  (from: Mon 2pm  to: 4pm)
+____________________________________________________________
+Your input:
+____________________________________________________________
+Well done! I have marked this task:
+[X] return book
+____________________________________________________________
+Your input:
+____________________________________________________________
+Well done! I have marked this task:
+[X] borrow book
+____________________________________________________________
+Your input:
+____________________________________________________________
+No | klalopz.tasks.Task type | Completed? | Title
+-----------------------------------
+1. [T][X] borrow book
+2. [D][X] return book  (by: Sunday)
+3. [E][ ] project meeting  (from: Mon 2pm  to: 4pm)
+____________________________________________________________
+Your input:
+____________________________________________________________
+Understood! I have unmarked this task:
+[ ] return book
+____________________________________________________________
+Your input:
+____________________________________________________________
+No | klalopz.tasks.Task type | Completed? | Title
+-----------------------------------
+1. [T][X] borrow book
+2. [D][ ] return book  (by: Sunday)
+3. [E][ ] project meeting  (from: Mon 2pm  to: 4pm)
+____________________________________________________________
+Your input:
+____________________________________________________________
+Bye-bye, hope to see you soon!
+____________________________________________________________
