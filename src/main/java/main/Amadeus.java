@@ -69,7 +69,7 @@ public class Amadeus {
         try {
             // Handle special case for "bye" command
             if (input.trim().equalsIgnoreCase("bye")) {
-                return "Hmph… already leaving? Fine, bye. Don’t mess up next time.";
+                return "Already leaving? Fine, bye. Don't mess up next time.";
             }
             
             // Use a custom UI that captures the response as a string
@@ -82,7 +82,7 @@ public class Amadeus {
             // Return the captured response
             return stringUi.getCapturedOutput();
         } catch (Exception e) {
-            return "Seriously? Something went wrong. What did you even type? → " + e.getMessage();
+            return "Seriously? Something went wrong: " + e.getMessage();
         }
     }
 
@@ -109,7 +109,7 @@ public class Amadeus {
             input = sc.nextLine();
         }
 
-        ui.printMessage("Hmph… already leaving? Fine, bye. Don’t mess up next time.");
+        ui.printMessage("Already leaving? Fine, bye. Don't mess up next time.");
         sc.close();
     }
 
