@@ -1,7 +1,6 @@
 package command;
 
 import exception.TodoException;
-import task.Event;
 import task.TaskList;
 import ui.Ui;
 import storage.Storage;

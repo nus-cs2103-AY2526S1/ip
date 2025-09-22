@@ -6,7 +6,6 @@ import ui.Ui;
 import storage.Storage;
 import exception.DeadlineException;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**

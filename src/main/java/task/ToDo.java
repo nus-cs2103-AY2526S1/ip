@@ -9,7 +9,7 @@ public class ToDo extends Task {
     /**
      * Constructs a {@link ToDo} task with the given description.
      *
-     * @param description
+     * @param description the description/title of the {@link ToDo} task
      */
     public ToDo(String description) {
         super(description);

@@ -29,8 +29,4 @@ public class ListCommand extends Command {
         ui.chatbotPrint("Here are the tasks in your list:" + tasklist.toString());
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

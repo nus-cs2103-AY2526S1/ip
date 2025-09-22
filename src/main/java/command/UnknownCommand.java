@@ -30,8 +30,4 @@ public class UnknownCommand extends Command {
     public void execute(TaskList tasklist, Ui ui, Storage storage) {
         ui.showError("I'm not sure what command you're trying to run. Try again?");
     }
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

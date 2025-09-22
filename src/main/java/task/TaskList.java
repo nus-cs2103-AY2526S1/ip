@@ -5,7 +5,7 @@ import java.util.Objects;
 import parser.Parser;
 
 /**
- * Represents a list of tasks, the main data structure for the Clam program.
+ * Represents a list of tasks, the main data structure for the Clam.Clam program.
  * <p>
  * This class manages the addition, removal and retrieval of {@link Task} objects
  * within its arraylist. It also contains other auxiliary functions such as {@code size()}.

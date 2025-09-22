@@ -1,34 +1,12 @@
 package ui;
 
-import java.util.Scanner;
-
 /**
  * A utility class for reading user input and displaying program output.
  */
 public class Ui {
-    /**
-     * A constant string for the horizontal line regularly used in the chatbot's output.
-     */
-    public static final String HORIZONTAL_LINE = "____________________________________________________________";
+    private final StringBuilder sb = new StringBuilder();
 
-    private final Scanner s;
-
-    /**
-     * Constructs a {@link Ui} object with a {@link Scanner} reading {@code System.in}.
-     */
-    public Ui() {
-        s = new Scanner(System.in);
-    }
-
-    /**
-     * Prints the greeting message.
-     */
-    public void greet() {
-        String greeting = "    Hello! I'm Clam!\n"
-                + "    What can I do for you?\n"
-                + "    ____________________________________________________________\n";
-        System.out.println(greeting);
-    }
+    public Ui() {}
 
     /**
      * Prints the goodbye message.
@@ -38,42 +16,34 @@ public class Ui {
     }
 
     /**
-     * Reads the next line of user input with Scanner.
-     *
-     * @return the next line of user input as a String
-     */
-    public String getInput() {
-        return s.nextLine();
-    }
-
-    /**
-     * Prints the horizontal line with the chatbot indent.
-     */
-    public void printLine() {
-        chatbotPrint(HORIZONTAL_LINE);
-    }
-
-    /**
-     * Prints an (error) message with an "Error:" header and
-     * the chatbot indent.
-     * @param msg
+     * Prints an (error) message with an "Error:" header.
+     * @param msg the error message
      */
     public void showError(String msg) {
         chatbotPrint("Error: " + msg);
     }
 
     /**
-     * Prints a string with the chatbot indent of 4 spaces.
+     * Adds the input string to the current chatbot string stack, for the GUI to display at a later point.
+     *
+     *<p>The StringBuilder is used here so that methods that print multiple lines can have all of their respective
+     * print lines collated before being sent back to the GUI when it calls for a response.</p>
      * @param s the String to be printed
      */
     public void chatbotPrint(String s) {
-        System.out.println("    " + s);
+        sb.append(s).append("\n");
     }
 
     /**
-     * Closes the Scanner object.
+     * Returns the current string stored in the {@link StringBuilder} {@code sb} and clears it for the next string
+     * to be built.
+     *
+     * @return the string stored in the {@code sb}.
      */
-    public void close() {
-        s.close();
+    public String printToGui() {
+        String res = sb.toString();
+        sb.setLength(0);
+        return res;
     }
+
 }
