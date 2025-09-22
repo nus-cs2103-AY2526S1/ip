@@ -373,6 +373,7 @@
            a = 1; /* Allowed (single space before start of comment) */
            /* Allowed (single space after end of comment) */ a = 1;
            a = 1;  // Not allowed (more than one space before start of comment)
+           ^Note: technically I want to do this to follow the PEP8 inline comment standard
            a = 1;  /* Not allowed (more than one space before start of comment) */
            /* Not allowed (more than one space after end of comment) */  a = 1;
 
