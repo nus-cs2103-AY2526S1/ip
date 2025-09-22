@@ -35,6 +35,9 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setHachiware(HachiwareWrapper h) {
         hachiware = h;
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(hachiware.getWelcome(), dukeImage)
+        );
     }
 
     /**

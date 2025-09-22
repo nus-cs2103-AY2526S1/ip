@@ -22,7 +22,8 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setHachiware(hachiware); // inject the Duke instance
+            stage.setTitle("Hachiware");
+            fxmlLoader.<MainWindow>getController().setHachiware(hachiware);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
