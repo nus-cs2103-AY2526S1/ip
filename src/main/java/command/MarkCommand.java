@@ -33,10 +33,11 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasklist, Ui ui, Storage storage) throws MarkException, IOException {
         try {
-            int item = Integer.parseInt(input.substring(5));
-            tasklist.get(item - 1).markAsDone();
-            ui.chatbotPrint("Nice! I've marked this task as done:\n    "
-                    + tasklist.get(item - 1));
+            String index = input.substring(5);
+            int item = Integer.parseInt(index) - 1;
+
+            tasklist.get(item).markAsDone();
+            ui.chatbotPrint("Nice! I've marked this task as done:\n    " + tasklist.get(item));
         } catch (Exception e) {
             throw new MarkException("I'm not sure which item you're trying to mark. Try again?");
         }

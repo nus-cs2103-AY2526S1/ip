@@ -13,8 +13,11 @@ public class FindCommand extends Command {
     @Override
     public void execute(TaskList t, Ui u, Storage s) throws FindException {
         try {
-            if (input.substring(5).isEmpty()) throw new Exception();
-            TaskList filtered = t.filter(input.substring(5));
+            String filterText = input.substring(5);
+            if (filterText.isEmpty()) throw new Exception();
+
+            TaskList filtered = t.filter(filterText);
+
             u.chatbotPrint("Here are the matching tasks in your list:" + filtered.toString());
         } catch (Exception e) {
             throw new FindException("I'm not sure what you're trying to find. Try again?");

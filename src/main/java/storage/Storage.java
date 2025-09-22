@@ -47,19 +47,22 @@ public class Storage {
     public TaskList loadSaveFile() throws Exception {
         File f = new File(filepath);
         TaskList tasks = new TaskList();
+
         if (f.exists()) {
-            Scanner s = new Scanner(f);
-            boolean error = false;
+            boolean hasError = false;
             StringBuilder errorStack = new StringBuilder();
+
+            Scanner s = new Scanner(f);
+
             while (s.hasNext()) {
                 try {
                     tasks.loadTask(s.nextLine());
                 } catch (Exception e) {
-                    error = true;
+                    hasError = true;
                     errorStack.append(e.getMessage()).append("\n");
                 }
             }
-            if (error) throw new Exception(errorStack.toString());
+            if (hasError) throw new Exception(errorStack.toString());
         }
         return tasks;
     }
@@ -79,18 +82,35 @@ public class Storage {
      */
     public void saveToFile(TaskList tasklist) throws IOException {
         StringBuilder sb = new StringBuilder();
+
         for (Task i : tasklist.tasks) {
             if (i instanceof ToDo td) {
-                sb.append("todo|").append(td.isDone ? "1|" : "0|").append(td.description).append(System.lineSeparator());
-            } else if (i instanceof Deadline dl) {
-                sb.append("deadline|").append(dl.isDone ? "1|" : "0|").append(dl.description).append("|").append(dl.deadline)
+                sb.append("todo|")
+                        .append(td.isDone ? "1|" : "0|")
+                        .append(td.description)
                         .append(System.lineSeparator());
+
+            } else if (i instanceof Deadline dl) {
+                sb.append("deadline|")
+                        .append(dl.isDone ? "1|" : "0|")
+                        .append(dl.description)
+                        .append("|")
+                        .append(dl.deadline)
+                        .append(System.lineSeparator());
+
             } else if (i instanceof Event ev) {
-                sb.append("event|").append(ev.isDone ? "1|" : "0|").append(ev.description).append("|").append(ev.from)
-                        .append("|").append(ev.to).append(System.lineSeparator());
+                sb.append("event|")
+                        .append(ev.isDone ? "1|" : "0|")
+                        .append(ev.description)
+                        .append("|")
+                        .append(ev.from)
+                        .append("|")
+                        .append(ev.to)
+                        .append(System.lineSeparator());
             }
         }
         File f = new File("./save.txt");
+
         FileWriter fw = new FileWriter(f);
         fw.write(sb.toString());
         fw.close();

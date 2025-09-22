@@ -34,8 +34,13 @@ public class DeadlineCommand extends Command {
     @Override
     public void execute(TaskList tasklist, Ui ui, Storage storage) throws DeadlineException, IOException {
         try {
-            Deadline td = new Deadline(input.substring(9, input.indexOf("/by") - 1), input.substring(input.indexOf("/by") + 4));
+
+            String desc = input.substring(9, input.indexOf("/by") - 1);
+            String by = input.substring(input.indexOf("/by") + 4);
+
+            Deadline td = new Deadline(desc, by);
             tasklist.add(td);
+
             ui.chatbotPrint("Got it. I've added this task:\n      " + td);
             ui.chatbotPrint("Now you have " + tasklist.size() + " tasks in the list.");
         } catch (Exception e) {

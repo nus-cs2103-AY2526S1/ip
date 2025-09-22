@@ -35,10 +35,13 @@ public class EventCommand extends Command {
     @Override
     public void execute(TaskList tasklist, Ui ui, Storage storage) throws EventException, IOException {
         try {
-            Event td = new Event(input.substring(6, input.indexOf("/from") - 1),
-                    input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1),
-                    input.substring(input.indexOf("/to") + 4));
+            String desc = input.substring(6, input.indexOf("/from") - 1);
+            String from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
+            String to = input.substring(input.indexOf("/to") + 4);
+
+            Event td = new Event(desc, from, to);
             tasklist.add(td);
+
             ui.chatbotPrint("Got it. I've added this task:\n      " + td);
             ui.chatbotPrint("Now you have " + tasklist.size() + " tasks in the list.");
         } catch (Exception e) {
