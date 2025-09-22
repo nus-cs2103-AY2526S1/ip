@@ -169,7 +169,7 @@ Example: `bye`
 ```
 Expected output:
 
-Bye. Hope to see you again soon!
+Bye. See you next time my dawg!
 ```
 
 ## Command Summary
