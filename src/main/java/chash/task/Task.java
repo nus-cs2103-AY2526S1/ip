@@ -54,9 +54,11 @@ public abstract class Task {
     public String exportString() {
         //Note: This string may have to be base64 encoded to avoid possible delimiter issues
         return String.format(
-            "%d | %s",
-            (this.isDone) ? 1 : 0,
-            this.description
+                "%d | %s",
+                //CHECKSTYLE.OFF: SeparatorWrap
+                (this.isDone) ? 1 : 0,
+                //CHECKSTYLE.ON: SeparatorWrap
+                this.description
         );
     }
 
@@ -68,9 +70,11 @@ public abstract class Task {
     @Override
     public String toString() {
         return String.format(
-            "[%c] %s",
-            (this.isDone) ? 'X' : ' ',
-            this.description
+                "[%c] %s",
+                //CHECKSTYLE.OFF: SeparatorWrap
+                (this.isDone) ? 'X' : ' ',
+                //CHECKSTYLE.ON: SeparatorWrap
+                this.description
         );
     }
 }

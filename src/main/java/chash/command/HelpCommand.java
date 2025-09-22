@@ -17,18 +17,18 @@ public class HelpCommand extends Command {
         assert ui != null;
 
         ui.printMsg(
-            "Crysis Heir Activity Sentre Hepdesk Commands:\n" +
-            "HELP - Print this help message\n" +
-            "BYE - Exit this program\n" +
-            "LIST - List all tasks currently stored\n" +
-            "MARK - Mark a task as done\n" +
-            "UNMARK - Mark a task as not done\n" +
-            "TODO - Create a TODO task with description\n" +
-            "DEADLINE - Create a DEADLINE task with description (needs /by WHEN)\n" +
-            "EVENT - Create a EVENT task with description (needs /from START /to END)\n" +
-            "DELETE - Delete a task\n" +
-            "FIND - Find a task based on its description\n" +
-            "Thank you for joining the crysis warz"
+                "Crysis Heir Activity Sentre Hepdesk Commands:\n"
+                + "HELP - Print this help message\n"
+                + "BYE - Exit this program\n"
+                + "LIST - List all tasks currently stored\n"
+                + "MARK - Mark a task as done\n"
+                + "UNMARK - Mark a task as not done\n"
+                + "TODO - Create a TODO task with description\n"
+                + "DEADLINE - Create a DEADLINE task with description (needs /by WHEN)\n"
+                + "EVENT - Create a EVENT task with description (needs /from START /to END)\n"
+                + "DELETE - Delete a task\n"
+                + "FIND - Find a task based on its description\n"
+                + "Thank you for joining the crysis warz"
         );
     }
 }

@@ -14,6 +14,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * A custom JavaFX control representing a dialog box for user and chatbot messages.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
@@ -38,6 +41,13 @@ public class DialogBox extends HBox {
         this.profilePic.setImage(img);
     }
 
+    /**
+     * Creates a dialog box displaying the user's input.
+     *
+     * @param text the text to display
+     * @param img  the profile image for the user
+     * @return a {@code DialogBox} representing the user's message
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         assert text != null;
         assert img != null;
@@ -45,6 +55,13 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a dialog box displaying the CHASH's response.
+     *
+     * @param text the response text
+     * @param img  the CHASH's profile image
+     * @return a {@code DialogBox} representing the CHASH's response
+     */
     public static DialogBox getResponseDialog(String text, Image img) {
         assert text != null;
         assert img != null;
@@ -55,6 +72,13 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Creates a dialog box displaying an error response.
+     *
+     * @param text the error text
+     * @param img  the error profile image
+     * @return a {@code DialogBox} representing the error response
+     */
     public static DialogBox getErrResponseDialog(String text, Image img) {
         assert text != null;
         assert img != null;
