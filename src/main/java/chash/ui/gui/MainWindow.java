@@ -7,6 +7,7 @@ import chash.storage.ChashDb;
 import chash.task.TaskList;
 import chash.ui.ChashUi;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -82,8 +84,13 @@ public class MainWindow extends AnchorPane {
             Command cmd = CommandParser.parse(fullCommand);
             cmd.execute(this.tasks, this.gui, this.db);
             if (cmd.isExit()) {
-                //Maybe sleep 2 seconds before exit
-                Platform.exit();
+                //Cant use Thread.sleep(3000); as it will hang the JFX thread
+                PauseTransition delay = new PauseTransition(Duration.seconds(3));
+                delay.setOnFinished(event -> Platform.exit());
+
+                //Start the sleep and then exit
+                //But as the thread is still alive it maybe possible to sneak some commands in
+                delay.play();
             }
         } catch (ChashException ex) {
             this.gui.printErr(ex.getMessage());
