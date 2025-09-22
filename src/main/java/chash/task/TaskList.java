@@ -39,8 +39,9 @@ public class TaskList {
      *
      * @param index Index in list
      * @return Task at index
+     * @throws IndexOutOfBoundsException If index is invalid
      */
-    public Task get(int index) {
+    public Task get(int index) throws IndexOutOfBoundsException {
         //assert index >= 0 && index < this.tasks.size();
 
         return this.tasks.get(index);
@@ -51,8 +52,9 @@ public class TaskList {
      *
      * @param index Index in list
      * @return Removed task
+     * @throws IndexOutOfBoundsException If index is invalid
      */
-    public Task remove(int index) {
+    public Task remove(int index) throws IndexOutOfBoundsException {
         //assert index >= 0 && index < this.tasks.size();
 
         return this.tasks.remove(index);
