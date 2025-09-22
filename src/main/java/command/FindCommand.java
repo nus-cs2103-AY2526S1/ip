@@ -21,8 +21,4 @@ public class FindCommand extends Command {
         }
     }
 
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

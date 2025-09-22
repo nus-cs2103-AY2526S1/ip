@@ -18,9 +18,9 @@ public class Event extends Task {
      * Constructs an {@link Event} task with the given description, start date and end date as strings.
      * The start and end dates are parsed into {@link LocalDate} objects.
      *
-     * @param description
-     * @param from
-     * @param to
+     * @param description the description/title of the {@link Event} task
+     * @param from the start date of the {@link Event} task, stored as a {@link LocalDate}
+     * @param to the end date of the {@link Event} task, stored as a {@link LocalDate}
      */
     public Event(String description, String from, String to) {
         super(description);

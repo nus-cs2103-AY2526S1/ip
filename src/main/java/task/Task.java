@@ -12,7 +12,7 @@ public class Task {
 
     /**
      * Constructs a new {@link Task} object with the given description.
-     *
+     * <p>
      * New tasks are marked as undone.
      *
      * @param description the description/title of the task

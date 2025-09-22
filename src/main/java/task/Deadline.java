@@ -16,8 +16,8 @@ public class Deadline extends Task {
      * Constructs a {@link Deadline} task with the given description and deadline as strings.
      * The deadline is parsed into a {@link LocalDate} object.
      *
-     * @param description
-     * @param deadline
+     * @param description the description/title of the {@link Deadline} task
+     * @param deadline the deadline of the {@link Deadline} task, stored as a {@link LocalDate}
      */
     public Deadline(String description, String deadline) {
         super(description);
