@@ -37,6 +37,8 @@ public class Chash extends Application {
     //JavaFX entrypoint
     @Override
     public void start(Stage stage) {
+        assert stage != null;
+
         AnchorPane ap = new MainWindow();
         Scene scene = new Scene(ap);
         stage.setScene(scene);

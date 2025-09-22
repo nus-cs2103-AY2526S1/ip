@@ -15,6 +15,9 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, ChashUi ui, ChashDb db) {
+        assert tasks != null;
+        assert ui != null;
+
         if (tasks.size() == 0) {
             ui.printMsg("No tasks in your list!");
             return;

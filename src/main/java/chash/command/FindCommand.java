@@ -15,6 +15,8 @@ public class FindCommand extends Command {
      * @param searchTerm Keyword or phrase to search for
      */
     public FindCommand(String searchTerm) {
+        assert searchTerm != null;
+
         this.searchTerm = searchTerm;
     }
 
@@ -25,6 +27,9 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, ChashUi ui, ChashDb db) {
+        assert tasks != null;
+        assert ui != null;
+
         if (tasks.size() == 0) {
             ui.printMsg("No tasks in your list!");
             return;
