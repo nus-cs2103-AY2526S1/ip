@@ -19,6 +19,8 @@ public class MarkCommand extends Command {
      * @param mark {@code true} to mark done, {@code false} to unmark
      */
     public MarkCommand(String index, boolean mark) {
+        assert index != null;
+
         this.index = index;
         this.mark = mark;
     }
@@ -29,6 +31,10 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, ChashUi ui, ChashDb db) {
+        assert tasks != null;
+        assert ui != null;
+        assert db != null;
+
         try {
             //Get Task specified by user and set its status accordingly
             Task task = tasks.get(Integer.parseInt(this.index) - 1).setDone(this.mark);

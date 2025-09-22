@@ -12,12 +12,14 @@ public class Deadline extends Task {
      * Creates a new {@code Deadline} task.
      *
      * @param description Task description
-     * @param endtime Raw end time string
+     * @param endTime Raw end time string
      */
-    public Deadline(String description, String endtime) {
+    public Deadline(String description, String endTime) {
         super(description);
-        this.rawEnd = endtime;
-        this.parsedEnd = TaskDateParser.tryParse(endtime);
+        assert endTime != null;
+
+        this.rawEnd = endTime;
+        this.parsedEnd = TaskDateParser.tryParse(endTime);
     }
 
     /** {@inheritDoc} */

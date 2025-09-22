@@ -18,6 +18,8 @@ public class TaskList {
      * @param tasks Initial list of tasks
      */
     public TaskList(List<Task> tasks) {
+        assert tasks != null;
+
         this.tasks = tasks;
     }
 
@@ -27,6 +29,8 @@ public class TaskList {
      * @param task Task to add
      */
     public void add(Task task) {
+        assert task != null;
+
         this.tasks.add(task);
     }
 
@@ -37,6 +41,8 @@ public class TaskList {
      * @return Task at index
      */
     public Task get(int index) {
+        //assert index >= 0 && index < this.tasks.size();
+
         return this.tasks.get(index);
     }
 
@@ -47,6 +53,8 @@ public class TaskList {
      * @return Removed task
      */
     public Task remove(int index) {
+        //assert index >= 0 && index < this.tasks.size();
+
         return this.tasks.remove(index);
     }
 

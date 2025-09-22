@@ -6,7 +6,7 @@ package chash.task;
  * such as {@link Todo}, {@link Deadline}, and {@link Event}.
  */
 public abstract class Task {
-    private String description;
+    private final String description;
     private boolean isDone;
 
     /**
@@ -15,6 +15,8 @@ public abstract class Task {
      * @param description the description of the task
      */
     protected Task(String description) {
+        assert description != null;
+
         this.description = description;
         this.isDone = false;
     }
@@ -37,11 +39,10 @@ public abstract class Task {
      * @return this task with updated status
      */
     public Task setDone(boolean status) {
-        if (this.isDone == status) {
-            //can raise an error if necessary
-        } else {
+        if (this.isDone != status) {
             this.isDone = status;
         }
+        //can raise an error if necessary using else here
         return this;
     }
 

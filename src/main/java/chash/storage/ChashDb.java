@@ -28,6 +28,8 @@ public class ChashDb {
      * @param fileLocation Path to DB file
      */
     public ChashDb(String fileLocation) {
+        assert fileLocation != null;
+
         this.fileLocation = fileLocation;
     }
 
@@ -60,6 +62,8 @@ public class ChashDb {
      * @throws IOException If file cannot be read
      */
     public ArrayList<Task> loadDb(ChashUi ui) throws IOException {
+        assert ui != null;
+
         try {
             //Check if file and intermediate directories exists
             if (!fileExistsElseCreate()) {
@@ -101,6 +105,8 @@ public class ChashDb {
      * @throws IOException If file cannot be written
      */
     public void writeDb(List<Task> tasks) throws IOException {
+        assert tasks != null;
+
         //Java try-with-resource technique requires the method to implement AutoCloseable
         try {
             //Check if file and intermediate directories exists and create if needed
