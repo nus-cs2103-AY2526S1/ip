@@ -1,0 +1,84 @@
+package wowo.gui;
+
+import java.util.Objects;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+import wowo.Wowo;
+
+/**
+ * Contains the main user interface window
+ */
+public class MainWindow {
+    @FXML private ScrollPane scrollPane;
+    @FXML private VBox dialogContainer;
+    @FXML private TextField userInput;
+    @FXML private Button sendButton;
+
+    private final Image botImage = loadImage("/images/DaWowo.png");
+    private final Image userImage = loadImage("/images/DaUser.png");
+
+    private Wowo bot;
+
+    private static Image loadImage(String path) {
+        var in = Objects.requireNonNull(
+                MainWindow.class.getResourceAsStream(path),
+                "Missing resource: " + path);
+        return new Image(in);
+    }
+
+    /** Called by FXMLLoader after @FXML fields are injected. */
+    @FXML
+    public void initialize() {
+        assert scrollPane != null : "FXML injection failed: scrollPane is null";
+        assert dialogContainer != null : "FXML injection failed: dialogContainer is null";
+        assert userInput != null : "FXML injection failed: userInput is null";
+        assert sendButton != null : "FXML injection failed: sendButton is null";
+
+        // auto-scroll when new dialogs are added
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+    }
+
+    /** Inject the backend instance. Called from Main after loading FXML. */
+    public void init(Wowo bot) {
+        this.bot = bot;
+        bot.loadOnStartup();
+
+        dialogContainer.getChildren().add(
+                DialogBox.getBotDialog("Hello! I'm Wowo, Your grumpy personal assistant.\n"
+                        + "OKE GAS OKE GAS\n"
+                        + "How can I help?", botImage)
+        );
+    }
+
+    /** Send button and Enter key handler. */
+    @FXML
+    private void handleUserInput() {
+        assert userInput != null : "userInput field must not be null";
+        assert dialogContainer != null : "dialogContainer must not be null";
+        assert bot != null : "Bot must be initialized before handling input";
+
+        String input = userInput.getText();
+        if (input == null || input.isBlank()) {
+            return;
+        }
+
+        String response = bot.getResponse(input);
+        boolean isError = response.startsWith("[error] ");
+        String clean = isError ? response.substring(8) : response;
+
+        var userBox = DialogBox.getUserDialog(input, userImage);
+        var botBox = DialogBox.getBotDialog(clean, botImage);
+        if (isError) {
+            botBox.markAsError();
+        }
+
+        dialogContainer.getChildren().addAll(userBox, botBox);
+
+        userInput.clear();
+    }
+}
