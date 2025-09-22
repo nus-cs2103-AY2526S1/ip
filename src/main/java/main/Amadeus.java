@@ -92,7 +92,7 @@ public class Amadeus {
      * @return The greeting message
      */
     public String getGreeting() {
-        return "Hello! I'm Amadeus.\nWhat can I do for you?";
+        return "I'm Amadeus, kind of like Kurisu's copy. Speak quickly, don't waste my time.";
     }
 
     /**
