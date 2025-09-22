@@ -5,7 +5,7 @@
 CHASH is a typing-focused chatbot that lets you use mem as your personal assistant 
 to remember a variety of tasks through a nice graphical interface!
 
-![Sample of some CHASH commands being ran](/docs/Ui.png)
+![Sample of some CHASH commands being ran](https://github.com/x3zapper/ip/blob/master/docs/Ui.png)
 
 ## Features
 
