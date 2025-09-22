@@ -44,6 +44,7 @@ public class Clam {
     public String init() {
         StringBuilder sb = new StringBuilder();
         sb.append("Hi! I'm Clam, your personal task manager :)");
+
         try {
             tasks = storage.loadSaveFile();
         } catch (FileNotFoundException e) {
@@ -68,6 +69,7 @@ public class Clam {
         try {
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
+
             return ui.printToGui();
         } catch (Exception e) {
             return e.getMessage();

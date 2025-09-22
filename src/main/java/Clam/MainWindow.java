@@ -20,8 +20,6 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Clam clam;
 
@@ -46,6 +44,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = clam.getResponse(input);
+
         if(response.startsWith("Bye.")) {
             Platform.exit();
         }
