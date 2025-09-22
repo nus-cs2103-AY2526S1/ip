@@ -9,7 +9,7 @@
          xmlns="http://javafx.com/javafx/17"
          xmlns:fx="http://javafx.com/fxml/1"
          alignment="TOP_LEFT"
-         spacing="8" fillHeight="true">
+         spacing="8">  <!-- fillHeight removed -->
 
     <children>
         <ImageView fx:id="displayPicture"
@@ -19,10 +19,12 @@
         </ImageView>
 
         <Label fx:id="dialog"
-               wrapText="true" maxWidth="Infinity"
+               wrapText="true"
+               textOverrun="CLIP"
+               maxWidth="Infinity"
                HBox.hgrow="ALWAYS"
                style="-fx-padding:10 12 10 12; -fx-background-radius:14;
-                      -fx-background-color:#2f6fed; -fx-text-fill:white;"/>
+                -fx-background-color:#2f6fed; -fx-text-fill:white;"/>
     </children>
 
     <padding><Insets top="8" right="8" bottom="8" left="8"/></padding>

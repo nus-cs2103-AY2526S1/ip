@@ -60,17 +60,50 @@ public final class Parser {
      * @throws WowoException if the input is missing description or the time period
      */
     public static EventParts parseEvent(String input) throws WowoException {
-        String rest = input.substring("event".length()).trim();
+        // remove "event" and normalise spaces (helps catch empty date tokens)
+        String rest = input.substring("event".length()).trim().replaceAll("\\s+", " ");
+
         int pf = rest.indexOf("/from");
         int pt = rest.indexOf("/to");
-        String desc = (pf == -1) ? rest : rest.substring(0, pf).trim();
-        String from = (pf == -1 || pt == -1) ? "" : rest.substring(pf + 5, pt).trim();
-        String to = (pt == -1) ? "" : rest.substring(pt + 3).trim();
+
+        // must have both markers
+        if (pf == -1 || pt == -1) {
+            throw new WowoException(
+                    "Event needs both '/from <date>' and '/to <date>'. "
+                            + "Example: event Trip /from 2025-10-01 /to 2025-10-05");
+        }
+
+        // must appear once each
+        if (rest.indexOf("/from", pf + 1) != -1 || rest.indexOf("/to", pt + 1) != -1) {
+            throw new WowoException("Use '/from' and '/to' exactly once each.");
+        }
+
+        // must be in the right order
+        if (pf > pt) {
+            throw new WowoException("Write dates as '/from … /to …' in that order.");
+        }
+
+        String desc = rest.substring(0, pf).trim();
         if (desc.isEmpty()) {
             throw new EmptyDescriptionException();
         }
-        LocalDate fromDate = parseUserDate(from);
-        LocalDate toDate = parseUserDate(to);
+
+        String fromRaw = rest.substring(pf + 5, pt).trim();
+        String toRaw = rest.substring(pt + 3).trim();
+        if (fromRaw.isEmpty() || toRaw.isEmpty()) {
+            throw new WowoException("Give dates for both '/from' and '/to'.");
+        }
+
+        LocalDate fromDate = parseUserDate(fromRaw); // already supports multiple formats
+        LocalDate toDate = parseUserDate(toRaw);
+
+        // start must be strictly before end (no same-day, no reverse)
+        if (!fromDate.isBefore(toDate)) {
+            throw new WowoException(
+                    "The /from date must be before the /to date. "
+                            + "Example: /from 2025-10-01 /to 2025-10-05");
+        }
+
         return new EventParts(desc, fromDate, toDate);
     }
 

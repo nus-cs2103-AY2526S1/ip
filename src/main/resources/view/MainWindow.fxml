@@ -44,7 +44,8 @@
             <content>
                 <VBox fx:id="dialogContainer"
                       prefWidth="388.0" prefHeight="552.0"
-                      spacing="8" fillWidth="true"
+                      spacing="12"
+                      fillWidth="true"
                       style="-fx-background-color: transparent;">
                 </VBox>
             </content>

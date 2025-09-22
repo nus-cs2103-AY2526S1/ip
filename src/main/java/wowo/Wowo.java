@@ -17,7 +17,10 @@ public class Wowo {
         storage.save(tasks.asList());
     }
 
-    private void loadOnStartup() {
+    /**
+     * Load the data from the previous interaction
+     */
+    public void loadOnStartup() {
         try {
             List<Task> loaded = storage.load();
             // no-op; we just want the list
@@ -81,8 +84,8 @@ public class Wowo {
                     ui.showMatches(matches);
 
                 } else if (input.startsWith("sort")) {
-                    Parser.parseSort(input);          // validates it's exactly "sort"
-                    tasks.sortByDateThenName();       // or sortByName() if you prefer
+                    Parser.parseSort(input);
+                    tasks.sortByDateThenName();
                     persist();
                     ui.showList(tasks.asList());
 
@@ -103,7 +106,7 @@ public class Wowo {
         }
 
         if (input.equalsIgnoreCase("bye")) {
-            return "Bye. Don't forget to do your chores!";
+            return "Enough for today. Go do your chores.";
         }
 
         try {
@@ -113,35 +116,37 @@ public class Wowo {
             } else if (input.startsWith("mark ")) {
                 Task t = tasks.markOneBased(Parser.parseIndex(input));
                 persist();
-                return "Marked as done:\n  " + t;
+                return "Good!! Now go back to work, I've marked\n  " + t;
 
             } else if (input.startsWith("unmark ")) {
                 Task t = tasks.unmarkOneBased(Parser.parseIndex(input));
                 persist();
-                return "Marked as not done yet:\n  " + t;
+                return "Hey!! I thought you've done this. I'm unmarking:\n  " + t;
 
             } else if (input.startsWith("delete ")) {
                 Task removed = tasks.deleteOneBased(Parser.parseIndex(input));
                 persist();
-                return "Removed:\n  " + removed + "\nNow you have " + tasks.size() + " tasks.";
+                return "Noted. I've removed this task:\n  " + removed
+                        + "\nNow you have " + tasks.size() + " tasks in the list.";
 
             } else if (input.startsWith("todo")) {
                 String desc = Parser.parseTodoDesc(input);
                 Task t = tasks.add(new Todo(desc));
                 persist();
-                return "Added:\n  " + t + "\nNow you have " + tasks.size() + " tasks.";
+                return "Noted. I've added:\n  " + t
+                        + "\nYou have " + tasks.size() + " tasks. Must do them all";
 
             } else if (input.startsWith("deadline ")) {
                 var p = Parser.parseDeadline(input);
                 Task t = tasks.add(new Deadline(p.desc, p.due));
                 persist();
-                return "Added:\n  " + t + "\nNow you have " + tasks.size() + " tasks.";
+                return "Noted. I've added:\n  " + t + "\nNow you have " + tasks.size() + " tasks. ";
 
             } else if (input.startsWith("event ")) {
                 var p = Parser.parseEvent(input);
                 Task t = tasks.add(new Event(p.desc, p.from, p.to));
                 persist();
-                return "Added:\n  " + t + "\nNow you have " + tasks.size() + " tasks.";
+                return "Noted. I've added:\n  " + t + "\nNow you have " + tasks.size() + " tasks.";
 
             } else if (input.startsWith("find ")) {
                 String keyword = Parser.parseFind(input);
@@ -149,10 +154,10 @@ public class Wowo {
                 return formatMatches(matches);
 
             } else if (input.startsWith("sort")) {
-                Parser.parseSort(input);          // validates
+                Parser.parseSort(input);
                 tasks.sortByDateThenName();
                 persist();
-                return "Your tasks have been sorted:\n" + formatList(tasks.asList());
+                return "I've sorted your task you loafer:\n" + formatList(tasks.asList());
 
             } else {
                 throw new UnknownCommandException();
@@ -167,7 +172,7 @@ public class Wowo {
             return "Your list is empty.";
         }
 
-        StringBuilder sb = new StringBuilder("Here are your tasks:\n");
+        StringBuilder sb = new StringBuilder("Here are your tasks, Must do them all:\n");
 
         for (int i = 0; i < list.size(); i++) {
             sb.append(i + 1).append(". ").append(list.get(i)).append('\n');
@@ -178,10 +183,10 @@ public class Wowo {
 
     private String formatMatches(List<Task> list) {
         if (list.isEmpty()) {
-            return "No matching tasks found.";
+            return "You're being delulu, it doesn't even exist kiddo";
         }
 
-        StringBuilder sb = new StringBuilder("Here are the matching tasks:\n");
+        StringBuilder sb = new StringBuilder("Here you go you loafer:\n");
 
         for (int i = 0; i < list.size(); i++) {
             sb.append(i + 1).append(". ").append(list.get(i)).append('\n');

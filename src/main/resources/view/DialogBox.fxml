@@ -11,7 +11,7 @@
          xmlns:fx="http://javafx.com/fxml/1"
          alignment="TOP_LEFT"
          spacing="8"
-         fillHeight="true">
+         fillHeight="false">
 
     <children>
         <!-- Avatar on the LEFT for bot baseline -->
@@ -27,6 +27,7 @@
         <!-- Bubble text on the RIGHT -->
         <Label fx:id="dialog"
                wrapText="true"
+               textOverrun="CLIP"
                maxWidth="Infinity"
                HBox.hgrow="ALWAYS"
                style="-fx-padding:10 12 10 12; -fx-background-radius:14;
