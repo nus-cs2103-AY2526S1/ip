@@ -109,7 +109,7 @@ public class Amadeus {
             input = sc.nextLine();
         }
 
-        ui.printMessage("Bye. Hope to see you again soon!");
+        ui.printMessage("Hmph… already leaving? Fine, bye. Don’t mess up next time.");
         sc.close();
     }
 
