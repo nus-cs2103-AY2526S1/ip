@@ -43,4 +43,17 @@ public class MarkCommand extends Command {
 
         storage.saveToFile(tasklist);
     }
+
+    /**
+     * Returns the help message associated with the mark command
+     *
+     * @return the corresponding help message
+     */
+    @Override
+    public String getHelpMessage() {
+        return """
+                mark:
+                marks a task as done. nothing will happen if the task is already marked as done.
+                format: mark [index of task]""";
+    }
 }

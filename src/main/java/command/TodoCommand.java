@@ -46,4 +46,17 @@ public class TodoCommand extends Command {
 
         storage.saveToFile(tasklist);
     }
+
+    /**
+     * Returns the help message associated with the todo command
+     *
+     * @return the corresponding help message
+     */
+    @Override
+    public String getHelpMessage() {
+        return """
+                todo:
+                adds a todo task to the task list.
+                format: todo [title]""";
+    }
 }

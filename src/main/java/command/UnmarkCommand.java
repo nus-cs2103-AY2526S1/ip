@@ -43,4 +43,17 @@ public class UnmarkCommand extends Command {
 
         storage.saveToFile(tasklist);
     }
+
+    /**
+     * Returns the help message associated with the unmark command
+     *
+     * @return the corresponding help message
+     */
+    @Override
+    public String getHelpMessage() {
+        return """
+                unmark:
+                marks a task as undone. nothing will happen if the task is already marked as undone.
+                format: unmark [index of task]""";
+    }
 }

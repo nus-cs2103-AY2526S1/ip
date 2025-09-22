@@ -28,4 +28,17 @@ public class ExitCommand extends Command {
     public void execute(TaskList tasklist, Ui ui, Storage storage) {
         ui.bye();
     }
+
+    /**
+     * Returns the help message associated with the exit command
+     *
+     * @return the corresponding help message
+     */
+    @Override
+    public String getHelpMessage() {
+        return """
+                exit:
+                exits the program.
+                format: exit""";
+    }
 }

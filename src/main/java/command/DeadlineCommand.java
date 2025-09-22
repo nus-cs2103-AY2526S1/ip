@@ -44,4 +44,17 @@ public class DeadlineCommand extends Command {
 
         storage.saveToFile(tasklist);
     }
+
+    /**
+     * Returns the help message associated with the deadline command
+     *
+     * @return the corresponding help message
+     */
+    @Override
+    public String getHelpMessage() {
+        return """
+                deadline:
+                adds a deadline task to the task list. deadlines have a due date.
+                format: deadline [title] /by [date (yyyy-mm-dd)]""";
+    }
 }
