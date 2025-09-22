@@ -16,7 +16,7 @@ public abstract class Command {
      * @throws ChashException If execution fails
      */
     public abstract void execute(TaskList tasks, ChashUi ui, ChashDb db) throws ChashException;
-    
+
     /**
      * Indicates if this command will terminate the program.
      *

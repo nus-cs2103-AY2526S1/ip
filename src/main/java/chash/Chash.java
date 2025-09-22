@@ -20,9 +20,9 @@ import javafx.stage.Stage;
 Dependancy Priority:
 ChashException.java CommandTypeEnum.java Task.java TaskDateParser.java ChashUi.java
 Todo.java Deadline.java Event.java TaskList.java
-TaskParser.java 
-ChashDb.java 
-Command.java 
+TaskParser.java
+ChashDb.java
+Command.java
 ExitCommand.java ListCommand.java MarkCommand.java DeleteCommand.java AddCommand.java
 CommandParser.java
 Chash.java
@@ -34,24 +34,30 @@ public class Chash extends Application {
     /*@Override
     public void init() {}*/
 
-    //JavaFX entrypoint
+    /**
+     * JavaFX entrypoint
+     *
+     * @param stage Provided from {@code Application.launch(...)}
+     */
     @Override
     public void start(Stage stage) {
         assert stage != null;
 
+        //Startup
         AnchorPane ap = new MainWindow();
         Scene scene = new Scene(ap);
         stage.setScene(scene);
 
         //Configure stage window
         stage.setTitle("Crysis Heir Activity Sentre Hepdesk");
-        stage.setMinHeight(220);
-        stage.setMinWidth(417);
+        stage.setMinWidth(300);
+        stage.setMinHeight(400);
 
+        //Start async exec
         stage.show();
     }
 
-    /** 
+    /**
      * CLI only application entry point.
      *
      * @param args Command-line arguments
@@ -81,7 +87,6 @@ public class Chash extends Application {
                 isExit = cmd.isExit();
             } catch (ChashException ex) {
                 ui.printErr(ex.getMessage());
-                continue;
             }
         }
     }

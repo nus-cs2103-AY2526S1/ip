@@ -22,8 +22,8 @@ public class ChashDb {
     private final String fileLocation;
 
     //Required public to be used outside package
-    /** 
-     * Creates a database object with a custom file location. 
+    /**
+     * Creates a database object with a custom file location.
      *
      * @param fileLocation Path to DB file
      */
@@ -111,15 +111,15 @@ public class ChashDb {
         try {
             //Check if file and intermediate directories exists and create if needed
             fileExistsElseCreate();
-            
+
             //Get file writer
             Path path = Paths.get(this.fileLocation);
             BufferedWriter writer = Files.newBufferedWriter(
-                path,
-                StandardCharsets.UTF_8,
-                StandardOpenOption.CREATE,
-                StandardOpenOption.TRUNCATE_EXISTING,
-                StandardOpenOption.WRITE
+                    path,
+                    StandardCharsets.UTF_8,
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.TRUNCATE_EXISTING,
+                    StandardOpenOption.WRITE
             );
             //BufferedWriter writer = new BufferedWriter(new FileWriter(this.fileLocation));
 
@@ -133,8 +133,8 @@ public class ChashDb {
         }
     }
 
-    /** 
-     * Returns a string representation of the database. 
+    /**
+     * Returns a string representation of the database.
      *
      * @return Database location
      */
