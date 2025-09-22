@@ -21,6 +21,9 @@ public class DialogBox extends HBox {
     private ImageView profilePic;
 
     private DialogBox(String text, Image img) {
+        assert text != null;
+        assert img != null;
+
         //Load view info from fxml file
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DialogBox.fxml"));
@@ -36,10 +39,16 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
+        assert text != null;
+        assert img != null;
+
         return new DialogBox(text, img);
     }
 
     public static DialogBox getResponseDialog(String text, Image img) {
+        assert text != null;
+        assert img != null;
+
         DialogBox db = DialogBox.getUserDialog(text, img);
         db.flip();
         db.markResponse();
@@ -47,6 +56,9 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getErrResponseDialog(String text, Image img) {
+        assert text != null;
+        assert img != null;
+
         DialogBox db = DialogBox.getResponseDialog(text, img);
         db.markErrResponse();
         return db;

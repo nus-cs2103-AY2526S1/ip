@@ -17,6 +17,8 @@ public class DeleteCommand extends Command {
      * @param index Task index (starts from 1, not 0 like arrays)
      */
     public DeleteCommand(String index) {
+        assert index != null;
+
         this.index = index;
     }
 
@@ -26,6 +28,10 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, ChashUi ui, ChashDb db) {
+        assert tasks != null;
+        assert ui != null;
+        assert db != null;
+
         try {
             //Delete task
             Task task = tasks.remove(Integer.parseInt(this.index) - 1);

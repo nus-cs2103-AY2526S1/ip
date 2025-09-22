@@ -22,6 +22,8 @@ public class CommandParser {
      * @see chash.command.AddCommand#AddCommand(chash.command.CommandTypeEnum, String)
      */
     public static Command parse(String fullCommand) throws ChashException {
+        assert fullCommand != null;
+
         String[] tmp = fullCommand.split(" ", 2);
 
         CommandTypeEnum cmd;
@@ -39,9 +41,7 @@ public class CommandParser {
         case LIST -> new ListCommand();
         case MARK -> new MarkCommand(args, true);
         case UNMARK -> new MarkCommand(args, false);
-        case TODO -> new AddCommand(cmd, args);
-        case DEADLINE -> new AddCommand(cmd, args);
-        case EVENT -> new AddCommand(cmd, args);
+        case TODO, DEADLINE, EVENT -> new AddCommand(cmd, args);
         case DELETE -> new DeleteCommand(args);
         case FIND -> new FindCommand(args);
         case HELP -> new HelpCommand();
