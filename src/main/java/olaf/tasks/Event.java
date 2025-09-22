@@ -57,8 +57,8 @@ public class Event extends Task {
         return "[E]" +
                 "[" + (isDone ? "X" : " ") + "] " +
                 this.description +
-                " (from: " + this.from +
-                " to: " + this.to + ")";
+                " (from: " + this.from.format(OUTPUT_FORMATTER) +
+                " to: " + this.to.format(OUTPUT_FORMATTER) + ")";
     }
 
     public String getFrom() {

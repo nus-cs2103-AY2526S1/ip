@@ -15,4 +15,14 @@ public class Duke {
     public String getResponse(String input) {
         return olafBot.getResponse(input);
     }
+
+    /**
+     * Returns the welcome message for the bot at the start.
+     *
+     * @return Welcome message
+     */
+    public String getWelcomeMessage() {
+        return "Heyyos! Im Olaf! Your personal snowman\n"
+                + "What can I do for you in this beautiful day?\n";
+    }
 }
