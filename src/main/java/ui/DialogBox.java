@@ -40,11 +40,14 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String s, Image i) {
-        return new DialogBox(s, i);
+        DialogBox db = new DialogBox(s, i);
+        db.setAlignment(Pos.CENTER_RIGHT);
+        return db;
     }
 
     public static DialogBox getClamDialog(String s, Image i) {
         var db = new DialogBox(s, i);
+        db.setAlignment(Pos.CENTER_LEFT);
         db.flip();
         return db;
     }

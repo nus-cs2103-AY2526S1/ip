@@ -1,16 +1,25 @@
 package clam;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.layout.AnchorPane;
 
+import javax.swing.*;
 import java.io.IOException;
-import java.util.Objects;
 
 
 public class Main extends Application {
+
+    static {
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize FlatLaf");
+        }
+    }
 
     private final Clam c = new Clam("./save.txt");
 
