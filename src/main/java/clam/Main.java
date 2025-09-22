@@ -36,6 +36,7 @@ public class Main extends Application {
 
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Clam");
 
             fxmlLoader.<MainWindow>getController().setClam(c);  // inject the Clam instance
             fxmlLoader.<MainWindow>getController().startup();

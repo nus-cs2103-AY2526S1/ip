@@ -1,11 +1,11 @@
 package parser;
 
 import command.*;
-import task.DukeAction;
+import task.ClamAction;
 
 /**
  * A utility class for parsing user input and returning the
- * corresponding {@link Command} object or {@link DukeAction} enum value.
+ * corresponding {@link Command} object or {@link ClamAction} enum value.
  */
 public class Parser {
 
@@ -48,23 +48,23 @@ public class Parser {
 
 
     /**
-     * Parses a string as user input and returns a {@link DukeAction} enum value.
+     * Parses a string as user input and returns a {@link ClamAction} enum value.
      * <p>
-     * The code returns a {@link DukeAction} enum value based on the first keyword in the
-     * input string (separated by space). The resulting {@link DukeAction} enum value
+     * The code returns a {@link ClamAction} enum value based on the first keyword in the
+     * input string (separated by space). The resulting {@link ClamAction} enum value
      * can be used to run command-specific logic.
      * </p>
      * @param input the user input
-     * @return the {@link DukeAction} enum value corresponding to the input
+     * @return the {@link ClamAction} enum value corresponding to the input
      */
-    public static DukeAction parseInput(String input) {
+    public static ClamAction parseInput(String input) {
         assert !input.isEmpty();
         if (input.startsWith("todo")) {
-            return DukeAction.CREATE_TODO;
+            return ClamAction.CREATE_TODO;
         } else if (input.startsWith("deadline")) {
-            return DukeAction.CREATE_DEADLINE;
+            return ClamAction.CREATE_DEADLINE;
         } else if (input.startsWith("event")) {
-            return DukeAction.CREATE_EVENT;
+            return ClamAction.CREATE_EVENT;
         } else {
             return null;
         }
