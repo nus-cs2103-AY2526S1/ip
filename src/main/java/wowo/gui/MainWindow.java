@@ -46,7 +46,8 @@ public class MainWindow {
     /** Inject the backend instance. Called from Main after loading FXML. */
     public void init(Wowo bot) {
         this.bot = bot;
-        // optional greeting
+        bot.loadOnStartup();
+
         dialogContainer.getChildren().add(
                 DialogBox.getBotDialog("Hello! I'm Wowo, Your grumpy personal assistant.\n"
                         + "OKE GAS OKE GAS\n"

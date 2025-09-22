@@ -3,6 +3,7 @@ package wowo.gui;
 import java.io.IOException;
 import java.util.Collections;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,9 +11,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.OverrunStyle;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 
 /**
  * Containing the dialog logic between bot and user
@@ -45,6 +49,29 @@ public class DialogBox extends HBox {
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
+
+            // --- make wrapping bullet-proof ---
+            dialog.setWrapText(true);
+            dialog.setTextOverrun(OverrunStyle.CLIP);
+            dialog.setMinWidth(0);
+            dialog.setMinHeight(Region.USE_COMPUTED_SIZE);
+            HBox.setHgrow(dialog, Priority.ALWAYS);
+
+            dialog.maxWidthProperty().bind(Bindings.createDoubleBinding((
+                    ) -> {
+                        double avatar = displayPicture.getBoundsInParent().getWidth();
+                        double spacing = getSpacing();
+                        double pad = getPadding().getLeft() + getPadding().getRight();
+                        // small extra margin so rounded bubble doesn’t hit the avatar
+                        double bubbleMargin = 8;
+                        double isAvailable = Math.max(0, getWidth() - avatar - spacing - pad - bubbleMargin);
+                        return isAvailable;
+                    },
+                    widthProperty(),
+                    displayPicture.boundsInParentProperty(),
+                    spacingProperty(),
+                    paddingProperty()
+            ));
         } catch (IOException e) {
             throw new RuntimeException("Failed to load DialogBox.fxml", e);
         }
