@@ -1,4 +1,4 @@
-package Clam;
+package clam;
 
 import command.Command;
 import parser.Parser;
@@ -7,6 +7,7 @@ import ui.Ui;
 import task.TaskList;
 
 import java.io.FileNotFoundException;
+import java.util.Objects;
 
 /**
  * The main class for the Clam.Clam chatbot program, which consists of the {@link TaskList} task list,,
@@ -54,6 +55,7 @@ public class Clam {
             sb.append("\n").append(e.getMessage());
         }
 
+        assert !Objects.isNull(tasks);
         return sb.toString();
     }
 

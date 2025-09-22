@@ -1,5 +1,5 @@
 package ui;
-import Clam.MainWindow;
+import clam.MainWindow;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;

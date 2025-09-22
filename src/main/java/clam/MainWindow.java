@@ -1,4 +1,4 @@
-package Clam;
+package clam;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import ui.DialogBox;
+
+import java.util.Objects;
 
 /**
  * Controller for the main GUI.
@@ -44,6 +46,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        assert !Objects.isNull(clam);
         String input = userInput.getText();
         String response = clam.getResponse(input);
         if(response.startsWith("Bye.")) {
@@ -61,6 +64,7 @@ public class MainWindow extends AnchorPane {
      * Gets the relevant message from initialising the {@link Clam} object and displays it in the GUI dialog.
      */
     public void startup() {
+        assert !Objects.isNull(clam);
         String init = clam.init();
 
         dialogContainer.getChildren().add(
