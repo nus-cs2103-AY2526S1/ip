@@ -13,9 +13,9 @@ public class ChashGui extends ChashUi {
 
     public ChashGui(VBox chatHistBox) {
         this.chatHistBox = chatHistBox;
-        this.userImage = new Image(this.getClass().getResourceAsStream("/images/tb.png"));
-        this.chashImage = new Image(this.getClass().getResourceAsStream("/images/mem1.png"));
-        this.chashErrImage = new Image(this.getClass().getResourceAsStream("/images/mem2.png"));
+        this.userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+        this.chashImage = new Image(this.getClass().getResourceAsStream("/images/chash1.jpg"));
+        this.chashErrImage = new Image(this.getClass().getResourceAsStream("/images/chash2.png"));
     }
 
     @Override
