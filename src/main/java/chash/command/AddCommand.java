@@ -47,6 +47,17 @@ public class AddCommand extends Command {
             return;
         }
 
+        //Check if task is dupe
+        int i = 0;
+        for (var tmp : tasks.getAll()) { //var allowed for auto type deduction by compiler
+            i += 1;
+            if (task.exportString().equals(tmp.exportString())) {
+                //Print notice that it might be duplicate
+                ui.printErr("Your new task might have already been added, refer to task #" + i);
+                break;
+            }
+        }
+
         //Add task
         tasks.add(task);
 
