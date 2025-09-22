@@ -8,37 +8,42 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
             minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="600.0" prefWidth="400.0"
+            prefHeight="600.0" prefWidth="600.0"
+            style="-fx-background-color: #f4f6fb; -fx-padding: 24; -fx-font-family: 'Segoe UI', 'Arial', sans-serif;"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="clam.MainWindow">
     <children>
         <TextField fx:id="userInput"
-                   layoutY="558.0"
                    onAction="#handleUserInput"
-                   prefHeight="41.0"
-                   prefWidth="324.0"
-                   AnchorPane.bottomAnchor="1.0" />
+                   AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="92.0"
+                   AnchorPane.bottomAnchor="0.0"
+                   style="-fx-background-radius: 10; -fx-font-size: 15; -fx-padding: 8 12; -fx-background-color: #fff; -fx-border-color: #d1d9e6; -fx-border-radius: 10;" />
         <Button fx:id="sendButton"
-                layoutX="324.0"
-                layoutY="558.0"
                 mnemonicParsing="false"
                 onAction="#handleUserInput"
-                prefHeight="41.0"
-                prefWidth="76.0"
-                text="Send" />
+                text="Send"
+                AnchorPane.rightAnchor="0.0"
+                AnchorPane.bottomAnchor="0.0"
+                prefWidth="84.0"
+                prefHeight="44.0"
+                style="-fx-background-radius: 10; -fx-font-size: 15; -fx-background-color: #4f8cff; -fx-text-fill: white; -fx-border-color: #3a6fd8; -fx-border-radius: 10;"/>
         <ScrollPane fx:id="scrollPane"
                     hbarPolicy="NEVER"
-                    hvalue="1.0"
-                    prefHeight="557.0"
-                    prefWidth="400.0"
-                    vvalue="1.0">
+                    vbarPolicy="AS_NEEDED"
+                    fitToWidth="true"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.bottomAnchor="52.0"
+                    style="-fx-background-radius: 12; -fx-background-color: transparent;">
             <content>
                 <VBox fx:id="dialogContainer"
-                      prefHeight="552.0"
-                      prefWidth="388.0" />
+                      spacing="16.0"
+                      maxWidth="1.7976931348623157E308"
+                      style="-fx-padding: 20; -fx-background-color: #ffffff; -fx-background-radius: 12; -fx-border-color: #e0e6ef; -fx-border-width: 1; -fx-border-radius: 12;" />
             </content>
         </ScrollPane>
     </children>
 </AnchorPane>
-
