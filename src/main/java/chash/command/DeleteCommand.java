@@ -34,9 +34,9 @@ public class DeleteCommand extends Command {
             db.writeDb(tasks.getAll());
 
             ui.printMsg(String.format(
-                "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.",
-                task,
-                tasks.size()
+                    "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.",
+                    task,
+                    tasks.size()
             ));
         } catch (NumberFormatException | IndexOutOfBoundsException ex) {
             ui.printErr("Invalid index: " + this.index);

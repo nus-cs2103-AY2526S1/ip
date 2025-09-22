@@ -37,10 +37,9 @@ public class MarkCommand extends Command {
             db.writeDb(tasks.getAll());
 
             //Print mark or unmark message
-            ui.printMsg(
-                (this.mark) ? 
-                "Nice! I've marked this task as done:\n  " + task.toString() : 
-                "OK, I've marked this task as not done yet:\n  " + task.toString()
+            ui.printMsg((this.mark)
+                    ? "Nice! I've marked this task as done:\n  " + task.toString()
+                    : "OK, I've marked this task as not done yet:\n  " + task.toString()
             );
         } catch (NumberFormatException | IndexOutOfBoundsException ex) {
             ui.printErr("Invalid index: " + this.index);

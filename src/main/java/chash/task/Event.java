@@ -29,11 +29,11 @@ public class Event extends Task {
     @Override
     public String exportString() {
         return String.format(
-            "%s | %s | %s | %s",
-            Event.TASKTYPE,
-            super.exportString(),
-            this.rawStart,
-            this.rawEnd
+                "%s | %s | %s | %s",
+                Event.TASKTYPE,
+                super.exportString(),
+                this.rawStart,
+                this.rawEnd
         );
     }
 
@@ -41,11 +41,11 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format(
-            "[%s]%s (from: %s to: %s)",
-            Event.TASKTYPE,
-            super.toString(),
-            TaskDateParser.format(this.parsedStart, this.rawStart),
-            TaskDateParser.format(this.parsedEnd, this.rawEnd)
+                "[%s]%s (from: %s to: %s)",
+                Event.TASKTYPE,
+                super.toString(),
+                TaskDateParser.format(this.parsedStart, this.rawStart),
+                TaskDateParser.format(this.parsedEnd, this.rawEnd)
         );
     }
 }

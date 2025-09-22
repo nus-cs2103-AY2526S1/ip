@@ -4,7 +4,7 @@ package chash.task;
 public class Todo extends Task {
     public static final String TASKTYPE = "T";
 
-    /** 
+    /**
      * Creates a new {@code Todo} task.
      *
      * @param description Task description
@@ -17,9 +17,9 @@ public class Todo extends Task {
     @Override
     public String exportString() {
         return String.format(
-            "%s | %s",
-            Todo.TASKTYPE,
-            super.exportString()
+                "%s | %s",
+                Todo.TASKTYPE,
+                super.exportString()
         );
     }
 
@@ -27,9 +27,9 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return String.format(
-            "[%s]%s",
-            Todo.TASKTYPE,
-            super.toString()
+                "[%s]%s",
+                Todo.TASKTYPE,
+                super.toString()
         );
     }
 }

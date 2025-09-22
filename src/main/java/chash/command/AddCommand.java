@@ -52,9 +52,9 @@ public class AddCommand extends Command {
 
         //Print
         ui.printMsg(String.format(
-            "Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.",
-            task,
-            tasks.size()
+                "Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.",
+                task,
+                tasks.size()
         ));
     }
 }

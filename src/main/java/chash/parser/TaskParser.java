@@ -15,14 +15,14 @@ public class TaskParser {
     //todo borrow book (does not need a pattern)
     //deadline return book /by Sunday
     private static final Pattern REGEX_DEADLINE =
-        Pattern.compile("^(.+?)\\s+/by\\s+(.+)$");
+            Pattern.compile("^(.+?)\\s+/by\\s+(.+)$");
     //event project meeting /from Mon 2pm /to 4pm
     private static final Pattern REGEX_EVENT =
-        Pattern.compile("^(.+?)\\s+/from\\s+(.+?)\\s+/to\\s+(.+)$");
+            Pattern.compile("^(.+?)\\s+/from\\s+(.+?)\\s+/to\\s+(.+)$");
 
     /**
      * Reconstructs a task from its export string.
-     * 
+     *
      * @param line Export string
      * @return Task instance
      * @throws ChashException If string format is invalid
@@ -63,7 +63,7 @@ public class TaskParser {
             }
             task = new Event(description, parts[3], parts[4]);
             break;
-        
+
         default:
             throw new ChashException("Invalid task type: " + type);
         }

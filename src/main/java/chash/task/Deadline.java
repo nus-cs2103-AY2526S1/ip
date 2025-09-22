@@ -24,10 +24,10 @@ public class Deadline extends Task {
     @Override
     public String exportString() {
         return String.format(
-            "%s | %s | %s",
-            Deadline.TASKTYPE,
-            super.exportString(),
-            this.rawEnd
+                "%s | %s | %s",
+                Deadline.TASKTYPE,
+                super.exportString(),
+                this.rawEnd
         );
     }
 
@@ -35,10 +35,10 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return String.format(
-            "[%s]%s (by: %s)",
-            Deadline.TASKTYPE,
-            super.toString(),
-            TaskDateParser.format(this.parsedEnd, this.rawEnd)
+                "[%s]%s (by: %s)",
+                Deadline.TASKTYPE,
+                super.toString(),
+                TaskDateParser.format(this.parsedEnd, this.rawEnd)
         );
     }
 }

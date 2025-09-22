@@ -6,8 +6,8 @@ import java.time.format.DateTimeParseException;
 
 /** Utility class for parsing and formatting task dates. */
 public class TaskDateParser {
-    private static final DateTimeFormatter PRINT_FORMAT = 
-        DateTimeFormatter.ofPattern("MMM d yyyy");
+    private static final DateTimeFormatter PRINT_FORMAT =
+            DateTimeFormatter.ofPattern("MMM d yyyy");
 
     /**
      * Attempts to parse a date-time string in ISO-8601 format.
@@ -33,7 +33,7 @@ public class TaskDateParser {
      * @return Formatted string
      */
     public static String format(LocalDateTime dateTime, String dateStr) {
-        return (dateTime != null) ? dateTime.format(TaskDateParser.PRINT_FORMAT) :
-            dateStr;
+        return (dateTime != null) ? dateTime.format(TaskDateParser.PRINT_FORMAT)
+                : dateStr;
     }
 }

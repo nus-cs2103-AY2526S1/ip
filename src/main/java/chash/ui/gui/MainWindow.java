@@ -13,13 +13,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-//ChashGui's Controller
+/**
+ * The main controller class for the JavaFX-based CHASH GUI window.
+ * Handles user input events and updates the chat history.
+ */
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -34,6 +36,7 @@ public class MainWindow extends AnchorPane {
     private ChashDb db;
     private TaskList tasks;
 
+    /** Constructs the main window and loads the associated FXML layout. */
     public MainWindow() {
         //Load view info from fxml file
         try {

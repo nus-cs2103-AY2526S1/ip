@@ -20,6 +20,5 @@ public enum CommandTypeEnum {
     EVENT,
     DELETE,
     FIND,
-    HELP
-    ;
+    HELP;
 }
