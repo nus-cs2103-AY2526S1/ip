@@ -9,8 +9,6 @@ to remember a variety of tasks through a nice graphical interface!
 
 ## Features
 
----
-
 ### Help
 
 - Prints the CHASH Help information
