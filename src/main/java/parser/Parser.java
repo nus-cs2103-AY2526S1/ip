@@ -39,6 +39,8 @@ public class Parser {
             return new EventCommand(input);
         } else if (input.startsWith("find")) {
             return new FindCommand(input);
+        } else if (input.startsWith("help")) {
+            return new HelpCommand(input);
         } else {
             return new UnknownCommand(input);
         }
@@ -57,26 +59,14 @@ public class Parser {
      */
     public static DukeAction parseInput(String input) {
         assert !input.isEmpty();
-        if (input.startsWith("list")) {
-            return DukeAction.LIST_TASKS;
-        } else if (input.startsWith("bye")) {
-            return DukeAction.EXIT;
-        } else if (input.startsWith("mark")) {
-            return DukeAction.MARK_ITEM;
-        } else if (input.startsWith("unmark")) {
-            return DukeAction.UNMARK_ITEM;
-        } else if (input.startsWith("delete")) {
-            return DukeAction.DELETE;
-        } else if (input.startsWith("todo")) {
+        if (input.startsWith("todo")) {
             return DukeAction.CREATE_TODO;
         } else if (input.startsWith("deadline")) {
             return DukeAction.CREATE_DEADLINE;
         } else if (input.startsWith("event")) {
             return DukeAction.CREATE_EVENT;
-        } else if (input.startsWith("find")) {
-            return DukeAction.FIND_TASKS;
         } else {
-            return DukeAction.ERROR;
+            return null;
         }
     }
 }

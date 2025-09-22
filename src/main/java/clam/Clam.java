@@ -47,9 +47,16 @@ public class Clam {
         sb.append("Hi! I'm Clam, your personal task manager :)");
         try {
             tasks = storage.loadSaveFile();
+
+            if(tasks.size()==0) {
+                sb.append("\n\nIt seems like your task list is brand new! if you're a new user, try running \"help\" to" +
+                        " get started with using Clam :)");
+            }
+
         } catch (FileNotFoundException e) {
             tasks = new TaskList();
             sb.append("\nIt seems there's an error with loading the save file :(");
+
         } catch (Exception e) {
             tasks = new TaskList();
             sb.append("\n").append(e.getMessage());

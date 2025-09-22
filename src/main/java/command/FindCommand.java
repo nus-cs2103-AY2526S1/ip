@@ -21,4 +21,16 @@ public class FindCommand extends Command {
         }
     }
 
+    /**
+     * Returns the help message associated with the find command
+     *
+     * @return the corresponding help message
+     */
+    @Override
+    public String getHelpMessage() {
+        return """
+                find:
+                finds all tasks that contain the search query in their title.
+                format: find [search query]""";
+    }
 }

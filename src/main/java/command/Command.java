@@ -33,4 +33,11 @@ public abstract class Command {
      */
     public abstract void execute(TaskList tasklist, Ui ui, Storage storage) throws Exception;
 
+    /**
+     * Returns the help message associated with the command
+     *
+     * @return the corresponding help message
+     */
+    public abstract String getHelpMessage();
+
 }

@@ -47,4 +47,17 @@ public class EventCommand extends Command {
 
         storage.saveToFile(tasklist);
     }
+
+    /**
+     * Returns the help message associated with the event command
+     *
+     * @return the corresponding help message
+     */
+    @Override
+    public String getHelpMessage() {
+        return """
+                event:
+                adds an event task to the task list. events have a start and end date.
+                format: event [title] /from [date (yyyy-mm-dd)] /to [date (yyyy-mm-dd)]""";
+    }
 }

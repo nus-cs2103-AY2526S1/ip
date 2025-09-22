@@ -29,23 +29,23 @@ public class TaskList {
     public void loadTask(String input) throws Exception {
         String[] args = input.split("\\|");
         switch (Parser.parseInput(input)) {
-            case CREATE_TODO:
-                ToDo td = new ToDo(args[2]);
-                if (Objects.equals(args[1], "1")) td.markAsDone();
-                tasks.add(td);
-                break;
-            case CREATE_DEADLINE:
-                Deadline dl = new Deadline(args[2], args[3]);
-                if (Objects.equals(args[1], "1")) dl.markAsDone();
-                tasks.add(dl);
-                break;
-            case CREATE_EVENT:
-                Event ev = new Event(args[2], args[3], args[4]);
-                if(Objects.equals(args[1], "1")) ev.markAsDone();
-                tasks.add(ev);
-                break;
-            default:
-                throw new Exception("couldn't load task: " + input);
+        case CREATE_TODO:
+            ToDo td = new ToDo(args[2]);
+            if (Objects.equals(args[1], "1")) td.markAsDone();
+            tasks.add(td);
+            break;
+        case CREATE_DEADLINE:
+            Deadline dl = new Deadline(args[2], args[3]);
+            if (Objects.equals(args[1], "1")) dl.markAsDone();
+            tasks.add(dl);
+            break;
+        case CREATE_EVENT:
+            Event ev = new Event(args[2], args[3], args[4]);
+            if(Objects.equals(args[1], "1")) ev.markAsDone();
+            tasks.add(ev);
+            break;
+        default:
+            throw new Exception("couldn't load task: " + input);
         }
     }
 

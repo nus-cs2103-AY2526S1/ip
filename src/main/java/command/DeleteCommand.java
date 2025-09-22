@@ -45,4 +45,17 @@ public class DeleteCommand extends Command {
 
         storage.saveToFile(tasklist);
     }
+
+    /**
+     * Returns the help message associated with the delete command
+     *
+     * @return the corresponding help message
+     */
+    @Override
+    public String getHelpMessage() {
+        return """
+                delete:
+                deletes the specified task from the task list.
+                format: delete [index of task]""";
+    }
 }

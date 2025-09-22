@@ -29,4 +29,16 @@ public class ListCommand extends Command {
         ui.chatbotPrint("Here are the tasks in your list:" + tasklist.toString());
     }
 
+    /**
+     * Returns the help message associated with the list command
+     *
+     * @return the corresponding help message
+     */
+    @Override
+    public String getHelpMessage() {
+        return """
+                list:
+                lists all tasks currently in the task list.
+                format: list""";
+    }
 }

@@ -30,4 +30,17 @@ public class UnknownCommand extends Command {
     public void execute(TaskList tasklist, Ui ui, Storage storage) {
         ui.showError("I'm not sure what command you're trying to run. Try again?");
     }
+
+    /**
+     * Returns the help message associated with the unknown command
+     *
+     * @return the corresponding help message
+     */
+    @Override
+    public String getHelpMessage() {
+        return """
+                that is not a recognized command.
+                
+                the possible commands are: list, todo, deadline, event, mark, unmark, delete, find, exit, help""";
+    }
 }
