@@ -4,37 +4,39 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import sofi.Deadline;
+
 public class DeadlineTest {
 
     @Test
     public void testDeadlineWithDateTime() {
         Deadline deadline = new Deadline("return book", "2019-12-02 1800");
-        assertEquals("return book", deadline.description);
-        assertFalse(deadline.isDone);
+        assertEquals("return book", deadline.getDescription());
+        assertFalse(deadline.isDone());
         assertEquals("Dec 02 2019, 6:00 pm", deadline.toString().substring(deadline.toString().indexOf("by: ") + 4, deadline.toString().indexOf(")")));
     }
 
     @Test
     public void testDeadlineWithDateOnly() {
         Deadline deadline = new Deadline("submit assignment", "2019-12-15");
-        assertEquals("submit assignment", deadline.description);
-        assertFalse(deadline.isDone);
+        assertEquals("submit assignment", deadline.getDescription());
+        assertFalse(deadline.isDone());
         assertEquals("Dec 15 2019, 11:59 pm", deadline.toString().substring(deadline.toString().indexOf("by: ") + 4, deadline.toString().indexOf(")")));
     }
 
     @Test
     public void testDeadlineWithMDYFormat() {
         Deadline deadline = new Deadline("return book", "2/12/2019 1800");
-        assertEquals("return book", deadline.description);
-        assertFalse(deadline.isDone);
+        assertEquals("return book", deadline.getDescription());
+        assertFalse(deadline.isDone());
         assertEquals("Feb 12 2019, 6:00 pm", deadline.toString().substring(deadline.toString().indexOf("by: ") + 4, deadline.toString().indexOf(")")));
     }
 
     @Test
     public void testDeadlineWithMDYFormatDateOnly() {
         Deadline deadline = new Deadline("submit report", "12/25/2019");
-        assertEquals("submit report", deadline.description);
-        assertFalse(deadline.isDone);
+        assertEquals("submit report", deadline.getDescription());
+        assertFalse(deadline.isDone());
         assertEquals("Dec 25 2019, 11:59 pm", deadline.toString().substring(deadline.toString().indexOf("by: ") + 4, deadline.toString().indexOf(")")));
     }
 
@@ -42,17 +44,17 @@ public class DeadlineTest {
     public void testDeadlineWithLocalDateTime() {
         LocalDateTime dateTime = LocalDateTime.of(2019, 12, 2, 18, 0);
         Deadline deadline = new Deadline("return book", dateTime);
-        assertEquals("return book", deadline.description);
-        assertFalse(deadline.isDone);
+        assertEquals("return book", deadline.getDescription());
+        assertFalse(deadline.isDone());
         assertEquals(dateTime, deadline.getBy());
     }
 
     @Test
     public void testDeadlineMarkAsDone() {
         Deadline deadline = new Deadline("return book", "2019-12-02 1800");
-        assertFalse(deadline.isDone);
+        assertFalse(deadline.isDone());
         deadline.markAsDone();
-        assertTrue(deadline.isDone);
+        assertTrue(deadline.isDone());
         assertTrue(deadline.toString().contains("[X]"));
     }
 
@@ -60,9 +62,9 @@ public class DeadlineTest {
     public void testDeadlineMarkAsNotDone() {
         Deadline deadline = new Deadline("return book", "2019-12-02 1800");
         deadline.markAsDone();
-        assertTrue(deadline.isDone);
+        assertTrue(deadline.isDone());
         deadline.markAsNotDone();
-        assertFalse(deadline.isDone);
+        assertFalse(deadline.isDone());
         assertTrue(deadline.toString().contains("[ ]"));
     }
 
