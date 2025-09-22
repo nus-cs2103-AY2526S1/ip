@@ -31,6 +31,7 @@ public class TaskList {
      * @param task the task to add
      */
     public void addTask(Task task) {
+        assert task != null : "Task cannot be null";
         tasks.add(task);
     }
 
@@ -41,6 +42,7 @@ public class TaskList {
      * @return the removed task
      */
     public Task removeTask(int index) {
+        // Let the ArrayList handle bounds checking to maintain expected exception behavior
         return tasks.remove(index);
     }
 
@@ -51,6 +53,7 @@ public class TaskList {
      * @return the task at the specified index
      */
     public Task getTask(int index) {
+        // Let the ArrayList handle bounds checking to maintain expected exception behavior
         return tasks.get(index);
     }
 
@@ -79,7 +82,9 @@ public class TaskList {
      * @param isDone true to mark as done, false to mark as not done
      */
     public void markTask(int index, boolean isDone) {
+        // Let the ArrayList handle bounds checking to maintain expected exception behavior
         Task task = tasks.get(index);
+        assert task != null : "Task at index " + index + " should not be null";
         if (isDone) {
             task.markAsDone();
         } else {
@@ -104,8 +109,11 @@ public class TaskList {
      * @return an ArrayList of tasks that match the keyword
      */
     public ArrayList<Task> findTasks(String keyword) {
+        assert keyword != null : "Search keyword cannot be null";
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
+            assert task != null : "Task in list should not be null";
+            assert task.getDescription() != null : "Task description should not be null";
             if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 matchingTasks.add(task);
             }

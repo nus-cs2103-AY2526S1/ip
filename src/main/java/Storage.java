@@ -23,6 +23,8 @@ public class Storage {
      * @param filePath the path to the file for storing tasks
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path cannot be null";
+        assert !filePath.trim().isEmpty() : "File path cannot be empty";
         this.filePath = filePath;
     }
 
@@ -88,13 +90,16 @@ public class Storage {
      * @throws IOException if there is an error writing to the file
      */
     public void save(ArrayList<Task> tasks) throws IOException {
+        assert tasks != null : "Task list cannot be null";
         File file = new File(filePath);
+        assert filePath != null : "File path should not be null";
         File parent = file.getParentFile();
         if (parent != null && !parent.exists()) {
             parent.mkdirs();
         }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (Task task : tasks) {
+                assert task != null : "Task in list should not be null";
                 writer.write(serialize(task));
                 writer.newLine();
             }
@@ -102,16 +107,21 @@ public class Storage {
     }
 
     private String serialize(Task task) {
+        assert task != null : "Task cannot be null";
+        assert task.getDescription() != null : "Task description cannot be null";
         if (task instanceof Todo) {
             String status = task.getStatusIcon().equals("[X]") ? "1" : "0";
             return "T | " + status + " | " + escape(task.description);
         } else if (task instanceof Deadline) {
             Deadline d = (Deadline) task;
+            assert d.getBy() != null : "Deadline 'by' time cannot be null";
             String status = task.getStatusIcon().equals("[X]") ? "1" : "0";
             return "D | " + status + " | " + escape(task.description) 
                     + " | " + escape(d.getBy().format(STORAGE_FORMAT));
         } else if (task instanceof Event) {
             Event e = (Event) task;
+            assert e.getFrom() != null : "Event 'from' time cannot be null";
+            assert e.getTo() != null : "Event 'to' time cannot be null";
             String status = task.getStatusIcon().equals("[X]") ? "1" : "0";
             return "E | " + status + " | " + escape(task.description) 
                     + " | " + escape(e.getFrom().format(STORAGE_FORMAT)) 
