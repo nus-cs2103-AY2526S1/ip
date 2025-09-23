@@ -1,0 +1,49 @@
+.root {
+    main-color: #FFD1DC;   /* sakura pink */
+    -fx-background-color: linear-gradient(to bottom, #FFD6E8, #FFD1DC);
+    -fx-font: 18px "Yu Gothic UI";
+}
+
+.text-field {
+    -fx-background-color: #FFF0F5;  /* light pink (lavender blush) */
+    -fx-font: 18px "Yu Gothic UI";
+    -fx-border-color: #FF7DA3;  /* medium pink border for definition */
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+.button {
+    -fx-background-color: #FF69B4;  /* vibrant pink */
+    -fx-text-fill: white;
+    -fx-font: italic bold 18px "Yu Gothic UI";
+    -fx-background-radius: 0.5em;
+}
+
+.button:hover {
+    -fx-background-color: #FF4D94;  /* deeper pink */
+}
+
+.button:pressed {
+    -fx-background-color: #CC2E72;  /* darker pinkish-purple */
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #FF9CB4;  /* candy pink scrollbar */
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
