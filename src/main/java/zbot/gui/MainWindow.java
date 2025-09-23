@@ -37,10 +37,10 @@ public class MainWindow extends AnchorPane {
         zbot = z;
         String welcomeMsg = "🤖 Hello! I'm Zbot, your personal task manager!\n\n" +
                 "I can help you:\n" +
-                "• Add todos, deadlines, and events\n" +
-                "• Mark tasks as done/undone\n" +
-                "• Find and sort your tasks\n" +
-                "• Keep everything organized\n\n" +
+                "* Add todos, deadlines, and events\n" +
+                "* Mark tasks as done/undone\n" +
+                "* Find and sort your tasks\n" +
+                "* Keep everything organized\n\n" +
                 "Try typing 'list' to see your tasks, or 'todo read book' to add a new task!";
         dialogContainer.getChildren().addAll(
                 DialogBox.getZbotDialog(welcomeMsg, zbotImage)
