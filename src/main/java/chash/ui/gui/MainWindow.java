@@ -37,6 +37,7 @@ public class MainWindow extends AnchorPane {
     private ChashUi gui;
     private ChashDb db;
     private TaskList tasks;
+    private boolean isExiting = false;
 
     /** Constructs the main window and loads the associated FXML layout. */
     public MainWindow() {
@@ -75,15 +76,32 @@ public class MainWindow extends AnchorPane {
         this.gui.printWelcome();
     }
 
+    private boolean isExiting() {
+        if (this.isExiting) {
+            this.gui.printMsg("Program is exiting, no commands can be executed now.");
+        }
+        return this.isExiting;
+    }
+
     @FXML
     private void handleUserInput() {
         String fullCommand = this.userInputBox.getText();
         this.gui.printUserInput(fullCommand);
+        this.userInputBox.clear();
 
+        //Program in exit phase check
+        if (isExiting()) {
+            return;
+        }
+
+        //Try to identify and execute command
         try {
             Command cmd = CommandParser.parse(fullCommand);
             cmd.execute(this.tasks, this.gui, this.db);
             if (cmd.isExit()) {
+                //Set flag to ensure no other commands will execute
+                this.isExiting = true;
+
                 //Cant use Thread.sleep(3000); as it will hang the JFX thread
                 PauseTransition delay = new PauseTransition(Duration.seconds(3));
                 delay.setOnFinished(event -> Platform.exit());
@@ -95,6 +113,5 @@ public class MainWindow extends AnchorPane {
         } catch (ChashException ex) {
             this.gui.printErr(ex.getMessage());
         }
-        this.userInputBox.clear();
     }
 }
