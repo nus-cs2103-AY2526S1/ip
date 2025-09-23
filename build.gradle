@@ -3,7 +3,6 @@ plugins {
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'checkstyle'
-    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 repositories {
@@ -11,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    String javaFxVersion = "17.0.7"
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
@@ -28,10 +28,6 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
-javafx {
-    version = "17.0.7"
-    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.base' ]
-}
 
 test {
     useJUnitPlatform()
@@ -45,6 +41,7 @@ test {
         showStackTraces true
         showStandardStreams = false
     }
+
 }
 
 application {
