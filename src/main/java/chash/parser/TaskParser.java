@@ -85,6 +85,11 @@ public class TaskParser {
         assert type != null;
         assert args != null;
 
+        //Blocks use of invalid char '|' as it can affect export string parsing
+        if (args.contains("|")) {
+            throw new ChashException("Invalid character '|' detected in task details.\n");
+        }
+
         Matcher m;
         switch (type) {
         case TODO:
