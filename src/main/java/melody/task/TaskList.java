@@ -51,7 +51,7 @@ public class TaskList {
      */
     public Task removeTask(int index) throws MelodyException {
         if (index < 1 || index > tasks.size()) {
-            throw new MelodyException("melody.task.Task number " + index + " doesn't exist.");
+            throw new MelodyException("Task number " + index + " doesn't exist :o");
         }
         return tasks.remove(index - 1);
     }
@@ -65,7 +65,7 @@ public class TaskList {
      */
     public void markTask(int index, boolean isDone) throws MelodyException {
         if (index < 1 || index > tasks.size()) {
-            throw new MelodyException("melody.task.Task number " + index + " doesn't exist.");
+            throw new MelodyException("Task number " + index + " doesn't exist.");
         }
         Task task = tasks.get(index - 1);
         task.setDone(isDone);
@@ -80,7 +80,7 @@ public class TaskList {
      */
     public Task getTask(int index) throws MelodyException {
         if (index < 1 || index > tasks.size()) {
-            throw new MelodyException("melody.task.Task number " + index + " doesn't exist.");
+            throw new MelodyException("Task number " + index + " doesn't exist :o");
         }
         return tasks.get(index - 1);
     }
@@ -102,7 +102,7 @@ public class TaskList {
         Task taskToUpdate = tasks.get(oneBasedIndex - 1);
         String confirmation = taskToUpdate.updateField(field, newValue);
 
-        return "Nice! I've updated this task:\n  " + taskToUpdate + "\n" + confirmation;
+        return "Niceee! I've updated this task:\n  " + taskToUpdate + "\n" + confirmation;
     }
 
     /**

@@ -59,6 +59,7 @@ public class DialogBox extends HBox {
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
         dialog.getStyleClass().add("reply-label");
+        this.setSpacing(7);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {

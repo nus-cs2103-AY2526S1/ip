@@ -2,8 +2,8 @@ package melody.task;
 
 public enum TaskType {
     TODO("T", "To-do task"),
-    DEADLINE("D", "melody.task.Task with deadline"),
-    EVENT("E", "melody.task.Event with start/end time");
+    DEADLINE("D", "Task with deadline"),
+    EVENT("E", "Event with start/end time");
 
     private final String code;
     private final String description;

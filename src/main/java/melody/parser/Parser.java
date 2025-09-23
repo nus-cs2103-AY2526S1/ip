@@ -19,24 +19,24 @@ public class Parser {
             return CommandType.BYE;
         } else if (input.equals("list")) {
             return CommandType.LIST;
-        } else if (input.startsWith("unmark ")) {
+        } else if (input.startsWith("unmark")) {
             return CommandType.UNMARK;
-        } else if (input.startsWith("mark ")) {
+        } else if (input.startsWith("mark")) {
             return CommandType.MARK;
-        } else if (input.startsWith("deadline ")) {
+        } else if (input.startsWith("deadline")) {
             return CommandType.DEADLINE;
-        } else if (input.startsWith("todo ")) {
+        } else if (input.startsWith("todo")) {
             return CommandType.TODO;
-        } else if (input.startsWith("event ")) {
+        } else if (input.startsWith("event")) {
             return CommandType.EVENT;
-        } else if (input.startsWith("delete ")) {
+        } else if (input.startsWith("delete")) {
             return CommandType.DELETE;
-        } else if (input.startsWith("find ")) {
+        } else if (input.startsWith("find")) {
             return CommandType.FIND;
-        } else if (input.startsWith("update ")) {
+        } else if (input.startsWith("update")) {
             return CommandType.UPDATE;
         } else {
-            throw new MelodyException("I don't understand that command. Try: todo, deadline, event, list, mark, unmark, delete, update or bye!");
+            throw new MelodyException("I don't understand that command... Try: todo, deadline, event, list, mark, unmark, delete, update or bye!");
         }
     }
 
@@ -48,19 +48,19 @@ public class Parser {
      * @throws MelodyException If the task number is invalid
      */
     public static int parseTaskNumber(String input) throws MelodyException {
-        assert input.startsWith("mark ") || input.startsWith("unmark ") || input.startsWith("delete ") :
+        assert input.startsWith("mark") || input.startsWith("unmark") || input.startsWith("delete") :
                 "Input must start with mark, unmark, or delete";
 
         try {
             String[] parts = input.split(" ", 2);
             if (parts.length < 2) {
-                throw new MelodyException("Please specify a task number.");
+                throw new MelodyException("pweasee specify a task numberr~");
             }
             int taskNumber = Integer.parseInt(parts[1]);
-            assert taskNumber > 0 : "Task number must be positive";
+            assert taskNumber > 0 : "Task number must be positive!";
             return taskNumber;
         } catch (NumberFormatException e) {
-            throw new MelodyException("Please enter a valid task number.");
+            throw new MelodyException("pwease enter a valid task number!");
         }
     }
 
@@ -72,7 +72,7 @@ public class Parser {
      * @throws MelodyException If the description is empty
      */
     public static String parseTodo(String input) throws MelodyException {
-        assert input.startsWith("todo ") : "Input must start with 'todo '";
+        assert input.startsWith("todo") : "Input must start with 'todo'";
 
         if (input.length() <= 5) {
             throw new MelodyException("The description of a todo cannot be empty. Try: 'todo <task>'");
@@ -109,10 +109,10 @@ public class Parser {
             String desc = input.substring(9, byIndex).trim();
 
             if (desc.isEmpty()) {
-                throw new MelodyException("The description of a deadline cannot be empty.");
+                throw new MelodyException("The description of a deadline cannot be emptyyyy~");
             }
             if (ddl.isEmpty()) {
-                throw new MelodyException("The due date of a deadline cannot be empty.");
+                throw new MelodyException("The due date of a deadline cannot be emptyyy~");
             }
 
             assert !desc.isEmpty() : "Deadline description should not be empty";
@@ -150,13 +150,13 @@ public class Parser {
             String desc = input.substring(6, fromIndex).trim();
 
             if (desc.isEmpty()) {
-                throw new MelodyException("The description of an event cannot be empty");
+                throw new MelodyException("The description of an event cannot be emptyyyy~");
             }
             if (fromTime.isEmpty()) {
-                throw new MelodyException("The start time of an event cannot be empty");
+                throw new MelodyException("The start time of an event cannot be emptyyy~");
             }
             if (toTime.isEmpty()) {
-                throw new MelodyException("The end time of an event cannot be empty");
+                throw new MelodyException("The end time of an event cannot be emptyy~");
             }
 
             assert !desc.isEmpty() : "Event description should not be empty";
@@ -170,12 +170,12 @@ public class Parser {
     }
 
     public static String parseFind(String input) throws MelodyException {
-        assert input.startsWith("find ") : "Input must start with 'find '";
+        assert input.startsWith("find") : "Input must start with 'find '";
         if (input.length() <= 5) { // "find ".length() = 5
-            throw new MelodyException("Please provide a keyword to search for.");
+            throw new MelodyException("pwease gimme a keyword to search forrrr~");
         }
         String keyword = input.substring(5).trim();
-        assert !keyword.isEmpty() : "Search keyword should not be empty";
+        assert !keyword.isEmpty() : "Search keyword cannot be empty!!";
         return keyword;
     }
 
@@ -189,14 +189,13 @@ public class Parser {
      * @throws MelodyException If the format is invalid
      */
     public static String[] parseUpdate(String input) throws MelodyException {
-        assert input.startsWith("update ") : "Input must start with 'update '";
+        assert input.startsWith("update") : "Input must start with 'update'";
 
         // Remove the "update " part and split the remaining string by spaces
-        String args = input.substring(7).trim();
+        String args = input.substring(6).trim();
         if (args.isEmpty()) {
-            throw new MelodyException("Please specify a task number, field, and new value.\n" +
-                    "Format: update [number] /[field] [new value]\n" +
-                    "Example: update 3 /from 14:00");
+            throw new MelodyException("pweasee specify a task number, field, and new value.\n" +
+                    "Try: update <number> /from <time>");
         }
 
         // Split into parts: [number, /field, value...]
@@ -211,7 +210,7 @@ public class Parser {
             // Validate task number
             int taskNumber = Integer.parseInt(parts[0]);
             if (taskNumber < 1) {
-                throw new MelodyException("Task number must be a positive integer.");
+                throw new MelodyException("Task number must be a positive integerr");
             }
 
             // Validate field format (should start with '/')
@@ -226,13 +225,13 @@ public class Parser {
             // The rest is the new value
             String newValue = parts[2].trim();
             if (newValue.isEmpty()) {
-                throw new MelodyException("The new value cannot be empty.");
+                throw new MelodyException("The new value cannot be emptyy");
             }
 
             return new String[]{parts[0], fieldName, newValue};
 
         } catch (NumberFormatException e) {
-            throw new MelodyException("Please provide a valid task number.");
+            throw new MelodyException("pwease provide a valid task numberr");
         }
     }
 
