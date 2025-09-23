@@ -55,7 +55,7 @@ test {
 }
 
 application {
-    mainClass.set("zbot.gui.Main")
+    mainClass.set("zbot.LauncherMain")
 }
 
 
