@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -18,20 +19,6 @@ java {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
-
-    // JavaFX dependencies for bundling in JAR (platform-specific)
-    implementation 'org.openjfx:javafx-controls:17.0.2:win'
-    implementation 'org.openjfx:javafx-controls:17.0.2:linux'
-    implementation 'org.openjfx:javafx-controls:17.0.2:mac'
-    implementation 'org.openjfx:javafx-fxml:17.0.2:win'
-    implementation 'org.openjfx:javafx-fxml:17.0.2:linux'
-    implementation 'org.openjfx:javafx-fxml:17.0.2:mac'
-    implementation 'org.openjfx:javafx-base:17.0.2:win'
-    implementation 'org.openjfx:javafx-base:17.0.2:linux'
-    implementation 'org.openjfx:javafx-base:17.0.2:mac'
-    implementation 'org.openjfx:javafx-graphics:17.0.2:win'
-    implementation 'org.openjfx:javafx-graphics:17.0.2:linux'
-    implementation 'org.openjfx:javafx-graphics:17.0.2:mac'
 }
 
 test {
@@ -52,10 +39,6 @@ application {
     mainClass.set("zbot.gui.Main")
 }
 
-shadowJar {
-    archiveBaseName = "zbot"
-    archiveClassifier = null
-}
 
 run{
     standardInput = System.in
@@ -63,5 +46,22 @@ run{
 
 checkstyle {
     toolVersion = '10.2'
+}
+
+javafx {
+    version = '17.0.2'
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+shadowJar {
+    archiveBaseName = "zbot"
+    archiveClassifier = null
+    mergeServiceFiles()
+
+    manifest {
+        attributes(
+            'Main-Class': 'zbot.LauncherMain'
+        )
+    }
 }
 
