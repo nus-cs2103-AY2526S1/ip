@@ -14,11 +14,30 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
+    modularity.inferModulePath.set(false)
 }
 
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+
+    // JavaFX base dependencies
+    implementation 'org.openjfx:javafx-controls:17.0.2'
+    implementation 'org.openjfx:javafx-fxml:17.0.2'
+
+    // Cross-platform native libraries (runtimeOnly for fat JAR)
+    runtimeOnly 'org.openjfx:javafx-controls:17.0.2:win'
+    runtimeOnly 'org.openjfx:javafx-controls:17.0.2:linux'
+    runtimeOnly 'org.openjfx:javafx-controls:17.0.2:mac'
+    runtimeOnly 'org.openjfx:javafx-graphics:17.0.2:win'
+    runtimeOnly 'org.openjfx:javafx-graphics:17.0.2:linux'
+    runtimeOnly 'org.openjfx:javafx-graphics:17.0.2:mac'
+    runtimeOnly 'org.openjfx:javafx-base:17.0.2:win'
+    runtimeOnly 'org.openjfx:javafx-base:17.0.2:linux'
+    runtimeOnly 'org.openjfx:javafx-base:17.0.2:mac'
+    runtimeOnly 'org.openjfx:javafx-fxml:17.0.2:win'
+    runtimeOnly 'org.openjfx:javafx-fxml:17.0.2:linux'
+    runtimeOnly 'org.openjfx:javafx-fxml:17.0.2:mac'
 }
 
 test {
@@ -56,11 +75,18 @@ javafx {
 shadowJar {
     archiveBaseName = "zbot"
     archiveClassifier = null
+
+    // Critical for JavaFX fat JAR compatibility
+    exclude 'module-info.class'
+    exclude 'META-INF/versions/*/module-info.class'
     mergeServiceFiles()
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     manifest {
         attributes(
-            'Main-Class': 'zbot.LauncherMain'
+            'Main-Class': 'zbot.LauncherMain',
+            'Implementation-Title': project.name,
+            'Implementation-Version': project.version
         )
     }
 }
