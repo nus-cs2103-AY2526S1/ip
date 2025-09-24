@@ -1,0 +1,25 @@
+.label {
+    -fx-background-color: rgb(246, 148, 193);
+    -fx-border-color: rgb(249, 78, 155) rgb(229, 56, 203) rgb(249, 78, 155) rgb(229, 56, 203);
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+
+}
+
+.reply-label {
+    -fx-background-color: rgb(113, 97, 239);
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+
+#displayPicture {
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+
