@@ -1,4 +1,4 @@
-T | 1 | read book | master
+T | 1 | read book
 D | 0 | return book | 2024-06-06 2359
 T | 1 | buy book
 T | 0 | test fresh
@@ -12,9 +12,4 @@ D | 0 | submit report | 2024-12-31 2359
 E | 0 | team meeting | 2024-01-15 1400 | 2024-01-15 1500
 T | 0 | read book
 T | 0 | buy groceries
-D | 0 | submit report | 2024-12-31 2359
-T | 0 | test ai tagging
-T | 0 | test ai tagging
-T | 0 | final test
-T | 0 | test master merge
-T|1|valid task
+T | 0 | submit CS2103T iP
