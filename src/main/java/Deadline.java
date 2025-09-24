@@ -46,7 +46,9 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + getStatusIcon() + " " + description + " (by: " + by.format(OUTPUT_FORMAT) + ")";
+        String tagsString = getTagsString();
+        return "[D]" + getStatusIcon() + " " + description + " (by: " + by.format(OUTPUT_FORMAT) + ")" +
+               (tagsString.isEmpty() ? "" : " " + tagsString);
     }
 
     public LocalDateTime getBy() {

@@ -49,7 +49,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + getStatusIcon() + " " + description + " (from: " + from.format(OUTPUT_FORMAT) + " to: " + to.format(OUTPUT_FORMAT) + ")";
+        String tagsString = getTagsString();
+        return "[E]" + getStatusIcon() + " " + description + " (from: " + from.format(OUTPUT_FORMAT) + " to: " + to.format(OUTPUT_FORMAT) + ")" +
+               (tagsString.isEmpty() ? "" : " " + tagsString);
     }
 
     public LocalDateTime getFrom() {

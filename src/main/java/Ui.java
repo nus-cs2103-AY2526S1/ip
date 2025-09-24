@@ -86,6 +86,16 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    public void showTaskTagged(Task task, String tag, boolean isTagged) {
+        System.out.println("____________________________________________________________");
+        if (isTagged) {
+            System.out.println("Nice! I've tagged this task with #" + tag + ":\n   " + task.toString());
+        } else {
+            System.out.println("OK, I've removed the #" + tag + " tag from this task:\n   " + task.toString());
+        }
+        System.out.println("____________________________________________________________");
+    }
+
     public void close() {
         scanner.close();
     }
