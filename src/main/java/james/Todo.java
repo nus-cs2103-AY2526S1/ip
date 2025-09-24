@@ -1,0 +1,64 @@
+package james;
+
+public class Todo extends Task{
+    private String extendedQuery;
+    /**
+     * Creates a to-do task from a raw user command.
+     *
+     * @param s String user input.
+     */
+    public Todo(String s) {
+        super(s.split(" /")[0].replaceFirst("^\\s*\\S+\\s*", ""));
+        this.extendedQuery = s;
+    }
+
+    /**
+     * Creates a to-do task from a raw user command with an explicit status.
+     *
+     * @param s String user input.
+     * @param isMarked Completion status. {@code true} if finished, otherwise {@code false}.
+     */
+    public Todo(String s, boolean isMarked) {
+        super(s.split(" /")[0].replaceFirst("^\\s*\\S+\\s*", ""), isMarked);
+        this.extendedQuery = s;
+    }
+
+    @Override
+    public String getExtendedQuery() {
+        return this.extendedQuery;
+    }
+
+    @Override
+    public TaskType getType() {
+        return TaskType.TODO;
+    }
+
+    /**
+     * Sets the task status to not done.
+     */
+    public void undoTask() {
+        super.undoTask();
+    }
+
+    /**
+     * Sets the task status to done.
+     */
+    public void finishTask() {
+        super.finishTask();
+    }
+
+    @Override
+    public String getTask() {
+        return super.getTask();
+    }
+
+    @Override
+    public boolean getStatus() {
+        return super.getStatus();
+    }
+
+    @Override
+    public String toString() {
+        return "[T] " + super.toString();
+    }
+}
