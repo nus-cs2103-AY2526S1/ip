@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import java.lang.Thread;
 
 /**
  * Controller for the main GUI.
@@ -73,6 +74,12 @@ public class MainWindow extends AnchorPane {
         );
 
         if (output[0].equals("1")) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             Stage stage = (Stage) userInput.getScene().getWindow();
             stage.close();
         } else {
