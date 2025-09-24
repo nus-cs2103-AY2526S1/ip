@@ -15,33 +15,39 @@
 
 ## Quick Start
 
-### Command Line Interface
-```bash
-./gradlew run
-```
+1. **Download the JAR file** from the [Releases](https://github.com/Jaredee123/ip/releases) page
+2. **Run the application**:
+   ```bash
+   java -jar sofi.jar
+   ```
+3. **Or build from source**:
+   ```bash
+   ./gradlew run
+   ```
 
-### Graphical User Interface
-```bash
-# Switch to GUI mode
-sed -i '' 's/mainClass.set("sofi.SOFI")/mainClass.set("sofi.Launcher")/' build.gradle
-./gradlew run
-```
+### Interface Options
+
+- **GUI Mode** (default): Launches the JavaFX graphical interface
+- **CLI Mode**: Switch to command-line interface by modifying `build.gradle`
 
 ## Installation
 
 ### Prerequisites
+
 - **JDK 17** or higher
 - **Gradle** (included via wrapper)
 
 ### Setup Instructions
 
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/Jaredee123/ip.git
    cd ip
    ```
 
 2. **Build the project**:
+
    ```bash
    ./gradlew build
    ```
@@ -53,21 +59,17 @@ sed -i '' 's/mainClass.set("sofi.SOFI")/mainClass.set("sofi.Launcher")/' build.g
 
 ## Usage
 
-### Basic Commands
+### Key Commands
 
-| Command | Description | Example |
-|---------|-------------|---------|
-| `todo DESCRIPTION` | Add a todo task | `todo read book` |
-| `deadline DESCRIPTION /by TIME` | Add a deadline task | `deadline submit report /by 2024-12-31` |
-| `event DESCRIPTION /from START /to END` | Add an event task | `event meeting /from Mon 2pm /to Mon 3pm` |
-| `list` | Show all tasks | `list` |
-| `mark NUMBER` | Mark task as done | `mark 1` |
-| `unmark NUMBER` | Mark task as not done | `unmark 1` |
-| `delete NUMBER` | Delete a task | `delete 1` |
-| `find KEYWORD` | Search tasks | `find work` |
-| `tag NUMBER TAG` | Add tag to task | `tag 1 work` |
-| `untag NUMBER TAG` | Remove tag from task | `untag 1 work` |
-| `bye` | Exit application | `bye` |
+- `todo DESCRIPTION` - Add a simple task
+- `deadline DESCRIPTION /by TIME` - Add a task with deadline
+- `event DESCRIPTION /from START /to END` - Add a scheduled event
+- `list` - View all tasks
+- `find KEYWORD` - Search for tasks
+- `tag NUMBER TAG` - Add tags to organize tasks
+- `bye` - Exit the application
+
+**📖 For detailed command reference, see the [User Guide](docs/README.md)**
 
 ### Example Session
 
@@ -137,22 +139,26 @@ ip/
 ## Development
 
 ### Running Tests
+
 ```bash
 ./gradlew test
 ```
 
 ### Building JAR
+
 ```bash
 ./gradlew shadowJar
 ```
 
 ### Code Quality
+
 The project includes comprehensive error handling, input validation, and follows Java best practices.
 
 ## Documentation
 
-- **[User Guide](docs/README.md)** - Comprehensive user documentation
-- **[Live Demo](https://jaredee123.github.io/ip/)** - GitHub Pages documentation
+- **[📖 User Guide](docs/README.md)** - Comprehensive command reference and usage instructions
+- **[🌐 Live Documentation](https://jaredee123.github.io/ip/)** - GitHub Pages documentation
+- **[📦 Download JAR](https://github.com/Jaredee123/ip/releases)** - Ready-to-run application
 
 ## Contributing
 
@@ -176,4 +182,4 @@ This project is part of an educational exercise and is available for learning pu
 
 **SOFI - Your intelligent task management companion** 🤖
 
-*Keep organized, stay productive, and never miss a deadline again!*
+_Keep organized, stay productive, and never miss a deadline again!_
