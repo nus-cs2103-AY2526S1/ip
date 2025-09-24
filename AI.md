@@ -6,3 +6,4 @@ AI Usage in the Diablo ChatBot
 4. Use ChatGPT to improve Storage constructor
 5. Use Gemini to improve Storage constructor for jar file use
 6. Use ChatGPT to solve edge case for "mark" and "find" commands
+7. Use ChatGPT to resolve window closing issue after input of "bye" command
