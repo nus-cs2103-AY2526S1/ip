@@ -150,7 +150,7 @@ public class Parser {
     public static String getFrom(String command) {
         String[] commandArr = command.split("/from|/to"); // [0] -> type, [1] -> from, [2] -> to
         if (commandArr.length < 3) {
-            throw new EventTaskException("");
+            throw new EventTaskException("Add an event task in the format 'event [task] /from [start] /to [end]!'");
         }
         return commandArr[1].trim();
     }
@@ -165,7 +165,7 @@ public class Parser {
     public static String getTo(String command) {
         String[] commandArr = command.split("/from|/to"); // [0] -> type, [1] -> from, [2] -> to
         if (commandArr.length < 3) {
-            throw new EventTaskException("");
+            throw new EventTaskException("Add an event task in the format 'event [task] /from [start] /to [end]!'");
         }
         return commandArr[2].trim();
     }
@@ -190,10 +190,8 @@ public class Parser {
             String by = parts[3];
             return new Deadline(description, isDone, by);
         case "E":
-            String duration = parts[3];
-            String[] fromTo = duration.split("-");
-            String from = fromTo[0];
-            String to = fromTo[1];
+            String from = parts[3];
+            String to = parts[4];
             return new Event(description, isDone, from, to);
         default:
             throw new IllegalArgumentException("Unknown task type: " + type);

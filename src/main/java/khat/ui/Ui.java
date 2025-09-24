@@ -75,7 +75,7 @@ public class Ui {
     }
 
     /**
-     * Shows the tasks occurring on a specific date.
+     * Shows the deadline tasks occurring on a specific date.
      *
      * @param tasks The task list containing filtered tasks.
      * @param date The date to display tasks for.
@@ -107,7 +107,7 @@ public class Ui {
     private void showTasks(TaskList tasks) {
         for (int i = 0; i < tasks.getSize(); i++) {
             Task t = tasks.getTask(i);
-            showMessage(i + 1 + "." + t.toString());
+            showMessage(i + 1 + ". " + t.toString());
         }
     }
 

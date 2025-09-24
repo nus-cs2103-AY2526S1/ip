@@ -57,7 +57,7 @@ public class Deadline extends Task {
      */
     private String deadlineToString() {
         if (hasTime) {
-            return this.dateTime.format(DateTimeFormatter.ofPattern("dd MMM yy hhmma"));
+            return this.dateTime.format(DateTimeFormatter.ofPattern("dd MMM yy h:mm a"));
         } else {
             return this.date.format(DateTimeFormatter.ofPattern("dd MMM yy"));
         }

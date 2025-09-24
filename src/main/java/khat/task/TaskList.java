@@ -130,8 +130,12 @@ public class TaskList {
                 Event e1 = (Event) t;
                 Event e2 = (Event) newTask;
                 boolean descMatch = e1.getDescription().equalsIgnoreCase(e2.getDescription());
-                boolean fromMatch = e1.from.equals(e2.from);
-                boolean toMatch = e1.to.equals(e2.to);
+                boolean fromMatch = e1.hasTime() == e2.hasTime() && (e1.hasTime()
+                                ? e1.fromDateTime.equals(e2.fromDateTime)
+                                : e1.fromDate.equals(e2.fromDate));
+                boolean toMatch = e1.hasTime() == e2.hasTime() && (e1.hasTime()
+                                ? e1.toDateTime.equals(e2.toDateTime)
+                                : e1.toDate.equals(e2.toDate));
                 if (descMatch && fromMatch && toMatch) {
                     return true;
                 }
