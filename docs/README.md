@@ -10,7 +10,7 @@ Khat is a simple, friendly chatbot that helps you manage your tasks from the GUI
 
 1. Ensure you have Java 17 or above installed in your Computer.
 
-2. Download the latest .jar file from [here](https://github.com/katrinaykt/ip/releases/tag/A-UserGuide).
+2. Download the latest .jar file from [here](https://github.com/katrinaykt/ip/releases/tag/v0.3).
 
 3. Copy the file to the folder you want to use as the home folder for your Khat chatbot.
 
@@ -41,12 +41,13 @@ Khat adds the todo and confirms:
 ```
 Got it. I've added this task:
 [T][ ] read book
-Now you have X tasks in the list.
+Now you have 1 tasks in the list.
 ```
 
 ### 2. Adding Deadlines
 
 Add a task with a specific deadline.
+Date and time must be in the format "dd-MM-yyyy" or "dd-MM-yyyy HHmm".
 
 **Usage:**  
 `deadline <task description> /by <date or date time>`
@@ -59,25 +60,26 @@ Khat adds the deadline task and confirms:
 ```
 Got it. I've added this task:
 [D][ ] submit report (by: 16 Sep 25)
-Now you have X tasks in the list.
+Now you have 2 tasks in the list.
 ```
 
 ### 3. Adding Events
 
 Add a task that happens at a specific time.
+Date and time must be in the format "dd-MM-yyyy" or "dd-MM-yyyy HHmm".
 
 **Usage:**  
 `event <task description> /from <start> /to <end>`
 
 **Example:**  
-`event team meeting /from 05-05-2025 5pm /to 6pm`
+`event team meeting /from 05-05-2025 1700 /to 1800`
 
 **Expected outcome:**  
 Khat adds the event and confirms:
 ```
 Got it. I've added this task:
-[E][ ] team meeting (from: 05-05-2025 5pm to: 6pm)
-Now you have X tasks in the list.
+[E][ ] team meeting (from: 05 May 25 5:00pm to: 6:00pm)
+Now you have 3 tasks in the list.
 ```
 
 ### 4. Listing Tasks
@@ -91,9 +93,9 @@ Show all your tasks with their status.
 Khat displays your current tasks:
 ```
 List of tasks:
-1.[T][ ] read book
-2.[D][ ] submit report (by: 16 Sep 25)
-3.[E][ ] team meeting (from: 05-05-2025 5pm to: 6pm)
+1. [T][ ] read book
+2. [D][ ] submit report (by: 16 Sep 25)
+3. [E][ ] team meeting (from: 05 May 25 5:00pm to: 6:00pm)
 ```
 
 ### 5. Marking Tasks as Done
@@ -143,7 +145,7 @@ Khat deletes the task and confirms:
 ```
 Ok, I've removed this task:
 [E][ ] team meeting (from: 05-05-2025 5pm to: 6pm)
-There are X remaining tasks.
+There are 2 remaining tasks.
 ```
 ### 8. Find Tasks on a specific date
 Search for deadline tasks on a specific date.
@@ -156,7 +158,7 @@ Search for deadline tasks on a specific date.
 Khat lists matching deadline tasks:
 ```
 Here are the tasks on 2025-09-05:
-1.[D][ ] submit report (by: 16 Sep 25)
+1. [D][ ] submit report (by: 16 Sep 25)
 ```
 
 ### 9. Finding Tasks
@@ -172,7 +174,7 @@ Search for tasks containing a specific keyword.
 Khat lists matching tasks:
 ```
 Here are the matching tasks in your list with keyword book:
-1.[T][ ] read book
+1. [T][ ] read book
 ```
 
 ### 10. Exiting the Application
