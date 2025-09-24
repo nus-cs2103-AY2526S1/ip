@@ -56,22 +56,27 @@ public class MainWindow extends AnchorPane {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        if (input.equals("bye")) {
-            return "Bye. Hope to see you again soon!";
-        }
-        
-        // Process the command through SOFI
-        String command = Parser.parseCommand(input);
+        try {
+            if (input == null || input.trim().isEmpty()) {
+                return "Please enter a command. Type 'help' for available commands.";
+            }
             
-            if (command.equals("list")) {
-                return formatTaskList(sofi.getTasks().getTasks());
-            } else if (command.equals("todo")) {
-                String taskDescription = Parser.parseTodoDescription(input);
-                if (taskDescription.isEmpty()) {
-                    return "A todo needs a description. Try: todo read book";
-                }
-                sofi.getTasks().addTask(new Todo(taskDescription));
-                sofi.saveTasks();
+            if (input.equals("bye")) {
+                return "Bye. Hope to see you again soon!";
+            }
+            
+            // Process the command through SOFI
+            String command = Parser.parseCommand(input);
+                
+                if (command.equals("list")) {
+                    return formatTaskList(sofi.getTasks().getTasks());
+                } else if (command.equals("todo")) {
+                    String taskDescription = Parser.parseTodoDescription(input);
+                    if (taskDescription.isEmpty()) {
+                        return "A todo needs a description. Try: todo read book";
+                    }
+                    sofi.getTasks().addTask(new Todo(taskDescription));
+                    sofi.saveTasks();
                 return "Got it. I've added this task:\n   " 
                         + sofi.getTasks().getTask(sofi.getTasks().size() - 1).toString() 
                         + "\nNow you have " + sofi.getTasks().size() + " tasks in the list.";
@@ -222,6 +227,9 @@ public class MainWindow extends AnchorPane {
             } else {
                 return "I don't recognize that command. Try: list, todo, deadline, event, mark, unmark, delete, find, tag, untag, bye";
             }
+        } catch (Exception e) {
+            return "An error occurred: " + e.getMessage() + "\nPlease try again or restart the application.";
+        }
     }
     
     private String formatTaskList(ArrayList<Task> tasks) {

@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class MainApp extends Application {
     
-    private SOFI sofi = new SOFI("." + java.io.File.separator + "data" + java.io.File.separator + "duke.txt");
+    private SOFI sofi = new SOFI("." + java.io.File.separator + "data" + java.io.File.separator + "sofi.txt");
 
     @Override
     public void start(Stage stage) {

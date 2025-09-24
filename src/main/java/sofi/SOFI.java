@@ -56,10 +56,17 @@ public class SOFI {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
+            ui.showWelcome();
         } catch (IOException e) {
             // Start fresh if can't load existing tasks
             ui.showLoadingError();
             tasks = new TaskList();
+            ui.showWelcome();
+        } catch (Exception e) {
+            // Handle any other unexpected errors during initialization
+            ui.showError("An unexpected error occurred during initialization. Starting with an empty task list.");
+            tasks = new TaskList();
+            ui.showWelcome();
         }
     }
 
@@ -68,7 +75,6 @@ public class SOFI {
      * Handles all user interactions including adding, listing, marking, and deleting tasks.
      */
     public void run() {
-        ui.showWelcome();
         String userInput;
 
         while (true) {
@@ -105,6 +111,9 @@ public class SOFI {
                 }
             } catch (SofiException e) {
                 ui.showError(e.getMessage());
+            } catch (Exception e) {
+                // Handle any unexpected errors during command processing
+                ui.showError("An unexpected error occurred. Please try again or restart the application.");
             }
         }
         ui.close();
@@ -354,7 +363,7 @@ public class SOFI {
 
     public static void main(String[] args) {
         String filePath = "." + java.io.File.separator + "data" 
-                + java.io.File.separator + "duke.txt";
+                + java.io.File.separator + "sofi.txt";
         new SOFI(filePath).run();
     }
 }

@@ -17,3 +17,4 @@ T | 0 | test ai tagging
 T | 0 | test ai tagging
 T | 0 | final test
 T | 0 | test master merge
+T|1|valid task

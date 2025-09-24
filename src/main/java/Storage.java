@@ -38,23 +38,32 @@ public class Storage {
         File file = new File(filePath);
         File parent = file.getParentFile();
         if (parent != null && !parent.exists()) {
-            parent.mkdirs(); // Create data directory if it doesn't exist
+            if (!parent.mkdirs()) {
+                throw new IOException("Failed to create data directory: " + parent.getAbsolutePath());
+            }
         }
         if (!file.exists()) {
-            file.createNewFile();
+            if (!file.createNewFile()) {
+                throw new IOException("Failed to create data file: " + file.getAbsolutePath());
+            }
             return new ArrayList<>(); // Return empty list for new file
         }
 
         ArrayList<Task> tasks = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
+            int lineNumber = 0;
             while ((line = reader.readLine()) != null) {
+                lineNumber++;
                 line = line.trim();
                 if (line.isEmpty()) continue;
-                String[] parts = line.split("\\s*\\|\\s*");
-                if (parts.length < 3) {
-                    continue; // Skip malformed lines
-                }
+                
+                try {
+                    String[] parts = line.split("\\s*\\|\\s*");
+                    if (parts.length < 3) {
+                        System.err.println("Warning: Skipping malformed line " + lineNumber + ": " + line);
+                        continue; // Skip malformed lines
+                    }
                 String type = parts[0];
                 boolean isDone = "1".equals(parts[1]);
                 String description = parts[2];
@@ -64,14 +73,21 @@ public class Storage {
                         task = new Todo(description);
                         break;
                     case "D":
-                        if (parts.length < 4) continue;
+                        if (parts.length < 4) {
+                            System.err.println("Warning: Skipping incomplete deadline on line " + lineNumber + ": " + line);
+                            continue;
+                        }
                         task = new Deadline(description, parts[3]);
                         break;
                     case "E":
-                        if (parts.length < 5) continue;
+                        if (parts.length < 5) {
+                            System.err.println("Warning: Skipping incomplete event on line " + lineNumber + ": " + line);
+                            continue;
+                        }
                         task = new Event(description, parts[3], parts[4]);
                         break;
                     default:
+                        System.err.println("Warning: Skipping unknown task type on line " + lineNumber + ": " + line);
                         continue;
                 }
                 if (isDone) {
@@ -84,9 +100,15 @@ public class Storage {
                         task.addTag(parts[i].trim());
                     }
                 }
-                
-                tasks.add(task);
+                    
+                    tasks.add(task);
+                } catch (Exception e) {
+                    System.err.println("Warning: Error processing line " + lineNumber + ": " + line + " - " + e.getMessage());
+                    continue; // Skip problematic lines but continue loading
+                }
             }
+        } catch (IOException e) {
+            throw new IOException("Error reading data file: " + e.getMessage(), e);
         }
         return tasks;
     }
