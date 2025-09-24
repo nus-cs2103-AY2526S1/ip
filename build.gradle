@@ -1,99 +1,88 @@
-plugins {
-    id 'java'
-    id 'application'
-    id 'checkstyle'
-    id 'com.gradleup.shadow' version '9.1.0'
+plugins{
+   id 'java'
+   id 'application'
+   id 'checkstyle'
+   id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-repositories {
-    mavenCentral()
+repositories{
+   mavenCentral()
 }
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-    withJavadocJar()
-    withSourcesJar()
-}
-
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
-    options.release = 17
+checkstyle { 
+    toolVersion = '11.0.0'
+    configDirectory = file("$rootDir/config/checkstyle")
+    configProperties = ['suppressionFile': file("$rootDir/config/checkstyle/suppressions.xml").absolutePath]
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    String javaFxVersion = '21.0.2'
+
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
-/* ---- JavaFX: pull only your current platform classifier ---- */
-def fxVersion = '22.0.2' // works fine on JDK 17+
-def os = org.gradle.internal.os.OperatingSystem.current()
-def arch = System.getProperty('os.arch').toLowerCase()
-def platform =
-        os.isMacOsX()   ? (arch.contains('aarch64') || arch.contains('arm') ? 'mac-aarch64' : 'mac') :
-        os.isLinux()    ? 'linux' :
-        /* windows */     'win'
+test{
+   useJUnitPlatform()
 
-dependencies {
-    implementation "org.openjfx:javafx-base:${fxVersion}:${platform}"
-    implementation "org.openjfx:javafx-graphics:${fxVersion}:${platform}"
-    implementation "org.openjfx:javafx-controls:${fxVersion}:${platform}"
-    implementation "org.openjfx:javafx-fxml:${fxVersion}:${platform}"
+   testLogging{
+      events "passed","skipped","failed"
+
+      showExceptions true
+      exceptionFormat "full"
+      showCauses true
+      showStackTraces true
+      showStandardStreams = false
+     }
 }
 
-application {
-    // pick ONE main; you had two. Adjust to your actual entry point:
-    mainClass = 'bruh.Launcher'
-    applicationDefaultJvmArgs = [
-        '-Dfile.encoding=UTF-8'
-    ]
+application { mainClass.set("bruh.Launcher") }
+
+tasks.jar{
+   archiveBaseName = 'Bruh'
+   archiveVersion = ''
+   manifest {attributes('Main-Class':application.mainClass.get())}
 }
 
-tasks.test {
-    useJUnitPlatform()
-    testLogging {
-        events "passed", "skipped", "failed"
-        exceptionFormat "full"
-        showStandardStreams = false
-    }
-}
-
-tasks.run {
-    workingDir = projectDir
-    standardInput = System.in
-    // run with: ./gradlew run --args="foo bar"
-}
-
-/* ---- JARs & Shadow configuration ----
- * Make the fat jar be build/libs/bruh.jar and disable the thin jar.
+/**
+ * Fat JAR for release.
+ * Produces: build/libs/bruh.jar
  */
-shadowJar {
-    archiveFileName = 'bruh.jar'      // no '-all' classifier
-    manifest {
-        attributes('Main-Class': application.mainClass.get())
-    }
-}
-jar {
-    enabled = false
+tasks.named('shadowJar'){
+   archiveBaseName.set('bruh')
+   archiveVersion.set('')
+   archiveClassifier.set('')
+   manifest { attributes 'Main-Class': application.mainClass.get() }
+   mergeServiceFiles()
+} 
+
+run{
+   standardInput = System.in
 }
 
-/* ---- Gradle 9 implicit dependency fixes ----
- * distZip, distTar, startScripts must depend on shadowJar.
- */
+// ---- Gradle 8 implicit dependency fixes ----
+
+// Dist tasks (from Application plugin) read the *fat* jar
 tasks.named('distZip')      { dependsOn tasks.named('shadowJar') }
 tasks.named('distTar')      { dependsOn tasks.named('shadowJar') }
 tasks.named('startScripts') { dependsOn tasks.named('shadowJar') }
+tasks.named('installDist')  { dependsOn tasks.named('shadowJar') }
 
-/* ---- Checkstyle ---- */
-checkstyle {
-    toolVersion = '11.0.0'
-    config = resources.text.fromFile("$rootDir/config/checkstyle/checkstyle.xml")
-}
-tasks.withType(Checkstyle).configureEach {
-    reports {
-        xml.required = false
-        html.required = true
-    }
-}
+// Shadow’s own dist tasks read the *thin* jar; make them wait for :jar
+tasks.named('startShadowScripts') { dependsOn tasks.named('jar') }
+tasks.named('installShadowDist')  { dependsOn tasks.named('jar') }
+tasks.named('shadowDistZip')      { dependsOn tasks.named('jar') }
+tasks.named('shadowDistTar')      { dependsOn tasks.named('jar') }
 
