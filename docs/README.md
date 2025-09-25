@@ -110,3 +110,13 @@ Now you have 2 tasks in the list.
 Exits the program.
 
 Command Format: `bye`
+
+## Printing debug info (for developers)
+
+Prints debug information to help with development and troubleshooting.
+
+Currently provides:
+- Java version of the app instance
+- File path of the save file
+
+Command Format: `debug`
