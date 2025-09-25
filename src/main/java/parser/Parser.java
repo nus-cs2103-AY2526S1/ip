@@ -41,6 +41,8 @@ public class Parser {
             return new FindCommand(input);
         } else if (input.startsWith("help")) {
             return new HelpCommand(input);
+        } else if (input.startsWith("debug")) {
+            return new DebugCommand(input);
         } else {
             return new UnknownCommand(input);
         }

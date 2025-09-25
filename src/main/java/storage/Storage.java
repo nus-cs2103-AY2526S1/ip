@@ -115,4 +115,8 @@ public class Storage {
         fw.write(sb.toString());
         fw.close();
     }
+
+    public String getFilePath() {
+        return filepath;
+    }
 }
