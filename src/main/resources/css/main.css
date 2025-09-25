@@ -1,0 +1,58 @@
+.root {
+    main-color: #282828;
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color: #282828;
+    -fx-text-fill: #76ff03;
+    -fx-font-family: "Monospaced";
+    -fx-border-color: #76ff03;
+    -fx-border-width: 1px;
+}
+
+.button {
+    -fx-background-color: #282828;
+    -fx-text-fill: #76ff03;
+    -fx-font-family: "Monospaced";
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-font-size: 16px;
+    -fx-border-color: #76ff03;
+    -fx-border-width: 1px;
+}
+
+.button:hover {
+    -fx-background-color: #1c1c1c;
+    -fx-text-fill: #99ff33;
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: #76ff03;
+    -fx-text-fill: #282828;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #76ff03;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+

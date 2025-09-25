@@ -1,0 +1,50 @@
+package printbot.tasks;
+
+// NEW
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import printbot.exceptions.DateTimeInvalidException;
+import printbot.parser.Parser;
+
+/**
+ * Class represent Deadline task
+ */
+public class Deadline extends Task {
+
+    private LocalDateTime dueDate;
+
+    /**
+     * Default constructor parses content and datetime, used in PrintBot v0.1
+     * @param content as full user input
+     */
+    public Deadline(String content) throws DateTimeInvalidException {
+        super(content.split("/by ", 2)[0]);
+        String[] parts = content.split("/by ", 2);
+        //this.dueDate = parts[1];
+        this.dueDate = Parser.parseDateTime(parts[1]);
+    }
+
+    /**
+     * Constructor if content and due date are separated
+     * @param content as task description
+     * @param dueDate as deadline of task
+     */
+    public Deadline(String content, String dueDate) throws DateTimeInvalidException {
+        super(content);
+        this.dueDate = Parser.parseDateTime(dueDate);
+    }
+
+    @Override
+    public String toString() {
+        return "[D] " + super.toString() + " (by: " + Parser.dateToString(this.dueDate) + ")";
+    }
+
+    @Override
+    public String writeSave() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        String formattedDateTime = this.dueDate.format(formatter);
+        return "D|" + (this.isItMarked() ? "1" : "0") + "|" + this.getContent() + "|" + formattedDateTime;
+    }
+}
