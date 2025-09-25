@@ -19,6 +19,8 @@
         <!-- Scrollable Chat Area -->
         <ScrollPane fx:id="scrollPane"
                     fitToWidth="true"
+                    hvalue="1.0"
+                    vvalue="1.0"
                     hbarPolicy="NEVER"
                     vbarPolicy="AS_NEEDED"
                     prefHeight="557.0"

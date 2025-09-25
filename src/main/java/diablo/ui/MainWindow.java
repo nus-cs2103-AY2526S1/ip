@@ -36,13 +36,8 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(
-                Bindings.createDoubleBinding(
-                        () -> 1.0,
-                        dialogContainer.heightProperty()
-                )
-        );
 
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
                 DialogBox.getDiabloDialog(greeting, diabloImage)
         );
