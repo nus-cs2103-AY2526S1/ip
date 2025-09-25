@@ -23,7 +23,7 @@ public class DebugCommand extends Command {
      * @throws Exception
      */
     @Override
-    public void execute(TaskList tasklist, Ui ui, Storage storage) throws Exception {
+    public void execute(TaskList tasklist, Ui ui, Storage storage) {
         ui.chatbotPrint("java version: " + System.getProperty("java.version"));
         ui.chatbotPrint("filepath: " + storage.getFilePath());
 

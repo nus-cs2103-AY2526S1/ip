@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import java.util.Objects;
 
 /**
- * The main class for the Clam.Clam chatbot program, which consists of the {@link TaskList} task list,,
+ * The main class for the Clam.Clam chatbot program, which consists of the {@link TaskList} task list,
  * {@link Storage} save file I/O and {@link Ui} user interface.
  * <p>
  * This class initialises all components upon construction, and its {@code main()} method
