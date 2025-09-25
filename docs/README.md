@@ -1,30 +1,77 @@
-# Duke User Guide
+# Heimerdinger — your yordle task chatbot 🧪⚙️
 
-// Update the title above to match the actual product name
+Heimerdinger is a chat-style desktop app that manages your tasks (ToDo / Deadline / Event) through natural, typed commands.
+It replies in a Piltover scientist voice and persists your tasks to disk. For science and progress!
 
-// Product screenshot goes here
+---
 
-// Product intro goes here
+## ✨ What you can do
 
-## Adding deadlines
+- Add **ToDo**, **Deadline**, and **Event** tasks
+- **List**, **find**, **mark**, **unmark**, and **delete** tasks
+- See an **agenda** for a given date with `schedule`
+- Enjoy a clean chat UI (user vs bot bubbles, error highlighting)
+- Automatic **saving** to a text file
 
-// Describe the action and its outcome.
+---
 
-// Give examples of usage
+## 🧰 Usage
 
-Example: `keyword (optional arguments)`
+### Add tasks
 
-// A description of the expected outcome goes here
-
+**ToDo**
+```commandline
+todo <description>
 ```
-expected output
+
+**Deadline**
+```commandline
+deadline <description> /by <yyyy-MM-dd OR yyyy-MM-dd HH:mm>
 ```
 
-## Feature ABC
+**Event**
+```commandline
+event <description> /from <yyyy-MM-dd OR yyyy-MM-dd HH:mm> /to <yyyy-MM-dd OR yyyy-MM-dd HH:mm>
+```
 
-// Feature details
+### Manage tasks
 
+**List all tasks**
+```commandline
+list
+```
 
-## Feature XYZ
+**Mark as done**
+```commandline
+mark <task-number>
+```
 
-// Feature details
+**Mark as not done**
+```commandline
+unmark <task-number>
+```
+
+**Delete**
+```commandline
+delete <task-number>
+```
+
+### Search & schedule
+
+**Find by keyword (single word)**
+```commandline
+find <keyword>
+```
+
+**Show agenda for a date**
+```commandline
+schedule <yyyy-MM-dd OR yyyy-MM-dd HH:mm>
+```
+
+### Exit
+
+**Quit the app**
+```commandline
+bye
+```
+

@@ -1,7 +1,26 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm heimerdinger.heimerdinger
+What can I do for you?
 
+Noted: keep clothes
+
+Indeed, a wise choice! Here's your list:
+1.[T][X] keep clothes
+
+One step forward, two steps back... Anyways here's your list:
+1.[T][ ] keep clothes
+
+Noted: submit cs2103T assignment (by: friday 1600hrs)
+
+Noted: rest up (from: saturday 0000hrs  to: sunday 2359hrs)
+
+One step closer to greater understanding! Here's your list:
+1.[T][ ] keep clothes
+2.[D][ ] submit cs2103T assignment (by: friday 1600hrs)
+3.[E][ ] rest up (from: saturday 0000hrs  to: sunday 2359hrs)
+
+Indeed, a wise choice! Here's your list:
+1.[T][ ] keep clothes
+2.[D][ ] submit cs2103T assignment (by: friday 1600hrs)
+3.[E][X] rest up (from: saturday 0000hrs  to: sunday 2359hrs)
+
+For Piltover and science! Goodbye!

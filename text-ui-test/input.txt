@@ -1,0 +1,8 @@
+todo keep clothes
+mark 1
+unmark 1
+deadline submit cs2103T assignment /by friday 1600hrs
+event rest up /from saturday 0000hrs /to sunday 2359hrs
+list
+mark 3
+bye
