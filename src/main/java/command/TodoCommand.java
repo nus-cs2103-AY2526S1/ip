@@ -42,7 +42,7 @@ public class TodoCommand extends Command {
             tasklist.add(td);
 
             ui.chatbotPrint("Got it. I've added this task:\n      " + td);
-            ui.chatbotPrint("Now you have " + tasklist.size() + " tasks in the list.");
+            ui.chatbotPrint("Now you have " + tasklist.size() + (tasklist.size() == 1 ? " task" : " tasks") + " in the list.");
         } catch (Exception e) {
             throw new TodoException("To create a new to-do item, the command is: todo [name of to-do]");
         }

@@ -41,7 +41,7 @@ public class DeleteCommand extends Command {
             tasklist.remove(item - 1);
 
             ui.chatbotPrint("I've deleted the task:\n      " + taskToDelete);
-            ui.chatbotPrint("Now you have " + tasklist.size() + " tasks in the list.");
+            ui.chatbotPrint("Now you have " + tasklist.size() + (tasklist.size() == 1 ? " task" : " tasks") + " in the list.");
         } catch (Exception e) {
             throw new DeleteException("I'm not sure which item you're trying to delete. Try again?");
         }

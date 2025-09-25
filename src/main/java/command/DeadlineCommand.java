@@ -42,7 +42,7 @@ public class DeadlineCommand extends Command {
             tasklist.add(td);
 
             ui.chatbotPrint("Got it. I've added this task:\n      " + td);
-            ui.chatbotPrint("Now you have " + tasklist.size() + " tasks in the list.");
+            ui.chatbotPrint("Now you have " + tasklist.size() + (tasklist.size() == 1 ? " task" : " tasks") + " in the list.");
         } catch (Exception e) {
             throw new DeadlineException("To create a new deadline item, the command is: deadline /by [due date (yyyy-mm-dd)]");
         }

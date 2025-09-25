@@ -18,7 +18,7 @@ public class FindCommand extends Command {
 
             TaskList filtered = t.filter(filterText);
 
-            u.chatbotPrint("Here are the matching tasks in your list:" + filtered.toString());
+            u.chatbotPrint("Here are the matching task(s) in your list:" + filtered.toString());
         } catch (Exception e) {
             throw new FindException("I'm not sure what you're trying to find. Try again?");
         }
