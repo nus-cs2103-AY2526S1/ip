@@ -1,29 +1,49 @@
-# Duke User Guide
+# Chia User Guide
 
-// Update the title above to match the actual product name
+![Chia Screenshot](Ui.png)
 
-// Product screenshot goes here
+> "Your mind is for having ideas, not holding them." - David Allen ([source](https://dansilvestre.com/productivity-quotes/))
 
-// Product intro goes here
+Chia Assistant frees your mind of having to remember things you need to do. It's,
 
-## Adding deadlines
+* test-based
+* easy to learn
+* *~~FAST~~* **SUPER** FAST to use
 
-// Describe the action and its outcome.
+All you need to do is,
 
-// Give examples of usage
+1. download it from [releases page](../../releases)
+2. double-click it.
+3. add your tasks.
+4. let it manage your tasks for you 😉
 
-Example: `keyword (optional arguments)`
+And it is **FREE**!
 
-// A description of the expected outcome goes here
+## Features
 
-```
-expected output
-```
+### Adding Tasks
+- `todo DESCRIPTION` - Add a todo task
+- `deadline DESCRIPTION /by DATE` - Add a deadline
+- `event DESCRIPTION /from START /to END` - Add an event
 
-## Feature ABC
+### Managing Tasks
+- `list` - Show all tasks
+- `mark INDEX` - Mark task as done
+- `delete INDEX` - Delete a task
 
-// Feature details
+### Tagging System
+- `tag INDEX #TAG1 #TAG2` - Add tags to task
+- `untag INDEX #TAG1` - Remove tags from task
+- `find-tag #TAG` - Find tasks with specific tags
 
-## Feature XYZ
+### Other Commands
+- `bye` - Exit the application
 
-// Feature details
+### Example Usage
+todo Complete assignment
+deadline Submit report /by Dec 15 2024
+tag 1 #school #urgent
+list
+
+
+
