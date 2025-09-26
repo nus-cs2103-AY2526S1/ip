@@ -1,0 +1,4 @@
+T | 0 | ad | UNSNOOZED
+E | 0 | gala | 2000-10-10 00:00 to 2000-10-11 00:00 | UNSNOOZED
+D | 0 | hw1 | 2020-10-10 00:00 | UNSNOOZED
+T | 0 | do | UNSNOOZED

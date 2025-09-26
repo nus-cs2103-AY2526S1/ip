@@ -13,5 +13,11 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# bytecode of java
+*.class
+
+# jar
+*.jar
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
