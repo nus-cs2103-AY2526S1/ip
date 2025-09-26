@@ -40,10 +40,12 @@ And it is **FREE**!
 - `bye` - Exit the application
 
 ### Example Usage
+```
 todo Complete assignment
 deadline Submit report /by Dec 15 2024
 tag 1 #school #urgent
 list
+```
 
 
 
