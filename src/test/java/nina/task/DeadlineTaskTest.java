@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.format.DateTimeParseException;
 
+import nina.InvalidInputException;
+
 public class DeadlineTaskTest {
     @Test
     public void testToSaveLineStoresDateCorrectly() {
@@ -30,7 +32,7 @@ public class DeadlineTaskTest {
 
     @Test
     public void testInvalidDate() {
-        assertThrows(DateTimeParseException.class,
+        assertThrows(InvalidInputException.class,
                 () -> new DeadlineTask("return book", "Tue"));
     }
 }
