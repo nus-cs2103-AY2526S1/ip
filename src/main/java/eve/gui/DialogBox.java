@@ -53,6 +53,17 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_RIGHT);
     }
 
+    /**
+     * Creates a {@code DialogBox} representing the user's message.
+     * <p>
+     * The dialog box is flipped so that the text appears on the left
+     * and the user's image on the right. A custom style is applied
+     * (greenish background, rounded corners, Segoe UI font).
+     *
+     * @param text The text content of the dialog.
+     * @param img  The user avatar image to display beside the dialog.
+     * @return A {@code DialogBox} styled as a user message bubble.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.flip();
@@ -67,6 +78,16 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Creates a {@code DialogBox} representing Eve's (the bot's) message.
+     * <p>
+     * The dialog box is styled with a bluish background, rounded corners,
+     * Segoe UI Semilight font, and line spacing adjustments.
+     *
+     * @param text The text content of the dialog.
+     * @param img  The bot avatar image to display beside the dialog.
+     * @return A {@code DialogBox} styled as an Eve message bubble.
+     */
     public static DialogBox getEveDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         // Bot bubble style

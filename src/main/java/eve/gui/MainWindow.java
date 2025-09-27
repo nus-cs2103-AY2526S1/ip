@@ -12,6 +12,10 @@ import eve.ui.Ui;
 
 /**
  * Controller for the main GUI.
+ * <p>
+ * This class manages the layout and interactions between the user interface
+ * elements (text field, send button, dialog container) and the Eve backend
+ * logic.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -29,6 +33,18 @@ public class MainWindow extends AnchorPane {
     private Image eveImage;
     private final Ui ui = new Ui();
 
+    /**
+     * Initializes the main window after the FXML has been loaded.
+     * <p>
+     * This method is automatically called by the JavaFX framework. It:
+     * <ul>
+     * <li>Asserts that FXML elements were properly injected.</li>
+     * <li>Binds the scroll pane to always follow the dialog container's height
+     * (auto-scrolls to the latest message).</li>
+     * <li>Loads user and Eve avatar images from the resources folder.</li>
+     * <li>Adds a welcome message from Eve to the dialog container.</li>
+     * </ul>
+     */
     @FXML
     public void initialize() {
 
@@ -53,14 +69,31 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getEveDialog(ui.renderWelcome(), eveImage));
     }
 
-    /** Injects the Eve instance */
+    /**
+     * Injects the {@link eve.Eve} instance into this controller.
+     * <p>
+     * This allows the GUI to communicate with the backend logic for generating
+     * responses.
+     *
+     * @param e the Eve instance to be used for processing user input
+     * @throws AssertionError if {@code e} is {@code null}
+     */
     public void setEve(eve.Eve e) {
         assert e != null : "Injected Eve instance cannot be null";
         eve = e;
     }
 
     /**
-     * Handles user input, shows user and Eve dialog boxes, and clears input.
+     * Handles user input when the send button is clicked or Enter is pressed.
+     * <p>
+     * This method:
+     * <ul>
+     * <li>Retrieves the text entered by the user.</li>
+     * <li>Gets the corresponding response from Eve.</li>
+     * <li>Adds both the user's dialog and Eve's dialog to the dialog
+     * container.</li>
+     * <li>Clears the input field afterwards.</li>
+     * </ul>
      */
     @FXML
     private void handleUserInput() {
