@@ -1,35 +1,34 @@
 #!/usr/bin/env bash
 
-# create bin directory if it doesn't exist
-if [ ! -d "../bin" ]
-then
-    mkdir ../bin
-fi
+# Set project root relative to this script
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+SRC_DIR="$PROJECT_ROOT/src/main/java"
+BIN_DIR="$PROJECT_ROOT/bin"
+INPUT_FILE="$PROJECT_ROOT/text-ui-test/input.txt"
+EXPECTED_FILE="$PROJECT_ROOT/text-ui-test/EXPECTED.TXT"
+ACTUAL_FILE="$PROJECT_ROOT/text-ui-test/ACTUAL.TXT"
 
-# delete output from previous run
-if [ -e "./ACTUAL.TXT" ]
-then
-    rm ACTUAL.TXT
-fi
+# Create bin directory if it doesn't exist
+mkdir -p "$BIN_DIR"
 
-# compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
-then
+# Delete previous output
+rm -f "$ACTUAL_FILE"
+
+# Compile all Java files into bin folder (recursively)
+# shellcheck disable=SC2046
+if ! javac -Xlint:none -d "$BIN_DIR" $(find "$SRC_DIR" -name "*.java"); then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
-# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+# Run the program
+java -cp "$BIN_DIR" steven.Steven < "$INPUT_FILE" > "$ACTUAL_FILE"
 
-# convert to UNIX format
-cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
+# Convert expected file to UNIX format and compare
+cp "$EXPECTED_FILE" "$EXPECTED_FILE"-UNIX.TXT
+dos2unix "$ACTUAL_FILE" "$EXPECTED_FILE"-UNIX.TXT
 
-# compare the output to the expected output
-diff ACTUAL.TXT EXPECTED-UNIX.TXT
-if [ $? -eq 0 ]
-then
+if diff "$ACTUAL_FILE" "$EXPECTED_FILE"-UNIX.TXT; then
     echo "Test result: PASSED"
     exit 0
 else

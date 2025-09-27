@@ -1,0 +1,19 @@
+deadline return book /by 20-09-2023 1234
+event some event /from 16-09-2025 0000 /to 17-09-2025 0000
+todo some task
+list
+mark 4
+list
+mark
+deadline
+todo
+event
+deadline return book /by s
+event e /from s /to 17-09-2025 0000
+event e /from 17-09-2025 0000 /to s
+delete 1
+delete 1
+delete 1
+delete 1
+list
+bye
