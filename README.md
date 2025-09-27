@@ -1,26 +1,118 @@
-# Duke project template
+# ChatZh User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+<img src='./src/main/resources/images/ChatZh.png'/>
 
-## Setting up in Intellij
+ChatZh is a simple, friendly chatbot that helps you track your tasks.
+You can add to-dos, deadlines, and events; list them; mark/unmark as done; edit times; delete; and find tasks.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Quick Start
+- Type commands into the input box in the app window.
+- Dates and times support common formats like `dd/MM/yyyy HH:mm`, `d/M/yyyy HH:mm`, and date-only forms like `dd/MM/yyyy`.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+---
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## Features and Examples
+
+### Add a To-do
+- **Command**: `todo DESCRIPTION`
+- **Example**: `todo Read book`
+- **Output**:
+```
+Got it. I've added this task:
+[T][ ] Read book
+Now you have 1 tasks in the list.
+```
+
+### Add a Deadline
+- **Command**: `deadline DESCRIPTION /by DEADLINE`
+- Use `/by` to specify the due date/time.
+- **Examples**:
+  - `deadline Submit report /by 09/09/2025 23:59`
+  - `deadline Pay bills /by 9/9/2025`
+- **Output** (example):
+```
+Got it. I've added this task:
+[D][ ] Submit report (by: 09/09/2025 23:59)
+Now you have 2 tasks in the list.
+```
+
+### Add an Event
+- **Command**: `event DESCRIPTION /from START /to END`
+- Use `/from` and `/to` to specify start and end.
+- **Example**: `event Team meeting /from 10/09/2025 10:00 /to 10/09/2025 11:00`
+- **Output**:
+```
+Got it. I've added this task:
+[E][ ] Team meeting (from: 10/09/2025 10:00 to: 10/09/2025 11:00)
+Now you have 3 tasks in the list.
+```
+
+### List Tasks
+- **Command**: `list`
+- **Output** (example):
+```
+Here are the tasks in your list:
+1.[T][ ] Read book
+2.[D][ ] Submit report (by: 09/09/2025 23:59)
+3.[E][ ] Team meeting (from: 10/09/2025 10:00 to: 10/09/2025 11:00)
+```
+
+### Mark a Task as Done
+- **Command**: `mark INDEX`
+- **Example**: `mark 1`
+- **Output**:
+```
+Nice! I've marked this task as done:
+[T][X] Read book
+```
+
+### Unmark a Task
+- **Command**: `unmark INDEX`
+- **Example**: `unmark 1`
+- **Output**:
+```
+OK, I've marked this task as not done yet:
+[T][ ] Read book
+```
+
+### Edit Time
+Update times for deadlines and events.
+- For deadlines: set a new `/by` time with `edit INDEX NEW_TIME`
+  - **Example**: `edit 2 10/09/2025 12:00`
+- For events: edit the `start` or `end` time with `edit INDEX start NEW_TIME` or `edit INDEX end NEW_TIME`
+  - **Examples**:
+    - `edit 3 start 10/09/2025 09:30`
+    - `edit 3 end 10/09/2025 11:30`
+- **Output** (example):
+```
+Got it. I've updated the time for:
+[D][ ] Submit report (by: 10/09/2025 12:00)
+```
+
+### Delete a Task
+- **Command**: `delete INDEX`
+- **Example**: `delete 1`
+- **Output**:
+```
+Noted. I've removed this task:
+[T][ ] Read book
+Now you have 2 tasks in the list.
+```
+
+### Find Tasks
+- **Command**: `find KEYWORD`
+- **Example**: `find report`
+- **Output** (example):
+```
+Here are the matching tasks in your list:
+1.[D][ ] Submit report (by: 10/09/2025 12:00)
+```
+
+---
+
+### Notes
+- Index numbers refer to the numbers shown in `list`.
+- If a description or time is missing or malformed, ChatZh will show a helpful error message.
+
+### Acknowledgement
+- UI built with the help of: https://se-education.org/guides/tutorials/javaFx.html
