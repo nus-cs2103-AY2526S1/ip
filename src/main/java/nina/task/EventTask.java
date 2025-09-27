@@ -2,6 +2,10 @@ package nina.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import nina.InvalidInputException;
+
 /**
  * Represents an EventTask with description, from date, and to date
  */
@@ -19,8 +23,15 @@ public class EventTask extends Task {
      */
     public EventTask(String description, String from, String to) {
         super(description);
-        this.from = LocalDate.parse(from);
-        this.to = LocalDate.parse(to);
+        try {
+            this.from = LocalDate.parse(from);
+            this.to = LocalDate.parse(to);
+            if (this.to.isBefore(this.from)) {
+                throw new InvalidInputException("End date must not be before start date!");
+            }
+        } catch (DateTimeParseException e) {
+            throw new InvalidInputException("Format: event <desc> /from <start> /to <end> (YYYY-MM-DD)");
+        }
     }
 
     @Override

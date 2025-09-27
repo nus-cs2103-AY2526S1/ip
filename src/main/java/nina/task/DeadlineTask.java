@@ -2,6 +2,9 @@ package nina.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import nina.InvalidInputException;
 
 /**
  * Represents a DeadlineTask with description and by date
@@ -19,7 +22,11 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String description, String by) {
         super(description);
-        this.by = LocalDate.parse(by);
+        try {
+            this.by = LocalDate.parse(by);
+        } catch (DateTimeParseException e) {
+            throw new InvalidInputException("Format: deadline <desc> /by <when> (YYYY-MM-DD)");
+        }
     }
 
     @Override
