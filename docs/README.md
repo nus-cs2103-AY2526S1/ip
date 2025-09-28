@@ -1,5 +1,13 @@
 # Shaniqua
+> "Ahh! Oh, my God. What the hell is wrong with you people? Uh-uh! Don't talk to me unless you speak American!"
+ 
+ 
 A *cosmopolitan* **diva** ready help you with productivity!
+
+How to bring Shaniqua to life:
+1. Download .jar from releases.
+2. Have fun!
+
 ## ~~Commands~~ Requests:
 - bye: exit
 - list: returns a list of tasks
