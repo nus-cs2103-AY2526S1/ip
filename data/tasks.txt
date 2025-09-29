@@ -1,6 +1,2 @@
-D | 0 | finish iP | 2025-09-19 2355
-T | 0 | talk to david
-T | 1 | eat supper
-D | 0 | do README | 2025-09-09 2359
-D | 0 | release JAR | 2025-09-19 2359
-D | 0 | release JAR | 2025-10-19 2359
+T | 0 | task 1
+T | 0 | task 2

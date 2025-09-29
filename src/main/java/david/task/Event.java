@@ -2,6 +2,9 @@ package david.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import david.exception.InvalidDateTimeException;
 
 /**
  * Represents a Task with a start and end time.
@@ -17,15 +20,20 @@ public class Event extends Task {
      * @param from Task start datetime.
      * @param to Task end datetime.
      */
-    public Event(String text, String from, String to) {
+    public Event(String text, String from, String to) throws InvalidDateTimeException {
         super(text);
 
         assert from!= null : "From should never be null";
         assert to!= null : "To should never be null";
 
-        DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        this.from = LocalDateTime.parse(from, inputFormat);
-        this.to = LocalDateTime.parse(to, inputFormat);
+        try {
+            DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            this.from = LocalDateTime.parse(from, inputFormat);
+            this.to = LocalDateTime.parse(to, inputFormat);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException("Eh your datetime format is wrong leh. Use this format lah: yyyy-MM-dd HHmm");
+        }
+
     }
 
     public LocalDateTime getFrom() {
