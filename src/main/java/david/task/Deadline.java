@@ -17,6 +17,7 @@ public class Deadline extends Task {
      *
      * @param text Task description.
      * @param by Task end DateTime.
+     * @throws InvalidDateTimeException If datetime is in invalid format.
      */
     public Deadline(String text, String by) throws InvalidDateTimeException {
         super(text);

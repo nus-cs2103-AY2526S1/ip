@@ -19,6 +19,7 @@ public class Event extends Task {
      * @param text Task description.
      * @param from Task start datetime.
      * @param to Task end datetime.
+     * @throws InvalidDateTimeException If datetime is in invalid format.
      */
     public Event(String text, String from, String to) throws InvalidDateTimeException {
         super(text);

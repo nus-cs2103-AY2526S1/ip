@@ -82,6 +82,7 @@ public class Storage {
      *
      * @param line Task string.
      * @return Task in the specific task type.
+     * @throws InvalidDateTimeException If datetime is in invalid format.
      */
     private Task parseTask(String line) throws InvalidDateTimeException {
         assert line != null : "Line should never be null";
