@@ -1,0 +1,136 @@
+package faith.model.task;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+/**
+ * A task with a due date/time.
+ */
+public class Deadline extends Task {
+
+    protected String by;
+
+    private LocalDateTime byDateTime;
+
+    private boolean hasTime;
+
+    private static final DateTimeFormatter DMYHHMM = DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
+    private static final DateTimeFormatter DMYHHMM_ = DateTimeFormatter.ofPattern("d-M-uuuu HHmm");
+    private static final DateTimeFormatter DMY = DateTimeFormatter.ofPattern("d/M/uuuu");
+    private static final DateTimeFormatter DMY_ = DateTimeFormatter.ofPattern("d-M-uuuu");
+    private static final DateTimeFormatter YMD = DateTimeFormatter.ofPattern("uuuu/M/d");
+    private static final DateTimeFormatter ISO_DATE = DateTimeFormatter.ISO_LOCAL_DATE;
+
+    /**
+     * Creates a deadline with the given description and raw date/time string.
+     *
+     * @param description description of the task.
+     * @param by due date/time of tge task (e.g., "20/5/2025" or "20/5/2025 1600" or "2025-12-02").
+     */
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = by;
+        try {
+            byDateTime = LocalDateTime.parse(by, DMYHHMM);
+            hasTime = true;
+        } catch (DateTimeParseException e) {}
+
+        if (byDateTime == null) {
+            try {
+                byDateTime = LocalDateTime.parse(by, DMYHHMM_);
+                hasTime = true;
+            } catch (DateTimeParseException e) {}
+        }
+
+        if (byDateTime == null) {
+            try {
+                byDateTime = LocalDate.parse(by, DMY).atStartOfDay();
+            } catch (DateTimeParseException ignore) {}
+        }
+        if (byDateTime == null) {
+            try {
+                byDateTime = LocalDate.parse(by, DMY_).atStartOfDay();
+            } catch (DateTimeParseException ignore) {}
+        }
+        if (byDateTime == null) {
+            try {
+                byDateTime = LocalDate.parse(by, YMD).atStartOfDay();
+            } catch (DateTimeParseException ignore) {}
+        }
+        if (byDateTime == null) {
+            try {
+                byDateTime = LocalDate.parse(by, ISO_DATE).atStartOfDay();
+            } catch (DateTimeParseException ignore) {}
+        }
+    }
+
+    /**
+     * Edit the task due time.
+     *
+     * @param newBy the new due time
+     */
+    public void setBy(String newBy) {
+        this.by = newBy.trim();
+        this.hasTime = false;
+        this.byDateTime = null;
+        try {
+            byDateTime = LocalDateTime.parse(by, DMYHHMM);
+            hasTime = true;
+        } catch (DateTimeParseException e) {}
+
+        if (byDateTime == null) {
+            try {
+                byDateTime = LocalDateTime.parse(by, DMYHHMM_);
+                hasTime = true;
+            } catch (DateTimeParseException e) {}
+        }
+
+        if (byDateTime == null) {
+            try {
+                byDateTime = LocalDate.parse(by, DMY).atStartOfDay();
+            } catch (DateTimeParseException ignore) {}
+        }
+        if (byDateTime == null) {
+            try {
+                byDateTime = LocalDate.parse(by, DMY_).atStartOfDay();
+            } catch (DateTimeParseException ignore) {}
+        }
+        if (byDateTime == null) {
+            try {
+                byDateTime = LocalDate.parse(by, YMD).atStartOfDay();
+            } catch (DateTimeParseException ignore) {}
+        }
+        if (byDateTime == null) {
+            try {
+                byDateTime = LocalDate.parse(by, ISO_DATE).atStartOfDay();
+            } catch (DateTimeParseException ignore) {}
+        }
+    }
+
+    /**
+     * Converts this deadline to the storage line format.
+     *
+     * @return storage record line.
+     */
+    @Override
+    public String saveToFileFormat() {
+        return "D | " + this.isDoneInt() + " | " + description + " | " + by;
+    }
+
+    /**
+     * Returns a user-friendly representation including the pretty-printed date/time.
+     *
+     * @return human-readable string for UI.
+     */
+    @Override
+    public String toString() {
+        return "[D]" + super.toString()
+                + " (by: " + (byDateTime == null
+                ? this.by
+                : (byDateTime.toLocalDate().format(DateTimeFormatter.ofPattern("MMM d uuuu"))
+                + (hasTime ? ", " + byDateTime.toLocalTime().format(DateTimeFormatter.ofPattern("h:mma")) : "")))
+                + ")";
+    }
+}
