@@ -1,26 +1,45 @@
-# Duke project template
+## Johnny
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Have you ever had issues remembering things you need to do? Always forget deadlines and special events? Fear not, Johnny bot is here to help you!
 
-## Setting up in Intellij
+To make it user-friendly, Johnny has been designed to be:
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+- Lightweight
+- Easy to download and run
+- Command-based (with intuitive commands)
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+How to download?
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+1. Click on this [link](https://github.com/ndhhh/ip/releases)
+2. Download the latest jar file
+3. Launch the file
+4. Now you're good to go
+
+The bot is currently still a work in progress, with many features to be implemented, but some features you can expect are:
+
+- [x] Adding tasks with deadlines or specific events
+- [x] Deleting tasks
+- [x] Finding tasks
+- [ ] And more!
+
+And here's a list of commands that you can use to get started!
+
+```
+todo [task name]
+deadline [task name] /by [dd/MM/yyyy]
+event [task name] /from [dd/MM/yyyy HH:mm] /to [HH:mm]
+list
+delete
+mark
+unmark
+find
+```
+
+Still not convinced? Here are some reviews by people who've used Johnny bot:
+
+> "Bro this bot is legit the best thing that ever happened. There's no better way to organise my island events!" - Jeffrey Epstein
+
+> "Yeah man I agree with Jeff it's pretty good." - Me
+
+What are you waiting for? [DOWNLOAD](https://github.com/ndhhh/ip/releases)
+:feelsgood: :feelsgood: :feelsgood: :feelsgood: :feelsgood: :feelsgood: :feelsgood: :feelsgood: :feelsgood: :feelsgood: :feelsgood: :feelsgood: :feelsgood: :feelsgood: :feelsgood: :feelsgood:
