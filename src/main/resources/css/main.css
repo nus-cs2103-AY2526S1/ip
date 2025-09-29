@@ -1,0 +1,54 @@
+.root {
+    -fx-background-color: #1c1c1c; /* deep charcoal */
+}
+
+/* Text fields */
+.text-field {
+    -fx-background-color: #2d2d2d;
+    -fx-text-fill: #f0f0f0;
+    -fx-border-color: #444;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-font: 16px "Segoe UI";
+    -fx-padding: 6px;
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: #b8860b; /* goldenrod */
+    -fx-text-fill: white;
+    -fx-font: bold 14px "Segoe UI";
+    -fx-background-radius: 8px;
+    -fx-padding: 6px 12px;
+}
+
+.button:hover {
+    -fx-background-color: #daa520; /* lighter gold */
+}
+
+.button:pressed {
+    -fx-background-color: #8b6508; /* darker gold */
+}
+
+/* ScrollPane and ScrollBar */
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #666;
+    -fx-background-radius: 6px;
+}
+
+/* Hide increment and decrement buttons */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

@@ -1,0 +1,43 @@
+/* Main chat/message label */
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #2d2d2d, #1a1a1a); /* subtle dark gradient */
+    -fx-text-fill: #f0f0f0; /* light text for contrast */
+    -fx-border-color: #444; /* subtle dark gray border */
+    -fx-border-width: 1px;
+    -fx-background-radius: 10px 10px 0 10px;
+    -fx-border-radius: 10px 10px 0 10px;
+    -fx-padding: 8px 12px;
+    -fx-font: 14px "Segoe UI";
+}
+
+/* Reply label variant */
+.reply-label {
+    -fx-background-color: linear-gradient(to bottom right, #333333, #1c1c1c);
+    -fx-text-fill: #e0e0e0;
+    -fx-border-color: #555;
+    -fx-border-width: 1px;
+    -fx-background-radius: 10px 10px 10px 0;
+    -fx-border-radius: 10px 10px 10px 0;
+    -fx-padding: 8px 12px;
+    -fx-font: 14px "Segoe UI";
+}
+
+/* Display picture (avatar) */
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 5, 5); /* stronger shadow for depth */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.label.error {
+    -fx-background-color: linear-gradient(to bottom right, #662222, #441111); /* dark red gradient */
+    -fx-text-fill: #ffffff;   /* keep contrast */
+    -fx-border-color: red;    /* stronger border */
+    -fx-border-width: 2px;    /* thicker to stand out */
+}
