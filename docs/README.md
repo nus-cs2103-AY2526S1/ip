@@ -28,9 +28,9 @@ Add a task which has to be completed by a deadline.
 
 * Follow the date and time formats exactly
 
-Format: `deadline [task description] \by [date in yyyy-mm-dd] [time in 24 hour format]`
+Format: `deadline [task description] /by [date in yyyy-mm-dd] [time in 24 hour format]`
 
-Example: `deadline release JAR \by 2025-09-19 2359`
+Example: `deadline release JAR /by 2025-09-19 2359`
 
 ```
 I add this task liao:
@@ -43,9 +43,9 @@ Add a task with a start and end date and time.
 
 * Follow the date and time formats exactly
 
-Format: `event [task description] \from [date in yyyy-mm-dd] [time in 24 hour format] \to [date in yyyy-mm-dd] [time in 24 hour format]`
+Format: `event [task description] /from [date in yyyy-mm-dd] [time in 24 hour format] /to [date in yyyy-mm-dd] [time in 24 hour format]`
 
-Example: `event go for CS2103T tutorial \from 2025-09-19 1400 \to 2025-09-19 1500`
+Example: `event go for CS2103T tutorial /from 2025-09-19 1400 /to 2025-09-19 1500`
 
 ```
 I add this task liao:
