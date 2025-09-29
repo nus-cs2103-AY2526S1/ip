@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import david.exception.InvalidDateTimeException;
 import david.task.Deadline;
 import david.task.Event;
 import david.task.Task;
@@ -69,6 +70,8 @@ public class Storage {
             }
         } catch (IOException e) {
             System.err.println("Eh you got an error loading the tasks:" + e.getMessage());
+        } catch (InvalidDateTimeException e) {
+            System.err.println("Eh one of the tasks have the wrong datetime format:" + e.getMessage());
         }
         assert tasks != null : "Loaded tasks should never be null";
         return tasks;
@@ -79,8 +82,9 @@ public class Storage {
      *
      * @param line Task string.
      * @return Task in the specific task type.
+     * @throws InvalidDateTimeException If datetime is in invalid format.
      */
-    private Task parseTask(String line) {
+    private Task parseTask(String line) throws InvalidDateTimeException {
         assert line != null : "Line should never be null";
         String[] parts = line.split(" \\| ");
         String taskType = parts[0];
