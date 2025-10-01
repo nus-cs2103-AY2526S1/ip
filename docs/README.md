@@ -230,8 +230,6 @@ Bye! Hope to see you again soon!
 - **Asymmetric chat bubbles**
     - User messages appear on one side (greenish bubble).
     - Bot messages appear on the opposite side (white bubble).
-- **Error highlighting**
-    - Invalid commands or input are displayed in **red error bubbles**.
 - **Profile pictures**
     - Optional circular avatars with drop shadows for clarity.
 - **Responsive design**
