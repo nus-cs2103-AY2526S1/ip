@@ -23,4 +23,4 @@ How to bring Shaniqua to life:
 - find <text>: shows tasks with index of tasks that fit search term.
 
 Demo
-![pic](docs/Ui.png)
+![pic](Ui.png)
