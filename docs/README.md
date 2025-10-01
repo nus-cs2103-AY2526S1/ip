@@ -21,3 +21,6 @@ How to bring Shaniqua to life:
 - save: saves to file.
 - load: loads from file. May create duplicates.
 - find <text>: shows tasks with index of tasks that fit search term.
+
+Demo
+![pic](docs/Ui.png)
