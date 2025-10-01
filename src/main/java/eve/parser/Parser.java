@@ -5,14 +5,30 @@ import java.util.Optional;
 
 import eve.util.DateTimeUtil;
 
+/**
+ * Utility class responsible for parsing user input into commands and their
+ * arguments.
+ * Provides methods to extract descriptions, indices, and date/time parts for
+ * tasks.
+ */
 public final class Parser {
     private Parser() {
     }
 
+    /**
+     * Enumeration of supported command types that can be parsed from user input.
+     */
     public enum Command {
         HELP, LIST, TODO, FIND, DEADLINE, EVENT, MARK, PERIOD, UNMARK, DELETE, BYE
     }
 
+    /**
+     * Parses a user input string into a {@link Command}.
+     *
+     * @param full Full user input string.
+     * @return Corresponding {@link Command}, or {@code null} if no match is found.
+     * @throws AssertionError if input is null or empty.
+     */
     public static Command parseCommand(String full) {
         assert full != null && !full.trim().isEmpty() : "Input should not be null or empty";
         String trimmed = full.trim();
@@ -45,11 +61,25 @@ public final class Parser {
         }
     }
 
+    /**
+     * Extracts the arguments from a full input string, i.e., everything after the
+     * first word.
+     *
+     * @param full Full user input string.
+     * @return Argument substring, or empty string if none exists.
+     */
     public static String args(String full) {
         String[] parts = full.trim().split("\\s+", 2);
         return parts.length > 1 ? parts[1].trim() : "";
     }
 
+    /**
+     * Parses the description for a "todo" command.
+     *
+     * @param args Argument string from user input.
+     * @return Trimmed description string.
+     * @throws EveException if description is missing or empty.
+     */
     public static String parseTodoDesc(String args) throws EveException {
         if (args == null || args.trim().isEmpty()) {
             throw new EveException("Oops, I need more info. Usage: todo <description>");
@@ -57,6 +87,15 @@ public final class Parser {
         return args.trim();
     }
 
+    /**
+     * Parses an integer task index for mark/unmark commands.
+     *
+     * @param args   Argument string from user input.
+     * @param toDone Whether the index is for marking as done (true) or undone
+     *               (false).
+     * @return Task index as integer.
+     * @throws EveException if argument is missing, empty, or non-numeric.
+     */
     public static int parseIndex(String args, boolean toDone) throws EveException {
         if (args == null || args.trim().isEmpty()) {
             throw new EveException(
@@ -68,6 +107,13 @@ public final class Parser {
         return Integer.parseInt(args);
     }
 
+    /**
+     * Parses the keyword for a "find" command.
+     *
+     * @param args Argument string from user input.
+     * @return Non-empty keyword.
+     * @throws EveException if keyword is missing or empty.
+     */
     public static String parseFind(String args) throws EveException {
         if (args == null) {
             args = "";
@@ -79,6 +125,13 @@ public final class Parser {
         return q;
     }
 
+    /**
+     * Parses the index for a "delete" command.
+     *
+     * @param args Argument string from user input.
+     * @return Task index as integer.
+     * @throws EveException if argument is missing, empty, or non-numeric.
+     */
     public static int parseDeleteIndex(String args) throws EveException {
         if (args == null || args.trim().isEmpty()) {
             throw new EveException("Use a number only, e.g., \"delete 3\".");
@@ -89,6 +142,14 @@ public final class Parser {
         return Integer.parseInt(args);
     }
 
+    /**
+     * Parses arguments for a "deadline" command.
+     *
+     * @param args Argument string in the format {@code <description> /by <when>}.
+     * @return {@link DeadlineParts} containing description and deadline time
+     *         string.
+     * @throws EveException if format is invalid or date cannot be parsed.
+     */
     public static DeadlineParts parseDeadline(String args) throws EveException {
         String[] parts = args.trim().split("(?i)\\s*/by\\s+", 2);
         if (parts.length < 2) {
@@ -101,7 +162,7 @@ public final class Parser {
         }
 
         // Extra validation for invalid dates
-        if (eve.util.DateTimeUtil.parseDateTime(when).isEmpty()) {
+        if (DateTimeUtil.parseDateTime(when).isEmpty()) {
             throw new EveException(
                     "I couldn’t understand that date. Try yyyy-MM-dd or d/M/yyyy HH:mm ♡");
         }
@@ -109,6 +170,14 @@ public final class Parser {
         return new DeadlineParts(desc, when);
     }
 
+    /**
+     * Parses arguments for an "event" command.
+     *
+     * @param args Argument string in the format
+     *             {@code <description> /from <start> /to <end>}.
+     * @return {@link EventParts} containing description, start, and end times.
+     * @throws EveException if format is invalid or time range is inconsistent.
+     */
     public static EventParts parseEvent(String args) throws EveException {
         String[] first = args.trim().split("(?i)\\s*/from\\s+", 2);
         if (first.length < 2) {
@@ -134,6 +203,9 @@ public final class Parser {
         return new EventParts(desc, from, to);
     }
 
+    /**
+     * Container for parsed deadline parts.
+     */
     public static final class DeadlineParts {
         public final String desc;
         public final String when;
@@ -144,6 +216,9 @@ public final class Parser {
         }
     }
 
+    /**
+     * Container for parsed event parts.
+     */
     public static final class EventParts {
         public final String desc;
         public final String from;
@@ -156,6 +231,9 @@ public final class Parser {
         }
     }
 
+    /**
+     * Container for parsed period parts.
+     */
     public static class PeriodParts {
         public final String desc;
         public final String start;
@@ -168,6 +246,15 @@ public final class Parser {
         }
     }
 
+    /**
+     * Parses arguments for a "period" command.
+     *
+     * @param args Argument string in the format
+     *             {@code <description> /from <start> /to <end>}.
+     * @return {@link PeriodParts} containing description, start, and end.
+     * @throws IllegalArgumentException if arguments are missing or incorrectly
+     *                                  formatted.
+     */
     public static PeriodParts parsePeriod(String args) {
         String[] parts = args.split("/from|/to");
         if (parts.length < 3) {
