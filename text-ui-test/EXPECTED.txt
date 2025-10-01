@@ -1,0 +1,7 @@
+Hello! I am Meow.
+What can I do for you?
+
+Enter any input for me to record down
+or <list> to show all your recorded inputs
+or <bye> to exit.
+Bye. Hope to see you again soon with Chicken Cat Treats

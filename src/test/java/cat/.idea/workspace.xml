@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7886bb59-3966-4869-88a8-f987ecf8f58a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../main/java/cat/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../main/java/cat/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../main/java/cat/Dataloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../main/java/cat/Dataloader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../main/java/cat/Deadline.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../main/java/cat/Deadline.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../main/java/cat/Todo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../main/java/cat/Todo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../main/java/meow.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../main/java/meow.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../main/java/out/production/main/cat/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../main/java/out/production/main/cat/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../main/java/out/production/main/cat/Dataloader.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../main/java/out/production/main/cat/Dataloader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../main/java/out/production/main/cat/Deadline.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../main/java/out/production/main/cat/Deadline.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../main/java/out/production/main/cat/Todo.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../main/java/out/production/main/cat/Todo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../main/java/out/production/main/meow.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../main/java/out/production/main/meow.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="32MWsQ5pmAlgJX4TUlU8kvRVo0l" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "branch-A-CodingStandard",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/yinwe/Documents/ip/ip/src/test/java/cat"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7886bb59-3966-4869-88a8-f987ecf8f58a" name="Changes" comment="" />
+      <created>1757231127661</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1757231127661</updated>
+    </task>
+    <servers />
+  </component>
+</project>

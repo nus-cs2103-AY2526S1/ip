@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5c2a17c9-fe3c-4c51-bc09-57aa3c419368" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Meow.java" beforeDir="false" afterPath="$PROJECT_DIR$/Meow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/meow.txt" beforeDir="false" afterPath="$PROJECT_DIR$/meow.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cat/cat/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cat/cat/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cat/cat/Dataloader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cat/cat/Dataloader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cat/cat/Deadline.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cat/cat/Deadline.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cat/cat/Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cat/cat/Event.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cat/cat/Meow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cat/cat/Meow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cat/cat/Task.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cat/cat/Task.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cat/cat/TaskSaver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cat/cat/TaskSaver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cat/cat/Todo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cat/cat/Todo.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="32K0TJnbRqy0OXzDYiBxBC6cAMP" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Meow.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/yinwe/Documents/javafx-tutorial/javafx-tutorial"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5c2a17c9-fe3c-4c51-bc09-57aa3c419368" name="Changes" comment="" />
+      <created>1757153962593</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1757153962593</updated>
+    </task>
+    <servers />
+  </component>
+</project>

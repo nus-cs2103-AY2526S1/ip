@@ -1,30 +1,42 @@
-# Duke User Guide
+# "Cat" Chatbot Command List
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
-
-// Product intro goes here
-
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+## Add Tasks
 ```
-expected output
+<t> | <todo>
+<d> | <deadline> | <2/12/2019 1800>
+<e> | <event> | <1/12/2019 1800> | <2/12/2019 1800>
 ```
 
-## Feature ABC
+## List Tasks
+```
+<list>
+```
 
-// Feature details
+## Find Tasks
+```
+<find> | <key>
+```
 
+## Modify Tasks
+```
+<delete> | <index>
+<mark> | <index>
+<unmark> | <index>
+```
 
-## Feature XYZ
+## Exit
+```
+<bye>
+```
 
-// Feature details
+## Example
+```
+t | Worship Cat
+d | Feed Cat | 1/12/2019 1400
+e | Play with Cat | 1/12/2019 1800 | 2/12/2019 2200
+list
+mark | 2
+find | Feed
+delete | 3
+bye
+```
