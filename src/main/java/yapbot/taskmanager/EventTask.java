@@ -25,10 +25,6 @@ public class EventTask extends Task {
         return DateTime.convertFromISO(this.endDateTime);
     }
 
-    /**
-     * Gets the current Event task as a string
-     * @return the Event task description
-     */
     @Override
     public String toString() {
         return String.format("[E]%s -from %s -to %s", super.toString(), getStartDateTime(), getEndDateTime());

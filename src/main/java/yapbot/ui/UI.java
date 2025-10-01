@@ -48,8 +48,8 @@ public class UI {
                 [E][_]~ adds an Event task to your list
                 [E][X]~ adds a marked Event task to your list
                     flags:
-                        -from~              start date/time
-                        -to~                end date/time
+                        -from DD/MM/YYYY    start date/time
+                        -to DD/MM/YYYY      end date/time
                 [mark]x marks the 'x-th' task as done
                 [unmark]x marks the 'x-th' task as not done
                 [delete]x deletes the 'x-th' task from your list
@@ -133,40 +133,20 @@ public class UI {
         return SYSTEM_MESSAGE_HELP;
     }
 
-    public static String markedTask(Task task) {
-        String response = "Nice! I've marked this task as done:\n" + echo(task);
-        System.out.println(response);
-        return response;
-    }
-
-    public static String unmarkedTask(Task task) {
-        String response = "OK, I've marked this task as not done yet:\n" + echo(task);
-        System.out.println(response);
-        return response;
-    }
-
     public static String addedTask(Task task) {
-        String response = "Noted. I've added this task to the list:\n" + echo(task);
-        System.out.println(response);
-        return response;
-    }
-
-    public static String deletedTask(Task task) {
-        String response = "Noted. I've removed this task:\n" + echo(task);
+        String response = "Noted. I've added this task to the list:\n" + task + "\n"+ numOfTasks();
         System.out.println(response);
         return response;
     }
 
     public static String updatedTask(Task task) {
-        String response = "Noted. I've updated the task:\n" + echo(task);
+        String response = "Noted. I've updated the task:\n" + task + "\n" + lineBreak();
         System.out.println(response);
         return response;
     }
 
-    public static String echo(Task task) {
-        String response = task + "\n" +
-                "You have " + TaskList.numOfTasks() + " tasks in the list\n" +
-                UI.lineBreak();
+    public static String numOfTasks() {
+        String response = "You have " + TaskList.numOfTasks() + " tasks in the list\n" + UI.lineBreak();
         return response;
     }
 

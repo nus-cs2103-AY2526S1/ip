@@ -16,15 +16,11 @@ public class DateTime {
     public static LocalDate convertToISO(String date) {
         try {
             if (date.length() == 10) {
-                return fromDayMonthYear(date);
+                return convertFromDayMonthYear(date);
             } else {
-                return fromDayMonthNameYear(date);
+                return convertFromDayMonthNameYear(date);
             }
-        } catch (IndexOutOfBoundsException exception) {
-            UI.invalidDateFormat();
-        } catch (NumberFormatException exception) {
-            UI.invalidDateFormat();
-        } catch (DateTimeParseException exception) {
+        } catch (IndexOutOfBoundsException | NumberFormatException | DateTimeParseException exception) {
             UI.invalidDateFormat();
         }
         return LocalDate.now();
@@ -36,7 +32,7 @@ public class DateTime {
      * @param date String format of the date
      * @return the date as a LocalDate object
      */
-    public static LocalDate fromDayMonthYear(String date) throws IndexOutOfBoundsException {
+    public static LocalDate convertFromDayMonthYear(String date) throws IndexOutOfBoundsException {
         String[] DateFields = date.split("/");
         String day = DateFields[0];
         String month = DateFields[1];
@@ -51,7 +47,7 @@ public class DateTime {
      * @param date String format of the date
      * @return the date as a LocalDate object
      */
-    public static LocalDate fromDayMonthNameYear(String date) throws IndexOutOfBoundsException {
+    public static LocalDate convertFromDayMonthNameYear(String date) throws IndexOutOfBoundsException {
         String[] DateFields = date.split(" ");
         int day = Integer.parseInt(DateFields[0]);
         Month month = Month.valueOf(DateFields[1]);

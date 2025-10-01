@@ -1,8 +1,10 @@
 package yapbot.taskmanager;
 
+import yapbot.parser.Parser;
 import yapbot.ui.UI;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -18,17 +20,9 @@ public class TaskList {
         return TASKS.get(index);
     }
 
-    public static Task removeTask(int index) {
-        return TASKS.remove(index);
-    }
-
     public static List<Task> copy() {
         List<Task> copied = new ArrayList<>();
-
-        for (Task task : TASKS) {
-            copied.add(task);
-        }
-
+        copied.addAll(TASKS);
         return copied;
     }
 
@@ -40,14 +34,72 @@ public class TaskList {
         return TASKS.size();
     }
 
-    /**
-     * Prints the tasks currently int the list
-     */
+    public static String markTasks(String[] indices) {
+        return Arrays.stream(indices)
+                .map(Parser::getTaskIndex)
+                .map(TaskList::getTask)
+                .map(Task::mark)
+                .map(Task::toString)
+                .reduce("Nice! I've marked these tasks as done:\n", (taskList, task) -> taskList + task + "\n")
+                + UI.lineBreak();
+    }
+
+    public static String unmarkTasks(String[] indices) {
+        return Arrays.stream(indices)
+                .map(Parser::getTaskIndex)
+                .map(TaskList::getTask)
+                .map(Task::unmark)
+                .map(Task::toString)
+                .reduce("OK, I've marked these tasks as not done:\n", (taskList, task) -> taskList + task + "\n")
+                + UI.lineBreak();
+    }
+
+    public static String deleteTasks(String[] indices) {
+        List<Task> copy = TaskList.copy();
+        TaskList.clear();
+        return Stream.iterate(0, i -> i + 1)
+                .limit(copy.size())
+                .map(taskNum -> filterTask(copy, indices, taskNum))
+                .filter(task -> !task.isEmpty())
+                .reduce("Noted. I've removed these tasks:\n", (taskList, task) -> taskList + task + "\n")
+                + UI.numOfTasks();
+    }
+
+    private static String filterTask(List<Task> copy, String[] indices, int taskNum) {
+        if (contains(indices, taskNum)) {
+            return copy.get(taskNum).toString();
+        } else {
+            TaskList.addTask(copy.get(taskNum));
+            return "";
+        }
+    }
+
+    private static boolean contains(String[] indices, int taskNum) {
+        return Arrays.stream(indices)
+                .map(Parser::getTaskIndex)
+                .anyMatch(index -> index == taskNum);
+    }
+
+    public static String findTasks(String keyword) {
+        return TASKS.stream()
+                .map(Task::toString)
+                .filter(task -> task.contains(keyword))
+                .reduce("Here are the tasks that matches with " + "'" + keyword + "'\n", (taskList, task) -> taskList + task + "\n")
+                + UI.lineBreak();
+    }
+
     public static String listTasks() {
         return TASKS.stream()
                 .map(Task::toString)
-                .reduce("Here are the tasks in your list:\n", (response, task) -> response + task + "\n")
-                + UI.lineBreak();
+                .reduce("Here are the tasks in your list:\n", (taskList, task) -> taskList + task + "\n")
+                + UI.numOfTasks();
+    }
+
+    public static String getReminder() {
+        return TaskList.sort()
+                .map(Task::toString)
+                .reduce("Here are the tasks sorted by time:\n", (response, task) -> response + task + "\n")
+                + UI.numOfTasks();
     }
 
     public static Stream<? extends Task> sort() {
@@ -55,38 +107,6 @@ public class TaskList {
                 .sorted(Task::compareTo);
     }
 
-    public static String reminder() {
-        return TaskList.sort()
-                .map(Task::toString)
-                .reduce("Here are the tasks that needs to be done first:\n", (response, task) -> response + task + "\n")
-                + UI.lineBreak();
-    }
-
-    /**
-     * Searches the task list and returns the tasks that matches with the specified keyword
-     *
-     * @return the list of tasks that matches with the specified keyword
-     */
-    public static String search(String keyword) {
-        return TASKS.stream()
-                .filter(task -> matching(task, keyword))
-                .map(Task::toString)
-                .reduce("Here are the tasks that matches with " + "'" + keyword + "'\n", (response, task) -> response + task + "\n")
-                + UI.lineBreak();
-    }
-
-    /**
-     * Checks if tasks contains the specified keyword
-     *
-     * @return true if the keyword is found, else false
-     */
-    private static boolean matching(Task task, String keyword) {
-        return task.toString().contains(keyword);
-    }
-
-    /**
-     * Gets the list of tasks as a single string
-     */
     public static String getTasksAsTxt() {
         return TASKS.stream()
                 .map(task -> task + System.lineSeparator())

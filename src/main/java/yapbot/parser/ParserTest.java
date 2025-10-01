@@ -1,28 +1,20 @@
 package yapbot.parser;
 
-import org.junit.Test;
 import yapbot.ui.UI;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 
 public class ParserTest {
     String[][] TEST_TASKS = {
             {
-                "[T][ ] todo",
-                "[D][ ] deadline -by 22/11/2003",
-                "[E][ ] event -from 10/11/2012 -to 20/11/2012",
+                "[T][ ] todo read book",
+                "[D][ ] deadline return book -by 01/10/2025",
+                "[E][ ] event cca -from 01/10/2025 -to 05/10/2025",
+                "[T][X] todo done"
             },
             {
                 "[T][X] todo",
-                "[D][X] deadline -by 22/11/2003",
-                "[E][X] event -from 10/11/2012 -to 20/11/2012",
+                "[D][X] deadline -by 01/10/2025",
+                "[E][X] event -from 01/10/2025 -to 05/10/2025",
             },
-            {
-                "[T][ ] todo read book",
-                "[D][ ] deadline return book -by 22/11/2003",
-                "[E][ ] event -from 10/11/2012 -to 20/11/2012",
-            }
     };
 
     private void initTestTasks(int index)

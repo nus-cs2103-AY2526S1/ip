@@ -39,10 +39,6 @@ public class Task implements Comparable<Task> {
         return 0;
     }
 
-    /**
-     * Gets the current task as a string
-     * @return the task description
-     */
     @Override
     public String toString() {
         String status = this.isMarked ? "X" : " ";

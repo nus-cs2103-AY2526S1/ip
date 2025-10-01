@@ -9,12 +9,7 @@ import yapbot.ui.UI;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Parser {
     /**
@@ -65,7 +60,7 @@ public class Parser {
     }
 
     /**
-     * Filter by type and Stores the task into the local storage
+     * Filter by command type and Stores the task into the local storage
      *
      * @param task the command line input from the user
      */
@@ -82,147 +77,10 @@ public class Parser {
     }
 
     /**
-     * Marks the task at the specified index as done
-     *
-     * @param input the command line input from the user
-     * @return the task formated as a string
-     */
-    public static String mark(String input) {
-        try {
-            String[] indices = getTaskDescription(input).split(" ");
-
-            return Arrays.stream(indices)
-                    .map(index -> TaskList.getTask(getTaskNumber(index)))
-                    .map(Task::mark)
-                    .map(Task::toString)
-                    .reduce("Nice! I've marked these tasks as done:\n", (response, task) -> response + task + "\n")
-                    + UI.lineBreak();
-        } catch (RuntimeException IndexOutOfBoundsException) {
-            return UI.taskNotFound();
-        }
-    }
-
-    /**
-     * Unmarks the task at the specified index as not done
-     *
-     * @param input the command line input from the user
-     * @return the task formated as a string
-     */
-    public static String unmark(String input) {
-        try {
-            String[] indices = getTaskDescription(input).split(" ");
-
-            return Arrays.stream(indices)
-                    .map(index -> TaskList.getTask(getTaskNumber(index)))
-                    .map(Task::unmark)
-                    .map(Task::toString)
-                    .reduce("OK, I've marked these tasks as undone:\n", (response, task) -> response + task + "\n")
-                    + UI.lineBreak();
-        } catch (RuntimeException IndexOutOfBoundsException) {
-            return UI.taskNotFound();
-        }
-    }
-
-    /**
-     * Deletes the task at the specified index
-     *
-     * @param input the command line input from the user
-     * @return the task formated as a string
-     */
-    public static String delete(String input) {
-        try {
-            String[] indices = getTaskDescription(input).split(" ");
-            List<Task> copy = TaskList.copy();
-            TaskList.clear();
-
-            return Stream.iterate(0, i -> i + 1)
-                    .limit(copy.size())
-                    .map(index -> filterTask(copy, indices, index))
-                    .filter(task -> !task.isEmpty())
-                    .reduce("Noted. I've removed these tasks:\n", (response, task) -> response + task + "\n")
-                    + UI.lineBreak();
-        } catch (RuntimeException IndexOutOfBoundsException) {
-            return UI.taskNotFound();
-        }
-    }
-
-    private static String filterTask(List<Task> copy, String[] indices, int taskNum) {
-        if (contains(indices, taskNum)) {
-            return copy.get(taskNum).toString();
-        } else {
-            TaskList.addTask(copy.get(taskNum));
-            return "";
-        }
-    }
-
-    private static boolean contains(String[] indices, int taskNum) {
-        return Arrays.stream(indices)
-                .map(Parser::getTaskNumber)
-                .anyMatch(index -> index == taskNum);
-    }
-
-    /**
-     * Finds all tasks that matches with the specified keyword
-     *
-     * @param input the command line input from the user
-     * @return the task formated as a string
-     */
-    public static String find(String input) {
-        try {
-            String keyword = getTaskDescription(input);
-            String response = TaskList.search(keyword);
-            System.out.println(response);
-            return response;
-        } catch (RuntimeException IndexOutOfBoundsException) {
-            return UI.taskNotFound();
-        }
-    }
-
-    /**
-     * Updates the task name at the specified index
-     *
-     * @param input the command line input from the user
-     * @return the task formated as a string
-     */
-    public static String update(String input) {
-        try {
-            int index = getTaskNumber(input);
-            String newName = getFlag(input, "-to.");
-            Task task = TaskList.getTask(index);
-            assert task != null : UI.taskNotFound();
-
-            task.setName(newName);
-            return UI.updatedTask(task);
-        } catch (RuntimeException IndexOutOfBoundsException) {
-            return UI.taskNotFound();
-        }
-    }
-
-    /**
-     * Lists the tasks
-     * * @return the task list formated as a string
-     */
-    public static String list()
-    {
-        String response = TaskList.listTasks();
-        System.out.println(response);
-        return response;
-    }
-
-    /**
-     * Lists the tasks sorted in chronological order
-     * * @return the task list formated as a string
-     */
-    public static String reminder() {
-        String response = TaskList.reminder();
-        System.out.println(response);
-        return response;
-    }
-
-    /**
-     * Initialise a ToDoTask and Stores it into the local storage
+     * Initialise a ToDoTask and adds it to the TaskList
      *
      * @param input the CLI input from the user
+     * @return the YapBot response
      */
     public static String addToDoTask(String input) {
         String name = getTaskDescription(input);
@@ -233,9 +91,10 @@ public class Parser {
     }
 
     /**
-     * Initialise a DeadlineTask and Stores it into the local storage
+     * Initialise a DeadlineTask and adds it to the TaskList
      *
      * @param input the CLI input from the user
+     * @return the YapBot response
      */
     public static String addDeadlineTask(String input) {
         String name = getTaskDescription(input);
@@ -247,9 +106,10 @@ public class Parser {
     }
 
     /**
-     * Initialise an EventTask and Stores it into the local storage
+     * Initialise an EventTask and adds it to the TaskList
      *
      * @param input the CLI input from the user
+     * @return the YapBot response
      */
     public static String addEventTask(String input) {
         String name = getTaskDescription(input);
@@ -262,10 +122,117 @@ public class Parser {
     }
 
     /**
-     * Gets the task description from the CLI
+     * Marks the tasks at the specified indices as done
+     *
+     * @param input the command line input from the user
+     * @return the YapBot response
+     */
+    public static String mark(String input) {
+        try {
+            String[] indices = getTaskDescription(input).split("\\s+");
+            String response = TaskList.markTasks(indices);
+            System.out.println(response);
+            return response;
+        } catch (RuntimeException IndexOutOfBoundsException) {
+            return UI.taskNotFound();
+        }
+    }
+
+    /**
+     * Unmarks the tasks at the specified indices as not done
+     *
+     * @param input the command line input from the user
+     * @return the YapBot response
+     */
+    public static String unmark(String input) {
+        try {
+            String[] indices = getTaskDescription(input).split("\\s+");
+            String response = TaskList.unmarkTasks(indices);
+            System.out.println(response);
+            return response;
+        } catch (RuntimeException IndexOutOfBoundsException) {
+            return UI.taskNotFound();
+        }
+    }
+
+    /**
+     * Deletes the task at the specified indices
+     *
+     * @param input the command line input from the user
+     * @return the YapBot response
+     */
+    public static String delete(String input) {
+        try {
+            String[] indices = getTaskDescription(input).split("\\s+");
+            String response = TaskList.deleteTasks(indices);
+            System.out.println(response);
+            return response;
+        } catch (RuntimeException IndexOutOfBoundsException) {
+            return UI.taskNotFound();
+        }
+    }
+
+    /**
+     * Finds all tasks that matches with the specified keyword
+     *
+     * @param input the command line input from the user
+     * @return the YapBot response
+     */
+    public static String find(String input) {
+        try {
+            String keyword = getTaskDescription(input);
+            String response = TaskList.findTasks(keyword);
+            System.out.println(response);
+            return response;
+        } catch (RuntimeException IndexOutOfBoundsException) {
+            return UI.taskNotFound();
+        }
+    }
+
+    /**
+     * Updates the task name at the specified index
+     *
+     * @param input the command line input from the user
+     * @return the YapBot response
+     */
+    public static String update(String input) {
+        try {
+            int index = getTaskIndex(input);
+            String newName = getFlag(input, "-to.");
+            Task task = TaskList.getTask(index);
+            task.setName(newName);
+            return UI.updatedTask(task);
+        } catch (RuntimeException IndexOutOfBoundsException) {
+            return UI.taskNotFound();
+        }
+    }
+
+    /**
+     * Gets the current list of tasks
+     * @return the YapBot response
+     */
+    public static String list()
+    {
+        String response = TaskList.listTasks();
+        System.out.println(response);
+        return response;
+    }
+
+    /**
+     * Gets the current list of tasks sorted in chronological order
+     * @return the YapBot response
+     */
+    public static String reminder() {
+        String response = TaskList.getReminder();
+        System.out.println(response);
+        return response;
+    }
+
+    /**
+     * Gets the command type from the CLI
      *
      * @param input the CLI input from the user
-     * @return the task description
+     * @return the command type
      */
     public static boolean getCommand(String input, String command) {
         return input.toLowerCase().startsWith(command);
@@ -285,9 +252,9 @@ public class Parser {
      * Gets the task number from the CLI
      *
      * @param index the CLI input from the user
-     * @return the task number
+     * @return the task index
      */
-    public static int getTaskNumber(String index) {
+    public static int getTaskIndex(String index) {
         try {
             return Integer.parseInt(index) - 1;
         } catch (NumberFormatException exception) {
