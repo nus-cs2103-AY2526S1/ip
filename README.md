@@ -13,6 +13,7 @@ Unlike a plain to-do manager, Eve speaks with a **cute and lively personality** 
   - Delete tasks
   - Find tasks by keyword
   - List all tasks
+  - and others to explore...
 
 - **Personalized Responses**
   - Eve replies with energetic, friendly messages
@@ -38,5 +39,5 @@ Unlike a plain to-do manager, Eve speaks with a **cute and lively personality** 
 If you are using Gradle:
 
 ```bash
-./gradlew build
+./gradlew clean build
 ./gradlew run
