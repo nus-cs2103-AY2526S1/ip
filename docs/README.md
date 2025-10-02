@@ -26,7 +26,7 @@ Got it. I've added this task:
 Now you have 1 task in the list.
 ```
 
-## Adding deadlines
+## Adding deadline
 
 The deadline command allows you to add a task with a specific due date. This is perfect for scheduling homework or 
 chores with a deadline. 
@@ -49,7 +49,7 @@ Got it. I've added this task:
 Now you have 2 task in the list.
 ```
 
-## Adding events
+## Adding event
 
 The event command adds a task with a start and end time or date range, perfect for scheduling activities like 
 parties or study sessions. Use /from and /to to specify the range.
@@ -84,7 +84,7 @@ All tasks in the list will be rearranged in chronological order based on their d
 to show the sorted list, with the earliest deadline at the top.
 
 
-## Marking Tasks as Done
+## Marking Task as Done
 
 The mark command lets you mark a task as completed. This is great for tracking progress and feeling accomplished! 
 Specify the task number from the list to mark it as done.
@@ -103,7 +103,7 @@ Expected Outcome:
 Nice! I've marked this task as done:
 [D][X] 2103T homework (by: Sept 23 2025, 11:59pm)
 ```
-## Unmarking Tasks
+## Unmarking Task
 
 The unmark command reverses a task’s completed status, turning it back to incomplete. Use the task number to unmark it, 
 giving you a chance to revisit unfinished work.
@@ -178,7 +178,7 @@ Expected Outcome:
 Tasks on 2025-09-23:
 1. [D][] 2103T homework (by: Sept 23 2025, 11:59pm)
 ```
-## Deleting Tasks
+## Deleting Task
 
 The delete command removes a task from your list. Use the task number to delete it, helping you clean up completed or 
 irrelevant tasks.
