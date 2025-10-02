@@ -1,0 +1,285 @@
+package tux.ui;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import tux.exceptions.TaskException;
+import tux.storage.Storage;
+import tux.tasks.Deadline;
+import tux.tasks.Event;
+import tux.tasks.Task;
+import tux.tasks.TaskList;
+import tux.tasks.ToDo;
+import tux.types.Command;
+
+/**
+ * Parses and executes user commands to manipulate tasks.
+ * Translates user input into actions on the TaskList, and updates the Storage object suitably.
+ */
+public class InputHandler {
+
+    private static final String BY = "/by";
+    private static final String FROM = "/from";
+    private static final String TO = "/to";
+    private static final StringBuilder sb = new StringBuilder();
+
+    private final TaskList taskList;
+    private final Storage storage;
+
+    /**
+     * Constructs an InputHandler.
+     * @param taskList The list of tasks currently in memory.
+     * @param storage The Storage object responsible for loading and saving data.
+     */
+    public InputHandler(TaskList taskList, Storage storage) {
+        assert taskList != null : "TaskList cannot be null.";
+        assert storage != null : "Storage cannot be null.";
+
+        this.taskList = taskList;
+        this.storage = storage;
+    }
+
+    /**
+     * Parses user command string and performs the corresponding action.
+     * @param userInput The raw command input (e.g. todo buy bread)
+     * @return A response message after performing the action.
+     */
+    public String handleInput(String userInput) {
+        String[] parts = userInput.trim().split(" ", 2);
+        String commandWord = parts[0];
+        String args = parts.length > 1
+                ? parts[1].trim()
+                : "";
+
+        Command command = getInstruction(commandWord);
+        try {
+            return switch (command) {
+            case MARK -> markDone(args);
+            case UNMARK -> markUndone(args);
+            case TODO -> createToDo(args);
+            case DEADLINE -> createDeadline(args);
+            case EVENT -> createEvent(args);
+            case LIST -> enumerateTaskList();
+            case DELETE -> deleteTask(args);
+            case FIND -> findTask(args);
+            case REMIND -> remindUser();
+            case UNKNOWN -> "I'm sorry, I don't recognise that command!";
+            };
+        } catch (TaskException e) {
+            return e.getMessage();
+        }
+    }
+
+    private Command getInstruction(String instruction) {
+        try {
+            return Command.valueOf(instruction.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return Command.UNKNOWN;
+        }
+
+    }
+
+    private String addToTaskList(Task task) throws TaskException {
+        assert task != null : "Cannot add null task.";
+
+        taskList.add(task);
+        storage.save(taskList);
+        return "Got it. I've added this task:\n"
+                + task.getTaskDescription()
+                + "\nNow you have %d tasks in the list.".formatted(taskList.size());
+    }
+
+    private String enumerateTaskList() {
+        return IntStream.range(0, taskList.size())
+                .mapToObj(i -> "%s. %s\n".formatted(i + 1, taskList.get(i).getTaskDescription()))
+                .collect(Collectors.joining("\n"));
+
+    }
+
+    /**
+     * Marks a task as completed.
+     *
+     * @param index The index of the task in TaskList.
+     * @return String confirmation message.
+     * @throws TaskException If the index is invalid or storage cannot be updated.
+     */
+    private String markDone(String index) throws TaskException {
+        int taskIndex = Integer.parseInt(index);
+        Task currentTask = taskList.get(taskIndex - 1);
+        currentTask.markDone();
+        storage.save(taskList);
+        return "Nice! I've marked this task as done:\n%s".formatted(currentTask.getTaskDescription());
+    }
+
+    /**
+     * Marks a task as not completed.
+     *
+     * @param index The index of the task in the TaskList.
+     * @return String confirmation message.
+     * @throws TaskException If the index is invalid or storage cannot be updated.
+     */
+    private String markUndone(String index) throws TaskException {
+        int taskIndex = Integer.parseInt(index);
+        Task currentTask = taskList.get(taskIndex - 1);
+        currentTask.markUndone();
+        storage.save(taskList);
+        return "Ok, I've marked this task as not done yet:\n%s".formatted(currentTask.getTaskDescription());
+    }
+
+    /**
+     * Creates a ToDo task from user input and adds it to TaskList.
+     *
+     * @param userInput String description of the task.
+     * @return String confirmation message after adding.
+     * @throws TaskException If the description is blank.
+     */
+    public String createToDo(String userInput) throws TaskException {
+        if (userInput.isBlank()) {
+            throw new TaskException("Description is empty!");
+        }
+
+        Task newToDo = new ToDo(userInput);
+        return addToTaskList(newToDo);
+    }
+
+    /**
+     * Creates a Deadline task from user input and adds it to TaskList.
+     *
+     * @param userInput String input containing description and "/by" date.
+     * @return String confirmation message after adding.
+     * @throws TaskException If format is invalid or date cannot be parsed into LocalDate object.
+     */
+    public String createDeadline(String userInput) throws TaskException {
+        if (!userInput.contains(BY)) {
+            throw new TaskException("Deadline task must contain /by!");
+        }
+
+        String[] handledUserInput = userInput.split(BY);
+        if (handledUserInput.length != 2) {
+            throw new TaskException("Incorrect format for deadline task");
+        }
+        String description = userInput.split(BY)[0].trim();
+        String byStr = userInput.split(BY)[1].trim();
+
+        LocalDate by;
+        try {
+            by = LocalDate.parse(byStr);
+        } catch (DateTimeParseException e) {
+            throw new TaskException("Incorrect format for deadline");
+        }
+        Task newDeadline = new Deadline(description, by);
+        return addToTaskList(newDeadline);
+    }
+
+    /**
+     * Creates an Event task from user input and adds it to TaskList.
+     *
+     * @param userInput String input containing description, "/from" and "/to" dates.
+     * @return String confirmation message after adding.
+     * @throws TaskException If format is invalid or date cannot be parsed into LocalDate object.
+     */
+    public String createEvent(String userInput) throws TaskException {
+        int fromIndex = userInput.indexOf(FROM);
+        int toIndex = userInput.indexOf(TO);
+
+        if (fromIndex == -1 || toIndex == -1) {
+            throw new TaskException("Event task must contain /from and /to!");
+        }
+
+        String description = userInput.substring(0, fromIndex).trim();
+        String fromStr = userInput.substring(fromIndex + FROM.length(), toIndex).trim();
+        String toStr = userInput.substring(toIndex + TO.length()).trim();
+
+        LocalDate from;
+        LocalDate to;
+
+        try {
+            from = LocalDate.parse(fromStr);
+            to = LocalDate.parse(toStr);
+        } catch (DateTimeParseException e) {
+            throw new TaskException("Incorrect format for event");
+        }
+        Task newEvent = new Event(description, from, to);
+        return addToTaskList(newEvent);
+    }
+
+    /**
+     * Deletes a task by index.
+     *
+     * @param index The index of the task in the TaskList.
+     * @return String confirmation message after deletion.
+     * @throws TaskException If the index is invalid or storage cannot be updated.
+     */
+    public String deleteTask(String index) throws TaskException {
+        int taskIndex = Integer.parseInt(index);
+        assert taskIndex > 0 && taskIndex <= taskList.size() : "taskIndex out of bounds";
+
+        Task removedTask = taskList.delete(taskIndex - 1);
+        storage.save(taskList);
+        return "Noted I've removed this task: \n%s".formatted(removedTask.getTaskDescription())
+                + "\nNow you have %d tasks in the list.".formatted(taskList.size());
+    }
+
+    /**
+     * Searches for tasks (includes partial searching) using the given keyword.
+     * @param keywords String to search for
+     * @return String containing parsed tasks
+     * @throws TaskException if keyword is empty
+     */
+    public String findTask(String... keywords) throws TaskException {
+        if (keywords == null || keywords.length == 0) {
+            throw new TaskException("Please provide a keyword to search");
+        }
+
+        List<String> lowerKeywords = Arrays.stream(keywords).map(String::toLowerCase).toList();
+
+        String result = IntStream.range(0, taskList.size())
+                .mapToObj(i -> taskList.get(i))
+                .filter(t -> lowerKeywords.stream()
+                        .anyMatch(kw -> t.getTaskDescription().toLowerCase().contains(kw)))
+                .map(Task::getTaskDescription)
+                .collect(Collectors.joining("\n"));
+
+        if (result.isEmpty()) {
+            return "No matching tasks found for \"" + String.join(", )", keywords) + "\".";
+        }
+        return "Here are the matching tasks in your list:\n" + result;
+
+    }
+
+    /**
+     * Returns and event or deadline that is within 7 days of the current date
+     * @return String list of tasks
+     */
+    public String remindUser() {
+        LocalDate currentDate = LocalDate.now();
+
+        String eventResult = IntStream.range(0, taskList.size())
+                .mapToObj(i -> taskList.get(i))
+                .filter(t -> t instanceof Event)
+                .filter(t -> ChronoUnit.DAYS.between(((Event) t).getTo(), currentDate) < 8)
+                .map(Task::getTaskDescription)
+                .collect(Collectors.joining("\n"));
+
+        String deadlineResult = IntStream.range(0, taskList.size())
+                .mapToObj(i -> taskList.get(i))
+                .filter(t -> t instanceof Deadline)
+                .filter(t -> ChronoUnit.DAYS.between(((Deadline) t).getBy(), currentDate) < 8)
+                .map(Task::getTaskDescription)
+                .collect(Collectors.joining("\n"));
+
+        if (eventResult.isEmpty() && deadlineResult.isEmpty()) {
+            return "No events / deadlines soon!";
+        }
+        return "Here are the upcoming events:\n" + eventResult
+                + "\nHere are the upcoming deadlines: \n" + deadlineResult;
+
+    }
+
+
+}
