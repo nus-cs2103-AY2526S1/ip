@@ -24,7 +24,6 @@ Expected Outcome:
 Got it. I've added this task:
 [T][] laundry 
 Now you have 1 task in the list.
-
 ```
 
 ## Adding deadlines
@@ -48,7 +47,6 @@ Got it. I've added this task:
 [T][] laundry 
 [D][] 2103T homework (by: Sept 23 2025, 11:59pm)
 Now you have 2 task in the list.
-
 ```
 
 ## Adding events
@@ -63,7 +61,6 @@ Example: `event birthday party /from 2025-09-20 1800 /to 2025-09-20 2200`
 **Expected Outcome:**\
 The event will be added to your list with the specified time range. The dialog box will display a confirmation, 
 and the event will be sortable by start date.
-
 ```
 Expected Outcome:
 
@@ -72,7 +69,6 @@ Got it. I've added this task:
 [D][] 2103T homework (by: Sept 23 2025, 11:59pm)
 [E][] birthday party (from: Sep 20 2025, 6:00pm to: Sep 20 2025, 10:00pm)
 Now you have 3 task in the list.
-
 ```
 
 ## Sorting Tasks
@@ -106,7 +102,6 @@ Expected Outcome:
 
 Nice! I've marked this task as done:
 [D][X] 2103T homework (by: Sept 23 2025, 11:59pm)
-
 ```
 ## Unmarking Tasks
 
@@ -125,7 +120,6 @@ Expected Outcome:
 
 Ok! I've unmarked this task as not done:
 [D][] 2103T homework (by: Sept 23 2025, 11:59pm)
-
 ```
 
 ## Viewing the Task List
