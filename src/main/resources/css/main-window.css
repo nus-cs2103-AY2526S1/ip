@@ -1,0 +1,60 @@
+/* Generated this stylesheet with help of ChatGPT. Tweaked and added subsequent values */
+
+.root {
+  -fx-font-family: "SF Pro Text", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  -fx-font-size: 14px;
+  -fx-background-color: #f5f6f8;
+
+  -fx-background-color: linear-gradient(to bottom right, #a8fbff, #eef2f7);
+}
+
+#scrollPane {
+  -fx-background-color: transparent;
+  -fx-background: transparent;
+}
+
+#scrollPane .viewport {
+  -fx-background-color: transparent;
+}
+
+#dialogContainer {
+  -fx-padding: 16 16 16 16;
+  -fx-spacing: 12;
+}
+
+#userInput {
+  -fx-background-color: white;
+  -fx-background-radius: 10;
+  -fx-border-color: #cfd6e4;
+  -fx-border-radius: 10;
+  -fx-padding: 10 12 10 12;
+}
+
+#userInput:focused {
+  -fx-border-color: #2b7a78;
+  -fx-border-width: 1.5;
+}
+
+#sendButton {
+  -fx-background-color: #2b7a78;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-background-radius: 10;
+  -fx-padding: 10 16 10 16;
+}
+
+#sendButton:hover {
+  -fx-background-color: derive(#2b7a78, 10%);
+}
+
+#sendButton:pressed {
+  -fx-background-color: derive(#2b7a78, -10%);
+}
+
+#sendButton:disabled {
+  -fx-opacity: 0.6;
+}
+
+/* fallbacks if fx:ids differ */
+.text-field { -fx-background-radius: 10; }
+.button     { -fx-background-radius: 10; }

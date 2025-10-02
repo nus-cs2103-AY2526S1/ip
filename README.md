@@ -1,26 +1,135 @@
-# Duke project template
+# 🔎 Focus — Task Management Assistant 🔎
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![Ui Screenshot](/docs/Ui.png)
 
-## Setting up in Intellij
+Focus is a lightweight desktop app for managing tasks, built for speed and clarity.  
+It combines the **efficiency of keyboard commands** with the **friendliness of a GUI chatbot**, making task management both fast and enjoyable.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+---
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Table of Contents
+- [Getting Started](#getting-started)
+- [How to Use](#how-to-use)
+  - [Adding Tasks](#adding-tasks)
+  - [Viewing Tasks](#viewing-tasks)
+  - [Updating Tasks](#updating-tasks)
+  - [Finding & Deleting](#finding--deleting)
+  - [Tagging](#tagging)
+  - [Exiting](#exiting)
+- [Example Session](#example-session)
+- [Error Handling](#-error-handling)
+- [Storage Persistence](#storage-persistence)
+- [Command Reference](#command-reference)
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+---
+
+## Getting Started
+
+1. Install **Java 17 or above**.
+2. Download the latest release from the <a href="https://github.com/Angmar2722/ip/releases" target="_blank">releases</a> page.
+3. Place `focus.jar` in a folder of your choice.
+4. Run in ```java -jar focus.jar``` in terminal.
+5. Start typing commands in the input box. Press **enter** or click the **Send** button at the bottom of the pane to execute commands.
+
+---
+
+## How to Use
+
+### Adding Tasks
+- **To Do task type**: `todo DESCRIPTION`  
+  Example usage:
+  ```
+  todo read book
+  ```
+
+- **Deadline**: `deadline DESCRIPTION /by yyyy-MM-dd HHmm`  
+  Example:
+  ```
+  deadline submit report /by 2025-10-15 1800
+  ```
+
+- **Event**: `event DESCRIPTION /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm`  
+  Example:
+  ```
+  event team meeting /from 2025-10-20 1000 /to 2025-10-20 1130
+  ```
+
+---
+
+### Viewing Tasks
+- **List all**: `list`  
+  Shows all tasks with status icons (tasks marked done have a X next to them).
+
+---
+
+### Updating Tasks
+- **Mark as done**: `mark INDEX [INDEX …]`
+- **Unmark as not done**: `unmark INDEX [INDEX …]`  
+  Supports multiple indices:
+  ```
+  mark 1 2 3
+  unmark 1 2 3
+  ```
+
+---
+
+### Tagging
+- **Tag**: `tag INDEX #DESCRIPTION`
+  Currently limited to one tag per task.
+
+---
+
+### Finding & Deleting
+- **Find by keyword**: `find KEYWORD`
+- **Delete**: `delete INDEX`
+
+---
+
+### Exiting
+- Simply type in `bye`
+
+---
+
+## Example Session
+```
+todo read book
+deadline submit report /by 2025-10-15 1800
+event project sync /from 2025-10-20 1000 /to 2025-10-20 1130
+list
+mark 2
+unmark 2
+find report
+delete 3
+bye
+```
+---
+
+## ⚠ Error Handling
+Worry not, Focus will guide you:
+- Error messages will be displayed by Focus with suggested fixes
+- Errors will be displayed in light red text bubbles to distinguish from ordinary commands
+
+---
+
+## Storage Persistence
+- Tasks are saved automatically to `data/focus.txt` after any modification.
+- On startup, Focus loads tasks from the same file.
+
+---
+
+## Command Reference
+
+| Action   | Format | Example |
+|----------|--------|---------|
+| ToDo     | `todo DESCRIPTION` | `todo read book` |
+| Deadline | `deadline DESCRIPTION /by yyyy-MM-dd HHmm` | `deadline submit report /by 2025-10-15 1800` |
+| Event    | `event DESCRIPTION /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm` | `event project meeting /from 2025-10-20 1000 /to 1130` |
+| List     | `list` | — |
+| Mark     | `mark INDEX [INDEX …]` | `mark 1 2 3` |
+| Unmark   | `unmark INDEX [INDEX …]` | `unmark 2` |
+| Delete   | `delete INDEX` | `delete 3` |
+| Find     | `find KEYWORD` | `find report` |
+| Find     | `tag INDEX #DESCRIPTION` | `tag 2 #meeting` |
+| Exit     | `bye` | — |
+
+---

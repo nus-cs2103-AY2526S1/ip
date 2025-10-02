@@ -1,0 +1,29 @@
+/* Generated this stylesheet with help of ChatGPT. Tweaked and added subsequent values */
+
+#dialog {
+  -fx-background-radius: 16;
+  -fx-padding: 10 12 10 12;
+  -fx-text-fill: #1c1c1c;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 0, 2);
+}
+
+/* Normal bot bubble (left) */
+#dialog.bot-bubble {
+  -fx-background-color: #F1F0F0;  /* light gray */
+}
+
+/* Normal user bubble (right) */
+#dialog.user-bubble {
+  -fx-background-color: #D1F1F0;  /* soft aqua */
+}
+
+/* ERROR bubble for exceptions */
+#dialog.bot-bubble-error {
+  -fx-background-color: #FDE2E2;  /* light red */
+  -fx-text-fill: #7A0A0A;         /* dark red text */
+}
+
+/* Avatar depth */
+#displayPicture {
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 0, 1);
+}
