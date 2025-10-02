@@ -1,0 +1,45 @@
+hello
+hi
+list
+echo hi how r u doing
+echo "hi how r u doing"
+echo
+todo
+list
+todo groceries
+list
+deadline
+list
+deadline assignment
+list
+deadline assignment /by Friday 2359
+list
+deadline assignment /by Friday 2359 /by Saturday 23589
+list
+event
+list
+event MFF
+list
+event MFF /by idk
+list
+event MFF /from 9th September
+list
+event MFF /from 9th September /to 13th September
+list
+event MFF /from 9th September /from 18th February /to 13th September
+list
+event MFF /from 9th September /to 13th September /to 28th February
+list
+mark
+mark ass
+mark 1
+mark 0
+mark 4
+list
+unmark
+unmark ass
+unmark 1
+unmark 0
+unmark 4
+list
+bye

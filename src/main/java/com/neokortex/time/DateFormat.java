@@ -1,0 +1,17 @@
+//package com.elsria.time;
+//
+//public enum DateFormat {
+//    DAY_OF_WEEK,
+//    DURATION,
+//    FULL_DATE,
+//    FULL_DATE_MONTH_FIRST,
+//    FULL_DATE_NO_YEAR,
+//    FULL_DATE_MONTH_FIRST_NO_YEAR,
+//    FULL_NUMERIC_DATE,
+//    FULL_NUMERIC_DATE_MONTH_FIRST,
+//    FULL_NUMERIC_DATE_NO_YEAR,
+//    FULL_NUMERIC_DATE_MONTH_FIRST_NO_YEAR,
+//    SIMPLE_DATE,
+//    SIMPLE_DATE_MONTH_FIRST,
+//    TIMESPAN
+//}

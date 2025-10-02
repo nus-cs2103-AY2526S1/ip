@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import javafx.scene.image.ImageView?>
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0"
+         type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Pane minWidth="-Infinity" prefWidth="20.0" maxWidth="20.0" HBox.hgrow="NEVER" />
+
+        <StackPane alignment="TOP_LEFT" style="-fx-background-color: #7AB2DD; -fx-background-radius: 20px;"
+                   HBox.hgrow="ALWAYS" fx:id="messageBox">
+            <padding>
+                <Insets bottom="5.0" left="15.0" right="15.0" top="5.0"/>
+            </padding>
+            <Label fx:id="dialogue" minWidth="-Infinity" prefWidth="250.0"
+                   style="-fx-font-family: Roboto; -fx-font-size: 20px;" text="short" wrapText="true"
+                   StackPane.alignment="TOP_LEFT"/>
+            <StackPane.margin>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </StackPane.margin>
+        </StackPane>
+
+        <Pane prefWidth="60.0" prefHeight="60.0" maxHeight="60" HBox.hgrow="NEVER" fx:id="imageContainer">
+            <ImageView fx:id="displayPicture" fitWidth="60.0" fitHeight="60.0"/>
+        </Pane>
+    </children>
+        <spacing>5.0</spacing>
+    <padding>
+        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+    </padding>
+</fx:root>
