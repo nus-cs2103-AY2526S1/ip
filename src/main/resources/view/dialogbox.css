@@ -1,0 +1,23 @@
+/* dialogbox.css */
+.dialog-label {
+    -fx-background-radius: 16px;
+    -fx-padding: 10 16 10 16;
+    -fx-font-size: 14px;
+    -fx-max-width: 320px;
+    -fx-wrap-text: true;
+}
+.user-dialog {
+    -fx-background-color: #d1e7dd;
+    -fx-text-fill: #0f5132;
+    -fx-alignment: center-right;
+}
+.bot-dialog {
+    -fx-background-color: #e7f1ff;
+    -fx-text-fill: #212529;
+    -fx-alignment: center-left;
+}
+.error-dialog {
+    -fx-background-color: #f8d7da;
+    -fx-text-fill: #212529;
+    -fx-alignment: center-left;
+}

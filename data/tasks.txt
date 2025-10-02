@@ -1,0 +1,3 @@
+T | 0 | tutorial
+E | 0 | bowling | 22/9/2025 1400 | 22/9/2025 1600
+T | 0 | homework
