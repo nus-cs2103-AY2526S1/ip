@@ -19,8 +19,6 @@ Example: `todo laundry`
 **Expected Outcome:**\
 The task will be added to your list. The dialog box will display a confirmation message.
 ```
-Expected Outcome:
-
 Got it. I've added this task:
 [T][] laundry 
 Now you have 1 task in the list.
@@ -41,8 +39,6 @@ The task will be added to your list with the specified due date. The dialog box 
 and the task will be sorted by date if you use the sort command later.
 
 ```
-Expected Outcome:
-
 Got it. I've added this task:
 [T][] laundry 
 [D][] 2103T homework (by: Sept 23 2025, 11:59pm)
@@ -62,8 +58,6 @@ Example: `event birthday party /from 2025-09-20 1800 /to 2025-09-20 2200`
 The event will be added to your list with the specified time range. The dialog box will display a confirmation, 
 and the event will be sortable by start date.
 ```
-Expected Outcome:
-
 Got it. I've added this task:
 [T][] laundry 
 [D][] 2103T homework (by: Sept 23 2025, 11:59pm)
@@ -98,8 +92,6 @@ The specified task will be marked as done, and the dialog box will update to ref
 (e.g., with a checkmark 'X').
 
 ```
-Expected Outcome:
-
 Nice! I've marked this task as done:
 [D][X] 2103T homework (by: Sept 23 2025, 11:59pm)
 ```
@@ -116,8 +108,6 @@ Example: `unmark 1`
 The specified task will be unmarked, and the dialog box will update to show its incomplete status.
 
 ```
-Expected Outcome:
-
 Ok! I've unmarked this task as not done:
 [D][] 2103T homework (by: Sept 23 2025, 11:59pm)
 ```
@@ -134,8 +124,6 @@ Format: `list`
 The dialog box will show a numbered list of all tasks, with details like due dates and completion status.
 
 ```
-Expected Outcome:
-
 Here are the matching tasks:
 1. [T][] laundry 
 2. [D][] 2103T homework (by: Sept 23 2025, 11:59pm)
@@ -155,8 +143,6 @@ Example: `find party`
 The dialog box will display a list of tasks that include the keyword.
 
 ```
-Expected Outcome:
-
 Here are the matching tasks:
 1. [E][] birthday party (from: Sep 20 2025, 6:00pm to: Sep 20 2025, 10:00pm)
 ```
@@ -173,8 +159,6 @@ Example: `on 2025-09-23`
 The dialog box will show a list of tasks due on the specified date, including deadlines and events.
 
 ```
-Expected Outcome:
-
 Tasks on 2025-09-23:
 1. [D][] 2103T homework (by: Sept 23 2025, 11:59pm)
 ```
@@ -191,8 +175,6 @@ Example: `delete 3`
 The specified task will be removed, and the dialog box will confirm the deletion with an updated task count.
 
 ```
-Expected Outcome:
-
 Noted. I've removed this task:
 [E][] birthday party (from: Sep 20 2025, 6:00pm to: Sep 20 2025, 10:00pm)
 Now you have 2 tasks in the list.
