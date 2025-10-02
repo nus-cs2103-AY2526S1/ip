@@ -1,7 +1,103 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Wassup, I'm lebron.Lebron. What popping homie?
+--------------------------------------------------
+--------------------------------------------------
+Looks like you want to add a tasks.Task with Deadline
+[D][ ] bio homework (by: Sep 21, 2025)
+Done bro
+--------------------------------------------------
+--------------------------------------------------
+Hmm an event interesting
+[E][ ] game workshop (from: Sep 21, 2025 to: Sep 22, 2025)
+Added the task for you
+--------------------------------------------------
+--------------------------------------------------
+No Problem G, I got you
+[T][ ] meet family
+Now you have 3 tasks in the list
+--------------------------------------------------
+--------------------------------------------------
+I've just marked this as done my G
+[D][X] bio homework (by: Sep 21, 2025)
+--------------------------------------------------
+--------------------------------------------------
+Here are the tasks in your list:
+1.[D][X] bio homework (by: Sep 21, 2025)
+2.[E][ ] game workshop (from: Sep 21, 2025 to: Sep 22, 2025)
+3.[T][ ] meet family
+--------------------------------------------------
+--------------------------------------------------
+I've just marked this as done my G
+[E][X] game workshop (from: Sep 21, 2025 to: Sep 22, 2025)
+--------------------------------------------------
+--------------------------------------------------
+Here are the tasks in your list:
+1.[D][X] bio homework (by: Sep 21, 2025)
+2.[E][X] game workshop (from: Sep 21, 2025 to: Sep 22, 2025)
+3.[T][ ] meet family
+--------------------------------------------------
+--------------------------------------------------
+This task is officially undone
+[D][ ] bio homework (by: Sep 21, 2025)
+--------------------------------------------------
+--------------------------------------------------
+Here are the tasks in your list:
+1.[D][ ] bio homework (by: Sep 21, 2025)
+2.[E][X] game workshop (from: Sep 21, 2025 to: Sep 22, 2025)
+3.[T][ ] meet family
+--------------------------------------------------
+--------------------------------------------------
+I've just marked this as done my G
+[T][X] meet family
+--------------------------------------------------
+--------------------------------------------------
+Here are the tasks in your list:
+1.[D][ ] bio homework (by: Sep 21, 2025)
+2.[E][X] game workshop (from: Sep 21, 2025 to: Sep 22, 2025)
+3.[T][X] meet family
+--------------------------------------------------
+--------------------------------------------------
+Looks like you want to add a tasks.Task with Deadline
+[D][ ] chem hw (by: Dec 25, 2025)
+Done bro
+--------------------------------------------------
+--------------------------------------------------
+Looks like you want to add a tasks.Task with Deadline
+Deadline should have a format of deadline 'name' /by YYYY-MM-DD
+--------------------------------------------------
+--------------------------------------------------
+Hmm an event interesting
+Event should have a format of event 'name' /from YYYY-MM-DD /to YYYY-MM-DD
+--------------------------------------------------
+--------------------------------------------------
+What the helly do you mean, please try again
+--------------------------------------------------
+--------------------------------------------------
+I've Removed this task from the list
+[D][ ] bio homework (by: Sep 21, 2025)
+Now you have 3 items left in the list!
+--------------------------------------------------
+--------------------------------------------------
+The following are tasks that are due by 2025-08-28
+--------------------------------------------------
+--------------------------------------------------
+The following are tasks that are due by 2025-10-01
+[E][X] game workshop (from: Sep 21, 2025 to: Sep 22, 2025)
+--------------------------------------------------
+--------------------------------------------------
+Here are the tasks in your list:
+1.[E][X] game workshop (from: Sep 21, 2025 to: Sep 22, 2025)
+2.[T][X] meet family
+3.[D][ ] chem hw (by: Dec 25, 2025)
+--------------------------------------------------
+--------------------------------------------------
+tasks.Task 5 does not exist!
+--------------------------------------------------
+--------------------------------------------------
+Here are the tasks in your list:
+1.[E][X] game workshop (from: Sep 21, 2025 to: Sep 22, 2025)
+2.[T][X] meet family
+3.[D][ ] chem hw (by: Dec 25, 2025)
+--------------------------------------------------
+--------------------------------------------------
+Im gonna bounce. See ya fam!
+--------------------------------------------------

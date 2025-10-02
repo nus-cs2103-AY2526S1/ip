@@ -1,0 +1,59 @@
+package ui;
+
+import java.util.Scanner;
+/**
+ * Class that handles User Interaction in Lebron
+*/
+public class Ui {
+    private static final String welcomeMsg = "Wassup, I'm Lebron. What popping homie?";
+    private static final String exitMsg = "Im gonna bounce. See ya fam!";
+
+    private final Scanner myObj;
+
+    public Ui() {
+        myObj = new Scanner(System.in);
+    }
+    /**
+     * Prints line for aesthetic purposes
+     */
+    public void printHorizontalLine() {
+        int length = 50;
+        char line = '-';
+
+        for (int i = 0; i < length; i++) {
+            System.out.print(line);
+        }
+
+        System.out.println();
+    }
+
+    /**
+    * Function that prints
+    * Ui have responsibility to print
+     */
+    public void print(String s) {
+        System.out.println(s);
+    }
+
+    /**
+     * First method called when lebron starts up
+     */
+    public void startUp() {
+        System.out.println(welcomeMsg);
+        printHorizontalLine();
+    }
+
+    /**
+     * Method called before exiting lebron
+     */
+    public void exit() {
+        System.out.println(exitMsg);
+        printHorizontalLine();
+    }
+    /**
+     * Used to get userInput
+     */
+    public String getNextLine() {
+        return myObj.nextLine();
+    }
+}
