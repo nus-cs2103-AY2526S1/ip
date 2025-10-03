@@ -1,0 +1,81 @@
+package habot.task;
+
+import java.time.LocalDateTime;
+
+import habot.exception.HaBotInvalidFormatException;
+
+/**
+ * Represents a task with a deadline.
+ * Extends the HaBot.Task.Task class and adds a deadline date/time.
+ */
+public class Deadline extends Task {
+
+    protected LocalDateTime by;
+
+    /**
+     * Constructs a HaBot.Task.Deadline task with a description and deadline date/time.
+     * @param description The description of the task.
+     * @param by The deadline date/time for the task in LocalDateTime format.
+     */
+    public Deadline(String description, LocalDateTime by) {
+        super(description);
+        this.by = by;
+    }
+
+    /**
+     * Constructs a HaBot.Task.Deadline task with a description and deadline.
+     *
+     * @param description The description of the task.
+     * @param by The deadline date/time for the task in String format.
+     */
+    public Deadline(String description, String by) {
+
+        this(description, LocalDateTime.parse(by, DATE_FORMATTER_PARSE));
+    }
+
+    /**
+     * Returns a string representation of the HaBot.Task.Deadline task.
+     * The format is: [D][status] description (by: MMM d yyyy HH:mm)
+     * where status is "X" if the task is done, and " " if not done.
+     *
+     * @return A string representation of the HaBot.Task.Deadline task.
+     */
+    @Override
+    public String toString() {
+        return "[D]" + super.toString()
+                + " (By: " + by.format(DATE_FORMATTER_PRINT) + ")";
+    }
+
+    /**
+     * Converts the Deadline task to a plain text format for saving.
+     *
+     * @return A string representation of the HaBot.Task.Deadline task for storage.
+     */
+    @Override
+    public String toStoreFormat() {
+        return super.partsToStoreFormat("D", getMarkStatusIcon(), description, by.format(DATE_FORMATTER_PARSE));
+    }
+
+    /**
+     * Creates a Deadline task from its stored string representation.
+     * The expected format is: D | status | description | by
+     * where status is "X" if the task is done, and " " if not done.
+     *
+     * @param parts The parts of the stored string split by " | ".
+     * @return A Deadline task constructed from the string.
+     * @throws HaBotInvalidFormatException If the input format is invalid.
+     */
+    public static Deadline fromStoreFormat(String... parts) {
+        if (parts.length < 4) {
+            throw new HaBotInvalidFormatException("Deadline", String.join(" | ", parts));
+        }
+        boolean isDone = !parts[1].equals(" ");
+        String description = parts[2].replace("\\|", "|");
+        LocalDateTime by = LocalDateTime.parse(parts[3], DATE_FORMATTER_PARSE);
+        Deadline deadline = new Deadline(description, by);
+        if (isDone) {
+            deadline.markAsDone();
+        }
+        return deadline;
+    }
+}

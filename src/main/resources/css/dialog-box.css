@@ -1,0 +1,52 @@
+.label {
+    background: #006600;
+    -fx-border-width: 2px;
+    -fx-text-fill: ladder(background, white 49%, black 50%);
+    -fx-font-size: 16px;
+}
+
+.user-label {
+    -fx-background-color: background;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-border-color: #ffffff;
+}
+
+.reply-label {
+    -fx-background-color: #002244;
+    -fx-background-radius: 0 1em 1em 1em;
+    -fx-border-radius: 0 1em 1em 1em;
+    -fx-border-color: #55bbff;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+
+.add-label {
+    -fx-border-color: #00cc00;
+}
+
+.marked-label {
+    -fx-border-color: #ffcc00;
+}
+
+.delete-label {
+    -fx-border-color: #ffaaaa;
+}
+
+.undo-label {
+    -fx-border-color: #999999;
+}
+
+.error-label {
+    -fx-border-color: #ff0000;
+}

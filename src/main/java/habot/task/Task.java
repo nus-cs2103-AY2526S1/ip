@@ -1,0 +1,123 @@
+package habot.task;
+
+import java.time.format.DateTimeFormatter;
+
+import habot.exception.HaBotException;
+import habot.exception.HaBotInvalidFormatException;
+
+
+/**
+ * Represents a generic task with a description and completion status.
+ */
+public class Task {
+    // Date formatters for parsing and printing dates.
+    protected static final DateTimeFormatter DATE_FORMATTER_PARSE = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    protected static final DateTimeFormatter DATE_FORMATTER_PRINT = DateTimeFormatter.ofPattern("d MMM yyyy HH:mm");
+
+    //The description of the task.
+    protected String description;
+    // Indicates whether the task is completed.
+    protected boolean isDone;
+
+
+    /**
+     * Constructs a new HaBot.Task.Task with the specified description.
+     * The task is initially not done.
+     *
+     * @param description The description of the task.
+     */
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
+
+    /**
+     * Returns the status icon representing whether the task is done.
+     *
+     * @return "X" if done, otherwise a space.
+     */
+    public String getMarkStatusIcon() {
+        return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    /**
+     * Returns the string representation of the task, including status and description.
+     *
+     * @return String representation of the task.
+     */
+    public String toString() {
+        return "[" + this.getMarkStatusIcon() + "] " + this.description;
+    }
+
+    /**
+     * Marks the task as done.
+     */
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    /**
+     * Marks the task as not done.
+     */
+    public void markAsNotDone() {
+        this.isDone = false;
+    }
+
+    /**
+     * Converts the task to a plain text format for saving.
+     * Escapes the '|' character in the description to avoid conflicts.
+     *
+     * @return A string representation of the task.
+     */
+    public String toStoreFormat() {
+        throw new HaBotException("toStoreFormat() not implemented for Task class. Use subclasses instead.");
+    }
+
+    /**
+     * Joins multiple parts into a single string for storage, escaping '|' characters.
+     *
+     * @param parts The parts to join.
+     * @return A single string with parts joined by " | ".
+     */
+    protected String partsToStoreFormat(String... parts) {
+        // escape the '|' character in all parts
+        for (int i = 0; i < parts.length; i++) {
+            parts[i] = parts[i].replace("|", "\\|");
+        }
+
+        return String.join(" | ", parts);
+    }
+
+    /**
+     * Gets the description of the task.
+     *
+     * @return The task description.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Creates a Task object from a plain text format.
+     * Unescapes the '|' character in the description.
+     *
+     * @param text The plain text representation of the task.
+     * @return A Task object.
+     * @throws HaBotInvalidFormatException If the input format is invalid.
+     */
+    public static Task fromStoreFormat(String text) throws HaBotInvalidFormatException {
+        String[] parts = text.split(" \\| ", -1); // Split into all parts
+        if (parts.length < 2) {
+            throw new HaBotInvalidFormatException("task", text);
+
+        }
+        String type = parts[0];
+
+        return switch (type) {
+        case "T" -> ToDo.fromStoreFormat(parts);
+        case "D" -> Deadline.fromStoreFormat(parts);
+        case "E" -> Event.fromStoreFormat(parts);
+        default -> throw new HaBotInvalidFormatException("task", text);
+        };
+    }
+}
