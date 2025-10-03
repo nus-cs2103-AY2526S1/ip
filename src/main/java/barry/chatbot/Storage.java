@@ -1,0 +1,167 @@
+package barry.chatbot;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import barry.tasks.DeadlineTask;
+import barry.tasks.EventTask;
+import barry.tasks.Task;
+import barry.tasks.ToDoTask;
+
+/**
+ * Handles saving and loading of tasks to and from a .txt file
+ */
+public class Storage {
+    private static final String DEFAULT_PATH = "data/tasks.txt";
+    private String filePath = DEFAULT_PATH;
+
+    /**
+     * Constructor for a Storage instance
+     * If filepath or parent directories does not exist, they will be created
+     * @param filePath the path to the storage file
+     */
+    public Storage(String filePath) {
+        this.filePath = filePath;
+        ensureParentDirectoryExists();
+        File file = new File(filePath);
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("Error initializing storage file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Constructor for a Storage instance using default filepath
+     * If filepath or parent directories does not exist, they will be created
+     */
+    public Storage() {
+        ensureParentDirectoryExists();
+        File file = new File(DEFAULT_PATH);
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("Error initializing storage file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Creates parent directories if they don't exist
+     */
+    private void ensureParentDirectoryExists() {
+        File file = new File(this.filePath);
+        File parentDir = file.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+    }
+
+    /**
+     * Appends tasks to file
+     * @param task the task to save
+     */
+    public void saveTask(Task task) {
+        assert task != null : "Task to save should not be null";
+        ensureParentDirectoryExists();
+        try (FileWriter writer = new FileWriter(this.filePath, true)) {
+            writer.write(task.toSaveString() + System.lineSeparator());
+        } catch (IOException e) {
+            System.out.println("Error saving task: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Clears all tasks in the storage file
+     */
+    public void deleteAllTasks() {
+        ensureParentDirectoryExists();
+        try (FileWriter writer = new FileWriter(this.filePath)) {
+        } catch (IOException e) {
+            System.out.println("Error deleting tasks: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Saves a list of tasks in the file
+     * @param taskList list of tasks to be saved
+     */
+    public void saveAllState(ArrayList<Task> taskList) {
+        assert taskList != null : "Task list to save should not be null";
+        ensureParentDirectoryExists();
+        try (FileWriter writer = new FileWriter(this.filePath)) {
+            for (Task task : taskList) {
+                writer.write(task.toSaveString() + System.lineSeparator());
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Reads all tasks from .txt file into an ArrayList of tasks
+     * @return ArrayList of tasks from file
+     */
+    public ArrayList<Task> load() {
+        ensureParentDirectoryExists();
+        ArrayList<Task> tasks = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(this.filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                if (line.isEmpty()) continue;
+                Task task = parseTaskFromLine(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
+        return tasks;
+    }
+
+    /**
+     * Parses a line from the save file and returns the corresponding Task object.
+     * Returns null if the line is invalid or the type is unknown.
+     */
+    private Task parseTaskFromLine(String line) {
+        String[] parts = line.split("\\|");
+        for (int i = 0; i < parts.length; i++) {
+            parts[i] = parts[i].trim();
+        }
+        if (parts.length < 3) return null;
+        String type = parts[0];
+        boolean isDone = parts[1].equals("true");
+        String desc = parts[2];
+        switch (type) {
+        case "T":
+            Task todo = new ToDoTask(desc);
+            if (isDone) todo.markDone();
+            return todo;
+        case "D":
+            if (parts.length < 4) return null;
+            String deadline = parts[3];
+            Task deadlineTask = new DeadlineTask(desc, deadline);
+            if (isDone) deadlineTask.markDone();
+            return deadlineTask;
+        case "E":
+            if (parts.length < 5) return null;
+            String start = parts[3];
+            String end = parts[4];
+            Task eventTask = new EventTask(desc, start, end);
+            if (isDone) eventTask.markDone();
+            return eventTask;
+        default:
+            System.out.println("Unknown task type: " + type);
+            return null;
+        }
+    }
+}

@@ -1,0 +1,13 @@
+todo eat
+deadline sleep /by 2025-08-26 2359
+list
+event play /from 2025-08-26 1400 /to 2025-08-26 1800
+list
+mark 1
+mark 3
+list
+unmark 3
+unmark 2
+mark 2
+list
+bye
