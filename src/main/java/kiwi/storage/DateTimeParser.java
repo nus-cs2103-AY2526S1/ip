@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 /**
- * Utility class for parsing and formatting dates and times.
+ * The Utility class for parsing and formatting dates and times.
  */
 public class DateTimeParser {
 
