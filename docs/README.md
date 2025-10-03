@@ -1,7 +1,6 @@
 # YapBot User Guide
 
-A CLI application to track and manage your tasks.
-____________________________________________________________
+A CLI application to track and manage your tasks.\
 Here is a list of valid commands ('-' is reserved for flags):
 
 ## Adding a task

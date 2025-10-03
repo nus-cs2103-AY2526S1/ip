@@ -5,9 +5,11 @@ import yapbot.storage.Storage;
 import yapbot.ui.UI;
 
 public class YapBot {
+    /*
     public static void main(String[] args) {
         run(args);
     }
+    */
 
     /**
      * Runs the chatbot by using the CLI
