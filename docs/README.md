@@ -1,6 +1,6 @@
 # ‧₊˚🖇️✩ ₊˚🎧⊹♡ Bambam User Guide ♡⊹🎧˚ ✩🖇️˚₊‧
 
-<img width="410" height="624" alt="Screenshot 2025-09-18 at 3 23 27 PM" src=Ui.png />
+![Alt text](./Ui.png)
 
 ᯓᡣ𐭩 Bambam, a task management chatbot, helps you to manage your tasks! 
 
