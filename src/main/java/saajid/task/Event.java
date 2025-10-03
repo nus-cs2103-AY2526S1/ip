@@ -1,0 +1,43 @@
+package saajid.task;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+/**
+ * Represents an event task with a start and end time.
+ */
+public class Event extends Task {
+    private LocalDateTime from;
+    private LocalDateTime to;
+
+    /** Constructs an Event with description, start and end time. */
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
+    public LocalDateTime getFrom() {
+        return from;
+    }
+
+    public LocalDateTime getTo() {
+        return to;
+    }
+
+    public void setFrom(LocalDateTime from) {
+        this.from = from;
+    }
+
+    public void setTo(LocalDateTime to) {
+        this.to = to;
+    }
+
+    @Override
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+        return "[E]" + super.toString()
+                + " (from: " + from.format(formatter)
+                + " to: " + to.format(formatter) + ")";
+    }
+}
