@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Main class for the Kiwi task manager applications.
+ * The Main class for the Kiwi task manager applications.
  */
 public class Kiwi {
     private Storage storage;
