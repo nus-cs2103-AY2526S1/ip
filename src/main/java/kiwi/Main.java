@@ -10,7 +10,7 @@ import kiwi.ui.MainWindow;
 import java.io.IOException;
 
 /**
- * A GUI for Kiwi using FXML.
+ * The GUI for Kiwi using FXML.
  */
 public class Main extends Application {
 
