@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Parses user input and determines the appropriate command and parameters.
+ * The Parser class for parsing user input and determining the appropriate command and parameters.
  */
 public class Parser {
 
