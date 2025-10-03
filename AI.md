@@ -23,14 +23,14 @@ Claude Code helped improve the existing codebase by:
 - Documented the purpose and behavior of extracted constants
 - Provided clear explanations for code improvements
 
-## Impact
+## Impact:
 The AI assistance resulted in:
 - More maintainable code with reduced duplication
 - Better separation of concerns
 - Improved readability and consistency
 - Enhanced error handling patterns
 
-## Files Modified
+## Files Modified:
 - `src/main/java/kiwi/Kiwi.java` - Major refactoring for code quality
 - Added this `AI.md` file for documentation
 
