@@ -1,7 +1,8 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Eh! I'm Soon Tong
+What you want?!
+Command: || [blah]
+Eh! Say properly leh, I don't know what that means la!
+Command: || [bye]
+Bye. Why you still here?!
+
 
