@@ -12,15 +12,28 @@ import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
+/**
+ * Handles reading and writing of {@link Task} objects to a persistent file.
+ * The file is located at {@code data/tasks.txt} and stores tasks in a pipe-delimited format.
+ */
 public class Storage {
     private File file;
     private static final String TASK_FILE_PATH = "data/tasks.txt";
 
+    /**
+     * Constructs a {@code Storage} object and ensures the data file exists.
+     */
     public Storage() {
         this.file = new File(TASK_FILE_PATH);
         ensureFileExists();
     }
 
+    /**
+     * Ensures that both the parent directory and the file exist.
+     * <p>
+     * If the directory or file does not exist, they are created.
+     * </p>
+     */
     public void ensureFileExists() {
         try {
             File dir = file.getParentFile();
@@ -36,6 +49,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the data file and adds them to the given {@link TaskList}.
+     *
+     * @param task_list the {@code TaskList} to populate with saved tasks
+     * @return the next available ID after loading all existing tasks
+     */
     public int loadTasks(TaskList task_list) {
         int curr_id = 1;
         try {
@@ -55,6 +74,14 @@ public class Storage {
         return curr_id;
     }
 
+    /**
+     * Parses a single line from the storage file and returns a corresponding {@link Task}.
+     *
+     * @param line the raw string line from the file
+     * @param id   the ID to assign to the created task
+     * @return the parsed {@code Task} object
+     * @throws IllegalArgumentException if the line is malformed or has an unknown type
+     */
     public Task parseTask(String line, int id) {
         String[] parsedLine = line.split("\\|");
         if (parsedLine.length < 3) {
@@ -84,6 +111,15 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the current list of tasks to the data file.
+     * <p>
+     * Each task is written in its data format using {@link Task#toDataFormat()}.
+     * Existing content in the file is overwritten.
+     * </p>
+     *
+     * @param task_list the {@code TaskList} containing all current tasks
+     */
     public void updateTasks(TaskList task_list) {
         try {
             FileWriter fw = new FileWriter(file);
