@@ -1,7 +1,100 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
 
+ChatterBox: Hello! I'm ChatterBox.
+
+ChatterBox: What can I do for you?
+Enter Input: 
+ChatterBox: Got it. I've added this task:
+[T] [ ] borrow book
+
+ChatterBox: You now have 1 tasks in the list.
+Enter Input: 
+ChatterBox: Here are the tasks in your list:
+1.[T] [ ] borrow book
+
+Enter Input: 
+ChatterBox: Got it. I've added this task:
+[D] [ ] return book (by: Dec 18 2025 18:00)
+
+ChatterBox: You now have 2 tasks in the list.
+Enter Input: 
+ChatterBox: Oops! Your deadline format is incorrect! It should be "dd-mm-yyyy HH:mm". Try Again!
+Enter Input: 
+ChatterBox: Got it. I've added this task:
+[E] [ ] project meeting (from: Mon 2pm to: 4pm)
+
+ChatterBox: You now have 3 tasks in the list.
+Enter Input: 
+ChatterBox: Nice! I've marked this task as done:
+[T] [X] borrow book
+Enter Input: 
+ChatterBox: Nice! I've marked this task as done:
+[E] [X] project meeting (from: Mon 2pm to: 4pm)
+Enter Input: 
+ChatterBox: Here are the tasks in your list:
+1.[T] [X] borrow book
+2.[D] [ ] return book (by: Dec 18 2025 18:00)
+3.[E] [X] project meeting (from: Mon 2pm to: 4pm)
+
+Enter Input: 
+ChatterBox: OK, I've marked this task as not done yet:
+[E] [ ] project meeting (from: Mon 2pm to: 4pm)
+Enter Input: 
+ChatterBox: Here are the tasks in your list:
+1.[T] [X] borrow book
+2.[D] [ ] return book (by: Dec 18 2025 18:00)
+3.[E] [ ] project meeting (from: Mon 2pm to: 4pm)
+
+Enter Input: 
+ChatterBox: Invalid command! Try Again!
+Enter Input: 
+ChatterBox: Invalid Input! Try: mark <index>
+Enter Input: 
+ChatterBox: Invalid index! You can only mark tasks between 1 and 3.
+Enter Input: 
+ChatterBox: Invalid Input! Try: unmark <index>
+Enter Input: 
+ChatterBox: Invalid Index! You can only unmark tasks between 1 and 3.
+Enter Input: 
+ChatterBox: Uh oh! You forgot to include a description for your todo task! Try again!
+Enter Input: 
+ChatterBox: Uh oh! You forgot to include a description for your deadline task! Try again!
+Enter Input: 
+ChatterBox: Uh oh! You forgot to include the delimiter:  /by 
+Enter Input: 
+ChatterBox: Uh oh! You forgot to include the delimiter:  /by 
+Enter Input: 
+ChatterBox: Uh oh! You forgot to include a description for your event task! Try again!
+Enter Input: 
+ChatterBox: Uh oh! You forgot to include the delimiter:  /from 
+Enter Input: 
+ChatterBox: Uh oh! You forgot to include the delimiter:  /to 
+Enter Input: 
+ChatterBox: Uh oh! You forgot to include the delimiter:  /from 
+Enter Input: 
+ChatterBox: Invalid Input! Try: delete <index>
+Enter Input: 
+ChatterBox: Invalid index! You can only delete tasks between 1 and 3.
+Enter Input: 
+ChatterBox: Noted. I've removed this task:
+[D] [ ] return book (by: Dec 18 2025 18:00)
+
+ChatterBox: Now you have 2 tasks in the list.
+Enter Input: 
+ChatterBox: Here are the tasks in your list:
+1.[T] [X] borrow book
+2.[E] [ ] project meeting (from: Mon 2pm to: 4pm)
+
+Enter Input: 
+ChatterBox: Uh oh! You forgot to include a description to search for! Try Again!
+Enter Input: 
+ChatterBox: Here are the matching tasks in your list:
+1.[T] [X] borrow book
+
+Enter Input: 
+ChatterBox: There are no items in your list with that description.
+Enter Input: 
+ChatterBox: Here are the matching tasks in your list:
+1.[E] [ ] project meeting (from: Mon 2pm to: 4pm)
+
+Enter Input: 
+ChatterBox: Bye. Hope to see you again soon!
