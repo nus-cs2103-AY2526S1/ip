@@ -1,0 +1,14 @@
+D | 0 | return book | 2025-12-02T18:00
+E | 1 | project meeting | 2025-10-10T14:00 | 2025-10-10T16:00
+T | 0 | read book
+D | 0 | return book | 2025-12-02T18:00
+E | 0 | project meeting | 2025-10-02T14:00 | 2025-10-02T16:00
+T | 0 | Buy groceries: milk, bread, eggs, and cheese for the weekend
+D | 0 | Submit final report with all appendices and references | 2024-12-30T17:00
+E | 0 | Annual company retreat planning session with all department heads | 2025-01-15T09:00 | 2025-01-15T17:00
+T | 0 | Buy grocerie
+D | 0 | Submit assignment | 2024-12-25T23:59
+E | 0 | Team meeting | 2024-12-20T14:00 | 2024-12-20T16:00
+T | 0 | test task
+T | 0 | Buy milk
+T | 0 | test task
