@@ -84,9 +84,10 @@ public class Skye {
      * @param find A string to search for
      */
     public void findTask(String find) {
-        for (Task task : this.tasks) {
-            if (task.containName(find)) {
-                printString(task.toString());
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.containsName(find)) {
+                printString((i + 1) + ". " + task);
             }
         }
     }
@@ -115,7 +116,7 @@ public class Skye {
                     addTask(task);
                 } else if (Objects.equals(data[0], "E")) {
                     LocalDate dateFrom = LocalDate.parse(data[3]);
-                    LocalDate dateBy = LocalDate.parse(data[4]);;
+                    LocalDate dateBy = LocalDate.parse(data[4]);
                     Event task = new Event(data[2], dateFrom, dateBy);
                     if (Objects.equals(data[1], "Y")) {
                         task.setTaskComplete();
@@ -210,8 +211,7 @@ public class Skye {
                         throw new ErrorFieldException("deadline", "by");
                     }
                     inst.addTask(new Deadline(content[0], dateBy));
-                }
-                else if (userInput.startsWith("event")) {
+                } else if (userInput.startsWith("event")) {
                     if (userInputContent.length < 2) {
                         throw new MissingFieldException("event", "description");
                     }
@@ -235,6 +235,11 @@ public class Skye {
                         throw new ErrorFieldException("event", "by");
                     }
                     inst.addTask(new Event(eventDetails[0], dateFrom, dateBy));
+                } else if (userInput.startsWith("find")) {
+                    if (userInputContent.length < 2) {
+                        throw new MissingFieldException("find", "description");
+                    }
+                    inst.findTask(userInputContent[1]);
                 } else {
                     throw new UnknownCommandException();
                 }
