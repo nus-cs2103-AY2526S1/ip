@@ -30,7 +30,7 @@ public class Skye {
         tasks.add(task);
         printString("Got it. I've added this task:");
         printString("  " + task.toString());
-        printString("Now you have " + this.tasks.size() + " tasks in the list.");
+        printString("Now you have " + tasks.size() + " tasks in the list.");
         saveFile();
     }
 
@@ -39,8 +39,8 @@ public class Skye {
      */
     public void listTask() {
         printString("Here are the list of tasks:");
-        for (int i = 0; i < this.tasks.size(); i++) {
-            printString((i + 1) + ". " + this.tasks.get(i));
+        for (int i = 0; i < tasks.size(); i++) {
+            printString((i + 1) + ". " + tasks.get(i));
         }
     }
 
@@ -48,7 +48,7 @@ public class Skye {
      * Marks a task as complete
      */
     public void markTask(int number) {
-        Task task = this.tasks.get(number - 1);
+        Task task = tasks.get(number - 1);
         task.setTaskComplete();
         printString("Well done! The task below has been completed:");
         printString(String.valueOf(task));
@@ -60,7 +60,7 @@ public class Skye {
      */
     public void unmarkTask(int number) {
         printString("Ok, I have marked the task below as incomplete:");
-        Task task = this.tasks.get(number - 1);
+        Task task = tasks.get(number - 1);
         task.setTaskIncomplete();
         printString(String.valueOf(task));
         saveFile();
@@ -71,11 +71,11 @@ public class Skye {
      * @param number The number of the task to delete
      */
     public void deleteTask(int number) {
-        Task task = this.tasks.get(number - 1);
-        this.tasks.remove(number - 1);
+        Task task = tasks.get(number - 1);
+        tasks.remove(number - 1);
         printString("Got it. I have deleted this task:");
         printString(String.valueOf(task));
-        printString("Now you have " + this.tasks.size() + " tasks in the list.");
+        printString("Now you have " + tasks.size() + " tasks in the list.");
         saveFile();
     }
 
@@ -84,7 +84,7 @@ public class Skye {
      * @param find A string to search for
      */
     public void findTask(String find) {
-        for (Task task : this.tasks) {
+        for (Task task : tasks) {
             if (task.containName(find)) {
                 printString(task.toString());
             }
@@ -115,7 +115,7 @@ public class Skye {
                     addTask(task);
                 } else if (Objects.equals(data[0], "E")) {
                     LocalDate dateFrom = LocalDate.parse(data[3]);
-                    LocalDate dateBy = LocalDate.parse(data[4]);;
+                    LocalDate dateBy = LocalDate.parse(data[4]);
                     Event task = new Event(data[2], dateFrom, dateBy);
                     if (Objects.equals(data[1], "Y")) {
                         task.setTaskComplete();
@@ -136,7 +136,7 @@ public class Skye {
      */
     private void saveFile() {
         try (FileWriter myWriter = new FileWriter(DATA_FILE_PATH)) {
-            for (Task task : this.tasks) {
+            for (Task task : tasks) {
                 myWriter.write(task.getTaskData()+"\n");
             }
         } catch (IOException e) {

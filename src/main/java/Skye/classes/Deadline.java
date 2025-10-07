@@ -8,7 +8,7 @@ public class Deadline extends Task{
 
     public Deadline(String name, LocalDate date) {
         super(name);
-        this.dueDate = date;
+        dueDate = date;
     }
 
     @Override
@@ -19,12 +19,12 @@ public class Deadline extends Task{
     @Override
     public String toString() {
         return String.format("[%s]%s (by: %s)" , getTaskType(), super.toString(),
-                this.dueDate.format(DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT)));
+                dueDate.format(DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT)));
     }
 
     @Override
     public String getTaskData() {
         return String.format("%s|%s", super.getTaskData(),
-                this.dueDate.format(DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT)));
+                dueDate.format(DateTimeFormatter.ofPattern(Task.DATE_TIME_FORMAT)));
     }
 }

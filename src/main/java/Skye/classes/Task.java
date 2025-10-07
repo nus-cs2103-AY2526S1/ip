@@ -5,20 +5,20 @@ public class Task {
     protected static final String DATE_TIME_FORMAT = "MMM dd yyyy";
 
     public Task(String name) {
-        this.taskName = name;
-        this.isComplete = false;
+        taskName = name;
+        isComplete = false;
     }
 
     public void setTaskComplete() {
-        this.isComplete = true;
+        isComplete = true;
     }
 
     public void setTaskIncomplete() {
-        this.isComplete = false;
+        isComplete = false;
     }
 
     public String getStatusIcon() {
-        return (this.isComplete ? "X" : " ");
+        return (isComplete ? "X" : " ");
     }
 
     public String getTaskType() {
@@ -27,7 +27,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", getStatusIcon(), this.taskName);
+        return String.format("[%s] %s", getStatusIcon(), taskName);
     }
 
     /**
@@ -35,7 +35,7 @@ public class Task {
      * @return String of the correct format for data file write
      */
     public String getTaskData() {
-        return String.format("%s|%s|%s", getTaskType(), (this.isComplete ? "Y" : "N"), this.taskName);
+        return String.format("%s|%s|%s", getTaskType(), (isComplete ? "Y" : "N"), taskName);
     }
 
     /**
@@ -44,6 +44,6 @@ public class Task {
      * @return boolean
      */
     public boolean containName(String name){
-        return this.taskName.contains(name);
+        return taskName.contains(name);
     }
 }
