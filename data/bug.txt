@@ -1,0 +1,4 @@
+T | 1 | buy groceries
+D | 0 | book flight tickets | 2025-10-15
+E | 0 | birthday party | 2025-12-25T18:00 | 2025-12-25T22:00
+T | 1 | buy brandy

@@ -1,0 +1,36 @@
+.text-flow {
+     -fx-background-color: #faf7dc;
+     -fx-border-color: #faf7dc;
+     -fx-border-width: 2px;
+     -fx-background-radius: 1em 1em 0 1em;
+     -fx-border-radius: 1em 1em 0 1em;
+     -fx-padding: 6px;
+     -fx-border-insets: 0px 7px 0px 7px;
+     -fx-background-insets: 0px 7px 0px 7px;
+     -fx-max-width: 300px;
+     -fx-pref-width: -1;
+     -fx-min-width: -1;
+}
+
+.dialog-text {
+    -fx-fill: black;  /* Replace the ladder() function with this */
+    -fx-font-size: 14px;
+}
+
+.reply-text-flow {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+
