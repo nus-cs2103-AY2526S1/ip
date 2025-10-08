@@ -1,30 +1,30 @@
 # Atlas User Guide
 
-// Update the title above to match the actual product name
+![Atlas UI](Ui.png)
 
-// Product screenshot goes here
+Atlas is a task list that will carry your burdens together with you.
 
-// Product intro goes here
+## Adding todos
+Action: adds a todo task
+Usage: `todo <desc>`
+Example: `todo read a book`
 
 ## Adding deadlines
+Action: adds a deadline task
+Usage: `deadline <desc> /by <datetime>`
+Example: `deadline submit assignment /by 28/8/2025 1800`
 
-// Describe the action and its outcome.
+## Adding events
+Action: adds a event task
+Usage: `event <desc> /from <datetime> /to <datetime>`
+Example: `event project meeting /from 16/9/2025 1400 /to 16/9/2025 1600`
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+## Other commands
+```text
+- help: to see full list of commands
+- list or ls: to see the full list of saved tasks
+- delete <x> or del <x>: to delete task x
+- mark <x>: to mark task x as completed
+- unmark <x>: to mark task x as incomplete
+- find <keyword>: to find task with matching keyword
 ```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
