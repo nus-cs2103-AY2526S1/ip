@@ -16,16 +16,17 @@ Adds a task with a description and a due date/time.
 The deadline will be stored in your task list until it is marked as done or deleted.
 
 **Format:**
-deadline **task name** /by <YYYY-MM-DD HHmm>
+`deadline task name /by <YYYY-MM-DD HHmm>`
 
 **Example:**
-deadline CS2103T iP submission /by 2025-09-30 2359
+`deadline CS2103T iP submission /by 2025-09-30 2359`
 
 **Expected output:**
+```
 Got it. I've added this task:
 [D][ ] CS2103T iP submission (by: Sep 30 2025 11:59PM)
 Now you have 1 task in the list.
-
+```
 ---
 
 ## Adding todos
@@ -33,16 +34,17 @@ Now you have 1 task in the list.
 Adds a task with only a description.
 
 **Format:**
-todo **task name**
+`todo task name`
 
 **Example:**
-todo buy milk
+`todo buy milk`
 
 **Expected output:**
+```
 Got it. I've added this task:
 [T][ ] buy milk
 Now you have 2 tasks in the list.
-
+```
 ---
 
 ## Adding events
@@ -50,16 +52,17 @@ Now you have 2 tasks in the list.
 Adds a task with a description, start, and end time.
 
 **Format:**
-event **task name** /from <YYYY-MM-DD HHmm> /to <YYYY-MM-DD HHmm>
+`event task name /from <YYYY-MM-DD HHmm> /to <YYYY-MM-DD HHmm>`
 
 **Example:**
-event team meeting /from 2025-10-01 1400 /to 2025-10-01 1600
+`event team meeting /from 2025-10-01 1400 /to 2025-10-01 1600`
 
 **Expected output:**
+```
 Got it. I've added this task:
 [E][ ] team meeting (from: Oct 1 2025 2:00PM to: Oct 1 2025 4:00PM)
 Now you have 3 tasks in the list.
-
+```
 ---
 
 ## Listing all tasks
@@ -67,14 +70,15 @@ Now you have 3 tasks in the list.
 Displays all tasks currently in your list.
 
 **Example:**
-list
+`list`
 
 **Expected output:**
+```
 Here are the tasks in your list:
 1.[T][ ] buy milk
 2.[D][ ] CS2103T iP submission (by: Sep 30 2025 11:59PM)
 3.[E][ ] team meeting (from: Oct 1 2025 2:00PM to: Oct 1 2025 4:00PM)
-
+```
 ---
 
 ## Marking and unmarking tasks
@@ -82,17 +86,18 @@ Here are the tasks in your list:
 Marks a task as done, or unmarks it as not done.
 
 **Format:**
-mark <task number>
-unmark <task number>
+`mark <task number>`  
+`unmark <task number>`
 
 
 **Example:**
-mark 1
+`mark 1`
 
 **Expected output:**
+```
 Nice! I've marked this task as done:
 [T][X] buy milk
-
+```
 ---
 
 ## Deleting tasks
@@ -100,15 +105,17 @@ Nice! I've marked this task as done:
 Removes a task from your list.
 
 **Format:**
-delete <task number>
+`delete <task number>`
 
 **Example:**
-delete 2
+`delete 2`
 
 **Expected output:**
+```
 Noted. I've removed this task:
 [D][ ] CS2103T iP submission (by: Sep 30 2025 11:59PM)
 Now you have 2 tasks in the list.
+```
 
 ---
 
@@ -117,17 +124,18 @@ Now you have 2 tasks in the list.
 Finds tasks containing the given keyword(s).
 
 **Format:**
-find <keyword>
+`find <keyword>`
 
 
 **Example:**
-find meeting
+`find meeting`
 
 
 **Expected output:**
+```
 Here are the matching tasks in your list:
 1.[E][ ] team meeting (from: Oct 1 2025 2:00PM to: Oct 1 2025 4:00PM)
-
+```
 ---
 
 ## Sorting tasks
@@ -135,17 +143,19 @@ Here are the matching tasks in your list:
 Sorts tasks by deadline, event start, or event end.
 
 **Format:**
-sort deadline
-sort event start
-sort event end
+`sort deadline`    
+`sort event start`  
+`sort event end`  
 
 **Example:**
-sort deadline
+`sort deadline`
 
 **Expected output:**
-Here are the tasks in your list:
+```
+Here are the tasks in your list:  
 1.[D][ ] CS2103T iP submission (by: Sep 30 2025 11:59PM)
 2.[D][ ] Math Assignment (by: Dec 13 2025 12:15PM)
+```
 
 ---
 
@@ -154,7 +164,7 @@ Here are the tasks in your list:
 Exits Weewee.
 
 **Example:**
-bye
+`bye`
 
 **Expected output:**
-Bye. Hope to see you again soon! smoochsmooch <3
+`Bye. Hope to see you again soon! smoochsmooch <3`
