@@ -1,0 +1,124 @@
+package chatbot.task;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
+/**
+ * Represents a list of {@link Task} objects.
+ * Provides methods to add, remove, retrieve, and display tasks.
+ */
+public class TaskList {
+
+    private final ArrayList<Task> tasks; // Internal storage for tasks
+
+    /**
+     * Constructs a TaskList with a predefined list of tasks.
+     *
+     * @param tasks An {@link ArrayList} of tasks to initialize the list.
+     */
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    /**
+     * Constructs an empty TaskList.
+     */
+    public TaskList() {
+        this(new ArrayList<>()); // Delegate to the other constructor
+    }
+
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The {@link Task} to be added.
+     */
+    public void addTask(Task task) {
+        this.tasks.add(task);
+    }
+
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param task The {@link Task} to be removed.
+     */
+    public void deleteTask(Task task) {
+        this.tasks.remove(task);
+    }
+
+    /**
+     * Returns the list of all tasks.
+     *
+     * @return An {@link ArrayList} of {@link Task} objects.
+     */
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
+
+    /**
+     * Returns the total number of tasks in the list.
+     *
+     * @return Total number of tasks.
+     */
+    public int getTotalTasks() {
+        return this.tasks.size();
+    }
+
+    /**
+     * Retrieves a task at the specified index.
+     *
+     * @param index Zero-based index of the task.
+     * @return The {@link Task} at the given index.
+     * @throws IndexOutOfBoundsException If the index is out of range.
+     */
+    public Task getSpecificTask(int index) {
+        return this.tasks.get(index);
+    }
+
+    /**
+     * Returns a new {@link TaskList} containing only the tasks that match
+     * the given predicate.
+     *
+     * @param predicate A {@link Predicate} to test each task.
+     * @return A new {@link TaskList} with tasks that satisfy the predicate.
+     */
+    public TaskList filter(Predicate<Task> predicate) {
+        // Filter tasks using the provided predicate
+        Stream<Task> filteredStream = this.tasks.stream().filter(predicate);
+        ArrayList<Task> filteredTasks = new ArrayList<>(filteredStream.toList());
+        return new TaskList(filteredTasks);
+    }
+
+    public TaskList sort(Comparator<Task> comparator) {
+        Stream<Task> sortedStream = this.tasks.stream().sorted(comparator);
+        ArrayList<Task> sortedTasks = new ArrayList<>(sortedStream.toList());
+        return new TaskList(sortedTasks);
+    }
+
+    /**
+     * Returns the string representation of the task list,
+     * where each task is displayed on a new line with its index.
+     * <pre>
+     * 1.[T][ ] read book
+     * 2.[D][X] submit assignment (by: Dec 2 2025, 18:00)
+     * </pre>
+     *
+     * @return String representation of the task list.
+     */
+    @Override
+    public String toString() {
+        StringBuilder tasksString = new StringBuilder();
+
+        for (int i = 0; i < this.getTotalTasks(); i++) {
+            Task currentTask = this.tasks.get(i);
+            tasksString.append(String.format("%d.%s", i + 1, currentTask.toString()));
+
+            if (i < this.tasks.size() - 1) {
+                tasksString.append("\n"); // Add newline except for last task
+            }
+        }
+
+        return tasksString.toString();
+    }
+}

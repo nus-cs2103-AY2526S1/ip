@@ -1,0 +1,97 @@
+package chatbot;
+
+import java.util.Scanner;
+
+import chatbot.command.Parser;
+import chatbot.exception.ChatBotException;
+import chatbot.storage.Storage;
+import chatbot.task.TaskList;
+import chatbot.ui.Ui;
+
+/**
+ * The main class for the ChatBot application.
+ * Handles initialization of storage, task list, and UI,
+ * and manages the main interaction loop with the user.
+ */
+public class ChatBot {
+
+    private final Storage storage;
+    private TaskList tasks;
+    private final Ui ui;
+
+    /**
+     * Constructs a ChatBot instance with the specified storage file path.
+     * Loads existing tasks from storage, or initializes an empty task list if loading fails.
+     *
+     * @param filePath Path to the file where tasks are stored.
+     */
+    public ChatBot(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+
+        try {
+            // Load tasks from storage
+            tasks = new TaskList(storage.load());
+        } catch (ChatBotException e) {
+            // If loading fails, start with an empty task list and show error
+            tasks = new TaskList();
+            System.out.println(ui.showLoadingError(e));
+        }
+    }
+
+    /**
+     * Runs the main chatbot loop, interacting with the user through the console.
+     * Continuously reads user input, parses commands, and updates tasks until
+     * the {@code BYE} command is given.
+     * <p>
+     * The task list is saved to storage after each user input.
+     */
+    public void run() {
+        System.out.println(ui.showWelcomeMessage());
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            // Read user input
+            String input = scanner.nextLine();
+
+            try {
+                // Process input and print chatbot response
+                System.out.println(this.getResponse(input));
+            } catch (ChatBotException e) {
+                System.out.println(e.getMessage());
+            }
+
+            // Exit loop if input is "bye"
+            if (input.equals("bye")) {
+                break;
+            }
+        }
+    }
+
+    /**
+     * Entry point for the ChatBot application.
+     * Creates a new ChatBot instance and starts the interaction loop.
+     *
+     * @param args Command-line arguments (ignored).
+     */
+    public static void main(String[] args) {
+        new ChatBot("data/tasks.txt").run();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     * Saves the current task list to storage before processing.
+     *
+     * @param input Raw user input string.
+     * @return Response message to be shown to the user.
+     */
+    public String getResponse(String input) throws ChatBotException{
+        // Persist current tasks before handling new input
+        storage.saveToStorage(tasks);
+
+        Parser parser = new Parser(input);
+
+        // Parse input and execute command
+        return parser.handleInput(tasks, ui);
+    }
+}
