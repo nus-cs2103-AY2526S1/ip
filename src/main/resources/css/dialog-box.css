@@ -1,0 +1,23 @@
+.label {
+    /* Gradient in hot pink spectrum: bright pink to soft pink */
+    -fx-background-color: #ff66a3;
+    -fx-background-radius: 1em 0em 1em 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-font-size: 14px;
+    -fx-font-family: 'Iosevka Medium';
+}
+
+.reply-label {
+    -fx-background-radius: 0em 1em 1em 1em;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+#displayPicture {
+    /* Softer hot pink shadow */
+    /* -fx-effect: dropshadow(gaussian, rgba(255, 0, 123, 0.3), 10, 0.5, 5, 5); */
+
+    /* Keep original size and rotation */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+}
