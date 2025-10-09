@@ -33,8 +33,10 @@ public class Event extends Task implements Snoozeable {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + fromDate.format(DISPLAY_FORMATTER)
-                                        + " to: " + toDate.format(DISPLAY_FORMATTER) + ")";
+        return "[E]"
+                + super.toString()
+                + " (from: " + fromDate.format(DISPLAY_FORMATTER)
+                + " to: " + toDate.format(DISPLAY_FORMATTER) + ")";
     }
 
     @Override

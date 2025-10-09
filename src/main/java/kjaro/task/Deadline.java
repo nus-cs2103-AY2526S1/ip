@@ -29,7 +29,9 @@ public class Deadline extends Task implements Snoozeable {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + dueDate.format(DISPLAY_FORMATTER) + ")";
+        return "[D]"
+                + super.toString()
+                + " (by: " + dueDate.format(DISPLAY_FORMATTER) + ")";
     }
 
     @Override
