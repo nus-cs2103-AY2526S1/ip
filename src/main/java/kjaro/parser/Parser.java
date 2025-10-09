@@ -120,6 +120,7 @@ public class Parser {
         }
         ToDo toDo = new ToDo(arguments);
         taskList.addToTasks(toDo);
+        save();
         return ui.formatMessage(Messages.TASK_ADDED_MESSAGE, toDo.toString());
     }
 
@@ -142,6 +143,7 @@ public class Parser {
             LocalDate ldDeadlineBy = LocalDate.parse(deadlineBy);
             Deadline deadline = new Deadline(deadlineName, ldDeadlineBy);
             taskList.addToTasks(deadline);
+            save();
             return ui.formatMessage(Messages.TASK_ADDED_MESSAGE, deadline.toString());
         } catch (DateTimeParseException e) {
             return ui.formatErrorMessage(Messages.DATE_ERROR);
@@ -170,6 +172,7 @@ public class Parser {
             LocalDate ldEventTo = LocalDate.parse(eventTo);
             Event event = new Event(eventName, ldEventFrom, ldEventTo);
             taskList.addToTasks(event);
+            save();
             return ui.formatMessage(Messages.TASK_ADDED_MESSAGE, event.toString());
 
         } catch (DateTimeParseException e) {
@@ -191,6 +194,7 @@ public class Parser {
         int taskNumber = Integer.valueOf(matcher.group("taskNumber"));
         try {
             Task task = taskList.markTaskDone(taskNumber);
+            save();
             return ui.formatMessage(Messages.MARK_MESSAGE.apply(taskNumber), task.toString());
         } catch (IndexOutOfBoundsException e) {
             return ui.formatErrorMessage(Messages.TASK_OOB_ERROR);
@@ -211,6 +215,7 @@ public class Parser {
         int taskNumber = Integer.valueOf(matcher.group("taskNumber"));
         try {
             Task task = taskList.markTaskUndone(taskNumber);
+            save();
             return ui.formatMessage(Messages.UNMARK_MESSAGE.apply(taskNumber), task.toString());
         } catch (IndexOutOfBoundsException e) {
             return ui.formatErrorMessage(Messages.TASK_OOB_ERROR);
@@ -231,6 +236,7 @@ public class Parser {
         int taskNumber = Integer.valueOf(matcher.group("taskNumber"));
         try {
             Task task = taskList.deleteTask(taskNumber);
+            save();
             return ui.formatMessage(Messages.DELETE_MESSAGE.apply(taskNumber), task.toString());
         } catch (IndexOutOfBoundsException e) {
             return ui.formatErrorMessage(Messages.TASK_OOB_ERROR);
@@ -275,6 +281,7 @@ public class Parser {
 
         Snoozeable snoozeTask = (Snoozeable) task;
         snoozeTask.snooze(snoozeDays);
+        save();
         return ui.formatMessage(Messages.SNOOZE_MESSAGE, snoozeTask.toString());
     }
 }
