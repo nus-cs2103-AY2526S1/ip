@@ -10,6 +10,6 @@ public class InvalidInputException extends JimbotException {
     public InvalidInputException(String userInput) {
         super("Oops I don't recognize this command:\n"
                 + "  \"" + userInput + "\"\n"
-                + "Type \"help\" for the list possible commands.");
+                + "Type \"help\" for the list of possible commands.");
     }
 }
