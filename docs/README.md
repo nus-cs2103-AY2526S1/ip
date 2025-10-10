@@ -47,8 +47,8 @@
 
 ## 💾 Where Your Data Lives
 
-- Goober stores tasks in a simple text file so they persist between runs:
-    - Default: `./data/goober.txt` (created automatically on first save)
+- Goober stores tasks in a simple ser file in the same directory it is in so they persist between runs:
+    - Default: `GooberTasks.ser` (created automatically on first save)
 - You can back up or sync this file like any other document.
 
 ---
