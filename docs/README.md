@@ -2,7 +2,7 @@
 
 Welcome to **UberSuper**, your friendly assistant for managing tasks and clients.
 
-![App Screenshot](/docs/Ui.png.png)
+![App Screenshot](Ui.png)
 ---
 
 ## Quick Start
