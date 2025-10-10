@@ -4,6 +4,8 @@
 
 Ineffa is a bot that help you to track tasks that you need to do.
 
+> ⚠️ **Important:** To ensure task list is stored locally, you **must** use the `bye` command upon exiting program.
+
 ## Adding Deadlines
 
 `todo [Task description of any length and spacing]`
