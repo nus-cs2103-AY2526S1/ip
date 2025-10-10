@@ -2,15 +2,18 @@
 
 Welcome to **UberSuper**, your friendly assistant for managing tasks and clients.
 
+> “Do more, type less — UberSuper keeps your workflow supercharged.” 
+> 
 ![App Screenshot](Ui.png)
 ---
 
 ## Quick Start
 1. Download the latest release from [GitHub Releases](../../releases).
 2. Open a terminal and run:
-   ```bash
+   ```
    java -jar ubersuper.jar
-Start typing commands!
+   ```
+3. Start typing commands!
 
 ## Features
 ### Task Management
