@@ -1,13 +1,13 @@
 package ubersuper.utils.ui;
 
-import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ubersuper.UberSuper;
+
+import java.io.IOException;
 
 
 /**
