@@ -210,7 +210,6 @@ public class TaskList extends ArrayList<Task> {
      * Lists deadlines/events that occur on a specific date (Todos are ignored).
      * <p>Expected formats: {@code onDate yyyy-MM-dd} or {@code onDate d/M/uuuu}.</p>
      * <p>
-     * Behavior:
      * <ul>
      *   <li>Deadlines match if their date equals the given day.</li>
      *   <li>Events match if the day overlaps the inclusive range
@@ -220,53 +219,62 @@ public class TaskList extends ArrayList<Task> {
      * </p>
      *
      * @param input full user input line, e.g., {@code "onDate 2019-12-02"}
+     * @return A formatted string listing all matching tasks, or an error message if input is invalid.
      * @throws UberExceptions if the date cannot be parsed
      */
-    public String onDate(String input) throws UberExceptions {
-        String[] parts = input.split("\\s+", 2);
-        if (parts.length < 2) {
-            throw new UberExceptions("Use: onDate <yyyy-mm-dd | dd/MM/yyyy>");
-        }
-        LocalDate day;
-        String raw = parts[1].trim();
+    public String onDate(String input) {
         try {
-            day = LocalDate.parse(raw);
-        } catch (DateTimeParseException ex) {
-            try {
-                DateTimeFormatter f = DateTimeFormatter.ofPattern("d/M/uuuu");
-                day = LocalDate.parse(raw, f);
-            } catch (DateTimeParseException e) {
-                throw new UberExceptions("Use: onDate <yyyy-mm-dd | dd/MM/yyyy>");
-            }
+            LocalDate date = Parser.parseDateInput(input);
+            String results = findTasksOnDate(date);
+            return formatResults(date, results);
+        } catch (UberExceptions e) {
+            return Ui.printLine() + e.getMessage() + "\n" + Ui.printLine();
         }
-
-        LocalDate finalDay = day;
+    }
+    /**
+     * Finds all tasks in the current task list that occur on the given date.
+     * Includes both {@link Deadline} and {@link Event} tasks that match or overlap the specified date.
+     *
+     * @param date The {@link LocalDate} to search for.
+     * @return A formatted string listing all matching tasks, or "(No items.)" if none are found.
+     */
+    private String findTasksOnDate(LocalDate date) {
         String results = IntStream.range(0, this.size())
-                .mapToObj(i -> {
-                    Task t = this.get(i);
-                    assert t != null : "Task in TaskList should not be null";
-                    if (t instanceof Deadline d) {
-                        if (d.isOnDate(finalDay)) {
-                            return ++i + ". " + t;
-                        }
-                    } else if (t instanceof Event ev) {
-                        // consider an event "occurring on" if any part of it touches that date
-                        if (ev.isOnDate(finalDay)) {
-                            return ++i + ". " + t;
-                        }
-                    }
-                    return null;
-                })
+                .mapToObj(i -> formatIfOnDate(i, this.get(i), date))
                 .filter(Objects::nonNull)
                 .collect(Collectors.joining("\n"));
 
-        if (results.isBlank()) {
-            results = "(No items.)";
-        }
-        return "Items on " + day.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ": \n"
-                + results;
+        return results.isBlank() ? "(No items.)" : results;
     }
+    /**
+     * Returns a formatted string of the task if it occurs on the specified date.
+     *
+     * @param index The index of the task in the task list.
+     * @param task  The {@link Task} to evaluate.
+     * @param date  The {@link LocalDate} being checked.
+     * @return A formatted string if the task is on the given date, or {@code null} otherwise.
+     */
+    private String formatIfOnDate(int index, Task task, LocalDate date) {
+        assert task != null : "Task in TaskList should not be null";
 
+        if (task instanceof Deadline d && d.isOnDate(date)) {
+            return (index + 1) + ". " + task;
+        } else if (task instanceof Event e && e.isOnDate(date)) {
+            return (index + 1) + ". " + task;
+        }
+        return null;
+    }
+    /**
+     * Formats the output of the onDate command with a readable date and list of matching tasks.
+     *
+     * @param date    The {@link LocalDate} representing the queried date.
+     * @param results The string of matching tasks.
+     * @return Formatted message for display to the user.
+     */
+    private String formatResults(LocalDate date, String results) {
+        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        return "Items on " + date.format(outputFormat) + ":\n" + results;
+    }
     /**
      * Returns a String of all tasks with their 1-based indices.
      */

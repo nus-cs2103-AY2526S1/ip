@@ -2,14 +2,12 @@ package ubersuper.utils.storage;
 
 import ubersuper.clients.Client;
 import ubersuper.clients.ClientList;
-import ubersuper.tasks.Task;
-import ubersuper.tasks.TaskList;
 import ubersuper.utils.LoadedResult;
+import ubersuper.utils.Parser;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -32,54 +30,24 @@ public class ClientStorage extends DataStorage<ClientList> {
      * @return a {@link LoadedResult} containing the populated {@link ClientList}, number of clients loaded,
      * and number of lines skipped.
      **/
+    @Override
     public LoadedResult<ClientList> load() {
         ClientList clients = new ClientList(this);
-        int skipped = 0;
+
         try {
-            if (Files.notExists(dataPath.getParent())) {
-                Files.createDirectories(dataPath.getParent());
-            }
-            if (Files.notExists(dataPath)) {
-                Files.createFile(dataPath);
-                return new LoadedResult<ClientList>(clients, 0, 0);
-            }
+            ensureFileExists();
             List<String> lines = Files.readAllLines(dataPath, StandardCharsets.UTF_8);
-            // parse each line -> Task or null
-            List<Client> parsedTasks = lines.stream()
-                    .map(String::trim)
-                    .filter(line -> !line.isEmpty())
-                    .map(line -> {
-                        try {
-                            String[] parts = line.split("\\|");
-                            for (int i = 0; i < parts.length; i++) {
-                                parts[i] = parts[i].trim();
-                            }
+            List<Client> parsedClients = Parser.parseClientLines(lines);
 
-                            if (parts.length < 3) {
-                                return null;
-                            }
-                            String name = parts[0];
-                            String phone = parts[1];
-                            String email = parts[2];
-                            return new Client(name, phone, email);
-                        } catch (Exception e) {
-                            return null;
-                        }
-                    })
-                    .toList();
-
-            // add valid clients to ClientList
-            parsedTasks.stream()
+            parsedClients.stream()
                     .filter(Objects::nonNull)
                     .forEach(clients::add);
 
-            // count skipped lines
-            skipped = (int) parsedTasks.stream().filter(Objects::isNull).count();
+            int skipped = (int) parsedClients.stream().filter(Objects::isNull).count();
+            return new LoadedResult<>(clients, clients.size(), skipped);
 
-            return new LoadedResult<ClientList>(clients, clients.size(), skipped);
-
-        } catch (IOException ioe) {
-            return new LoadedResult<ClientList>(clients, 0, 0);
+        } catch (IOException e) {
+            return new LoadedResult<>(clients, 0, 0);
         }
     }
 
