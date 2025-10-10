@@ -33,6 +33,8 @@ Welcome to **UberSuper**, your friendly assistant for managing tasks and clients
 - **deleteclient `idx`**                        - Delete client by number
 - **findclient `name`**                         - Search clients by name
 
+### GUI 
+- **light/dark mode**
 
 Other Commands
 - **bye** - Exit the app
