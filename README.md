@@ -5,7 +5,7 @@ A sleek and efficient task management application that helps you stay organized 
 ---
 
 ## 📸 Screenshot
-![Phuc Task Manager Interface](Ui.png)  
+![Phuc Task Manager Interface](docs/Ui.png)  
 *Main application interface showing task management features*
 
 ---
