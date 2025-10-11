@@ -1,18 +1,20 @@
 package kip.storage;
 
-import kip.task.Task;
-import kip.task.ToDo;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
 import java.io.File;
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import kip.task.Task;
+import kip.task.ToDo;
 
 public class StorageTest {
     
-    private static final String TEST_CSV_FILE = "src/main/java/kip/storage/tasks.csv";
+    private static final String TEST_CSV_FILE = "tasks.csv";
     private File originalFile;
     
     @BeforeEach
@@ -63,11 +65,9 @@ public class StorageTest {
     public void testFileLocation() {
         // Test that the file path is correct
         File file = new File(TEST_CSV_FILE);
-        String expectedPath = "src" + File.separator + "main" + File.separator + 
-                             "java" + File.separator + "kip" + File.separator + 
-                             "storage" + File.separator + "tasks.csv";
         
-        assertTrue(file.getPath().contains("kip" + File.separator + "storage"), 
-                  "File should be in the kip/storage directory");
+        // The file should be in the current directory (tasks.csv)
+        assertTrue(file.getPath().equals("tasks.csv") || file.getPath().endsWith("tasks.csv"), 
+                  "File should be tasks.csv in the current directory");
     }
 }

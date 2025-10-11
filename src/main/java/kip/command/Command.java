@@ -82,12 +82,9 @@ public enum Command {
      * @return The corresponding Command enum value, or null if no match is found
      */
     public static Command fromString(String text) {
-        if (text == null) {
+        if (text == null || text.trim().isEmpty()) {
             return null;
         }
-        
-        // Assert that text is not empty when not null
-        assert !text.trim().isEmpty() : "Command text must not be empty when not null";
         
         for (Command command : Command.values()) {
             if (command.commandString.equalsIgnoreCase(text)) {

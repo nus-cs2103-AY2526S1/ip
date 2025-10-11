@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'jacoco'
 }
 
 repositories {
@@ -39,6 +40,21 @@ test {
         showStackTraces true
         showStandardStreams = false
     }
+    
+    finalizedBy jacocoTestReport
+}
+
+jacoco {
+    toolVersion = "0.8.10"
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        html.required = true
+        csv.required = false
+    }
 }
 
 application {
@@ -51,5 +67,35 @@ shadowJar {
 }
 
 run{
+    standardInput = System.in
+    jvmArgs = [
+        '--module-path', classpath.asPath,
+        '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
+}
+
+// Add debug task for JavaFX applications
+task debugRun(type: JavaExec) {
+    group = 'application'
+    description = 'Runs the application in debug mode'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'kipgui.Launcher'
+    jvmArgs = [
+        '--module-path', classpath.asPath,
+        '--add-modules', 'javafx.controls,javafx.fxml',
+        '-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5055'
+    ]
+    standardInput = System.in
+}
+
+// Add debug task for console application
+task debugConsole(type: JavaExec) {
+    group = 'application'
+    description = 'Runs the console application in debug mode'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'kip.Kip'
+    jvmArgs = [
+        '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005'
+    ]
     standardInput = System.in
 }
