@@ -39,7 +39,7 @@ public class Finder {
      * @return          The closest matching keyword if within the threshold, or "No Command Found".
      */
     public static String fuzzyMatch(String command) {
-        int maxDistThreshold = 2;
+        int maxDistThreshold = 1;
         LevenshteinDistance levDist = new LevenshteinDistance();
         List<String> keywords = List.of("list", "bye", "mark", "find",
                 "delete", "todo", "deadline", "event");
