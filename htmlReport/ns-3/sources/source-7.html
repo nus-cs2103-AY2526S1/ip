@@ -1,0 +1,167 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ListCommand</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">brobot.commands</a>
+</div>
+
+<h1>Coverage Summary for Class: ListCommand (brobot.commands)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ListCommand</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package brobot.commands;
+&nbsp;
+&nbsp;import brobot.FileIoStatus;
+&nbsp;import brobot.TaskList;
+&nbsp;import brobot.brobotexceptions.SomeArgsLeftException;
+&nbsp;
+&nbsp;/**
+&nbsp; * This command is created for listing the tasks in the tasklist to the user.
+&nbsp; */
+&nbsp;public final class ListCommand extends Command {
+<b class="nc">&nbsp;    private static ListCommand listCommandSingleton = null;</b>
+&nbsp;    private ListCommand() {
+<b class="nc">&nbsp;        super(&quot;list&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static ListCommand getSingleton() {
+<b class="nc">&nbsp;        if (ListCommand.listCommandSingleton == null) {</b>
+<b class="nc">&nbsp;            ListCommand.listCommandSingleton = new ListCommand();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return ListCommand.listCommandSingleton;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param commandName
+&nbsp;     *     The command name that generated the new instance.
+&nbsp;     *
+&nbsp;     * @param commandArgs
+&nbsp;     *     The command arguments.
+&nbsp;     *
+&nbsp;     * @return
+&nbsp;     *     A new instance of ListCommand.
+&nbsp;     *
+&nbsp;     * @throws SomeArgsLeftException
+&nbsp;     *     This exception is thrown iff there is a problem parsing the commandArgs.
+&nbsp;     */
+&nbsp;    public static ListCommand makeCommand(final String commandName,
+&nbsp;        final String... commandArgs) throws SomeArgsLeftException {
+&nbsp;
+<b class="nc">&nbsp;        if (commandArgs.length != 0) {</b>
+<b class="nc">&nbsp;            throw SomeArgsLeftException.fromCommandName(commandName);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return ListCommand.getSingleton();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public FileIoStatus sendBrobotMessage() {
+<b class="nc">&nbsp;        return FileIoStatus.makeSuccessStatus(TaskList.getSingleton().toString());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-12 18:36</div>
+</div>
+</body>
+</html>

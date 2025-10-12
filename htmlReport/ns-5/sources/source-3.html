@@ -1,0 +1,384 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Task</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">brobot.tasks</a>
+</div>
+
+<h1>Coverage Summary for Class: Task (brobot.tasks)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Task</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    60%
+  </span>
+  <span class="absValue">
+    (9/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    16.1%
+  </span>
+  <span class="absValue">
+    (5/31)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    37.5%
+  </span>
+  <span class="absValue">
+    (27/72)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package brobot.tasks;
+&nbsp;
+&nbsp;import java.util.function.BiFunction;
+&nbsp;
+&nbsp;import brobot.BroBot;
+&nbsp;import brobot.BrobotFileIoSerializable;
+&nbsp;import brobot.brobotexceptions.BrobotCommandFormatException;
+&nbsp;import brobot.brobotexceptions.BrobotDateFormatException;
+&nbsp;
+&nbsp;/**
+&nbsp; * Abstract Base Class for the Tasks the user creates.
+&nbsp; *
+&nbsp; * Tasks can be serialized and deserialized for File IO (custom rules)
+&nbsp; * because the interface BrobotFileIoSerializable is implemented.
+&nbsp; */
+&nbsp;public abstract class Task implements BrobotFileIoSerializable {
+<b class="fc">&nbsp;    private static int nextFreeID = 1;</b>
+&nbsp;
+&nbsp;    private final String baseObjective;
+&nbsp;    private final int id;
+&nbsp;    private final String commandName;
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;    private String baseLogMessage = null;</b>
+&nbsp;
+<b class="fc">&nbsp;    private boolean isDone = false;</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param baseObjective
+&nbsp;     *     The description of the task.
+&nbsp;     *
+&nbsp;     * @param commandName
+&nbsp;     *     The name of the command that generated the task.
+&nbsp;     */
+<b class="fc">&nbsp;    Task(final String baseObjective, final String commandName) {</b>
+<b class="fc">&nbsp;        id = Task.nextFreeID;</b>
+<b class="fc">&nbsp;        this.baseObjective = baseObjective;</b>
+<b class="fc">&nbsp;        this.commandName = commandName;</b>
+<b class="fc">&nbsp;        Task.nextFreeID++;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param o
+&nbsp;     *     The reference object with which to compare.
+&nbsp;     *
+&nbsp;     * @return
+&nbsp;     *     Since no two tasks are the same, referential equality suffices here.
+&nbsp;     *     This will run in O(1) time and require O(1) extra space per call to equals here.
+&nbsp;     *
+&nbsp;     *     Checks whether the invocation target is the same object in memory as the other object.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public final boolean equals(final Object o) {
+<b class="nc">&nbsp;        return this == o;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @return
+&nbsp;     *     A hashCode for this task based on its ID.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public final int hashCode() {
+<b class="nc">&nbsp;        return id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Marks this task as done.
+&nbsp;     */
+&nbsp;    public void mark() {
+<b class="fc">&nbsp;        isDone = true;</b>
+<b class="fc">&nbsp;        baseLogMessage = null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Unmarks this task to show that it is not done yet.
+&nbsp;     */
+&nbsp;    public void unmark() {
+<b class="fc">&nbsp;        isDone = false;</b>
+<b class="fc">&nbsp;        baseLogMessage = null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @return
+&nbsp;     *     Returns a user-friendly display of the task.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="fc">&nbsp;        if (baseLogMessage == null) {</b>
+<b class="fc">&nbsp;            baseLogMessage = String.format(BroBot.ENGLISH_LANGUAGE,</b>
+&nbsp;                    &quot;[%c][%c] %s&quot;,
+<b class="fc">&nbsp;                    Character.toUpperCase(commandName.charAt(0)), ((isDone) ? &#39;X&#39; : &#39; &#39;),</b>
+&nbsp;                    baseObjective);
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return baseLogMessage;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private String getBaseObjective() {
+<b class="nc">&nbsp;        return baseObjective;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private String getTaskDescription() {
+<b class="nc">&nbsp;        return getBaseObjective();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param keyword
+&nbsp;     *     The keyword to search for in the task (literal string).
+&nbsp;     *
+&nbsp;     * @return
+&nbsp;     *     A boolean indicating whether the task description contains the keyword passed in (literal strings).
+&nbsp;     */
+&nbsp;    public final boolean findKeywordInTaskDescriptionIgnoreCase(final String keyword) {
+<b class="nc">&nbsp;        final String taskDescription = getTaskDescription();</b>
+<b class="nc">&nbsp;        return taskDescription.toLowerCase(BroBot.ENGLISH_LANGUAGE).contains(keyword.toLowerCase(BroBot.ENGLISH_LANGUAGE));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @return
+&nbsp;     *     A serialized version of the task for file IO (according to BroBot domain rules).
+&nbsp;     */
+&nbsp;    public String toFileReport() {
+<b class="fc">&nbsp;        return String.join(System.lineSeparator(),</b>
+&nbsp;                           commandName,
+&nbsp;                            isDone + &quot;&quot;,
+&nbsp;                            baseObjective,
+&nbsp;                           &quot;&quot;,
+&nbsp;                           &quot;&quot;);
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param fileReport
+&nbsp;     *     The file report in task-serialized format (according to BroBot domain rules).
+&nbsp;     *
+&nbsp;     * @return
+&nbsp;     *     A Task instance deserialized from the file report by this factory constructor.
+&nbsp;     */
+&nbsp;    public static final Task fromFileReport(final String fileReport) {
+<b class="nc">&nbsp;        final String[] fileReportLines = fileReport.split(System.lineSeparator());</b>
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            switch (fileReportLines.length) {</b>
+&nbsp;
+&nbsp;            // Fallthrough
+&nbsp;            case 3: {
+<b class="nc">&nbsp;                final Task ans = new ToDoTask(fileReportLines[2], fileReportLines[0]);</b>
+<b class="nc">&nbsp;                if (Boolean.parseBoolean(fileReportLines[1])) {</b>
+<b class="nc">&nbsp;                    ans.mark();</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    ans.unmark();</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                return ans;</b>
+&nbsp;            }
+&nbsp;
+&nbsp;            // Fallthrough
+&nbsp;            case 4: {
+<b class="nc">&nbsp;                final Task ans = new DeadlineTask(fileReportLines[2], fileReportLines[0], fileReportLines[3]);</b>
+<b class="nc">&nbsp;                if (Boolean.parseBoolean(fileReportLines[1])) {</b>
+<b class="nc">&nbsp;                    ans.mark();</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    ans.unmark();</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                return ans;</b>
+&nbsp;            }
+&nbsp;
+&nbsp;            // Fallthrough
+&nbsp;            case 5: {
+<b class="nc">&nbsp;                final Task ans = new EventTask(fileReportLines[2],</b>
+&nbsp;                        fileReportLines[0],
+&nbsp;                        fileReportLines[3],
+&nbsp;                        fileReportLines[4]);
+&nbsp;
+<b class="nc">&nbsp;                if (Boolean.parseBoolean(fileReportLines[1])) {</b>
+<b class="nc">&nbsp;                    ans.mark();</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    ans.unmark();</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                return ans;</b>
+&nbsp;            }
+&nbsp;
+&nbsp;            // Fallthrough
+&nbsp;            default: {
+<b class="nc">&nbsp;                return null;</b>
+&nbsp;            }
+&nbsp;
+&nbsp;            }
+&nbsp;        } catch (final BrobotDateFormatException brobotDateFormatException) {
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param commandName
+&nbsp;     *     The name of the command to generate the new task.
+&nbsp;     *
+&nbsp;     * @param commandTokens
+&nbsp;     *     The arguments of the command that generates the new task.
+&nbsp;     *
+&nbsp;     * @return
+&nbsp;     *     The task as generated from the arguments of this function, as per this factory constructor.
+&nbsp;     *
+&nbsp;     * @throws BrobotCommandFormatException
+&nbsp;     *     A BrobotCommandFormatException is thrown iff there is a problem processing the user command.
+&nbsp;     */
+&nbsp;    public static final Task createTask(final String commandName,
+&nbsp;                                        final String... commandTokens)
+&nbsp;            throws BrobotCommandFormatException {
+&nbsp;
+<b class="fc">&nbsp;        final String[] ans = new String[commandTokens.length + 1];</b>
+<b class="fc">&nbsp;        ans[0] = commandName;</b>
+<b class="fc">&nbsp;        System.arraycopy(commandTokens, 0, ans, 1, commandTokens.length);</b>
+&nbsp;
+<b class="fc">&nbsp;        return Task.createTask(ans);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static final Task createTask(final String... commandTokens) throws BrobotDateFormatException {
+<b class="fc">&nbsp;        final BiFunction&lt;Integer, Integer, String&gt; stringJoiner = (final Integer startIdx, final Integer endIdx) -&gt; {</b>
+<b class="fc">&nbsp;            final String[] slice = new String[endIdx - startIdx];</b>
+<b class="fc">&nbsp;            System.arraycopy(commandTokens, startIdx, slice, 0, endIdx - startIdx);</b>
+&nbsp;
+<b class="fc">&nbsp;            return String.join(&quot; &quot;, slice);</b>
+&nbsp;        };
+&nbsp;
+<b class="pc">&nbsp;        if (commandTokens[0].equalsIgnoreCase(&quot;todo&quot;)) {</b>
+<b class="fc">&nbsp;            return new ToDoTask(stringJoiner.apply(1, commandTokens.length), &quot;ToDoTask&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (commandTokens[0].equalsIgnoreCase(&quot;deadline&quot;)) {</b>
+<b class="nc">&nbsp;            int firstByIndex = -1;</b>
+<b class="nc">&nbsp;            for (int i = 1; i &lt; commandTokens.length; i++) {</b>
+<b class="nc">&nbsp;                if (commandTokens[i].equalsIgnoreCase(&quot;by&quot;)) {</b>
+<b class="nc">&nbsp;                    firstByIndex = i;</b>
+&nbsp;                    break;
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            final String description = stringJoiner.apply(1, firstByIndex);</b>
+<b class="nc">&nbsp;            final String deadline = stringJoiner.apply(firstByIndex + 1, commandTokens.length);</b>
+&nbsp;
+<b class="nc">&nbsp;            return new DeadlineTask(description, &quot;DeadlineTask&quot;, deadline);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        int firstFromIndex = -1;</b>
+<b class="nc">&nbsp;        for (int i = 1; i &lt; commandTokens.length; i++) {</b>
+<b class="nc">&nbsp;            if (commandTokens[i].equalsIgnoreCase(&quot;from&quot;)) {</b>
+<b class="nc">&nbsp;                firstFromIndex = i;</b>
+&nbsp;                break;
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        int firstToIndex = firstFromIndex - 1;</b>
+<b class="nc">&nbsp;        for (int i = firstFromIndex + 1; i &lt; commandTokens.length; i++) {</b>
+<b class="nc">&nbsp;            if (commandTokens[i].equalsIgnoreCase(&quot;to&quot;)) {</b>
+<b class="nc">&nbsp;                firstToIndex = i;</b>
+&nbsp;                break;
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        final String description = stringJoiner.apply(1, firstFromIndex);</b>
+<b class="nc">&nbsp;        final String fromDate = stringJoiner.apply(firstFromIndex + 1, firstToIndex);</b>
+<b class="nc">&nbsp;        final String toDate = stringJoiner.apply(firstToIndex + 1, commandTokens.length);</b>
+&nbsp;
+<b class="nc">&nbsp;        return new EventTask(description, &quot;EventTask&quot;, fromDate, toDate);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-12 18:36</div>
+</div>
+</body>
+</html>
