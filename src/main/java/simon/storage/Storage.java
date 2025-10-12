@@ -42,7 +42,6 @@ public class Storage {
         while (fs.hasNextLine()) {
             String line = fs.nextLine();
             Task task = Parser.parseTaskFromFile(line);
-            assert task != null : "Parsed task from file should not be null";
             if (task != null) {
                 tasks.add(task);
             }

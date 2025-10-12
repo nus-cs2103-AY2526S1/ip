@@ -36,6 +36,10 @@ public class Simon {
 
     /**
      * Generates a response for the user's chat message.
+     * Parses the input, executes the corresponding command, and returns the result.
+     *
+     * @param input The user's input string.
+     * @return The response message from executing the command.
      */
     public String getResponse(String input) {
         try {
@@ -50,6 +54,12 @@ public class Simon {
             return "An unexpected error occurred: " + e.getMessage();
         }
     }
+    
+    /**
+     * Gets the type of the last executed command.
+     *
+     * @return The simple class name of the last executed command.
+     */
     public String getCommandType() {
         return commandType;
     }

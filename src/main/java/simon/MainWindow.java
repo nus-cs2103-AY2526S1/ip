@@ -8,8 +8,10 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import simon.ui.Ui;
+
 /**
- * Controller for the main GUI.
+ * Controller for the main GUI window of the Simon chatbot application.
+ * A <code>MainWindow</code> handles user interactions and manages the chat interface.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -26,6 +28,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image simonImage = new Image(this.getClass().getResourceAsStream("/images/DaSimon.png"));
 
+    /**
+     * Initializes the controller by setting up scroll behavior and displaying welcome message.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -34,14 +39,18 @@ public class MainWindow extends AnchorPane {
         );
     }
 
-    /** Injects the Duke instance */
+    /**
+     * Injects the Simon chatbot instance into this controller.
+     *
+     * @param d The Simon instance to use for processing commands.
+     */
     public void setSimon(Simon d) {
         simon = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing Simon's reply,
+     * then appends them to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {

@@ -12,14 +12,31 @@ import simon.task.Task;
 import simon.task.TaskList;
 import simon.ui.Ui;
 
+/**
+ * Represents a command to find tasks that occur on a specific date.
+ * An <code>OnCommand</code> object searches for deadlines and events that match the given date.
+ */
 public class OnCommand extends Command {
     private final String dateStr;
     private final TaskList matchingTasks = new TaskList(new ArrayList<Task>());
 
+    /**
+     * Constructs an OnCommand with the specified date string.
+     *
+     * @param dateStr The date string in yyyy-MM-dd format to search for.
+     */
     public OnCommand(String dateStr) {
         this.dateStr = dateStr;
     }
 
+    /**
+     * Executes the on command by searching for deadlines and events that occur
+     * on the specified date and setting the response with matching tasks.
+     *
+     * @param tasks The task list to search through.
+     * @param ui The user interface for displaying messages.
+     * @param storage The storage system (unused for on command).
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {

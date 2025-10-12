@@ -85,6 +85,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the arguments for the mark command and returns a MarkCommand object.
+     *
+     * @param args The arguments string containing the task index to mark.
+     * @return MarkCommand object with the specified task index.
+     * @throws SimonException.EmptyTaskException If the arguments are empty or invalid.
+     */
     private static Command parseMark(String args) throws SimonException.EmptyTaskException {
         if (args.isEmpty()) {
             throw new SimonException.EmptyTaskException(ERROR_MARK);
@@ -98,6 +105,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the arguments for the unmark command and returns an UnmarkCommand object.
+     *
+     * @param args The arguments string containing the task index to unmark.
+     * @return UnmarkCommand object with the specified task index.
+     * @throws SimonException.EmptyTaskException If the arguments are empty or invalid.
+     */
     private static Command parseUnmark(String args) throws SimonException.EmptyTaskException {
         if (args.isEmpty()) {
             throw new SimonException.EmptyTaskException(ERROR_UNMARK);
@@ -111,6 +125,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the arguments for the delete command and returns a DeleteCommand object.
+     *
+     * @param args The arguments string containing the task index to delete.
+     * @return DeleteCommand object with the specified task index.
+     * @throws SimonException.EmptyTaskException If the arguments are empty or invalid.
+     */
     private static Command parseDelete(String args) throws SimonException.EmptyTaskException {
         if (args.isEmpty()) {
             throw new SimonException.EmptyTaskException(ERROR_DELETE);
@@ -124,6 +145,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the arguments for the on command and returns an OnCommand object.
+     *
+     * @param args The arguments string containing the date to search for.
+     * @return OnCommand object with the specified date.
+     * @throws SimonException.EmptyTaskException If the arguments are empty.
+     */
     private static Command parseOn(String args) throws SimonException.EmptyTaskException {
         if (args.isEmpty()) {
             throw new SimonException.EmptyTaskException(ERROR_ON);
@@ -131,6 +159,13 @@ public class Parser {
         return new OnCommand(args);
     }
 
+    /**
+     * Parses the arguments for the find command and returns a FindCommand object.
+     *
+     * @param args The arguments string containing the keyword to search for.
+     * @return FindCommand object with the specified keyword.
+     * @throws SimonException.EmptyTaskException If the arguments are empty.
+     */
     private static Command parseFind(String args) throws SimonException.EmptyTaskException {
         if (args.isEmpty()) {
             throw new SimonException.EmptyTaskException(ERROR_FIND);
@@ -138,6 +173,13 @@ public class Parser {
         return new FindCommand(args);
     }
 
+    /**
+     * Parses the arguments for the todo command and returns an AddCommand object with a Todo task.
+     *
+     * @param args The arguments string containing the todo description.
+     * @return AddCommand object with a Todo task.
+     * @throws SimonException.EmptyTaskException If the arguments are empty.
+     */
     private static Command parseTodo(String args) throws SimonException.EmptyTaskException {
         if (args.isEmpty()) {
             throw new SimonException.EmptyTaskException(ERROR_TODO);
@@ -145,6 +187,13 @@ public class Parser {
         return new AddCommand(new Todo(args));
     }
 
+    /**
+     * Parses the arguments for the deadline command and returns an AddCommand object with a Deadline task.
+     *
+     * @param args The arguments string containing the deadline description and due date.
+     * @return AddCommand object with a Deadline task.
+     * @throws SimonException.EmptyTaskException If the arguments are empty or malformed.
+     */
     private static Command parseDeadline(String args) throws SimonException.EmptyTaskException {
         if (args.isEmpty()) {
             throw new SimonException.EmptyTaskException(ERROR_DEADLINE);
@@ -157,6 +206,13 @@ public class Parser {
         return new AddCommand(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
     }
 
+    /**
+     * Parses the arguments for the event command and returns an AddCommand object with an Event task.
+     *
+     * @param args The arguments string containing the event description, start date, and end date.
+     * @return AddCommand object with an Event task.
+     * @throws SimonException.EmptyTaskException If the arguments are empty or malformed.
+     */
     private static Command parseEvent(String args) throws SimonException.EmptyTaskException {
         if (args.isEmpty()) {
             throw new SimonException.EmptyTaskException(ERROR_EVENT);
