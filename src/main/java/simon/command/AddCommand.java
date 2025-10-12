@@ -8,7 +8,7 @@ import simon.task.TaskList;
 import simon.ui.Ui;
 
 /**
- * Represents a command to add a new task to the task list.
+ * Represents a command to add a new task to the list of tasks.
  * An <code>AddCommand</code> object contains the task to be added.
  */
 public class AddCommand extends Command {
