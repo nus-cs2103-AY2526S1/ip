@@ -57,7 +57,7 @@ public class MainWindow extends AnchorPane {
         try {
             String input = userInput.getText();
             if (simon == null) {
-                throw new IllegalStateException("Please give a valid command");
+                throw new IllegalStateException("Please give a valid command, its all given in the welcome message man...");
             }
             String response = simon.getResponse(input);
             String commandType = simon.getCommandType();
