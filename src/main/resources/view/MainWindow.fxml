@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity"
+            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="600.0"
+            prefWidth="400.0"
+            xmlns="http://javafx.com/javafx/17"
+            fx:controller="com.oadultradeepfield.smartotter.component.MainWindow"
+            stylesheets="@/css/main.css">
+    <HBox layoutY="558.0" spacing="8" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0">
+        <TextField fx:id="userInput" HBox.hgrow="ALWAYS" prefHeight="41.0" styleClass="text-field"/>
+        <Button fx:id="sendButton" prefHeight="41.0" prefWidth="76.0" styleClass="button" text="Send"
+                onAction="#handleUserInput"/>
+    </HBox>
+
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                AnchorPane.bottomAnchor="51.0"
+                AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0"
+                AnchorPane.topAnchor="0.0"
+                styleClass="scroll-pane">
+        <VBox fx:id="dialogContainer"/>
+    </ScrollPane>
+</AnchorPane>

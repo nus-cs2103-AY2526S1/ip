@@ -1,26 +1,65 @@
-# Duke project template
+# SmartOtter Project Template
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This project is adapted from the Duke project and given a unique personality: a *Smart Otter*. Instructions on how to
+use it are provided below.
 
-## Setting up in Intellij
+## Setting Up in IntelliJ
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+**Prerequisites:** JDK 17 and the latest version of IntelliJ.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+1. Open IntelliJ.
+
+    * If you are not on the welcome screen, click **File → Close Project** to close any existing project first.
+2. Open the project:
+
+    1. Click **Open**.
+    2. Select the project directory and click **OK**.
+    3. Accept all default prompts.
+3. Configure the project to use **JDK 17** (not other versions) as
+   explained [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).
+
+    * In the same dialog, set the **Project language level** field to the **SDK default** option.
+4. Locate the file:
+
    ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+   src/main/java/com/oadultradeepfield/smartotter/SmartOtter.java
    ```
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+   Right-click it and choose **Run 'SmartOtter.main()'**.
+
+    * If the editor shows compile errors, try restarting IntelliJ.
+    * If everything is set up correctly, you should see output like this:
+
+        ```
+            ____________________________________________________________
+            Hello! I'm SmartOtter 🦦📚
+            I can help you with anything,
+            as long as you give me fish 😋
+            ____________________________________________________________
+        ```
+
+## Testing the Program
+
+After further development, make sure to update the testing scripts in `text-ui-test`. For Unix operating systems, ensure
+that `dos2unix` is installed so that the script can be executed correctly.
+
+**Warning:** Keep the `src/main/java` folder as the root for Java files (do not rename these folders or move Java files
+outside this path), as some tools (e.g., Gradle) expect this standard structure.
+
+## Changelog
+
+### [2025-09-06] - GUI Update
+
+- Migrated the project to **Gradle** for simplified build and dependency management.
+- Integrated **JavaFX** for a graphical user interface (GUI).
+- Added basic **GUI support**, including text input, message display, and send button.
+
+![SmartOtter GUI](gui.png)
+
+### [2025-09-07] - Support Minor Typos in Commands
+
+* Added fuzzy matching for command keywords in `CommandParser` to tolerate minor typos (up to 2 edits).
+* Introduced `FuzzyMatcher` utility implementing Levenshtein distance for approximate string matching.
+* Added `CommandType.allKeywords()` to provide all command keywords for fuzzy matching.
+* Commands now correctly recognize input with small typos, improving usability (e.g., `"fnd"` → `"find"`, `"lits"` → `"list"`).
+* Maintains existing argument validation and no-argument command handling.

@@ -1,0 +1,20 @@
+list
+todo Study CS2103T weekly materials
+deadline Submit IP project
+deadline Submit IP Project /by Tomorrow
+event Goes to late national day part /from 20 Aug 2026
+event Goes to late national day party /from 20 Aug 2026 /to 21 Aug 2026
+list
+mark 1
+mark 4
+unmark 5
+mark 2
+list
+unmark 1
+list
+delete 4
+delete 2
+list
+todo Eat dinner at Terrace Chai Fan /by Tomorrow
+list
+bye

@@ -1,7 +1,108 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+    ____________________________________________________________
+    Hello! I'm SmartOtter 🦦📚
+    I can help you with anything,
+    as long as you give me fish 😋
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Congratulations! You don't have any tasks at the moment.
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Got it! I have added the task:
+        [T] [ ] Study CS2103T weekly materials
+    Now you have 1 tasks. It could be tough, but good luck!
+    ____________________________________________________________
+
+    ____________________________________________________________
+    😵‍💫 Oops! - Incorrect deadline format! Use: deadline <taskName> /by <time>
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Got it! I have added the task:
+        [D] [ ] Submit IP Project (by: Tomorrow)
+    Now you have 2 tasks. It could be tough, but good luck!
+    ____________________________________________________________
+
+    ____________________________________________________________
+    😵‍💫 Oops! - Incorrect event format! Use: event <taskName> /from <start> /to <end>
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Got it! I have added the task:
+        [E] [ ] Goes to late national day party (from: 20 Aug 2026, to: 21 Aug 2026)
+    Now you have 3 tasks. It could be tough, but good luck!
+    ____________________________________________________________
+
+    ____________________________________________________________
+    1. [T] [ ] Study CS2103T weekly materials
+    2. [D] [ ] Submit IP Project (by: Tomorrow)
+    3. [E] [ ] Goes to late national day party (from: 20 Aug 2026, to: 21 Aug 2026)
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Great work! I have marked the task as done!
+    [T] [X] Study CS2103T weekly materials
+    ____________________________________________________________
+
+    ____________________________________________________________
+    😵‍💫 Oops! - There is no task with number 4
+    ____________________________________________________________
+
+    ____________________________________________________________
+    😵‍💫 Oops! - There is no task with number 5
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Great work! I have marked the task as done!
+    [D] [X] Submit IP Project (by: Tomorrow)
+    ____________________________________________________________
+
+    ____________________________________________________________
+    1. [T] [X] Study CS2103T weekly materials
+    2. [D] [X] Submit IP Project (by: Tomorrow)
+    3. [E] [ ] Goes to late national day party (from: 20 Aug 2026, to: 21 Aug 2026)
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Got it! I have marked the task as not done
+    [T] [ ] Study CS2103T weekly materials
+    ____________________________________________________________
+
+    ____________________________________________________________
+    1. [T] [ ] Study CS2103T weekly materials
+    2. [D] [X] Submit IP Project (by: Tomorrow)
+    3. [E] [ ] Goes to late national day party (from: 20 Aug 2026, to: 21 Aug 2026)
+    ____________________________________________________________
+
+    ____________________________________________________________
+    😵‍💫 Oops! - There is no task with number 4
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Got it! I have deleted the task:
+        [D] [X] Submit IP Project (by: Tomorrow)
+    Now you have 2 tasks left.
+    ____________________________________________________________
+
+    ____________________________________________________________
+    1. [T] [ ] Study CS2103T weekly materials
+    2. [E] [ ] Goes to late national day party (from: 20 Aug 2026, to: 21 Aug 2026)
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Got it! I have added the task:
+        [T] [ ] Eat dinner at Terrace Chai Fan /by Tomorrow
+    Now you have 3 tasks. It could be tough, but good luck!
+    ____________________________________________________________
+
+    ____________________________________________________________
+    1. [T] [ ] Study CS2103T weekly materials
+    2. [E] [ ] Goes to late national day party (from: 20 Aug 2026, to: 21 Aug 2026)
+    3. [T] [ ] Eat dinner at Terrace Chai Fan /by Tomorrow
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Bye. Hope to eat more fish soon!
+    ____________________________________________________________
 
