@@ -78,7 +78,7 @@ public class MainWindow extends AnchorPane {
         } catch (Exception e) {
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(userInput.getText(), userImage),
-                    DialogBox.getSimonDialog("Please give a valid command, its all in the welcom message man...", simonImage, "error")
+                    DialogBox.getSimonDialog("Please give a valid command, its all in the welcome message man...", simonImage, "error")
             );
         } finally {
             userInput.clear();
