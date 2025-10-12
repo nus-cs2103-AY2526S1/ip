@@ -68,7 +68,7 @@ public class MainWindow extends AnchorPane {
             if (commandType.equals("ExitCommand")) {
                 new Thread(() -> {
                     try {
-                        Thread.sleep(1500);
+                        Thread.sleep(500);
                         javafx.application.Platform.exit();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
