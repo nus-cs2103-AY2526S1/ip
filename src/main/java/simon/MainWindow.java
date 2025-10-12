@@ -65,11 +65,20 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getSimonDialog(response, simonImage, commandType)
             );
+            if (commandType.equals("ExitCommand")) {
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(1500);
+                        javafx.application.Platform.exit();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+            }
         } catch (Exception e) {
-            // Show simplified error message
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(userInput.getText(), userImage),
-                    DialogBox.getSimonDialog("Please give a valid command", simonImage, "error")
+                    DialogBox.getSimonDialog("Please give a valid command, its all in the welcom message man...", simonImage, "error")
             );
         } finally {
             userInput.clear();
