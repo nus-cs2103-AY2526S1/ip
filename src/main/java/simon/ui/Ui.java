@@ -17,7 +17,7 @@ public class Ui {
      * @return Welcome message to be displayed.
      */
     public String showWelcome() {
-        return " Hello! I'm Simon\n"
+        return " Hello! I'm Simon, your automated task manager from AGT\n"
                 + " What can I do for you?\n\n"
                 + "Available commands:\n"
                 + "list - List all tasks\n"
