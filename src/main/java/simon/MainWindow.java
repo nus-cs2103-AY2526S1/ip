@@ -45,13 +45,25 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
-        String response = simon.getResponse(input);
-        String commandType = simon.getCommandType();
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getSimonDialog(response, simonImage, commandType)
-        );
-        userInput.clear();
+        try {
+            String input = userInput.getText();
+            if (simon == null) {
+                throw new IllegalStateException("Please give a valid command");
+            }
+            String response = simon.getResponse(input);
+            String commandType = simon.getCommandType();
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getSimonDialog(response, simonImage, commandType)
+            );
+        } catch (Exception e) {
+            // Show simplified error message
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(userInput.getText(), userImage),
+                    DialogBox.getSimonDialog("Please give a valid command", simonImage, "error")
+            );
+        } finally {
+            userInput.clear();
+        }
     }
 }
