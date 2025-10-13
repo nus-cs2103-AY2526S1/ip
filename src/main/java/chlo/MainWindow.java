@@ -42,13 +42,21 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = chlo.getResponse(input);
-        String commandType = chlo.getCommandType();
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getChloDialog(response, dukeImage, commandType)
-        );
-        userInput.clear();
+        try {
+            String response = chlo.getResponse(input);
+            String commandType = chlo.getCommandType();
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getChloDialog(response, dukeImage, commandType)
+            );
+            userInput.clear();
+        } catch (Exception e) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getChloDialog("Error: Unrecognised message", dukeImage, "error")
+            );
+        } finally {
+            userInput.clear();
+        }
     }
-
 }
