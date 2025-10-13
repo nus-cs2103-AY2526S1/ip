@@ -1,30 +1,135 @@
-# Duke User Guide
+# Melody Bot
 
-// Update the title above to match the actual product name
+![Java](https://img.shields.io/badge/Java-17%2B-blue)
+![JavaFX](https://img.shields.io/badge/JavaFX-17%2B-orange)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-// Product screenshot goes here
+Melody is a friendly chatbot that helps you manage your tasks efficiently through a simple chat interface.
 
-// Product intro goes here
+![Melody Screenshot](Ui.png)
 
-## Adding deadlines
+## Features
 
-// Describe the action and its outcome.
+- ✅ Add todos, deadlines, and events
+- 📋 List all tasks
+- ✔️ Mark tasks as done
+- ❌ Delete tasks
+- 🔍 Find tasks by keyword
+- 💾 Automatic data persistence
+- 🎨 Beautiful GUI with JavaFX
 
-// Give examples of usage
+## Installation
 
-Example: `keyword (optional arguments)`
+1. Ensure you have Java 17 or later installed
+2. Clone this repository:
+   ```bash
+   git clone https://github.com/feliciaz05/melody-bot.git
+   ```
+3. Navigate to the project directory:
+   ```bash
+   cd melody-bot
+   ```
+4. Compile the project:
+   ```bash
+   javac --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -d out src/**/*.java
+   ```
+5. Run the application:
+   ```bash
+   java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -cp out melody.Launcher
+   ```
 
-// A description of the expected outcome goes here
+## Usage
+
+### Adding a todo
+```
+todo Read book
+```
+
+### Adding a deadline
+```
+deadline Submit report /by 2023-12-31
+```
+
+### Adding an event
+```
+event Team meeting /from 2023-11-15 2pm /to 2023-11-15 4pm
+```
+
+### Listing all tasks
+```
+list
+```
+
+### Marking a task as done
+```
+mark 1
+```
+
+### Deleting a task
+```
+delete 2
+```
+
+## Command Summary
+
+| Command | Format | Example |
+|---------|--------|---------|
+| Todo | `todo DESCRIPTION` | `todo Read book` |
+| Deadline | `deadline DESCRIPTION /by DATE` | `deadline Submit report /by 2023-12-31` |
+| Event | `event DESCRIPTION /from START /to END` | `event Meeting /from Mon 2pm /to Mon 4pm` |
+| List | `list` | `list` |
+| Mark | `mark INDEX` | `mark 1` |
+| Delete | `delete INDEX` | `delete 2` |
+
+## File Structure
 
 ```
-expected output
+ip/
+├── src/
+│   └── main/
+│       └── java/
+│           └── melody/
+│               ├── command/
+│               │   ├── CommandType.java
+│               │   └── (other command classes)
+│               ├── exception/
+│               │   └── MelodyException.java
+│               ├── parser/
+│               │   └── Parser.java
+│               ├── storage/
+│               │   └── Storage.java
+│               ├── task/
+│               │   ├── Deadline.java
+│               │   ├── Event.java
+│               │   ├── Task.java
+│               │   ├── TaskList.java
+│               │   ├── TaskType.java
+│               │   └── Todo.java
+│               ├── ui/
+│               │   ├── DialogBox.java
+│               │   ├── Launcher.java
+│               │   ├── Main.java
+│               │   ├── MainWindow.java
+│               │   └── Ui.java
+│               └── Melody.java
+└── docs/
+    └── README.md
 ```
 
-## Feature ABC
+## Contributing
 
-// Feature details
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
+## License
 
-## Feature XYZ
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
-// Feature details
+## Acknowledgments
+
+- Duke project team for inspiration
+- JavaFX community for excellent documentation
+- OpenJDK team for Java support
