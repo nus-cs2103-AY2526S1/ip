@@ -12,15 +12,12 @@ import javafx.stage.Stage;
  * A GUI for dumpy using FXML.
  */
 public class Main extends Application {
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     @Override
     public void start(Stage stage) {
         new Dumpy();
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(
+                            Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             URL cssUrl = getClass().getResource("/styles/main.css");
