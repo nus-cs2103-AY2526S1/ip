@@ -50,7 +50,6 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            //throw new IOException("OOPS: Error loading file" + e.getMessage());
             System.out.println("OOPS: Error loading file" + e.getMessage());
         }
         return tasks;
@@ -144,7 +143,6 @@ public class Storage {
             }
             Files.write(filePath, lines);
         } catch (IOException e) {
-            //throw new IOException("OOPS: Error loading file" + e.getMessage());
             System.out.println("OOPS: Error loading file" + e.getMessage());
         }
     }

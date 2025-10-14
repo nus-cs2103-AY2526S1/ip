@@ -60,7 +60,6 @@ public class Ui {
      * @return Greeting message.
      */
     public static String welcomeMessage() {
-        //return "Hello! \nHope you're having a nice day! \nWhat can I do for you today?";
         return "✨ Greetings, Earthling! Nova reporting for task duty. What's on your mind today?";
     }
 
