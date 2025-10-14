@@ -85,7 +85,7 @@ public final class ViewCommand implements Command {
     private static void buildOutputString(List<Entry> entries, StringBuilder sb) {
         // Build output string
         for (Entry en : entries) {
-            String status = en.done ? "[X]" : "[ ]";
+            String status = en.isDone ? "[X]" : "[ ]";
 
             if (en.isInstant()) {
                 // Deadline: single time point
@@ -118,7 +118,7 @@ public final class ViewCommand implements Command {
         final LocalDateTime start;
         final LocalDateTime end;
         final String type; // "[D] " or "[E] "
-        final boolean done;
+        final boolean isDone;
 
         /**
          * Constructs a new Entry object with the specified parameters.
@@ -127,14 +127,14 @@ public final class ViewCommand implements Command {
          * @param start the start time of the entry.
          * @param end the end time of the entry.
          * @param type the type of the entry.
-         * @param done the completion status of the entry.
+         * @param isDone the completion status of the entry.
          */
-        Entry(String description, LocalDateTime start, LocalDateTime end, String type, boolean done) {
+        Entry(String description, LocalDateTime start, LocalDateTime end, String type, boolean isDone) {
             this.description = description;
             this.start = start;
             this.end = end;
             this.type = type;
-            this.done = done;
+            this.isDone = isDone;
         }
 
         /**
