@@ -7,17 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-// Manages loading and saving tasks to a file
+/** Handles loading and saving of tasks to a file **/
 public class Storage {
     private String filePath;
 
-    // Initializes storage with the given file path
+    /** Constructor for Storage **/
     public Storage(String filePath) {
         assert filePath != null && !filePath.trim().isEmpty() : "File path must not be null or empty";
         this.filePath = filePath;
     }
 
-    // Loads tasks from the file, returns an empty list if file doesn't exist
+    /** Loads tasks from the file **/
     public List<Task> load() throws IOException {
         assert filePath != null && !filePath.trim().isEmpty() : "File path must not be null or empty when loading";
 
@@ -46,7 +46,7 @@ public class Storage {
         return tasks;
     }
 
-    // Saves the list of tasks to the file
+    /** Saves the list of tasks to the file **/
     public void save(List<Task> tasks) throws IOException {
         assert tasks != null : "Task list to save must not be null";
         for (Task task : tasks) {
