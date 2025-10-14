@@ -22,6 +22,7 @@ public class MainWindow extends AnchorPane {
 
     private Iris iris;
 
+    /** Images for user and Iris, change if needed */
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpeg"));
     private Image irisImage = new Image(this.getClass().getResourceAsStream("/images/Hal.png"));
 
