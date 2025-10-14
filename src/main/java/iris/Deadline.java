@@ -3,7 +3,7 @@ package iris;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-// Represents a task with a deadline
+/** Represents a deadline task with a due date **/
 public class Deadline extends Task {
     private LocalDateTime by;
 
