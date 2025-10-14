@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 public class IO {
     /** Shared UTF-8 buffered reader for standard input. */
     private static final BufferedReader in = new BufferedReader(
-                    new InputStreamReader(System.in, StandardCharsets.UTF_8));
+            new InputStreamReader(System.in, StandardCharsets.UTF_8));
 
     /**
      * Reads a single line from standard input after printing a "> " prompt. If
@@ -71,7 +71,7 @@ public class IO {
     /**
      * Returns the argument substring following the command portion, trimmed.
      *
-     * @param input original input line
+     * @param input   original input line
      * @param command the command previously extracted
      * @return arguments string (empty if none)
      */
