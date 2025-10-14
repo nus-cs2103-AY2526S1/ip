@@ -7,11 +7,14 @@ import lux.storage.Storage;
 import lux.ui.Ui;
 
 /**
- * The bye command end the program and save the data to storage
+ * Command to gracefully shut down the application.
+ *
+ * <p>When executed it persists tasks and aliases to storage and returns the
+ * goodbye message produced by {@link lux.ui.Ui}.
  */
 public class ByeCommand extends Command {
     /**
-     * show bye message and save tasks to storage
+     * Persist current application state and return the farewell message.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage, AliasList aliases) throws LuxException {
         try {

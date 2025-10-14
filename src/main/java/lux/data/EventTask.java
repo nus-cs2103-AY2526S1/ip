@@ -4,17 +4,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Event task with description and start and end time
+ * Task representing an event with a start and end time.
  */
 public class EventTask extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
     /**
-     * Create a new event with description, start, and end time
-     * @param description
-     * @param from
-     * @param to
+     * Create a new event task.
+     *
+     * @param description event description
+     * @param from        start time
+     * @param to          end time
      */
     public EventTask(String description, LocalDateTime from, LocalDateTime to) {
         super(description);

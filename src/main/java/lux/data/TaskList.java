@@ -4,7 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * A container class to contain the list of all tasks and relevant behaviors
+ * Container for an ordered list of {@link Task} objects.
+ *
+ * <p>This class provides simple list operations used throughout the
+ * application, including adding tasks and searching for tasks that contain
+ * a substring. The list preserves insertion order and is serializable for
+ * persistence via {@link lux.storage.Storage}.
  */
 public class TaskList implements Serializable {
     private ArrayList<Task> tasks;
@@ -21,14 +26,21 @@ public class TaskList implements Serializable {
         return tasks;
     }
 
+    /**
+     * Add a task to the end of the list.
+     *
+     * @param task task to add (must not be null)
+     */
     public void addTasks(Task task) {
         tasks.add(task);
     }
 
     /**
-     * Search through the task list for task containing substring searchTerm
-     * @param searchTerm
-     * @return
+     * Returns a new {@link TaskList} containing tasks whose descriptions
+     * include the given search term.
+     *
+     * @param searchTerm substring to match inside task descriptions
+     * @return a TaskList with matching tasks (may be empty)
      */
     public TaskList find(String searchTerm) {
         TaskList foundTasks = new TaskList();

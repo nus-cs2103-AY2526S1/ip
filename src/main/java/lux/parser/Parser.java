@@ -15,16 +15,23 @@ import lux.data.AliasList;
 import lux.exception.LuxException;
 
 /**
- * This class parses user's input and return commands accordingly
+ * Parses raw user input strings into {@link lux.commands.Command} objects.
+ *
+ * <p>The parser supports alias expansion via {@link lux.data.AliasList} and
+ * maps the first token of the input to a specific Command subclass. It does
+ * not execute commands; callers should invoke {@code execute} on the
+ * returned Command.
  */
 public class Parser {
 
     /**
-     * parse user's input into appropriate command
+     * Parse a user input string into a concrete Command instance.
      *
-     * @param fullCommand raw string of user input
-     * @return specific command based on the first word of user's input
-     * @throws LuxException
+     * @param fullCommand raw user input (may include arguments)
+     * @param aliases     alias mappings used to expand the command word
+     * @return a Command ready to be executed by the application
+     * @throws LuxException if the command is unknown or required arguments are
+     *                      missing
      */
     public static Command parse(String fullCommand, AliasList aliases) throws LuxException {
         String[] parts = fullCommand.trim().split("\\s+", 2);

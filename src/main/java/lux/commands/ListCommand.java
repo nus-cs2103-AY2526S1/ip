@@ -6,11 +6,12 @@ import lux.storage.Storage;
 import lux.ui.Ui;
 
 /**
- * This command lists all tasks
+ * Command that lists all tasks currently in the task list. It simply
+ * delegates to {@link lux.ui.Ui#listTasks} for string formatting.
  */
 public class ListCommand extends Command {
     /**
-     * List all tasks
+     * Return a formatted string containing all tasks.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage, AliasList aliases) {
         return ui.listTasks(tasks);

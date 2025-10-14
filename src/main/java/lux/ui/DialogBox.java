@@ -15,7 +15,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * Dialog UI component
+ * Reusable UI component representing a chat bubble used in the JavaFX UI.
+ *
+ * <p>DialogBox is backed by an FXML layout and provides factory methods to
+ * create user and Lux dialog instances.
  */
 public class DialogBox extends HBox {
     @FXML

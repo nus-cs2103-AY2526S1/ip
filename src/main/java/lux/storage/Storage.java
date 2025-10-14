@@ -14,15 +14,23 @@ import lux.data.TaskList;
 import lux.exception.LuxException;
 
 /**
- * The storage class manages saving and loading data
+ * Responsible for persisting and restoring application data to disk.
+ *
+ * <p>Storage serializes and deserializes task lists and alias mappings to the
+ * file system. The constructor accepts a directory-like path and appends
+ * filenames for tasks and aliases.
  */
 public class Storage {
     private String taskPath;
     private String aliasPath;
 
     /**
-     * Initialize storage with corresponding filepath for tasks data and aliases data
-     * @param filePath
+     * Create a Storage instance that reads/writes files under the provided
+     * base path. The implementation appends fixed filenames for tasks and
+     * aliases.
+     *
+     * @param filePath base folder path (e.g. "data/") where serialized
+     *                 files will be stored
      */
     public Storage(String filePath) {
         this.taskPath = filePath + "tasks.ser";
@@ -30,10 +38,11 @@ public class Storage {
     }
 
     /**
-     * Load tasks from data if it exists, else return an empty task list
+     * Load tasks from disk. If the tasks file does not exist an empty list is
+     * returned.
      *
-     * @return loaded tasks if it exist, else empty list
-     * @throws LuxException
+     * @return an ArrayList of deserialized tasks (never null)
+     * @throws LuxException when deserialization fails
      */
     public ArrayList<Task> loadTasks() throws LuxException {
         File f = new File(taskPath);
@@ -52,9 +61,11 @@ public class Storage {
     }
 
     /**
-     * Save tasks to local storage
+     * Serialize the provided {@link TaskList} to disk. The method creates the
+     * parent directory if necessary.
      *
-     * @param tasks
+     * @param tasks task list to persist
+     * @throws LuxException when an IO error occurs while saving
      */
     public void saveTasks(TaskList tasks) throws LuxException {
         File f = new File(taskPath);
@@ -70,9 +81,11 @@ public class Storage {
     }
 
     /**
-     * Load custom aliases from storage
-     * @return
-     * @throws LuxException
+     * Load custom command aliases from disk. Returns an empty {@link
+     * AliasList} if no alias file is present.
+     *
+     * @return the loaded AliasList (never null)
+     * @throws LuxException when deserialization fails
      */
     public AliasList loadAliases() throws LuxException {
         File f = new File(aliasPath);
@@ -90,9 +103,10 @@ public class Storage {
     }
 
     /**
-     * Save custom aliases to local storage
-     * @param aliases
-     * @throws LuxException
+     * Persist the provided alias mappings to disk.
+     *
+     * @param aliases alias mapping to save
+     * @throws LuxException when an IO error occurs
      */
     public void saveAliases(AliasList aliases) throws LuxException {
         File f = new File(aliasPath);

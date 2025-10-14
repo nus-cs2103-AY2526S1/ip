@@ -4,13 +4,15 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 /**
- * Class to store custom aliases
+ * Stores a mapping from short alias strings to full command words. Used by
+ * {@link lux.parser.Parser} to expand user-entered aliases to real
+ * commands.
  */
 public class AliasList implements Serializable {
     private HashMap<String, String> map;
 
     /**
-     * Add predefined aliases here
+     * Initialize the alias mapping with some convenient defaults.
      */
     public AliasList() {
         map = new HashMap<>();

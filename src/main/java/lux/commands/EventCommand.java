@@ -11,7 +11,8 @@ import lux.storage.Storage;
 import lux.ui.Ui;
 
 /**
- * Add a new event task
+ * Command that adds an event task with a start and end time. The
+ * arguments must include a description, "/from" time and "/to" time.
  */
 public class EventCommand extends Command {
     private String arguments;
@@ -21,9 +22,9 @@ public class EventCommand extends Command {
     }
 
     /**
-     * Parse command's argument into description, from time, and to time based on
-     * "/from" and "/to" keyword
-     * Add event task to the list of tasks
+     * Parse arguments, create an {@link lux.data.EventTask}, add it to the
+     * task list and return the UI message. Throws {@link LuxException} when
+     * required parts are missing or date parsing fails.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage, AliasList aliases) throws LuxException {
         String[] fromSplit = arguments.split(" /from ", 2);

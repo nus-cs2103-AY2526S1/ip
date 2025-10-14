@@ -3,15 +3,22 @@ package lux.data;
 import java.io.Serializable;
 
 /**
- * Parent class of all tasks
+ * Abstract base class representing a task in the application.
+ *
+ * <p>Each task has a textual description and a completion status. Subclasses
+ * (for example, todo, deadline, event) provide additional fields and
+ * behaviour. Tasks are serializable so they can be persisted by
+ * {@link lux.storage.Storage}.
  */
 public abstract class Task implements Serializable {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Create a task with description
-     * @param description
+     * Create a new task with the given description. The newly created task
+     * is initially not completed.
+     *
+     * @param description non-null human readable description of the task
      */
     public Task(String description) {
         this.description = description;
@@ -19,21 +26,23 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * @return status icon based on isDone status
+     * Returns a small status icon string used for display.
+     *
+     * @return "[X]" if the task is done, otherwise "[ ]"
      */
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
 
     /**
-     * mark task as done
+     * Marks the task as completed.
      */
     public void mark() {
         isDone = true;
     }
 
     /**
-     * mark task as not done
+     * Marks the task as not completed.
      */
     public void unmark() {
         isDone = false;

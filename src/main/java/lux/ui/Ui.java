@@ -7,20 +7,27 @@ import lux.data.Task;
 import lux.data.TaskList;
 
 /**
- * This class handle UI behaviors
+ * Simple console-based user interface helper.
+ *
+ * <p>Ui produces textual messages used by commands and reads user input from
+ * standard input. It also provides a DateTimeFormatter used by tasks that
+ * require date/time formatting.
  */
 public class Ui {
     private Scanner scanner;
 
     /**
-     * Create a UI instance with scanner for reading user's input
+     * Create a Ui which reads from System.in.
      */
     public Ui() {
         scanner = new Scanner(System.in);
     }
 
     /**
-     * Print welcome
+     * Return the welcome message shown to the user when the application
+     * starts.
+     *
+     * @return welcome text
      */
     public String showWelcome() {
         String message = "Hello! I'm LUX, your personal assistant chatbot.\nHow can I assist you today?";
@@ -129,9 +136,9 @@ public class Ui {
     }
 
     /**
-     * Read user's input
+     * Read a line of input typed by the user.
      *
-     * @return
+     * @return the raw input line (without trailing newline)
      */
     public String readCommand() {
         return scanner.nextLine();

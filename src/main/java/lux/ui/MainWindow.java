@@ -12,7 +12,8 @@ import javafx.util.Duration;
 import lux.Lux;
 
 /**
- * Main UI window
+ * Controller for the main JavaFX window. Handles user input and displays
+ * dialog boxes containing user messages and Lux responses.
  */
 public class MainWindow {
     @FXML
@@ -34,16 +35,22 @@ public class MainWindow {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Lux instance */
+    /**
+     * Inject the {@link Lux} application instance into the controller and
+     * display the initial welcome message.
+     *
+     * @param l Lux application instance
+     */
     public void setLux(Lux l) {
         lux = l;
         dialogContainer.getChildren().addAll(DialogBox.getLuxDialog(lux.showWelcome(), luxImage));
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing
-     * Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handle the user clicking the send button / pressing Enter. This method
+     * sends the input to {@link Lux#getResponse}, displays both user and
+     * Lux dialog boxes and clears the input field. If the application
+     * should exit, it schedules the window to close after a short delay.
      */
     @FXML
     private void handleUserInput() {

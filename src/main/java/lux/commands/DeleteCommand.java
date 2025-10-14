@@ -8,7 +8,10 @@ import lux.storage.Storage;
 import lux.ui.Ui;
 
 /**
- * This is the delete command
+ * Command that deletes a task from the task list by index.
+ *
+ * <p>The argument should be a numeric index referring to the position of
+ * the task in the {@link lux.data.TaskList}.
  */
 public class DeleteCommand extends Command {
     private String argument;
@@ -18,7 +21,9 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Parse argument to get the index of task to delete
+     * Remove the task at the specified index and return a confirmation
+     * message. Throws {@link lux.exception.LuxException} when the argument
+     * is invalid or out of range.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage, AliasList aliases) throws LuxException {
         try {
