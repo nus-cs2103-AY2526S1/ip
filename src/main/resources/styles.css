@@ -1,0 +1,67 @@
+/* A clean, soft theme for the chat app */
+:root {
+    /* Palette */
+    -fx-background: #0f1724; /* deep navy */
+    -fx-foreground: #e6eef6; /* pale sky */
+    -fx-accent: #6dd3c8; /* mint */
+    -fx-muted: #93a3b8; /* muted text */
+    -fx-bubble-user: linear-gradient(#d7f6ef, #bfeee4);
+    -fx-bubble-lux: linear-gradient(#1f2a44, #182033);
+}
+
+.root {
+    -fx-font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    -fx-font-size: 13px;
+    -fx-background-color: -fx-background;
+    -fx-text-fill: -fx-foreground;
+}
+
+/* Main area */
+.scroll-pane {
+    -fx-background: transparent;
+}
+
+.vbox {
+    -fx-padding: 10 8 10 8;
+}
+
+/* Dialog label styles */
+.dialog-label {
+    -fx-padding: 10 14 10 14;
+    -fx-background-radius: 12;
+    -fx-wrap-text: true;
+    -fx-font-size: 13px;
+}
+
+.user-bubble {
+    -fx-background-color: -fx-bubble-user;
+    -fx-text-fill: #08282b;
+}
+
+.lux-bubble {
+    -fx-background-color: -fx-bubble-lux;
+    -fx-text-fill: -fx-foreground;
+}
+
+/* Avatars */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 6, 0.0, 0, 2);
+}
+
+/* Input area */
+.text-field {
+    -fx-background-radius: 8;
+}
+
+.button {
+    -fx-background-color: -fx-accent;
+    -fx-text-fill: #062925;
+    -fx-background-radius: 8;
+}
+
+/* Scrollbar tweak */
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(255,255,255,0.12);
+    -fx-background-insets: 2;
+    -fx-background-radius: 6;
+}

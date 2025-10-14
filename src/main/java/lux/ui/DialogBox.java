@@ -39,9 +39,11 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         displayPicture.setImage(img);
 
-        // Improve spacing and visual appearance:
-        // - Add padding and a subtle background to the dialog label
-        dialog.setStyle("-fx-padding: 8 12 8 12; -fx-background-color: #F4F4F8; -fx-background-radius: 8; -fx-wrap-text: true;");
+        // Improve spacing and visual appearance via CSS classes
+        dialog.getStyleClass().add("dialog-label");
+        // Default bubble style (user vs lux will add specific classes where used)
+        // Add image-view class to allow drop shadow and consistent sizing from CSS
+        displayPicture.getStyleClass().add("image-view");
 
         // - Limit the width of the dialog text so it wraps at a comfortable line length.
         //   Bind to a fraction of the parent width when available.
@@ -56,7 +58,8 @@ public class DialogBox extends HBox {
         clip.centerXProperty().bind(displayPicture.fitWidthProperty().divide(2));
         clip.centerYProperty().bind(displayPicture.fitHeightProperty().divide(2));
         clip.radiusProperty().bind(
-            javafx.beans.binding.Bindings.min(displayPicture.fitWidthProperty(), displayPicture.fitHeightProperty()).divide(2));
+            javafx.beans.binding.Bindings.min(displayPicture.fitWidthProperty(),
+            displayPicture.fitHeightProperty()).divide(2));
         displayPicture.setClip(clip);
 
         // Responsive avatar sizing: 60 when windowed, 100 when maximized.
@@ -72,7 +75,8 @@ public class DialogBox extends HBox {
             // The Window API doesn't expose maximizedProperty directly; cast to Stage
             if (window instanceof javafx.stage.Stage stage) {
                 // Create a NumberBinding<Double> that evaluates to 100.0 when maximized, else 60.0
-                javafx.beans.binding.NumberBinding sizeBinding = javafx.beans.binding.Bindings.when(stage.maximizedProperty())
+                javafx.beans.binding.NumberBinding sizeBinding = javafx.beans.binding.Bindings
+                    .when(stage.maximizedProperty())
                     .then(100.0)
                     .otherwise(60.0);
                 // Bind fitWidth/fitHeight so ImageView scales uniformly
@@ -94,11 +98,14 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.dialog.getStyleClass().add("user-bubble");
+        return db;
     }
 
     public static DialogBox getLuxDialog(String text, Image img) {
         var db = new DialogBox(text, img);
+        db.dialog.getStyleClass().add("lux-bubble");
         db.flip();
         return db;
     }
