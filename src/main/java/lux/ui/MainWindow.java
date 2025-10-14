@@ -30,9 +30,23 @@ public class MainWindow {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/akchtually.jpg"));
     private Image luxImage = new Image(this.getClass().getResourceAsStream("/images/chill_cat.jpg"));
 
+    /**
+     * Initializes the controller after the root element has been completely
+     * processed by the FXML loader.
+     *
+     * This method binds the vertical scroll value of the {@link #scrollPane}
+     * to the height of the {@link #dialogContainer} so the view automatically
+     * stays scrolled to the bottom when new dialog nodes are added. It also
+     * enables width-expansion behaviour so dialog content fills the available
+     * horizontal space when the window is resized or maximized.
+     */
     @FXML
     public void initialize() {
+        // Keep the scroll always scrolled to the bottom when new messages arrive
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        // Make the scroll pane content and dialog boxes expand to the window width
+        scrollPane.setFitToWidth(true);
+        dialogContainer.setFillWidth(true);
     }
 
     /**
