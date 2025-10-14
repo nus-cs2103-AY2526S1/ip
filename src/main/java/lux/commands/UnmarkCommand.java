@@ -28,13 +28,13 @@ public class UnmarkCommand extends Command {
         try {
             int idx = Integer.parseInt(argument);
             if (idx < 0 || idx >= tasks.getTasks().size()) {
-                throw new LuxException("Please specify the task number you want to unmark.");
+                throw new LuxException("Task index out of range.");
             }
 
             tasks.getTasks().get(idx).unmark();
             return ui.unmarkTask(tasks.getTasks().get(idx));
         } catch (NumberFormatException e) {
-            throw new LuxException(e.getMessage());
+            throw new LuxException("Invalid task index: must be an integer.");
         }
     }
 

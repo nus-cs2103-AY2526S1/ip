@@ -31,7 +31,7 @@ public class AliasCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage, AliasList aliases) throws LuxException {
         String[] parts = arguments.split(" ", 2);
         if (parts.length < 2) {
-            throw new LuxException("Must have 2 arguments");
+            throw new LuxException("Alias command requires two arguments: <alias> <command>");
         }
 
         String alias = parts[0].trim();

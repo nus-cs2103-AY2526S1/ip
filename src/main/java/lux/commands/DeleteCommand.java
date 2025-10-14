@@ -29,13 +29,13 @@ public class DeleteCommand extends Command {
         try {
             int idx = Integer.parseInt(argument);
             if (idx < 0 || idx >= tasks.getTasks().size()) {
-                throw new LuxException("Please specify the task number you want to delete.");
+                throw new LuxException("Task index out of range.");
             }
 
             Task task = tasks.getTasks().remove(idx);
             return ui.deleteTask(task);
         } catch (NumberFormatException e) {
-            throw new LuxException("Please specify the task number you want to delete.");
+            throw new LuxException("Invalid task index: must be an integer.");
 
         }
     }

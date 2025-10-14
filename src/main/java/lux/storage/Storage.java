@@ -56,7 +56,7 @@ public class Storage {
             ArrayList<Task> loadedTasks = (ArrayList<Task>) in.readObject();
             return loadedTasks;
         } catch (IOException | ClassNotFoundException c) {
-            throw new LuxException(c.getMessage());
+            throw new LuxException("Failed to load tasks from disk: " + c.getMessage());
         }
     }
 
@@ -76,7 +76,7 @@ public class Storage {
             out.writeObject(tasks.getTasks());
         } catch (IOException i) {
             i.printStackTrace();
-            throw new LuxException("Exception while saving tasks data to disk");
+            throw new LuxException("Failed to save tasks to disk.");
         }
     }
 
@@ -98,7 +98,7 @@ public class Storage {
             AliasList aliases = (AliasList) in.readObject();
             return aliases;
         } catch (IOException | ClassNotFoundException c) {
-            throw new LuxException(c.getMessage());
+            throw new LuxException("Failed to load aliases from disk: " + c.getMessage());
         }
     }
 
@@ -117,7 +117,7 @@ public class Storage {
             out.writeObject(aliases);
         } catch (IOException i) {
             i.printStackTrace();
-            throw new LuxException("Exception while saving aliases data to disk");
+            throw new LuxException("Failed to save aliases to disk.");
         }
     }
 }
