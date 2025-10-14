@@ -1,5 +1,6 @@
 package bot;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -29,6 +30,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        // Start up message
+        dialogContainer.getChildren().addAll(
+                DialogBox.getBotDialog("Hello there! How may I help you?", botImage)
+        );
     }
 
     /**
@@ -45,6 +51,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        if (input.trim().equalsIgnoreCase("bye")) {
+            Platform.exit();
+            System.exit(0);
+        }
+        ;
+
         String response = bot.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
