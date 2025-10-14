@@ -3,7 +3,7 @@ package iris;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-// Represents a task that occurs at a specific time period
+/** Represents an event task with start and end times **/
 public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
