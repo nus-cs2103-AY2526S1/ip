@@ -129,6 +129,35 @@ Exit the chatbot (also persists tasks and aliases to `data/`):
 bye
 ```
 
+### Alias command
+
+Create a short alias for an existing command. Aliases persist across runs in `data/aliases.ser`.
+
+Usage:
+
+```sh
+alias <aliasName> <command>
+```
+
+Examples:
+
+- Create a short alias for `list`:
+
+```sh
+alias ls list
+```
+
+- Alias `td` to `todo` so you can add todos quickly:
+
+```sh
+alias td todo
+```
+
+Notes:
+
+- Aliases are expanded by the `Parser` before command parsing. If an alias collides with an existing command name, the alias will override the literal token during parsing.
+- Alias changes are saved automatically and will be available the next time you start Lux.
+
 ## Notes
 
 Notes and tips

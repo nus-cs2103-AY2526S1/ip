@@ -118,7 +118,7 @@ public class Ui {
      * @param tasks
      */
     public String findTasks(TaskList tasks) {
-        return "Here are the matching tasks in your list: " + listTasks(tasks);
+        return "Here are the matching tasks in your list: \n" + listTasks(tasks);
     }
 
     /**
