@@ -2,9 +2,9 @@ package iris;
 
 import java.time.LocalDateTime;
 
-// Handles commands like mark, unmark, todo, deadline, event, delete
+/** Handles commands like mark, unmark, todo, deadline, event, delete **/
 public class CommandHandler {
-    // Mark a task as done or undone
+    /** Mark or Unmark a Task */
     public static void mark(String[] parts, TaskList tasks, Ui ui, Storage storage, boolean done) throws IrisException {
         assert parts != null : "Parts array should not be null";
         assert tasks != null : "TaskList should not be null";
@@ -34,7 +34,7 @@ public class CommandHandler {
         }
     }
 
-    // Add a new task (todo, deadline, event)
+    /** Add a new Task */
     public static void addTask(String command, String[] parts, TaskList tasks, Ui ui, Storage storage) throws IrisException {
         assert command != null && !command.isEmpty() : "Command should not be null or empty";
         assert parts != null : "Parts array should not be null";
@@ -43,48 +43,27 @@ public class CommandHandler {
         assert storage != null : "Storage should not be null";
 
         if (parts.length < 2) throw new IrisException("Empty description.");
-        Task t;
+
+        Task task;
         try {
             switch (command) {
             case "todo":
-                assert parts[1] != null && !parts[1].trim().isEmpty() : "Todo description should not be empty";
-                t = new Todo(parts[1].trim());
+                task = createTodo(parts);
                 break;
-
             case "deadline":
-                String[] dParts = parts[1].split("/by", 2);
-                if (dParts.length < 2) throw new IrisException("Deadline must include /by <date>.");
-                LocalDateTime deadlineTime = DateTimeParser.parseDateTime(dParts[1].trim());
-                assert deadlineTime != null : "Parsed deadline time should not be null";
-                t = new Deadline(dParts[0].trim(), deadlineTime);
-                break;  
-
-            case "event":
-                String[] fromSplit = parts[1].split("/from", 2);
-                if (fromSplit.length < 2) throw new IrisException("Event must include /from and /to.");
-                String desc = fromSplit[0].trim();
-                String[] toSplit = fromSplit[1].split("/to", 2);
-                if (toSplit.length < 2) throw new IrisException("Event must include /to.");
-
-                LocalDateTime from = DateTimeParser.parseDateTime(toSplit[0].trim());
-                LocalDateTime to = DateTimeParser.parseDateTime(toSplit[1].trim());
-
-                assert from != null : "Event start time should not be null";
-                assert to != null : "Event end time should not be null";
-                assert from.isBefore(to) : "Event start time must be before end time";
-
-                t = new Event(desc, from, to);
+                task = createDeadline(parts);
                 break;
-
+            case "event":
+                task = createEvent(parts);
+                break;
             default:
                 throw new IrisException("Unknown add command.");
-        }
+            }
         } catch (Exception e) {
             throw new IrisException(e.getMessage());
         }
-        
 
-        tasks.add(t);
+        tasks.add(task);
         assert tasks.size() > 0 : "Task list size should increase after adding a task";
 
         try {
@@ -92,11 +71,13 @@ public class CommandHandler {
         } catch (Exception e) {
             ui.showError("Error saving task.");
         }
-        ui.showMessage("Got it. I've added this task:\n  " + t + "\nNow you have " + tasks.size() + " tasks.");
+
+        ui.showMessage("Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.size() + " tasks.");
     }
 
 
-    // Delete a task
+
+    /** Delete a Task */
     public static void delete(String[] parts, TaskList tasks, Ui ui, Storage storage) throws IrisException {
         assert parts != null : "Parts array should not be null";
         assert tasks != null : "TaskList should not be null";
@@ -119,7 +100,47 @@ public class CommandHandler {
         }
     }
 
-    // Add a new contact
+    // Task Helpers
+    /** Create a Todo Task */
+    private static Task createTodo(String[] parts) throws IrisException {
+        assert parts[1] != null && !parts[1].trim().isEmpty() : "Todo description should not be empty";
+        String description = parts[1].trim();
+        return new Todo(description);
+    }
+
+    /** Create a Deadline Task */
+    private static Task createDeadline(String[] parts) throws IrisException {
+        String[] dParts = parts[1].split("/by", 2);
+        if (dParts.length < 2) throw new IrisException("Deadline must include /by <date>.");
+
+        String description = dParts[0].trim();
+        LocalDateTime deadlineTime = DateTimeParser.parseDateTime(dParts[1].trim());
+        assert deadlineTime != null : "Parsed deadline time should not be null";
+
+        return new Deadline(description, deadlineTime);
+    }
+
+    /** Create an Event Task */
+    private static Task createEvent(String[] parts) throws IrisException {
+        String[] fromSplit = parts[1].split("/from", 2);
+        if (fromSplit.length < 2) throw new IrisException("Event must include /from and /to.");
+
+        String desc = fromSplit[0].trim();
+        String[] toSplit = fromSplit[1].split("/to", 2);
+        if (toSplit.length < 2) throw new IrisException("Event must include /to.");
+
+        LocalDateTime from = DateTimeParser.parseDateTime(toSplit[0].trim());
+        LocalDateTime to = DateTimeParser.parseDateTime(toSplit[1].trim());
+
+        assert from != null : "Event start time should not be null";
+        assert to != null : "Event end time should not be null";
+        assert from.isBefore(to) : "Event start time must be before end time";
+
+        return new Event(desc, from, to);
+    }
+
+    /** Contact Handlers */
+    /** Add a new contact */
     public static void addContact(String[] parts, ContactList contacts, Ui ui, ContactStorage storage) throws IrisException {
         if (parts.length < 2) {
             throw new IrisException("Please provide contact details in format: name, phone, email");
@@ -141,6 +162,7 @@ public class CommandHandler {
                     "\nNow you have " + contacts.size() + " contacts.");
     }
 
+    /** Delete a contact */
     public static void deleteContact(String[] parts, ContactList contacts, Ui ui, ContactStorage storage) throws IrisException {
         if (parts.length < 2) {
             throw new IrisException("Please specify a contact number to delete.");
