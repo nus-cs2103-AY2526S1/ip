@@ -20,6 +20,7 @@ text-ui-test/data/
 # local data
 /data/
 .vscode/
+*.ser
 
 # Maven target directory
 target/
