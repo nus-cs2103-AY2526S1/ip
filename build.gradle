@@ -1,0 +1,57 @@
+plugins {
+    id 'java'
+    id 'application'
+    // Pick ONE compatible with your Gradle:
+     id 'com.github.johnrengelman.shadow' version '7.1.2' // for Gradle 7.x
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String javaFxVersion = '17.0.7'
+
+    // JUnit 5 (Jupiter)
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+
+    // JavaFX (platform-specific artifacts)
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+}
+
+application {
+    mainClass.set("manbo.gui.Launcher")
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+shadowJar {
+    archiveBaseName = "manbo"
+    archiveClassifier = null
+}
+
+run {
+    standardInput = System.in
+}
