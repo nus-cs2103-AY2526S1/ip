@@ -10,7 +10,7 @@ import cheryl.util.Ui;
  * Represents a command to delete a task.
  */
 public class DeleteCommand implements Command {
-    private int index;
+    private final int index; // 1-based index
 
     /**
      * Creates a new DeleteCommand.
@@ -20,7 +20,7 @@ public class DeleteCommand implements Command {
      */
     public DeleteCommand(String arguments) throws DukeException {
         try {
-            this.index = Integer.parseInt(arguments) - 1;
+            this.index = Integer.parseInt(arguments); // 1-based
         } catch (NumberFormatException e) {
             throw new DukeException("Invalid task number");
         }
@@ -28,20 +28,18 @@ public class DeleteCommand implements Command {
 
     /**
      * Executes the command: deletes the task at the given index.
-     *
-     * @param tasks   The TaskList from which the task will be removed
-     * @param ui      The Ui to display messages
-     * @param storage The Storage to save the updated list
-     * @throws DukeException If an error occurs while saving
      */
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (index < 0 || index >= tasks.getSize()) {
-            throw new DukeException("Invalid task number");
+        if (index < 1 || index > tasks.getSize()) {
+            throw new DukeException("Task number out of range: " + index);
         }
+
         Task removed = tasks.deleteTask(index);
         ui.showMessage("Noted. I've removed this task:");
-        ui.showMessage(removed.toString());
+        ui.showMessage("  " + removed);
         ui.showMessage("Now you have " + tasks.getSize() + " tasks in the list.");
+
         try {
             storage.save(tasks.getTasks());
         } catch (Exception e) {
@@ -49,6 +47,7 @@ public class DeleteCommand implements Command {
         }
     }
 
+    @Override
     public boolean isExit() {
         return false;
     }

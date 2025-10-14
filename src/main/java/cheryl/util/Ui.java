@@ -2,117 +2,85 @@ package cheryl.util;
 
 import cheryl.task.Task;
 
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 /**
- * Handles user interaction.
- * Responsible for showing messages to the user.
+ * Handles all interactions with the user (console side).
+ * ASCII-clean to avoid encoding artefacts.
  */
 public class Ui {
-    private Scanner sc;
-    private StringBuilder outputBuffer = new StringBuilder();
-    private boolean isCliMode = true;
-    public enum UiMode { CLI, GUI }
-    private UiMode mode = UiMode.CLI;
+    private final Scanner scanner;
+    private final PrintStream out;
+    private StringBuilder lastOutputBuffer = new StringBuilder();
 
-    /**
-     * Creates a new Ui object and initializes the input scanner.
-     */
     public Ui() {
-        this.sc = new Scanner(System.in);
+        this.scanner = new Scanner(System.in, StandardCharsets.UTF_8);
+        this.out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
     }
 
-    public void setCliMode(boolean isCli) {
-        this.isCliMode = isCli;
-    }
-
-    /**
-     * Prints a greeting message when the app starts.
-     */
-    public void showWelcome() {
-        String welcome = "Hello! I'm Cheryl\nWhat can I do for you?";
-        System.out.println(welcome);
-        appendToBuffer(welcome);
-    }
-
-    /**
-     * Reads a line of input from the user.
-     *
-     * @return The trimmed user input string
-     */
     public String readCommand() {
-        return sc.nextLine().trim();
+        return scanner.hasNextLine() ? scanner.nextLine() : "";
     }
 
-    /**
-     * Prints an error message to the user.
-     *
-     * @param error The error message to display
-     */
-    public void showError(String error) {
-        if (isCliMode) {
-            System.out.println(error);
-        }
-        appendToBuffer(error);
-    }
-
-    /**
-     * Prints a message to the user.
-     *
-     * @param message The message to display
-     */
     public void showMessage(String message) {
-        if (mode == UiMode.CLI) {
-            System.out.println(message);
-        }
-        appendToBuffer(message);
+        appendAndPrint(message);
     }
 
-    public void setMode(UiMode mode) {
-        this.mode = mode;
+    public void showWelcome() {
+        appendAndPrint("Hello! I'm Cheryl");
+        appendAndPrint("What can I do for you?");
     }
 
-    public void showLine() {
-        System.out.println("____________________________________________________________");
+    public void showGoodbye() {
+        appendAndPrint("Bye! Hope to see you again soon!");
     }
 
-    /**
-     * Appends a string to the output buffer.
-     * Used to collect messages for GUI display.
-     *
-     * @param s The string to append
-     */
-    private void appendToBuffer(String s) {
-        if (s == null) return;
-        if (outputBuffer.length() > 0) {
-            outputBuffer.append("\n");
-        }
-        outputBuffer.append(s);
-    }
-
-    /**
-     * Returns all output collected since the last clear.
-     *
-     * @return Concatenated string of the last output
-     */
-    public String getLastOutput() {
-        return outputBuffer.toString();
-    }
-
-    /**
-     * Set last output to an empty string
-     */
-    public void clearLastOutput() {
-        outputBuffer.setLength(0);
+    public void showError(String errorMessage) {
+        appendAndPrint("OOPS!!! " + sanitize(errorMessage));
     }
 
     public void showTaskStatusChanged(Task task, boolean isMarked) {
-        if (isMarked) {
-            showMessage("Nice! I've marked this task as done:");
-        } else {
-            showMessage("OK, I've marked this task as not done yet:");
-        }
-        showMessage(task.toString());
+        String head = isMarked
+                ? "Nice! I've marked this task as done:"
+                : "OK, I've marked this task as not done yet:";
+        appendAndPrint(head);
+        appendAndPrint("  " + sanitize(task.toString()));
     }
 
+    /** Draws a divider line between messages (used in old versions). */
+    public void showLine() {
+        appendAndPrint("____________________________________________________________");
+    }
+
+    /** Clears the remembered last output (for GUI integration). */
+    public void clearLastOutput() {
+        lastOutputBuffer.setLength(0);
+    }
+
+    /** Returns accumulated output text for display in GUI. */
+    public String getLastOutput() {
+        return lastOutputBuffer.toString();
+    }
+
+    public void close() {
+        try {
+            scanner.close();
+        } catch (Exception ignored) { }
+    }
+
+    // --- Internal helpers ---
+
+    private void appendAndPrint(String msg) {
+        String clean = sanitize(msg);
+        lastOutputBuffer.append(clean).append(System.lineSeparator());
+        out.println(clean);
+    }
+
+    private String sanitize(String msg) {
+        if (msg == null) return "";
+        return msg.replaceAll("[^\\x20-\\x7E\\n\\r\\t]", "");
+    }
 }
+

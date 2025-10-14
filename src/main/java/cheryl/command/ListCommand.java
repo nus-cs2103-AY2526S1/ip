@@ -8,21 +8,22 @@ import cheryl.util.Ui;
  * Represents a command to list all tasks in the task list.
  */
 public class ListCommand implements Command {
-    /**
-     * Executes the command: displays all tasks in the TaskList.
-     *
-     * @param tasks   The TaskList containing all tasks
-     * @param ui      The Ui to display the tasks
-     * @param storage The Storage (unused)
-     */
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        if (tasks.getSize() == 0) {
+            ui.showMessage("Your task list is empty!");
+            return;
+        }
+
         ui.showMessage("Here are the tasks in your list:");
         for (int i = 0; i < tasks.getSize(); i++) {
-            ui.showMessage((i + 1) + "." + tasks.getTask(i));
+            ui.showMessage((i + 1) + ". " + tasks.getTask(i + 1));
         }
     }
 
+    @Override
     public boolean isExit() {
         return false;
     }
 }
+

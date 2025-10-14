@@ -11,17 +11,17 @@ import java.io.IOException;
  * Represents a command to mark a task as done.
  */
 public class MarkCommand implements Command {
-    private int index;
+    private int index; // now stores 1-based index
 
     /**
      * Creates a new MarkCommand.
      *
-     * @param arguments The index of the task to mark
+     * @param arguments The index of the task to mark (1-based from user)
      * @throws DukeException If the argument cannot be parsed as an integer
      */
     public MarkCommand(String arguments) throws DukeException {
         try {
-            this.index = Integer.parseInt(arguments) - 1;
+            this.index = Integer.parseInt(arguments); // keep as 1-based
         } catch (NumberFormatException e) {
             throw new DukeException("Invalid task number");
         }
@@ -32,9 +32,13 @@ public class MarkCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        validateIndex(index, tasks.getSize());
-        tasks.markTask(index);
+        if (index < 1 || index > tasks.getSize()) {
+            throw new DukeException("Task number out of range: " + index);
+        }
+
+        tasks.markTask(index); // markTask expects 1-based index
         ui.showTaskStatusChanged(tasks.getTask(index), true);
+
         try {
             storage.save(tasks.getTasks());
         } catch (IOException e) {
@@ -42,23 +46,9 @@ public class MarkCommand implements Command {
         }
     }
 
-
     @Override
     public boolean isExit() {
         return false;
     }
-
-    private int parseIndex(String arguments) throws DukeException {
-        try {
-            return Integer.parseInt(arguments) - 1;
-        } catch (NumberFormatException e) {
-            throw new DukeException("Invalid task number: " + arguments);
-        }
-    }
-
-    private void validateIndex(int idx, int size) throws DukeException {
-        if (idx < 0 || idx >= size) {
-            throw new DukeException("Task number out of range: " + (idx + 1));
-        }
-    }
 }
+
