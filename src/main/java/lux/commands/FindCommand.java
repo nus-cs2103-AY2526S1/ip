@@ -6,7 +6,9 @@ import lux.storage.Storage;
 import lux.ui.Ui;
 
 /**
- * This is the find command which search all tasks matching the given substring
+ * Command that searches for tasks whose descriptions contain a given
+ * substring. The search is case-sensitive and matches any task containing
+ * the provided argument.
  */
 public class FindCommand extends Command {
     private String arguments;

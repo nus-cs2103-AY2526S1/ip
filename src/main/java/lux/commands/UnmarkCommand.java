@@ -7,7 +7,10 @@ import lux.storage.Storage;
 import lux.ui.Ui;
 
 /**
- * This command unmark a task as not done
+ * Command that marks a task as not completed.
+ *
+ * The argument should be a numeric index pointing to the task in the
+ * current {@link lux.data.TaskList}.
  */
 public class UnmarkCommand extends Command {
     private String argument;
@@ -17,19 +20,21 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Parse argument to get the index of task to unmark
+     * Unmarks the task at the provided index and returns the UI message.
+     *
+     * @throws LuxException if the index is invalid or cannot be parsed
      */
     public String execute(TaskList tasks, Ui ui, Storage storage, AliasList aliases) throws LuxException {
         try {
             int idx = Integer.parseInt(argument);
             if (idx < 0 || idx >= tasks.getTasks().size()) {
-                throw new LuxException("Please specify the task number you want to unmark.");
+                throw new LuxException("Task index out of range.");
             }
 
             tasks.getTasks().get(idx).unmark();
             return ui.unmarkTask(tasks.getTasks().get(idx));
         } catch (NumberFormatException e) {
-            throw new LuxException(e.getMessage());
+            throw new LuxException("Invalid task index: must be an integer.");
         }
     }
 
