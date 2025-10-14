@@ -7,15 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/** Handles loading and saving of contacts to a file **/
 public class ContactStorage {
     private final String filePath;
 
+    /** Constructor for ContactStorage **/
     public ContactStorage(String filePath) {
         assert filePath != null && !filePath.trim().isEmpty() : "File path must not be null or empty";
         this.filePath = filePath;
     }
 
-    // Load contacts from file
+    /** Load contacts from file */
     public List<Contact> load() throws IOException {
         assert filePath != null && !filePath.trim().isEmpty() : "File path must not be null or empty when loading";
 
@@ -43,7 +45,7 @@ public class ContactStorage {
         return contacts;
     }
 
-    // Save contacts to file
+    /** Save contacts to file */
     public void save(List<Contact> contacts) throws IOException {
         assert contacts != null : "Contact list must not be null";
 
@@ -64,12 +66,12 @@ public class ContactStorage {
         }
     }
 
-    // Format a contact into string for saving
+    /** Format a contact into string for saving */
     private String toSaveFormat(Contact c) {
         return c.getName() + " | " + c.getPhoneNumber() + " | " + c.getEmail();
     }
 
-    // Parse a line into a Contact object
+    /** Parse a line into a Contact object */
     private Contact parseContact(String line) {
         String[] parts = line.split(" \\| ");
         if (parts.length != 3) {
