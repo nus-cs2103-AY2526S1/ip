@@ -3,46 +3,46 @@ package iris;
 import java.util.ArrayList;
 import java.util.List;
 
-// Manages the list of tasks
+/** Manages a list of tasks **/
 public class TaskList {
     private List<Task> tasks;
 
-    // Default constructor initializes an empty task list
+    /** Default constructor initializes an empty task list */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
-    // Constructor to initialize with existing list of tasks
+    /** Constructor with existing list of tasks */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
     }
 
-    // Adds a task to the list
+    /** Adds a task to the list */
     public void add(Task t) {
         tasks.add(t);
     }
 
-    // Deletes a task at the specified index and returns it
+    /** Deletes a task by index (0-based) */
     public Task delete(int index) {
         return tasks.remove(index);
     }
 
-    // Retrieves a task at the specified index
+    /** Gets a task by index (0-based) */
     public Task get(int index) {
         return tasks.get(index);
     }
 
-    // Returns the number of tasks in the list
+    /** Returns the number of tasks in the list */
     public int size() {
         return tasks.size();
     }
-
-    // Returns all tasks as a list
+    
+    /** Returns all tasks as a list */
     public List<Task> getAll() {
         return tasks;
     }
 
-    // Lists all tasks with their indices
+    /** Lists all tasks with their indices */ 
     public void list(Ui ui) {
         assert ui != null : "Ui must not be null";
         assert tasks != null : "Task list must not be null";
@@ -64,7 +64,7 @@ public class TaskList {
         ui.showMessage(output);
     }
 
-    // Finds and lists tasks that contain the given keyword
+    /** Finds and lists tasks containing the keyword */
     public void find(String keyword, Ui ui) {
         assert ui != null : "Ui must not be null";
         assert tasks != null : "Task list must not be null";

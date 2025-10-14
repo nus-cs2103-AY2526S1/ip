@@ -5,8 +5,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-// Parses date-time strings in various formats
+/** Utility class for parsing date and time from strings **/
 public class DateTimeParser {
+    /** Supported date-time formats **/
     private static final DateTimeFormatter[] DATE_TIME_FORMATS = new DateTimeFormatter[] {
         DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),   // 2/12/2019 1800
         DateTimeFormatter.ofPattern("d-M-yyyy HHmm"),   // 2-12-2019 1800
@@ -15,18 +16,20 @@ public class DateTimeParser {
         DateTimeFormatter.ISO_LOCAL_DATE_TIME           // 2019-12-02T18:00
     };
 
+    /** Supported date-only formats **/
     private static final DateTimeFormatter[] DATE_ONLY_FORMATS = new DateTimeFormatter[] {
         DateTimeFormatter.ofPattern("d/M/yyyy"),        // 2/12/2019
         DateTimeFormatter.ISO_LOCAL_DATE                // 2019-12-02
     };
 
+    /** Parse a date-time string into LocalDateTime **/
     public static LocalDateTime parseDateTime(String input) {
         assert input != null : "Input to DateTimeParser cannot be null";
         assert !input.trim().isEmpty() : "Input to DateTimeParser cannot be empty";
 
         String trimmed = input.trim();
 
-        // Try full date-time patterns first
+        /** Try date-time patterns first */
         for (DateTimeFormatter f : DATE_TIME_FORMATS) {
             try {
                 LocalDateTime parsed = LocalDateTime.parse(trimmed, f);
@@ -37,7 +40,7 @@ public class DateTimeParser {
             }
         }
 
-        // Try date-only patterns → assume start of day (00:00)
+        /** Try date-only patterns -> assume start of day (00:00) */
         for (DateTimeFormatter f : DATE_ONLY_FORMATS) {
             try {
                 LocalDate parsedDate = LocalDate.parse(trimmed, f);

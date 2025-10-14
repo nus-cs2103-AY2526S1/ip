@@ -1,5 +1,6 @@
 package iris;
 
+/** Represents a contact with name, phone number, and email **/
 public class Contact {
     protected String name;
     protected String phoneNumber;
