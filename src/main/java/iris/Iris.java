@@ -1,5 +1,6 @@
 package iris;
 
+/** Main class for the Iris application **/
 public class Iris {
     private TaskList tasks;
     private ContactList contacts;
