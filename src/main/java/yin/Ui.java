@@ -1,0 +1,160 @@
+package yin;
+
+import java.util.List;
+
+/**
+ * Handles all user messages and formatting such as banners, lists,
+ * confirmations, and errors.
+ * This class centralises console output so presentation logic
+ * is kept separate from command execution.
+ * It prints standard lines, headings, and task confirmations.
+ */
+public class Ui {
+    /** Two space left indentation used for all console lines. */
+    private static final String INDENT = "  ";
+    /** Horizontal divider used to frame sections of output. */
+    private static final String LINE =
+            "____________________________________________________________";
+
+    /**
+     * Prints a horizontal divider line with indentation.
+     */
+    public void showLine() {
+        System.out.println(INDENT + LINE);
+    }
+
+    /** Prints the welcome banner shown at application start. */
+    public void showWelcome() {
+        showLine();
+        System.out.println("Hello! I'm Yin.\nHow can I be of assistance?");
+        showLine();
+    }
+
+    /** Prints the exit message shown before terminating the app. */
+    public void showExit() {
+        showLine();
+        System.out.println("See you later alligator.");
+        showLine();
+    }
+
+    /**
+     * Prints a formatted error message.
+     *
+     * @param msg the error message to display
+     */
+    public void showError(String msg) {
+        assert msg != null : "Error message must not be null";
+        showLine();
+        System.out.println(msg);
+        showLine();
+    }
+
+    /**
+     * Prints a confirmation that a task has been added, and shows the new list size.
+     *
+     * @param t the task that was added
+     * @param size the total number of tasks after the addition
+     */
+    public void showAdded(Task t, int size) {
+        assert t != null : "Added task must not be null";
+        showLine();
+        System.out.println("I've added this task:\n" + t);
+        System.out.println("\nNow you have " + size + " tasks in the list.");
+        showLine();
+    }
+
+    /**
+     * Prints a confirmation that a task has been removed, and shows the new list size.
+     *
+     * @param t the task that was removed
+     * @param size the total number of tasks after the removal
+     */
+    public void showRemoved(Task t, int size) {
+        assert t != null : "Removed task must not be null";
+        showLine();
+        System.out.println("I've removed this task:\n" + t);
+        System.out.println("\nNow you have " + size + " tasks in the list.");
+        showLine();
+    }
+
+    /**
+     * Prints the current list of tasks.
+     *
+     * @param tasks tasks to display, in display order
+     */
+    public void showList(List<Task> tasks) {
+        assert tasks != null : "Tasks list must not be null";
+        showLine();
+        if (tasks.isEmpty()) {
+            System.out.println("There are no tasks in the list.");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println("    " + (i + 1) + "." + tasks.get(i));
+            }
+        }
+        showLine();
+    }
+
+    /**
+     * Prints a confirmation that a task has been marked as done.
+     *
+     * @param t the task that was marked
+     */
+    public void showMarked(Task t) {
+        assert t != null : "Marked task must not be null";
+        showLine();
+        System.out.println("Solid, I've marked this task as done:");
+        System.out.println("      " + t);
+        showLine();
+    }
+
+    /**
+     * Prints a confirmation that a task has been unmarked (set to not done).
+     *
+     * @param t the task that was unmarked
+     */
+    public void showUnmarked(Task t) {
+        assert t != null : "Unmarked task must not be null";
+        showLine();
+        System.out.println("I've marked this task as not done yet:");
+        System.out.println("      " + t);
+        showLine();
+    }
+
+    /**
+     * Prints the list of tasks that matched a find query.
+     *
+     * @param matches tasks that matched (may be empty)
+     */
+    public void showMatches(List<Task> matches) {
+        assert matches != null : "Matches list must not be null";
+        showLine();
+        if (matches.isEmpty()) {
+            System.out.println("No matches found.");
+            showLine();
+            return;
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matches.size(); i++) {
+            System.out.println("    " + (i + 1) + "." + matches.get(i));
+        }
+        showLine();
+    }
+
+    /**
+     * Prints a summary after archiving.
+     *
+     * @param count number of tasks archived
+     * @param scope textual scope used (e.g., "all", "done")
+     */
+    public void showArchived(int count, String scope) { // [NEW]
+        showLine();
+        if (count == 0) {
+            System.out.println("Nothing to archive for scope: " + scope + ".");
+        } else {
+            System.out.println("Archived " + count + " task(s) (" + scope + ").");
+        }
+        showLine();
+    }
+}

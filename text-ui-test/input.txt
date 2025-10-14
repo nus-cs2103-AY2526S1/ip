@@ -1,0 +1,29 @@
+todo borrow book
+todo
+deadline return book /by 2019-10-15
+deadline project submission /by 2/12/2019 1800
+deadline
+deadline return book /by not-a-date
+event exam /from 2019-10-15 0900 /to 2019-10-15 1100
+event
+event party /from /to
+event outing /from 2019-10-10 /to not-a-date
+mark 1
+mark
+mark abc
+mark 99
+unmark 1
+delete 2
+delete
+delete 0
+list
+list extra
+unknowncommand something
+
+deadline return book /by 2019-02-29
+deadline return book /by 2025-13-01
+deadline return book /by 2025-12-01 2460
+event workshop /from 2025-05-01 /to 2025-04-30
+todo       lots          of         spaces
+
+bye

@@ -1,0 +1,128 @@
+package yin;
+
+import java.io.IOException;
+import java.util.Collections;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+
+
+/**
+ * A dialog box consisting of an image to represent the speaker
+ * and a label containing the speaker's text.
+ */
+public class DialogBox extends HBox {
+    @FXML
+    private Label dialog;
+    @FXML
+    private ImageView displayPicture;
+
+    /**
+     * Creates a dialog box with given text and image.
+     *
+     * @param text Text to display
+     * @param img Image to display
+     */
+    private DialogBox(String text, Image img) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+            assert dialog != null : "Dialog label should have been injected by FXML";
+            assert displayPicture != null
+                    : "Display picture should have been injected by FXML";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        dialog.setText(text);
+        displayPicture.setImage(img);
+        javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(40, 40);
+        clip.setArcWidth(12);
+        clip.setArcHeight(12);
+        displayPicture.setClip(clip);
+    }
+
+    /**
+     * Flips the dialog box such that the ImageView is on the left,
+     * and text on the right.
+     */
+    private void flip() {
+        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        Collections.reverse(tmp);
+        getChildren().setAll(tmp);
+        setAlignment(Pos.BOTTOM_LEFT);
+
+        dialog.getStyleClass().add("reply-label");
+    }
+
+    /**
+     * Creates a dialog box for user input.
+     *
+     * @param text Text to display
+     * @param img User image
+     * @return DialogBox for user
+     */
+    public static DialogBox getUserDialog(String text, Image img) {
+        // Solution adapted with assistance from ChatGPT (openAI)
+        var db = new DialogBox(text, img);
+        db.dialog.getStyleClass().add("user-label");
+        return db;
+    }
+
+    /**
+     * Creates a dialog box for Yin's reply. The dialog is flipped
+     * so the image appears on the left.
+     *
+     * @param text Text to display
+     * @param img Yin image
+     * @return DialogBox for Yin
+     */
+    public static DialogBox getYinDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.flip();
+        // Solution adapted with assistance from ChatGPT (openAI)
+        db.dialog.getStyleClass().add("reply-label");
+        return db;
+    }
+
+    /**
+     * Creates a dialog box styled for error messages.
+     * The bubble is flipped and assigned error-specific CSS classes.
+     *
+     * @param text error message text
+     * @param img image to display alongside the bubble
+     * @return a styled error dialog box
+     */
+    // Solution adapted with assistance from ChatGPT (openAI)
+    public static DialogBox getErrorDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.flip();
+        db.dialog.getStyleClass().addAll("reply-label", "error-label");
+        return db;
+    }
+
+    /**
+     * Binds the width of the dialog bubble to the given container,
+     * leaving a fixed amount of side padding. Ensures text wraps
+     * instead of overflowing.
+     *
+     * @param container the container whose width to track
+     * @param sidePadding space to leave for avatar and margins
+     */
+    // Solution adapted with assistance from ChatGPT (openAI)
+    public void bindBubbleWidthTo(Region container, double sidePadding) {
+        dialog.setWrapText(true);
+        dialog.maxWidthProperty().bind(container.widthProperty().subtract(sidePadding));
+    }
+}
