@@ -50,7 +50,7 @@ public class Event implements TrackerItem {
             completedString = "X";
         }
 
-        return "[E] [" + completedString + "] " + this.name + " from: " + startDate + " to: " + endDate;
+        return "[E] [" + completedString + "] " + this.name + "(from: " + startDate + " to: " + endDate + ")";
     }
 
     @Override

@@ -1,11 +1,14 @@
 package bot;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import datetime.DateTime;
+import parser.AddDeadlineParser;
+import parser.AddEventParser;
+import parser.AddTodoParser;
+import parser.DeleteItemParser;
+import parser.FindItemParser;
+import parser.MarkItemAsCompletedParser;
+import ui.Ui;
 
 /**
  * Main class
@@ -46,7 +49,7 @@ public class Bot {
                 return handleAddEvent(userInput);
 
             } else if (userInput.equalsIgnoreCase("list")) {
-                return tracker.toString();
+                return handleListItems();
 
             } else if (command.equalsIgnoreCase("mark")) {
                 return handleMarkItemAsCompleted(userInput);
@@ -61,138 +64,84 @@ public class Bot {
                 return handleFindItems(userInput);
 
             } else {
-                return "Unknown command";
+                return Ui.generateErrorMessage(new Exception("I don't recognise this command"));
             }
         } catch (java.time.format.DateTimeParseException e) {
-            return "Error parsing date: " + e.getMessage();
+            return Ui.generateErrorMessage(new Exception("Error parsing date: " + e.getMessage()));
         } catch (Exception e) {
-            return e.getMessage();
+            return Ui.generateErrorMessage(e);
         }
+    }
+
+    private String handleListItems() {
+        return Ui.generateListTasksMessage(tracker);
     }
 
     private String handleAddTodo(String userInput) throws Exception {
-        String regex = "todo (.*)";
-        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(userInput);
-        if (!matcher.find()) {
-            throw new Exception("could not find the name of the todo to add");
-        }
+        AddTodoParser parser = new AddTodoParser();
+        parser.parse(userInput);
 
-        String todoName = matcher.group(1);
-        Todo todo = new Todo(todoName, null);
+        Todo todo = new Todo(parser.getTodoName(), null);
         tracker.addItem(todo);
 
-        return "Got it. I've added this task:" + "\n"
-                + todo + "\n"
-                + "Now you have " + tracker.getItemCount() + " item(s) in the tracker";
+        return Ui.generateAddTaskMessage(todo, tracker);
     }
 
     private String handleAddTodoWithDeadline(String userInput) throws Exception {
-        String regex = "deadline (.*) /by (.*)";
-        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(userInput);
-        if (!matcher.find()) {
-            throw new Exception("could not find the name and/or deadline of the todo to add");
-        }
+        AddDeadlineParser parser = new AddDeadlineParser();
+        parser.parse(userInput);
 
-        String todoName = matcher.group(1);
-        LocalDateTime dueDate = DateTime.parseStringToDate(matcher.group(2));
-        Todo todo = new Todo(todoName, dueDate);
+        Todo todo = new Todo(parser.getTodoName(), parser.getDueDate());
         tracker.addItem(todo);
 
-        return "Got it. I've added this task:" + "\n"
-                + todo + "\n"
-                + "Now you have " + tracker.getItemCount() + " item(s) in the tracker";
+        return Ui.generateAddTaskMessage(todo, tracker);
     }
 
     private String handleAddEvent(String userInput) throws Exception {
-        String regex = "event (.*) /from (.*) /to (.*)";
-        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(userInput);
-        if (!matcher.find()) {
-            throw new Exception("could not find the name, start date, and/or end date of the event to add");
-        }
+        AddEventParser parser = new AddEventParser();
+        parser.parse(userInput);
 
-        String todoName = matcher.group(1);
-        LocalDateTime startDate = DateTime.parseStringToDate(matcher.group(2));
-        LocalDateTime endDate = DateTime.parseStringToDate(matcher.group(3));
-        Event event = new Event(todoName, startDate, endDate);
+        Event event = new Event(parser.getTodoName(), parser.getStartDate(), parser.getEndDate());
         tracker.addItem(event);
 
-        return "Got it. I've added this task:" + "\n"
-                + event + "\n"
-                + "Now you have " + tracker.getItemCount() + " item(s) in the tracker";
+        return Ui.generateAddTaskMessage(event, tracker);
     }
 
     private String handleMarkItemAsCompleted(String userInput) throws Exception {
-        String regex = "mark ([0-9]+)";
-        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(userInput);
-        if (!matcher.find()) {
-            throw new Exception("could not find the item number to mark as completed");
-        }
+        MarkItemAsCompletedParser parser = new MarkItemAsCompletedParser();
+        parser.parse(userInput);
 
-        int itemNumber = Integer.parseInt(matcher.group(1));
-        tracker.markItemAsCompleted(itemNumber);
+        tracker.markItemAsCompleted(parser.getItemNumber());
 
-        TrackerItem markedItem = tracker.getItemByNumber(itemNumber);
-        return "OK, I've marked this item as done:" + "\n"
-                + markedItem;
+        TrackerItem markedItem = tracker.getItemByNumber(parser.getItemNumber());
+        return Ui.generateMarkAsCompletedMessage(markedItem);
     }
 
     private String handleUnmarkItemAsCompleted(String userInput) throws Exception {
-        String regex = "unmark ([0-9]+)";
-        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(userInput);
-        if (!matcher.find()) {
-            throw new Exception("could not find the item number to unmark as completed");
-        }
+        MarkItemAsCompletedParser parser = new MarkItemAsCompletedParser();
+        parser.parse(userInput);
 
-        int itemNumber = Integer.parseInt(matcher.group(1));
-        tracker.unmarkItemAsCompleted(itemNumber);
+        tracker.unmarkItemAsCompleted(parser.getItemNumber());
 
-        TrackerItem unmarkedItem = tracker.getItemByNumber(itemNumber);
-        return "OK, I've marked this item as not done yet:" + "\n"
-                + unmarkedItem;
+        TrackerItem unmarkedItem = tracker.getItemByNumber(parser.getItemNumber());
+        return Ui.generateUnmarkAsCompletedMessage(unmarkedItem);
     }
 
     private String handleDeleteItem(String userInput) throws Exception {
-        String regex = "delete ([0-9]+)";
-        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(userInput);
-        if (!matcher.find()) {
-            throw new Exception("could not find the item number to delete");
-        }
+        DeleteItemParser parser = new DeleteItemParser();
+        parser.parse(userInput);
 
-        int itemNumber = Integer.parseInt(matcher.group(1));
-        TrackerItem deletedItem = tracker.deleteItem(itemNumber);
+        TrackerItem deletedItem = tracker.deleteItem(parser.getItemNumber());
 
-        return "Noted. I've removed this task:" + "\n"
-                + deletedItem + "\n"
-                + "Now you have " + tracker.getItemCount() + " item(s) in the tracker";
+        return Ui.generateDeleteTaskMessage(deletedItem, tracker);
     }
 
     private String handleFindItems(String userInput) throws Exception {
-        String regex = "find (.*)";
-        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(userInput);
-        if (!matcher.find()) {
-            throw new Exception("could not find the item number to delete");
-        }
+        FindItemParser parser = new FindItemParser();
+        parser.parse(userInput);
 
-        List<TrackerItem> matchedItems = tracker.find(matcher.group(1));
-        if (matchedItems.isEmpty()) {
-            return "No items match the given query";
-        }
+        List<TrackerItem> matchedItems = tracker.find(parser.getItemName());
 
-        StringBuilder display = new StringBuilder();
-        for (int i = 0; i < matchedItems.size(); i++) {
-            TrackerItem item = matchedItems.get(i);
-            String itemString = (i + 1) + ". " + item.toString() + "\n";
-            display.append(itemString);
-        }
-
-        return "Here are the matching items in your tracker" + "\n"
-                + display;
+        return Ui.generateFindTasksMessage(matchedItems);
     }
 }
