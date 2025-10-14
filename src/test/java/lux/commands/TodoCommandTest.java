@@ -41,13 +41,18 @@ public class TodoCommandTest {
 
     @Test
     public void testExecuteAddsTodo() {
-        TodoCommand cmd = new TodoCommand("test task");
-        StubUi ui = new StubUi();
-        StubTaskList tasks = new StubTaskList();
-        StubStorage storage = new StubStorage();
-        cmd.execute(tasks, ui, storage, null);
-        assertTrue(tasks.added);
-        assertTrue(ui.todoAdded);
+        try {
+            TodoCommand cmd = new TodoCommand("test task");
+            StubUi ui = new StubUi();
+            StubTaskList tasks = new StubTaskList();
+            StubStorage storage = new StubStorage();
+            cmd.execute(tasks, ui, storage, null);
+            assertTrue(tasks.added);
+            assertTrue(ui.todoAdded);
+        } catch (lux.exception.LuxException e) {
+            // Not expected in this test
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
