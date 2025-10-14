@@ -54,7 +54,7 @@ public class ReminderService {
     private final Set<String> firedKeys = ConcurrentHashMap.newKeySet();
 
     private Instant lastScan = Instant.now().minus(STARTUP_GRACE);
-    private boolean running = false;
+    private boolean isRunning = false;
 
     /**
      * Constructs a reminder service.
@@ -84,10 +84,10 @@ public class ReminderService {
      * Starts periodic scanning. Safe to call multiple times.
      */
     public void start() {
-        if (running) {
+        if (isRunning) {
             return;
         }
-        running = true;
+        isRunning = true;
         scheduler.scheduleWithFixedDelay(this::safeScanOnce,
                 0,
                 SCAN_PERIOD.toSeconds(),
@@ -98,7 +98,7 @@ public class ReminderService {
      * Stops periodic scanning and saves dismissed keys.
      */
     public void stop() {
-        running = false;
+        isRunning = false;
         scheduler.shutdownNow();
         saveDismissedKeys();
     }
@@ -219,7 +219,7 @@ public class ReminderService {
     }
 
     /**
-     * Converts LocalDateTime to Instant using system default zone.
+     * Converts LocalDateTime to an Instant using system default zone.
      */
     private Instant convertToInstant(LocalDateTime dateTime) {
         return dateTime.atZone(ZoneId.systemDefault()).toInstant();
