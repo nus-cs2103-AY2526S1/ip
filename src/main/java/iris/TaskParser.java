@@ -2,8 +2,9 @@ package iris;
 
 import java.time.LocalDateTime;
 
-// Utility class to parse tasks from saved string format
+/** Utility class to parse tasks from save file lines **/
 public class TaskParser {
+    /** Parses a line from the save file and returns the corresponding Task object **/
     public static Task parseTask(String line) throws IrisException {
         String[] parts = line.split(" \\| ");
         String type = parts[0];
