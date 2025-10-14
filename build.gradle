@@ -44,7 +44,6 @@ test {
 }
 
 application {
-    //mainClass.set("novagpt.ui.NovaGpt")
     mainClass.set("novagpt.ui.Launcher")
 }
 

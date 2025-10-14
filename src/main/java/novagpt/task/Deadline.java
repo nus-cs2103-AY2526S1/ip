@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import novagpt.exception.NovaException;
+import novagpt.ui.Ui;
 
 /**
  * Represents a {@code Deadline} task.
@@ -14,6 +15,9 @@ import novagpt.exception.NovaException;
 public class Deadline extends Task {
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
+    private static final String ERROR_MESSAGE = "OOPS! Wrong format, please key in date and time in "
+            + Ui.DATETIME_PATTERN
+            + " format";
     private final LocalDateTime endTimeDate;
 
     /**
@@ -28,9 +32,7 @@ public class Deadline extends Task {
         try {
             this.endTimeDate = LocalDateTime.parse(deadline, INPUT_FORMAT);
         } catch (DateTimeException e) {
-            throw new NovaException("OOPS! Wrong format, please key in date and time in "
-                    + INPUT_FORMAT
-                    + " (24 hour) format");
+            throw new NovaException(ERROR_MESSAGE);
         }
     }
 

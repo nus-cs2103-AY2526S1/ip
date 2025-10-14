@@ -18,12 +18,15 @@ public class Ui {
     public static final String KILL_SWITCH = "bye";
     /** Command format for adding a todo task. */
     public static final String TODO_COMMAND_FORMAT = "todo <task name>";
+    /** Date and Time format for inputs */
+    public static final String DATETIME_PATTERN = "DD/MM/YYYY HHMM (24 hour)";
     /** Command format for adding a deadline task. */
     public static final String DEADLINE_COMMAND_FORMAT = "deadline <task name> /by <deadline> "
-            + "DD/MM/YYYY HHMM (24 hour)";
+            + DATETIME_PATTERN;
+
     /** Command format for adding an event task. */
     public static final String EVENT_COMMAND_FORMAT = "event <task name> "
-            + "/from <start time> DD/MM/YYYY HHMM (24 hour) /to <end time> DD/MM/YYYY HHMM (24 hour)";
+            + "/from <start time> " + DATETIME_PATTERN + " /to <end time> " + DATETIME_PATTERN;
     /** Command format for finding tasks by keyword. */
     public static final String FIND_COMMAND_FORMAT = "find <keyword(s) to search>";
     /** Command format for deleting a task. */
@@ -96,6 +99,17 @@ public class Ui {
     }
 
     /**
+     * Returns a error message for marking a task done given the task was complete
+     *
+     * @param task The task to mark.
+     * @return Formatted string confirming the task is marked.
+     */
+    public static String taskDoneMessage(Task task) {
+        return "🌟 Attention Commander! Task has already been completed: \n"
+                + task;
+    }
+
+    /**
      * Returns a confirmation message for marking a task as not done.
      *
      * @param task The task to unmark.
@@ -103,6 +117,17 @@ public class Ui {
      */
     public static String unmarkMessage(Task task) {
         return "🪐 Oops! Task reset to incomplete mode: \n"
+                + task;
+    }
+
+    /**
+     * Returns a error message for marking a task as not done given the task was not complete
+     *
+     * @param task The task to unmark.
+     * @return Formatted string confirming the task is unmarked.
+     */
+    public static String taskNotDoneMessage(Task task) {
+        return "🪐 Attention Commander! Task is already pending: \n"
                 + task;
     }
 

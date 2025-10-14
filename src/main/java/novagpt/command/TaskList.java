@@ -114,6 +114,10 @@ public class TaskList {
             throw new NovaException(Ui.OUT_OF_INDEX);
         }
         Task t = ls.get(listNum);
+        boolean isDone = t.getStatus();
+        if (isDone) {
+            return Ui.taskDoneMessage(t);
+        }
         t.mark();
         st.save(ls);
         return Ui.markMessage(t);
@@ -134,6 +138,10 @@ public class TaskList {
             throw new NovaException(Ui.OUT_OF_INDEX);
         }
         Task t = ls.get(listNum);
+        boolean isNotDone = !t.getStatus();
+        if (isNotDone) {
+            return Ui.taskNotDoneMessage(t);
+        }
         t.unmark();
         st.save(ls);
         return Ui.unmarkMessage(t);

@@ -17,7 +17,7 @@ public class Parser {
      * @return Command
      */
     public static Command parseCommandFromInput(String input) {
-        String lowerCaseInput = input.toLowerCase();
+        String lowerCaseInput = input.toLowerCase().trim();
         if (lowerCaseInput.equals(KILL_SWITCH)) {
             return Command.BYE;
         } else if (lowerCaseInput.equals("list")) {
