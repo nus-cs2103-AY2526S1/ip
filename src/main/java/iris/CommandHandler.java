@@ -100,7 +100,7 @@ public class CommandHandler {
         }
     }
 
-    // Task Helpers
+    /** Task Helpers */ 
     /** Create a Todo Task */
     private static Task createTodo(String[] parts) throws IrisException {
         assert parts[1] != null && !parts[1].trim().isEmpty() : "Todo description should not be empty";
@@ -183,6 +183,7 @@ public class CommandHandler {
         
     }
 
+    /** List all contacts */
     public static void listContacts(ContactList contacts, Ui ui) {
         assert contacts != null : "ContactList should not be null";
         assert ui != null : "Ui should not be null";
