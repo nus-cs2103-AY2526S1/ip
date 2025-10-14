@@ -29,13 +29,15 @@ public class EventCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage, AliasList aliases) throws LuxException {
         String[] fromSplit = arguments.split(" /from ", 2);
         if (fromSplit.length < 2) {
-            throw new LuxException("Invalid event format. Use: event {description} /from {HHmm dd-MM-yyyy} /to {HHmm dd-MM-yyyy}");
+            throw new LuxException(
+                "Invalid event format. Use: event {description} /from {HHmm dd-MM-yyyy} /to {HHmm dd-MM-yyyy}");
         }
 
         String description = fromSplit[0].trim();
         String[] toSplit = fromSplit[1].split(" /to ", 2);
         if (toSplit.length < 2) {
-            throw new LuxException("Invalid event format. Use: event {description} /from {HHmm dd-MM-yyyy} /to {HHmm dd-MM-yyyy}");
+            throw new LuxException(
+                "Invalid event format. Use: event {description} /from {HHmm dd-MM-yyyy} /to {HHmm dd-MM-yyyy}");
         }
 
         try {
