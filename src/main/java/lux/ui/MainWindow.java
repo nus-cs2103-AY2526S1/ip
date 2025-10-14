@@ -28,7 +28,7 @@ public class MainWindow {
     private Lux lux;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/akchtually.jpg"));
-    private Image luxImage = new Image(this.getClass().getResourceAsStream("/images/chill_cat.jpg"));
+    private Image luxImage = new Image(this.getClass().getResourceAsStream("/images/sad_frog.jpg"));
 
     /**
      * Initializes the controller after the root element has been completely
