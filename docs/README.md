@@ -40,6 +40,7 @@ Welcome to Junny, your personal chatbot assistant!
 ---
 
 ## Command Summary
+
 | Command   | Format | Example |
 |-----------|--------|---------|
 | **todo**  | `todo <description>` | `todo read book` |
