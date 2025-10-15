@@ -42,6 +42,15 @@ public class Ui {
     }
 
     /**
+     * Displays a response message.
+     *
+     * @param message The response message to display.
+     */
+    public void showResponse(String message) {
+        System.out.println(" " + message);
+    }
+
+    /**
      * Displays an error message.
      *
      * @param message The error message to display.

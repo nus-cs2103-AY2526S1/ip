@@ -115,10 +115,54 @@ public class TaskListTest {
     public void getTasks_returnsCorrectArrayList() {
         taskList.add(todo);
         taskList.add(deadline);
-        
+
         ArrayList<Task> tasks = taskList.getTasks();
         assertEquals(2, tasks.size());
         assertEquals(todo, tasks.get(0));
         assertEquals(deadline, tasks.get(1));
+    }
+
+    @Test
+    public void isDuplicate_sameTodo_returnsTrue() {
+        taskList.add(todo);
+        Todo duplicateTodo = new Todo("read book");
+
+        assertTrue(taskList.isDuplicate(duplicateTodo));
+    }
+
+    @Test
+    public void isDuplicate_differentTodo_returnsFalse() {
+        taskList.add(todo);
+        Todo differentTodo = new Todo("write essay");
+
+        assertFalse(taskList.isDuplicate(differentTodo));
+    }
+
+    @Test
+    public void isDuplicate_sameDeadline_returnsTrue() {
+        taskList.add(deadline);
+        Deadline duplicateDeadline = new Deadline("return book",
+                LocalDateTime.of(2019, 12, 1, 18, 0));
+
+        assertTrue(taskList.isDuplicate(duplicateDeadline));
+    }
+
+    @Test
+    public void isDuplicate_sameEvent_returnsTrue() {
+        taskList.add(event);
+        Event duplicateEvent = new Event("project meeting",
+                LocalDateTime.of(2019, 12, 2, 14, 0),
+                LocalDateTime.of(2019, 12, 2, 16, 0));
+
+        assertTrue(taskList.isDuplicate(duplicateEvent));
+    }
+
+    @Test
+    public void findDuplicate_existingTask_returnsTask() {
+        taskList.add(todo);
+        Todo duplicateTodo = new Todo("read book");
+
+        Task found = taskList.findDuplicate(duplicateTodo);
+        assertEquals(todo, found);
     }
 }

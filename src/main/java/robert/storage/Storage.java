@@ -35,59 +35,94 @@ public class Storage {
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         if (!file.exists()) {
-            assert file.getParentFile() != null : "Parent directory should not be null";
-            file.getParentFile().mkdirs(); // Create directories if they don't exist
-            file.createNewFile(); // Create the file if it doesn't exist
+            createFileIfNeeded();
         } else {
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    String[] parts = line.split(" \\| ");
-                    if (parts.length < 3) continue; // Skip malformed lines
-
-                    assert parts[0] != null : "Task type should not be null";
-                    assert parts[1] != null : "Task status should not be null";
-                    assert parts[2] != null : "Task description should not be null";
-                    
-                    String type = parts[0];
-                    boolean isDone = parts[1].equals("1");
-                    String description = parts[2];
-                    Task task = null;
-                    
-                    try {
-                        switch (type) {
-                            case "T":
-                                task = new Todo(description);
-                                break;
-                            case "D":
-                                if (parts.length >= 4) {
-                                    LocalDateTime by = LocalDateTime.parse(parts[3], STORAGE_FORMAT);
-                                    task = new Deadline(description, by);
-                                }
-                                break;
-                            case "E":
-                                if (parts.length >= 5) {
-                                    LocalDateTime from = LocalDateTime.parse(parts[3], STORAGE_FORMAT);
-                                    LocalDateTime to = LocalDateTime.parse(parts[4], STORAGE_FORMAT);
-                                    task = new Event(description, from, to);
-                                }
-                                break;
-                        }
-                        if (task != null) {
-                            if (isDone) {
-                                task.markAsDone();
-                            }
-                            tasks.add(task);
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Warning: Skipping corrupted task: " + line);
-                    }
-                }
-            } catch (Exception e) {
-                System.out.println("Warning: Data file is corrupted. Starting with an empty task list.");
-            }
+            loadTasksFromFile(tasks);
         }
         return tasks;
+    }
+
+    private void createFileIfNeeded() throws IOException {
+        assert file.getParentFile() != null : "Parent directory should not be null";
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+    }
+
+    private void loadTasksFromFile(ArrayList<Task> tasks) {
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                parseAndAddTask(line, tasks);
+            }
+        } catch (Exception e) {
+            // Silent fail - return empty list on corruption
+        }
+    }
+
+    private void parseAndAddTask(String line, ArrayList<Task> tasks) {
+        String[] parts = line.split(" \\| ");
+        if (parts.length < 3) {
+            return;
+        }
+
+        validateParts(parts);
+        Task task = createTaskFromParts(parts);
+
+        if (task != null) {
+            tasks.add(task);
+        }
+    }
+
+    private void validateParts(String[] parts) {
+        assert parts[0] != null : "Task type should not be null";
+        assert parts[1] != null : "Task status should not be null";
+        assert parts[2] != null : "Task description should not be null";
+    }
+
+    private Task createTaskFromParts(String[] parts) {
+        try {
+            String type = parts[0];
+            boolean isDone = parts[1].equals("1");
+            String description = parts[2];
+            Task task = parseTaskByType(type, description, parts);
+
+            if (task != null && isDone) {
+                task.markAsDone();
+            }
+            return task;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private Task parseTaskByType(String type, String description, String[] parts) {
+        switch (type) {
+        case "T":
+            return new Todo(description);
+        case "D":
+            return parseDeadlineTask(description, parts);
+        case "E":
+            return parseEventTask(description, parts);
+        default:
+            return null;
+        }
+    }
+
+    private Task parseDeadlineTask(String description, String[] parts) {
+        if (parts.length >= 4) {
+            LocalDateTime by = LocalDateTime.parse(parts[3], STORAGE_FORMAT);
+            return new Deadline(description, by);
+        }
+        return null;
+    }
+
+    private Task parseEventTask(String description, String[] parts) {
+        if (parts.length >= 5) {
+            LocalDateTime from = LocalDateTime.parse(parts[3], STORAGE_FORMAT);
+            LocalDateTime to = LocalDateTime.parse(parts[4], STORAGE_FORMAT);
+            return new Event(description, from, to);
+        }
+        return null;
     }
 
     /**
