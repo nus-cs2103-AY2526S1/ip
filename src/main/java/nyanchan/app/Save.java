@@ -14,10 +14,19 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Handles saving and loading of tasks to and from disk.
+ */
 public class Save {
     private static final String FILE_PATH = "./data/nyanchan.txt";
 
-    // Read from nyanchan.txt and load into task_list
+    /**
+     * Reads tasks from the save file into the given list.
+     * Creates the file and folder if they do not exist.
+     *
+     * @param to list to load tasks into
+     * @throws FileNotFoundException if the file cannot be found
+     */
     public static void read(List<Task> to) throws FileNotFoundException {
         File file = new File(FILE_PATH);
 
@@ -48,7 +57,12 @@ public class Save {
         }
     }
 
-    // Write into nyanchan.txt and save the nyanchan.tasks from task_list
+    /**
+     * Writes all tasks in the list to the save file.
+     * Creates directories if needed.
+     *
+     * @param from list of tasks to save
+     */
     public static void write(List<Task> from) {
         File file = new File(Save.FILE_PATH);
         File parentDir = file.getParentFile();
@@ -70,7 +84,13 @@ public class Save {
         }
     }
 
-    // Serialize a task into its string format
+    /**
+     * Converts a {@code Task} into its string form for saving.
+     *
+     * @param t task to serialize
+     * @return serialized string
+     * @throws IncorrectFormatException if task format is invalid
+     */
     public static String serialize(Task t) throws IncorrectFormatException {
         String done = t.getDone() ? "1" : "0";
         if (t instanceof Todo) {
@@ -85,7 +105,13 @@ public class Save {
         }
     }
 
-    // Unserialize a line of string into a task
+    /**
+     * Converts a line of text into a {@code Task} object.
+     *
+     * @param s serialized task line
+     * @return the deserialized task
+     * @throws IncorrectFormatException if line format is invalid
+     */
     public static Task unserialize(String s) throws IncorrectFormatException {
         String[] elements = s.split(" \\| ");
         Task task;
