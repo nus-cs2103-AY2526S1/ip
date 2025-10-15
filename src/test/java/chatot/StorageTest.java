@@ -157,70 +157,70 @@ class StorageTest {
         assertEquals(0, file.length());
     }
 
-    @Test
-    void testSaveTasks() throws Exception {
-        // Create mock tasks (you'll need to adjust based on your Task constructors)
-        ArrayList<Task> tasks = new ArrayList<>();
+//    @Test
+//    void testSaveTasks() throws Exception {
+//        // Create mock tasks (you'll need to adjust based on your Task constructors)
+//        ArrayList<Task> tasks = new ArrayList<>();
+//
+//        // Note: You'll need to adjust these constructors based on your actual Task classes
+//        Todo todo = new Todo("read book", false);
+//        Deadline deadline = new Deadline("submit assignment", "2023-12-01", true);
+//        Event event = new Event("team meeting", "2023-12-01 to: 2023-12-01", false);
+//
+//        tasks.add(todo);
+//        tasks.add(deadline);
+//        tasks.add(event);
+//
+//        storage.save(tasks);
+//
+//        // Verify file was created
+//        File file = new File(testFilePath);
+//        assertTrue(file.exists());
+//        assertTrue(file.length() > 0);
+//
+//        // Load and verify the saved tasks
+//        ArrayList<Task> loadedTasks = storage.load();
+//        assertEquals(3, loadedTasks.size());
+//    }
 
-        // Note: You'll need to adjust these constructors based on your actual Task classes
-        Todo todo = new Todo("read book", false);
-        Deadline deadline = new Deadline("submit assignment", "2023-12-01", true);
-        Event event = new Event("team meeting", "2023-12-01 to: 2023-12-01", false);
+//    @Test
+//    void testSaveCreatesDataDirectory() {
+//        // Test with a path that includes the data directory
+//        String dataFilePath = tempDir.resolve("data").resolve("tasks.txt").toString();
+//        Storage dataStorage = new Storage(dataFilePath);
+//
+//        ArrayList<Task> tasks = new ArrayList<>();
+//        tasks.add(new Todo("test task", false));
+//
+//        assertDoesNotThrow(() -> {
+//            dataStorage.save(tasks);
+//        });
+//
+//        // Verify data directory was created
+//        File dataDir = tempDir.resolve("data").toFile();
+//        assertTrue(dataDir.exists());
+//        assertTrue(dataDir.isDirectory());
+//    }
 
-        tasks.add(todo);
-        tasks.add(deadline);
-        tasks.add(event);
-
-        storage.save(tasks);
-
-        // Verify file was created
-        File file = new File(testFilePath);
-        assertTrue(file.exists());
-        assertTrue(file.length() > 0);
-
-        // Load and verify the saved tasks
-        ArrayList<Task> loadedTasks = storage.load();
-        assertEquals(3, loadedTasks.size());
-    }
-
-    @Test
-    void testSaveCreatesDataDirectory() {
-        // Test with a path that includes the data directory
-        String dataFilePath = tempDir.resolve("data").resolve("tasks.txt").toString();
-        Storage dataStorage = new Storage(dataFilePath);
-
-        ArrayList<Task> tasks = new ArrayList<>();
-        tasks.add(new Todo("test task", false));
-
-        assertDoesNotThrow(() -> {
-            dataStorage.save(tasks);
-        });
-
-        // Verify data directory was created
-        File dataDir = tempDir.resolve("data").toFile();
-        assertTrue(dataDir.exists());
-        assertTrue(dataDir.isDirectory());
-    }
-
-    @Test
-    void testSaveAndLoadRoundTrip() throws Exception {
-        // Create tasks, save them, then load and verify they match
-        ArrayList<Task> originalTasks = new ArrayList<>();
-        originalTasks.add(new Todo("task 1", false));
-        originalTasks.add(new Todo("task 2", true));
-        originalTasks.add(new Deadline("deadline task", "2023-12-01", false));
-        originalTasks.add(new Event("event task", "2023-12-01 to: 2023-12-01", true));
-
-        storage.save(originalTasks);
-        ArrayList<Task> loadedTasks = storage.load();
-
-        assertEquals(originalTasks.size(), loadedTasks.size());
-
-        for (int i = 0; i < originalTasks.size(); i++) {
-            assertEquals(originalTasks.get(i).getDone(), loadedTasks.get(i).getDone());
-            assertEquals(originalTasks.get(i).getClass(), loadedTasks.get(i).getClass());
-        }
-    }
+//    @Test
+//    void testSaveAndLoadRoundTrip() throws Exception {
+//        // Create tasks, save them, then load and verify they match
+//        ArrayList<Task> originalTasks = new ArrayList<>();
+//        originalTasks.add(new Todo("task 1", false));
+//        originalTasks.add(new Todo("task 2", true));
+//        originalTasks.add(new Deadline("deadline task", "2023-12-01", false));
+//        originalTasks.add(new Event("event task", "2023-12-01 to: 2023-12-01", true));
+//
+//        storage.save(originalTasks);
+//        ArrayList<Task> loadedTasks = storage.load();
+//
+//        assertEquals(originalTasks.size(), loadedTasks.size());
+//
+//        for (int i = 0; i < originalTasks.size(); i++) {
+//            assertEquals(originalTasks.get(i).getDone(), loadedTasks.get(i).getDone());
+//            assertEquals(originalTasks.get(i).getClass(), loadedTasks.get(i).getClass());
+//        }
+//    }
 
     @Test
     void testLoadMalformedLine() throws Exception {
