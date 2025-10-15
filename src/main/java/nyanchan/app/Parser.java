@@ -7,8 +7,22 @@ import nyanchan.tasks.Deadline;
 import nyanchan.tasks.Todo;
 import nyanchan.tasks.Event;
 
+
+/**
+ * Handles parsing and executing user commands for Nyanchan.
+ */
 public class Parser {
 
+    /**
+     * Parses and runs a user command, returning Nyanchan’s response.
+     *
+     * @param input     user command input
+     * @param taskList  current task list
+     * @param ui        UI for message formatting
+     * @param storage   storage handler for saving tasks
+     * @return response message
+     * @throws NyanException if command format or execution fails
+     */
     public static String handleCommand(String input, TaskList taskList, Ui ui, Storage storage)
             throws NyanException {
         input = input.trim();
@@ -30,10 +44,12 @@ public class Parser {
 
     // ---------------- Utilities ---------------- //
 
+    /** Extracts the command keyword from user input. */
     private static String extractCommand(String input) {
         return input.contains(" ") ? input.substring(0, input.indexOf(" ")) : input;
     }
 
+    /** Parses a task index from the input. */
     private static int parseIndex(String input, TaskList taskList) throws NyanException {
         String[] tokens = input.split(" ");
         if (tokens.length < 2) {
@@ -50,12 +66,14 @@ public class Parser {
         }
     }
 
+    /** Saves the current task list to storage. */
     private static void saveTasks(Storage storage, TaskList taskList) throws NyanException {
         storage.save(taskList.getAll());
     }
 
     // ---------------- Command Handlers ---------------- //
 
+    /** Marks or unmarks a task based on user input. */
     private static String handleMark(String input, TaskList taskList, Ui ui, Storage storage, boolean mark)
             throws NyanException {
         int index = parseIndex(input, taskList);
@@ -66,6 +84,7 @@ public class Parser {
         return mark ? ui.showMarkTask(task) : ui.showUnmarkTask(task);
     }
 
+    /** Deletes a task by index. */
     private static String handleDelete(String input, TaskList taskList, Ui ui, Storage storage)
             throws NyanException {
         int index = parseIndex(input, taskList);
@@ -74,6 +93,7 @@ public class Parser {
         return ui.showDeleteTask(taskList, task);
     }
 
+    /** Adds a new Todo task. */
     private static String handleTodo(String input, TaskList taskList, Ui ui, Storage storage) throws NyanException {
         String description = parseTodoDescription(input);
         Task task = new Todo(description);
@@ -82,6 +102,7 @@ public class Parser {
         return description;
     }
 
+    /** Parses Todo description from input. */
     private static String parseTodoDescription(String input) throws NyanException {
         String description = input.length() > 5 ? input.substring(5).trim() : "";
         if (description.isEmpty()) {
@@ -90,6 +111,7 @@ public class Parser {
         return description;
     }
 
+    /** Adds a new Deadline task. */
     private static String handleDeadline(String input, TaskList taskList, Ui ui, Storage storage) throws NyanException {
         String[] parts = parseDeadlineInput(input);
         try {
@@ -102,6 +124,7 @@ public class Parser {
         }
     }
 
+    /** Parses Deadline description and time. */
     private static String[] parseDeadlineInput(String input) throws NyanException {
         String[] parts = input.substring(9).split("/by", 2);
         if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
@@ -110,6 +133,7 @@ public class Parser {
         return new String[]{parts[0].trim(), parts[1].trim()};
     }
 
+    /** Adds a new Event task. */
     private static String handleEvent(String input, TaskList taskList, Ui ui, Storage storage) throws NyanException {
         String[] eventParts = parseEventInput(input);
         try {
@@ -122,6 +146,7 @@ public class Parser {
         }
     }
 
+    /** Parses Event description, start, and end times. */
     private static String[] parseEventInput(String input) throws NyanException {
         String[] parts = input.substring(6).split("/from", 2);
         if (parts.length < 2 || parts[0].trim().isEmpty()) {
@@ -135,12 +160,14 @@ public class Parser {
         return new String[]{description, timeParts[0].trim(), timeParts[1].trim()};
     }
 
+    /** Finds and lists tasks that contain the given keyword. */
     private static String handleFind(String input, TaskList taskList, Ui ui) throws NyanException {
         String keyword = parseFindKeyword(input); // find already fulfills C-BetterSearch
         TaskList matchedTasks = findMatchingTasks(taskList, keyword);
         return ui.showFindResults(matchedTasks, keyword);
     }
 
+    /** Parses the keyword for the find command. */
     private static String parseFindKeyword(String input) throws NyanException {
         String keyword = input.length() > 5 ? input.substring(5).trim() : "";
         if (keyword.isEmpty()) {
@@ -149,6 +176,7 @@ public class Parser {
         return keyword;
     }
 
+    /** Returns all tasks containing the keyword. */
     private static TaskList findMatchingTasks(TaskList taskList, String keyword) {
         TaskList matchedTasks = new TaskList();
         for (Task task : taskList.getAll()) {

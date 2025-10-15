@@ -2,11 +2,21 @@ package nyanchan.app;
 
 import nyanchan.exceptions.NyanException;
 
+/**
+ * Main controller for the Nyanchan chatbot.
+ * Handles user input, storage, and task management.
+ */
 public class ChatBot {
     private final Storage storage;
     private final TaskList taskList;
     private final Ui ui;
 
+    /**
+     * Creates a {@code ChatBot} using the given file path.
+     * Loads tasks from storage, or starts fresh if loading fails.
+     *
+     * @param filePath path to the task data file
+     */
     public ChatBot(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);

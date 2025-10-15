@@ -6,38 +6,58 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.DateTimeException;
 
+/**
+ * Represents an event task with a start and end date.
+ */
 public class Event extends Task {
     private String from;
     private String to;
     private LocalDate startDate;
     private LocalDate endDate;
 
-    // Formatter for parsing input
+    /** Formatter for parsing input dates (dd/MM/yyyy). */
     public static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    // Formatter for displaying nicely
+    /** Formatter for displaying dates in a readable form. */
     public static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
+    /**
+     * Creates an Event task.
+     *
+     * @param description event description
+     * @param from start date in dd/MM/yyyy format
+     * @param to end date in dd/MM/yyyy format
+     * @throws IncorrectFormatException if date format is invalid
+     */
     public Event(String description, String from, String to) throws IncorrectFormatException {
         super(description);
         this.convertToDates(from, to);
     }
 
+    /** @return formatted start date string */
     public String getFrom() {
         return this.from;
     }
 
+    /** @return formatted end date string */
     public String getTo() {
         return this.to;
     }
 
+    /** @return start date as LocalDate */
     public LocalDate getStartDate() {
         return this.startDate;
     }
 
+    /** @return end date as LocalDate */
     public LocalDate getEndDate() {
         return this.endDate;
     }
 
+    /**
+     * Converts and stores start/end dates from string input.
+     *
+     * @throws IncorrectFormatException if parsing fails
+     */
     private void convertToDates(String from, String to) throws IncorrectFormatException {
         try {
             this.startDate = LocalDate.parse(from, INPUT_FORMAT);
@@ -49,6 +69,7 @@ public class Event extends Task {
         }
     }
 
+    /** @return string representation of the event */
     @Override
     public String toString() {
         String formattedFrom = this.startDate.format(OUTPUT_FORMAT);
