@@ -3,7 +3,7 @@
 Welcome to Junny, your personal chatbot assistant!
 
 ---
-
+![Ui image](Ui.png)
 ## Quick Start
 1. Ensure you have **Java 17** or above installed.
 2. Download the latest release of `Junny.jar`.
