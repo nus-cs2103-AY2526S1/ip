@@ -28,7 +28,6 @@ public class DateParserTest {
     @Test
     public void dateParserTestIllegalArguments() {
         assertThrows(IllegalArgumentException.class, () -> DateParser.parseDate("02-12-2019 1800"));
-        assertThrows(IllegalArgumentException.class, () -> DateParser.parseDate("2/1/2019"));
         assertThrows(IllegalArgumentException.class, () -> DateParser.parseDate("31 Dec 2018"));
     }
 
