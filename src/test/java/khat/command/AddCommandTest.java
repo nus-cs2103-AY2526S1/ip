@@ -39,7 +39,7 @@ public class AddCommandTest {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("test/test.txt");
-        AddCommand cmd = new AddCommand("Team meeting", "event", "2024-06-01", "2024-06-01");
+        AddCommand cmd = new AddCommand("Team meeting", "event", "01-06-2024", "02-06-2024");
         cmd.execute(tasks, ui, storage);
         assertEquals(1, tasks.getSize());
         assertEquals("Team meeting", tasks.getTask(0).getDescription());

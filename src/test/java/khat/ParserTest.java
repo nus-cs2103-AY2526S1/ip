@@ -63,7 +63,7 @@ public class ParserTest {
     void parseTask_parsesTodoDeadlineEvent() {
         assertTrue(Parser.parseTask("T | 1 | read book") instanceof khat.task.Todo);
         assertTrue(Parser.parseTask("D | 0 | submit report | 01-06-2024") instanceof khat.task.Deadline);
-        assertTrue(Parser.parseTask("E | 1 | meeting | Mon 2pm-Mon 4pm") instanceof khat.task.Event);
+        assertTrue(Parser.parseTask("E | 1 | meeting | 01-06-2024 1500 | 01-06-2024 1600") instanceof khat.task.Event);
         assertThrows(IllegalArgumentException.class, () -> Parser.parseTask("X | 1 | unknown"));
     }
 

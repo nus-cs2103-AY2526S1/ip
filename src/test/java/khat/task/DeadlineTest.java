@@ -40,6 +40,6 @@ public class DeadlineTest {
     @Test
     public void toString_doneDeadline_returnsCorrectFormat() {
         Deadline deadline = new Deadline("essay", true, "29-08-2025 2359");
-        assertEquals("[D][X] essay (by: 29 Aug 25 1159pm)", deadline.toString());
+        assertEquals("[D][X] essay (by: 29 Aug 25 11:59 pm)", deadline.toString());
     }
 }

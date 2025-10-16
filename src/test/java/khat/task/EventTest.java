@@ -25,6 +25,6 @@ public class EventTest {
     @Test
     public void toString_doneEvent_returnsCorrectFormat() {
         Event event = new Event("meeting", true, "29-08-2025 2200", "29-08-2025 2300");
-        assertEquals("[E][X] meeting (from: 29 Aug 25 1000pm to: 29 Aug 25 1100pm)", event.toString());
+        assertEquals("[E][X] meeting (from: 29 Aug 25 10:00 pm to: 29 Aug 25 11:00 pm)", event.toString());
     }
 }
