@@ -1,0 +1,35 @@
+label {
+    -fx-background-color: linear-gradient(to bottom right, #552583, #FDB927);
+    -fx-border-color: #FDB927 #552583 #FDB927 #552583;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: white; /* default readability */
+}
+
+/* Bot / reply bubbles (gold) */
+.reply-label {
+    -fx-background-color: linear-gradient(to bottom right, #FDB927, #552583);
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-text-fill: black; /* gold background → black text */
+    -fx-font: 14px "Comic Sans MS";
+}
+
+/* User bubbles (purple) */
+.user-label {
+    -fx-background-color: linear-gradient(to bottom right, #552583, #3b186f); /* shades of purple */
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: white; /* white text on purple */
+    -fx-font: 14px "Comic Sans MS";
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 5, 5);
+
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+}
