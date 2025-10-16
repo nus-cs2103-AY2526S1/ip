@@ -22,6 +22,27 @@ public class Storage {
 
     public Storage(String filepath) {
         this.filepath = filepath;
+        checkfile();
+    }
+
+    /**
+     * Ensures that the duke.txt file exist.
+     */
+    private void checkfile() {
+        try {
+            File file = new File(filepath);
+            File parentDir = file.getParentFile();
+
+            if (!parentDir.exists()) {
+                parentDir.mkdirs(); // create data/ directory
+            }
+
+            if (!file.exists()) {
+                file.createNewFile(); // create empty duke.txt file
+            }
+        } catch (IOException e) {
+            System.out.println("\tError: Unable to create data file.");
+        }
     }
 
     /**
@@ -31,7 +52,7 @@ public class Storage {
         ArrayList<Task> list = new ArrayList<>();
         Path path = Paths.get(filepath);
         if (!Files.exists(path)) {
-            return null;
+            return list;
         }
 
         try {

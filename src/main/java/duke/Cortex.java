@@ -11,6 +11,7 @@ public class Cortex {
     private Storage storage;
     private Ui ui;
     private Parser parser;
+    private boolean isExitCommand;
 
 
     public Cortex() {
@@ -18,7 +19,7 @@ public class Cortex {
         this.list = new TaskList(storage.loadtasks());
         ui = new Ui();
         parser = new Parser();
-
+        isExitCommand = false;
     }
 
     /**
@@ -29,6 +30,7 @@ public class Cortex {
 
         if (command.equalsIgnoreCase("bye")) {
             response.append(ui.printBye());
+            isExitCommand = true;
         } else if (command.equalsIgnoreCase("list")) {
             response.append(ui.printList(list.getAllTasks()));
         } else if (command.startsWith("mark")) {
@@ -170,5 +172,13 @@ public class Cortex {
 
     public String getHello() {
         return ui.printHello();
+    }
+
+    /**
+     * Returns true if user inputs bye..
+     *
+     */
+    public boolean getExitStatus() {
+        return isExitCommand;
     }
 }
