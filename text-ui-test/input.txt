@@ -1,0 +1,16 @@
+todo borrow book
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+todo complete CS2103T assignment
+list
+mark 2
+mark 3
+unmark 1
+deadline submit report /by Friday
+event team lunch /from Wed 12pm /to 1pm
+todo read research paper
+list
+mark 5
+mark 7
+unmark 4
+bye

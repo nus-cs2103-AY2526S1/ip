@@ -1,26 +1,54 @@
-# Duke project template
+# Junny User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Welcome to Junny, your personal chatbot assistant!
 
-## Setting up in Intellij
+---
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Quick Start
+1. Ensure you have **Java 17** or above installed.
+2. Download the latest release of `Junny.jar`.
+3. Run the program using: java -jar Junny.jar
+4. Start typing commands (following the format) into the chat window.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+---
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## Features
+ **Add tasks**
+- `todo read book`
+- `deadline submit report /by 2025-10-01`
+- `event project meeting /from 2025-10-01 /to 2025-10-02`
+
+ **List tasks**
+- `list`
+
+ **Mark / Unmark tasks**
+- `mark 2`
+- `unmark 2`
+
+ **Delete tasks**
+- `delete 3`
+
+ **Find tasks by keyword**
+- `find book`
+
+ **List tasks on a specific date**
+- `list /on 2025-10-01`
+
+ **Sort tasks**
+- `sort`
+
+---
+
+## Command Summary
+| Command   | Format | Example |
+|-----------|--------|---------|
+| **todo**  | `todo <description>` | `todo read book` |
+| **deadline** | `deadline <description> /by yyyy-mm-dd` | `deadline submit report /by 2025-10-01` |
+| **event** | `event <description> /from yyyy-mm-dd /to yyyy-mm-dd` | `event project meeting /from 2025-10-01 /to 2025-10-02` |
+| **mark**  | `mark <task number>` | `mark 2` |
+| **unmark**| `unmark <task number>` | `unmark 2` |
+| **delete**| `delete <task number>` | `delete 3` |
+| **list**  | `list` | `list` |
+| **find**  | `find <keyword>` | `find book` |
+| **list by date** | `list /on yyyy-mm-dd` | `list /on 2025-10-01` |
+| **sort**  | `sort` | `sort` |

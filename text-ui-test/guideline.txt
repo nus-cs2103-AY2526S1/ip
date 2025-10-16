@@ -1,0 +1,4 @@
+javac -d bin src\main\java\*.java	// compile
+java -cp bin junny.junny < text-ui-test\input.txt > text-ui-test\output.txt	// write into output.txt
+fc text-ui-test\EXPECTED.txt text-ui-test\output.txt	// compare output.txt with EXPECTED.txt
+java -cp bin junny.junny < text-ui-test\input.txt	// show results in terminal

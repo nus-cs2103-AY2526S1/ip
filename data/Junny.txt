@@ -1,0 +1,4 @@
+D | 1 | st1131 | 2025-09-14
+D | 0 | homework | 2025-09-20
+E | 0 | walking dog | 2025-09-20 to 2025-09-20
+T | 0 | read book
