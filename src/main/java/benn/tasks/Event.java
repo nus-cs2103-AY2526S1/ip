@@ -40,6 +40,9 @@ public class Event extends Task{
         } catch (DateTimeParseException exception) {
             throw new BennException("Invalid date received!");
         }
+        if (startDateTime.isAfter(endDateTime)) {
+            throw new BennException("Start time cannot be after end time.");
+        }
         this.isDone = isDone;
     }
 

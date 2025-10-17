@@ -37,6 +37,9 @@ public class MainWindow extends AnchorPane {
 
     public void attachBenn(Benn b) {
         benn = b;
+        dialogParentContainer.getChildren().add(
+                ChatBubble.getDukeDialog(benn.getWelcome(), dukeImage)
+        );
     }
 
     /**
@@ -48,13 +51,17 @@ public class MainWindow extends AnchorPane {
         String input = inputField.getText();
         String response = benn.getResponse(input);
 
-        if (response.isEmpty()) {
-            Platform.exit();
-        }
         dialogParentContainer.getChildren().addAll(
                 ChatBubble.getUserDialog(input, userImage),
                 ChatBubble.getDukeDialog(response, dukeImage)
         );
         inputField.clear();
+
+        if (benn.isExit()) {
+            javafx.animation.PauseTransition delay =
+                    new javafx.animation.PauseTransition(javafx.util.Duration.millis(800));
+            delay.setOnFinished(e -> javafx.application.Platform.exit());
+            delay.play();
+        }
     }
 }
