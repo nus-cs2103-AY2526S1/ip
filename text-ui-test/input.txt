@@ -1,0 +1,13 @@
+deadline project /by tomorrow
+list
+mark 1
+unmark 1
+event meeting /from 10am /to 11am
+todo read book
+list
+mark 2
+mark 3
+list
+delete 2
+list
+bye
