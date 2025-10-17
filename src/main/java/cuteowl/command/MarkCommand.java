@@ -9,13 +9,14 @@ import cuteowl.ui.Ui;
 
 public class MarkCommand extends Command {
     private final int index;
+    private String output;
 
     public MarkCommand(int index) {
         this.index = index;
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) throws CuteOwlException {
+    public void execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) throws CuteOwlException {
         if (index > tasks.size()) {
             throw new CuteOwlException("Please input a valid index.");
         }
@@ -25,7 +26,11 @@ public class MarkCommand extends Command {
         assert task.getIsDone() : "Task should be marked done after calling mark()";
         storage.save(tasks, notes);
         ui.showTaskMarked(task);
-        return ui.showTaskMarkedGUI(task);
+        output = ui.showTaskMarkedGUI(task);
     }
 
+    @Override
+    public String getString() {
+        return output;
+    }
 }

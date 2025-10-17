@@ -9,13 +9,14 @@ import cuteowl.ui.Ui;
 
 public class UnmarkCommand extends Command {
     private final int index;
+    private String output;
 
     public UnmarkCommand(int index) {
         this.index = index;
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) throws CuteOwlException {
+    public void execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) throws CuteOwlException {
         if (index > tasks.size()) {
             throw new CuteOwlException("Please input a valid index.");
         }
@@ -25,6 +26,11 @@ public class UnmarkCommand extends Command {
         assert !task.getIsDone() : "Task should be unmarked after calling unmark()";
         storage.save(tasks, notes);
         ui.showTaskUnmarked(task);
-        return ui.showTaskUnmarkGUI(task);
+        output = ui.showTaskUnmarkGUI(task);
+    }
+
+    @Override
+    public String getString() {
+        return output;
     }
 }

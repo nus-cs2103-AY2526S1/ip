@@ -9,13 +9,14 @@ import cuteowl.ui.Ui;
 
 public class DeleteCommand extends Command {
     private final int index;
+    private String output;
 
     public DeleteCommand(int index) {
         this.index = index;
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) throws CuteOwlException {
+    public void execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) throws CuteOwlException {
         int initialSize = tasks.size();
 
         if (index > tasks.size()) {
@@ -26,6 +27,11 @@ public class DeleteCommand extends Command {
         assert tasks.size() == initialSize - 1 : "task.size() should decrease by 1";
         storage.save(tasks, notes);
         ui.showTaskDeleted(removed, tasks.size());
-        return ui.showTaskDeletedGUI(removed, tasks.size());
+        output = ui.showTaskDeletedGUI(removed, tasks.size());
+    }
+
+    @Override
+    public String getString() {
+        return output;
     }
 }

@@ -6,9 +6,16 @@ import cuteowl.task.TaskList;
 import cuteowl.ui.Ui;
 
 public class ListCommand extends Command {
+    private String output;
+
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) {
+    public void execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) {
         ui.showTaskList(tasks);
-        return ui.showTaskListGUI(tasks);
+        output = ui.showTaskListGUI(tasks);
+    }
+
+    @Override
+    public String getString() {
+        return output;
     }
 }

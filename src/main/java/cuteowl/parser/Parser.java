@@ -28,24 +28,24 @@ public class Parser {
 
             case "todo":
                 if (commandDescription.isEmpty()) {
-                    System.out.println(TAB + "OOPS!!! The description of a todo cannot be empty.");
-                    throw new CuteOwlException("OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println(TAB + "Hoo no, description of a todo cannot be empty.");
+                    throw new CuteOwlException("Hoo no, description of a todo cannot be empty.");
                 }
 
                 return new TodoCommand(commandDescription);
 
             case "deadline":
                 if (commandDescription.isEmpty()) {
-                    System.out.println(TAB + "OOPS!!! The description of deadline cannot be empty.");
-                    throw new CuteOwlException("OOPS!!! The description of deadline cannot be empty.");
+                    System.out.println(TAB + "Hoo no, description of deadline cannot be empty.");
+                    throw new CuteOwlException("Hoo no, description of deadline cannot be empty.");
                 }
 
                 String[] args = commandDescription.split("/by");
 
                 if (args.length < 2) {
-                    System.out.println(TAB + "OOPS!!! Please enter your deadline in the format:\n" +
+                    System.out.println(TAB + "Hoo no, pls enter your deadline in the format:\n" +
                             TAB + "deadline <description> /by <date>");
-                    throw new CuteOwlException("OOPS!!! Please enter your deadline in the format:\n" +
+                    throw new CuteOwlException("Hoo no, pls enter your deadline in the format:\n" +
                             TAB + "deadline <description> /by <date>");
                 }
 
@@ -65,9 +65,9 @@ public class Parser {
                 }
 
                 if (!parsed) {
-                    System.out.println(TAB + "OOPS!!! The date/time format is invalid.\n" +
+                    System.out.println(TAB + "Hoo no, the date/time format is invalid.\n" +
                             TAB + "Please use: d/M/yyyy HHmm (e.g., 2/9/2025 1800)");
-                    throw new CuteOwlException("OOPS!!! The date/time format is invalid.\n" +
+                    throw new CuteOwlException("Hoo no, the date/time format is invalid.\n" +
                             "Please use: d/M/yyyy HHmm (e.g., 2/9/2025 1800)");
                 }
 
@@ -75,15 +75,15 @@ public class Parser {
 
             case "event":
                 if (commandDescription.isEmpty()) {
-                    System.out.println(TAB + "OOPS!!! The description of a event cannot be empty.");
-                    throw new CuteOwlException("OOPS!!! The description of a event cannot be empty.");
+                    System.out.println(TAB + "Hoo no, description of an event cannot be empty!");
+                    throw new CuteOwlException("Hoo no, description of an event cannot be empty!");
                 }
 
                 String[] eventArgs = commandDescription.split("/from|/to");
                 if (eventArgs.length < 3) {
-                    System.out.println(TAB + "OOPS!!! Please enter your event in the format:\n" +
+                    System.out.println(TAB + "Hoo no, pls enter your event in the format:\n" +
                             TAB + "event <description> /from <start> /to <end>");
-                    throw new CuteOwlException("OOPS!!! Please enter your event in the format:\n" +
+                    throw new CuteOwlException("Hoo no, pls enter your event in the format:\n" +
                             "event <description> /from <start> /to <end>");
                 }
 
@@ -106,78 +106,77 @@ public class Parser {
                 }
 
                 if (!eventParsed) {
-                    System.out.println("OOPS!!! The date/time format is invalid.\n" +
+                    System.out.println("Hoo no, the date/time format is invalid.\n" +
                             "Please use: d/M/yyyy HHmm (e.g., 2/9/2025 1800)");
-                    throw new CuteOwlException(TAB + "OOPS!!! The date/time format is invalid.\n" +
+                    throw new CuteOwlException(TAB + "Hoo no, the date/time format is invalid.\n" +
                             TAB + "Please use: d/M/yyyy HHmm (e.g., 2/9/2025 1800)");
                 }
                 return new EventCommand(eventDescription, from, to);
 
             case "delete":
                 if (commandDescription.isEmpty()) {
-                    System.out.println(TAB + "OOPS!!! Please enter the index of the task you wish to delete.");
-                    throw new CuteOwlException("OOPS!!! Please enter the index of the task you wish to delete.");
+                    System.out.println(TAB + "Hoo no, pls enter the index of the task!");
+                    throw new CuteOwlException("Hoo no, pls enter the index of the task!");
                 }
 
                 int deleteIndex;
                 try {
                     deleteIndex = Integer.parseInt(commandDescription);
                 } catch (NumberFormatException e) {
-                    throw new CuteOwlException("OOPS!!! '" + commandDescription + "' is not a valid number.");
+                    throw new CuteOwlException("Hoo no '" + commandDescription + "' is not a valid number ><");
                 }
 
                 return new DeleteCommand(deleteIndex);
 
             case "mark":
                 if (commandDescription.isEmpty()) {
-                    System.out.println(TAB + "OOPS!!! Please enter the index of the task you wish to mark.");
-                    throw new CuteOwlException("OOPS!!! Please enter the index of the task you wish to mark.");
+                    System.out.println(TAB + "Hoo no, pls enter index of the task!");
+                    throw new CuteOwlException("Hoo no, pls enter index of the task!");
                 }
 
                 int markIndex;
                 try {
                     markIndex = Integer.parseInt(commandDescription);
                 } catch (NumberFormatException e) {
-                    throw new CuteOwlException("OOPS!!! '" + commandDescription + "' is not a valid number.");
+                    throw new CuteOwlException("Hoo no '" + commandDescription + "' is not a valid number ><");
                 }
                 return new MarkCommand(markIndex);
 
             case "unmark":
                 if (commandDescription.isEmpty()) {
-                    System.out.println(TAB + "OOPS!!! Please enter the index of the task you wish to unmark.");
-                    throw new CuteOwlException("OOPS!!! Please enter the index of the task you wish to unmark.");
+                    System.out.println(TAB + "Hoo no, pls enter index of task!");
+                    throw new CuteOwlException("Hoo no, pls enter index of task!");
                 }
 
                 int unmarkIndex;
                 try {
                     unmarkIndex = Integer.parseInt(commandDescription);
                 } catch (NumberFormatException e) {
-                    throw new CuteOwlException("OOPS!!! '" + commandDescription + "' is not a valid number.");
+                    throw new CuteOwlException("Hoo no '" + commandDescription + "' is not a valid number ><");
                 }
 
                 return new UnmarkCommand(unmarkIndex);
 
             case "find":
                 if (commandDescription.isEmpty()) {
-                    System.out.println(TAB + "OOPS!!! Please enter the a keyword of the task you wish to find.");
-                    throw new CuteOwlException("OOPS!!! Please enter the a keyword of the task you wish to find.");
+                    System.out.println(TAB + "Hoo no, pls enter a keyword of the task you wish to find!");
+                    throw new CuteOwlException("Hoo no, pls enter a keyword of the task you wish to find!");
                 }
                 return new FindCommand(commandDescription);
 
             case "note":
                 if (commandDescription.isEmpty()) {
-                    System.out.println(TAB + "OOPS!!! Please enter the what you wish to note.");
-                    throw new CuteOwlException("OOPS!!! Please enter the what you wish to note.");
+                    System.out.println(TAB + "Hoo no, pls enter what you wish to note!");
+                    throw new CuteOwlException("Hoo no, pls enter what you wish to note!");
                 }
                 return new AddNoteCommand(commandDescription);
 
             case "notes":
                 return new ListNotesCommand();
 
-
             default:
-                System.out.println(TAB + "OOPS!!! I'm sorry, but I don't know what that means :-(");
-                throw new CuteOwlException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println(TAB + "Oh hoooot! Idk what you mean :(");
+                throw new CuteOwlException("Oh hoooot! Idk what you mean :(");
         }
     }
 

@@ -6,14 +6,21 @@ import cuteowl.task.TaskList;
 import cuteowl.ui.Ui;
 
 public class ByeCommand extends Command {
+    private String output;
+
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) {
+    public void execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) {
         ui.showExit();
-        return ui.exitMessage();
+        output = ui.exitMessage();
     }
 
     @Override
     public boolean isExit() {
         return true;
+    }
+
+    @Override
+    public String getString() {
+        return output;
     }
 }

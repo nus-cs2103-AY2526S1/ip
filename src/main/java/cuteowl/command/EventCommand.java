@@ -13,6 +13,7 @@ public class EventCommand extends Command {
     public final String description;
     public final LocalDateTime from;
     public final LocalDateTime to;
+    private String output;
 
     public EventCommand(String description, LocalDateTime from, LocalDateTime to) {
         assert !description.trim().isEmpty() : "Description must not be empty";
@@ -25,7 +26,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) {
+    public void execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) {
         int initialSize = tasks.size();
 
         Task task = new Event(description, from, to);
@@ -33,7 +34,12 @@ public class EventCommand extends Command {
         storage.save(tasks, notes);
         assert tasks.size() == initialSize + 1 : "task.size() should increase by 1";
         ui.showTaskAdded(task, tasks.size());
-        return ui.showTaskAddedGUI(task, tasks.size());
+        output = ui.showTaskAddedGUI(task, tasks.size());
+    }
+
+    @Override
+    public String getString() {
+        return output;
     }
 
 }

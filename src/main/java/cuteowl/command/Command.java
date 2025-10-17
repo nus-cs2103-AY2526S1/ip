@@ -8,7 +8,9 @@ import cuteowl.task.*;
 
 
 public abstract class Command {
-    public abstract String execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) throws CuteOwlException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) throws CuteOwlException;
+
+    public abstract String getString();
 
     public boolean isExit() {
         return false;

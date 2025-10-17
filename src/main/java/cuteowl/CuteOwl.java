@@ -7,6 +7,9 @@ import cuteowl.parser.Parser;
 import cuteowl.storage.Storage;
 import cuteowl.task.TaskList;
 import cuteowl.ui.Ui;
+import javafx.scene.image.Image;
+
+import java.io.InputStream;
 
 /**
  * The main class for CuteOwl chatbot application.
@@ -18,6 +21,7 @@ public class CuteOwl {
     private final TaskList tasks;
     private final Storage storage;
     private final NoteList notes;
+    private String commandType;
 
     /**
      * Constructs a CuteOwl instance with the specified file path for persistent storage.
@@ -66,14 +70,30 @@ public class CuteOwl {
         new CuteOwl("data/tasks.txt").run();
     }
 
+    /**
+     * Generates a response for the user's chat message
+     */
+    /*public String getResponse(String input) {
+        return "CuteOwl heard: " + input;
+    }*/
+
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.execute(tasks, ui, storage, notes);
+            c.execute(tasks, ui, storage, notes);
+            commandType = c.getClass().getSimpleName();
+            return c.getString();
         } catch (CuteOwlException e) {
-            return ui.showError(e.getMessage()); // You might need to add this method
+            return "Error: " + e.getMessage();
         }
     }
 
+    public String getCommandType() {
+        if (commandType == null) {
+            return " ";
+        }
+
+        return commandType;
+    }
 
 }

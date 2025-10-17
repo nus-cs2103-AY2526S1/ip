@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class DeadlineCommand extends Command {
     public final String description;
     public final LocalDateTime by;
+    private String output;
 
     public DeadlineCommand(String description, LocalDateTime by) {
         assert !description.trim().isEmpty() : "Description must not be empty";
@@ -22,7 +23,7 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) {
+    public void execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) {
         int initialSize = tasks.size();
 
         Task task = new Deadline(description, by);
@@ -30,7 +31,12 @@ public class DeadlineCommand extends Command {
         assert tasks.size() == initialSize + 1 : "task.size() should increase by 1";
         storage.save(tasks, notes);
         ui.showTaskAdded(task, tasks.size());
-        return ui.showTaskAddedGUI(task, tasks.size());
+        output = ui.showTaskAddedGUI(task, tasks.size());
+    }
+
+    @Override
+    public String getString() {
+        return output;
     }
 
 }

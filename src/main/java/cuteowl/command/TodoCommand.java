@@ -9,20 +9,26 @@ import cuteowl.ui.Ui;
 
 public class TodoCommand extends Command {
     public final String description;
+    private String output;
 
     public TodoCommand(String description) {
         this.description = description;
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) {
+    public void execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) {
         int initialSize = tasks.size();
         Task task = new Todo(description);
         tasks.add(task);
         assert tasks.size() == initialSize + 1 : "tasks.size() should increase by 1";
         storage.save(tasks, notes);
         ui.showTaskAdded(task, tasks.size());
-        return ui.showTaskAddedGUI(task, tasks.size());
-
+        output = ui.showTaskAddedGUI(task, tasks.size());
     }
+
+    @Override
+    public String getString() {
+        return output;
+    }
+
 }
