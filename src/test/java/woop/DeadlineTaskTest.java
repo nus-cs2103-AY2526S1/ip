@@ -42,6 +42,6 @@ class DeadlineTaskTest {
     @Test
     public void equals_differentIsFinished_false() throws  IllegalDescriptorException {
         assertNotEquals(new DeadlineTask("Give Book", "2022-12-10"),
-                new DeadlineTask("Give Book", true ,"2022-12-10"));
+                new DeadlineTask("Give Book", true ,"","2022-12-10"));
     }
 }
