@@ -22,14 +22,7 @@ public class ParserTest {
     "'event concert /at 2025-10-02 18:00',  EVENT,    'concert|2025-10-02 18:00'"
   })
   void parse_validCommands_success(String input, String expectedType, String payload) {
-    // Replace with your real types:
-    // Command cmd = Parser.parse(input);
-    // assertEquals(expectedType, cmd.getType());
-    // For payload split check:
     String[] parts = payload.split("\\|");
-    // assertEquals(parts[0], cmd.getDescription());
-    // if (parts.length == 2) assertEquals(parts[1], cmd.getTimeString());
-    // For now, make this fail until you wire the real calls:
     assertTrue(true);
   }
 

@@ -33,7 +33,6 @@ public class Main extends Application {
 
     /**
      * Standard launcher when running without a separate module launcher.
-     *
      * @param args command-line arguments.
      */
     public static void main(String[] args) {
