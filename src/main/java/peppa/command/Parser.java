@@ -25,7 +25,7 @@ public class Parser {
     }
 
     /**
-     * Analyse a single command line and execute the matching action.
+     * Analyses a single command line and execute the matching action.
      *
      * @param input raw command string typed by the user
      * @return {@code false} if the user typed {@literal "bye"} (caller should terminate);
@@ -36,53 +36,40 @@ public class Parser {
         input = input.trim();
         assert !input.isEmpty() : "Input command should not be empty after trimming";
         String command = input.split("\\s+", 2)[0];
+        // Delegate to a command object
+        Command cmd;
         switch (command) {
             case "bye":
-                return "Bye. Hope to see you again soon!";
+                cmd = new Bye();
+                break;
             case "list":
-                return tasks.displayTasks();
-            case "unmark": {
-                String[] parts = input.split(" ");
-                assert parts.length > 1 : "Unmark command should have an index argument";
-                int idx = Integer.parseInt(parts[1]) - 1;
-                assert idx >= 0 : "Task index for unmark should be non-negative";
-                String result = tasks.unmarkTask(idx);
-                storage.save(tasks);
-                return result;
-            }
-            case "mark": {
-                String[] parts = input.split(" ");
-                assert parts.length > 1 : "Mark command should have an index argument";
-                int idx = Integer.parseInt(parts[1]) - 1;
-                assert idx >= 0 : "Task index for mark should be non-negative";
-                String result = tasks.markTask(idx);
-                storage.save(tasks);
-                return result;
-            }
-            case "delete": {
-                String[] parts = input.split(" ");
-                assert parts.length > 1 : "Delete command should have an index argument";
-                int idx = Integer.parseInt(parts[1]) - 1;
-                assert idx >= 0 : "Task index for delete should be non-negative";
-                String result = tasks.deleteTask(idx);
-                storage.save(tasks);
-                return result;
-            }
-            case "find": {
-                String[] parts = input.split("\\s+", 2);
-                assert parts.length > 1 : "Find command should have a search argument";
-                String toFind = parts[1];
-                return tasks.findTask(toFind);
-            }
+                cmd = new ListTasks(tasks);
+                break;
+            case "unmark":
+                cmd = new Unmark(tasks, storage, input);
+                break;
+            case "mark":
+                cmd = new Mark(tasks, storage, input);
+                break;
+            case "delete":
+                cmd = new Delete(tasks, storage, input);
+                break;
+            case "find":
+                cmd = new Find(tasks, input);
+                break;
             case "todo":
+                cmd = new Todo(tasks, storage, input);
+                break;
             case "deadline":
-            case "event": {
-                String result = tasks.addTask(input);
-                storage.save(tasks);
-                return result;
-            }
+                cmd = new Deadline(tasks, storage, input);
+                break;
+            case "event":
+                cmd = new Event(tasks, storage, input);
+                break;
             default:
-                return "Oopsies, I don't know what that means!";
+                cmd = new UnknownCommand();
         }
+
+        return cmd.execute();
     }
 }
