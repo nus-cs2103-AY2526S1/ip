@@ -27,10 +27,6 @@ public class Peppa {
         assert this.parser != null : "Parser should not be null after initialization";
     }
 
-    // Removed run() method, not needed for GUI
-
-    // main() not needed for GUI
-
     /**
      * Generates a response for the user's chat message using Parser and TaskList
      */

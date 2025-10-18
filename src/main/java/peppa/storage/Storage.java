@@ -32,18 +32,7 @@ public class Storage {
         assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty";
         this.file = new File(filePath);
         try {
-            if (this.file.exists()) {
-                assert this.file.isFile() : "file should be a file if it exists";
-                load();
-            } else {
-                File parentDir = this.file.getParentFile();
-                if (!parentDir.exists()) {
-                    boolean created = parentDir.mkdirs();
-                    assert created : "Parent directory should be created successfully";
-                }
-                boolean createdFile = this.file.createNewFile();
-                assert createdFile : "Save file should be created successfully";
-            }
+            ensureFileAndParentExist();
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -61,19 +50,10 @@ public class Storage {
         ArrayList<Task> tl = tasks.getTaskList();
         assert tl != null : "Task list should not be null";
         try {
-            if (file.exists()) {
-                boolean deleted = file.delete();
-                assert deleted : "Existing file should be deleted successfully";
+            recreateFileForSave();
+            try (FileWriter writer = new FileWriter(file)) {
+                writeAllTasks(tl, writer);
             }
-            boolean created = file.createNewFile();
-            assert created : "File should be created successfully for saving";
-            FileWriter writer = new FileWriter(file);
-            for (int i = 0; i < tl.size(); i++) {
-                String saveFileDesc = tl.get(i).toSaveFileFormat();
-                assert saveFileDesc != null : "Save file description should not be null";
-                writer.write(saveFileDesc+"\n");
-            }
-            writer.close();
             System.out.println("Successfully saved to ./data/peppa.command.Peppa.txt");
             return true;
         } catch (IOException e) {
@@ -97,41 +77,7 @@ public class Storage {
             return null;
         }
         try {
-            ArrayList<Task> data = new ArrayList<>();
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                assert line != null : "Line read from file should not be null";
-                String[] splitLine = line.split(" \\| ");
-                assert splitLine.length >= 3 : "Save file line should have at least 3 fields";
-
-                Task newTask;
-                switch (splitLine[0]) {
-                    case "T":
-                        newTask = new ToDo(splitLine[2]);
-                        break;
-                    case "E":
-                        assert splitLine.length >= 5 : "Event should have at least 5 fields";
-                        newTask = new Event(splitLine[2], splitLine[3], splitLine[4]);
-                        break;
-                    case "D":
-                        assert splitLine.length >= 4 : "Deadline should have at least 4 fields";
-                        newTask = new Deadline(splitLine[2], splitLine[3]);
-                        break;
-                    default:
-                        newTask = null;
-                        throw new SaveFileCorruptedException();
-
-                }
-                if ( newTask != null ) {
-                    if (Objects.equals(splitLine[1], "1")) {
-                        newTask.markAsDone();
-                    }
-                    data.add(newTask);
-                }
-            }
-            scanner.close();
-            return data;
+            return readAllTasksFromFile();
         } catch (FileNotFoundException e) {
             System.out.println(e);
             return null;
@@ -139,5 +85,123 @@ public class Storage {
             System.out.println(e);
             return null;
         }
+    }
+
+    /**
+     * Ensures the parent directory and file exist, creating them if necessary.
+     *
+     * @throws IOException if an I/O error occurs while creating directories or file.
+     */
+    private void ensureFileAndParentExist() throws IOException {
+        if (this.file.exists()) {
+            assert this.file.isFile() : "file should be a file if it exists";
+            // attempt to read to verify file is usable
+            load();
+            return;
+        }
+
+        File parentDir = this.file.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            boolean created = parentDir.mkdirs();
+            assert created : "Parent directory should be created successfully";
+        }
+        boolean createdFile = this.file.createNewFile();
+        assert createdFile : "Save file should be created successfully";
+    }
+
+    /**
+     * Prepares the backing file for a fresh save by deleting any existing file
+     * and creating a new empty file.
+     *
+     * @throws IOException if an I/O error occurs.
+     */
+    private void recreateFileForSave() throws IOException {
+        if (file.exists()) {
+            boolean deleted = file.delete();
+            assert deleted : "Existing file should be deleted successfully";
+        }
+        boolean created = file.createNewFile();
+        assert created : "File should be created successfully for saving";
+    }
+
+    /**
+     * Writes all tasks to the provided writer, one line per task.
+     *
+     * @param tasks  list of tasks to write.
+     * @param writer writer to use for output.
+     * @throws IOException if an I/O error occurs while writing.
+     */
+    private void writeAllTasks(ArrayList<Task> tasks, FileWriter writer) throws IOException {
+        for (int i = 0; i < tasks.size(); i++) {
+            String saveFileDesc = formatTaskForSave(tasks.get(i));
+            assert saveFileDesc != null : "Save file description should not be null";
+            writer.write(saveFileDesc + "\n");
+        }
+    }
+
+    /**
+     * Returns the save-file representation of a task.
+     *
+     * @param task task to format.
+     * @return formatted save-file line.
+     */
+    private String formatTaskForSave(Task task) {
+        return task.toSaveFileFormat();
+    }
+
+    /**
+     * Reads all tasks from the backing file and returns them as a list.
+     *
+     * @return list of tasks recovered from disk, or {@code null} on failure.
+     * @throws FileNotFoundException if the file is not found.
+     * @throws SaveFileCorruptedException if the file contains an unknown entry.
+     */
+    private ArrayList<Task> readAllTasksFromFile() throws FileNotFoundException, SaveFileCorruptedException {
+        ArrayList<Task> data = new ArrayList<>();
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                assert line != null : "Line read from file should not be null";
+                Task t = parseLineToTask(line);
+                if (t != null) {
+                    data.add(t);
+                }
+            }
+        }
+        return data;
+    }
+
+    /**
+     * Parses a single save-file line into a Task instance.
+     *
+     * @param line save-file line to parse.
+     * @return parsed Task instance.
+     * @throws SaveFileCorruptedException if the line is malformed or unknown.
+     */
+    private Task parseLineToTask(String line) throws SaveFileCorruptedException {
+        String[] splitLine = line.split(" \\| ");
+        assert splitLine.length >= 3 : "Save file line should have at least 3 fields";
+
+        Task newTask;
+        switch (splitLine[0]) {
+            case "T":
+                newTask = new ToDo(splitLine[2]);
+                break;
+            case "E":
+                assert splitLine.length >= 5 : "Event should have at least 5 fields";
+                newTask = new Event(splitLine[2], splitLine[3], splitLine[4]);
+                break;
+            case "D":
+                assert splitLine.length >= 4 : "Deadline should have at least 4 fields";
+                newTask = new Deadline(splitLine[2], splitLine[3]);
+                break;
+            default:
+                throw new SaveFileCorruptedException();
+        }
+
+        if (Objects.equals(splitLine[1], "1")) {
+            newTask.markAsDone();
+        }
+        return newTask;
     }
 }
