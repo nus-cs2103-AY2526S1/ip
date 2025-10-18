@@ -1,13 +1,13 @@
 package tasks;
 
-import static resources.DateHandler.isDate;
+import static parser.DateHandler.isDate;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import resources.Constants;
-import resources.FileHandler;
-import resources.Helper;
+import parser.Constants;
+import parser.Helper;
+import storage.FileHandler;
 
 /**
  * Deadline class with additional field 'by'
@@ -27,7 +27,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * toString for deadline task
+     * Return string toString for deadline task
      * @return String containing description and by date
      */
     public String toString() {
@@ -41,7 +41,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * respond to user input of adding a deadline task to LIST
+     * Return respond to user input of adding a deadline task to TASK_LIST
      * @param userInput for user input
      * @return chatbot's response to succesfully adding task
      */
@@ -52,11 +52,11 @@ public class Deadline extends Task {
 
         LocalDate byDate = isDate(by);
         Deadline newDeadline = new Deadline(description, byDate);
-        Constants.LIST.add(newDeadline);
+        Constants.TASK_LIST.add(newDeadline);
         FileHandler.save();
         return (Constants.ADDTASK
                 + newDeadline + "\n"
-                + Helper.tasksLeft(Constants.LIST.size()));
+                + Helper.tasksLeft(Constants.TASK_LIST.size()));
     }
 
     /**

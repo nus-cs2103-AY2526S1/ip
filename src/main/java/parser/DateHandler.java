@@ -1,4 +1,4 @@
-package resources;
+package parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,12 +13,12 @@ import tasks.Event;
 import tasks.Task;
 
 /**
- * Handle all date related user inputs like checkDueDate, reminder
+ * Handles all date related user inputs like checkDueDate, reminder
  */
 public class DateHandler {
 
     /**
-     * Handle user input of check due [date]
+     * Handles user input of check due [date]
      */
     public static String checkDue(String userInput) {
         String[] parts = userInput.split("\\s+", 2);
@@ -28,7 +28,7 @@ public class DateHandler {
     }
 
     /**
-     * Return string of tasks due in x days after processing user input
+     * Returns string of tasks due in x days after processing user input
      */
     public static String remind(String userInput) {
         String[] parts = userInput.split("\\s+", 2);
@@ -43,15 +43,15 @@ public class DateHandler {
     }
 
     /**
-     * Get all the tasks that are due in 0 <= x <= days
+     * Returns all the tasks that are due in 0 <= x <= days
      * @param days upper bound
      * @return String of all the tasks, with the number of days they are due in
      */
     public static String dueInXDays(int days) throws EmptyListException {
-        if (Constants.LIST.isEmpty()) {
+        if (Constants.TASK_LIST.isEmpty()) {
             throw new EmptyListException("Oops! There are no tasks!");
         }
-        assert !Constants.LIST.isEmpty() : "LIST is empty";
+        assert !Constants.TASK_LIST.isEmpty() : "TASK_LIST is empty";
 
         LocalDate today = LocalDate.now();
         StringBuilder listOfTasks = new StringBuilder();
@@ -69,14 +69,14 @@ public class DateHandler {
     }
 
     /**
-     * Returns string of tasks in LIST due on "due" date.
+     * Returns string of tasks in TASK_LIST due on "due" date.
      * @param due for this day
      * @return string of tasks due on this day
      */
     public static String dueOnThisDay(LocalDate due) {
         StringBuilder output = new StringBuilder();
 
-        for (Task task : Constants.LIST) {
+        for (Task task : Constants.TASK_LIST) {
             if (task instanceof Deadline) {
                 Deadline d = (Deadline) task;
                 if (d.getBy().equals(due)) {

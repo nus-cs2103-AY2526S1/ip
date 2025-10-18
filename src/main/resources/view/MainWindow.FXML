@@ -11,7 +11,7 @@
             prefHeight="700.0" prefWidth="500.0"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="MainWindow"
+            fx:controller="ui.MainWindow"
             stylesheets="@/css/main.css">
     <children>
         <TextField fx:id="userInput"

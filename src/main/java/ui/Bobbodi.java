@@ -1,13 +1,15 @@
+package ui;
+
 import exceptions.EmptyListException;
 import exceptions.IncorrectFormatException;
 import exceptions.InvalidTaskNumberException;
 import exceptions.MissingArgumentException;
-import resources.Constants;
-import resources.DateHandler;
-import resources.FileHandler;
-import resources.Helper;
-import resources.StringHandler;
-import resources.UserInputValidator;
+import parser.Constants;
+import parser.DateHandler;
+import parser.Helper;
+import parser.StringHandler;
+import parser.UserInputValidator;
+import storage.FileHandler;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Todo;
@@ -27,7 +29,7 @@ public class Bobbodi {
     }
 
     /**
-     * getResponse for javaFX
+     * Return the response of userInput for javaFX
      */
     public String getResponse(String userInput) {
 

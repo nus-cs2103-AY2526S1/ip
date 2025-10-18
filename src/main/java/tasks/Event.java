@@ -1,13 +1,13 @@
 package tasks;
 
-import static resources.DateHandler.isDate;
+import static parser.DateHandler.isDate;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import resources.Constants;
-import resources.FileHandler;
-import resources.Helper;
+import parser.Constants;
+import parser.Helper;
+import storage.FileHandler;
 
 /**
  * Event class that extends Task
@@ -30,7 +30,7 @@ public class Event extends Task {
     }
 
     /**
-     * print out the event task
+     * Prints out the event task
      * @return String with description, from, to with formatter
      */
     public String toString() {
@@ -54,9 +54,9 @@ public class Event extends Task {
     }
 
     /**
-     * respond to user input of adding an event task to LIST
+     * Responds to user input of adding an event task to TASK_LIST
      * @param userInput for user input
-     * @return chatbot's respond to adding an event task to LIST
+     * @return chatbot's respond to adding an event task to TASK_LIST
      */
     public static String respondTo(String userInput) {
         String[] fromSplit = userInput.split("/from", 2);
@@ -69,11 +69,11 @@ public class Event extends Task {
         LocalDate fromDate = isDate(from);
         LocalDate toDate = isDate(to);
         Event newEvent = new Event(description, fromDate, toDate);
-        Constants.LIST.add(newEvent);
+        Constants.TASK_LIST.add(newEvent);
         FileHandler.save();
         return (Constants.ADDTASK
                 + newEvent + "\n"
-                + Helper.tasksLeft(Constants.LIST.size()));
+                + Helper.tasksLeft(Constants.TASK_LIST.size()));
     }
 
     /**

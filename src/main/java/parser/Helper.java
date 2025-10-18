@@ -1,4 +1,4 @@
-package resources;
+package parser;
 
 import java.text.NumberFormat;
 import java.text.ParsePosition;
@@ -7,24 +7,24 @@ import exceptions.EmptyListException;
 import exceptions.InvalidTaskNumberException;
 
 /**
- * Include all helper functions that are used in Bobbodi class
+ * Includes all helper functions that are used in Bobbodi class
  */
 public class Helper {
     /**
-     * Format tasks in LIST nicely.
+     * Formats tasks in TASK_LIST nicely.
      * @return String of tasks.toString()
      */
     public static String formatList() {
-        if (Constants.LIST.isEmpty()) {
+        if (Constants.TASK_LIST.isEmpty()) {
             return "There are no tasks to display!";
         }
 
         StringBuilder text = new StringBuilder();
         text.append("Here are the tasks in your list:\n");
-        for (int i = 0; i < Constants.LIST.size(); i++) {
+        for (int i = 0; i < Constants.TASK_LIST.size(); i++) {
             String numbering = String.format("\t%2d. ", i + 1);
-            text.append(numbering).append(Constants.LIST.get(i));
-            if (i < Constants.LIST.size() - 1) {
+            text.append(numbering).append(Constants.TASK_LIST.get(i));
+            if (i < Constants.TASK_LIST.size() - 1) {
                 text.append("\n");
             }
         }
@@ -47,13 +47,13 @@ public class Helper {
 
     /**
      * Checks validity of task number entered for 'mark', 'unmark', 'delete'.
-     * Task number must be more than or equal to 1 and less than the total number of tasks in LIST.
+     * Task number must be more than or equal to 1 and less than the total number of tasks in TASK_LIST.
      * @param str is a task number
      * @return true if it is;
      * @throws InvalidTaskNumberException for invalid task
      */
     public static boolean validTaskNumber(String str) throws InvalidTaskNumberException {
-        boolean withinListLength = Integer.parseInt(str) <= Constants.LIST.size();
+        boolean withinListLength = Integer.parseInt(str) <= Constants.TASK_LIST.size();
         boolean moreThanZero = Integer.parseInt(str) > 0;
         if (withinListLength && moreThanZero) {
             return true;
@@ -63,17 +63,17 @@ public class Helper {
     }
 
     /**
-     * Checks if the task number is valid for deletion. There must be tasks in the LIST and the number must be
-     * less than or equal to the length of the LIST.
+     * Checks if the task number is valid for deletion. There must be tasks in the TASK_LIST and the number must be
+     * less than or equal to the length of the TASK_LIST.
      * @param str for task number
-     * @return true if is valid to delete the task from LIST
+     * @return true if is valid to delete the task from TASK_LIST
      * @throws InvalidTaskNumberException for invalid task number
      */
     public static boolean validTaskNumberForDelete(String str) throws InvalidTaskNumberException {
-        if (Constants.LIST.isEmpty()) {
+        if (Constants.TASK_LIST.isEmpty()) {
             throw new EmptyListException("There are no tasks to delete!");
         }
-        boolean withinListLength = Integer.parseInt(str) <= Constants.LIST.size();
+        boolean withinListLength = Integer.parseInt(str) <= Constants.TASK_LIST.size();
         boolean moreThanZero = Integer.parseInt(str) > 0;
         if (withinListLength && moreThanZero) {
             return true;
@@ -83,7 +83,7 @@ public class Helper {
     }
 
     /**
-     * For printing purposes. If number of tasks left is 1, it prints "task", else, "tasks"
+     * Returns if number of tasks left is 1, it prints "task", else, "tasks"
      * @param num for number of tasks left
      * @return task in formatted string
      */
