@@ -36,7 +36,6 @@ public class Parser {
         input = input.trim();
         assert !input.isEmpty() : "Input command should not be empty after trimming";
         String command = input.split("\\s+", 2)[0];
-        // Delegate to a command object
         Command cmd;
         switch (command) {
             case "bye":

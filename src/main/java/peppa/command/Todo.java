@@ -2,17 +2,34 @@ package peppa.command;
 
 import peppa.task.TaskList;
 
+/**
+ * Adds a todo task.
+ * The input is expected in the form: "todo <description>".
+ */
 public class Todo implements Command {
     private final TaskList tasks;
     private final Storage storage;
     private final String input;
 
+    /**
+     * Constructs a Todo command.
+     *
+     * @param tasks   task list to operate on.
+     * @param storage storage used to persist changes.
+     * @param input   raw user input string (will be parsed).
+     */
     public Todo(TaskList tasks, Storage storage, String input) {
         this.tasks = tasks;
         this.storage = storage;
         this.input = input;
     }
 
+    /**
+     * Parses the description and adds a todo. Returns an error message if the
+     * input is malformed.
+     *
+     * @return result or error message for the user.
+     */
     @Override
     public String execute() {
         try {

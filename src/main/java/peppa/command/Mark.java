@@ -2,17 +2,34 @@ package peppa.command;
 
 import peppa.task.TaskList;
 
+/**
+ * Marks a task as done by its one-based index.
+ * The input is expected in the form: "mark <task_number>".
+ */
 public class Mark implements Command {
     private final TaskList tasks;
     private final Storage storage;
     private final String input;
 
+    /**
+     * Constructs a Mark command.
+     *
+     * @param tasks   task list to operate on.
+     * @param storage storage used to persist changes.
+     * @param input   raw user input string (will be parsed).
+     */
     public Mark(TaskList tasks, Storage storage, String input) {
         this.tasks = tasks;
         this.storage = storage;
         this.input = input;
     }
 
+    /**
+     * Parses the index from the input, validates it, marks the task and saves
+     * the updated list. Returns an error message if the input is malformed.
+     *
+     * @return result or error message for the user.
+     */
     @Override
     public String execute() {
         try {

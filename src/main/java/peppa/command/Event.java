@@ -2,17 +2,34 @@ package peppa.command;
 
 import peppa.task.TaskList;
 
+/**
+ * Adds an event task.
+ * The input is expected in the form: "event <description> /at <time>".
+ */
 public class Event implements Command {
     private final TaskList tasks;
     private final Storage storage;
     private final String input;
 
+    /**
+     * Constructs an Event command.
+     *
+     * @param tasks   task list to operate on.
+     * @param storage storage used to persist changes.
+     * @param input   raw user input string (will be parsed).
+     */
     public Event(TaskList tasks, Storage storage, String input) {
         this.tasks = tasks;
         this.storage = storage;
         this.input = input;
     }
 
+    /**
+     * Parses the description and '/at' time and adds the event. Returns an
+     * error message if the input is malformed.
+     *
+     * @return result or error message for the user.
+     */
     @Override
     public String execute() {
         try {
