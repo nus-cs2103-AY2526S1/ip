@@ -1,0 +1,51 @@
+/* Bot dialog bubble */
+.dialog-bubble {
+    -fx-background-color: #4CAF50; /* green for bot */
+    -fx-background-radius: 15px;
+    -fx-padding: 10px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+/* User dialog bubble */
+.dialog-bubble.user {
+    -fx-background-color: #2196F3; /* blue for user */
+    -fx-text-fill: white;
+}
+
+/* Speaker label under avatar */
+.speaker-label {
+    -fx-font-size: 10px;
+    -fx-text-fill: gray;
+    -fx-alignment: center;
+}
+
+/* TextField for user input */
+.text-field {
+    -fx-background-radius: 15;
+    -fx-padding: 6 10;
+}
+
+/* Send button */
+.button {
+    -fx-background-color: #4cafef;
+    -fx-text-fill: white;
+    -fx-background-radius: 15;
+    -fx-padding: 6 15;
+}
+
+/* Root background image */
+#root {
+    -fx-background-image: url("../images/chatBackground.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}

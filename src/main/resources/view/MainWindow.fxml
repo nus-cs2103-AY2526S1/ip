@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="charli.MainWindow"
+            fx:id="root"
+            stylesheets="@styles.css">
+
+    <children>
+        <!-- Scrollable dialog container -->
+        <ScrollPane fx:id="scrollPane"
+                    prefHeight="560.0" prefWidth="400.0"
+                    fitToWidth="true" vbarPolicy="ALWAYS"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.bottomAnchor="50.0">
+            <content>
+                <VBox fx:id="dialogContainer" spacing="10.0">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <!-- Input area -->
+        <HBox spacing="10.0" alignment="CENTER_LEFT"
+              AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0">
+            <TextField fx:id="userInput"
+                       promptText="Enter text..."
+                       HBox.hgrow="ALWAYS"/>
+            <Button fx:id="sendButton"
+                    text="Send"
+                    onAction="#handleUserInput"/>
+        </HBox>
+    </children>
+</AnchorPane>
