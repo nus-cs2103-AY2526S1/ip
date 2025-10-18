@@ -1,4 +1,4 @@
-package resources;
+package parser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,17 +6,16 @@ import java.util.List;
 import tasks.Task;
 
 /**
- * Declare constants that are referenced in Bobbodi class
+ * Declares constants that are referenced in Bobbodi class
  */
 public class Constants {
 
-    public static final String DASHES = "---------------------------------------------";
     public static final String CHATBOT_NAME = "Bobbodi";
-    public static final List<Task> LIST = new ArrayList<Task>();
+    public static final List<Task> TASK_LIST = new ArrayList<Task>();
 
     public static final String HELLO = "Bello! Me is" + CHATBOT_NAME;
     public static final String BYE = "Bye bye! Me eat banana ~";
-    public static final String CONFUSED = "Bello bello??";
+    public static final String CONFUSED = "Bello bello?? What are you saying?";
     public static final String MARKASDONE = "Woohoo banananana done:\n\t";
     public static final String MARKNOTDONE = "Stupa, faster finish it missy:\n\t";
     public static final String REMOVETASK = "Throw into trash! bi-do:\n\t";

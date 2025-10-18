@@ -11,7 +11,7 @@ checkstyle {
 }
 
 application {
-    mainClass = 'Launcher'
+    mainClass = 'ui/Launcher'
 }
 
 repositories {
@@ -50,7 +50,7 @@ test {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'Launcher' //application.mainClass.get()
+        attributes 'Main-Class': 'ui/Launcher' //application.mainClass.get()
     }
 
     from {

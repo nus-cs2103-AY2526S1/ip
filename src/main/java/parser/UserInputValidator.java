@@ -1,4 +1,4 @@
-package resources;
+package parser;
 
 import exceptions.IncorrectFormatException;
 import exceptions.MissingArgumentException;
@@ -24,7 +24,7 @@ public class UserInputValidator {
     }
 
     /**
-     * terminating condition if user says 'bye'
+     * Returns terminating condition if user says 'bye'
      * @param userInput for user input
      * @return boolean if so
      */
@@ -33,7 +33,7 @@ public class UserInputValidator {
     }
 
     /**
-     * 'list' for listing all tasks in LIST
+     * Returns all tasks in TASK_LIST
      * @param userInput for user input
      */
     public static boolean isList(String userInput) {
@@ -123,15 +123,15 @@ public class UserInputValidator {
     }
 
     /**
-     * Check if userinput is in format reminder [days to due date]
+     * Checks if userinput is in format reminder [days to due date]
      * @param userInput for userinput
      * @return true if it is in the correct format
      */
     public static boolean isReminder(String userInput) {
         String[] parts = userInput.split("\\s+", 2);
         boolean isReminder = parts[0].equalsIgnoreCase("reminder");
-        boolean enoughParts = parts.length == 2;
-        return isReminder && enoughParts && Helper.isNumeric(parts[1]);
+        boolean hasEnoughParts = parts.length == 2;
+        return isReminder && hasEnoughParts && Helper.isNumeric(parts[1]);
     }
 
     /**
@@ -253,7 +253,7 @@ public class UserInputValidator {
     }
 
     /**
-     * Check if the format of user input matches find
+     * Checks if the format of user input matches find
      * @param userInput for user input
      * @return true if correct format
      */

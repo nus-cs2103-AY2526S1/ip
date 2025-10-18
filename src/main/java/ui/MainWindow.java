@@ -1,3 +1,5 @@
+package ui;
+
 import java.util.Objects;
 
 import javafx.animation.KeyFrame;
@@ -10,8 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import resources.Constants;
-import resources.FileHandler;
+import parser.Constants;
+import storage.FileHandler;
 
 /**
  * Controller for main GUI

@@ -1,52 +1,53 @@
-package resources;
+package parser;
 
+import storage.FileHandler;
 import tasks.Task;
 
 /**
- * Abstract out functions related to processing string inputs like
+ * Abstracts out functions related to processing string inputs like
  * mark x, delete x, unmark x
  */
 public class StringHandler {
 
     /**
-     * Process input: delete x
+     * Processes input: delete x
      */
     public static String delete(String userInput) {
         String[] words = userInput.split("\\s+");
         int taskNumber = Integer.parseInt(words[1]) - 1;
-        Task deletedTask = Constants.LIST.remove(taskNumber);
+        Task deletedTask = Constants.TASK_LIST.remove(taskNumber);
         FileHandler.save();
         return (Constants.REMOVETASK
                 + deletedTask + "\n"
-                + Helper.tasksLeft(Constants.LIST.size()));
+                + Helper.tasksLeft(Constants.TASK_LIST.size()));
     }
 
     /**
-     * Process input: unmark x
+     * Processes input: unmark x
      */
     public static String unmark(String userInput) {
         String[] words = userInput.split("\\s+");
         int taskNumber = Integer.parseInt(words[1]) - 1;
-        Constants.LIST.get(taskNumber).markNotDone();
+        Constants.TASK_LIST.get(taskNumber).markNotDone();
         FileHandler.save();
         return (Constants.MARKNOTDONE
-                + Constants.LIST.get(taskNumber));
+                + Constants.TASK_LIST.get(taskNumber));
     }
 
     /**
-     * Process input: mark x
+     * Processes input: mark x
      */
     public static String mark(String userInput) {
         String[] words = userInput.split("\\s+");
         int taskNumber = Integer.parseInt(words[1]) - 1;
-        Constants.LIST.get(taskNumber).markDone();
+        Constants.TASK_LIST.get(taskNumber).markDone();
         FileHandler.save();
         return (Constants.MARKASDONE
-                + Constants.LIST.get(taskNumber));
+                + Constants.TASK_LIST.get(taskNumber));
     }
 
     /**
-     * Process input: find x
+     * Processes input: find x
      */
     public static String find(String userInput) {
         return (Constants.FINDRESULTS + "\n"
@@ -54,7 +55,7 @@ public class StringHandler {
     }
 
     /**
-     * use search to find matches according to user input
+     * Uses search to find matches according to user input
      * @param userInput for user input
      * @return matches as a string
      */
@@ -67,7 +68,7 @@ public class StringHandler {
         String search = parts[1].toLowerCase();
         StringBuilder results = new StringBuilder();
 
-        for (Task task : Constants.LIST) {
+        for (Task task : Constants.TASK_LIST) {
             if (task.getDescription().toLowerCase().contains(search)) {
                 if (!results.isEmpty()) {
                     results.append("\n"); // add newline before appending next task

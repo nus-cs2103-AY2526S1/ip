@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import exceptions.IncorrectFormatException;
 import exceptions.MissingArgumentException;
-import resources.Constants;
-import resources.UserInputValidator;
+import parser.Constants;
+import parser.UserInputValidator;
 import tasks.Todo;
 
 /**

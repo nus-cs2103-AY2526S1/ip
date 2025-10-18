@@ -30,7 +30,7 @@ public class Task {
     }
 
     /**
-     * If 0, set to not done. If 1, set to done
+     * Return If 0, set to not done. If 1, set to done
      * @param s 0 or 1 in string
      */
     public void setDone(String s) {

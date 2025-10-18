@@ -1,6 +1,6 @@
-package resources;
+package storage;
 
-import static resources.DateHandler.isDate;
+import static parser.DateHandler.isDate;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,6 +13,7 @@ import java.util.Scanner;
 import exceptions.IncorrectFormatException;
 import exceptions.InvalidTaskNumberException;
 import exceptions.MissingArgumentException;
+import parser.Constants;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -42,14 +43,14 @@ public class FileHandler {
                 case "T":
                     Todo todo = new Todo(parts[2]);
                     todo.setDone(parts[1]);
-                    Constants.LIST.add(todo);
+                    Constants.TASK_LIST.add(todo);
                     break;
                 case "D":
                     validateFileLineDeadline(parts);
                     LocalDate byDate = isDate(parts[3]);
                     Deadline deadline = new Deadline(parts[2], byDate);
                     deadline.setDone(parts[1]);
-                    Constants.LIST.add(deadline);
+                    Constants.TASK_LIST.add(deadline);
                     break;
                 case "E":
                     validateFileLineEvent(parts);
@@ -57,7 +58,7 @@ public class FileHandler {
                     LocalDate byDate1 = isDate(parts[4]);
                     Event event = new Event(parts[2], fromDate, byDate1);
                     event.setDone(parts[1]);
-                    Constants.LIST.add(event);
+                    Constants.TASK_LIST.add(event);
                     break;
                 default:
                     throw new IncorrectFormatException(String.format("Unknown task type %s", parts[0]));
@@ -132,14 +133,14 @@ public class FileHandler {
                 case "T":
                     Todo todo = new Todo(parts[2]);
                     todo.setDone(parts[1]);
-                    Constants.LIST.add(todo);
+                    Constants.TASK_LIST.add(todo);
                     break;
                 case "D":
                     validateFileLineDeadline(parts);
                     LocalDate byDate = isDate(parts[3]);
                     Deadline deadline = new Deadline(parts[2], byDate);
                     deadline.setDone(parts[1]);
-                    Constants.LIST.add(deadline);
+                    Constants.TASK_LIST.add(deadline);
                     break;
                 case "E":
                     validateFileLineEvent(parts);
@@ -147,7 +148,7 @@ public class FileHandler {
                     LocalDate byDate1 = isDate(parts[4]);
                     Event event = new Event(parts[2], fromDate, byDate1);
                     event.setDone(parts[1]);
-                    Constants.LIST.add(event);
+                    Constants.TASK_LIST.add(event);
                     break;
                 default:
                     throw new IncorrectFormatException(String.format("Unknown task type %s", parts[0]));
@@ -164,12 +165,12 @@ public class FileHandler {
     }
 
     /**
-     * Save data in LIST into harddisk
+     * Save data in TASK_LIST into harddisk
      */
     public static void save() {
         String filePath = "data.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) { //relative path
-            for (Task task : Constants.LIST) {
+            for (Task task : Constants.TASK_LIST) {
                 writer.write(task.writeToFile() + "\n");
             }
             System.out.println("Tasks saved successfully.");
