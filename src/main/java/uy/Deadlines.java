@@ -3,6 +3,10 @@ import java.time.LocalDate;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+/**
+ * Represents a task that has a deadline date.
+ * Accepts both user and storage formats when constructed from a string.
+ */
 public class Deadlines extends Task {
     protected LocalDate deadline;
 
@@ -42,6 +46,9 @@ public class Deadlines extends Task {
     }
 
     @Override
+    /**
+     * Returns a string representation including the formatted deadline.
+     */
     public String toString() {
         return super.toString() + " (by: " + Uy.format_date(this.deadline) + ")";
     }

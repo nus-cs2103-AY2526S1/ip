@@ -1,7 +1,5 @@
 package uy;
 
-// taken from https://se-education.org/guides/tutorials/javaFxPart4.html
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -10,7 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 /**
- * Controller for the main GUI.
+ * Controller for the main GUI. Responsible for wiring UI controls to the
+ * application's behavior and for inserting the initial welcome message.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -32,6 +31,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        // Show welcome message when the gui controller is initialized
         dialogContainer.getChildren().addAll(
             DialogBox.getDukeDialog(WELCOME_MESSAGE, dukeImage)
         );
@@ -43,8 +43,11 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Uy 's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handle the event when the user presses the send button or hits enter.
+     * This method reads the text from the input field, obtains a response
+     * from the `Uy` instance and appends both the user and application
+     * dialog boxes to the dialog container. The input field is cleared
+     * after processing.
      */
     @FXML
     private void handleUserInput() {

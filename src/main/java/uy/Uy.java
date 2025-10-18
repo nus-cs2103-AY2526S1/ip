@@ -7,6 +7,10 @@ import java.util.Scanner;
 
 import com.sun.source.tree.Tree;
 
+/**
+ * Main application logic for Uy. Holds task state, storage and parser,
+ * and provides an API to generate responses for incoming messages.
+ */
 public class Uy {
 
     private TaskList tasks = new TaskList();
@@ -20,7 +24,11 @@ public class Uy {
     private static final DateTimeFormatter output_date_formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     /**
-     * Generates a response for the user's chat message.
+     * Generates a response for the user's chat message. This is the primary
+     * public API used by the GUI to obtain a reply for display.
+     *
+     * @param input user input command
+     * @return response string to show to the user
      */
     public String getResponse(String input) {
         try {
@@ -33,6 +41,11 @@ public class Uy {
         }
     }
 
+    /**
+     * Construct Uy and load tasks from the given file path.
+     *
+     * @param filePath relative path under src where the data file resides
+     */
     public Uy(String filePath) {
         this.storage = new Storage(filePath);
 
@@ -44,10 +57,16 @@ public class Uy {
         }
     }
 
+    /**
+     * Default constructor uses the default "data" path.
+     */
     public Uy() {
         this("data");
     }
 
+    /**
+     * Run the interactive command loop on the console. Intended for CLI use.
+     */
     public void run() {
         while (true) {
             try {
@@ -66,6 +85,12 @@ public class Uy {
         }
     }
 
+    /**
+     * Parse a date string. Accepts yyyy-MM-dd and the app's output format MMM dd yyyy.
+     *
+     * @param date input date string
+     * @return parsed LocalDate or null on error
+     */
     public static LocalDate parse_date(String date) {
         try {
             return LocalDate.parse(date, date_formatter);
@@ -77,14 +102,26 @@ public class Uy {
         return null;
     }
 
+    /**
+     * Format a LocalDate into the app's human friendly date format.
+     *
+     * @param date date to format
+     * @return formatted date string
+     */
     public static String format_date(LocalDate date) {
         return date.format(output_date_formatter);
     }
 
+    /**
+     * Read the next token from the console input. (wrapper around Scanner)
+     */
     public static String readString() {
         return input.next();
     }
 
+    /**
+     * Read the next integer from the console input.
+     */
     public static int readInt() {
         return input.nextInt();
     }

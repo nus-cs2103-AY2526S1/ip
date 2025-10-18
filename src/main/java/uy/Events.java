@@ -3,6 +3,10 @@ import java.time.LocalDate;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+/**
+ * Represents an event task with a start (from) and end (to) date.
+ * Supports parsing from user and storage formats.
+ */
 public class Events extends Task {
     protected LocalDate from;
     protected LocalDate to;
@@ -13,6 +17,14 @@ public class Events extends Task {
         this.to = to;
     }
 
+    /**
+     * Construct an Events instance by parsing a user or storage description.
+     * Accepts formats like "name /from yyyy-mm-dd /to yyyy-mm-dd" or
+     * "name (from: MMM dd yyyy to: MMM dd yyyy)".
+     *
+     * @param description input string
+     * @throws IllegalArgumentException if the format is invalid
+     */
     public Events(String description) throws IllegalArgumentException {
         super("Event", false, "E");
 
@@ -57,6 +69,9 @@ public class Events extends Task {
     }
 
     @Override
+    /**
+     * Return a string representation suitable for display and storage.
+     */
     public String toString() {
         return super.toString() + " (from: " + Uy.format_date(this.from) + " to: " + Uy.format_date(this.to) + ")";
     }   

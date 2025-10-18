@@ -6,6 +6,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * A variant entry-point similar to Uy. Kept for demonstration/compatibility.
+ */
 public class ProfessorQuokka {
 
     private TaskList tasks = new TaskList();
@@ -47,6 +50,9 @@ public class ProfessorQuokka {
         this("data/ProfessorQuokka.txt");
     }
 
+    /**
+     * Run the interactive command loop on the console. Intended for CLI use.
+     */
     public void run() {
         ui.showWelcome();
         while (true) {

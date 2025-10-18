@@ -15,7 +15,8 @@ import javafx.scene.layout.HBox;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
- * and a label containing text from the speaker.
+ * and a label containing text from the speaker. This control is used by the GUI
+ * to render user and application messages.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -46,8 +47,14 @@ public class DialogBox extends HBox {
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
     }
-
-    // Used COPILOT TO COMPLETE
+    
+    /**
+     * Create a DialogBox styled for the user messages.
+     *
+     * @param text message text
+     * @param img speaker image
+     * @return a DialogBox instance
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.setAlignment(Pos.TOP_RIGHT);
@@ -55,7 +62,13 @@ public class DialogBox extends HBox {
         return db;
     }
 
-    // Used COPILOT TO COMPLETE
+    /**
+     * Create a DialogBox styled for the application (Duke/Uy) messages.
+     *
+     * @param text message text
+     * @param img speaker image
+     * @return a DialogBox instance
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.flip();
