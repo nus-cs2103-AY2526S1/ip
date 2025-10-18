@@ -1,6 +1,7 @@
 package peppa.command;
 
 import peppa.task.TaskList;
+import peppa.storage.Storage;
 
 /**
  * Deletes a task by its one-based index.
