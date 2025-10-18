@@ -59,7 +59,7 @@ public class UserInputValidatorTester {
     void testIsOthersValidInputsReturnsTrue() {
         assertTrue(UserInputValidator.isOthers("hello"));
         assertTrue(UserInputValidator.isOthers("add task"));
-        assertTrue(UserInputValidator.isOthers("LIST ")); // Note: trailing space
+        assertTrue(UserInputValidator.isOthers("TASK_LIST ")); // Note: trailing space
     }
 
     @Test
@@ -103,13 +103,13 @@ public class UserInputValidatorTester {
     void testIsMarkValidInputsReturnsTrue() throws MissingArgumentException {
         // Note: This assumes Helper.isNumeric() and Helper.validTaskNumber() return true for these inputs
         // You might need to mock or setup the Helper class for proper testing
-        Constants.LIST.clear();
-        Constants.LIST.add(new Todo("Task 1"));
-        Constants.LIST.add(new Todo("Task 2"));
-        Constants.LIST.add(new Todo("Task 3"));
-        Constants.LIST.add(new Todo("Task 4"));
-        Constants.LIST.add(new Todo("Task 5"));
-        Constants.LIST.add(new Todo("Task 6"));
+        Constants.TASK_LIST.clear();
+        Constants.TASK_LIST.add(new Todo("Task 1"));
+        Constants.TASK_LIST.add(new Todo("Task 2"));
+        Constants.TASK_LIST.add(new Todo("Task 3"));
+        Constants.TASK_LIST.add(new Todo("Task 4"));
+        Constants.TASK_LIST.add(new Todo("Task 5"));
+        Constants.TASK_LIST.add(new Todo("Task 6"));
         assertTrue(UserInputValidator.isMark("mark 1"));
         assertTrue(UserInputValidator.isMark("MARK 2"));
         assertTrue(UserInputValidator.isMark("Mark 6"));
@@ -135,13 +135,13 @@ public class UserInputValidatorTester {
     @DisplayName("Test isUnmark with valid inputs")
     void testIsUnmarkValidInputsReturnsTrue() throws MissingArgumentException {
         // Note: This assumes Helper methods return true for these inputs
-        Constants.LIST.clear();
-        Constants.LIST.add(new Todo("Task 1"));
-        Constants.LIST.add(new Todo("Task 2"));
-        Constants.LIST.add(new Todo("Task 3"));
-        Constants.LIST.add(new Todo("Task 4"));
-        Constants.LIST.add(new Todo("Task 5"));
-        Constants.LIST.add(new Todo("Task 6"));
+        Constants.TASK_LIST.clear();
+        Constants.TASK_LIST.add(new Todo("Task 1"));
+        Constants.TASK_LIST.add(new Todo("Task 2"));
+        Constants.TASK_LIST.add(new Todo("Task 3"));
+        Constants.TASK_LIST.add(new Todo("Task 4"));
+        Constants.TASK_LIST.add(new Todo("Task 5"));
+        Constants.TASK_LIST.add(new Todo("Task 6"));
         assertTrue(UserInputValidator.isUnmark("unmark 1"));
         assertTrue(UserInputValidator.isUnmark("UNMARK 2"));
         assertTrue(UserInputValidator.isUnmark("Unmark 6"));
@@ -166,13 +166,13 @@ public class UserInputValidatorTester {
     @DisplayName("Test isDelete with valid inputs")
     void testIsDeleteValidInputsReturnsTrue() throws MissingArgumentException {
         // Note: This assumes Helper methods return true for these inputs
-        Constants.LIST.clear();
-        Constants.LIST.add(new Todo("Task 1"));
-        Constants.LIST.add(new Todo("Task 2"));
-        Constants.LIST.add(new Todo("Task 3"));
-        Constants.LIST.add(new Todo("Task 4"));
-        Constants.LIST.add(new Todo("Task 5"));
-        Constants.LIST.add(new Todo("Task 6"));
+        Constants.TASK_LIST.clear();
+        Constants.TASK_LIST.add(new Todo("Task 1"));
+        Constants.TASK_LIST.add(new Todo("Task 2"));
+        Constants.TASK_LIST.add(new Todo("Task 3"));
+        Constants.TASK_LIST.add(new Todo("Task 4"));
+        Constants.TASK_LIST.add(new Todo("Task 5"));
+        Constants.TASK_LIST.add(new Todo("Task 6"));
         assertTrue(UserInputValidator.isDelete("delete 1"));
         assertTrue(UserInputValidator.isDelete("DELETE 2"));
         assertTrue(UserInputValidator.isDelete("Delete 6"));
