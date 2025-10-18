@@ -1,7 +1,5 @@
 # Charli User Guide
 
-![Product Screenshot](Ui.png)
-
 Charli is a lightweight desktop chatbot that helps you track todos, deadlines, and events. It supports tagging, search, and autosave to a local file.
 
 ---
