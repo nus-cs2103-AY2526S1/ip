@@ -28,10 +28,10 @@ public class HelperTest {
 
     @Test
     void testValidTaskNumber_valid() throws InvalidTaskNumberException {
-        Constants.LIST.clear();
-        Constants.LIST.add(new Todo("Task 1"));
-        Constants.LIST.add(new Todo("Task 2"));
-        Constants.LIST.add(new Todo("Task 3"));
+        Constants.TASK_LIST.clear();
+        Constants.TASK_LIST.add(new Todo("Task 1"));
+        Constants.TASK_LIST.add(new Todo("Task 2"));
+        Constants.TASK_LIST.add(new Todo("Task 3"));
 
         assertTrue(Helper.validTaskNumber("1"));
         assertTrue(Helper.validTaskNumber("3"));
@@ -39,8 +39,8 @@ public class HelperTest {
 
     @Test
     void testValidTaskNumber_invalidTooHigh() {
-        Constants.LIST.clear();
-        Constants.LIST.add(new Todo("Task 1"));
+        Constants.TASK_LIST.clear();
+        Constants.TASK_LIST.add(new Todo("Task 1"));
 
         InvalidTaskNumberException ex = assertThrows(
                 InvalidTaskNumberException.class, () -> Helper.validTaskNumber("5")
@@ -50,8 +50,8 @@ public class HelperTest {
 
     @Test
     void testValidTaskNumber_invalidZeroOrNegative() {
-        Constants.LIST.clear();
-        Constants.LIST.add(new Todo("Task 1"));
+        Constants.TASK_LIST.clear();
+        Constants.TASK_LIST.add(new Todo("Task 1"));
 
         assertThrows(InvalidTaskNumberException.class, () -> Helper.validTaskNumber("0"));
         assertThrows(InvalidTaskNumberException.class, () -> Helper.validTaskNumber("-1"));
