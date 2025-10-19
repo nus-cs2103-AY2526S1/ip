@@ -1,0 +1,7 @@
+T | 0 | read book
+D | 0 | return book | 10 10 2025
+D | 0 | assignment | 09 11 2025 1000
+D | 0 | project meeting | 09 11 2025 | 09 11 2025
+D | 0 | project meeting | 09 11 2025 1700 | 09 11 2025 1900
+T | 0 | join sports club
+T | 0 | borrow book

@@ -1,0 +1,31 @@
+list
+clear
+hello
+todo
+deadline
+event
+mark
+unmark
+delete
+todo borrow book
+todo read book
+mark 3
+unmark 4
+delete 5
+find book
+deadline return book /by 10 10 2025
+deadline assignment /by 09 11 2025 1000
+event project meeting /from 09 11 2025 /to 09 11 2025
+event project meeting /from 09 11 2025 1700 /to 09 11 2025 1900
+list
+find book
+todo join sports club
+todo borrow book
+mark 1
+mark 2
+list
+unmark 2
+list
+delete 1
+list
+bye
