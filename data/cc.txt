@@ -1,0 +1,34 @@
+
+[T][ ]  run
+[T][ ]  read
+[T][ ]  run
+[T][ ]  run
+[T][ ]  run
+[T][ ]  run
+[T][ ]  run
+[T][ ]  run home
+[T][ ]  walk
+[T][ ]  run
+[T][ ]  run home
+[T][ ]  walk
+[T][ ]  run
+[T][ ]  walk
+[T][ ]  run home
+[T][ ]  run
+[T][ ]  run home
+[T][ ]  walk
+[T][ ]  run
+[T][ ]  walk
+[T][ ]  run h
+[T][ ]  run
+[T][ ]  run
+[T][ ]  run
+[T][ ]  run
+[T][ ]  run
+[T][ ]  run
+[T][ ]  run
+[T][ ]  run
+[T][ ]  run
+[D][ ] more run,( by Sep 19 2025 )
+[D][ ] more run( by Sep 19 2025 )
+[E][ ] more more run ( from Feb 12 2025 to Dec 03 2025)
