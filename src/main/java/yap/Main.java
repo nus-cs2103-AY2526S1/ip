@@ -5,12 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import yap.core.GuiYapAdapter;
 
 /**
- * Entry point for the JavaFX app.
- * Loads {@code MainWindow.fxml}, injects the CLI-bridged engine, and shows the stage.
+ * Entry point for the JavaFX app. Loads {@code MainWindow.fxml}, injects the CLI-bridged engine,
+ * and shows the stage.
  */
 public class Main extends Application {
 
@@ -32,8 +31,9 @@ public class Main extends Application {
     }
 
     /**
-     * Standard launcher when running without a separate module launcher.
-     * @param args command-line arguments.
+     * Launches the JavaFX application using the standard entry point.
+     *
+     * @param args command-line arguments
      */
     public static void main(String[] args) {
         launch(args);

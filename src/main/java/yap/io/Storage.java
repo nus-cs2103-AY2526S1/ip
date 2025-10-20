@@ -27,146 +27,158 @@ import yap.task.ToDos;
  */
 public final class Storage {
 
-  private static final DateTimeFormatter TIME_IO = DateTimeFormatter.ofPattern("HHmm");
-  private final Path file;
+    private static final DateTimeFormatter TIME_IO = DateTimeFormatter.ofPattern("HHmm");
+    private final Path file;
 
-  public Storage(String relativePath) {
-    this.file = Paths.get(relativePath);
-  }
+    /**
+     * Creates a Storage instance with the specified file path.
+     *
+     * @param relativePath the relative path to the storage file
+     */
+    public Storage(String relativePath) {
+        this.file = Paths.get(relativePath);
+    }
 
-  /** Loads tasks from disk. Returns empty list if file missing. */
-  public List<Task> load() throws YapException {
-    List<Task> out = new ArrayList<>();
-    try {
-      if (!Files.exists(file)) {
-        return out; // first run, nothing to load
-      }
-      for (String line : Files.readAllLines(file, StandardCharsets.UTF_8)) {
-        String raw = line.trim();
-        if (raw.isEmpty() || raw.startsWith("#")) {
-          continue;
+    /**
+     * Loads tasks from disk. Returns empty list if file missing.
+     *
+     * @return list of loaded tasks
+     * @throws YapException if file reading fails
+     */
+    public List<Task> load() throws YapException {
+        List<Task> out = new ArrayList<>();
+        try {
+            if (!Files.exists(file)) {
+                return out; // first run, nothing to load
+            }
+            for (String line : Files.readAllLines(file, StandardCharsets.UTF_8)) {
+                String raw = line.trim();
+                if (raw.isEmpty() || raw.startsWith("#")) {
+                    continue;
+                }
+                Task t = deserialize(raw);
+                if (t != null) {
+                    out.add(t); // corrupted lines are skipped
+                }
+            }
+        } catch (IOException ex) {
+            throw new YapException("Failed to read save file: " + file, ex);
         }
-        Task t = deserialize(raw);
-        if (t != null) {
-          out.add(t); // corrupted lines are skipped
+        return out;
+    }
+
+    /**
+     * Saves tasks to disk atomically. Creates parent directory if necessary.
+     *
+     * @param tasks the list of tasks to save
+     * @throws YapException if file writing fails
+     */
+    public void save(List<Task> tasks) throws YapException {
+        try {
+            Path parent = file.getParent();
+            if (parent != null) {
+                Files.createDirectories(parent);
+            }
+
+            Path tmp = (parent == null ? Paths.get(".") : parent).resolve(file.getFileName() + ".tmp");
+
+            try (BufferedWriter w = Files.newBufferedWriter(tmp, StandardCharsets.UTF_8)) {
+                for (Task t : tasks) {
+                    w.write(serialize(t));
+                    w.newLine();
+                }
+            }
+
+            try {
+                Files.move(tmp, file, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+            } catch (AtomicMoveNotSupportedException e) {
+                Files.move(tmp, file, StandardCopyOption.REPLACE_EXISTING);
+            }
+        } catch (IOException ex) {
+            throw new YapException("Failed to write save file: " + file, ex);
         }
-      }
-    } catch (IOException ex) {
-      throw new YapException("Failed to read save file: " + file, ex);
     }
-    return out;
-  }
 
-  /** Saves tasks to disk atomically. Creates parent directory if necessary. */
-  public void save(List<Task> tasks) throws YapException {
-    try {
-      Path parent = file.getParent();
-      if (parent != null) {
-        Files.createDirectories(parent);
-      }
+    // ----------------------------------------------------------------------
+    // Serialization
+    // ----------------------------------------------------------------------
 
-      Path tmp = (parent == null ? Paths.get(".") : parent).resolve(file.getFileName() + ".tmp");
+    private static String serialize(Task t) {
+        String status = t.getStatus() ? "1" : "0";
 
-      try (BufferedWriter w = Files.newBufferedWriter(tmp, StandardCharsets.UTF_8)) {
-        for (Task t : tasks) {
-          w.write(serialize(t));
-          w.newLine();
+        if (t instanceof ToDos) {
+            return join("T", status, t.getName());
+
+        } else if (t instanceof Deadlines) {
+            Deadlines d = (Deadlines) t;
+            return join("D", status, d.getName(), d.getBy().toString());
+
+        } else if (t instanceof Events) {
+            Events e = (Events) t;
+            String dateIso = e.getDate().toString();
+            String startHHmm = e.getStart().format(TIME_IO);
+            String endHHmm = e.getEnd().format(TIME_IO);
+            return join("E", status, e.getName(), dateIso, startHHmm, endHHmm);
         }
-      }
 
-      try {
-        Files.move(tmp, file, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
-      } catch (AtomicMoveNotSupportedException e) {
-        Files.move(tmp, file, StandardCopyOption.REPLACE_EXISTING);
-      }
-    } catch (IOException ex) {
-      throw new YapException("Failed to write save file: " + file, ex);
-    }
-  }
-
-  // ----------------------------------------------------------------------
-  // Serialization
-  // ----------------------------------------------------------------------
-
-  private static String serialize(Task t) {
-    String status = t.getStatus() ? "1" : "0";
-
-    if (t instanceof ToDos) {
-      return join("T", status, t.getName());
-
-    } else if (t instanceof Deadlines) {
-      Deadlines d = (Deadlines) t;
-      return join("D", status, d.getName(), d.getBy().toString());
-
-    } else if (t instanceof Events) {
-      Events e = (Events) t;
-      String dateIso = e.getDate().toString();
-      String startHHmm = e.getStart().format(TIME_IO);
-      String endHHmm = e.getEnd().format(TIME_IO);
-      return join("E", status, e.getName(), dateIso, startHHmm, endHHmm);
+        return join("?", status, t.getName());
     }
 
-    return join("?", status, t.getName());
-  }
+    private static Task deserialize(String line) {
+        String[] parts = Arrays.stream(line.split("\\|")).map(String::trim).toArray(String[]::new);
+        if (parts.length < 3) {
+            return null;
+        }
 
-  private static Task deserialize(String line) {
-    String[] parts = Arrays.stream(line.split("\\|")).map(String::trim).toArray(String[]::new);
-    if (parts.length < 3) {
-      return null;
+        String type = parts[0];
+        String status = parts[1];
+
+        try {
+            switch (type) {
+            case "T": {
+                ToDos t = new ToDos(parts[2]);
+                if ("1".equals(status)) {
+                    t.setStatus(true);
+                }
+                return t;
+            }
+            case "D": {
+                if (parts.length < 4) {
+                    return null;
+                }
+                Deadlines d = new Deadlines(parts[2], parts[3]);
+                if ("1".equals(status)) {
+                    d.setStatus(true);
+                }
+                return d;
+            }
+            case "E": {
+                if (parts.length < 6) {
+                    return null;
+                }
+                Events e = new Events(parts[2], parts[3], parts[4], parts[5]);
+                if ("1".equals(status)) {
+                    e.setStatus(true);
+                }
+                return e;
+            }
+            default:
+                return null;
+            }
+        } catch (RuntimeException ex) {
+            return null;
+        }
     }
 
-    String type = parts[0];
-    String status = parts[1];
-
-    try {
-      switch (type) {
-        case "T":
-          {
-            ToDos t = new ToDos(parts[2]);
-            if ("1".equals(status)) {
-              t.setStatus(true);
-            }
-            return t;
-          }
-        case "D":
-          {
-            if (parts.length < 4) {
-              return null;
-            }
-            Deadlines d = new Deadlines(parts[2], parts[3]);
-            if ("1".equals(status)) {
-              d.setStatus(true);
-            }
-            return d;
-          }
-        case "E":
-          {
-            if (parts.length < 6) {
-              return null;
-            }
-            Events e = new Events(parts[2], parts[3], parts[4], parts[5]);
-            if ("1".equals(status)) {
-              e.setStatus(true);
-            }
-            return e;
-          }
-        default:
-          return null;
-      }
-    } catch (RuntimeException ex) {
-      return null;
+    private static String join(String a, String b, String c) {
+        return a + " | " + b + " | " + c;
     }
-  }
 
-  private static String join(String a, String b, String c) {
-    return a + " | " + b + " | " + c;
-  }
+    private static String join(String a, String b, String c, String d) {
+        return a + " | " + b + " | " + c + " | " + d;
+    }
 
-  private static String join(String a, String b, String c, String d) {
-    return a + " | " + b + " | " + c + " | " + d;
-  }
-
-  private static String join(String a, String b, String c, String d, String e, String f) {
-    return a + " | " + b + " | " + c + " | " + d + " | " + e + " | " + f;
-  }
+    private static String join(String a, String b, String c, String d, String e, String f) {
+        return a + " | " + b + " | " + c + " | " + d + " | " + e + " | " + f;
+    }
 }

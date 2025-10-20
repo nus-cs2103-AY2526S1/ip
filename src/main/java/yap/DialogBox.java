@@ -17,27 +17,24 @@ import javafx.scene.layout.HBox;
 /**
  * Controller for a dialog bubble consisting of text and an avatar image.
  *
- * <p>Uses the fx:root pattern (FXML loads into this HBox). Fields annotated with
- * {@code @FXML} are injected from {@code DialogBox.fxml}.</p>
+ * <p>Uses the fx:root pattern (FXML loads into this HBox). Fields annotated with {@code @FXML} are
+ * injected from {@code DialogBox.fxml}.
  */
 public class DialogBox extends HBox {
 
-    @FXML
-    private Label dialog;
+    @FXML private Label dialog;
 
-    @FXML
-    private ImageView displayPicture;
+    @FXML private ImageView displayPicture;
 
     /**
      * Constructs a dialog box by loading {@code DialogBox.fxml} and then setting the text and image.
      *
      * @param text Message to display.
-     * @param img  Avatar image.
+     * @param img Avatar image.
      */
     public DialogBox(String text, Image img) {
         try {
-            FXMLLoader fxmlLoader =
-                    new FXMLLoader(getClass().getResource("/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -54,7 +51,7 @@ public class DialogBox extends HBox {
      * Returns a right-aligned dialog box representing the user.
      *
      * @param text Message text.
-     * @param img  User avatar image.
+     * @param img User avatar image.
      * @return Configured dialog box.
      */
     public static DialogBox getUserDialog(String text, Image img) {
@@ -65,7 +62,7 @@ public class DialogBox extends HBox {
      * Returns a left-aligned dialog box representing Yap (the bot).
      *
      * @param text Message text.
-     * @param img  Bot avatar image.
+     * @param img Bot avatar image.
      * @return Configured dialog box flipped to left alignment.
      */
     public static DialogBox getYapDialog(String text, Image img) {
@@ -74,9 +71,7 @@ public class DialogBox extends HBox {
         return db;
     }
 
-    /**
-     * Flips the dialog box so the image is on the left and text on the right.
-     */
+    /** Flips the dialog box so the image is on the left and text on the right. */
     private void flip() {
         setAlignment(Pos.TOP_LEFT);
         ObservableList<Node> children = FXCollections.observableArrayList(getChildren());
@@ -84,4 +79,3 @@ public class DialogBox extends HBox {
         getChildren().setAll(children);
     }
 }
-

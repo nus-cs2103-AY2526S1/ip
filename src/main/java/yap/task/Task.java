@@ -8,59 +8,73 @@ package yap.task;
  */
 public class Task {
 
-  private String name;
-  private boolean isDone;
+    private String name;
+    private boolean isDone;
 
-  /** Creates a new task with the given name; tasks start as not done. */
-  public Task(String name) {
+    /** Creates a new task with the given name; tasks start as not done. */
+    public Task(String name) {
 
-    assert name != null && !name.isBlank() : "Task name must be non-null, non-blank";
-    this.name = name;
-    this.isDone = false;
-  }
+        assert name != null && !name.isBlank() : "Task name must be non-null, non-blank";
+        this.name = name;
+        this.isDone = false;
+    }
 
-  /**
-   * Returns the name/description of the task.
-   *
-   * @return the task name
-   */
-  public String getName() {
+    /**
+     * Returns the name/description of the task.
+     *
+     * @return the task name
+     */
+    public String getName() {
 
-    assert this.name != null : "Task name unexpectedly null";
-    return this.name;
-  }
+        assert this.name != null : "Task name unexpectedly null";
+        return this.name;
+    }
 
-  /** Returns "X" if done, otherwise a single space. */
-  public String getStatusIcon() {
+    /** Returns "X" if done, otherwise a single space. */
+    public String getStatusIcon() {
 
-    return isDone ? "X" : " ";
-  }
+        return isDone ? "X" : " ";
+    }
 
-  public void setStatus(Boolean isdone) {
-    this.isDone = isdone;
-  }
+    /**
+     * Sets the completion status of the task.
+     *
+     * @param isDone the completion status to set
+     */
+    public void setStatus(Boolean isDone) {
+        this.isDone = isDone;
+    }
 
-  public Boolean getStatus() {
-    return isDone;
-  }
+    /**
+     * Returns the completion status of the task.
+     *
+     * @return the completion status as a Boolean object
+     */
+    public Boolean getStatus() {
+        return isDone;
+    }
 
-  /** Returns true if the task has been marked done. */
-  public boolean isDone() {
-    return Boolean.TRUE.equals(isDone);
-  }
+    /** Returns true if the task has been marked done. */
+    public boolean isDone() {
+        return Boolean.TRUE.equals(isDone);
+    }
 
-  /** Marks this task as completed. */
-  public void markDone() {
+    /** Marks this task as completed. */
+    public void markDone() {
+        isDone = true;
+    }
 
-    this.isDone = true;
-  }
+    /**
+     * Sets the name of the task.
+     *
+     * @param name the new name for the task
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  @Override
-  public String toString() {
-    return String.format("[%s] %s", this.getStatusIcon(), this.name);
-  }
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", getStatusIcon(), name);
+    }
 }

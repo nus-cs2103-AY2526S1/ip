@@ -7,3 +7,6 @@ T | 0 | buy food
 T | 1 | cook food
 T | 0 | play ball
 T | 0 | eat
+T | 1 | eat
+D | 1 | homework | 2025-05-25
+E | 1 | game | 2025-12-15 | 1430 | 1630

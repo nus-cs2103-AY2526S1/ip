@@ -3,6 +3,7 @@ package yap;
 
 import java.net.URL;
 import java.util.Objects;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -13,6 +14,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import yap.core.GuiYapAdapter;
 
+/**
+ * Main window controller for the JavaFX GUI application.
+ */
 public class MainWindow extends AnchorPane {
     @FXML private ScrollPane scrollPane;
     @FXML private VBox dialogContainer;
@@ -20,27 +24,33 @@ public class MainWindow extends AnchorPane {
     @FXML private Button sendButton;
 
     private GuiYapAdapter engine;
-    private boolean nameProvided = false;
+    private boolean isNameProvided = false;
 
     private Image userImage;
     private Image botImage;
 
+    /**
+     * Initializes the main window components.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
         // Load images here (after classpath is ready) and fail clearly if missing.
         URL userUrl = getClass().getResource("/images/User.png");
-        URL botUrl  = getClass().getResource("/images/Yap.png");
-        userImage = new Image(Objects.requireNonNull(userUrl, "Missing /images/User.png").toExternalForm());
-        botImage  = new Image(Objects.requireNonNull(botUrl,  "Missing /images/Yap.png").toExternalForm());
+        URL botUrl = getClass().getResource("/images/Yap.png");
+        userImage =
+                new Image(Objects.requireNonNull(userUrl, "Missing /images/User.png").toExternalForm());
+        botImage =
+                new Image(Objects.requireNonNull(botUrl, "Missing /images/Yap.png").toExternalForm());
     }
 
     /** Injects the adapter and shows the CLI-equivalent greeting. */
     public void setEngine(GuiYapAdapter adapter) {
         this.engine = adapter;
-        dialogContainer.getChildren().add(
-                DialogBox.getYapDialog(engine.getGreetingAndPrompt(), botImage));
+        dialogContainer
+                .getChildren()
+                .add(DialogBox.getYapDialog(engine.getGreetingAndPrompt(), botImage));
     }
 
     @FXML
@@ -52,10 +62,8 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
 
-        String reply = !nameProvided
-                ? engine.setUserName(input.trim())
-                : engine.handle(input);
-        nameProvided = true;
+        String reply = !isNameProvided ? engine.setUserName(input.trim()) : engine.handle(input);
+        isNameProvided = true;
 
         dialogContainer.getChildren().add(DialogBox.getYapDialog(reply, botImage));
         userInput.clear();
