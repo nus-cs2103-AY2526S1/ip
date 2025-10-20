@@ -1,0 +1,4 @@
+jane doe|88888888|0|running|888888888
+bro|88899999|30|eginer|pd
+8889 9999|44444444|8|forever|
+John Doe|12345678|30|Engineer|PolicyA

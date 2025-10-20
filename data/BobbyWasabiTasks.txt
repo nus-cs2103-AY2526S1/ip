@@ -1,0 +1,7 @@
+T|hello|[ ]
+T|hello|[X]
+T|poop|[ ]
+D|extra|[X]|12/3/2003 0800
+T|read boadf|[ ]
+D|Submit report|[ ]|20/12/2025 2359
+E|Project meeting|[ ]|22/12/2025 1000|22/12/2025 1200
