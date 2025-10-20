@@ -1,9 +1,14 @@
 plugins {
     id 'application'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'java'
+    id 'jacoco'
+    id 'org.openjfx.javafxplugin' version '0.0.14'
 }
 
-repositories { mavenCentral() }
+repositories {
+    mavenCentral()
+}
 
 java {
     toolchain { languageVersion = JavaLanguageVersion.of(17) }
@@ -26,6 +31,28 @@ dependencies {
     implementation "org.openjfx:javafx-base:17.0.12:linux"
     implementation "org.openjfx:javafx-graphics:17.0.12:linux"
     implementation "org.openjfx:javafx-controls:17.0.12:linux"
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+    testRuntimeOnly  'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.2'
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacoco {
+    toolVersion = '0.8.11'
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        html.required = true
+        xml.required = true
+        csv.required = false
+    }
 }
 
 tasks.withType(JavaExec).configureEach {
@@ -35,4 +62,9 @@ tasks.withType(JavaExec).configureEach {
 tasks.named('shadowJar') {
     archiveFileName.set('larry.jar')
     manifest { attributes 'Main-Class': application.mainClass.get() }
+}
+
+javafx {
+    version = '17.0.9'       // or 17.0.11 / 22; keep it consistent with your Java 17
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }

@@ -25,6 +25,22 @@ public class Event extends Task {
                 + " (from: " + DateTimeFormats.pretty(from)
                 + " to: " + DateTimeFormats.pretty(to) + ")";
     }
+
+    /**
+     * Returns the raw user-provided start datetime string for this event.
+     * <p>
+     * Display formatting is handled elsewhere (see {@link larry.util.DateTimeFormats}).
+     *
+     * @return the start datetime as originally entered by the user
+     */
     public String getFrom() { return from; }
+
+    /**
+     * Returns the raw user-provided end datetime string for this event.
+     * <p>
+     * Display formatting is handled elsewhere (see {@link larry.util.DateTimeFormats}).
+     *
+     * @return the end datetime as originally entered by the user
+     */
     public String getTo() { return to; }
 }

@@ -1,81 +1,35 @@
 package larry.gui;
 
+import java.io.IOException;
 import javafx.application.Application;
-import javafx.geometry.Insets;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import larry.LarryCore;
 
 public class Main extends Application {
+    private final LarryCore larry = new LarryCore();
 
-    private LarryCore core;
-
+    /** JavaFX application entry that loads the FXML UI and injects LarryCore. */
     @Override
     public void start(Stage stage) {
-        core = new LarryCore();
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane root = loader.load();
 
-        // ===== UI nodes =====
-        TextArea dialog = new TextArea();
-        dialog.setEditable(false);
-        dialog.setWrapText(true);
+            // IMPORTANT: inject logic into controller
+            MainWindow controller = loader.getController();
+            controller.setLarry(larry);
 
-        ScrollPane scroll = new ScrollPane(dialog);
-        scroll.setFitToWidth(true);
-        scroll.setFitToHeight(true);
-
-        TextField input = new TextField();
-        input.setPromptText("Type a command (e.g., todo read book)");
-        Button send = new Button("Send");
-
-        HBox bottom = new HBox(8, input, send);
-        bottom.setPadding(new Insets(8));
-
-        BorderPane root = new BorderPane();
-        root.setCenter(scroll);
-        root.setBottom(bottom);
-        BorderPane.setMargin(scroll, new Insets(8, 8, 0, 8));
-
-        Scene scene = new Scene(root, 600, 400);
-        stage.setTitle("Larry");
-        stage.setScene(scene);
-        stage.show();
-
-        // greet once
-        append(dialog, " Hello! I'm Larry\n What can I do for you?");
-
-        // wire interactions
-        Runnable handle = () -> {
-            String text = input.getText();
-            if (text == null || text.isBlank()) {
-                return;
-            }
-            append(dialog, "> " + text);
-            String reply = core.getResponse(text);
-            if (!reply.isBlank()) {
-                append(dialog, reply);
-            }
-            input.clear();
-            if (core.shouldExit()) {
-                stage.close();
-            }
-            dialog.setScrollTop(Double.MAX_VALUE); // auto-scroll down
-        };
-
-        send.setOnAction(e -> handle.run());
-        input.setOnAction(e -> handle.run());
-    }
-
-    private static void append(TextArea dialog, String msg) {
-        if (dialog.getText().isEmpty()) {
-            dialog.setText(msg);
-        } else {
-            dialog.appendText("\n" + msg);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Larry");
+            stage.setMinWidth(417);
+            stage.setMinHeight(220);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
