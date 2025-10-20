@@ -1,0 +1,64 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+}
+
+repositories { mavenCentral() }
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(17) }
+}
+
+def javafxVersion = '17.0.7'
+
+dependencies {
+    implementation "org.openjfx:javafx-base:${javafxVersion}:win"
+    implementation "org.openjfx:javafx-base:${javafxVersion}:mac"
+    implementation "org.openjfx:javafx-base:${javafxVersion}:linux"
+
+    implementation "org.openjfx:javafx-graphics:${javafxVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javafxVersion}:mac"
+    implementation "org.openjfx:javafx-graphics:${javafxVersion}:linux"
+
+    implementation "org.openjfx:javafx-controls:${javafxVersion}:win"
+    implementation "org.openjfx:javafx-controls:${javafxVersion}:mac"
+    implementation "org.openjfx:javafx-controls:${javafxVersion}:linux"
+
+    implementation "org.openjfx:javafx-fxml:${javafxVersion}:win"
+    implementation "org.openjfx:javafx-fxml:${javafxVersion}:mac"
+    implementation "org.openjfx:javafx-fxml:${javafxVersion}:linux"
+
+    implementation 'info.picocli:picocli:4.7.6'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.10.0"
+    testRuntimeOnly  "org.junit.jupiter:junit-jupiter-engine:5.10.0"
+}
+
+test { useJUnitPlatform() }
+
+application {
+    mainClass.set("ramarama.Launcher")
+}
+
+tasks.register('runGui', JavaExec) {
+    group = 'application'
+    description = 'Run JavaFX GUI'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass.set('ramarama.Launcher')
+    standardInput = System.in
+}
+
+shadowJar {
+    archiveBaseName = "ramarama"
+    archiveClassifier = null
+    mergeServiceFiles()
+}
+
+run {
+    standardInput = System.in
+    enableAssertions = true
+}
+
+checkstyle { toolVersion = '11.0.0' }

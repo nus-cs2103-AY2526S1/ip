@@ -1,38 +1,33 @@
 #!/usr/bin/env bash
+set -e
 
 # create bin directory if it doesn't exist
-if [ ! -d "../bin" ]
-then
+if [ ! -d "../bin" ]; then
     mkdir ../bin
 fi
 
 # delete output from previous run
-if [ -e "./ACTUAL.TXT" ]
-then
-    rm ACTUAL.TXT
-fi
+rm -f data/rama.txt ACTUAL.TXT ACTUAL-SETUP.TXT EXPECTED-UNIX.TXT
 
-# compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
-then
+# compile all sources
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin $(find ../src/main/java -name "*.java"); then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
-# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+#../gradlew -q clean classes 
 
-# convert to UNIX format
-cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
+# -------- Run 1: setup (creates data/duke.txt) ----------
+java -classpath ../bin ramarama.Rama2 < input_setup.txt > ACTUAL-SETUP.TXT
+#java -classpath ../build/classes/java/main ramarama.Duke < input_setup.txt > actual_setup.txt
 
-# compare the output to the expected output
-diff ACTUAL.TXT EXPECTED-UNIX.TXT
-if [ $? -eq 0 ]
-then
-    echo "Test result: PASSED"
-    exit 0
-else
-    echo "Test result: FAILED"
-    exit 1
-fi
+# -------- Run 2: assertion (verifies load + ops) ----------
+java -classpath ../bin ramarama.Rama2 < input.txt > actual.txt
+#java -classpath ../build/classes/java/main ramarama.Duke < input.txt > actual.txt
+
+# convert to UNIX format (no-op if tool missing)
+cp expected.txt expected-UNIX.txt
+#dos2unix actual.txt expected-UNIX.txt >/dev/null 2>&1 || true
+
+# compare
+diff actual.txt expected.txt && echo "Test result: PASSED"
