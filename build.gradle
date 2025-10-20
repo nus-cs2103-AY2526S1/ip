@@ -1,73 +1,70 @@
 plugins {
-    id 'java'
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.14'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
-}
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
+    id 'java'
+    id 'jacoco'
+    id 'org.openjfx.javafxplugin' version '0.0.14'
 }
 
 repositories {
     mavenCentral()
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
-dependencies {
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
-    implementation 'org.openjfx:javafx-controls:17.0.13'
-}
-
-test {
-    useJUnitPlatform()
-
-    testLogging {
-        events "passed", "skipped", "failed"
-
-        showExceptions true
-        exceptionFormat "full"
-        showCauses true
-        showStackTraces true
-        showStandardStreams = false
-    }
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(17) }
 }
 
 application {
     mainClass = 'larry.gui.Launcher'
 }
 
-jar {
-    archiveBaseName = "larry"
-    manifest {
-        attributes 'Main-Class': 'larry.Larry'
+dependencies {
+    // Windows
+    implementation "org.openjfx:javafx-base:17.0.12:win"
+    implementation "org.openjfx:javafx-graphics:17.0.12:win"
+    implementation "org.openjfx:javafx-controls:17.0.12:win"
+    // macOS
+    implementation "org.openjfx:javafx-base:17.0.12:mac"
+    implementation "org.openjfx:javafx-graphics:17.0.12:mac"
+    implementation "org.openjfx:javafx-controls:17.0.12:mac"
+    // Linux
+    implementation "org.openjfx:javafx-base:17.0.12:linux"
+    implementation "org.openjfx:javafx-graphics:17.0.12:linux"
+    implementation "org.openjfx:javafx-controls:17.0.12:linux"
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+    testRuntimeOnly  'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.2'
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacoco {
+    toolVersion = '0.8.11'
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        html.required = true
+        xml.required = true
+        csv.required = false
     }
 }
 
-javafx {
-    version = '17'
-    modules = ['javafx.controls']
-}
-
-tasks.withType(Test).configureEach {
-    jvmArgs '-ea'
-}
-tasks.named('run') {
-    jvmArgs '-ea'
+tasks.withType(JavaExec).configureEach {
+    jvmArgs += ['-Dprism.order=sw']
 }
 
 tasks.named('shadowJar') {
-    archiveBaseName.set('larry')
-    archiveClassifier.set('')
-    archiveVersion.set('') // optional: omit version in filename
+    archiveFileName.set('larry.jar')
+    manifest { attributes 'Main-Class': application.mainClass.get() }
 }
 
-run{
-    standardInput = System.in
+javafx {
+    version = '17.0.9'       // or 17.0.11 / 22; keep it consistent with your Java 17
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }

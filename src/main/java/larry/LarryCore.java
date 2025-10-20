@@ -12,16 +12,37 @@ import larry.ui.Ui;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Returns whether Larry should terminate.
+ * This becomes {@code true} after a {@code bye} command is processed.
+ *
+ * @return {@code true} if the session should end; {@code false} otherwise
+ */
 public class LarryCore {
     private final Ui ui = new Ui();
     private final Storage storage = new Storage("data/larry.txt");
     private final TaskList tasks = new TaskList(storage.load());
     private boolean shouldExit = false;
 
+    /**
+     * Returns whether Larry should terminate.
+     * This becomes {@code true} after a {@code bye} command is processed.
+     *
+     * @return {@code true} if the session should end; {@code false} otherwise
+     */
     public boolean shouldExit() {
         return shouldExit;
     }
 
+    /**
+     * Processes one line of user input and produces a response message.
+     * <p>
+     * Side effects: may mutate the task list and save to storage. Also flips {@link #shouldExit}
+     * to {@code true} when the {@code bye} command is received.
+     *
+     * @param input raw user input; {@code null} and blank strings are treated as empty input
+     * @return a response string suitable for showing in the GUI/CLI (never {@code null})
+     */
     public String getResponse(String input) {
         String line = input == null ? "" : input.trim();
 
