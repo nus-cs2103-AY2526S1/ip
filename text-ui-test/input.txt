@@ -1,0 +1,6 @@
+todo read books
+event project /from 2025-08-30 /to 2025-08-31
+deadline return book /by 2025-09-01
+list
+find books
+bye

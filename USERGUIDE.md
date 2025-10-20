@@ -1,8 +1,7 @@
 <!-- GENERATED WITH THE HELP OF COPILOT -->
+# Uy: Zen Productivity Coach
 
-# Uy: A Mindful Task Manager
-
-A task management application with a calming, mindful twist.
+A mindful, task-tracking assistant to help you organize your day with calm and clarity.
 
 ## Features
 
@@ -14,12 +13,6 @@ A task management application with a calming, mindful twist.
 - **Persistent Storage:** Your tasks are saved and loaded automatically.
 - **Mindful Guidance:** Uy encourages you with calm, positive messages.
 
-## Screenshot
-
-Here’s how Uy looks in action:
-
-![Uy Application Screenshot](./Ui.png)
-
 ## Getting Started
 
 ### Prerequisites
@@ -30,11 +23,12 @@ Here’s how Uy looks in action:
 
 ### Running the App
 
-1. Open a terminal in the directory where the `uy.jar` file resides.
+1. Open a terminal in the `ip` directory.
 2. Run:
    ```
-   java -jar uy.jar
+   ./gradlew run
    ```
+   (On Windows, use `gradlew.bat run`)
 
 ### GUI Overview
 
@@ -84,3 +78,4 @@ Uy will encourage you with gentle, zen-like messages as you manage your tasks. R
 ## Credits
 
 - Inspired by the SE-EDU JavaFX tutorial.
+- Zen Productivity Coach personality and UI by your customization.
