@@ -17,18 +17,18 @@ public class ExitCommandTest {
         TaskList tasks = new TaskList();
         // Mock Ui
         Ui ui = new Ui() {
-            private boolean exitShown = false;
+            private boolean isExitShown = false;
             @Override
             public void showExit() {
-                exitShown = true;
+                isExitShown = true;
             }
         };
         // Mock Storage
         Storage storage = new Storage("test/test.txt") {
-            private boolean saved = false;
+            private boolean isSaved = false;
             @Override
             public void saveTasks(TaskList t) throws KhatException {
-                saved = true;
+                isSaved = true;
             }
         };
         ExitCommand cmd = new ExitCommand();

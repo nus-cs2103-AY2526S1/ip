@@ -15,13 +15,13 @@ public class ListCommandTest {
     void execute_listCommand_showsAllTasks() {
         TaskList tasks = new TaskList();
         class TestUi extends Ui {
-            private boolean called = false;
+            private boolean isCalled = false;
             @Override
             public void showAllTasks(TaskList t) {
-                called = true;
+                isCalled = true;
             }
             public boolean wasCalled() {
-                return called;
+                return isCalled;
             }
         }
         TestUi ui = new TestUi();
