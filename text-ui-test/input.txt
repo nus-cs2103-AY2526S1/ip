@@ -1,0 +1,18 @@
+list
+todo read book
+deadline return book /by 2025-09-18
+deadline return book2 /by 18/09/2025
+event project meeting /from 2025-09-20 /to 2025-09-22
+event cs2103 lecture /from Sep 25 2025 /to Sep 25 2025
+list
+mark 2
+unmark 2
+mark 10
+delete 3
+delete 100
+delete 1
+delete 1
+delete 1
+list
+blah blah blah
+bye
