@@ -13,5 +13,12 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Java compiled class files
+*.class
+
+# Test Artifacts
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Ignores user data files
+data/
