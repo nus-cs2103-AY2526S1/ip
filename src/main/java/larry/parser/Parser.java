@@ -43,6 +43,9 @@ public class Parser {
 
     /** Parses a 1-based index; returns -1 if invalid. */
     public static int parseIndex(String s) {
+        if (s == null) {
+            return -1;
+        }
         try {
             return Integer.parseInt(s.trim());
         } catch (NumberFormatException e) {
