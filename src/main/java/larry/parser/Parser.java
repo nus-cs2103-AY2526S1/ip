@@ -16,7 +16,8 @@ public class Parser {
             Map.entry("um", "unmark"),
             Map.entry("del", "delete"),
             Map.entry("f", "find"),
-            Map.entry("q", "bye")
+            Map.entry("q", "bye"),
+            Map.entry("h", "help")
     );
 
     /** Returns the lower-cased command word at the start of {@code input}. */
