@@ -86,6 +86,6 @@ public class Ui {
 
     /** Prints a one-line error message without terminating the app. */
     public void showError(String msg) {
-        System.out.println(msg);
+        System.out.println(msg != null ? msg : "An error occurred.");
     }
 }
