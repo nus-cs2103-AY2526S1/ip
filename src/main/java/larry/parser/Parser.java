@@ -4,6 +4,7 @@
 package larry.parser;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class Parser {
 
@@ -22,7 +23,7 @@ public class Parser {
 
     /** Returns the lower-cased command word at the start of {@code input}. */
     public static String commandWord(String input) {
-        assert input != null : "input must not be null";
+        Objects.requireNonNull(input, "input must not be null");
         String trimmed = input.trim();
         int sp = trimmed.indexOf(' ');
         String head = (sp == -1) ? trimmed.toLowerCase() : trimmed.substring(0, sp).toLowerCase();
@@ -31,7 +32,7 @@ public class Parser {
 
     /** Returns the remainder of {@code input} after the first word actually typed. */
     public static String argTail(String input, String cmd) {
-        assert input != null : "input must not be null";
+        Objects.requireNonNull(input, "input must not be null");
         String trimmed = input.trim();
         int sp = trimmed.indexOf(' ');
         if (sp == -1) {
