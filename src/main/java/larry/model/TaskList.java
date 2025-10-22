@@ -55,13 +55,19 @@ public class TaskList {
 
     /** Returns tasks whose string form contains the keyword. */
     public java.util.List<Task> find(String keyword) {
-        String k = keyword.toLowerCase();
         java.util.List<Task> matches = new java.util.ArrayList<>();
         for (Task t : tasks) {
-            if (t.toString().toLowerCase().contains(k)) {
+            if (containsIgnoreCase(t.toString(), keyword)) {
                 matches.add(t);
             }
         }
         return matches;
+    }
+
+    private static boolean containsIgnoreCase(String haystack, String needle) {
+        if (haystack == null || needle == null) {
+            return false;
+        }
+        return haystack.toLowerCase().contains(needle.toLowerCase());
     }
 }
