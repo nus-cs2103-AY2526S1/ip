@@ -6,7 +6,7 @@
 
 Even Friday, Jarvis' successor, and arguably the second-most sophisticated
 chatbot, started out somewhere. After his death in 2019, as we searched
-through his belongings, we found a hard drive labelled 'Friday'.
+through Tony's belongings, we found a hard drive labelled 'Friday'.
 It was the inception of Friday: a chatbot that Tony would utilise to create
 and edit his to-do list. (Word has it that Tony once removed 1000 coding
 tasks in one day :o). These are the features that Friday had in this hard drive.
