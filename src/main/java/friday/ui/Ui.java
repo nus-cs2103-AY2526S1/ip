@@ -58,6 +58,7 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /** Displays all tasks that match the given keyword. */
     public void showMatches(List<Task> matches) {
         if (matches.isEmpty()) {
             box(" You have no task containing this keyword");
