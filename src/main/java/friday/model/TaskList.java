@@ -18,11 +18,13 @@ public class TaskList {
         return tasks;
     }
 
+    // Replaces all tasks in the list with newTasks.
     public void setAll(List<Task> newTasks) {
         tasks.clear();
         tasks.addAll(newTasks);
     }
 
+    // Returns the task at the given one-based index.
     public Task get(int oneBased) throws FridayException {
         int i = oneBased - 1;
         if (i < 0 || i >= tasks.size()) {
@@ -31,6 +33,7 @@ public class TaskList {
         return tasks.get(i);
     }
 
+    // Adds a new task to the list.
     public void add(Task t, Ui ui, Storage storage) throws IOException {
         assert t != null;
         tasks.add(t);
@@ -38,6 +41,7 @@ public class TaskList {
         ui.added(t, tasks.size());
     }
 
+    // Removes the task at the given one-based index from the list.
     public void remove(int oneBased, Ui ui, Storage storage) throws FridayException, IOException {
         assert get(oneBased) != null;
         Task t = get(oneBased);
@@ -46,6 +50,7 @@ public class TaskList {
         ui.removed(t, tasks.size());
     }
 
+    // Marks or unmarks the task at the given one-based index.
     public void toggle(int oneBased, boolean mark, Ui ui, Storage storage) throws FridayException, IOException {
         assert get(oneBased) != null;
         Task t = get(oneBased);
@@ -54,6 +59,7 @@ public class TaskList {
         ui.toggled(t, mark);
     }
 
+    // Finds all tasks that match the given keyword (case-insensitive).
     public List<Task> find(String keyword) {
         String k = keyword.toLowerCase();
         List<Task> out = new ArrayList<>();
@@ -63,6 +69,7 @@ public class TaskList {
         return out;
     }
 
+    // Sorts tasks by type: Deadlines, ToDos, Events.
     public void sortByType() {
         tasks.sort((a, b) -> {
             int pa = priority(a.typeIcon());
@@ -71,6 +78,7 @@ public class TaskList {
         });
     }
 
+    // Returns priority based on task type.
     private int priority(String typeIcon) {
         if (typeIcon.startsWith("[D]")) return 1;  // Deadlines first
         if (typeIcon.startsWith("[T]")) return 2;  // ToDos next
