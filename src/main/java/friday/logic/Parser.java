@@ -57,11 +57,13 @@ public class Parser {
             return true;
         }
 
+        // List all tasks
         if (cmd.equals("list")) {
             ui.showList(tasks.all());
             return false;
         }
 
+        // Mark or unmark task
         if (cmd.startsWith("mark ") || cmd.startsWith("unmark ")) {
             boolean mark = cmd.startsWith("mark ");
             String nStr = cmd.substring(mark ? 5 : 7).trim();
@@ -70,12 +72,14 @@ public class Parser {
             return false;
         }
 
+        // Delete task
         if (cmd.startsWith("delete ")) {
             int n = Integer.parseInt(cmd.substring(6).trim());
             tasks.remove(n, ui, storage);
             return false;
         }
 
+        // Add tasks
         if (cmd.startsWith("todo")) {
             String desc = cmd.substring(4).trim();
             if (desc.isEmpty()) {
@@ -85,6 +89,7 @@ public class Parser {
             return false;
         }
 
+        // Add deadline
         if (cmd.startsWith("deadline")) {
             String rest = cmd.substring(8).trim();              // "<desc> /by <when>"
             int i = rest.indexOf("/by");
@@ -100,6 +105,7 @@ public class Parser {
             return false;
         }
 
+        // Add event
         if (cmd.startsWith("event")) {
             String rest = cmd.substring(5).trim();              // "<desc> /from <start> /to <end>"
             int iFrom = rest.indexOf("/from"), iTo = rest.indexOf("/to");
@@ -116,6 +122,7 @@ public class Parser {
             return false;
         }
 
+        // Find tasks by keyword
         if (cmd.startsWith("find")) {
             String keyword = cmd.substring(4).trim();
             if (keyword.isEmpty()) throw new FridayException("Provide a keyword to find.");
@@ -123,6 +130,7 @@ public class Parser {
             return false;
         }
 
+        // Sort tasks by type
         if (cmd.startsWith("sort")) {
             tasks.sortByType();
             ui.showList(tasks.all());  // re-display sorted list
