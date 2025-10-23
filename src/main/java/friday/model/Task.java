@@ -35,6 +35,7 @@ public abstract class Task {
         return String.format("%s | %d | %s", typeIcon().substring(1,2), done ? 1 : 0, desc);
     }
 
+    // Decode from storage line:
     public static Task fromStorage(String line) {
         String[] p = line.split("\\s*\\|\\s*");
         if (p.length < 3) {
