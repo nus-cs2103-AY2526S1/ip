@@ -1,0 +1,24 @@
+todo 123
+unmark 100
+mark 100
+deadline return book /by Sunday
+deadline return book /bySunday
+deadline return book /b Sunday
+deadline return book
+event project meeting /from Mon 2pm /to 4pm
+event project meeting /fromm Mon 2pm /to 4pm
+event project meeting /from Mon 2pm /too 4pm
+event project meeting /fromMon 2pm /to4pm
+event project meeting 2pm 4pm
+event project meeting /to 4pm
+event project meeting /from Mon 2pm
+list
+mark 1
+mark 2
+unmark 1
+unmark 2
+hehe
+ok
+asdasdsa
+byee
+bye

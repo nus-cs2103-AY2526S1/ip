@@ -1,0 +1,19 @@
+{
+    "java.project.sourcePaths": [
+        "src/main/java"
+    ],
+    "editor.detectIndentation": false,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "java.format.settings.url": "eclipse-java-formatter.xml",
+    "java.format.settings.profile": "SE-EDU",
+    "[java]": {
+        "editor.defaultFormatter": "redhat.java"
+    },
+    "java.saveActions.organizeImports": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit",
+    }
+}
