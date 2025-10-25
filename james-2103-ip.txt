@@ -1,0 +1,4 @@
+T | 0 | this is a newthing
+T | 0 | this not thing
+T | 1 | i got some stuff
+T | 0 | testing

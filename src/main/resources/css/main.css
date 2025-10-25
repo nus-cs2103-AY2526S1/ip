@@ -1,0 +1,93 @@
+.root {
+    -fx-background-color: #0f1419;  /* Dark Telegram background */
+}
+
+.text-field {
+    -fx-background-color: #2b2f36;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #8e9297;
+    -fx-font: 14px "Segoe UI", "Arial", sans-serif;
+    -fx-background-radius: 25px;
+    -fx-border-radius: 25px;
+    -fx-border-color: transparent;
+    -fx-padding: 12px 18px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.3, 0, 1);
+}
+
+.text-field:focused {
+    -fx-background-color: #3a3f47;
+    -fx-border-color: #5288c1;
+    -fx-border-width: 1px;
+}
+
+.button {
+    -fx-background-color: #5288c1;
+    -fx-text-fill: white;
+    -fx-font: bold 14px "Segoe UI", "Arial", sans-serif;
+    -fx-background-radius: 25px;
+    -fx-border-radius: 25px;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(82, 136, 193, 0.3), 8, 0.3, 0, 2);
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #6b9bd2;
+    -fx-effect: dropshadow(gaussian, rgba(82, 136, 193, 0.5), 12, 0.4, 0, 3);
+}
+
+.button:pressed {
+    -fx-background-color: #4a7ba7;
+    -fx-effect: dropshadow(gaussian, rgba(82, 136, 193, 0.2), 4, 0.2, 0, 1);
+}
+
+.scroll-pane {
+    -fx-background-color: #0f1419;
+    -fx-background: #0f1419;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #0f1419;
+}
+
+.scroll-pane .content {
+    -fx-background-color: #0f1419;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+
+.scroll-bar .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+}
+
+.scroll-bar .thumb:pressed {
+    -fx-background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Hide scroll bar buttons */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+    -fx-opacity: 0;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+    -fx-opacity: 0;
+}

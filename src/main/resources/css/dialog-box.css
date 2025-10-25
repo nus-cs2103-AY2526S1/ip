@@ -1,0 +1,46 @@
+/* User messages (right side) */
+.label {
+    -fx-background-color: #5288c1;
+    -fx-text-fill: white;
+    -fx-font: 14px "Segoe UI", "Arial", sans-serif;
+    -fx-background-radius: 18px 18px 4px 18px;
+    -fx-border-radius: 18px 18px 4px 18px;
+    -fx-padding: 8px 12px;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0.3, 0, 1);
+    -fx-max-width: 280px;
+    -fx-wrap-text: true;
+}
+
+/* Bot/Reply messages (left side) */
+.reply-label {
+    -fx-background-color: #2b2f36;
+    -fx-text-fill: white;
+    -fx-font: 14px "Segoe UI", "Arial", sans-serif;
+    -fx-background-radius: 4px 18px 18px 18px;
+    -fx-border-radius: 4px 18px 18px 18px;
+    -fx-padding: 8px 12px;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0.3, 0, 1);
+    -fx-max-width: 280px;
+    -fx-wrap-text: true;
+}
+
+/* Profile picture styling */
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.4, 2, 2);
+    -fx-scale-x: 0.8;
+    -fx-scale-y: 0.8;
+    -fx-rotate: 0;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-border-color: transparent;
+    -fx-background-clip: padding-box;
+    -fx-clip: true;
+}
+
+/* Hover effects for messages */
+.label:hover,
+.reply-label:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 6, 0.4, 0, 2);
+}

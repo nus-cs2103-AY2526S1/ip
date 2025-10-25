@@ -1,0 +1,73 @@
+name: Java CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            fx: linux
+          - os: macos-latest
+            fx: mac-aarch64
+          - os: windows-latest
+            fx: win
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Disable IPv6 on Linux
+        if: runner.os == 'Linux'
+        run: |
+          sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+          sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
+          sudo sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v3
+        continue-on-error: true
+
+      - name: Set up Java 17 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Gradle (cache)
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Build (Linux/macOS)
+        if: runner.os == 'Linux' || runner.os == 'macOS'
+        run: ./gradlew --no-daemon clean check shadowJar -Pjavafx.platform=${{ matrix.fx }}
+
+      - name: Build (Windows)
+        if: runner.os == 'Windows'
+        run: .\gradlew.bat --no-daemon clean check shadowJar -Pjavafx.platform=${{ matrix.fx }}
+
+      - name: Install dos2unix on Linux
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y dos2unix
+
+      - name: Install dos2unix on macOS
+        if: runner.os == 'macOS'
+        run: brew install dos2unix
+
+      - name: Perform IO redirection test (*NIX or macOS)
+        if: runner.os == 'Linux' || runner.os == 'macOS'
+        working-directory: ${{ github.workspace }}/text-ui-test
+        run: ./runtest.sh
+
+      - name: Perform IO redirection test (Windows)
+        if: runner.os == 'Windows'
+        working-directory: ${{ github.workspace }}/text-ui-test
+        shell: cmd
+        run: runtest.bat
+
+      - name: Upload runnable jar artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dwight-${{ matrix.fx }}
+          path: build/libs/dwight-${{ matrix.fx }}.jar

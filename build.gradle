@@ -1,0 +1,81 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.gradleup.shadow' version '9.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext.detectFxPlatform = {
+    def os = org.gradle.internal.os.OperatingSystem.current()
+    def arch = System.getProperty('os.arch')
+    if (os.isMacOsX())    return (arch.contains('aarch64') || arch.contains('arm')) ? 'mac-aarch64' : 'mac'
+    if (os.isWindows())   return 'win'
+    if (os.isLinux())     return (arch.contains('aarch64') || arch.contains('arm')) ? 'linux-aarch64' : 'linux'
+    throw new GradleException("Unsupported OS/arch: ${os}/${arch}")
+}
+
+def fxPlatform = (findProperty('javafx.platform') ?: detectFxPlatform())
+def fxVersion  = '17.0.7'
+
+dependencies {
+    implementation "org.openjfx:javafx-base:${fxVersion}:${fxPlatform}"
+    implementation "org.openjfx:javafx-graphics:${fxVersion}:${fxPlatform}"
+    implementation "org.openjfx:javafx-controls:${fxVersion}:${fxPlatform}"
+    implementation "org.openjfx:javafx-fxml:${fxVersion}:${fxPlatform}"
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly  'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    testRuntimeOnly  'org.junit.platform:junit-platform-launcher:1.10.0'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        showExceptions true
+        exceptionFormat 'full'
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(17) }
+}
+
+checkstyle {
+    toolVersion = '10.24.0'
+    configFile = file('config/checkstyle/checkstyle.xml')
+    ignoreFailures = false
+    maxWarnings = 0
+}
+tasks.withType(Checkstyle).configureEach {
+    reports {
+        xml.required = false
+        html.required = true
+    }
+}
+
+application {
+    mainClass.set('Launcher')
+}
+
+tasks.named('jar') { enabled = false }
+
+shadowJar {
+    archiveBaseName.set('dwight')
+    archiveVersion.set('')
+    archiveClassifier.set(fxPlatform)
+    mergeServiceFiles()
+    manifest { attributes 'Main-Class': 'Launcher' }
+}
+
+run {
+    standardInput = System.in
+}
+

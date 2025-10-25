@@ -1,26 +1,28 @@
-# Duke project template
+![Dwight Clapping](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGl1OWZpNGE3cnQ2czMyajZtcHM0ejg3MnM5ZXhzZnZmemowNDVveCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/YC6ZedMDgR1Fm/giphy.gif)
+# Dwight Companion
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+> _“Whenever I’m about to do something, I think, ‘Would an idiot do that?’ And if they would, I do not do that.” – Dwight Schrute_
 
-## Setting up in Intellij
+The _Dwight Companion_ is the ultimate assistant for productivity and beet-based efficiency. It will not only help you manage your tasks, but also prove once and for all that computers can never outsell the best paper salesman.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+* text-based like Schrute Farms invoices
+* easy to learn _(even Kevin could use it)_
+* FAST - To give you a reference point, it is somewhere between a snake and a mongoose… and a panther.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## How do I get Dwight as my assistant ~to the~ task manager?
+* [Download it from here](https://github.com/lim-james/ip)
+* Add your tasks
+* Let Dwight be the best task manager you have ever seen
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## Dwight's Comprehensive [Resume](https://www.youtube.com/watch?v=JJzMUqXrQrE)
+ 
+- [X] Managing todos
+- [X] Managing deadlines
+- [X] Managing events
+- [X] Sorting tasks
+
+## Why use Dwight Companion?
+> _It would describe itself in 3 words - hardworking, alpha male, jackhammer, merciless..._
+
+## Personal notes
+It is week 6 and I have not installed IntelliJ yet.

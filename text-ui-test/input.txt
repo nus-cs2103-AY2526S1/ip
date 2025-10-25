@@ -1,0 +1,8 @@
+new todo a dummy todo
+new event this is happening /from Aug 6 2025 /to Sep 14 2025
+new deadline complete this /by Aug 21 2025
+list 
+mark 1
+list
+bye
+
