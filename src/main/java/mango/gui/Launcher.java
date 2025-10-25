@@ -1,0 +1,15 @@
+package mango.gui;
+
+import javafx.application.Application;
+
+/**
+ * Launcher class to workaround classpath issues.
+ */
+public class Launcher {
+    /**
+     * Starts the JavaFX application.
+     */
+    public static void main(String[] args) {
+        Application.launch(Main.class, args);
+    }
+}
