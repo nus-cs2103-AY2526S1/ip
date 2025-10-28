@@ -1,0 +1,7 @@
+todo eat
+blah blah
+race
+deadline eat /by 6pm
+finish out this project /from Monday 2pm /to 6pm
+todo sing
+bye
