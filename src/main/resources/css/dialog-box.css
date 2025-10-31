@@ -1,0 +1,74 @@
+/* Base message styling */
+.label {
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 12px 16px;
+    -fx-background-radius: 18px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0, 0, 2);
+    -fx-max-width: 280px;
+    -fx-wrap-text: true;
+}
+
+/* User messages - right aligned, blue theme */
+.user-message {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-background-radius: 18px 18px 4px 18px;
+    -fx-font-weight: normal;
+}
+
+/* Bot messages - left aligned, light theme */
+.bot-message {
+    -fx-background-color: #f8f9fa;
+    -fx-text-fill: #212529;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 1px;
+    -fx-border-radius: 18px 18px 18px 4px;
+    -fx-background-radius: 18px 18px 18px 4px;
+}
+
+/* Error messages - attention-grabbing red theme */
+.error-message {
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+    -fx-border-radius: 18px 18px 18px 4px;
+    -fx-background-radius: 18px 18px 18px 4px;
+    -fx-effect: dropshadow(gaussian, rgba(220, 53, 69, 0.3), 8, 0, 0, 2);
+    -fx-font-weight: 500;
+}
+
+/* Avatar styling */
+.user-avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0, 123, 255, 0.3), 8, 0, 0, 2);
+    -fx-opacity: 0.9;
+}
+
+.bot-avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 6, 0, 0, 2);
+    -fx-opacity: 1.0;
+}
+
+/* Legacy styles for backward compatibility (if you need them) */
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.add-label {
+    -fx-background-color: yellow;
+}
+
+.marked-label {
+    -fx-background-color: palegreen;
+}
+
+.delete-label {
+    -fx-background-color: lightpink;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+}
