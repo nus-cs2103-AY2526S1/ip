@@ -1,0 +1,69 @@
+package nomz.commands;
+
+import static nomz.common.Messages.MESSAGE_FIND_NO_MATCH;
+import static nomz.common.Messages.MESSAGE_FIND_RESULTS_HEADER;
+
+import java.util.ArrayList;
+import java.util.stream.IntStream;
+
+import nomz.data.exception.NomzException;
+import nomz.data.tasks.Task;
+import nomz.data.tasks.TaskList;
+import nomz.storage.Storage;
+
+/**
+ * Command to find tasks by description
+ */
+public class FindCommand extends Command {
+    private final String keyword;
+
+    /**
+     * Creates a FindCommand to search for tasks by description.
+     * @param keyword the keyword to search for
+     */
+    public FindCommand(String keyword) {
+        assert keyword != null : "Keyword should not be null";
+        this.keyword = keyword;
+    }
+
+    @Override
+    public String execute(TaskList tasks, Storage storage) throws NomzException {
+        assert tasks != null : "TaskList should not be null";
+        assert storage != null : "Storage should not be null";
+
+        ArrayList<Task> matched = new ArrayList<>(
+            tasks.getTasks().stream()
+                .filter(t -> t.toString().toLowerCase().contains(keyword.toLowerCase()))
+                .toList()
+            );
+
+        if (matched.isEmpty()) {
+            return MESSAGE_FIND_NO_MATCH.formatted(this.keyword);
+        } else {
+            StringBuilder sb = new StringBuilder();
+
+            sb.append(MESSAGE_FIND_RESULTS_HEADER);
+            IntStream.range(0, matched.size())
+                .mapToObj(i -> (i + 1) + ". " + matched.get(i).toString() + "\n")
+                .forEach(sb::append);
+            return sb.toString().trim();
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof FindCommand)) {
+            return false;
+        }
+        FindCommand that = (FindCommand) o;
+        return this.keyword.equals(that.keyword);
+    }
+
+    @Override
+    public int hashCode() {
+        return keyword.hashCode();
+    }
+}
