@@ -1,0 +1,56 @@
+
+rando
+
+todo
+
+todo 
+
+deadline
+
+deadline 
+
+event
+
+event 
+
+todo hello what is up
+
+deadline diddly
+
+deadline diddly /by aaaa
+
+deadline diddly /by 20-10-1919 0729
+
+deadline diddly /by 20-10-1919 0729 /by 20-10-1929 1800
+
+event go beach
+
+event go beach /from aaaaa /to 20-10-1919 2000
+
+event go beach /from 20-10-0919 2000 /to aaaa
+
+event go beach /from 20-10-1919 0729
+
+event go beach /from 20-10-1919 0729 /to 20-10-1919 1800
+
+event go beach /from 20-10-1919 0729 /from 20-10-1919 1800 /to 20-10-1919 1900
+
+event go beach /from 20-10-1919 0729 /from 20-10-1919 1800 /to 20-10-1919 1900 /to 20-10-1919 2000
+
+event go beach /from 20-10-1919 0729 /to 20-10-1919 1800 /from 20-10-1919 1900 /to 20-10-1919 2000
+
+mark 3
+
+mark 5
+
+mark 8
+
+mark 200
+
+delete 2
+
+delete 7
+
+delete 200
+
+bye

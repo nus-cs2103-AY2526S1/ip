@@ -1,0 +1,3 @@
+Deadline|||true|||finish project|||07-03-1919 0800
+Todo|||true|||buy groceries
+Todo|||false|||watch econs lecture

@@ -1,0 +1,12 @@
+Event|||false||||||NIL|||NIL
+Deadline|||true|||diddly|||NIL
+Deadline|||false|||diddly |||NIL
+Deadline|||true|||diddly |||20-10-1919 0729
+Deadline|||false|||diddly |||20-10-1919 0729
+Event|||false|||go beach|||NIL|||NIL
+Event|||false|||go beach |||20-10-0919 2000|||NIL
+Event|||false|||go beach |||20-10-1919 0729|||NIL
+Event|||false|||go beach |||20-10-1919 0729|||20-10-1919 1800
+Event|||false|||go beach |||20-10-1919 0729|||20-10-1919 1900
+Event|||false|||go beach |||20-10-1919 0729|||20-10-1919 1900
+Event|||false|||go beach |||20-10-1919 0729|||20-10-1919 1800
