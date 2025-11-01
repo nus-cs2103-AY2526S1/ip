@@ -1,0 +1,49 @@
+package chatot;
+/**
+ * Represents a basic task.
+ */
+class Task {
+    private String description;
+    private boolean isDone;
+
+    /**
+     * Creates a new task with description. Defaults to not done based on requirements.
+     * @param description the task description in string
+     */
+    public Task(String description) {
+        assert description != null : "Task description cannot be null";
+        this.description = description;
+        this.isDone = false;
+    }
+
+    /**
+     * Creates a task when given description and completion status.
+     * @param description the task description
+     * @param isDone whether the task is completed
+     */
+    public Task(String description, boolean isDone) {
+        assert description != null : "Task description cannot be null";
+        this.description = description;
+        this.isDone = isDone;
+    }
+
+    /**
+     * Toggles the completion status. Logic of scenarios to toggle handled externally.
+     */
+    public void switchDone() {
+        this.isDone = !this.isDone;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean getDone() {
+        return isDone;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + (isDone ? "X" : " ") + "] " + description;
+    }
+}

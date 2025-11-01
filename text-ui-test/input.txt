@@ -1,0 +1,10 @@
+event Shake /from september /to october
+todo fly a kite
+deadline Finish CS2103T Homework /by As soon as possible
+list
+mark 1
+mark 2
+list
+unmark 2
+list
+bye
