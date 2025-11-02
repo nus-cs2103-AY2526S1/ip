@@ -1,0 +1,11 @@
+D | 1 | add submit | 2009-12-02
+D | 1 | submit | 2019-12-02
+T | 1 | add
+T | 1 | add
+T | 1 | list
+D | 0 | by | 2009-12-02
+D | 0 | bye | 2009-12-02
+E | 0 | proj meeting | 2/2/12-2/2/13
+D | 1 | hhh | 2019-10-23
+T | 0 | add
+D | 0 | qwerty | 2025-12-02
