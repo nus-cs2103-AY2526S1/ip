@@ -1,7 +1,103 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+  -----------------------------------------------------------------
+  Heyyos! I'm Olaf! Your personal assistant:)
+  What can I do for you in this beautiful day?
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  Understood. I have added this task for you:
+    [T][ ] read book
+  You currently have a total of 5 tasks in your list.
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  Understood. I have added this task for you:
+    [D][ ] return book (by: 6 Jun 2025 6:00pm)
+  You currently have a total of 6 tasks in your list.
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  OOPS!!! Please enter both 'from' and 'to' in this format: d/M/yyyy HHmm
+  (eg. /from 2/12/2025 1800 /to 2/12/2025 2000)
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  Understood. I have added this task for you:
+    [T][ ] join sports club
+  You currently have a total of 7 tasks in your list.
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  Understood. I have added this task for you:
+    [T][ ] borrow book
+  You currently have a total of 8 tasks in your list.
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  Here are the tasks you have in your list:
+  1. [T][ ] read book
+  2. [D][ ] return book (by: 6 Jun 2025 6:00pm)
+  3. [T][ ] borrow book
+  4. [D][ ] return book (by: 30 Oct 2025 3:00pm)
+  5. [T][ ] read book
+  6. [D][ ] return book (by: 6 Jun 2025 6:00pm)
+  7. [T][ ] join sports club
+  8. [T][ ] borrow book
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  Understood. I have added this task for you:
+    [D][ ] return book (by: 30 Oct 2025 3:00pm)
+  You currently have a total of 9 tasks in your list.
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  OOPS!!! Please enter both 'from' and 'to' in this format: d/M/yyyy HHmm
+  (eg. /from 2/12/2025 1800 /to 2/12/2025 2000)
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  Nicely done! I have marked this task as done:
+  [D][X] return book (by: 6 Jun 2025 6:00pm)
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  Nicely done! I have marked this task as done:
+  [T][X] borrow book
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  Alright, I have marked this task as undone:
+  [D][ ] return book (by: 6 Jun 2025 6:00pm)
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  OOPS!!! The description of a todo task cannot be empty.
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  OOPS!!! An event needs both a start time(/from) and an end time(/to).
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  OOPS!!! The description of a deadline task cannot be empty.
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  OOPS!!! I'm sorry, but I don't know that command :(.
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  Nicely done! I have marked this task as done:
+  [T][X] join sports club
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  OOPS!!! Task number for 'mark' must be between 1 and 9.
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  Noted. I have removed this task for you:
+    [T][X] borrow book
+  You currently have a total of 8 tasks in your list.
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  Here are the tasks you have in your list:
+  1. [T][ ] read book
+  2. [D][ ] return book (by: 6 Jun 2025 6:00pm)
+  3. [D][ ] return book (by: 30 Oct 2025 3:00pm)
+  4. [T][ ] read book
+  5. [D][ ] return book (by: 6 Jun 2025 6:00pm)
+  6. [T][X] join sports club
+  7. [T][ ] borrow book
+  8. [D][ ] return book (by: 30 Oct 2025 3:00pm)
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  Noted. I have removed this task for you:
+    [T][ ] borrow book
+  You currently have a total of 7 tasks in your list.
+  -----------------------------------------------------------------
+  -----------------------------------------------------------------
+  Goodbye! Hope to see you again soon!
+  -----------------------------------------------------------------
