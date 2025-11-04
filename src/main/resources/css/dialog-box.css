@@ -1,0 +1,12 @@
+.label {
+    -fx-background-color: #f0f0f0;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em;
+    -fx-border-radius: 1em;
+    -fx-padding: 10px;
+}
+
+.user-label {
+    -fx-background-color: #298dff;
+    -fx-text-fill: white;
+}
