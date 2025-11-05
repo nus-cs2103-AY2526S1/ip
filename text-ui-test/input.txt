@@ -1,0 +1,30 @@
+help
+todo
+todo eat breakfast
+deadline
+deadline kill god
+deadline /by 3/12/2000 1100
+deadline kill god /by 11am
+deadline kill god /by 3/12/2000 1100
+event
+event drink booze
+event /from 3/12/2000 1101
+event drink booze /from 3/12/2000 1101
+event drink booze /to 4/12/2000 1759 /from 3/12/2000 1101
+event drink booze /from 3/12/2000 1101 /to 5.59pm
+event drink booze /from 3/12/2000 1101 /to 4/12/2000 1759
+event drive /from 4/12/2000 1800 /to 4/12/2000 2100
+deadline drive some more /by 5/12/2000 0000
+list
+mark 1
+mark 2
+mark 1
+list
+delete 1
+mark 3
+unmark 1
+unmark 1
+list
+delete 2
+list
+goodbye

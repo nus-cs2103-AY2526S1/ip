@@ -1,0 +1,6 @@
+.root {
+    -fx-background-color: main-color;
+    -fx-border-width: 3px;
+    -fx-border-radius: 15px;
+    -fx-border-color: black;
+}
