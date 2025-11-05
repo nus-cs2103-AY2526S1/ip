@@ -1,0 +1,60 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
+    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
+    -fx-border-width: 3px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-font-family: "Times New Roman";
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.incorrect-label {
+    -fx-text-fill: #e71c1c;
+    -fx-font-weight: bold;
+}
+
+.add-label {
+    -fx-text-fill: #2d8c2d;
+    -fx-font-weight: bold;
+}
+
+.delete-label {
+    -fx-text-fill: #9c5531;
+    -fx-font-weight: bold;
+}
+
+.welcome-label {
+    -fx-text-fill: #1853a4;
+    -fx-font-weight: bold;
+}
+
+.enhypen-label {
+    -fx-text-fill: #989301;
+    -fx-font-weight: bold;
+}
+
+.bye-label {
+    -fx-text-fill: purple;
+    -fx-font-weight: bold;
+}
+
+.mark-label {
+    -fx-text-fill: #ec7687;
+    -fx-font-weight: bold;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
