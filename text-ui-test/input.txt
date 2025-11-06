@@ -1,0 +1,9 @@
+todo read book
+deadline return book /by 2023-06-06
+event project meeting /from 2023-07-01 /to 2023-07-02
+find book
+find meeting
+find homework
+sort
+bye
+

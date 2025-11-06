@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="bestbot.gui.MainWindow"
+      prefWidth="600" prefHeight="400">
+
+    <!-- Chat area -->
+    <ListView fx:id="dialogContainer" VBox.vgrow="ALWAYS" />
+
+    <!-- Input area -->
+    <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10;">
+        <TextField fx:id="userInput" HBox.hgrow="ALWAYS"/>
+        <Button fx:id="sendButton" text="Send" onAction="#handleUserInput"/>
+    </HBox>
+</VBox>
+

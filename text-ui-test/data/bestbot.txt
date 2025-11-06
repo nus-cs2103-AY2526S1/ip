@@ -1,0 +1,28 @@
+E | 0 | group discussion | 2025-09-15 | 2025-09-16
+T | 0 | borrow book
+D | 0 | return pen | 2025-09-10
+E | 0 | group discussion | 2025-09-15 | 2025-09-16
+T | 0 | borrow book
+D | 0 | return pen | 2025-09-10
+E | 0 | group discussion | 2025-09-15 | 2025-09-16
+T | 0 | borrow book
+D | 0 | return pen | 2025-09-10
+E | 0 | group discussion | 2025-09-15 | 2025-09-16
+T | 0 | borrow book
+D | 0 | return pen | 2025-09-10
+E | 0 | group discussion | 2025-09-15 | 2025-09-16
+T | 0 | borrow book
+D | 0 | return pen | 2025-09-10
+E | 0 | group discussion | 2025-09-15 | 2025-09-16
+T | 0 | borrow book
+D | 0 | return pen | 2025-09-10
+E | 0 | group discussion | 2025-09-15 | 2025-09-16
+T | 0 | borrow book
+D | 0 | return pen | 2025-09-10
+E | 0 | group discussion | 2025-09-15 | 2025-09-16
+T | 0 | borrow book
+D | 0 | return pen | 2025-09-10
+E | 0 | group discussion | 2025-09-15 | 2025-09-16
+T | 0 | borrow book
+D | 0 | return pen | 2025-09-10
+E | 0 | group discussion | 2025-09-15 | 2025-09-16

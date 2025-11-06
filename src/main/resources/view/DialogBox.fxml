@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+
+<fx:root type="HBox" xmlns:fx="http://javafx.com/fxml" spacing="10">
+    <!-- User/bot avatar -->
+    <ImageView fx:id="displayPicture"
+               fitHeight="40"
+               fitWidth="40"
+               preserveRatio="true" />
+
+    <!-- Chat bubble -->
+    <Label fx:id="dialog"
+           wrapText="true"
+           maxWidth="400"
+           style="-fx-background-color: #f1f1f1;
+                  -fx-padding: 8;
+                  -fx-background-radius: 12;" />
+
+    <!-- Spacer (so text doesn't expand too much) -->
+    <Region HBox.hgrow="ALWAYS"/>
+</fx:root>
+

@@ -1,0 +1,6 @@
+[Level-10] Wire GUI to Bestbot backend and Ui overload
+
+Integrate the existing Bestbot backend with the JavaFX UI by
+adding Bestbot.getResponse(String) and Ui(PrintStream). Inject
+a Bestbot instance into MainWindow after loading FXML so the
+GUI can call backend logic without printing to the console.

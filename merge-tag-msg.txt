@@ -1,0 +1,5 @@
+Level-10: Implemented JavaFX GUI and merged to master
+
+This tag marks the commit created by merging branch-Level-10 into
+master. It includes DialogBox, MainWindow, backend integration,
+Ui overload, styles, and resources for Level-10.

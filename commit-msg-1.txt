@@ -1,0 +1,5 @@
+[Level-10] Add DialogBox FXML and controller
+
+Add DialogBox.fxml and DialogBox.java to support chat bubble UI.
+This encapsulates a single message with avatar and text so the
+ListView can display rich dialog items for both user and bot.

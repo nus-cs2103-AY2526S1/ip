@@ -1,0 +1,80 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    javaFxVersion = '17.0.8'
+}
+
+// Auto-detect OS for JavaFX classifier
+def osName = System.getProperty("os.name").toLowerCase()
+def javafxClassifier = ''
+if (osName.contains("mac")) {
+    javafxClassifier = "mac"
+} else if (osName.contains("win")) {
+    javafxClassifier = "win"
+} else {
+    javafxClassifier = "linux"
+}
+
+dependencies {
+    // Your test dependencies
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+}
+
+tasks.withType(JavaExec) {
+    // Enable assertions for all JavaExec tasks, including 'run'
+    jvmArgs += "-ea"
+
+    // Optional: pass your file as an argument
+    args = ["src/test/data/text-ui-test/input.txt"]
+}
+
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'bestbot.Bestbot'   // <-- replace with your main class
+        )
+    }
+}
+
+application {
+    mainClass = "bestbot.gui.Launcher" // replace with your main class FQCN
+}
+
+shadowJar {
+    archiveFileName = 'bestbot.jar'
+}
+
+run {
+    // Enable assertions for the JVM
+    jvmArgs = ["-ea"]
+
+    // Optional: provide default input file
+    args = ["src/test/data/text-ui-test/input.txt"]
+}
+
+
+
+
+
