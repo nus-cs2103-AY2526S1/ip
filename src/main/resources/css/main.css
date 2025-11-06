@@ -1,0 +1,57 @@
+.root {
+    main-color: rgb(30, 30, 30);       /* Create a looked-up color called "main-color" within root. */
+    -fx-background-image: url("../images/background.png");
+}
+
+.text-field {
+    -fx-background-color: #e1eec3;
+    -fx-font: 20px "Arial";
+    -fx-padding: 0 8px 0 8px; /* Adds horizontal padding */
+    -fx-background-radius: 5;
+}
+
+.button {
+    -fx-background-color: #e1eec3;
+    -fx-font: italic bold 16px "Arial";
+    -fx-text-fill: #f05053
+}
+
+.button:hover {
+    -fx-background-color:orange;
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color:orange;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: #e1eec3;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #ff9cb4;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.button {
+    -fx-background-color: #e1eec3;
+    -fx-font: italic bold 16px "Arial";
+    -fx-text-fill: #f05053;
+    -fx-padding: 0 8px 0 8px; /* Adds horizontal padding */
+}
+
