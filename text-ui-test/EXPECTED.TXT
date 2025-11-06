@@ -1,7 +1,104 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Could not find existing data file. Creating new data file...
+New data file created successfully.
+Loading tasks from local storage...
+No tasks found in local storage. Nothing to load!
+Welcome to...
+ _                           
+| |    ___   __ _  ___  ___  
+| |   / _ \ / _` |/ _ \/ __| 
+| |__| (_) | (_| | (_) \__ \ 
+|_____\___/ \__, |\___/|___/ 
+            |___/            
 
+    --------------------------------------------------------------------------------
+    Hello! I'm Logos :) Your friendly terminal task manager.
+    
+    Here are some commands you can try:
+    -> todo <desc>                             : Add a simple task
+    -> deadline <desc> /by <time>              : Add a task with a deadline (<yyyy-MM-dd HHmm>)
+    -> event <desc> /from <start> /to <end>    : Add an event with a start and end time (<yyyy-MM-dd HHmm>)
+    -> list                                    : Show all tasks
+    -> mark <taskNumber>                       : Mark a task as done
+    -> unmark <taskNumber>                     : Mark a task as not done
+    -> bye                                     : Exit the program
+    --------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+    Todo added: "Todo1"
+    Now you have 1 tasks in the list~
+    Use the command 'list' to view your current task list
+    --------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+    Here's your current tasks, in order of when they were added:
+    1. [T] [ ] Todo1
+    --------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+    Task marked as done:
+    [T] [X] Todo1
+    --------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+    Here's your current tasks, in order of when they were added:
+    1. [T] [X] Todo1
+    --------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+    Deadline added: "CS2103T Homework", (by: Aug 20 2025, 11:59pm)
+    Now you have 2 tasks in the list~
+    Use the command 'list' to view your current task list
+    --------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+    Here's your current tasks, in order of when they were added:
+    1. [T] [X] Todo1
+    2. [D] [ ] CS2103T Homework (by: Aug 20 2025, 11:59pm)
+    --------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+    Event added: "CS2103T Tutorial", (from: Aug 21 2025, 1:00pm, to: Aug 21 2025, 2:00pm)
+    Now you have 3 tasks in the list~
+    Use the command 'list' to view your current task list
+    --------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+    Here's your current tasks, in order of when they were added:
+    1. [T] [X] Todo1
+    2. [D] [ ] CS2103T Homework (by: Aug 20 2025, 11:59pm)
+    3. [E] [ ] CS2103T Tutorial (from: Aug 21 2025, 1:00pm, to: Aug 21 2025, 2:00pm)
+    --------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+    Todo added: "Todo2"
+    Now you have 4 tasks in the list~
+    Use the command 'list' to view your current task list
+    --------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+    Todo added: "Todo3"
+    Now you have 5 tasks in the list~
+    Use the command 'list' to view your current task list
+    --------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+    Here's your current tasks, in order of when they were added:
+    1. [T] [X] Todo1
+    2. [D] [ ] CS2103T Homework (by: Aug 20 2025, 11:59pm)
+    3. [E] [ ] CS2103T Tutorial (from: Aug 21 2025, 1:00pm, to: Aug 21 2025, 2:00pm)
+    4. [T] [ ] Todo2
+    5. [T] [ ] Todo3
+    --------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+    Here are the matching tasks in your list for 'CS2103T':
+    1. [D] [ ] CS2103T Homework (by: Aug 20 2025, 11:59pm)
+    2. [E] [ ] CS2103T Tutorial (from: Aug 21 2025, 1:00pm, to: Aug 21 2025, 2:00pm)
+    --------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+    Todo removed: "Todo1"
+    Now you have 4 tasks in the list~
+    Use the command 'list' to view your current task list
+    --------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+    Todo removed: "Todo3"
+    Now you have 3 tasks in the list~
+    Use the command 'list' to view your current task list
+    --------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+    Here's your current tasks, in order of when they were added:
+    1. [D] [ ] CS2103T Homework (by: Aug 20 2025, 11:59pm)
+    2. [E] [ ] CS2103T Tutorial (from: Aug 21 2025, 1:00pm, to: Aug 21 2025, 2:00pm)
+    3. [T] [ ] Todo2
+    --------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+    Bye. Hope to see you again soon!
+    --------------------------------------------------------------------------------
