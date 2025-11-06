@@ -1,0 +1,2 @@
+Placeholder for DaUser.png and DaDuke.png
+Replace these with actual 100x100 pixel images

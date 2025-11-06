@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Orbitron:wght@400;700;900&display=swap');
+
+.root {
+    -fx-background-color: #0a0a0a !important;
+    -fx-font-family: "Crimson Text", serif;
+    /* Background images are managed dynamically by BackgroundManager */
+    /* Force dark background to prevent white flashes */
+}
+
+/* Modern Floating Chat Container - Glassmorphism */
+.floating-chat-container {
+    -fx-background-color: rgba(10, 10, 10, 0.25);
+    -fx-background-radius: 25px;
+    -fx-border-color: rgba(139, 0, 0, 0.3);
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 25px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 20, 0.3, 0, 8);
+}
+
+.floating-chat-container .viewport {
+    -fx-background-color: transparent;
+    -fx-background-radius: 25px;
+}
+
+.floating-chat-container .content {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-padding: 20px;
+    -fx-background-color: transparent;
+}
+
+/* Modern Floating Command Container */
+.floating-command-container {
+    -fx-background-color: rgba(15, 15, 15, 0.85);
+    -fx-background-radius: 30px;
+    -fx-border-color: rgba(218, 165, 32, 0.6);
+    -fx-border-width: 2px;
+    -fx-border-radius: 30px;
+    -fx-padding: 15px 20px;
+    -fx-effect: dropshadow(gaussian, rgba(218, 165, 32, 0.3), 25, 0.4, 0, 10);
+}
+
+/* Modern Floating Input Field */
+.floating-input {
+    -fx-background-color: rgba(25, 25, 25, 0.9);
+    -fx-text-fill: #ffffff;
+    -fx-font: 16px "Inter", sans-serif;
+    -fx-border-color: rgba(139, 0, 0, 0.4);
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 25px;
+    -fx-background-radius: 25px;
+    -fx-padding: 15px 20px;
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.6);
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+}
+
+.floating-input:focused {
+    -fx-border-color: rgba(218, 165, 32, 0.8);
+    -fx-border-width: 2px;
+    -fx-background-color: rgba(35, 35, 35, 0.95);
+    -fx-effect: dropshadow(gaussian, rgba(218, 165, 32, 0.4), 15, 0.3, 0, 3);
+}
+
+/* Modern Floating Send Button */
+.floating-send-button {
+    -fx-background-color: rgba(218, 165, 32, 0.9);
+    -fx-text-fill: #000000;
+    -fx-font: bold 14px "Inter", sans-serif;
+    -fx-border-radius: 25px;
+    -fx-background-radius: 25px;
+    -fx-border-color: rgba(255, 215, 0, 0.3);
+    -fx-border-width: 1px;
+    -fx-padding: 15px 20px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(218, 165, 32, 0.3), 10, 0.3, 0, 3);
+}
+
+.floating-send-button:hover {
+    -fx-background-color: rgba(255, 215, 0, 1.0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(218, 165, 32, 0.5), 15, 0.4, 0, 5);
+}
+
+.floating-send-button:pressed {
+    -fx-background-color: rgba(184, 134, 11, 0.9);
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* Custom Scrollbar for Floating Container */
+.floating-chat-container .scroll-bar {
+    -fx-font-size: 8px;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.floating-chat-container .scroll-bar .thumb {
+    -fx-background-color: rgba(218, 165, 32, 0.6);
+    -fx-background-radius: 10px;
+    -fx-border-color: transparent;
+    -fx-min-width: 8px;
+    -fx-max-width: 8px;
+}
+
+.floating-chat-container .scroll-bar .thumb:hover {
+    -fx-background-color: rgba(255, 215, 0, 0.8);
+}
+
+.floating-chat-container .scroll-bar .track {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-radius: 10px;
+    -fx-border-color: transparent;
+}
+
+.floating-chat-container .scroll-bar .increment-button,
+.floating-chat-container .scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+/* Legacy styles for backwards compatibility */
+.text-field {
+    -fx-background-color: rgba(26, 26, 26, 0.9);
+    -fx-text-fill: #ffffff;
+    -fx-font: 18px "Orbitron", monospace;
+    -fx-border-color: #8B0000;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 12px 16px;
+    -fx-prompt-text-fill: #888888;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+}
+
+.text-field:focused {
+    -fx-border-color: #DAA520;
+    -fx-border-width: 3px;
+    -fx-background-color: rgba(42, 42, 42, 0.95);
+}
+
+.button {
+    -fx-background-color: rgba(139, 0, 0, 0.9);
+    -fx-text-fill: #ffffff;
+    -fx-font: bold 18px "Orbitron", monospace;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-color: #DAA520;
+    -fx-border-width: 2px;
+    -fx-padding: 12px 20px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: rgba(178, 34, 34, 0.95);
+    -fx-scale-x: 1.08;
+    -fx-scale-y: 1.08;
+    -fx-border-color: #DAA520;
+    -fx-border-width: 3px;
+}
+
+.button:pressed {
+    -fx-background-color: rgba(139, 0, 0, 0.8);
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}

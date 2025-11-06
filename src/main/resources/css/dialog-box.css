@@ -1,0 +1,78 @@
+.label {
+    -fx-background-color: rgba(20, 20, 20, 0.75);
+    -fx-text-fill: #ffffff;
+    -fx-border-color: rgba(139, 0, 0, 0.6);
+    -fx-border-width: 1.5px;
+    -fx-background-radius: 20px 20px 5px 20px;
+    -fx-border-radius: 20px 20px 5px 20px;
+    -fx-padding: 18px 22px;
+    -fx-wrap-text: true;
+    -fx-text-alignment: left;
+    -fx-font-family: "Crimson Text", serif;
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 12, 0.3, 0, 3);
+}
+
+.reply-label {
+    -fx-background-radius: 20px 20px 20px 5px;
+    -fx-border-radius: 20px 20px 20px 5px;
+    -fx-background-color: rgba(35, 35, 35, 0.75);
+    -fx-border-color: rgba(75, 0, 130, 0.6);
+    -fx-border-width: 1.5px;
+    -fx-padding: 18px 22px;
+    -fx-wrap-text: true;
+    -fx-text-alignment: left;
+    -fx-font-family: "Crimson Text", serif;
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 12, 0.3, 0, 3);
+}
+
+.add-label {
+    -fx-background-color: rgba(46, 125, 50, 0.85);
+    -fx-border-color: rgba(27, 94, 32, 0.7);
+    -fx-border-width: 1.5px;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(46, 125, 50, 0.3), 8, 0.2, 0, 2);
+}
+
+.marked-label {
+    -fx-background-color: rgba(218, 165, 32, 0.85);
+    -fx-border-color: rgba(184, 134, 11, 0.7);
+    -fx-border-width: 1.5px;
+    -fx-text-fill: #000000;
+    -fx-effect: dropshadow(gaussian, rgba(218, 165, 32, 0.3), 8, 0.2, 0, 2);
+}
+
+.delete-label {
+    -fx-background-color: rgba(139, 0, 0, 0.85);
+    -fx-border-color: rgba(102, 0, 0, 0.7);
+    -fx-border-width: 1.5px;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(139, 0, 0, 0.3), 8, 0.2, 0, 2);
+}
+
+.list-label {
+    -fx-background-color: rgba(30, 58, 138, 0.85);
+    -fx-border-color: rgba(30, 64, 175, 0.7);
+    -fx-border-width: 1.5px;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(30, 58, 138, 0.3), 8, 0.2, 0, 2);
+}
+
+.find-label {
+    -fx-background-color: rgba(75, 0, 130, 0.85);
+    -fx-border-color: rgba(106, 13, 173, 0.7);
+    -fx-border-width: 1.5px;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(75, 0, 130, 0.3), 8, 0.2, 0, 2);
+}
+
+#displayPicture {
+    -fx-border-color: rgba(139, 0, 0, 0.8);
+    -fx-border-width: 3px;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.3, 0, 3);
+}
