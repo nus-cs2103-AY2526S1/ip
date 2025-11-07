@@ -1,0 +1,148 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'com.diffplug.spotless' version '6.25.0'
+    id 'checkstyle'
+    id 'jacoco'
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    // Ensure we compile and run with JDK 17 features (records, switch expressions)
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+
+    String javaFxVersion = '17.0.7'
+
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+jacoco {
+    toolVersion = '0.8.11'
+}
+
+tasks.test {
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('reports/jacoco/html')
+    }
+}
+
+jacocoTestCoverageVerification {
+    dependsOn jacocoTestReport
+    violationRules {
+        rule {
+            limit {
+                counter = 'INSTRUCTION'
+                value = 'COVEREDRATIO'
+                minimum = 0.50
+            }
+        }
+    }
+}
+
+application {
+    // Point to the actual entrypoint with a main method
+    mainClass.set("meep.gui.Launcher")
+}
+
+shadowJar {
+    archiveBaseName = "meep"
+    archiveClassifier = null
+}
+
+run {
+    standardInput = System.in
+    enableAssertions = true
+}
+
+// Optional: run the CLI explicitly (useful in headless environments)
+tasks.register('runCli', JavaExec) {
+    group = 'application'
+    description = 'Run the Meep CLI (headless-friendly)'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'meep.ui.Meep'
+    standardInput = System.in
+}
+
+spotless {
+    java {
+        target 'src/**/*.java'
+        importOrder()
+        googleJavaFormat('1.19.2').aosp().reflowLongStrings()
+        eclipse().configFile('config/spotless/eclipse-java-formatter.xml')
+        trimTrailingWhitespace()
+        endWithNewline()
+        indentWithSpaces(4)
+    }
+}
+
+// Basic Checkstyle setup. The default config file location is config/checkstyle/checkstyle.xml
+checkstyle {
+    // Use a conservative version compatible with Gradle 7.6.x
+    toolVersion = '10.3.4'
+    // Do not fail the build initially; change to false once the codebase is clean
+    ignoreFailures = true
+}
+
+// Friendlier reports: HTML on, XML off
+tasks.withType(Checkstyle).configureEach {
+    reports {
+        xml.required = false
+        html.required = true
+    }
+}
+
+// Enforce formatting on CI via the standard 'check' lifecycle
+tasks.named('check') {
+    dependsOn 'spotlessCheck', 'checkstyleMain', 'checkstyleTest', 'jacocoTestReport', 'jacocoTestCoverageVerification'
+}
+
+tasks.register('compileRun') {
+    dependsOn 'spotlessApply', 'check', 'clean', 'build', 'run'
+}
+
+tasks.register('buildRun') {
+    dependsOn 'spotlessApply', 'build', 'run'
+}
