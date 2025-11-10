@@ -1,26 +1,38 @@
-# Duke project template
+# Bob
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is Bob, your personal assistant to help you with your tasks!
 
-## Setting up in Intellij
+you can add, complete and remove
+- Todos
+- Deadlines
+- Events
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+Here's how you can use it!
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+1. Download the jar file [here](https://github.com/yhtham7/ip/releases).
+2. Double click it to run.
+3. Add whatever you need to add ✅
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+Here are some of the `commands` that you can use
+```
+list #lists all tasks
+todo <task> #adds a todo item
+deadline <task> /by <duedate> #adds a deadline with <duedate>
+event <task> /from <startdate> /by <enddate> #adds a event from <startdate> to <end date>
+find <query> #searches for tasks with <query> in the description
+delete <index> #removes item listed in index
+update #updates details of tasks
+    update <index> /des <new description>
+    update <index> /by <new deadline>
+    update <index> /from <new start> /to <new end>
+help
+    help #lists all commands
+    help <command> #shows useage for specific command
+```
+
+Features:
+
+- [x] Basic functions to add and remove tasks
+- [x] State saving
+- [x] GUI
+- [x] Editing of tasks

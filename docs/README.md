@@ -1,30 +1,38 @@
-# Duke User Guide
+# Bob
 
-// Update the title above to match the actual product name
+This is Bob, your personal assistant to help you with your tasks!
 
-// Product screenshot goes here
+you can add, complete and remove
+- Todos
+- Deadlines
+- Events
 
-// Product intro goes here
+Here's how you can use it!
 
-## Adding deadlines
+1. Download the jar file [here](https://github.com/yhtham7/ip/releases).
+2. Double click it to run.
+3. Add whatever you need to add ✅
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+Here are some of the `commands` that you can use
 ```
-expected output
+list #lists all tasks
+todo <task> #adds a todo item
+deadline <task> /by <duedate> #adds a deadline with <duedate>
+event <task> /from <startdate> /by <enddate> #adds a event from <startdate> to <end date>
+find <query> #searches for tasks with <query> in the description
+delete <index> #removes item listed in index
+update #updates details of tasks
+    update <index> /des <new description>
+    update <index> /by <new deadline>
+    update <index> /from <new start> /to <new end>
+help
+    help #lists all commands
+    help <command> #shows useage for specific command
 ```
 
-## Feature ABC
+Features:
 
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+- [x] Basic functions to add and remove tasks
+- [x] State saving
+- [x] GUI
+- [x] Editing of tasks
