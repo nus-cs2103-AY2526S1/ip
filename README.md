@@ -1,26 +1,201 @@
-# Duke project template
+# Chatbot9000
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+> A lightweight JavaFX task chatbot. Add todos, deadlines, and events; list, find, mark/unmark, delete, save — all from a simple chat UI.
+ 
+![Ui.png](Ui.png)
 
-## Setting up in Intellij
+## Quick Start
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+Requirements
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+- Java 17+ (or the version your project uses)
+- Gradle (wrapper included)
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+**Run**
+
+```angular2html
+./gradlew run
+```
+The app window title should show Chatbot9000.
+
+## Command Summary
+
+| Command      | Format                                  | What it does                                  |
+| ------------ | --------------------------------------- | --------------------------------------------- |
+| **todo**     | `todo DESCRIPTION`                      | Adds a todo task.                             |
+| **deadline** | `deadline DESCRIPTION /by DATETIME`     | Adds a deadline.                              |
+| **event**    | `event DESCRIPTION /from START /to END` | Adds an event (free-text times).              |
+| **list**     | `list`                                  | Lists all tasks with indexes.                 |
+| **mark**     | `mark INDEX`                            | Marks a task as done.                         |
+| **unmark**   | `unmark INDEX`                          | Marks a task as not done.                     |
+| **delete**   | `delete INDEX`                          | Deletes a task.                               |
+| **find**     | `find KEYWORD`                          | Filters tasks containing the keyword.         |
+| **save**     | `save`                                  | Saves tasks to local storage.                 |
+| **reset**    | `reset`                                 | Clears the in-memory task list (fresh start). |
+| **help**     | `help`                                  | Shows help summary.                           |
+| **bye**      | `bye`                                   | Exits the app.                                |
+
+> Indexes are 1-based as shown by list.
+
+## Adding Todos
+
+**Usage**
+
+```todo finish homework```
+
+**Example output**
+
+```
+Added: [T][ ] Finish homework
+You now have 1 task in the list.
+```
+
+## Adding Deadlines
+
+**Usage**
+
+```deadline Submit report /by 2019-12-02 1800```
+
+Accepted date/time formats
+
+- yyyy-mm-dd 
+- yyyy-mm-dd HHmm 
+- dd-mm-yyyy 
+- dd-mm-yyyy HHmm
+
+For example: 2019-12-02 1800 or 02-12-2019 1800.
+
+**Example output**
+
+```
+Added: [D][ ] Submit report by: 2nd Dec 2019 1800
+You now have 2 tasks in the list.
+```
+
+If the date/time cannot be parsed, you’ll see:
+
+```angular2html
+Invalid date/time. Use one of: yyyy-mm-dd, yyyy-mm-dd HHmm, dd-mm-yyyy, dd-mm-yyyy HHmm (e.g., 2019-12-02 1800 or 02-12-2019 1800).
+```
+
+## Adding Events
+
+Events use plain strings for times (no date parsing).
+
+**Usage**
+
+```event Chill session /from now /to later```
+
+**Example output**
+
+```
+Added: [E][ ] Chill session from: now to: later
+You now have 3 tasks in the list.
+```
+
+## Listing Tasks
+
+**Usage**
+
+```list```
+
+**Example output**
+
+```
+1. [T][ ] Finish homework
+2. [D][ ] Submit report by: 2019-12-02 1800
+3. [E][ ] Chill session from: now to: later
+```
+## Marking/Unmarking
+
+**Usage**
+
+```
+mark 1
+unmark 1
+```
+
+**Example output**
+
+```
+Okay, I've marked this task as completed:
+[T][X] Finish homework
+Okay, I've marked this task as not completed:
+[T][ ] Finish homework
+```
+## Deleting
+
+**Usage**
+
+```delete 1```
+
+**Example output**
+
+```
+Deleting this task:
+[T][X] Finish homework
+```
+
+## Finding
+
+**Usage**
+
+```Find homework```
+
+**Example output**
+
+```
+Here are the matching tasks in your list:
+1. [T][X] Finish homework
+```
+
+## Saving
+
+**Usage**
+
+```save```
+
+**Example output**
+
+```
+Tasks have been successfully saved!
+```
+
+## Resetting
+
+**Usage**
+
+```reset```
+
+**Example output**
+
+```
+reset completed
+```
+
+## Help
+
+**Usage**
+
+```help```
+
+**Example output**
+
+```
+Here are the commands you can use BEEP B00P:
+...
+...
+...
+```
+
+## Exit
+
+**Usage**
+
+```bye```
+
+**Example output**
+
+```
+bye! BEEP B00P BEEP B00P    
+```

@@ -1,0 +1,3 @@
+[T][X] read
+[E][ ] hi from:   now   to:   tmr
+[T][ ] read

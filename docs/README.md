@@ -1,30 +1,230 @@
-# Duke User Guide
+# Chatbot9000
 
-// Update the title above to match the actual product name
+> A lightweight JavaFX task chatbot. Add todos, deadlines, and events; list, find, mark/unmark, delete, save — all from a simple chat UI.
+ 
+![Ui.png](Ui.png)
 
-// Product screenshot goes here
+## Quick Start
 
-// Product intro goes here
+Requirements
 
-## Adding deadlines
+- Java 17+ (or the version your project uses)
+- Gradle (wrapper included)
 
-// Describe the action and its outcome.
+**Run**
 
-// Give examples of usage
+```angular2html
+./gradlew run
+```
+The app window title should show Chatbot9000.
 
-Example: `keyword (optional arguments)`
+## Command Summary
 
-// A description of the expected outcome goes here
+| Command      | Format                                  | What it does                                  |
+| ------------ | --------------------------------------- | --------------------------------------------- |
+| **todo**     | `todo DESCRIPTION`                      | Adds a todo task.                             |
+| **deadline** | `deadline DESCRIPTION /by DATETIME`     | Adds a deadline.                              |
+| **event**    | `event DESCRIPTION /from START /to END` | Adds an event (free-text times).              |
+| **list**     | `list`                                  | Lists all tasks with indexes.                 |
+| **mark**     | `mark INDEX`                            | Marks a task as done.                         |
+| **unmark**   | `unmark INDEX`                          | Marks a task as not done.                     |
+| **delete**   | `delete INDEX`                          | Deletes a task.                               |
+| **find**     | `find KEYWORD`                          | Filters tasks containing the keyword.         |
+| **save**     | `save`                                  | Saves tasks to local storage.                 |
+| **reset**    | `reset`                                 | Clears the in-memory task list (fresh start). |
+| **help**     | `help`                                  | Shows help summary.                           |
+| **bye**      | `bye`                                   | Exits the app.                                |
+
+> Indexes are 1-based as shown by list.
+
+## Adding Todos
+
+**Usage**
+
+```todo finish homework```
+
+**Example output**
 
 ```
-expected output
+Added: [T][ ] Finish homework
+You now have 1 task in the list.
 ```
 
-## Feature ABC
+## Adding Deadlines
 
-// Feature details
+**Usage**
 
+```deadline Submit report /by 2019-12-02 1800```
 
-## Feature XYZ
+Accepted date/time formats
 
-// Feature details
+- yyyy-mm-dd 
+- yyyy-mm-dd HHmm 
+- dd-mm-yyyy 
+- dd-mm-yyyy HHmm
+
+For example: 2019-12-02 1800 or 02-12-2019 1800.
+
+**Example output**
+
+```
+Added: [D][ ] Submit report by: 2nd Dec 2019 1800
+You now have 2 tasks in the list.
+```
+
+If the date/time cannot be parsed, you’ll see:
+
+```angular2html
+Invalid date/time. Use one of: yyyy-mm-dd, yyyy-mm-dd HHmm, dd-mm-yyyy, dd-mm-yyyy HHmm (e.g., 2019-12-02 1800 or 02-12-2019 1800).
+```
+
+## Adding Events
+
+Events use plain strings for times (no date parsing).
+
+**Usage**
+
+```event Chill session /from now /to later```
+
+**Example output**
+
+```
+Added: [E][ ] Chill session from: now to: later
+You now have 3 tasks in the list.
+```
+
+## Listing Tasks
+
+Lists all the tasks in the app memory
+
+**Usage**
+
+```list```
+
+**Example output**
+
+```angular2html
+1. [T][ ] Finish homework
+2. [D][ ] Submit report by: 2019-12-02 1800
+3. [E][ ] Chill session from: now to: later
+```
+## Marking/Unmarking
+
+Marks/Unmarks tasks when completed/incomplete
+
+-The index must be a positive integer
+
+**Usage**
+
+```angular2html
+mark 1
+unmark 1
+```
+
+**Example output**
+
+```
+Okay, I've marked this task as completed:
+[T][X] Finish homework
+Okay, I've marked this task as not completed:
+[T][ ] Finish homework
+```
+## Deleting
+
+Deletes tasks from task list
+
+-The index must be a positive integer
+
+**Usage**
+
+```angular2html
+delete 1
+```
+
+**Example output**
+
+```
+Deleting this task:
+[T][X] Finish homework
+```
+
+## Finding
+
+- partial words will be searched. eg. fini will match finish
+
+**Usage**
+
+```
+Find homework
+```
+
+**Example output**
+
+```
+Here are the matching tasks in your list:
+1. [T][X] Finish homework
+```
+
+## Saving
+
+If no data file is found, tasks will be saved in a newly created file named data
+
+**Usage**
+
+```
+save
+```
+
+**Example output**
+
+```
+Tasks have been successfully saved!
+```
+
+## Resetting
+
+Clears all entries from the tasklist
+
+**Usage**
+
+```
+reset
+```
+
+**Example output**
+
+```
+reset completed
+```
+
+## Help
+
+Gives user a help cheatsheet
+
+**Usage**
+
+```
+help
+```
+
+**Example output**
+
+```
+Here are the commands you can use BEEP B00P: ...
+```
+
+## Exit
+
+Exits the program
+
+**Usage**
+
+```
+bye
+```
+
+**Example output**
+
+```
+bye! BEEP B00P BEEP B00P    
+```
