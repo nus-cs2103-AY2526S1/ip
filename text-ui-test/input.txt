@@ -1,0 +1,5 @@
+deadline project submission /by 2025-09-05 1800
+event team meeting /from 2025-09-10 1400 /to 2025-09-10 1600
+todo submit report
+list
+bye
