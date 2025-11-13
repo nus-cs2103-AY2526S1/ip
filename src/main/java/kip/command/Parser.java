@@ -1,0 +1,271 @@
+package kip.command;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import kip.exception.InvalidDateException;
+import kip.task.Task;
+import kip.task.ToDo;
+import kip.task.Deadline;
+import kip.task.Event;
+
+/**
+ * Utility class for parsing user input and CSV data in the Kip task management system.
+ * 
+ * <p>The Parser class provides comprehensive parsing functionality for:</p>
+ * <ul>
+ *   <li>User command input parsing</li>
+ *   <li>Date and time string parsing</li>
+ *   <li>CSV line parsing for task reconstruction</li>
+ *   <li>Input validation and error handling</li>
+ * </ul>
+ * 
+ * <p>This class handles multiple date formats and ensures data integrity
+ * by validating input and preventing CSV format corruption.</p>
+ * 
+ * <p>Supported date formats:</p>
+ * <ul>
+ *   <li>Date only: yyyy-MM-dd (e.g., 2019-10-15)</li>
+ *   <li>Date and time: yyyy-MM-dd HHmm (e.g., 2019-10-15 1800)</li>
+ * </ul>
+ * 
+ * @author alsonleej
+ * @version 1.0
+ * @since 2025
+ * @see Command
+ * @see Instruction
+ * @see InvalidDateException
+ */
+public class Parser {
+    private static final DateTimeFormatter DATE_FORMATTER = 
+        DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATETIME_FORMATTER = 
+        DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    
+    /**
+     * Validates that a string doesn't contain commas to prevent CSV parsing issues.
+     * 
+     * <p>Since the application uses CSV format for data storage, commas in input
+     * strings would break the parsing logic. This method ensures data integrity.</p>
+     * 
+     * @param input The string to validate
+     * @param fieldName The name of the field for error messages
+     * @throws InvalidDateException if the input contains commas
+     */
+    private static void validateNoCommas(String input, String fieldName) 
+            throws InvalidDateException {
+        // Assert that input and fieldName are not null
+        assert input != null : "Input string must not be null for validation";
+        assert fieldName != null : "Field name must not be null for validation";
+        
+        if (input.contains(",")) {
+            throw new InvalidDateException("Invalid " + fieldName 
+                    + ": Cannot contain commas (,) as they break the CSV format. "
+                    + "Please use a different character.");
+        }
+    }
+    
+    /**
+     * Parses a date string in yyyy-MM-dd or yyyy-MM-dd HHmm format to LocalDateTime.
+     * 
+     * <p>This method attempts to parse the input string using multiple formats.
+     * If the datetime format fails, it falls back to the date-only format and
+     * sets the time to 00:00 (midnight).</p>
+     * 
+     * <p>The method also validates that the input doesn't contain commas to
+     * prevent CSV parsing issues.</p>
+     * 
+     * @param dateString The date string to parse
+     * @param fieldName The name of the field for error messages
+     * @return LocalDateTime object (time defaults to 00:00 if only date provided)
+     * @throws InvalidDateException if the date format is invalid or contains commas
+     */
+    public static LocalDateTime parseDateTime(String dateString, String fieldName) 
+            throws InvalidDateException {
+        // Assert that input parameters are not null
+        assert dateString != null : "Date string must not be null";
+        assert fieldName != null : "Field name must not be null";
+        assert !dateString.trim().isEmpty() : "Date string must not be empty";
+        
+        try {
+            // Validate no commas
+            validateNoCommas(dateString, fieldName);
+            
+            // Remove any prefix if present (e.g., "by", "from", "to")
+            String cleanDate = dateString.replaceFirst("^" + fieldName + "\\s*", "").trim();
+            
+            // Assert that cleanDate is not empty after processing
+            assert !cleanDate.isEmpty() : "Clean date string must not be empty after processing";
+            
+            // Try to parse as datetime first (yyyy-MM-dd HHmm)
+            try {
+                LocalDateTime result = LocalDateTime.parse(cleanDate, DATETIME_FORMATTER);
+                // Assert that result is not null
+                assert result != null : "Parsed LocalDateTime must not be null";
+                return result;
+            } catch (DateTimeParseException e) {
+                // If datetime parsing fails, try date only (yyyy-MM-dd)
+                LocalDate date = LocalDate.parse(cleanDate, DATE_FORMATTER);
+                LocalDateTime result = date.atStartOfDay(); // Convert to LocalDateTime at 00:00
+                // Assert that result is not null
+                assert result != null : "Converted LocalDateTime must not be null";
+                return result;
+            }
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException("Invalid " + fieldName 
+                    + " format. Please use yyyy-MM-dd (e.g., 2019-10-15) "
+                    + "or yyyy-MM-dd HHmm (e.g., 2019-10-15 1800)", e);
+        }
+    }
+    
+    /**
+     * Parses a single CSV line into a Task object.
+     * 
+     * <p>This method reconstructs Task objects from CSV data stored in the
+     * storage file. It handles all three task types: ToDo, Deadline, and Event.</p>
+     * 
+     * <p>The expected CSV format is: type,done,description,datetime1,datetime2</p>
+     * <ul>
+     *   <li>type: T (ToDo), D (Deadline), or E (Event)</li>
+     *   <li>done: 0 (false) or 1 (true)</li>
+     *   <li>description: Task description</li>
+     *   <li>datetime1: First datetime (deadline date or event start)</li>
+     *   <li>datetime2: Second datetime (event end, unused for ToDo/Deadline)</li>
+     * </ul>
+     * 
+     * @param line CSV line to parse
+     * @return Task object or null if parsing fails
+     * @throws Exception if there's an error during parsing
+     */
+    public static Task parseTaskLine(String line) throws Exception {
+        // Assert that line is not null
+        assert line != null : "CSV line must not be null";
+        
+        String[] parts = line.split(",");
+        if (parts.length < 3) return null; // Skip invalid lines
+        
+        // Assert that we have enough parts for a valid task
+        assert parts.length >= 3 : "CSV line must have at least 3 parts (type, done, description)";
+        
+        String type = parts[0].trim();
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
+        
+        // Assert that description is not empty
+        assert !description.isEmpty() : "Task description must not be empty";
+        
+        Task task = null;
+        
+        switch (type) {
+        case "T": 
+            task = new ToDo(description);
+            break;
+        case "D": // DEADLINE
+            if (parts.length >= 4 && !parts[3].trim().isEmpty()) {
+                LocalDateTime dateTime = parseDateTime(parts[3].trim(), "deadline");
+                // Assert that dateTime is not null for deadline
+                assert dateTime != null : "Deadline dateTime must not be null";
+                task = new Deadline(description, dateTime);
+            }
+            break;
+        case "E": // EVENT
+            if (parts.length >= 5 && !parts[3].trim().isEmpty() 
+                    && !parts[4].trim().isEmpty()) {
+                LocalDateTime startDateTime = parseDateTime(parts[3].trim(), "start");
+                LocalDateTime endDateTime = parseDateTime(parts[4].trim(), "end");
+                // Assert that both datetimes are not null for event
+                assert startDateTime != null : "Event startDateTime must not be null";
+                assert endDateTime != null : "Event endDateTime must not be null";
+                task = new Event(description, startDateTime, endDateTime);
+            }
+            break;
+        }
+        
+        if (task != null && isDone) {
+            task.markAsDone();
+            // Assert that task is marked as done
+            assert task.isDone() : "Task should be marked as done";
+        }
+        
+        return task;
+    }
+    
+    /**
+     * Parses user input into an Instruction object.
+     * 
+     * <p>This method breaks down user input into its component parts: command,
+     * task description, and datetime parameters. It handles the slash-based
+     * syntax used by the application.</p>
+     * 
+     * <p>Input format examples:</p>
+     * <ul>
+     *   <li><code>todo read book</code> → command: "todo", task: "read book"</li>
+     *   <li><code>deadline return book /by 2019-10-15</code> → command: "deadline", task: "return book", datetime: "by 2019-10-15"</li>
+     *   <li><code>event meeting /from 2019-10-15 /to 2019-10-16</code> → command: "event", task: "meeting", datetimes: ["from 2019-10-15", "to 2019-10-16"]</li>
+     * </ul>
+     * 
+     * @param userInput The raw user input string
+     * @return Instruction object containing command, task, and datetimes
+     * @throws InvalidDateException if the input contains commas
+     */
+    public static Instruction parseUserInput(String userInput) throws InvalidDateException {
+        // Assert that userInput is not null
+        assert userInput != null : "User input must not be null";
+        
+        // Validate no commas
+        validateNoCommas(userInput, "user input");
+        
+        // Remove BOM character if present
+        if (userInput.startsWith("\uFEFF")) {
+            userInput = userInput.substring(1);
+        }
+
+        // userInput = command task /datetime
+        String[] parts = userInput.split("/", 2); // [command task, datetimes]
+        String instruction = parts[0]; // command task
+        String[] instructionParts = instruction.split(" ", 2); // [command, task] - limit to 2 parts
+        
+        // Assert that we have at least a command
+        assert instructionParts.length >= 1 : "User input must contain at least a command";
+        
+        String command = instructionParts[0].trim(); // command
+        // Assert that command is not empty
+        assert !command.isEmpty() : "Command must not be empty";
+
+        String task = "";
+        if (instructionParts.length > 1) {
+            task = instructionParts[1].trim(); // task
+        }
+
+        String[] dateTimes = new String[0];
+        if (parts.length > 1) {
+            dateTimes = parts[1].split("/"); // [datetime, datetime2, etc]
+        }
+        
+        // Assert that the resulting instruction components are valid
+        assert command != null : "Command must not be null";
+        assert task != null : "Task must not be null";
+        assert dateTimes != null : "DateTimes array must not be null";
+        
+        return new Instruction(command, task, dateTimes);
+    }
+    
+    /**
+     * Gets the date formatter for consistent date formatting across the application.
+     * 
+     * @return DateTimeFormatter for yyyy-MM-dd format
+     */
+    public static DateTimeFormatter getDateFormatter() {
+        return DATE_FORMATTER;
+    }
+    
+    /**
+     * Gets the datetime formatter for consistent datetime formatting across the application.
+     * 
+     * @return DateTimeFormatter for yyyy-MM-dd HHmm format
+     */
+    public static DateTimeFormatter getDateTimeFormatter() {
+        return DATETIME_FORMATTER;
+    }
+}
