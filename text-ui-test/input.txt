@@ -1,0 +1,4 @@
+todo read book
+deadline submit report /by Monday
+event project meeting /from Monday 2pm /to Monday 4pm
+bye
