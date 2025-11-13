@@ -1,0 +1,40 @@
+package miku.ui;
+
+
+/**
+ * Handles console-based user interface output for the application.
+ * <p>
+ * Responsible for printing the introductory logo and formatted messages.
+ * </p>
+ */
+public class UiHandler {
+    private String logo = "hello";
+
+    /**
+     * Prints the MikuBot introductory logo and welcome message.
+     */
+    public void printIntro() {
+        System.out.println(logo);
+    }
+
+    /**
+     * Prints a message wrapped in a decorative frame with indentation.
+     *
+     * @param arg the message to print (required)
+     */
+    public void print(String arg) {
+        String indent = "     ";
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(indent).append("---------------------------------------\n");
+
+        String[] lines = arg.split("\\R");
+        for (String line : lines) {
+            sb.append(indent).append(line).append("\n");
+        }
+
+        sb.append(indent).append("---------------------------------------");
+
+        System.out.println(sb);
+    }
+}
