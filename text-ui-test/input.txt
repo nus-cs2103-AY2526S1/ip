@@ -1,0 +1,27 @@
+list
+hi
+todo
+todo make lunch
+deadline
+deadline do homework by tuesday 12pm
+deadline do homework /by tuesday 12pm
+deadline do homework /by 01-01-2025 12:00
+deadline do homework /by 01-01-2025 1200
+event
+event project meeting /from 01-01-2025 1400
+event project meeting /to 01-01-2025 1800
+event project meeting /from 01-01-2025 1400 /to 01-01-2025 1800
+todo buy concert tickets
+mark
+mark 2
+mark 6
+mark 4
+list
+unmark
+unmark 78
+unmark 2
+list
+delete
+delete 2
+list
+bye
