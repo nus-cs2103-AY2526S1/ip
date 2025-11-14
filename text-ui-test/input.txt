@@ -1,0 +1,36 @@
+list
+lst
+hello
+todo
+todo borrow book
+todo read book
+deadline return book /by Wednesday
+deadline return book /by 2025-13-01
+deadline return book /by 2025-12-31
+deadline
+deadline invalid input
+deadline \by invalid
+list
+event meeting /from 3pm /to 5pm
+event another meeting /from 6pm /to 8pm
+event
+event invalid input
+event invalid /from input
+event invalid /to input
+list
+mark 6
+mark one
+mark
+mark 3
+list
+unmark -2
+unmark two
+unmark
+unmark 3
+list
+delete 6
+delete
+delete 2
+list
+find e
+bye
