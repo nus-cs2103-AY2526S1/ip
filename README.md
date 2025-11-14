@@ -1,6 +1,8 @@
-# Duke project template
+# Monarch
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+> "**_Veni, Vidi, Vici_**" ~ Julius Caesar
+
+Welcome to Monarch, a cutting-edge chatbot you never knew you needed! Inspired by the Java mascot _Duke_, it provides an interactive application for you to keep track of your tasks! Given below are instructions on how to use it.
 
 ## Setting up in Intellij
 
@@ -16,11 +18,11 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
    Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+    _      ____  _      ____  ____  ____ _    
+   / \__/|/  _ \/ \  /|/  _ \/  __\/   _Y \ /|
+   | |\/||| / \|| |\ ||| / \||  \/||  / | |_||
+   | |  ||| \_/|| | \||| |-|||    /|  \_| | ||
+   \_/  \|\____/\_/  \|\_/ \|\_/\_\\____|_/ \|
    ```
 
 **Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
