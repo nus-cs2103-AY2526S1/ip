@@ -1,0 +1,103 @@
+package lumi.tasks;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import lumi.exceptions.LumiException;
+import lumi.parsers.Parser;
+
+/**
+ * This class represents a list of {@link Task} objects in the Lumi application.
+ * The {@code TaskList} manages adding and deleting of tasks, and printing of the list.
+ */
+public class TaskList {
+    private final List<Task> list;
+
+    /**
+     * Constructs a new {@code TaskList} using the given {@code List<Task>}.
+     * @param taskList The list of tasks to initialize with.
+     */
+    public TaskList(List<Task> taskList) {
+        assert taskList != null : "Given task list should not be null";
+        this.list = taskList;
+    }
+
+    /**
+     * Constructs a new empty {@code TaskList}.
+     */
+    public TaskList() {
+        this.list = new ArrayList<>();
+    }
+
+    /**
+     * Adds a new task to this {@code TaskList}.
+     * @param input The string input to be parsed into a {@link Task} object and added to the {@code TaskList}.
+     */
+    public String add(String input) throws LumiException {
+        assert !input.trim().isEmpty() : "The input should not be empty";
+        Task newTask = Parser.parse(input);
+        this.list.add(newTask);
+        return "Task added: " + newTask;
+    }
+
+    /**
+     * Deletes a {@link Task} object from the {@code TaskList}.
+     * @param i The index of the task to be deleted.
+     * @return The {@link Task} that was deleted.
+     * @throws LumiException If the {@link Task} could not be deleted.
+     */
+    public Task delete(String i) throws LumiException {
+        assert !i.trim().isEmpty() : "The index given should not be empty";
+        Task task;
+        try {
+            int index = Integer.parseInt(i) - 1;
+            task = list.get(index);
+            this.list.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new LumiException("Please input a valid task number!");
+        } catch (NumberFormatException e) {
+            throw new LumiException("Please input a number! e.g. delete 1");
+        }
+        return task;
+    }
+
+    /**
+     * Prints out all tasks in the list.
+     */
+    public String printList() {
+        if (this.list.isEmpty()) {
+            return "No items yet!";
+        } else {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < this.list.size(); i++) {
+                stringBuilder.append((i + 1) + ". " + this.list.get(i) + "\n");
+            }
+            return stringBuilder.toString();
+        }
+    }
+
+    public List<Task> getList() {
+        return this.list;
+    }
+
+    /**
+     * Prints the tasks that contain the given keyword.
+     * @param keyword
+     */
+    public String find(String keyword) {
+        String lowercaseKeyword = keyword.toLowerCase();
+        int count = 0;
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < this.list.size(); i++) {
+            String taskStatement = this.list.get(i).toString();
+            if (taskStatement.toLowerCase().contains(lowercaseKeyword)) {
+                stringBuilder.append(taskStatement + "\n");
+                count += 1;
+            }
+        }
+        stringBuilder.insert(0, (count > 0)
+                ? "Here's the tasks I've found >< \n"
+                : "I couldn't find any matching tasks :<");
+        return stringBuilder.toString();
+    }
+}
