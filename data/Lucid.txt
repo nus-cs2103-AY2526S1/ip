@@ -1,0 +1,3 @@
+T | DONE | borrow book
+D | NOT DONE | return book | 2019-10-15
+E | NOT DONE | project meeting | 2020-10-13-1900 | 2024-11-10-0000
