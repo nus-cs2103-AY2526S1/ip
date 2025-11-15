@@ -1,0 +1,61 @@
+.root {
+    /* Use an image as the background */
+    -fx-background-image: url("/images/background.jpg");
+    -fx-background-size: 100% 100%;
+    /* Adjust how the image is displayed */
+    -fx-background-repeat: no-repeat;      /* or repeat, repeat-x, repeat-y */
+    -fx-background-position: center center;/* center the image *//* cover = scale to fill while keeping aspect ratio */
+
+    /* Optional padding around the content */
+    -fx-padding: 10;
+}
+
+/* Input field */
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-font-size: 16px;
+    -fx-font-family: "Arial";
+    -fx-padding: 6 10;
+    -fx-background-radius: 0.5em;
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: mediumspringgreen;
+    -fx-font: bold 14px "Arial";
+    -fx-background-radius: 0.5em;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: cyan;
+}
+
+.button:pressed {
+    -fx-background-color: orange;
+}
+
+/* Scroll pane */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #ff9cb4;
+    -fx-background-radius: 0.5em;
+}
+
+/* Hide increment/decrement buttons */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

@@ -1,0 +1,45 @@
+/* USER message bubble */
+.label {
+    -fx-background-color: #d9ffe2;                  /* light green */
+    -fx-border-color: #009e73;                      /* teal border */
+    -fx-border-width: 1.5px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: black;
+    -fx-padding: 8 12;
+    -fx-wrap-text: true;
+}
+
+/* BOT reply bubble */
+.reply-label {
+    -fx-background-color: #ffffff;                  /* white */
+    -fx-border-color: #0072b2;                      /* blue border */
+    -fx-border-width: 1.5px;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-text-fill: black;
+    -fx-padding: 8 12;
+    -fx-wrap-text: true;
+}
+
+/* ERROR bubble */
+.error-label {
+    -fx-background-color: #ffe6e6;                  /* pale red */
+    -fx-border-color: #d55e00;                      /* orange border */
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em;
+    -fx-border-radius: 1em;
+    -fx-text-fill: #a40000;                         /* dark red text */
+    -fx-font-weight: bold;
+    -fx-padding: 8 12;
+    -fx-wrap-text: true;
+}
+
+/* Profile picture */
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+    -fx-background-radius: 50%;    /* crop into circle */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+}
