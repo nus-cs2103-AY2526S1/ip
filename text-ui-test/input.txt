@@ -1,0 +1,30 @@
+todo buy food
+deadline submit assignment 2 /by 10pm
+event lecture class /from 6pm /to 9pm
+mark 1
+unmark 1
+list
+delete 1
+todo
+mark -1
+mark masdas
+mark
+mark 10
+unmark -1
+unmark masdas
+unmark
+unmark 10
+delete 0
+delete 10
+delete
+deadline
+deadline submit assignment 6
+deadline submit assignment 6 /by
+event
+event /from
+event tutorial 9
+event tutorial 9 /from
+event tutorial 9 /from /to
+event tutorial 9 /from 6pm /to
+blah
+bye
