@@ -1,0 +1,200 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > EventTask</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">brobot.tasks</a>
+</div>
+
+<h1>Coverage Summary for Class: EventTask (brobot.tasks)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">EventTask</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package brobot.tasks;
+&nbsp;
+&nbsp;import brobot.BroBot;
+&nbsp;import brobot.StringNewlineFormatter;
+&nbsp;import brobot.brobotexceptions.BrobotDateFormatException;
+&nbsp;import brobot.datesandtimes.BrobotDate;
+&nbsp;
+&nbsp;/**
+&nbsp; * This class represents an event task.
+&nbsp; */
+&nbsp;final class EventTask extends Task {
+&nbsp;    private final BrobotDate startDate;
+&nbsp;    private final BrobotDate endDate;
+<b class="nc">&nbsp;    private String eventlogMessage = null;</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param description
+&nbsp;     *     The task description.
+&nbsp;     *
+&nbsp;     * @param commandName
+&nbsp;     *     The command name that generated this task.
+&nbsp;     *
+&nbsp;     * @param startDate
+&nbsp;     *     The start date of this event.
+&nbsp;     *
+&nbsp;     * @param endDate
+&nbsp;     *     The end date of this event.
+&nbsp;     *
+&nbsp;     * @throws BrobotDateFormatException
+&nbsp;     *     This exception is thrown if the user entered dates that are not in the &#39;dd MMM yyyy&#39; format.
+&nbsp;     */
+&nbsp;    EventTask(final String description, final String commandName,
+&nbsp;              final String startDate, final String endDate) throws BrobotDateFormatException {
+<b class="nc">&nbsp;        super(description, commandName);</b>
+<b class="nc">&nbsp;        this.startDate = BrobotDate.fromString(startDate);</b>
+<b class="nc">&nbsp;        this.endDate = BrobotDate.fromString(endDate);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Marks the event task as done.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void mark() {
+<b class="nc">&nbsp;        super.mark();</b>
+<b class="nc">&nbsp;        eventlogMessage = null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Unmarks the event task to show that it is not done yet.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void unmark() {
+<b class="nc">&nbsp;        super.unmark();</b>
+<b class="nc">&nbsp;        eventlogMessage = null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @return
+&nbsp;     *     A user-friendly display of the event task.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        if (eventlogMessage == null) {</b>
+<b class="nc">&nbsp;            eventlogMessage = String.format(BroBot.ENGLISH_LANGUAGE,</b>
+<b class="nc">&nbsp;                                        &quot;%s (from: %s to: %s)&quot;, super.toString(), startDate, endDate);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return eventlogMessage;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @return
+&nbsp;     *     A serialized version of the task for file IO (as per BroBot domain rules)
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public String toFileReport() {
+<b class="nc">&nbsp;        return String.join(System.lineSeparator(),</b>
+<b class="nc">&nbsp;                StringNewlineFormatter.removeTrailingNewlines(super.toFileReport(), 2),</b>
+<b class="nc">&nbsp;                           startDate.toString(),</b>
+<b class="nc">&nbsp;                           endDate.toString(),</b>
+&nbsp;                           &quot;&quot;,
+&nbsp;                           &quot;&quot;);
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-12 21:49</div>
+</div>
+</body>
+</html>

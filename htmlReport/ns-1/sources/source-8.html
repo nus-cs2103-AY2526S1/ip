@@ -1,0 +1,245 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Storage</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">brobot</a>
+</div>
+
+<h1>Coverage Summary for Class: Storage (brobot)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Storage</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    44.4%
+  </span>
+  <span class="absValue">
+    (4/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    22.7%
+  </span>
+  <span class="absValue">
+    (5/22)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    31.1%
+  </span>
+  <span class="absValue">
+    (14/45)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package brobot;
+&nbsp;
+&nbsp;import java.io.BufferedWriter;
+&nbsp;import java.io.IOException;
+&nbsp;import java.nio.charset.StandardCharsets;
+&nbsp;import java.nio.file.Files;
+&nbsp;import java.nio.file.Path;
+&nbsp;import java.nio.file.Paths;
+&nbsp;import java.nio.file.StandardOpenOption;
+&nbsp;import java.util.Scanner;
+&nbsp;
+&nbsp;import brobot.commands.FileIoCommand;
+&nbsp;import brobot.tasks.Task;
+&nbsp;
+&nbsp;/**
+&nbsp; * Specializes in File IO
+&nbsp; */
+&nbsp;public final class Storage {
+<b class="fc">&nbsp;    private static Storage storageSingleton = null;</b>
+<b class="fc">&nbsp;    private final Path taskSavePath = Paths.get(&quot;./data/brobot tasks.txt&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;    private Storage() {</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Lazy factory method constructor
+&nbsp;     * @return The necessary singleton Storage instance
+&nbsp;     */
+&nbsp;    public static Storage getSingleton() {
+<b class="fc">&nbsp;        if (Storage.storageSingleton == null) {</b>
+<b class="fc">&nbsp;            Storage.storageSingleton = new Storage();</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return Storage.storageSingleton;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Reads from the &quot;data/brobot tasks.txt&quot; file and adds the saved tasks to the TaskList singleton
+&nbsp;     */
+&nbsp;    public FileIoStatus readFromFile() {
+<b class="nc">&nbsp;        Scanner fileReader = null;</b>
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            if (!Files.exists(taskSavePath.getParent())) {</b>
+<b class="nc">&nbsp;                Files.createDirectories(taskSavePath.getParent());</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            if (Files.notExists(taskSavePath)) {</b>
+<b class="nc">&nbsp;                Files.createFile(taskSavePath);</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            fileReader = new Scanner(taskSavePath);</b>
+&nbsp;
+<b class="nc">&nbsp;            final StringBuilder taskStringBuilder = new StringBuilder();</b>
+<b class="nc">&nbsp;            while (fileReader.hasNextLine()) {</b>
+<b class="nc">&nbsp;                final String taskLine = fileReader.nextLine();</b>
+<b class="nc">&nbsp;                if (taskLine.isEmpty()) {</b>
+<b class="nc">&nbsp;                    final String taskString = StringNewlineFormatter.removeTrailingNewlines(taskStringBuilder, 1);</b>
+&nbsp;
+<b class="nc">&nbsp;                    TaskList.getSingleton().addToTaskList(Task.fromFileReport(taskString));</b>
+<b class="nc">&nbsp;                    while (!taskStringBuilder.isEmpty()) {</b>
+<b class="nc">&nbsp;                        taskStringBuilder.deleteCharAt(taskStringBuilder.length() - 1);</b>
+&nbsp;                    }
+&nbsp;                } else {
+<b class="nc">&nbsp;                    taskStringBuilder.append(taskLine + System.lineSeparator());</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            return FileIoStatus.makeSuccessStatus(TaskList.getSingleton().displayMessage(() -&gt;</b>
+<b class="nc">&nbsp;                            FileIoStatus.makeSuccessStatus(&quot;You do not have any tasks saved from previous sessions.&quot;), () -&gt; {</b>
+<b class="nc">&nbsp;                        final String line1 = &quot;Here are the tasks saved from previous sessions.&quot;;</b>
+<b class="nc">&nbsp;                        final String line2 = TaskList.getSingleton().toString();</b>
+<b class="nc">&nbsp;                        return FileIoStatus.makeSuccessStatus(String.join(System.lineSeparator(), line1, line2));</b>
+&nbsp;                }));
+&nbsp;
+&nbsp;        } catch (final IOException ioException) {
+<b class="nc">&nbsp;            return FileIoStatus.makeFailureStatus(TaskList.getSingleton().displayMessage(() -&gt; {</b>
+<b class="nc">&nbsp;                final String line1 = &quot;Oh no, the system had a problem reading the file where your tasks were saved.&quot;;</b>
+<b class="nc">&nbsp;                final String line2 = &quot;Trying again. Hang in there.&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;                return FileIoStatus.makeFailureStatus(String.join(System.lineSeparator(), line1, line2));</b>
+&nbsp;            }, () -&gt; {
+<b class="nc">&nbsp;                final String line1 = &quot;Oh no, the system had a problem reading the file where your tasks were saved.&quot;;</b>
+<b class="nc">&nbsp;                final String line2 = &quot;Trying again. Hang in there.&quot;;</b>
+<b class="nc">&nbsp;                return FileIoStatus.makeFailureStatus(String.join(System.lineSeparator(), line1, line2));</b>
+&nbsp;            }));
+&nbsp;        } finally {
+<b class="nc">&nbsp;            if (fileReader != null) {</b>
+&nbsp;                fileReader.close();
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Writes the Tasks in the TaskList singleton to the &quot;data/brobot tasks.txt&quot; file in the hard disk.
+&nbsp;     * &lt;p&gt;
+&nbsp;     * Please make sure to manually call this method every time the Tasklist singleton is modified
+&nbsp;     * so that the tasks can be saved to the hard disk. This is a safety precaution in the event of program failure.
+&nbsp;     */
+&nbsp;    public FileIoStatus writeToFile() {
+&nbsp;        try {
+<b class="fc">&nbsp;            Path path = taskSavePath;</b>
+<b class="fc">&nbsp;            Path parent = path.getParent();</b>
+<b class="pc">&nbsp;            if (parent != null) {</b>
+<b class="fc">&nbsp;                Files.createDirectories(parent);</b>
+&nbsp;            }
+&nbsp;
+<b class="fc">&nbsp;            try (BufferedWriter writer = Files.newBufferedWriter(</b>
+&nbsp;                    path,
+&nbsp;                    StandardCharsets.UTF_8,
+&nbsp;                    StandardOpenOption.CREATE,
+&nbsp;                    StandardOpenOption.TRUNCATE_EXISTING
+&nbsp;            )) {
+<b class="fc">&nbsp;                for (int i = 1; i &lt;= TaskList.getSingleton().getSize(); i++) {</b>
+<b class="fc">&nbsp;                    writer.write(TaskList.getSingleton().getTask(i).toFileReport());</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+<b class="fc">&nbsp;            return FileIoStatus.makeSuccessStatus(FileIoCommand.getSuccessfulFileSaveMessage());</b>
+&nbsp;        } catch (IOException e) {
+<b class="nc">&nbsp;            return FileIoStatus.makeFailureStatus(</b>
+<b class="nc">&nbsp;                    String.join(&quot;Oh no, the system has a problem writing the tasks to the hard disk.&quot;,</b>
+&nbsp;                            &quot;Trying again. Hang in there.&quot;,
+<b class="nc">&nbsp;                                 System.lineSeparator())</b>
+&nbsp;            );
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-12 21:49</div>
+</div>
+</body>
+</html>

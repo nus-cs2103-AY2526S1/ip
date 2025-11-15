@@ -1,0 +1,191 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Parser</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">brobot</a>
+</div>
+
+<h1>Coverage Summary for Class: Parser (brobot)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Parser</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (2/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    46.7%
+  </span>
+  <span class="absValue">
+    (7/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    55%
+  </span>
+  <span class="absValue">
+    (11/20)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package brobot;
+&nbsp;
+&nbsp;import brobot.brobotexceptions.BrobotCommandFormatException;
+&nbsp;import brobot.brobotexceptions.EmptyCommandException;
+&nbsp;import brobot.brobotexceptions.NoSuchCommandNameException;
+&nbsp;import brobot.brobotexceptions.OtherCommandProblemsException;
+&nbsp;import brobot.commands.AddTaskCommand;
+&nbsp;import brobot.commands.ByeCommand;
+&nbsp;import brobot.commands.Command;
+&nbsp;import brobot.commands.DeleteCommand;
+&nbsp;import brobot.commands.FindCommand;
+&nbsp;import brobot.commands.ListCommand;
+&nbsp;import brobot.commands.MarkCommand;
+&nbsp;import brobot.commands.UnmarkCommand;
+&nbsp;
+&nbsp;/**
+&nbsp; * This class specializes in parsing commands entered by the user.
+&nbsp; */
+&nbsp;public final class Parser {
+<b class="nc">&nbsp;    private Parser() {</b>
+<b class="nc">&nbsp;        throw new UnsupportedOperationException(&quot;Cannot initialize Parser class.&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param commandInput
+&nbsp;     *     The user input.
+&nbsp;     *
+&nbsp;     * @return
+&nbsp;     *     The relevant command based on the user input.
+&nbsp;     *
+&nbsp;     * @throws BrobotCommandFormatException
+&nbsp;     *     This exception is thrown if there is a problem in parsing the command entered by the user.
+&nbsp;     */
+&nbsp;    public static Command parseCommand(final String commandInput) throws BrobotCommandFormatException {
+<b class="pc">&nbsp;        if (commandInput == null || commandInput.isEmpty()) {</b>
+<b class="nc">&nbsp;            throw new EmptyCommandException();</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        final String[] parts = commandInput.strip().split(&quot;\\s+&quot;, -1);</b>
+&nbsp;
+<b class="fc">&nbsp;        final String[] tokens = new String[parts.length - 1];</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; tokens.length; i++) {</b>
+<b class="fc">&nbsp;            tokens[i] = parts[i + 1];</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return Parser.parseCommand(parts[0], tokens);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static Command parseCommand(final String commandName,
+&nbsp;                                        final String... commandTokens) throws BrobotCommandFormatException {
+&nbsp;
+<b class="fc">&nbsp;        final String cleanedCommandName = commandName.strip().toLowerCase(BroBot.ENGLISH_LANGUAGE);</b>
+&nbsp;        try {
+<b class="pc">&nbsp;            return switch (cleanedCommandName) {</b>
+<b class="nc">&nbsp;            case &quot;todo&quot;, &quot;event&quot;, &quot;deadline&quot; -&gt; AddTaskCommand.makeCommand(cleanedCommandName, commandTokens);</b>
+&nbsp;
+<b class="nc">&nbsp;            case &quot;bye&quot; -&gt; ByeCommand.makeCommand(cleanedCommandName, commandTokens);</b>
+&nbsp;
+<b class="nc">&nbsp;            case &quot;list&quot; -&gt; ListCommand.makeCommand(cleanedCommandName, commandTokens);</b>
+&nbsp;
+<b class="fc">&nbsp;            case &quot;mark&quot; -&gt; MarkCommand.makeCommand(cleanedCommandName, commandTokens);</b>
+&nbsp;
+<b class="fc">&nbsp;            case &quot;unmark&quot; -&gt; UnmarkCommand.makeCommand(commandName, commandTokens);</b>
+&nbsp;
+<b class="fc">&nbsp;            case &quot;delete&quot; -&gt; DeleteCommand.makeCommand(commandName, commandTokens);</b>
+&nbsp;
+<b class="nc">&nbsp;            case &quot;find&quot; -&gt; FindCommand.makeCommand(commandTokens);</b>
+&nbsp;
+<b class="nc">&nbsp;            default -&gt; throw NoSuchCommandNameException.newInstancefromCommandName(commandName);</b>
+&nbsp;            };
+&nbsp;        } catch (final RuntimeException e) {
+<b class="nc">&nbsp;            throw new OtherCommandProblemsException();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-12 21:49</div>
+</div>
+</body>
+</html>

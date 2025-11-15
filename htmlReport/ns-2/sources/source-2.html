@@ -1,0 +1,155 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BrobotCommandFormatException</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">brobot.brobotexceptions</a>
+</div>
+
+<h1>Coverage Summary for Class: BrobotCommandFormatException (brobot.brobotexceptions)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BrobotCommandFormatException</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package brobot.brobotexceptions;
+&nbsp;
+&nbsp;import brobot.BrobotMessenger;
+&nbsp;import brobot.FileIoStatus;
+&nbsp;
+&nbsp;/**
+&nbsp; * Abstract base class for Brobot domain specific errors that happen when processing a command.
+&nbsp; * &lt;p&gt;
+&nbsp; * &lt;pre&gt;
+&nbsp; * These are Checked Exceptions. They must be caught and handled so that when users enter an invalid command,
+&nbsp; * they are notified of this error.
+&nbsp; * &lt;/pre&gt;
+&nbsp; */
+&nbsp;public abstract class BrobotCommandFormatException extends BrobotCheckedException implements BrobotMessenger {
+&nbsp;    private static final String INVALID_INPUT_WARNING = &quot;Sorry, this input is invalid!&quot;;
+<b class="nc">&nbsp;    private static final String ANOTHER_CHANCE_OFFERING = String.join(System.lineSeparator(),</b>
+&nbsp;                                                            &quot;Please enter a different input.&quot;,
+&nbsp;                                                                      &quot;Program resumed.&quot;);
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param mainMessage the core message explaining the invalid command format
+&nbsp;     *     &lt;p&gt;&lt;/p&gt;
+&nbsp;     *     Formats the full {@code BrobotCommandFormatException} as
+&nbsp;     *
+&nbsp;     *     &lt;pre&gt;
+&nbsp;     *     Sorry, this input is invalid!
+&nbsp;     *     {mainMessage}
+&nbsp;     *     Please enter a different input.
+&nbsp;     *     Program resumed.
+&nbsp;     *     &lt;/pre&gt;
+&nbsp;     */
+&nbsp;    BrobotCommandFormatException(final String mainMessage) {
+<b class="nc">&nbsp;        super(BrobotCommandFormatException.getFullMessage(mainMessage));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static final String getFullMessage(final String mainMessage) {
+<b class="nc">&nbsp;        return String.join(System.lineSeparator(),</b>
+&nbsp;                BrobotCommandFormatException.INVALID_INPUT_WARNING,
+&nbsp;                mainMessage,
+&nbsp;                BrobotCommandFormatException.ANOTHER_CHANCE_OFFERING);
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Displays the Exception message to the user.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public final FileIoStatus sendBrobotMessage() {
+<b class="nc">&nbsp;        return FileIoStatus.makeSuccessStatus(getMessage());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-12 21:49</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+// BroBot.java
+package brobot;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+
+import brobot.brobotexceptions.BrobotCommandFormatException;
+import brobot.brobotexceptions.OtherCommandProblemsException;
+import brobot.commands.ByeCommand;
+import brobot.commands.Command;
+import javafx.application.Platform;
+
+public final class BroBot {
+    public static final String FOUR_SPACES_INDENT = String.valueOf(new char[]{' ', ' ', ' ', ' '});
+    public static final Locale ENGLISH_LANGUAGE = Locale.ENGLISH;
+
+    private static BroBot singleton = null;
+
+    private final List<FileIoStatus> loadMessages = new ArrayList<>();
+
+    private boolean mustExit = false;
+
+    private BroBot() {
+        FileIoStatus currStatus = Storage.getSingleton().readFromFile();
+        loadMessages.add(currStatus);
+
+        while (currStatus.checkIfFailure()) {
+            currStatus = Storage.getSingleton().readFromFile();
+            loadMessages.add(currStatus);
+        }
+    }
+
+    /**
+     * Exits Brobot if possible.
+     */
+    public void tryToExit() {
+        if (mustExit) {
+            Platform.runLater(Platform::exit);
+        }
+    }
+
+    public List<FileIoStatus> getLoadMessages() {
+        return Collections.unmodifiableList(loadMessages);
+    }
+
+    public static BroBot getSingleton() {
+        if (BroBot.singleton == null) {
+            BroBot.singleton = new BroBot();
+        }
+
+        return BroBot.singleton;
+    }
+
+    public List<String> getResponses(String input) {
+        try {
+            Command c = Parser.parseCommand(input);
+            if (c instanceof ByeCommand) {
+                mustExit = true;
+            }
+
+            FileIoStatus result = c.sendBrobotMessage();
+            final ArrayList<String> ans = new ArrayList<>();
+
+            ans.add(result.toString());
+            while (result.checkIfFailure()) {
+                result = Storage.getSingleton().writeToFile();
+                ans.add(result.toString());
+            }
+
+            assert List.copyOf(ans) != ans : "Sorry, the list returned should not be mutable.";
+            return List.copyOf(ans);
+        } catch (final BrobotCommandFormatException e) {
+            return List.of(e.sendBrobotMessage().toString());
+        } catch (final RuntimeException e) {
+            return List.of((new OtherCommandProblemsException()).getMessage());
+        }
+    }
+}

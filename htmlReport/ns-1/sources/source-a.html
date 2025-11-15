@@ -1,0 +1,256 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > TaskList</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">brobot</a>
+</div>
+
+<h1>Coverage Summary for Class: TaskList (brobot)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TaskList</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (14/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (6/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    92.9%
+  </span>
+  <span class="absValue">
+    (26/28)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package brobot;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;
+&nbsp;import brobot.tasks.Task;
+&nbsp;
+&nbsp;/**
+&nbsp; * This class specializes in storing tasks from the user.
+&nbsp; */
+&nbsp;public final class TaskList {
+&nbsp;
+<b class="fc">&nbsp;    private static TaskList taskListSingleton = null;</b>
+&nbsp;
+<b class="fc">&nbsp;    private final ArrayList&lt;Task&gt; tasks = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;    private TaskList() {</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Lazy factory constructor.
+&nbsp;     *
+&nbsp;     * @return
+&nbsp;     *     The TaskList singleton instance.
+&nbsp;     */
+&nbsp;    public static TaskList getSingleton() {
+<b class="fc">&nbsp;        if (TaskList.taskListSingleton == null) {</b>
+<b class="fc">&nbsp;            TaskList.taskListSingleton = new TaskList();</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return TaskList.taskListSingleton;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns a string for printing the task with the given number, labelled with that number.
+&nbsp;     */
+&nbsp;    public String formatTask(final int number) {
+<b class="fc">&nbsp;        return String.format(BroBot.ENGLISH_LANGUAGE, &quot;%d. %s&quot;, number, getTask(number));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the ith task (1-indexed).
+&nbsp;     */
+&nbsp;    public Task getTask(final int number) {
+<b class="fc">&nbsp;        return tasks.get(number - 1);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @return The number of tasks in the TaskList.
+&nbsp;     */
+&nbsp;    public int getSize() {
+<b class="fc">&nbsp;        return tasks.size();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @return A boolean indicating whether the tasklist is empty (i.e. whether the tasklist has no tasks in it).
+&nbsp;     */
+&nbsp;    public boolean isEmpty() {
+<b class="fc">&nbsp;        return tasks.isEmpty();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param task
+&nbsp;     *     Task to be added to the end of the TaskList.
+&nbsp;     *
+&nbsp;     *     Once the task is added to the tasklist, the tasks are saved to the hard drive.
+&nbsp;     */
+&nbsp;    public FileIoStatus addToTaskList(final Task task) {
+<b class="fc">&nbsp;        tasks.add(task);</b>
+<b class="fc">&nbsp;        return Storage.getSingleton().writeToFile();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param taskNumber
+&nbsp;     *     The number of the task that must be removed (1-indexed).
+&nbsp;     */
+&nbsp;    public FileIoStatus removeFromTaskList(final int taskNumber) {
+<b class="fc">&nbsp;        tasks.remove(taskNumber - 1);</b>
+<b class="fc">&nbsp;        return Storage.getSingleton().writeToFile();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param taskNumber
+&nbsp;     *     The number of the task that must be marked (1-indexed).
+&nbsp;     */
+&nbsp;    public FileIoStatus markTask(final int taskNumber) {
+<b class="fc">&nbsp;        getTask(taskNumber).mark();</b>
+<b class="fc">&nbsp;        return Storage.getSingleton().writeToFile();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param taskNumber
+&nbsp;     *     The number of the task that must be unmarked (1-indexed).
+&nbsp;     */
+&nbsp;    public FileIoStatus unmarkTask(final int taskNumber) {
+<b class="fc">&nbsp;        getTask(taskNumber).unmark();</b>
+<b class="fc">&nbsp;        return Storage.getSingleton().writeToFile();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param emptyMessage
+&nbsp;     *     The message to print if the TaskList is empty.
+&nbsp;     *
+&nbsp;     * @param nonEmptyMessage
+&nbsp;     *     The message to print if the TaskList is not empty.
+&nbsp;     */
+&nbsp;    public String displayMessage(final BrobotMessenger emptyMessage, final BrobotMessenger nonEmptyMessage) {
+<b class="pc">&nbsp;        if (isEmpty()) {</b>
+<b class="nc">&nbsp;            return emptyMessage.sendBrobotMessage().toString();</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            return nonEmptyMessage.sendBrobotMessage().toString();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param orElse
+&nbsp;     *     The message to print if the tasklist is not empty.
+&nbsp;     */
+&nbsp;    public String noTaskCheerOrElse(final BrobotMessenger orElse) {
+<b class="fc">&nbsp;        return displayMessage(() -&gt; FileIoStatus.makeSuccessStatus(toString()), orElse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @return
+&nbsp;     *     The empty task cheer if the TaskList is empty, or the numbered tasks in the task list otherwise.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="pc">&nbsp;        if (tasks.isEmpty()) {</b>
+<b class="nc">&nbsp;            return &quot;Enjoy your empty task list!&quot;;</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            final StringBuilder ans = new StringBuilder();</b>
+<b class="fc">&nbsp;            for (int i = 1; i &lt;= getSize(); i++) {</b>
+<b class="fc">&nbsp;                ans.append(formatTask(i)).append(System.lineSeparator());</b>
+&nbsp;            }
+&nbsp;
+<b class="fc">&nbsp;            return StringNewlineFormatter.removeTrailingNewlines(ans, 1);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-12 21:49</div>
+</div>
+</body>
+</html>

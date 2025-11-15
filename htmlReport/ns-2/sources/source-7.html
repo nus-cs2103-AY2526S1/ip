@@ -1,0 +1,131 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SomeArgsLeftException</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">brobot.brobotexceptions</a>
+</div>
+
+<h1>Coverage Summary for Class: SomeArgsLeftException (brobot.brobotexceptions)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SomeArgsLeftException</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package brobot.brobotexceptions;
+&nbsp;
+&nbsp;import brobot.BroBot;
+&nbsp;
+&nbsp;/**
+&nbsp; * This exception is thrown iff the command entered by the user is not supposed to take any arguments,
+&nbsp; * but the user supplied arguments anyway.
+&nbsp; */
+&nbsp;public final class SomeArgsLeftException extends BrobotCommandFormatException {
+&nbsp;    private SomeArgsLeftException(final String mainMessage) {
+<b class="nc">&nbsp;        super(mainMessage);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Factory constructor
+&nbsp;     *
+&nbsp;     * @param commandName
+&nbsp;     *     The command name that doesn&#39;t take in any arguments.
+&nbsp;     *
+&nbsp;     * @return
+&nbsp;     *     A new instance as created by this factory constructor.
+&nbsp;     */
+&nbsp;    public static SomeArgsLeftException fromCommandName(final String commandName) {
+<b class="nc">&nbsp;        return new SomeArgsLeftException(</b>
+<b class="nc">&nbsp;            String.format(BroBot.ENGLISH_LANGUAGE, &quot;The &#39;%s&#39; command does not take in any arguments.&quot;, commandName));</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-12 21:49</div>
+</div>
+</body>
+</html>

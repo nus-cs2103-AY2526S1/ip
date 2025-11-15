@@ -1,0 +1,196 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BroBot</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">brobot</a>
+</div>
+
+<h1>Coverage Summary for Class: BroBot (brobot)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BroBot</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    16.7%
+  </span>
+  <span class="absValue">
+    (1/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    12.9%
+  </span>
+  <span class="absValue">
+    (4/31)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;// BroBot.java
+&nbsp;package brobot;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Locale;
+&nbsp;
+&nbsp;import brobot.brobotexceptions.BrobotCommandFormatException;
+&nbsp;import brobot.brobotexceptions.OtherCommandProblemsException;
+&nbsp;import brobot.commands.ByeCommand;
+&nbsp;import brobot.commands.Command;
+&nbsp;import javafx.application.Platform;
+&nbsp;
+<b class="fc">&nbsp;public final class BroBot {</b>
+<b class="fc">&nbsp;    public static final String FOUR_SPACES_INDENT = String.valueOf(new char[]{&#39; &#39;, &#39; &#39;, &#39; &#39;, &#39; &#39;});</b>
+<b class="fc">&nbsp;    public static final Locale ENGLISH_LANGUAGE = Locale.ENGLISH;</b>
+&nbsp;
+<b class="fc">&nbsp;    private static BroBot singleton = null;</b>
+&nbsp;
+<b class="nc">&nbsp;    private final List&lt;FileIoStatus&gt; loadMessages = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;    private boolean mustExit = false;</b>
+&nbsp;
+<b class="nc">&nbsp;    private BroBot() {</b>
+<b class="nc">&nbsp;        FileIoStatus currStatus = Storage.getSingleton().readFromFile();</b>
+<b class="nc">&nbsp;        loadMessages.add(currStatus);</b>
+&nbsp;
+<b class="nc">&nbsp;        while (currStatus.checkIfFailure()) {</b>
+<b class="nc">&nbsp;            currStatus = Storage.getSingleton().readFromFile();</b>
+<b class="nc">&nbsp;            loadMessages.add(currStatus);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Exits Brobot if possible.
+&nbsp;     */
+&nbsp;    public void tryToExit() {
+<b class="nc">&nbsp;        if (mustExit) {</b>
+<b class="nc">&nbsp;            Platform.runLater(Platform::exit);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;FileIoStatus&gt; getLoadMessages() {
+<b class="nc">&nbsp;        return Collections.unmodifiableList(loadMessages);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static BroBot getSingleton() {
+<b class="nc">&nbsp;        if (BroBot.singleton == null) {</b>
+<b class="nc">&nbsp;            BroBot.singleton = new BroBot();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return BroBot.singleton;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;String&gt; getResponses(String input) {
+&nbsp;        try {
+<b class="nc">&nbsp;            Command c = Parser.parseCommand(input);</b>
+<b class="nc">&nbsp;            if (c instanceof ByeCommand) {</b>
+<b class="nc">&nbsp;                mustExit = true;</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            FileIoStatus result = c.sendBrobotMessage();</b>
+<b class="nc">&nbsp;            final ArrayList&lt;String&gt; ans = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;            ans.add(result.toString());</b>
+<b class="nc">&nbsp;            while (result.checkIfFailure()) {</b>
+<b class="nc">&nbsp;                result = Storage.getSingleton().writeToFile();</b>
+<b class="nc">&nbsp;                ans.add(result.toString());</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            assert List.copyOf(ans) != ans : &quot;Sorry, the list returned should not be mutable.&quot;;</b>
+<b class="nc">&nbsp;            return List.copyOf(ans);</b>
+&nbsp;        } catch (final BrobotCommandFormatException e) {
+<b class="nc">&nbsp;            return List.of(e.sendBrobotMessage().toString());</b>
+&nbsp;        } catch (final RuntimeException e) {
+<b class="nc">&nbsp;            return List.of((new OtherCommandProblemsException()).getMessage());</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-12 21:49</div>
+</div>
+</body>
+</html>
