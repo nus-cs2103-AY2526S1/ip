@@ -1,0 +1,42 @@
+package cuteowl.command;
+
+import cuteowl.note.NoteList;
+import cuteowl.storage.Storage;
+import cuteowl.task.Deadline;
+import cuteowl.task.Task;
+import cuteowl.task.TaskList;
+import cuteowl.ui.Ui;
+
+import java.time.LocalDateTime;
+
+public class DeadlineCommand extends Command {
+    public final String description;
+    public final LocalDateTime by;
+    private String output;
+
+    public DeadlineCommand(String description, LocalDateTime by) {
+        assert !description.trim().isEmpty() : "Description must not be empty";
+        assert by != null : "Deadline time must not be null";
+
+        this.description = description;
+        this.by = by;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage, NoteList notes) {
+        int initialSize = tasks.size();
+
+        Task task = new Deadline(description, by);
+        tasks.add(task);
+        assert tasks.size() == initialSize + 1 : "task.size() should increase by 1";
+        storage.save(tasks, notes);
+        ui.showTaskAdded(task, tasks.size());
+        output = ui.showTaskAddedGUI(task, tasks.size());
+    }
+
+    @Override
+    public String getString() {
+        return output;
+    }
+
+}
