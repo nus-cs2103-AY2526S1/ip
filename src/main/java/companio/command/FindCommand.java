@@ -1,0 +1,38 @@
+package companio.command;
+
+import companio.CompanioException;
+import companio.task.Task;
+import companio.task.TaskList;
+import companio.task.TaskStorage;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * This class helps to deal with the find command. It also checks whether the find description is given.
+ */
+public class FindCommand implements Command {
+    private final String keyword;
+
+    public FindCommand(String input) throws CompanioException {
+        if (input.trim().equals("find")) {
+            throw new CompanioException("find description is empty!");
+        }
+        String[] parts = input.split(" ");
+        if (parts.length < 2) {
+            throw new CompanioException("Invalid formatting! Follow example: find book");
+        }
+        this.keyword = parts[1].trim();
+    }
+
+    @Override
+    public String execute(TaskList tasks, TaskStorage storage) {
+        List<Task> matches = tasks.find(keyword);
+        if (matches.isEmpty()) {
+            return "No task matching your input found :(";
+        }
+        return matches.stream()
+                .map(Task::toString)
+                .collect(Collectors.joining("\n"));
+    }
+}

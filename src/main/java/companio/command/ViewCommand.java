@@ -1,0 +1,41 @@
+package companio.command;
+
+import companio.CompanioException;
+import companio.task.Task;
+import companio.task.TaskList;
+import companio.task.TaskStorage;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * This class helps to deal with the view command. It also checks if the date is specified.
+ */
+public class ViewCommand implements Command {
+    private final LocalDate date;
+
+    public ViewCommand(String input) throws CompanioException {
+        if (input.trim().equals("view")) {
+            throw new CompanioException("view date not specified!");
+        }
+        try {
+            String dateString = input.substring(5).trim();
+            this.date = LocalDate.parse(dateString);
+        } catch (DateTimeParseException e) {
+            throw new CompanioException("Invalid date format! Use yyyy-MM-dd (e.g., 2025-08-30).");
+        }
+    }
+
+    @Override
+    public String execute(TaskList tasks, TaskStorage storage) {
+        List<Task> schedule = tasks.view(date);
+        if (schedule.isEmpty()) {
+            return "Seems like your schedule is free today!";
+        }
+        return schedule.stream()
+                .map(Task::toString)
+                .collect(Collectors.joining("\n"));
+    }
+}
