@@ -1,0 +1,44 @@
+.label {
+    /* Soft gradient background */
+    -fx-background-color: linear-gradient(to bottom right, #f9f9fb, #e6eaf0);
+
+    /* Subtle single-color border */
+    -fx-border-color: #cfd8dc;
+    -fx-border-width: 1px;
+
+    /* Rounded corners */
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+
+    /* Padding for balance */
+    -fx-padding: 6 10 6 10;
+}
+
+.reply-label {
+    -fx-background-color: linear-gradient(to bottom right, #f4f6f8, #dde3eb);
+    -fx-border-color: #cfd8dc;
+    -fx-border-width: 1px;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 6 10 6 10;
+}
+
+#displayPicture {
+    /* Fixed square size */
+    -fx-fit-width: 100px;
+    -fx-fit-height: 100px;
+    -fx-preserve-ratio: false;
+
+    /* Note: true cropping should be done via Java with Rectangle clip */
+
+    /* Shadow effect */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 8, 0.3, 3, 3);
+
+    /* Neutral defaults */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+}
+
+
+

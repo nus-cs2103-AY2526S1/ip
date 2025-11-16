@@ -1,0 +1,58 @@
+.root {
+    main-color: #f4f6f8;        /* Light neutral background */
+    accent-color: #2a7de1;      /* Professional blue accent */
+    danger-color: #d64545;      /* Subtle red for pressed states */
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;  /* Clean white input */
+    -fx-border-color: #cfd8dc;      /* Subtle gray border */
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-font: 16px "Arial";
+}
+
+.button {
+    -fx-background-color: accent-color;
+    -fx-text-fill: white;
+    -fx-font: bold 14px "Arial";
+    -fx-background-radius: 6;
+    -fx-padding: 6 12 6 12;
+}
+
+.button:hover {
+    -fx-background-color: #1e66c4;  /* Darker blue on hover */
+}
+
+.button:pressed {
+    -fx-background-color: danger-color;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-pref-width: 10px;  /* More controlled width */
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #b0bec5;   /* Neutral gray */
+    -fx-background-radius: 6;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+#mainWindow {
+    -fx-background-image: url("/images/background.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;   /* cover, contain, or specific px values */
+    -fx-background-position: center center;
+}
