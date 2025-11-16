@@ -1,0 +1,21 @@
+/**
+ * Event class extends task
+ * use from and to to mark a period of time
+ */
+package xiaoDu;
+
+public class Event extends Task {
+    public String from;
+    public String to;
+
+    public Event(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+}
