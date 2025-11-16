@@ -1,26 +1,31 @@
-# Duke project template
+# Cathy – The Taskmaster You Didn’t Ask For 👹
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+> *“If you can’t manage your life, at least let me laugh at your attempts.”* – Cathy
 
-## Setting up in Intellij
+Meet **Cathy**, your ~~friendly~~ brutally honest task assistant. She’s:
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+- text-based
+- *annoyingly persistent*
+- **FAST SUPER FAST** (because she doesn’t waste time on your feelings)
+- prone to sarcasm 😏
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+All you need to do is:
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+1. Download the JAR from the [Releases page](https://github.com/Gracesong146/ip/releases).
+2. Run it with `java -jar cathy.jar`. ← yes, that’s inline code, try not to cry.
+3. Add your precious tasks.
+4. Watch Cathy roast you while you “try” to be productive.
+
+---
+
+## Features (aka things Cathy will judge you for)
+
+- 🖥️ **GUI Interface**: No more dull terminal! Interact with Cathy in a clean, chat-style window.
+- ✅ **Task Management**: Add, delete, mark, and unmark tasks with simple commands.
+- ⏰ **Deadlines & Events**: Track important dates with `/by`, `/from`, and `/to`.
+- 🔍 **Search & Filter**: Quickly find tasks by keyword or date.
+- 💾 **Persistent Storage**: Tasks are saved automatically to `data/cathy.txt`.
+- 🙃 **Sassy Personality**: Cathy replies with witty and sometimes rude remarks to keep you entertained.
+- 👋 **Custom Welcome Sticker**: Cathy greets you with her own Ghibli-style chibi sticker.
+- 📆 **View Schedule**: Cathy shows you the schedule on specific dates.
+
