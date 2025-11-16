@@ -1,0 +1,5 @@
+0 | todo laundry
+1 | deadline do this 1 /by 20/12/2025 10:00
+0 | deadline do cs2101 by 01/01/2025 14:00
+1 | event cs2103 lecture every week /from 02/02/2025 11:00 /to 03/03/2025 12:00
+1 | todo homework cs1
