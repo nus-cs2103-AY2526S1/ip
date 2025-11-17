@@ -1,0 +1,4 @@
+Event,event SilkSong release /from 2025-01-01 /to 2025-01-01,true,test1
+Deadline,deadline test1 /by 2022-01-01 1700,false
+Deadline,deadline test2 /by 2022-01-01,false
+Event,event test3 /from 2022-01-01 1700 /to 2022-01-01 1800,false

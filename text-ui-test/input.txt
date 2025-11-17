@@ -1,0 +1,13 @@
+todo Go to School
+deadline Submit Homework /by 2025-09-12
+event Career fair /from 2025-12-05 /to 2025-12-06
+list
+mark 1
+mark 2
+mark 3
+unmark 1
+unmark 2
+unmark 3
+todo Go Home
+list
+bye

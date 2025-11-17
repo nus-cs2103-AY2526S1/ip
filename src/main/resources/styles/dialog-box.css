@@ -1,0 +1,16 @@
+/*Guidance on how to modify certain aspects of the GUI were done with a mix of Claude AI and SceneBuilder*/
+.dialogStyle {
+    -fx-background-color: #000000;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 3;
+    -fx-padding: 15;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.dialogText {
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Courier New", monospace;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
