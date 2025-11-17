@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root animated="false"
+         collapsible="true"
+         expanded="false"
+         prefHeight="300.0"
+         prefWidth="398.0"
+         stylesheets="@../css/reminder-box.css"
+         text="Reminders"
+         type="javafx.scene.control.TitledPane"
+         xmlns="http://javafx.com/javafx/24.0.1"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <content>
+        <ScrollPane fitToHeight="true"
+                    fitToWidth="true"
+                    hbarPolicy="AS_NEEDED"
+                    pannable="true"
+                    stylesheets="@../css/reminder-box.css"
+                    vbarPolicy="AS_NEEDED">
+            <content>
+                <!-- Wrapper VBox ensures top-left alignment + padding -->
+                <VBox fx:id="userTaskContainer" alignment="TOP_LEFT" prefWidth="380.0" spacing="5.0">
+                    <padding>
+                        <Insets bottom="15.0" left="10.0" right="10.0" top="15.0" />
+                    </padding>
+                    <children>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </content>
+</fx:root>

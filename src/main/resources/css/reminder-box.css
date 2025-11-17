@@ -1,0 +1,72 @@
+/* ================= Root TitledPane ================= */
+.titled-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(0,0,0,0.08);
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0.2, 0, 2);
+}
+
+/* Title bar (header) */
+.titled-pane > .title {
+    -fx-background-color: linear-gradient(to bottom, #fff7c2, #ffe97a);
+    -fx-background-radius: 8 8 0 0;
+    -fx-border-color: rgba(0,0,0,0.08);
+    -fx-border-radius: 8 8 0 0;
+    -fx-padding: 6 10;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.titled-pane > .title > .text {
+    -fx-fill: #5a4a00;
+}
+
+.titled-pane > .title > .arrow-button .arrow {
+    -fx-background-color: #5a4a00;
+}
+
+/* Content area under the title */
+.titled-pane > .content {
+    -fx-background-color: #fffdf5;
+    -fx-background-radius: 0 0 8 8;
+    -fx-border-color: rgba(0,0,0,0.05);
+    -fx-border-radius: 0 0 8 8;
+    -fx-padding: 0;
+}
+
+/* ================= ScrollPane ================= */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* slim rounded scrollbars */
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-padding: 2;
+}
+.scroll-bar:vertical .thumb, .scroll-bar:horizontal .thumb {
+    -fx-background-color: rgba(0,0,0,0.25);
+    -fx-background-radius: 8;
+}
+.scroll-bar:vertical .track, .scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+}
+
+/* ================= VBox content ================= */
+.vbox {
+    -fx-padding: 12 12 12 12;
+    -fx-spacing: 6;
+    -fx-alignment: top-left;
+}
+
+/* ================= Reminder text ================= */
+.label {
+    -fx-wrap-text: true;
+    -fx-text-fill: #333333;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2;
+}
