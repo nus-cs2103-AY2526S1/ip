@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<profiles version="12">
+    <profile kind="CodeFormatterProfile" name="SE-EDU" version="12">
+        <!-- Replace this comment with actual formatter rules -->
+    </profile>
+</profiles>
