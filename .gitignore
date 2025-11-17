@@ -1,3 +1,7 @@
+*.class
+**/data
+**/.vscode
+
 # IDEA files
 /.idea/
 /out/
