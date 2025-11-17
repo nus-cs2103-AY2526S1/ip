@@ -1,26 +1,83 @@
-# Duke project template
+# Friday User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![Ui.png](docs/Ui.png)
 
-## Setting up in Intellij
+## A rare look into Friday before its debut in The Avengers: Age of Ultron
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+Even Friday, Jarvis' successor, and arguably the second-most sophisticated
+chatbot, started out somewhere. After his death in 2019, as we searched
+through Tony's belongings, we found a hard drive labelled 'Friday'.
+It was the inception of Friday: a chatbot that Tony would utilise to create
+and edit his to-do list. (Word has it that Tony once removed 1000 coding
+tasks in one day :o). These are the features that Friday had in this hard drive.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### Feature 1: Adding tasks
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+#### Types of tasks:
+1. Todos
+2. Deadlines
+3. Events
+
+#### Usage:
+1. Todo: `todo <description>`
+2. Deadline: `deadline <description> /by <DateTime>`
+3. Event: `event <description> /from <DateTime> /to <DateTime>`
+> The following are the acceptable DateTime formats: **"yyyy-MM-dd HHmm","yyyy-MM-dd","d/M/yyyy HHmm","d/M/yyyy"**
+
+### Feature 2: Listing existing tasks
+
+Usage: `list`
+
+Example output:
+``` 
+Here are the tasks in your list: 
+    1.[E][ ] New Year's Party (from: Dec 31 1999 to: Jan 1 2000)
+    2.[D][ ] Solve Extremis (by: Jan 1 2000)
+    3.[T][ ] Maya Hansen
+```
+
+### Feature 3: Deleting tasks
+
+Usage: `delete <taskNumber>`
+
+Example usage: `delete 2`
+> Deletes task "2." from your `list`, shifts all tasks after it up by 1 index
+
+### Feature 4: Mark/Unmark task as done
+
+Usage:
+* `mark <taskNumber>`
+* `unmark <taskNumber>`
+
+Example usage:
+* `mark 2`
+> Marks task "2." from your `list` as complete
+
+* `unmark 2`
+> Unmarks task "2." from your `list` as incomplete
+
+### Feature 5: Find task
+
+Usage: `find <keyword>`
+
+Example usage: `find Extremis`
+> Friday will output all tasks that contains the keyword "Extremis" <br>
+> i.e. only task 2 from the above example
+
+### Feature 6: sort
+
+Example usage: `sort`
+> Friday will sort all tasks in your list by their type (Deadline, Todo, Event)
+
+Example output:
+
+```markdown
+1.[D][ ] Solve Extremis (by: Jan 1 2000)
+2.[T][ ] Maya Hansen
+3.[E][ ] New Year's Party (from: Dec 31 1999 to: Jan 1 2000)
+```
+
+### Feature 7: Exit app
+
+Usage: `bye`
+> This will exit the app!
