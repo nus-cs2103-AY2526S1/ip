@@ -13,5 +13,10 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Any .txt file used to store data
+data/Bara.txt
+text-ui-test/data/Bara.txt
+
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

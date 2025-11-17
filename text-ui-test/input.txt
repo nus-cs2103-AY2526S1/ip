@@ -1,0 +1,18 @@
+list
+todo shopping
+mark 1
+deadline ip /by 2025-08-25 23:59
+deadline tp /by 2025-08-29
+event national day /from 1965-08-09 00:00 /to 1965-08-09 23:59
+event team meeting /from 2025-08-27 12:00 /to 2025-08-27 14:00
+list
+unmark 1
+list
+list this
+bye now
+todo
+deadline tp submission
+event CS2103T exams /from 2025-12-12
+event CS2103T exams /from 12/12/2025 /to 13/12/2025
+find cplusplus
+find national
