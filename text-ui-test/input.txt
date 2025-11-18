@@ -1,0 +1,4 @@
+todo Be happy
+deadline CS2103T work /friday 4pm
+event sleep /now /tomorrow
+list
