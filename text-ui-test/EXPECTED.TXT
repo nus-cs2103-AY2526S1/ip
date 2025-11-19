@@ -1,7 +1,85 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+-----------------------------------------------
+Hello! I'm Optimus Prime, Leader of the Autobots
+What can I do for you?
+-----------------------------------------------
+User:
+-----------------------------------------------
+Human... Please enter a valid command...
+-----------------------------------------------
+User:
+-----------------------------------------------
+Got it. I've added this task:
+[T][ ] test the chatbot
+Now you have 1 tasks in the list.
+-----------------------------------------------
+User:
+-----------------------------------------------
+Got it. I've added this task:
+[D][ ] submit hw (by: 10 OCTOBER 2910)
+Now you have 2 tasks in the list.
+-----------------------------------------------
+User:
+-----------------------------------------------
+Got it. I've added this task:
+[E][ ] discuss hw (from: 12 SEPTEMBER 1092 to: 11 NOVEMBER 2183)
+Now you have 3 tasks in the list.
+-----------------------------------------------
+User:
+-----------------------------------------------
+Nice! I've marked this task as done:
+null
+-----------------------------------------------
+User:
+-----------------------------------------------
+Nice! I've marked this task as done:
+[T][X] test the chatbot
+-----------------------------------------------
+User:
+-----------------------------------------------
+Nice! I've marked this task as done:
+[D][X] submit hw (by: 10 OCTOBER 2910)
+-----------------------------------------------
+User:
+-----------------------------------------------
+1. [T][X] test the chatbot
+2. [D][X] submit hw (by: 10 OCTOBER 2910)
+3. [E][ ] discuss hw (from: 12 SEPTEMBER 1092 to: 11 NOVEMBER 2183)
+-----------------------------------------------
+User:
+-----------------------------------------------
+OK, I've marked this task as not done yet:
+[T][ ] test the chatbot
+-----------------------------------------------
+User:
+-----------------------------------------------
+1. [T][ ] test the chatbot
+2. [D][X] submit hw (by: 10 OCTOBER 2910)
+3. [E][ ] discuss hw (from: 12 SEPTEMBER 1092 to: 11 NOVEMBER 2183)
+-----------------------------------------------
+User:
+-----------------------------------------------
+Human... Please enter a valid command...
+-----------------------------------------------
+User:
+-----------------------------------------------
+Human... You must do something...
+Tell me what you want to do after the todo command...
+-----------------------------------------------
+User:
+-----------------------------------------------
+The autobots normally enter their deadline proceeding a '/by' command...
+-----------------------------------------------
+User:
+-----------------------------------------------
+The autobots normally enter their event proceeding a '/from' and '/to' command...
+-----------------------------------------------
+User:
+-----------------------------------------------
+Noted. I've removed this task:
+[T][ ] test the chatbot
+Now you have 2 tasks in the list
+-----------------------------------------------
+User:
+-----------------------------------------------
+Autobots, Roll Out!
+-----------------------------------------------

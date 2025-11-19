@@ -1,0 +1,16 @@
+hello
+todo test the chatbot
+deadline submit hw /by 2910-10-10
+event discuss hw /from 1092-09-12 /to 2183-11-11
+mark
+mark 1
+mark 2
+list
+unmark 1
+list
+helloooo
+todo
+deadline
+event
+delete 1
+bye
