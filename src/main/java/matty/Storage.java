@@ -1,0 +1,131 @@
+package matty;
+
+import matty.task.Deadline;
+import matty.task.Event;
+import matty.task.Task;
+import matty.task.Todo;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Handles loading tasks from and saving tasks to a file.
+ */
+public class Storage {
+    private final Path filePath;
+    private final DateTimeFormatter deadlineFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private final DateTimeFormatter eventFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    /**
+     * Creates a Storage object with the given file path.
+     *
+     * @param filePath the file path used to load and save tasks
+     */
+    public Storage(String filePath) {
+        this.filePath = Paths.get(filePath);
+    }
+
+    /**
+     * Saves the given list of tasks to the file.
+     *
+     * @param tasks the list of tasks to save
+     * @throws IOException if the file cannot be written
+     */
+    public void save(ArrayList<Task> tasks) throws IOException {
+        Files.createDirectories(filePath.getParent());
+        List<String> lines = new ArrayList<>();
+        for (Task task : tasks) {
+            lines.add(task.toFileString());
+        }
+        Files.write(filePath, lines);
+    }
+
+    /**
+     * Loads tasks from the file into a list.
+     *
+     * @return the list of tasks loaded from file
+     * @throws IOException if the file cannot be read
+     */
+    public ArrayList<Task> load() throws IOException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        if (!Files.exists(filePath)) {
+            Files.createDirectories(filePath.getParent());
+            Files.createFile(filePath);
+            return tasks;
+        }
+
+        List<String> lines = Files.readAllLines(filePath);
+        for (String line : lines) {
+            Task task = parseLineToTask(line);
+            if (task != null) {
+                tasks.add(task);
+            }
+        }
+        return tasks;
+    }
+
+    /**
+     * Parse the string into a Task,
+     *
+     * @param line the line to be parsed
+     * @return the corresponding task
+     */
+    private Task parseLineToTask(String line) {
+        assert line != null : "Storage line should not be null";
+        String[] parts = line.split(" \\| ");
+        if (parts.length < 3) {
+            return null;
+        }
+
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        Task task = null;
+
+        switch (type) {
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            String byStr = parts.length > 3 ? parts[3] : "";
+            try {
+                LocalDate by = LocalDate.parse(byStr, deadlineFormat);
+                task = new Deadline(description, by);
+            } catch (DateTimeParseException e) {
+                System.out.println("Warning: Could not load deadline \"" + description
+                        + "\" due to invalid date format: " + byStr);
+            }
+            break;
+        case "E":
+            String fromStr = parts.length > 3 ? parts[3] : "";
+            String toStr = parts.length > 4 ? parts[4] : "";
+            try {
+                LocalDateTime from = LocalDateTime.parse(fromStr, eventFormat);
+                LocalDateTime to = LocalDateTime.parse(toStr, eventFormat);
+                task = new Event(description, from, to);
+            } catch (DateTimeParseException e) {
+                System.out.println("Warning: Could not load event \"" + description
+                        + "\" due to invalid date/time format: " + fromStr + " to " + toStr);
+            }
+            break;
+        default:
+            System.out.println("Warning: Unknown task type \"" + type + "\" for line: " + line);
+            break;
+        }
+
+        if (task != null && isDone) {
+            task.markAsDone();
+        }
+
+        return task;
+    }
+}
