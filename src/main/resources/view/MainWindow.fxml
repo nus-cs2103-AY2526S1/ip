@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="root"
+            prefHeight="640.0" prefWidth="420.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="goober.ui.MainWindow">
+
+    <!-- Top toolbar -->
+    <top>
+        <ToolBar styleClass="toolbar">
+            <Label text="Goober" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #e5e7eb;" />
+            <Pane HBox.hgrow="ALWAYS"/>
+            <ToggleButton fx:id="themeToggle" text="Light"/>
+            <Button text="Clear" onAction="#handleClear"/>
+        </ToolBar>
+    </top>
+
+    <!-- Center: scrollable conversation -->
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" vvalue="1.0">
+            <content>
+                <VBox fx:id="dialogContainer" id="dialogContainer" prefWidth="400.0"/>
+            </content>
+        </ScrollPane>
+    </center>
+
+    <!-- Bottom: input row -->
+    <bottom>
+        <HBox fx:id="inputRow" id="inputRow" spacing="8">
+            <TextField fx:id="userInput"
+                       promptText="Type a command… (Enter to send)"
+                       HBox.hgrow="ALWAYS"/>
+            <Button fx:id="sendButton" text="Send" onAction="#handleUserInput" styleClass="primary"/>
+        </HBox>
+    </bottom>
+</BorderPane>

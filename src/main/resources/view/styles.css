@@ -1,0 +1,121 @@
+/* =========================
+   App surface & typography
+   ========================= */
+.root {
+  -fx-font-family: "Segoe UI", "Inter", "SF Pro Text", Arial, sans-serif;
+  -fx-font-size: 14px;               /* larger base text */
+  -fx-font-smoothing-type: gray;     /* crisper glyphs; try 'lcd' if you prefer */
+  -fx-background-color: linear-gradient(to bottom, #1f2937, #0f172a); /* dark default */
+}
+
+/* Light theme overrides (keep after .root for precedence) */
+.light {
+  -fx-background-color: #f7fafc;
+}
+
+/* =========================
+   Background presets
+   ========================= */
+/* Solid/gradient options you can apply via style class */
+.bg-plain-dark  { -fx-background-color: #0b1220; }
+.bg-plain-light { -fx-background-color: #ffffff; }
+.bg-ocean       { -fx-background-color: linear-gradient(to bottom right, #0ea5e9, #1e3a8a); }
+
+/* Photo background: add 'bg-photo' to root (works with dark/light) */
+.bg-photo {
+  -fx-background-size: cover;
+  -fx-background-position: center;
+  -fx-background-repeat: no-repeat;
+  -fx-background-image: url("bg/nebula.png");   /* dark-mode default */
+}
+/* Swap image automatically when light mode is active */
+.light.bg-photo {
+  -fx-background-image: url("bg/field.png");
+}
+
+/* =========================
+   Scroll area & container
+   ========================= */
+.scroll-pane { -fx-background-color: transparent; }
+.scroll-pane > .viewport { -fx-background-color: transparent; }
+
+#dialogContainer {
+  -fx-spacing: 8px;
+  -fx-padding: 12 12 12 12;
+}
+
+/* =========================
+   Chat bubbles (sharp text)
+   ========================= */
+.dialog-bubble {
+  -fx-background-radius: 14;
+  -fx-padding: 10 12 10 12;
+  -fx-wrap-text: true;
+  -fx-max-width: 320px;
+
+  /* Layered background = soft “shadow” without blur on text */
+  -fx-background-color: rgba(0,0,0,0.22), -fx-control-inner-background;
+  -fx-background-insets: 0, 1;
+  -fx-background-radius: 16, 14;
+  -fx-effect: null; /* ensure no gaussian shadow that blurs glyphs */
+}
+
+/* Role colours */
+.bubble-user {
+  -fx-background-color: rgba(0,0,0,0.22), #4f46e5; /* indigo */
+  -fx-text-fill: white;
+}
+.bubble-bot {
+  -fx-background-color: rgba(0,0,0,0.22), #111827; /* slate-900 */
+  -fx-text-fill: #e5e7eb;
+}
+.light .bubble-bot {
+  -fx-background-color: rgba(0,0,0,0.08), #e5e7eb;
+  -fx-text-fill: #111827;
+}
+
+/* Avatars */
+.display-picture {
+  -fx-fit-width: 36px;
+  -fx-fit-height: 36px;
+}
+
+/* =========================
+   Input row & controls
+   ========================= */
+#inputRow {
+  -fx-padding: 10 12 12 12;
+  -fx-spacing: 8px;
+}
+
+.text-field {
+  -fx-background-radius: 10px;
+  -fx-background-color: rgba(255,255,255,0.08);
+  -fx-text-fill: #e5e7eb;
+  -fx-prompt-text-fill: #9ca3af;
+  -fx-padding: 10 12 10 12;
+  -fx-border-color: transparent;
+  -fx-background-insets: 0;
+}
+.light .text-field {
+  -fx-background-color: #ffffff;
+  -fx-text-fill: #111827;
+  -fx-prompt-text-fill: #6b7280;
+}
+
+.button {
+  -fx-background-radius: 10px;
+  -fx-padding: 8 14 8 14;
+}
+.primary {
+  -fx-background-color: #22c55e;
+  -fx-text-fill: #052e16;
+}
+
+/* =========================
+   Toolbar
+   ========================= */
+.toolbar {
+  -fx-background-color: transparent;
+  -fx-padding: 8 8 0 8;
+}
