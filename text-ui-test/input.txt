@@ -1,0 +1,25 @@
+todo mark homework
+deadline teach class /by Monday 12pm
+event project meeting /from Monday 2pm /to 5pm
+todo buy groceries
+list
+mark 2
+mark 3
+unmark 2
+mark 4
+list
+delete 4
+delete 3
+list
+delete 4
+mark 4
+unmark 4
+todo
+deadline
+event
+deadline mark homework
+event project meeting
+event project meeting /from 2pm
+
+hello
+bye

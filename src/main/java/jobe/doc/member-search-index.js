@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"command","c":"ByeCommand","l":"ByeCommand()","u":"%3Cinit%3E()"},{"p":"command","c":"ByeCommand","l":"execute(TaskList, Ui, Storage)","u":"execute(task.TaskList,ui.Ui,storage.Storage)"},{"p":"command","c":"ByeCommand","l":"isExit()"}];updateSearchResults();

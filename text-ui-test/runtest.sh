@@ -12,15 +12,23 @@ then
     rm ACTUAL.TXT
 fi
 
+# Delete the old jobe.txt before running tests
+rm -f ./data/jobe.txt
+
+# Find all .java files recursively under src/main/java
+find ../src/main/java -name "*.java" > sources.txt
+
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin @sources.txt
 then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
+echo "********** BUILD SUCCESS **********"
+
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+java -classpath ../bin Jobe < ../text-ui-test/input.txt > ../text-ui-test/ACTUAL.TXT
 
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT

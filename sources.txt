@@ -1,0 +1,12 @@
+<<<<<<< HEAD
+./src/main/java/jobe.ui.Ui.java
+=======
+./src/main/java/Ui.java
+>>>>>>> 45d4f7f (Add automated text UI testing)
+./src/main/java/jobe.parser/Parser.java
+./src/main/java/jobe.task/TaskList.java
+./src/main/java/jobe.task/TodoTask.java
+./src/main/java/jobe.task/EventTask.java
+./src/main/java/jobe.task/DeadlineTask.java
+./src/main/java/jobe.task/Task.java
+./src/main/java/jobe.Jobe.java
