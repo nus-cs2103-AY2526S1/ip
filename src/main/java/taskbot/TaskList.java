@@ -1,0 +1,106 @@
+package taskbot;
+
+import taskbot.task.Task;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+/**
+ * Manages a list of tasks and provides operations to manipulate them.
+ * Supports adding, deleting, retrieving, and searching tasks.
+ */
+public class TaskList {
+    private ArrayList<Task> tasks;
+    
+    /**
+     * Constructs an empty TaskList.
+     */
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
+    
+    /**
+     * Constructs a TaskList with the given list of tasks.
+     * 
+     * @param tasks the initial list of tasks
+     */
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+    
+    /**
+     * Adds a task to the task list.
+     * 
+     * @param task the task to be added
+     */
+    public void add(Task task) {
+        assert task != null : "Task cannot be null";
+        tasks.add(task);
+    }
+    
+    /**
+     * Adds multiple tasks to the task list using varargs.
+     * 
+     * @param tasksToAdd the tasks to be added
+     */
+    public void addAll(Task... tasksToAdd) {
+        assert tasksToAdd != null : "Tasks array cannot be null";
+        Arrays.stream(tasksToAdd)
+            .peek(task -> { assert task != null : "Individual task cannot be null"; })
+            .forEach(tasks::add);
+    }
+    
+    /**
+     * Deletes a task at the specified index.
+     * 
+     * @param index the index of the task to be deleted
+     */
+    public void delete(int index) {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds: " + index;
+        tasks.remove(index);
+    }
+    
+    /**
+     * Retrieves the task at the specified index.
+     * 
+     * @param index the index of the task to retrieve
+     * @return the task at the specified index
+     */
+    public Task get(int index) {
+        assert index >= 0 && index < tasks.size() : "Index out of bounds: " + index;
+        return tasks.get(index);
+    }
+    
+    /**
+     * Returns the number of tasks in the list.
+     * 
+     * @return the size of the task list
+     */
+    public int size() {
+        return tasks.size();
+    }
+    
+    /**
+     * Returns the underlying ArrayList of tasks.
+     * 
+     * @return the ArrayList containing all tasks
+     */
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+    
+    /**
+     * Finds tasks that contain the specified keyword in their description.
+     * The search is case-insensitive.
+     * 
+     * @param keyword the keyword to search for
+     * @return ArrayList of tasks matching the keyword
+     */
+    public ArrayList<Task> find(String keyword) {
+        assert keyword != null && !keyword.trim().isEmpty() : "Keyword cannot be null or empty";
+        String lowerKeyword = keyword.toLowerCase();
+        return tasks.stream()
+            .filter(task -> task.getDescription().toLowerCase().contains(lowerKeyword))
+            .collect(Collectors.toCollection(ArrayList::new));
+    }
+}
