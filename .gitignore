@@ -3,15 +3,32 @@
 /out/
 /*.iml
 
+/.vscode/
+
 # Gradle build files
 /.gradle/
 /build/
 src/main/resources/docs/
+build.gradle
 
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
 bin/
 
+# Class files
+*.class
+
+# Jar files
+*.jar
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+#/src/main/java/bruh/data/
+
+/src/main/resources/data/
+
+tasks.txt
+
+
