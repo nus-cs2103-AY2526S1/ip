@@ -13,5 +13,13 @@ src/main/resources/docs/
 *.iml
 bin/
 
+
+# Ignore all JAR files
+*.jar
+
+# Ignore compiled Java class files
+*.class
+**/*.class
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

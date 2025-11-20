@@ -1,0 +1,6 @@
+todo read book
+deadline project meeting /by 2025-08-30
+event team meeting /from 2025-08-25 10:00 /to 2025-08-25 12:00
+list
+bye
+

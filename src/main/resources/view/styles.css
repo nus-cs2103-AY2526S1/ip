@@ -1,0 +1,51 @@
+/* styles.css - Modern, compact chat UI */
+
+.root {
+    -fx-font-family: 'Segoe UI', 'Arial', sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #f5f6fa;
+}
+
+.dialog-box {
+    -fx-spacing: 8px;
+    -fx-padding: 6 10 6 10;
+}
+
+.user-bubble {
+    -fx-background-color: #d1e7dd;
+    -fx-background-radius: 12px;
+    -fx-padding: 8 12 8 12;
+    -fx-text-fill: #222;
+}
+
+.jack-bubble {
+    -fx-background-color: #e7eaf6;
+    -fx-background-radius: 12px;
+    -fx-padding: 8 12 8 12;
+    -fx-text-fill: #222;
+}
+
+.dialog-image {
+    -fx-effect: dropshadow(gaussian, #bbb, 2, 0.2, 0, 1);
+    -fx-background-radius: 20px;
+}
+
+#dialogContainer {
+    -fx-background-color: #f5f6fa;
+    -fx-padding: 10 0 10 0;
+}
+
+.text-field, .button {
+    -fx-font-size: 13px;
+}
+
+.button {
+    -fx-background-color: #4f8cff;
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+}
+
+.button:hover {
+    -fx-background-color: #357ae8;
+}
+
