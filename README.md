@@ -1,26 +1,33 @@
-# Duke project template
+# TaskBot :book:
+TaskBot is a simple bot that manages your tasks through **simple** commands. It does:
+- Adding various types of tasks, specifying dates if needed
+- Listing tasks
+- Marking tasks as done or undone
+- Deleting tasks
+- Sorting tasks based on various parameters
+- Saving and loading tasks from local memory
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+All you need to do is:
+1. Head to [the site of my fork](https://github.com/salmonkarp/ip).
+2. Go to the Releases section
+3. Download the .jar file
+4. Put it into an empty folder, and run by clicking it or running `java -jar "taskBot.jar"` in a terminal.
+5. Learn how to use application with this [user guide](https://salmonkarp.github.io/ip/)
+6. Enjoy!
 
-## Setting up in Intellij
+Alternatively, you can also clone the repo and build it yourself:
+```
+git clone https://github.com/salmonkarp/ip.git
+```
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+What the plan is going forward:
+- [X] Create GUI using FXML
+- [X] Add more commands
+- [X] Use variable arguments
+- [X] Enhance GUI
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+> [!WARNING]
+> This is a project for CS2103T 25/26 S1.
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+_Accurate as of 15/9/2025_
+

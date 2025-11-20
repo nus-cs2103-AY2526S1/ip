@@ -13,5 +13,8 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+.vscode
+/text-printHelper-test/ACTUAL.TXT
+text-printHelper-test/EXPECTED-UNIX.TXT
+src/main/java/data
+
