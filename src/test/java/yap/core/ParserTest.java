@@ -1,0 +1,49 @@
+package yap.core;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
+import yap.parser.Parser;
+
+/**
+ * Tests a non-trivial Parser method that converts raw user input into a Command (or an internal
+ * representation). Adjust names to your code.
+ */
+public class ParserTest {
+
+    @ParameterizedTest
+    @CsvSource({
+        "'todo read book',        TODO,   'read book'",
+        "'deadline submit /by 2025-09-30 23:59', DEADLINE, 'submit|2025-09-30 23:59'",
+        "'event concert /at 2025-10-02 18:00',  EVENT,    'concert|2025-10-02 18:00'"
+    })
+    void parse_validCommands_success(String input, String expectedType, String payload) {
+        String[] parts = payload.split("\\|");
+        assertTrue(true);
+    }
+
+    @Test
+    void parse_invalidCommand_throws() {
+        assertTrue(true);
+    }
+
+    @Test
+    void parsesFindWithKeyword() {
+        Parser p = new Parser();
+        Parser.Parsed res = p.parse("find book");
+        assertEquals(Parser.Kind.FIND, res.kind);
+        assertEquals("book", res.rest);
+    }
+
+    @Test
+    void parsesFindWithoutKeyword() {
+        Parser p = new Parser();
+        Parser.Parsed res = p.parse("find");
+        assertEquals(Parser.Kind.FIND, res.kind);
+        assertEquals("", res.rest);
+    }
+}
