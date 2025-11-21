@@ -1,0 +1,16 @@
+/todo test statement 1
+/deadline test statement 2 /by 2028-11-15T15:45:00
+/event test statement 3 /from 2028-11-15T15:45:00 /to 2029-11-15T15:45:00
+/list
+/mark 2
+/mark 3
+/list
+/list ongoing
+/list upcoming
+/unmark 3
+/list
+/delete 2
+/list
+/mark 2
+/list
+/exit
