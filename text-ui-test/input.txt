@@ -1,0 +1,17 @@
+todo read book
+deadline return book /by 2025-01-01 10:00
+event book club /from 2025-01-01 10:00 /to 2025-02-01 10:00
+list
+mark 1
+list
+unmark 1
+list
+todo
+deadline /by 2025-01-01 10:00
+deadline hey
+event /from 2025-01-01 10:00 /to 2025-01-01 10:00
+event sleep /from 2025-01-01 10:00
+event sleep /to 2025-01-01 10:00
+test
+delete 1
+bye

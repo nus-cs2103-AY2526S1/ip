@@ -1,0 +1,120 @@
+package chuck.task;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+import chuck.ChuckException;
+import chuck.command.Parser;
+
+/**
+ * Represents a task with a deadline (due by specific date/time).
+ * Extends the basic Task functionality with a deadline date and time.
+ */
+public class Deadline extends Task {
+    public static final String TYPE_SYMBOL = "D";
+    protected LocalDateTime by;
+
+    /**
+     * Creates a new deadline task with description and due date.
+     *
+     * @param description the description of the deadline task
+     * @param by the date and time when the task is due
+     */
+    public Deadline(String description, LocalDateTime by) {
+        super(description);
+        this.by = by;
+    }
+
+    /**
+     * Creates a new deadline task with description, completion status, and due date.
+     *
+     * @param description the description of the deadline task
+     * @param isDone whether the deadline task is completed
+     * @param by the date and time when the task is due
+     */
+    public Deadline(String description, boolean isDone, LocalDateTime by) {
+        super(description, isDone);
+        this.by = by;
+    }
+
+    /**
+     * Creates a new deadline task with description, completion status, due date, and tags.
+     *
+     * @param description the description of the deadline task
+     * @param isDone whether the deadline task is completed
+     * @param by the date and time when the task is due
+     * @param tags the set of tags for this deadline
+     */
+    public Deadline(String description, boolean isDone, LocalDateTime by, Set<String> tags) {
+        super(description, isDone, tags);
+        this.by = by;
+    }
+
+
+    /**
+     * Returns formatted string with [D] prefix and deadline information.
+     *
+     * @return string representation with deadline type indicator and due date
+     */
+    @Override
+    public String toString() {
+        return String.format("[%s]%s (by: %s)", TYPE_SYMBOL, super.toString(), Parser.formatDateTime(this.by));
+    }
+
+    /**
+     * Returns formatted display string with Deadline icon and due date.
+     *
+     * @return nicely formatted deadline string for GUI display
+     */
+    @Override
+    public String toDisplayString() {
+        StringBuilder display = new StringBuilder();
+
+        // Status with simple symbols
+        display.append(isDone ? "[✓] " : "[ ] ");
+
+        // Deadline icon and description
+        display.append("DEADLINE: ").append(description);
+
+        // Due date
+        display.append("\n   Due: ").append(Parser.formatDateTime(this.by));
+
+        // Tags with nice formatting
+        if (!tags.isEmpty()) {
+            display.append("\n   Tags: ").append(String.join(", ", tags));
+        }
+
+        return display.toString();
+    }
+
+    /**
+     * Returns formatted string for file storage with deadline data.
+     *
+     * @return string representation suitable for saving to file with due date
+     */
+    @Override
+    public String toSaveString() {
+        return String.format("%s | %s | %s", TYPE_SYMBOL, super.toSaveString(), Parser.formatDateTimeForSave(this.by));
+    }
+
+    /**
+     * Creates a Deadline from a saved string line.
+     *
+     * @param line the saved string line in format "D | isDone | description | tags | dueDate"
+     * @return Deadline instance parsed from the save string
+     */
+    public static Deadline fromSaveString(String line) throws ChuckException {
+        String[] data = line.split("\\|");
+        boolean isDone = Boolean.parseBoolean(data[1].trim());
+        String description = data[2].trim();
+        String tagString = data[3].trim();
+        String dueDate = data[4].trim();
+        Set<String> tags = tagString.isEmpty() ? new HashSet<>()
+                : new HashSet<>(Arrays.asList(tagString.split(",")));
+
+        LocalDateTime byDateTime = Parser.parseDateTime(dueDate);
+        return new Deadline(description, isDone, byDateTime, tags);
+    }
+}
