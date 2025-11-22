@@ -1,0 +1,56 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #ffd5bd, #f99d80);
+    -fx-border-color: #eb7037;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.add-label {
+    -fx-background-color: yellow;
+}
+
+.marked-label {
+    -fx-background-color: palegreen;
+}
+
+.delete-label {
+    -fx-background-color: lightpink;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+
+/* Used GitHub Copilot to generate the following CSS code for user label. */
+.user-label {
+    -fx-background-color: linear-gradient(to bottom right, #fff3ee, #ffd6cc);
+    -fx-border-color: #ffb3a7;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+/* Used GitHub Copilot to generate the following CSS code for error label. */
+.error-label {
+    -fx-background-color: linear-gradient(to bottom right, #ffb3b3, #ff4d4d);
+    -fx-border-color: #d90000;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-text-fill: #800000;
+    -fx-font-weight: bold;
+}

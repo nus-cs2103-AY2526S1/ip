@@ -1,0 +1,5 @@
+deadline return book /by Sunday
+deadline complete quizzes /by friday
+event meeting /from fri 10 /to fri 11
+list
+bye

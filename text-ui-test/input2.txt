@@ -1,0 +1,7 @@
+list
+deadline exercise /by this week
+event competition /from sat /to sun
+list
+mark 1
+todo buy gift
+bye
