@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Polygon?>
+<fx:root alignment="TOP_RIGHT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         prefWidth="400.0"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <VBox alignment="CENTER_LEFT" spacing="0">
+      <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity"
+             style="-fx-background-color: #E0FFE0;
+                          -fx-background-radius: 10;
+                          -fx-padding: 10;
+                          -fx-font-family: 'Comic Sans MS';
+                          -fx-font-size: 13px;
+                          -fx-text-fill: #333;" />
+      <Polygon fx:id="bubbleArrow"
+               points="20,0, 40,0, 50,10"
+               fill="#E0FFE0" />
+    </VBox>
+    <StackPane maxHeight="99.0" minWidth="99.0" style="-fx-border-color: white; -fx-border-width: 3; -fx-border-radius: 13; -fx-background-radius: 15;">
+      <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="false" />
+    </StackPane>
+  </children>
+  <padding>
+    <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+  </padding>
+</fx:root>

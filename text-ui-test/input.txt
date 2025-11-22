@@ -1,0 +1,1 @@
+addcontact ah seng /firstname Jin Seng /lastname Tee /phone 80573966 /email teejinsengs@gmail.com /birthday 13-04-2004
