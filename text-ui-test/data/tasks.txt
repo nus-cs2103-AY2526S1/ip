@@ -1,0 +1,5 @@
+D | 0 | pay John | 2025-09-01
+E | 0 | team meeting | Mon 2pm-4pm
+T | 0 | clean room
+D | 0 | homework | 2025-09-05
+E | 0 | dentist appointment | Tue 10am-11am

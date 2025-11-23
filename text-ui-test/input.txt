@@ -1,0 +1,14 @@
+list
+todo buy milk
+deadline pay John /by 2025-09-01
+event team meeting /from Mon 2pm /to 4pm
+list
+mark 2
+unmark 2
+delete 1
+list
+todo clean room
+deadline homework /by 2025-09-05
+event dentist appointment /from Tue 10am /to 11am
+list
+bye

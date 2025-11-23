@@ -1,0 +1,4 @@
+T | 1 | Take-home assignment
+D | 0 | Submit proposal | 2025-09-25
+E | 0 | Team project meeting | 2025-09-22 2pm-4pm
+W | 0 | Clean-up room | 2 hours

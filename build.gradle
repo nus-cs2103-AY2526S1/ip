@@ -1,0 +1,77 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+def fxVersion = '17.0.10'
+
+dependencies {
+    implementation "org.openjfx:javafx-controls:${fxVersion}"
+    implementation "org.openjfx:javafx-fxml:${fxVersion}"
+
+    runtimeOnly "org.openjfx:javafx-controls:${fxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-controls:${fxVersion}:linux"
+    runtimeOnly "org.openjfx:javafx-controls:${fxVersion}:mac"
+
+    runtimeOnly "org.openjfx:javafx-base:${fxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-base:${fxVersion}:linux"
+    runtimeOnly "org.openjfx:javafx-base:${fxVersion}:mac"
+
+    runtimeOnly "org.openjfx:javafx-graphics:${fxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-graphics:${fxVersion}:linux"
+    runtimeOnly "org.openjfx:javafx-graphics:${fxVersion}:mac"
+
+    runtimeOnly "org.openjfx:javafx-fxml:${fxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-fxml:${fxVersion}:linux"
+    runtimeOnly "org.openjfx:javafx-fxml:${fxVersion}:mac"
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly   'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+}
+
+javafx {
+    version = fxVersion
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(17) }
+}
+tasks.withType(JavaCompile).configureEach {
+    options.release = 17
+}
+
+checkstyle { toolVersion = '11.0.1' }
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass.set("conversal.Launcher")
+}
+
+shadowJar {
+    archiveBaseName = "conversal"
+    archiveClassifier = null
+    mergeServiceFiles()
+}
+
+run {
+    standardInput = System.in
+}
