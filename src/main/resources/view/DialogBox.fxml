@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1"
+         alignment="TOP_LEFT"
+         spacing="10">
+
+    <!-- Profile picture -->
+    <children>
+        <ImageView fx:id="displayPicture"
+                   fitHeight="50.0" fitWidth="50.0"
+                   pickOnBounds="true"
+                   preserveRatio="true" />
+
+        <!-- Message bubble -->
+        <Label fx:id="dialog"
+               wrapText="true"
+               minHeight="-Infinity" />
+    </children>
+
+    <!-- Padding around the HBox -->
+    <padding>
+        <Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/>
+    </padding>
+</fx:root>
+

@@ -1,0 +1,15 @@
+/* User messages (blue bubble, white text) */
+.user-bubble {
+    -fx-background-color: #3498db; /* blue bubble */
+    -fx-text-fill: white;           /* white text */
+    -fx-background-radius: 15;      /* rounded corners */
+    -fx-padding: 10 15;             /* inner padding */
+}
+
+/* Bot messages (gray bubble, black text) */
+.bot-bubble {
+    -fx-background-color: #dfe6e9; /* light gray bubble */
+    -fx-text-fill: black;           /* black text */
+    -fx-background-radius: 15;      /* rounded corners */
+    -fx-padding: 10 15;             /* inner padding */
+}
