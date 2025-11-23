@@ -1,0 +1,74 @@
+package parser;
+
+import command.*;
+import task.ClamAction;
+
+/**
+ * A utility class for parsing user input and returning the
+ * corresponding {@link Command} object or {@link ClamAction} enum value.
+ */
+public class Parser {
+
+    /**
+     * Parses a string as user input and returns a {@link Command} object.
+     * <p>
+     * The code returns a {@link Command} based on the first keyword in the
+     * input string (separated by space). The resulting {@link Command} is
+     * initialised with the input for its own use during its execution.
+     * </p>
+     * @param input the user input
+     * @return the {@link Command} corresponding to the input
+     */
+    public static Command parse(String input) {
+        assert !input.isEmpty();
+        if (input.startsWith("list")) {
+            return new ListCommand(input);
+        } else if (input.startsWith("bye")) {
+            return new ExitCommand(input);
+        } else if (input.startsWith("mark")) {
+            return new MarkCommand(input);
+        } else if (input.startsWith("unmark")) {
+            return new UnmarkCommand(input);
+        } else if (input.startsWith("delete")) {
+            return new DeleteCommand(input);
+        } else if (input.startsWith("todo")) {
+            return new TodoCommand(input);
+        } else if (input.startsWith("deadline")) {
+            return new DeadlineCommand(input);
+        } else if (input.startsWith("event")) {
+            return new EventCommand(input);
+        } else if (input.startsWith("find")) {
+            return new FindCommand(input);
+        } else if (input.startsWith("help")) {
+            return new HelpCommand(input);
+        } else if (input.startsWith("debug")) {
+            return new DebugCommand(input);
+        } else {
+            return new UnknownCommand(input);
+        }
+    }
+
+
+    /**
+     * Parses a string as user input and returns a {@link ClamAction} enum value.
+     * <p>
+     * The code returns a {@link ClamAction} enum value based on the first keyword in the
+     * input string (separated by space). The resulting {@link ClamAction} enum value
+     * can be used to run command-specific logic.
+     * </p>
+     * @param input the user input
+     * @return the {@link ClamAction} enum value corresponding to the input
+     */
+    public static ClamAction parseInput(String input) {
+        assert !input.isEmpty();
+        if (input.startsWith("todo")) {
+            return ClamAction.CREATE_TODO;
+        } else if (input.startsWith("deadline")) {
+            return ClamAction.CREATE_DEADLINE;
+        } else if (input.startsWith("event")) {
+            return ClamAction.CREATE_EVENT;
+        } else {
+            return null;
+        }
+    }
+}
