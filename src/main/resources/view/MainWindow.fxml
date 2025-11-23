@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="rootPane"
+            xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx/17.0.2"
+            fx:controller="Mithrandir.ui.MainWindow"
+            minHeight="600.0"
+            minWidth="400.0"
+            prefHeight="600.0"
+            prefWidth="400.0"
+            stylesheets="@MainWindow.css">
+
+    <children>
+        <ScrollPane fx:id="scrollPane"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.bottomAnchor="42.0"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="ALWAYS"
+                    pannable="true"
+                    stylesheets="@ScrollPane.css">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      fillWidth="true"
+                      AnchorPane.leftAnchor="0.0"
+                      AnchorPane.rightAnchor="0.0"/>
+            </content>
+        </ScrollPane>
+
+        <HBox fx:id="inputHBox"
+              spacing="5.0"
+              AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0"
+              AnchorPane.bottomAnchor="0.0"
+              prefHeight="41.0">
+            <children>
+                <TextField fx:id="userInput"
+                           HBox.hgrow="ALWAYS"
+                           onAction="#handleUserInput"/>
+                <Button fx:id="sendButton"
+                        text="Send"
+                        onAction="#handleUserInput"/>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
+
+

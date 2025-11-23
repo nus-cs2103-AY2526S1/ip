@@ -1,0 +1,28 @@
+#rootPane {
+    -fx-background-image: url("/images/canvas.jpg"); /* path to your image */
+    -fx-background-repeat: no-repeat;                   /* don't repeat the image */
+    -fx-background-size: cover;                         /* scale image to cover pane */
+    -fx-background-position: center center;            /* center the image */
+}
+
+/* Style the HBox containing the input field and send button */
+#inputHBox {
+    -fx-padding: 10px 12px;  /* top/bottom 10px, left/right 12px */
+    -fx-spacing: 8px;        /* space between TextField and Button */
+    -fx-background-color: transparent; /* optional, keep it transparent */
+}
+
+/* Padding inside the user input text field */
+#userInput {
+    -fx-padding: 8px 12px;   /* top/bottom 8px, left/right 12px */
+    -fx-font-size: 14px;     /* readable text */
+    -fx-background-radius: 8px; /* rounded corners */
+}
+
+/* Padding inside the send button */
+#sendButton {
+    -fx-padding: 8px 16px;   /* top/bottom 8px, left/right 16px */
+    -fx-font-size: 14px;     /* match text field */
+    -fx-background-radius: 8px; /* rounded corners */
+    -fx-cursor: hand;        /* pointer on hover */
+}

@@ -1,0 +1,28 @@
+/* Style for the root HBox of the DialogBox */
+.fx-root {
+    -fx-background-color: transparent; /* HBox itself is transparent */
+}
+
+/* Style for the Label inside the dialog box */
+#dialog {
+    -fx-background-color: #FFF9E6;        /* milky-yellow background */
+    -fx-border-color: gold;                /* golden border */
+    -fx-border-width: 3px;                 /* thickness of the border */
+    -fx-border-radius: 5px;               /* rounded corners */
+    -fx-background-radius: 10px;           /* rounded corners for background */
+    -fx-padding: 10px;                      /* padding inside the rectangle */
+    -fx-font-size: 16px;                    /* font size */
+    -fx-font-family: "monospace";               /* font family */
+    -fx-wrap-text: true;                    /* wrap text inside the rectangle */
+}
+
+/* Optional: slightly lighter background on hover */
+#dialog:hover {
+    -fx-background-color: #FFF6D9;
+}
+
+/* ImageView style (optional) */
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2); /* subtle shadow */
+    -fx-padding: 5px;
+}

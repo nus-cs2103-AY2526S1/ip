@@ -1,0 +1,11 @@
+TODO Write codes
+deadline write codes /by 22/08/2025 1600
+Event submit quiz /from 15-08-2025 /to 22/Aug/2025
+list
+mark 1
+mark 1
+list
+unmark 1
+unmark 1
+list
+bye

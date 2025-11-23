@@ -1,0 +1,21 @@
+#scrollPane {
+    -fx-background-color: transparent;  /* make ScrollPane background transparent */
+    -fx-padding: 10;                     /* optional padding inside the scroll pane */
+}
+
+/* Style for the viewport (the area that shows content) */
+#scrollPane .viewport {
+    -fx-background-color: transparent;  /* make the viewport background transparent */
+}
+
+/* Vertical scrollbar */
+#scrollPane .scroll-bar:vertical {
+    -fx-background-color: transparent;      /* transparent background for the scrollbar track */
+    -fx-pref-width: 8px;                    /* narrow scrollbar */
+}
+
+#scrollPane .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(100,100,100,0.5);  /* thumb color */
+    -fx-background-insets: 0;
+    -fx-background-radius: 4px;                     /* rounded scrollbar */
+}
