@@ -1,0 +1,126 @@
+/* Dialog Box CSS - Message bubble styling and animations */
+
+/* Base label styling with modern effects */
+.label {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-width: 1px;
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-padding: 12px 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.3, 0, 2);
+    -fx-wrap-text: true;
+    -fx-text-alignment: left;
+}
+
+/* User message styling */
+.user-label {
+    -fx-background-color: linear-gradient(to bottom, #667eea, #764ba2);
+    -fx-border-color: rgba(255, 255, 255, 0.4);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 15px 15px 5px 15px;
+    -fx-border-radius: 15px 15px 5px 15px;
+}
+
+/* Stewie reply styling - flipped bubble design */
+.reply-label {
+    -fx-background-radius: 15px 15px 15px 5px;
+    -fx-border-radius: 15px 15px 15px 5px;
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-text-fill: #2c3e50;
+    -fx-border-color: rgba(52, 73, 94, 0.2);
+}
+
+/* Command-specific styling with modern colors */
+.add-label {
+    -fx-background-color: linear-gradient(to bottom, #56ab2f, #a8e6cf);
+    -fx-border-color: rgba(86, 171, 47, 0.4);
+    -fx-text-fill: white;
+}
+
+.marked-label {
+    -fx-background-color: linear-gradient(to bottom, #11998e, #38ef7d);
+    -fx-border-color: rgba(17, 153, 142, 0.4);
+    -fx-text-fill: white;
+}
+
+.delete-label {
+    -fx-background-color: linear-gradient(to bottom, #ff416c, #ff4757);
+    -fx-border-color: rgba(255, 65, 108, 0.4);
+    -fx-text-fill: white;
+}
+
+.info-label {
+    -fx-background-color: linear-gradient(to bottom, #3742fa, #2f3542);
+    -fx-border-color: rgba(55, 66, 250, 0.4);
+    -fx-text-fill: white;
+}
+
+.default-label {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-border-color: rgba(116, 75, 162, 0.3);
+    -fx-text-fill: #2c3e50;
+}
+
+/* Enhanced display picture styling */
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 15, 0.5, 3, 3);
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+}
+
+/* Profile picture with circular border effect */
+.profile-picture {
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-border-color: rgba(255, 255, 255, 0.5);
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 12, 0.4, 2, 2);
+}
+
+/* Typing animation effects */
+.typing-indicator {
+    -fx-opacity: 1;
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-text-fill: rgba(255, 255, 255, 0.8);
+    -fx-font-style: italic;
+}
+
+.typing-partial {
+    -fx-opacity: 1;
+}
+
+/* Special styling for error messages */
+.error-label {
+    -fx-background-color: linear-gradient(to bottom, #ff6b6b, #ee5a52);
+    -fx-border-color: rgba(255, 107, 107, 0.4);
+    -fx-text-fill: white;
+}
+
+/* Special styling for warning messages */
+.warning-label {
+    -fx-background-color: linear-gradient(to bottom, #ffa726, #ff9800);
+    -fx-border-color: rgba(255, 167, 38, 0.4);
+    -fx-text-fill: white;
+}
+
+/* Special styling for system messages */
+.system-label {
+    -fx-background-color: rgba(100, 100, 100, 0.8);
+    -fx-text-fill: white;
+    -fx-font-style: italic;
+    -fx-font-size: 12px;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-padding: 8px 12px;
+}
+
+/* Message bubble hover effects */
+.label:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 15, 0.4, 0, 3);
+}

@@ -1,0 +1,4 @@
+E | 1 | CS2103T Tutorial | 18/09/2025 09:00 | 18/09/2025 10:00
+D | 0 | CS2103T Week 6 Quiz | 19/09/2025 23:59
+T | 1 | Watch CS2103T Week 5 -> 6 Briefing
+E | 1 | CS2103T tP Meeting | 22/09/2025 14:00 | 22/09/2025 16:00

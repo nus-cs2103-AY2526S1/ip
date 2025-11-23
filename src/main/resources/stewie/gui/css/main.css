@@ -1,0 +1,205 @@
+/* Main Window CSS - Overall application styling */
+
+/* Root styling with gradient background and modern typography */
+.root {
+    -fx-background-color: linear-gradient(to bottom, #667eea, #764ba2);
+    -fx-font-family: "Inter", "SF Pro Display", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+    -fx-background-image: url("../images/background.png"); /* Set image */
+    -fx-background-size: stretch;
+    -fx-font-size: 14px;
+}
+
+/* Modern text field styling with better typography */
+.text-field {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-radius: 25px;
+    -fx-background-radius: 25px;
+    -fx-font-size: 15px;
+    -fx-font-family: "Inter", "SF Pro Display", "Segoe UI", "Roboto", Arial, sans-serif;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 12px 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0.3, 0, 1);
+    -fx-prompt-text-fill: rgba(44, 62, 80, 0.6);
+}
+
+.text-field:focused {
+    -fx-border-color: #667eea;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.3), 8, 0.5, 0, 0);
+}
+
+/* Enhanced button styling with better typography */
+.button {
+    -fx-background-color: linear-gradient(to bottom, #667eea, #764ba2);
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Inter", "SF Pro Display", "Segoe UI", "Roboto", Arial, sans-serif;
+    -fx-background-radius: 25px;
+    -fx-border-radius: 25px;
+    -fx-padding: 12px 24px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 8, 0.3, 0, 2);
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.button:hover, .button-ready {
+    -fx-background-color: linear-gradient(to bottom, #764ba2, #667eea);
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.4), 12, 0.5, 0, 3);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.button:pressed {
+    -fx-background-color: linear-gradient(to bottom, #5a67d8, #6b46c1);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0.5, 0, 1);
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+.button:disabled {
+    -fx-background-color: #c8c8c8;
+    -fx-text-fill: rgba(255, 255, 255, 0.7);
+    -fx-effect: none;
+    -fx-cursor: default;
+}
+
+/* Enhanced scroll pane styling */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .corner {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-radius: 10px;
+    -fx-pref-width: 12px;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.4);
+    -fx-background-radius: 10px;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
+}
+
+.scroll-pane .scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Modern scroll bar styling */
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-background-radius: 15px;
+    -fx-padding: 5px;
+}
+
+.scroll-bar .track {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-radius: 15px;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.4);
+    -fx-background-radius: 15px;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
+}
+
+.scroll-bar .thumb:pressed {
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Hide scroll bar increment/decrement buttons */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+    -fx-opacity: 0;
+}
+
+/* Status label styling */
+.status-ready {
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+.status-processing {
+    -fx-text-fill: #f39c12;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.status-success {
+    -fx-text-fill: #2ecc71;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.status-warning {
+    -fx-text-fill: #e67e22;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.status-error {
+    -fx-text-fill: #e74c3c;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.status-info {
+    -fx-text-fill: #3498db;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+/* Ensure content can grow */
+.dialog-container {
+    -fx-min-height: -1;
+    -fx-pref-height: -1;
+    -fx-max-height: -1;
+}
+
+/* Dialog container spacing */
+.dialog-container > * {
+    -fx-spacing: 8px;
+}
+
+/* Header styling */
+.header-title {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Inter", "SF Pro Display", "Segoe UI", "Roboto", Arial, sans-serif;
+    -fx-letter-spacing: 0.5px;
+}
+
+/* Input area styling */
+.input-area {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+    -fx-border-color: rgba(255, 255, 255, 0.2);
+    -fx-border-width: 1px 0 0 0;
+}
