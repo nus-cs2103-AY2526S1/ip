@@ -1,0 +1,128 @@
+/* Main window styling */
+.anchor-pane {
+    -fx-background-color: #f0f2f5;
+    -fx-background-image: url("/images/background.png");
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+    -fx-background-repeat: stretch;
+    -fx-padding: 0;
+    -fx-margin: 0;
+}
+
+/* ScrollPane styling */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+    -fx-background-insets: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-background-image: none;
+}
+
+/* Custom scrollbar */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: #e1e4e8;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #a0a4a8;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #909498;
+}
+
+/* Dialog box styling */
+.dialog-box {
+    -fx-padding: 10 15 10 15;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+}
+
+.dialog {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-wrap-text: true;
+    -fx-padding: 10 15 10 15;
+    -fx-background-radius: 15;
+    -fx-max-width: 300px;
+}
+
+/* User message */
+.user-dialog {
+    -fx-background-color: rgba(0, 120, 255, 0.9);
+    -fx-text-fill: white;
+    -fx-background-radius: 15 15 0 15;
+}
+
+/* Burh message */
+.burh-dialog {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-text-fill: #333;
+    -fx-background-radius: 15 15 15 0;
+}
+
+/* Display picture */
+.display-picture {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 2);
+}
+
+/* Input area */
+.input-area {
+    -fx-padding: 15;
+    -fx-spacing: 10;
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, -2);
+}
+
+/* Text field */
+.text-field {
+    -fx-padding: 12 15;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #e1e4e8;
+    -fx-border-width: 1.5;
+    -fx-font-size: 14;
+}
+
+.text-field:focused {
+    -fx-border-color: #0078ff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,120,255,0.2), 5, 0, 0, 2);
+}
+
+/* Send button */
+.button {
+    -fx-background-color: #0078ff;
+    -fx-text-fill: white;
+    -fx-background-radius: 20;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #0066e0;
+}
+
+.button:pressed {
+    -fx-background-color: #0052b3;
+}
+
+/* Welcome message */
+.welcome-message {
+    -fx-font-size: 16px;
+    -fx-text-fill: #555;
+    -fx-font-style: italic;
+    -fx-padding: 15;
+    -fx-alignment: center;
+}

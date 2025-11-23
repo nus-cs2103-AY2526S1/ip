@@ -1,0 +1,4 @@
+todo buy chip
+deadline buy apple /by tmr
+event eat apple /from tmr /to day after
+bye

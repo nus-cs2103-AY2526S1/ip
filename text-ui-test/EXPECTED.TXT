@@ -1,7 +1,17 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Bello! I'm Burh
+What can I do for you?
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+added:
+[T][  ] buy chip
+Burh, you have 1 tasks now!
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+added:
+[D][  ] buy apple  (by:tmr)
+Burh, you have 2 tasks now!
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+added:
+[E][  ] eat apple  (from: tmr to: day after)
+Burh, you have 3 tasks now!
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+Burh, goodbye!
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
