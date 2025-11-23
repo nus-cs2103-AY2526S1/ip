@@ -1,0 +1,4 @@
+T | 1 | read book
+T | 1 | buy tomato
+D | 1 | cs2103t week6 ip | 2025-09-22
+E | 0 | Recess | 2025-09-21 | 2025-09-28

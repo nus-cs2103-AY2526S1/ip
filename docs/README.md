@@ -1,30 +1,38 @@
-# Duke User Guide
+# Jinwoo Chatbot
 
-// Update the title above to match the actual product name
+![Product Ui](Ui.png)
 
-// Product screenshot goes here
+## Table of Contents
 
-// Product intro goes here
+- [Introduction](#introduction)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Output Examples](#output-examples)
 
-## Adding deadlines
+---
 
-// Describe the action and its outcome.
+## Introduction
 
-// Give examples of usage
+Jinwoo is named after Sung-Jinwoo from Solo Leveling.
+Jinwoo chatbot is a product to help users plan activities and save tasks to do.
 
-Example: `keyword (optional arguments)`
+## Features
 
-// A description of the expected outcome goes here
+- Add/Delete tasks suported
+- Mark/Unmark tasks supported
+- List, Find tasks supported
+- Undo last activity supported
 
-```
-expected output
-```
+## Getting Started
+- Add tasks : 1. Todo(`todo "name"`)  2. Deadline(`deadline "name" /by yyyy-MM-dd `) 3. Event(`event "name" /from yyyy-MM-dd /to yyyy-MM-dd`)
+- Delete tasks : (`delete taskNumber`)
+- Mark/Unmark : (`mark/unmark taskNumber`)
+- List : (`list`)
+- Find : (`find "string"`)
+- Undo : (`undo`)
+- Exit : (`bye`)
 
-## Feature ABC
+## Output Examples
+- [ ] read book
+- [X] Assignment 1 (by: Sep 22 2025)
 
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
