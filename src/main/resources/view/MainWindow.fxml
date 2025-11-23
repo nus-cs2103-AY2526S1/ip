@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="dabot.gui.MainWindow">
+
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" prefHeight="480" prefWidth="340" hbarPolicy="NEVER">
+            <content>
+                <VBox fx:id="dialogContainer" spacing="6" styleClass="dialog-container"/>
+            </content>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <HBox spacing="8">
+            <padding>
+                <Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/>
+            </padding>
+            <TextField fx:id="userInput" HBox.hgrow="ALWAYS" onAction="#handleUserInput"/>
+            <Button fx:id="sendButton" text="Send" onAction="#handleUserInput"/>
+        </HBox>
+    </bottom>
+
+    <padding>
+        <Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/>
+    </padding>
+</BorderPane>
