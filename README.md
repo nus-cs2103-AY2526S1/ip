@@ -1,26 +1,59 @@
-# Duke project template
+# 🍔 BurgerBurglar User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Welcome to **BurgerBurglar**, your friendly task-managing chatbot. This guide will walk you through the setup and key features so you can get started right away.
 
-## Setting up in Intellij
+---
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Product Screenshot
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+The screenshot below shows the full GUI window of BurgerBurglar.
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+![BurgerBurglar GUI](docs/Ui.png)
+
+---
+
+## Getting Started
+
+1. Download and run the BurgerBurglar application.
+2. A window will appear with a text box for commands and a display area for tasks.
+3. Type your commands into the input box and press **Enter**.
+
+That’s it — BurgerBurglar will handle the rest.
+
+---
+
+## ✨ Features
+
+BurgerBurglar supports the following commands:
+
+| Command | Format | Description |
+|---------|--------|-------------|
+| `todo` | `todo <description>` | Add a Todo task |
+| `deadline` | `deadline <description> /by <yyyy-MM-dd HHmm>` | Add a Deadline task with a due date |
+| `event` | `event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>` | Add an Event with a start and end time |
+| `list` | `list` | Show all tasks |
+| `mark` | `mark <index>` | Mark a task as done |
+| `unmark` | `unmark <index>` | Unmark a completed task |
+| `delete` | `delete <index>` | Delete a task |
+| `find` | `find <keyword>` | Search for tasks by keyword |
+| `help` | `help` | Show the help menu |
+| `bye` | `bye` | Exit the program |
+| `burger` | `burger` | 🍔 Bonus command |
+
+---
+
+## 📷 Example Usage
+
+Here are some sample screenshots showing BurgerBurglar in action:
+
+![some commands](docs/listandmark.png)
+
+![more commands](docs/morecommands.png)
+
+---
+
+## Tips
+
+- Dates and times must follow the format: `yyyy-MM-dd HHmm`.  
+  Example: `deadline Submit report /by 2025-09-20 2359`
+- Commands are mostly case-insensitive. Use lowercase.

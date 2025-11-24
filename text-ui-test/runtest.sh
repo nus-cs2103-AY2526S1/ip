@@ -1,38 +1,46 @@
 #!/usr/bin/env bash
 
+# Set paths
+SRC_DIR="../src/main/java"
+BIN_DIR="../bin"
+INPUT_FILE="text-ui-test/input.txt"
+ACTUAL_FILE="text-ui-test/ACTUAL.TXT"
+EXPECTED_FILE="text-ui-test/EXPECTED.TXT"
+EXPECTED_UNIX="text-ui-test/EXPECTED-UNIX.TXT"
+MAIN_CLASS="BurgerBurglar"
+
 # create bin directory if it doesn't exist
-if [ ! -d "../bin" ]
-then
-    mkdir ../bin
-fi
+mkdir -p "$BIN_DIR"
 
-# delete output from previous run
-if [ -e "./ACTUAL.TXT" ]
-then
-    rm ACTUAL.TXT
-fi
+# delete previous output
+rm -f "$ACTUAL_FILE"
 
-# compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
-then
+# compile Java files
+if ! javac -Xlint:none -d "$BIN_DIR" src/main/java/*.java; then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
-# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+# run program with input redirection
+java -cp "$BIN_DIR" "$MAIN_CLASS" < "$INPUT_FILE" > "$ACTUAL_FILE"
 
-# convert to UNIX format
-cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
+# convert to UNIX format (use sed if dos2unix is missing)
+if command -v dos2unix >/dev/null 2>&1; then
+    cp "$EXPECTED_FILE" "$EXPECTED_UNIX"
+    dos2unix "$ACTUAL_FILE" "$EXPECTED_UNIX"
+else
+    # fallback: remove \r manually
+    cp "$EXPECTED_FILE" "$EXPECTED_UNIX"
+    sed -i '' 's/\r$//' "$ACTUAL_FILE"
+    sed -i '' 's/\r$//' "$EXPECTED_UNIX"
+fi
 
-# compare the output to the expected output
-diff ACTUAL.TXT EXPECTED-UNIX.TXT
-if [ $? -eq 0 ]
-then
+# compare output
+if diff "$ACTUAL_FILE" "$EXPECTED_UNIX" >/dev/null; then
     echo "Test result: PASSED"
     exit 0
 else
     echo "Test result: FAILED"
+    diff "$ACTUAL_FILE" "$EXPECTED_UNIX"
     exit 1
 fi
