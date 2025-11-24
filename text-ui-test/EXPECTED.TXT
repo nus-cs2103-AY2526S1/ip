@@ -1,7 +1,62 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Upah! I'm Woop
+What can I do for you?
+Upah! You're busy! I added this task:
+  [T][ ] help x
+You have 1 task(s) now
+Upah! You're busy! I added this task:
+  [T][ ] help y
+You have 2 task(s) now
+Upah! You're busy! I added this task:
+  [D][ ] return book (by: NOV 19 2024)
+You have 3 task(s) now
+Upah! You're busy! I added this task:
+  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+You have 4 task(s) now
+Upah! This task has been completed!
+  [T][X] help x
+Upah! I have detected several tasks
+1 [T][X] help x
+2 [T][ ] help y
+3 [D][ ] return book (by: NOV 19 2024)
+4 [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Upah? The task has was not completed after all :(
+  [T][ ] help y
+Upah! I have detected several tasks
+1 [T][X] help x
+2 [T][ ] help y
+3 [D][ ] return book (by: NOV 19 2024)
+4 [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Upah? The task has was not completed after all :(
+  [T][ ] help x
+Upah! I have detected several tasks
+1 [T][ ] help x
+2 [T][ ] help y
+3 [D][ ] return book (by: NOV 19 2024)
+4 [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Upah! The command mark needs a valid description!
+Upah! The command unmark needs a valid description!
+Upah! The command todo needs a valid description!
+Upah! The command deadline needs a valid description!
+Upah! The command event needs a valid description!
+Upah! This task has been completed!
+  [E][X] project meeting (from: Mon 2pm to: 4pm)
+Upah! What is hi?
+Upah? The task has was not completed after all :(
+  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Upah! I have detected several tasks
+1 [T][ ] help x
+2 [T][ ] help y
+3 [D][ ] return book (by: NOV 19 2024)
+4 [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Upah! I have deleted the task
+  [D][ ] return book (by: NOV 19 2024)
+Upah! I have detected several tasks
+1 [T][ ] help x
+2 [T][ ] help y
+3 [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Upah! I have deleted the task
+  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Upah! I have detected several tasks
+1 [T][ ] help x
+2 [T][ ] help y
+Upah! Hope to see you again soon!
