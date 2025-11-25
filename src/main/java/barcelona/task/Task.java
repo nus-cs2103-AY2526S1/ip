@@ -1,0 +1,45 @@
+package barcelona.task;
+
+/**
+ * Represents a general task with a description.
+ * <p>
+ * The {@code Task} class is an abstract representation of something
+ * that needs to be done. It stores a textual description of the task
+ * and can be extended by more specific task types (e.g., {@link Todos}).
+ * </p>
+ */
+public abstract class Task {
+    protected String description;
+    protected boolean isDone;
+
+    /**
+     * Parent class constructor
+     * @param description - description of task
+     */
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
+
+    public String getStatusIcon() {
+        return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    public void markAsUndone() {
+        this.isDone = false;
+    }
+
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.description;
+    }
+
+    /**
+     * Converts each Task object to a storable format to be written to txt file
+     * @return String representation of exported task
+     */
+    public abstract String export();
+}
