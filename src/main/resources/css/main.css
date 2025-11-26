@@ -1,0 +1,50 @@
+.root {
+    /* Replace background color with wallpaper image */
+    -fx-background-image: url("/images/minion_bg.png"); /* Relative to resources directory */
+    -fx-background-size: cover; /* Scales image to cover the area, maintaining aspect ratio */
+    -fx-background-repeat: no-repeat; /* Prevents tiling */
+    -fx-background-position: center; /* Centers the image */
+    -fx-background-size: stretch;
+}
+
+.text-field {
+    -fx-background-color: rgba(217, 255, 226, 0.7); /* Semi-transparent version of original color */
+    -fx-font: 20px "Arial";
+}
+
+.button {
+    -fx-background-color: mediumspringgreen;
+    -fx-font: italic bold 16px "Arial";
+}
+
+.button:hover {
+    -fx-background-color: cyan;
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: orange;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent; /* Keeps scroll-pane transparent over wallpaper */
+}
+
+.scroll-bar {
+    -fx-font-size: 10px; /* Change width of scroll bar */
+    -fx-background-color: rgba(237, 255, 242, 0.5); /* Semi-transparent version of main-color */
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #ff9cb4;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

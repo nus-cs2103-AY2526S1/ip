@@ -1,0 +1,4 @@
+T | 0 | homework
+T | 0 | 2103 Quiz3
+D | 0 | 2103 iP | Fri 4pm
+E | 1 | jagua tats | Sat 12pm - 4pm
