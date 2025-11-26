@@ -1,0 +1,156 @@
+package bruh;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
+
+public class TaskList {
+    private final ArrayList<Task> tasks;
+
+    public TaskList() { 
+        this.tasks = new ArrayList<>(); 
+        assert tasks.isEmpty() : "new TaskList should start empty"; 
+    }
+
+    public TaskList(List<Task> initial) { 
+        assert initial != null : "initial list must not be null";
+        this.tasks = new ArrayList<>(initial); 
+        assert this.tasks.size() == initial.size() : "copied all initial tasks";
+    }
+
+    public int size() { 
+        assert tasks != null : "tasks list must not be null";
+        return tasks.size(); 
+    }
+
+    public Task get(int idx1Based) { 
+        assert idx1Based > 0 && idx1Based <= tasks.size() 
+            : "1-based index must be within bounds";
+        return tasks.get(idx1Based - 1); 
+    }
+
+    public void add(Task... ts) {
+        assert ts != null : "tasks to add must not be null";
+        for (Task t : ts) {
+            assert t != null : "task must not be null";
+            tasks.add(t);
+        }
+        assert tasks.size() >= ts.length : "tasks list grew after add";
+    }
+
+    public Task delete(int idx1Based) { 
+        assert idx1Based > 0 && idx1Based <= tasks.size() 
+            : "delete index must be in range";
+        Task removed = tasks.remove(idx1Based - 1); 
+        assert removed != null : "removed task should not be null";
+        return removed;
+    }
+
+    public void mark(int idx1Based) { 
+        assert idx1Based > 0 && idx1Based <= tasks.size() : "mark index valid";
+        get(idx1Based).markAsDone(); 
+    }
+
+    public void unmark(int idx1Based) { 
+        assert idx1Based > 0 && idx1Based <= tasks.size() : "unmark index valid";
+        get(idx1Based).markAsNotDone(); 
+    }
+
+    public List<Task> asList() { 
+        assert tasks != null : "tasks list must not be null";
+        return Collections.unmodifiableList(tasks); 
+    }
+
+    public List<Task> find(String keyword) {
+        assert keyword != null && !keyword.isBlank() : "keyword must be non-empty";
+        List<Task> matches = new ArrayList<>();
+        for (Task task : tasks) {
+            assert task != null : "task in list must not be null";
+            if (task.getDescription().contains(keyword)) {
+                matches.add(task);
+            }
+        }
+        return matches;
+    }
+    
+    public List<Task> findAny(String... keywords) {
+        assert keywords != null && keywords.length > 0 : "at least one keyword";
+        List<Task> matches = new ArrayList<>();
+        for (Task task : tasks) {
+            assert task != null : "task must not be null";
+            if (matchesAny(task, keywords)) {
+                matches.add(task);
+            }
+        }  
+        return matches;
+     } 
+
+     private static boolean matchesAny(Task task, String... keywords) {
+         String d = task.getDescription();
+         for (String kw : keywords) {
+             if (kw != null && !kw.isBlank() && d.contains(kw)) return true;
+         }
+         return false;
+     }
+
+/** 1-based index guard */
+private Task at(int idx1Based) {
+    assert idx1Based > 0 && idx1Based <= tasks.size() : "index out of range";
+    return tasks.get(idx1Based - 1);
+}
+
+/** Detect done-status from the display (e.g., "[D][X] ..."). */
+private static boolean isDone(Task t) {
+    return t.toString().contains("[X]");
+}
+
+/** Extract the "(by: ...)" text from a Deadline's toString. */
+private static String extractByText(Task t) {
+    String s = t.toString();
+    int i = s.indexOf("(by:");
+    if (i < 0) return null;
+    int j = s.indexOf(')', i);
+    if (j < 0) return null;
+    return s.substring(i + 4, j).trim(); // after "(by:" up to ')'
+}
+
+/** Replace the Deadline at idx with a new date (ISO yyyy-MM-dd), preserving done-status. */
+private void replaceDeadline(int idx1Based, String isoDate) {
+    Task old = at(idx1Based);
+    if (!(old instanceof Deadline)) {
+        throw new IllegalArgumentException("Selected task has no deadline to reschedule.");
+    }
+    String desc = old.getDescription();
+    Deadline newer = new Deadline(desc, isoDate);
+    if (isDone(old)) {
+        newer.markAsDone();
+    }
+    tasks.set(idx1Based - 1, newer);
+}
+
+/** Shift a Deadline’s date by N days (can be negative). */
+public void shiftDeadlineByDays(int idx1Based, int days) {
+    Task t = at(idx1Based);
+    if (!(t instanceof Deadline)) {
+        throw new IllegalArgumentException("Selected task has no deadline to shift.");
+    }
+    String byText = extractByText(t);
+    if (byText == null) {
+        throw new IllegalStateException("Cannot find current deadline to shift.");
+    }
+    java.time.LocalDate base = DateParsing.tryParseToDate(byText);
+    if (base == null) {
+        throw new IllegalStateException("Unrecognized current deadline: " + byText);
+    }
+    java.time.LocalDate newer = base.plusDays(days);
+    replaceDeadline(idx1Based, newer.toString()); // ISO string
+}
+
+/** Set a Deadline’s date to an absolute date (ISO string already from GuiLogic). */
+public void rescheduleDeadlineAbsolute(int idx1Based, String whenIsoDate) {
+    replaceDeadline(idx1Based, whenIsoDate);
+}
+
+    
+}
+

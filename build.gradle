@@ -1,0 +1,88 @@
+plugins{
+   id 'java'
+   id 'application'
+   id 'checkstyle'
+   id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+repositories{
+   mavenCentral()
+}
+
+checkstyle { 
+    toolVersion = '11.0.0'
+    configDirectory = file("$rootDir/config/checkstyle")
+    configProperties = ['suppressionFile': file("$rootDir/config/checkstyle/suppressions.xml").absolutePath]
+}
+
+dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    String javaFxVersion = '21.0.2'
+
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+}
+
+test{
+   useJUnitPlatform()
+
+   testLogging{
+      events "passed","skipped","failed"
+
+      showExceptions true
+      exceptionFormat "full"
+      showCauses true
+      showStackTraces true
+      showStandardStreams = false
+     }
+}
+
+application { mainClass.set("bruh.Launcher") }
+
+tasks.jar{
+   archiveBaseName = 'Bruh'
+   archiveVersion = ''
+   manifest {attributes('Main-Class':application.mainClass.get())}
+}
+
+/**
+ * Fat JAR for release.
+ * Produces: build/libs/bruh.jar
+ */
+tasks.named('shadowJar'){
+   archiveBaseName.set('bruh')
+   archiveVersion.set('')
+   archiveClassifier.set('')
+   manifest { attributes 'Main-Class': application.mainClass.get() }
+   mergeServiceFiles()
+} 
+
+run{
+   standardInput = System.in
+}
+
+// ---- Gradle 8 implicit dependency fixes ----
+
+// Dist tasks (from Application plugin) read the *fat* jar
+tasks.named('distZip')      { dependsOn tasks.named('shadowJar') }
+tasks.named('distTar')      { dependsOn tasks.named('shadowJar') }
+tasks.named('startScripts') { dependsOn tasks.named('shadowJar') }
+tasks.named('installDist')  { dependsOn tasks.named('shadowJar') }
+
+// Shadow’s own dist tasks read the *thin* jar; make them wait for :jar
+tasks.named('startShadowScripts') { dependsOn tasks.named('jar') }
+tasks.named('installShadowDist')  { dependsOn tasks.named('jar') }
+tasks.named('shadowDistZip')      { dependsOn tasks.named('jar') }
+tasks.named('shadowDistTar')      { dependsOn tasks.named('jar') }
+
