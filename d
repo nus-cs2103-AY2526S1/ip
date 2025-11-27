@@ -1,0 +1,13 @@
+  A-CheckStyle           [m 7d07ef0 [[34morigin/A-CheckStyle[m] A-CheckStyle, Use checkstyle fix some style
+  Level-10               [m 38aa93f [[34morigin/Level-10[m] Level-10, add JavaFX GUI
+  branch-A-Assertions    [m ba69f2d A-Assertions: add runtime checks for invariants
+  branch-A-CodeQuality   [m 9b407c7 Merge branch 'master' into branch-A-CodeQuality
+  branch-A-CodingStandard[m e67b434 [[34morigin/branch-A-CodingStandard[m] A-CodingStandard, Fix code to meet standard
+  branch-A-JavaDoc       [m f14f16a [[34morigin/branch-A-JavaDoc[m] A-JavaDoc, Add JavaDoc Comments
+  branch-A-Streams       [m bf4e55f [[34morigin/branch-A-Streams[m] Merge branch 'master' into branch-A-Streams
+* [32mbranch-Extension       [m 142b920 Merge pull request #3 from whchenyicn/branch-A-Streams
+  branch-Level-10        [m 09abd55 [[34morigin/branch-Level-10[m] Merge Level-10: GUI
+  branch-Level-7         [m 1a6cd03 Level-7: Integrate Storage to whchenyicn
+  branch-Level-8         [m ae263dd Level-8 Update Storage and whchenyicn to handle error
+  branch-Level-9         [m 9bde7e7 [[34morigin/branch-Level-9[m] Level-9, implement find command
+  master                 [m 142b920 [[34morigin/master[m] Merge pull request #3 from whchenyicn/branch-A-Streams

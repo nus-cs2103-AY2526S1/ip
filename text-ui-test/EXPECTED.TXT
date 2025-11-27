@@ -1,7 +1,39 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+__________________________________________________
+Hello! I'm whchenyicn.Whchenyicn
+What can I do for you?
+__________________________________________________
+__________________________________________________
+Got it. I've added this whchenyicn.task:
+  [T][ ] read book
+Now you have 1 tasks in the list.
+__________________________________________________
+__________________________________________________
+Got it. I've added this whchenyicn.task:
+  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 2 tasks in the list.
+__________________________________________________
+__________________________________________________
+Got it. I've added this whchenyicn.task:
+  [D][ ] return book (by: Sunday)
+Now you have 3 tasks in the list.
+__________________________________________________
+__________________________________________________
+1. [T][ ] read book
+2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+3. [D][ ] return book (by: Sunday)
+__________________________________________________
+__________________________________________________
+Nice! I've marked this whchenyicn.task as done:
+[T][X] read book
+__________________________________________________
+__________________________________________________
+OK, I've marked this whchenyicn.task as not done yet:
+[T][ ] read book
+__________________________________________________
+__________________________________________________
+1. [T][ ] read book
+2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+3. [D][ ] return book (by: Sunday)
+__________________________________________________
+Bye! Hope to see you again soon!
+__________________________________________________

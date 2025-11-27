@@ -1,0 +1,5 @@
+T | 0 | read book
+D | 0 | submit iP | 2025-12-01
+E | 0 | CS2103 meeting | Mon 7pm | tomorrow
+E | 0 | dododo | now | tmw
+E | 0 | project meeting | Monday 2pm | Tuesday 2pm
