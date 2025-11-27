@@ -1,0 +1,26 @@
+todo read book
+deadline return book /by 27/8/2025 2359
+event meet friends /from 27/8/2025 2312 /to 28/8/2025 1200
+list
+mark 1
+mark 2
+mark
+mark two
+list
+unmark 1
+unmark two
+list
+todo
+adsfiowjefoi
+deadline buy food
+deadline /by food
+event drink water
+event drink water /from Monday
+event drink water /to Friday
+event /from Monday / to Friday
+event drink water /to Monday /from Friday
+delete
+delete one
+delete 1
+list
+bye

@@ -1,0 +1,4 @@
+T | 1 | meet someone | meeting
+E | 1 | meeting | Dec 02 2025, 6.00pm | Dec 02 2025, 9.00pm | meeting
+D | 0 | assignment | Aug 27 2025, 11.59pm | homework
+D | 1 | cs2103T ip submission | Sep 19 2025, 11.59pm | homework
