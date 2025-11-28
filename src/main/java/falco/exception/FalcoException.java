@@ -1,0 +1,78 @@
+package falco.exception;
+
+/**
+ * Represents exceptions that are captured in <code>Falco</code>
+ */
+public class FalcoException extends Exception {
+
+    /**
+     * Enumerations of ErrorType for <code>FalcoException</code>
+     */
+    public enum ErrorType {
+        UNKNOWN_COMMAND,
+        EMPTY_TASK,
+        NOTIME_DEADLINE,
+        UNCLEAR_EVENT,
+        UNCLEAR_DELETE,
+        UNCLEAR_MARK,
+        OUTOFBOUNDS,
+        EMPTY_LIST,
+        WRONGFORMATTIME,
+        UNCLEAR_FIND,
+        NOT_FOUND,
+        UNCLEAR_PERIOD,
+    }
+
+    private ErrorType type;
+
+    /**
+     * Creates a new <code>FalcoException</code> instance with the corresponding ErrorType.
+     *
+     * @param type Type of ErrorType
+     */
+    public FalcoException(ErrorType type) {
+        this.type = type;
+    }
+
+    @Override
+    public String getMessage() {
+        switch(type) {
+        case EMPTY_TASK:
+            return "Forgive me Sir, but you didn't specify the task... (￣^￣ )ゞ";
+        case UNKNOWN_COMMAND:
+            return "Negative Sir! Your command can't be understand ૮(˶ㅠ︿ㅠ)ა";
+        case NOTIME_DEADLINE:
+            return "Forgive me Sir, but you didn't correctly specify the time... ૮(˶ㅠ︿ㅠ)ა"
+                    + "\nYou should type it as: Deadline <task> /by <time>";
+        case UNCLEAR_EVENT:
+            return "Forgive me Sir, but your event time is unclear... ૮(˶ㅠ︿ㅠ)ა"
+                    + "\nYou should type it as: Event <task> /from <start-time> /to <end-time>";
+        case UNCLEAR_PERIOD:
+            return "Forgive me Sir, but your period time is unclear... ૮(˶ㅠ︿ㅠ)ა"
+                    + "\nYou should type it as: Period <task> /between <start-time> /and <end-time>";
+        case UNCLEAR_DELETE:
+            return "Uh Sir, which task specifically do you want to delete (ಠ_ಠ)?"
+                    + "\nSpecify it as: Delete <task-number>";
+        case UNCLEAR_MARK:
+            return "Uh Sir, which one are you referring to (ಠ_ಠ)?"
+                    + "\nSpecify it as: Mark/Unmark <task-number>";
+        case OUTOFBOUNDS:
+            return "Sir, that number is invalid. (ಠ_ಠ)"
+                    + "\nTry checking the task-list by typing: List";
+        case EMPTY_LIST:
+            return "Sir, you haven't added any task yet (ಠ_ಠ)"
+                    + "\nTry adding some task first";
+        case WRONGFORMATTIME:
+            return "Sir, please format your time: dd/MM/yyyy HHmm | e.g. 12/10/2019 1800"
+                    + "\n that way I can understand it, Sir (ಠ_ಠ)";
+        case UNCLEAR_FIND:
+            return "Sir, your find is invalid. (ಠ_ಠ)"
+                    + "\nTry to specify a keyword to find";
+        case NOT_FOUND:
+            return "Sir, I couldn't find any task with that keyword. (ಠ_ಠ)"
+                    + "\nPlease specify another keyword to find";
+        default:
+            return "I don't understand, Sir ૮(˶ㅠ︿ㅠ)ა";
+        }
+    }
+}
