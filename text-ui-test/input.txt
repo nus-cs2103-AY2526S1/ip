@@ -1,0 +1,21 @@
+todo Buy milk
+todo Read book
+deadline Submit assignment /by Friday 5pm
+event Team meeting /from Mon 2pm /to 3pm
+list
+mark 1
+mark 3
+list
+unmark 1
+list
+delete 2
+list
+delete 5
+mark 10
+todo
+deadline /by tomorrow
+event /from now /to later
+search book
+search meeting
+blahblah invalid command
+bye
