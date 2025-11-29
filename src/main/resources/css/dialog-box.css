@@ -1,0 +1,36 @@
+/* You (outgoing) */
+.label {
+    -fx-font-size: 15px;
+    -fx-padding: 8 12 8 12;
+
+    /* serene blue gradient */
+    -fx-background-color: linear-gradient(to bottom right, #cfe9ff, #a9d2ff);
+    -fx-text-fill: #1d2b3a;
+
+    /* single, subtle border */
+    -fx-border-color: #8fb6e0;
+    -fx-border-width: 1px;
+
+    /* rounded corners (right-side tail) */
+    -fx-background-radius: 14 14 4 14;
+    -fx-border-radius: 14 14 4 14;
+}
+
+.reply-label {
+    -fx-font-size: 15px;
+    -fx-padding: 8 12 8 12;
+
+    /* neutral gray-blue */
+    -fx-background-color: linear-gradient(to bottom right, #e9eef5, #e2e8f0);
+    -fx-text-fill: #1d2b3a;
+    -fx-border-color: #b8c2d0;
+    -fx-border-width: 1px;
+
+    /* rounded corners (left-side tail) */
+    -fx-background-radius: 14 14 14 4;
+    -fx-border-radius: 14 14 14 4;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 8, 0.3, 3, 3);
+}

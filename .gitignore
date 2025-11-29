@@ -13,5 +13,16 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+#/text-ui-test/ACTUAL.TXT
+#text-ui-test/EXPECTED-UNIX.TXT
+
+
+# Java build artifacts
+*.class
+*.jar
+*.war
+*.ear
+*.log
+hs_err_pid*
+replay_pid*
+data/

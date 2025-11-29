@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="seedu.duke.MainWindow"
+            prefWidth="700" prefHeight="500"
+            stylesheets="@../css/main.css">
+    <!-- Chat area -->
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" pannable="true">
+            <content>
+                <VBox fx:id="dialogContainer" spacing="8" fillWidth="true" />
+            </content>
+        </ScrollPane>
+    </center>
+
+    <!-- Input bar -->
+    <bottom>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <children>
+                <TextField fx:id="userInput" HBox.hgrow="ALWAYS" promptText="Type here…"/>
+                <Button fx:id="sendButton" text="Send" onAction="#handleUserInput"/>
+            </children>
+        </HBox>
+
+    </bottom>
+</BorderPane>
