@@ -1,0 +1,5 @@
+hi
+todo Birthday party
+event MA1522 lecture /from Thursday 4pm /to 6pm
+list
+bye
