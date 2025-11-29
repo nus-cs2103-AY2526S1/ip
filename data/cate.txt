@@ -1,0 +1,5 @@
+T,1,read book
+D,0,return book,2025-10-20 1600
+E,0,project meeting,Mon 2pm,4pm
+T,0,go for a run
+D,0,nig,2028-08-20 1500
