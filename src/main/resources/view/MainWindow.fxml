@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefWidth="400.0" prefHeight="600.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="larry.gui.MainWindow"
+            stylesheets="@/css/main.css">
+
+    <children>
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.bottomAnchor="43.0">
+            <content>
+                <VBox fx:id="dialogContainer" prefWidth="388.0"/>
+            </content>
+        </ScrollPane>
+
+        <TextField fx:id="userInput"
+                   onAction="#handleUserInput"
+                   prefHeight="41.0"
+                   AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="76.0"
+                   AnchorPane.bottomAnchor="1.0"/>
+
+        <Button fx:id="sendButton"
+                text="Send"
+                onAction="#handleUserInput"
+                prefWidth="76.0" prefHeight="41.0"
+                AnchorPane.rightAnchor="0.0"
+                AnchorPane.bottomAnchor="1.0"/>
+    </children>
+</AnchorPane>

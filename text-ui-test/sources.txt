@@ -1,0 +1,10 @@
+C:\Users\aryam\Desktop\allip\ip-local\src\main\java\larry\Larry.java
+C:\Users\aryam\Desktop\allip\ip-local\src\main\java\larry\model\Deadline.java
+C:\Users\aryam\Desktop\allip\ip-local\src\main\java\larry\model\Event.java
+C:\Users\aryam\Desktop\allip\ip-local\src\main\java\larry\model\Task.java
+C:\Users\aryam\Desktop\allip\ip-local\src\main\java\larry\model\TaskList.java
+C:\Users\aryam\Desktop\allip\ip-local\src\main\java\larry\model\Todo.java
+C:\Users\aryam\Desktop\allip\ip-local\src\main\java\larry\parser\Parser.java
+C:\Users\aryam\Desktop\allip\ip-local\src\main\java\larry\storage\Storage.java
+C:\Users\aryam\Desktop\allip\ip-local\src\main\java\larry\ui\Ui.java
+C:\Users\aryam\Desktop\allip\ip-local\src\main\java\larry\util\DateTimeFormats.java

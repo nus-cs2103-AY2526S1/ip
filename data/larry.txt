@@ -1,0 +1,7 @@
+E|0|sync|2025-09-12 1400|2025-09-12 1600
+T|0|read
+T|0|read book
+T|0|write essay
+T|0|this
+T|0|this and that
+T|0|this and that today

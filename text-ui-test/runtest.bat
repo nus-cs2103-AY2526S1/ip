@@ -1,21 +1,41 @@
-@ECHO OFF
+@echo off
+setlocal ENABLEDELAYEDEXPANSION
 
-REM create bin directory if it doesn't exist
-if not exist ..\bin mkdir ..\bin
+REM Make paths work regardless of where its run from
+set SCRIPT_DIR=%~dp0
+pushd "%SCRIPT_DIR%"
 
-REM delete output from previous run
-if exist ACTUAL.TXT del ACTUAL.TXT
+REM Ensure bin exists
+if not exist "..\bin" mkdir "..\bin"
 
-REM compile the code into the bin folder
-javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\*.java
+REM Clean previous ACTUAL
+if exist "ACTUAL.TXT" del "ACTUAL.TXT"
+
+REM Build a sources list recursively (Windows-safe, no wildcard issues)
+del /q sources.txt 2>nul
+for /R "..\src\main\java" %%f in (*.java) do (
+  echo %%f>>sources.txt
+)
+
+REM Compile everything listed in sources.txt into ..\bin
+javac -Xlint:none -d "..\bin" @sources.txt
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
+    popd
     exit /b 1
 )
-REM no error here, errorlevel == 0
 
-REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin Duke < input.txt > ACTUAL.TXT
+REM Run app (main class is larry.Larry), redirect input -> ACTUAL.TXT
+java -classpath "..\bin" larry.Larry < "input.txt" > "ACTUAL.TXT"
 
-REM compare the output to the expected output
-FC ACTUAL.TXT EXPECTED.TXT
+REM Compare actual vs expected (assignment typically uses EXPECTED.TXT)
+FC "EXPECTED.TXT" "ACTUAL.TXT" >NUL
+IF ERRORLEVEL 1 (
+    echo Test result: FAIL
+    popd
+    exit /b 1
+) ELSE (
+    echo Test result: PASS
+)
+
+popd
