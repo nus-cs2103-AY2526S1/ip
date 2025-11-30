@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly  'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+}
+
+application {
+    mainClass.set('Launcher')
+    applicationDefaultJvmArgs = ["-ea"]
+}
+
+javafx {
+    version = '17.0.7'
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+test {
+    useJUnitPlatform()
+}
+
+shadowJar {
+    archiveBaseName = "Paneer"
+    archiveClassifier = null
+    archiveVersion = "0.1"
+    manifest {
+        attributes 'Main-Class': application.mainClass.get()
+    }
+}
+
+run {
+    jvmArgs += ['--add-modules', 'javafx.controls,javafx.fxml']
+    standardInput = System.in
+}
