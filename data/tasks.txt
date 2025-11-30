@@ -1,0 +1,7 @@
+[T][ ] help
+[T][ ] test
+[T][ ] wash the dishes
+[D][ ] ip (by: 2025-09-22)
+[D][ ] ip (by: 2025-09-20)
+[E][ ] sleep (from: 2025-09-20T00:00:00, to: 2025-09-20T07:30:00)
+[T][ ] shower
