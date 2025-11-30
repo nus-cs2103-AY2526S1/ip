@@ -1,7 +1,55 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
 
+	____________________________________________________________
+	 Hello! I'm DYKE
+	 What can I do for you?
+
+								psst! type 'help' for help, duh.
+	____________________________________________________________
+No saved tasks found. Starting fresh!
+	____________________________________________________________
+	 COMMANDS I /actually/ understand:
+
+	 DAY-TIME Format: yyyy-MM-dd hh:mm
+
+	 Main COMMANDS:
+	 1. LIST #to see all your tasks in the dyke.data.Library
+	 2. BYE #I'll talk to you later
+	 3. HELP #you literally just typed this...
+	 4. WHAT? #surprise...
+
+	 dyke.data.Library Commands:
+	 1. TODO *insert activity*
+	 2. DEADLINE *day-time*
+	 3. EVENT *activity* /from *day-time* /to *day-time*
+	 4. MARK *task number*
+	 5. DELETE *task number*
+	____________________________________________________________
+	____________________________________________________________
+	 Great! I'm keeping track :D:
+		[T] [ ] borrow book
+	 There is 1 task in the dyke.data.Library.
+	____________________________________________________________
+	____________________________________________________________
+	 Invalid datetime: 202508-27
+
+	____________________________________________________________
+	____________________________________________________________
+	 Great! I'm keeping track :D:
+		[D] [ ] return book (by: 2025-08-27)
+	 There are 2 tasks in the dyke.data.Library.
+	____________________________________________________________
+	____________________________________________________________
+	 Great! I'm keeping track :D:
+		[E] [ ] project meeting (from: 2025-08-27 14:00 to: 2025-08-27 16:00)
+	 There are 3 tasks in the dyke.data.Library.
+	____________________________________________________________
+	____________________________________________________________
+	Here it is!
+	1. [T] [ ] borrow book
+	2. [D] [ ] return book (by: 2025-08-27)
+	3. [E] [ ] project meeting (from: 2025-08-27 14:00 to: 2025-08-27 16:00)
+	____________________________________________________________
+	____________________________________________________________
+	 Bye. Catch you later!
+	____________________________________________________________
+3 tasks have been saved!

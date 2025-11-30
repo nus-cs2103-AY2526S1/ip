@@ -1,0 +1,25 @@
+.message-bubble {
+    -fx-background-color: #99ccff;        /* Gray bubble for incoming */
+    -fx-background-radius: 15 15 15 0;    /* Top-left tail */
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+    -fx-border-color: #b2b2b2;
+    -fx-border-width: 1;
+    -fx-border-radius: 15 15 15 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 3, 0, 1, 1);
+}
+
+.user-bubble {
+    -fx-background-color: #DCF8C6;        /* WhatsApp green */
+    -fx-background-radius: 15 15 0 15;    /* Top-right tail */
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+    -fx-border-color: #b2b2b2;
+    -fx-border-width: 1;
+    -fx-border-radius: 15 15 0 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 3, 0, 1, 1);
+}
+
+.main-window {
+    -fx-background-color: #1a1919;
+}
