@@ -1,7 +1,38 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+   _____ _      _
+  / ____(_)    (_)
+ | (___  _ _ __ _
+  \___ \| | '__| |
+  ____) | | |  | |
+ |_____/|_|_|  |_|
+
+
+____________________________________________________________
+ Hello! I'm siri.siri
+ What can I do for you?
+____________________________________________________________
+read book
+Added: read book
+return book
+Added: return book
+event project meeting /from Mon 2pm /to 4pm
+____________________________________________________________
+Got it. I've added this task:
+  [E][ ] event project meeting  (from Mon 2pm to 4pm)
+Now you have 3 tasks in the list.
+____________________________________________________________
+mark 3
+____________________________________________________________
+  Nice! I've marked this task as done:
+  [E][X] event project meeting  (from Mon 2pm to 4pm)
+____________________________________________________________
+list
+____________________________________________________________
+Here are the tasks in your list:
+1. [ ] read book
+2. [ ] return book
+3. [E][X] event project meeting  (from Mon 2pm to 4pm)
+____________________________________________________________
+bye
+ Bye. Hope to see you again soon!
 
