@@ -1,0 +1,64 @@
+ /* Reused from
+ * https://se-education.org/guides/tutorials/javaFx.html
+ * with minor modifications
+ */
+
+.root {
+    /*image from freepik*/
+    -fx-background-image: url("/images/Background.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+@font-face {
+    font-family: "Chewy";
+    /* font from google font */
+    src: url("/fonts/Chewy-Regular.ttf");
+}
+
+.text-field {
+    -fx-background-color: #E6E6FA;
+    -fx-font-size: 17px;
+    -fx-font-family: "Chewy";
+}
+
+.button {
+    -fx-background-color: #D8BFD8;
+    -fx-font-style: italic;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-font-family: "Chewy";
+}
+
+.button:hover {
+    -fx-background-color: #854AAf;
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: #7B2B80;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 7px;
+    -fx-background-color: #E8DAF0;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #CD8FC0;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+

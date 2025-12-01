@@ -1,7 +1,46 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! I am Candy.
+What can I do for you?
+    Got it. I've added this task:
+      [T][ ]  hello
+    Now you have 1 tasks in your list.
+OOPS! If you are adding in a task, please start with 'todo', 'deadline' or 'event'.
+Add a '/by (end)' for deadline or '/from (start) /to (end)' for events
+Else, start with 'mark' or 'unmark' to edit task.
+Start with 'delete' to delete task
+OOPS! Please input a proper time in the format: 'dd-mm-yyyy HHmm'
+    Got it. I've added this task:
+      [D][ ]  math (by:6 Dec 2022 23:59)
+    Now you have 2 tasks in your list.
+OOPS! If you are adding in a task, please start with 'todo', 'deadline' or 'event'.
+Add a '/by (end)' for deadline or '/from (start) /to (end)' for events
+Else, start with 'mark' or 'unmark' to edit task.
+Start with 'delete' to delete task
+OOPS! Please specify an end time by inputting '/by (end)' for deadline task or '/to (end)' for event task
+OOPS! Please input a start time by '/from (start)
+    Got it. I've added this task:
+      [E][ ]  class (from:1 Dec 2022 00:00 to:31 Dec 2022 23:59)
+    Now you have 3 tasks in your list.
+    Nice! I've marked this task as done:
+    [T][X]  hello
+    Nice! I've marked this task as done:
+    [D][X]  math (by:6 Dec 2022 23:59)
+    Nice! I've marked this task as done:
+    [E][X]  class (from:1 Dec 2022 00:00 to:31 Dec 2022 23:59)
+    Here are the tasks in your list:
+    1. [T][X]  hello
+    2. [D][X]  math (by:6 Dec 2022 23:59)
+    3. [E][X]  class (from:1 Dec 2022 00:00 to:31 Dec 2022 23:59)
+    Ok, I've marked this task as not done yet:
+    [T][ ]  hello
+OOPS! Task does not exist
+OOPS! Task does not exist
+Please input a number after 'mark' or 'unmark'
+Please input a number after 'mark' or 'unmark'
+Please input a number after 'delete'
+    Noted. I've removed this task:
+      [T][ ]  hello
+    Now you have 2 tasks left
+    Here are the tasks in your list:
+    1. [D][X]  math (by:6 Dec 2022 23:59)
+    2. [E][X]  class (from:1 Dec 2022 00:00 to:31 Dec 2022 23:59)
+    Bye. Hope to see you again! ^-^
