@@ -15,3 +15,22 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# --- Build / tooling
+/bin/
+*.class
+
+# Sometimes you compiled into src/out by hand
+src/main/out/
+ip/out/
+/src/out/
+
+
+# --- App/runtime data
+/data/
+
+# --- Text UI test outputs (keep expected, ignore actuals)
+text-ui-test/**/actual*
+text-ui-test/**/ACTUAL*/bin/
+
+/text-ui-test/
