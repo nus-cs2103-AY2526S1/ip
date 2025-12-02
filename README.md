@@ -1,26 +1,64 @@
-# Duke project template
+# Som – Your Smart Task Companion 🤖✅
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+> “Your mind is for having ideas, not holding them.” – David Allen  
+> _[Getting Things Done](https://en.wikipedia.org/wiki/Getting_Tthings_Done)_
 
-## Setting up in Intellij
+**Som** is a lightweight, CLI-based task manager that helps you organize your tasks without distractions. Built with clean OOP design and Gradle automation, it’s fast, reliable, and easy to use.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+![GUI Preview](docs/Ui.png)
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+---
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## ✅ Features
+
+- [x] Add tasks: `todo`, `deadline`, `event`
+- [x] Mark/unmark tasks as done
+- [x] Delete tasks
+- [x] List all tasks
+- [x] Find tasks by keyword
+- [x] Save tasks automatically to disk
+- [x] Support for tagging: `#work`, `#personal`
+- [x] Sort deadlines/events chronologically
+- [x] JavaFX GUI (Level 10)
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Java 17 or higher
+- Mac users: Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+- Git (optional, for cloning)
+
+### How to Run
+
+#### Run from JAR (Recommended)
+1. Download the latest .jar file from [here](https://github.com/reven0n/ip/releases)
+2. Copy the file to the folder you want to use as the home folder for your ChatBot.
+3. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar som.jar` command to run the application.
+
+#### How to Use
+Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will show the help menu.
+Some example commands you can try:
+- `todo read book`: Adds a simple task with no deadline
+- `mark 1`: Marks task #1 as completed
+- `delete 3`: Deletes task #3 from the list
+- `find book`: Finds all tasks containing "book"
+- `sort`: Sorts deadlines and events by date
+- `list`: Displays all tasks in the current list
+
+---
+
+| Command    | Description | Example Usage                                             |
+|------------|------------|-----------------------------------------------------------|
+| `list`     | Show all current tasks | `list`                                                    |
+| `todo`     | Add a todo task | `todo read book`                                          |
+| `deadline` | Add a deadline task | `deadline return book /by 2025-09-20 1300`                |
+| `event`    | Add an event task | `event meeting /from 2025-09-20 1300 /to 2025-09-20 2100` |
+| `mark`     | Mark a task as completed | `mark 2`                                                  |
+| `unmark`   | Unmark a completed task | `unmark 2`                                                |
+| `delete`   | Delete a task | `delete 3`                                                |
+| `find`     | Find tasks matching a keyword | `find report`                                             |
+| `help`     | Show help message | `help`                                                    |
+| `sort`     | Sorts deadlines and events by date | `sort`                                                    |
+| `bye`      | Exit the program | `bye`                                                     |

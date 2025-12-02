@@ -1,0 +1,6 @@
+T | 1 | read book
+D | 0 | return book | 2025-06-11 1900
+E | 0 | project meeting | 2025-08-11 1100 | 2025-08-11 1100
+T | 1 | join sports club
+D | 0 | borrow book | 2025-09-01 1800
+T | 0 | finish work
