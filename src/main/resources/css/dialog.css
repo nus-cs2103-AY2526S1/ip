@@ -1,0 +1,20 @@
+.user-dialog {
+    -fx-background-color: #b88c84;
+    -fx-background-radius: 16 16 0 16;
+    -fx-border-radius: 16 16 0 16;
+    -fx-alignment: top-left;
+    -fx-padding: 10 15 10 15;
+}
+
+.aqua-dialog {
+    -fx-background-color: #d5aea6;
+    -fx-background-radius: 16 16 16 0;
+    -fx-border-radius: 16 16 16 0;
+    -fx-alignment: top-right;
+    -fx-padding: 10 15 10 15;
+}
+
+.profile-image {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+    -fx-background-radius: 50%;
+}
