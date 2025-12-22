@@ -1,0 +1,13 @@
+todo borrow book
+deadline return book /by 2025-08-27
+event project meeting /from 2025-09-01 /to 2025-09-03
+list
+mark 1
+unmark 1
+delete 2
+mark 5
+unmark 0
+delete 10
+todo finish homework
+blah
+bye
