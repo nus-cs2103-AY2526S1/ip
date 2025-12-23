@@ -1,7 +1,53 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Ooo eee ooo aaa aaa
+I am george.George the Monkey
+george.George can help you with?
 
+GEORGE the monkey LOVES to eat bananas!
+
+You get a task. I get a banana!
+[T][ ] borrow book
+You now have 1 things to do!!!
+Remember to do them NOW!!!
+
+You get a task. I get a banana!
+[T][ ] join a club
+You now have 2 things to do!!!
+Remember to do them NOW!!!
+
+You get a task. I get a banana!
+[D][ ] return book (by: next week)
+You now have 3 things to do!!!
+Remember to do them NOW!!!
+
+You get a task. I get a banana!
+[E][ ] go for training (from: 9pm to: 11pm)
+You now have 4 things to do!!!
+Remember to do them NOW!!!
+
+Good job! Here is a banana for you!
+[X] join a club
+Good job! Here is a banana for you!
+[X] return book
+OOO OOO AAA AAA here is all your tasks
+1.[T][ ] borrow book
+2.[T][X] join a club
+3.[D][X] return book (by: next week)
+4.[E][ ] go for training (from: 9pm to: 11pm)
+EEE EEE AAA AAA remember to do them all
+You get a task. I get a banana!
+[D][ ] submit cs2103 assignment (by: next friday)
+You now have 5 things to do!!!
+Remember to do them NOW!!!
+
+Come on! You can do it!
+[ ] return book
+OOO OOO AAA AAA here is all your tasks
+1.[T][ ] borrow book
+2.[T][X] join a club
+3.[D][ ] return book (by: next week)
+4.[E][ ] go for training (from: 9pm to: 11pm)
+5.[D][ ] submit cs2103 assignment (by: next friday)
+EEE EEE AAA AAA remember to do them all
+
+I love bananas
+please bring bananas next time

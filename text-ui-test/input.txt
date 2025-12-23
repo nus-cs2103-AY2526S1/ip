@@ -1,0 +1,11 @@
+todo borrow book
+todo join a club
+deadline return book /by next week
+event go for training /from 9pm /to 11pm
+mark 2
+mark 3
+list
+deadline submit cs2103 assignment /by next friday
+unmark 3
+list
+bye
