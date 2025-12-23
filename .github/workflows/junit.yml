@@ -1,0 +1,41 @@
+name: JUnit Tests CI
+
+on: [push, pull_request]
+
+# Generated using chatGPT
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # Cache Gradle dependencies for faster builds
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      # Grant permissions for gradlew
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # Run build (compiles code + runs JUnit tests)
+      - name: Build with Gradle
+        run: ./gradlew build --stacktrace
+
+      # Optionally run tests explicitly (useful if you want separate logs)
+      - name: Run tests
+        run: ./gradlew test --stacktrace

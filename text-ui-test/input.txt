@@ -1,0 +1,13 @@
+hello
+todo buy apple
+list
+event CSIT Networking Event /from 29 Aug 9pm /to 29 Aug 4pm
+deadline do CS2103T /by Fri 1600
+list
+mark 2
+mark 3
+list
+unmark 2
+mark 1
+list
+bye
