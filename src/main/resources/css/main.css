@@ -1,0 +1,42 @@
+.root {
+    main-color: rgb(237, 255, 242);
+    -fx-background-color: linear-gradient(to bottom, #222222, #328336);
+
+    -fx-background-image: url("../images/Background2.jpg");
+    -fx-background-size: cover;
+
+}
+
+.text-field {
+    -fx-background-color: #d9ffe2;
+}
+
+.button {
+    -fx-background-color: mediumspringgreen;
+    -fx-font: italic bold 16px "Arial";
+}
+
+.button:hover {
+    -fx-background-color: cyan;
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: orange;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
