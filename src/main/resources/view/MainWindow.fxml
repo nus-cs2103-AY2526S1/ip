@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pero.MainWindow"
+            prefHeight="600.0" prefWidth="400.0">
+
+    <children>
+        <!-- ScrollPane takes all space above the input row -->
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vvalue="1.0"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.bottomAnchor="41.0">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      prefHeight="552.0"
+                      prefWidth="388.0"
+                      VBox.vgrow="ALWAYS"
+                      fillWidth="true"/>
+            </content>
+        </ScrollPane>
+
+        <!-- User input field sticks to bottom left -->
+        <TextField fx:id="userInput"
+                   onAction="#handleUserInput"
+                   prefHeight="41.0"
+                   AnchorPane.leftAnchor="0.0"
+                   AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.rightAnchor="76.0" />
+
+        <!-- Send button sticks to bottom right -->
+        <Button fx:id="sendButton"
+                onAction="#handleUserInput"
+                prefHeight="41.0"
+                text="Send"
+                AnchorPane.bottomAnchor="0.0"
+                AnchorPane.rightAnchor="0.0"
+                prefWidth="76.0" />
+    </children>
+</AnchorPane>

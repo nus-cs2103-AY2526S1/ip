@@ -1,0 +1,5 @@
+E | 1 | eat at dining hall | 2025-02-12 2030 | 2025-02-12 2030
+T | 0 | clean room
+T | 1 | brush teeth
+T | 0 | test
+E | 0 | eat at dining hall | 2025-16-09 2230 | 2025-16-09 2130

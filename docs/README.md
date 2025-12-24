@@ -1,30 +1,49 @@
-# Duke User Guide
+# 📝 Pero
 
-// Update the title above to match the actual product name
+Pero, a simple yet powerful **task management assistant**.  
+It helps you keep track of your to-dos, deadlines, and events with a friendly interface.
 
-// Product screenshot goes here
+---
 
-// Product intro goes here
+## 🚀 Features
 
-## Adding deadlines
+- Add different types of tasks: **Todos, Deadlines, Events**
+- Mark and unmark tasks as done
+- Delete tasks and view task counts
+- Search tasks by keyword
+- Save tasks to a local file once your done, and reload them when you start!
+- GUI support for user-friendly interaction
 
-// Describe the action and its outcome.
+---
 
-// Give examples of usage
+## 💡 How to Use
 
-Example: `keyword (optional arguments)`
+### Adding tasks: ###
+ - todo [description] : Add a simple task
+ - deadline [description] /by [YYYY-MM-DD HHmm] : Add a task with a deadline
+ - event [description] /from [YYYY-MM-DD HHmm] /to [YYYY-MM-DD HHmm] : Add an event with start and end times
 
-// A description of the expected outcome goes here
+### Managing tasks: ###
+ - list : Show all tasks
+ - mark [task number] : Mark a task as done
+ - unmark [task number] : Mark a task as not done
+ - delete [task number] : Delete a task
 
-```
-expected output
-```
+### Searching tasks: ###
+- find [string] : Returns task that contains string input (if it exists)
 
-## Feature ABC
+### Exiting: ###
+ - bye : Exit Pero and save tasks to storage
 
-// Feature details
+### Getting help: ###
+ - help : Shows a guide 
 
 
-## Feature XYZ
+#### Date/time format must be YYYY-MM-dd HH:mm ####
+##### (e.g. 2025-09-01 16:00) #####
 
-// Feature details
+## 🖥️ Preview
+
+![Ui.png](Ui.png)
+
+---

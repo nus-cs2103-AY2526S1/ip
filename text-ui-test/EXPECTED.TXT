@@ -1,7 +1,71 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello, I'm Pero! I am here to track ur tasks.
+What's the task?
+Oops! pero.model.ToDo requires 'todo [task]' format, try again!
 
+What's the task?
+Got it. I've added this task:
+[T][ ] borrow book
+Now you have 1 tasks in the list.
+
+What's the task?
+Oops! Deadline requires 'deadline [task] /by [time/date]' format, try again!
+
+What's the task?
+Oops! Deadline requires 'deadline [task] /by [time/date]' format, try again!
+
+What's the task?
+Got it. I've added this task:
+[D][ ] return book (by: June 6th)
+Now you have 2 tasks in the list.
+
+What's the task?
+Oops! Event requires 'event [task] /from [time/date] /to [time/date]' format, try again!
+
+What's the task?
+Oops! Event requires 'event [task] /from [time/date] /to [time/date]' format, try again!
+
+What's the task?
+Got it. I've added this task:
+[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+Now you have 3 tasks in the list.
+
+What's the task?
+Got it. I've added this task:
+[T][ ] read book
+Now you have 4 tasks in the list.
+
+What's the task?
+Ok marked done:
+[T][X] borrow book
+
+What's the task?
+Ok marked done:
+[E][X] project meeting (from: Aug 6th 2pm to: 4pm)
+
+What's the task?
+Here are the tasks in your list:
+1. [T][X] borrow book
+2. [D][ ] return book (by: June 6th)
+3. [E][X] project meeting (from: Aug 6th 2pm to: 4pm)
+4. [T][ ] read book
+
+What's the task?
+Ok marked undone:
+[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+
+What's the task?
+Oops! Idk whats that, pls try again.
+
+What's the task?
+Noted, I will remove this task:
+[T][ ] read book
+Now, you have 3 tasks in the list.
+
+What's the task?
+Here are the tasks in your list:
+1. [T][X] borrow book
+2. [D][ ] return book (by: June 6th)
+3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+
+What's the task?
+Ok thankyou for using Pero, good luck.

@@ -1,0 +1,22 @@
+todo
+todo borrow book
+
+deadline
+deadline return book
+deadline return book /by June 23th
+deadline return book /by 2025-23-06 2359
+
+event
+event project meeting
+event project meeting /from Aug 6th 2pm /to 4pm
+event project meeting /from 2025-06-08 1400 /to 2025-06-08 1600
+
+todo read book
+mark 1
+mark 3
+list
+unmark 3
+delete
+delete 4
+list
+bye
