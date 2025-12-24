@@ -1,7 +1,50 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+-------------------------------------------------------------------------------------
+Got it. I've added this task:
+[T][ ] read book
+Now you have 1 tasks in the list.
+Keep soaring — your tasks won’t complete themselves!
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+Got it. I've added this task:
+[D][ ] return book (by: Dec 31 2025)
+Now you have 2 tasks in the list.
+Keep soaring — your tasks won’t complete themselves!
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+Got it. I've added this task:
+[E][ ] project meeting (from: 2pm to: 4pm)
+Now you have 3 tasks in the list.
+Keep soaring — your tasks won’t complete themselves!
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+Here’s your task list — let’s soar through them together!
+1. [T][ ] read book
+2. [D][ ] return book (by: Dec 31 2025)
+3. [E][ ] project meeting (from: 2pm to: 4pm)
 
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+Awesome! I've marked this task as done:
+[T][X] read book
+Keep those flames of productivity burning!
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+Ah, I've marked this task as not done yet:
+[T][ ] read book
+It’s alive… for now. Let's reignite that spark and get it done!
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+Poof! this task is now removed:
+[E][ ] project meeting (from: 2pm to: 4pm)
+Another obstacle out of your way — your productivity wings just got stronger!
+Now you have 2 tasks in the list.
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+Your matching tasks have soared into view:
+1. [T][ ] read book
+2. [D][ ] return book (by: Dec 31 2025)
+
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+Goodbye! May your productivity rise from the ashes! 🔥
+-------------------------------------------------------------------------------------
