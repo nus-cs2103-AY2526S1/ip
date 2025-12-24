@@ -1,0 +1,2 @@
+T | 0 | buy tickets for korea
+D | 0 | Do Assignment 2 | 2025-10-07 00:00

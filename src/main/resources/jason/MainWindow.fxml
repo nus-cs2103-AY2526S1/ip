@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="jason.gui.MainWindow"
+            prefHeight="600.0" prefWidth="420.0"
+            stylesheets="@/jason/styles.css">
+
+    <children>
+
+        <!-- Scrollable chat transcript -->
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="ALWAYS"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.bottomAnchor="56.0">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      spacing="10.0"
+                      fillWidth="true"
+                      prefWidth="-1.0" />  <!-- let code set width; no fixed 400 -->
+            </content>
+        </ScrollPane>
+
+        <!-- Input bar (HBox so text field expands with window) -->
+        <HBox spacing="8.0"
+              AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0"
+              AnchorPane.bottomAnchor="0.0"
+              prefHeight="56.0"
+              alignment="CENTER_LEFT"
+              styleClass="input-bar">
+
+            <TextField fx:id="userInput"
+                       promptText="Type a command..."
+                       onAction="#handleUserInput"
+                       HBox.hgrow="ALWAYS" />
+
+            <Button text="Send"
+                    onAction="#handleUserInput"
+                    prefWidth="88.0"
+                    defaultButton="true"/>
+        </HBox>
+
+    </children>
+</AnchorPane>
