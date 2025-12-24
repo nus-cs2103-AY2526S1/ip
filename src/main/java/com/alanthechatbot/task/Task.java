@@ -1,0 +1,48 @@
+package com.alanthechatbot.task;
+
+import com.alanthechatbot.exceptions.EmptyDescriptionException;
+
+/**
+ * A class that encapsulates the things that makes up a task i.e.
+ * the task description, the class tag and whether or not the task
+ * has been completed
+ */
+public class Task {
+    protected String description;
+    protected boolean isDone;
+    protected String tag;
+
+    public Task(String description) throws EmptyDescriptionException {
+        if (description.isEmpty()) {
+            throw new EmptyDescriptionException("com.alanthechatbot.task.Task description is required!");
+        }
+        this.description = description;
+        this.isDone = false;
+        this.tag = "";
+    }
+
+
+    public boolean descriptionContains(String string) {
+        return description.contains(string);
+    }
+
+    /**
+     * Retrieves the completed status icon of the task
+     *
+     * @return the completed status of an icon
+     */
+    public String getStatusIcon() {
+        return (isDone ? "[X]" : "[  ]"); // mark done task with X
+    }
+
+
+    public String getTagString() {
+        return tag.isEmpty() ? "" : "#" + tag;
+    }
+
+    @Override
+    public String toString() {
+        return getStatusIcon() + " " + description + " " + getTagString();
+    }
+
+}
