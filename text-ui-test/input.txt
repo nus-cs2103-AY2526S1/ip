@@ -1,0 +1,9 @@
+todo read book
+deadline return book /by 09-09-2025
+event project meeting /from Mon 2pm /to 4pm
+list
+mark 1
+unmark 1
+delete 2
+deadline essay /by 04-12-2023 2359
+bye

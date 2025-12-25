@@ -1,0 +1,35 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #F3ECFE, #CEB1FB);
+    -fx-border-color: #FF85FD #FFC2FE #FFADFE #FF99FD;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.reply-label {
+    -fx-background-color: #FFFEFF;
+    -fx-border-color: #001514;
+    -fx-text-fill: #000300;
+    -fx-padding: 8;
+    -fx-alignment: CENTER_LEFT;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.user-label {
+    -fx-text-fill: #000300;
+    -fx-padding: 8;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 0.8;
+    -fx-scale-y: 0.8;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+
