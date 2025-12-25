@@ -1,0 +1,7 @@
+T | 0 | watch lecture
+T | 1 | watch 2100 lecture
+D | 1 | assignment | by=2025-09-01
+E | 1 | kayaking | from=2025-08-28 | to=2025-08-29
+T | 0 | sleep
+T | 0 | 2101 presentation
+D | 0 | iP | by=2025-09-19
