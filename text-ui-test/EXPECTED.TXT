@@ -1,7 +1,86 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! I'm Friday
+What can I do for you?
+Got it. I've added this task:
+[T][ ] read book
+Now you have 1 tasks in the list.
+Got it. I've added this task:
+[D][ ] return book (by :11/11/2025 1100)
+Now you have 2 tasks in the list.
+Got it. I've added this task:
+[E][ ] project meeting (from: 12 Dec 2025 12:00 to: 12 Dec 2025 14:00)
+Now you have 3 tasks in the list.
+Got it. I've added this task:
+[T][ ] join sports club
+Now you have 4 tasks in the list.
+Got it. I've added this task:
+[T][ ] borrow book
+Now you have 5 tasks in the list.
+Here are the tasks in your list:
+1.[T][ ] read book
+2.[D][ ] return book (by :11/11/2025 1100)
+3.[E][ ] project meeting (from: 12 Dec 2025 12:00 to: 12 Dec 2025 14:00)
+4.[T][ ] join sports club
+5.[T][ ] borrow book
+Nice! I've marked this task as done:
+[X] read book
+Nice! I've marked this task as done:
+[X] join sports club
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by :11/11/2025 1100)
+3.[E][ ] project meeting (from: 12 Dec 2025 12:00 to: 12 Dec 2025 14:00)
+4.[T][X] join sports club
+5.[T][ ] borrow book
+Nice! I've marked this task as done:
+[X] project meeting
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by :11/11/2025 1100)
+3.[E][X] project meeting (from: 12 Dec 2025 12:00 to: 12 Dec 2025 14:00)
+4.[T][X] join sports club
+5.[T][ ] borrow book
+Nice! I've unmarked this task as done:
+[ ] project meeting
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by :11/11/2025 1100)
+3.[E][ ] project meeting (from: 12 Dec 2025 12:00 to: 12 Dec 2025 14:00)
+4.[T][X] join sports club
+5.[T][ ] borrow book
+You must specify the task number to unmark.
+Sorry, this task does not exist. Try the command "list" and mark an existing task on your list.
+Got it. I've added this task:
+[D][ ] return book (by :19/09/2025 1700)
+Now you have 6 tasks in the list.
+Got it. I've added this task:
+[E][ ] project meeting (from: 09 Sept 2025 14:00 to: 09 Sept 2025 14:00)
+Now you have 7 tasks in the list.
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by :11/11/2025 1100)
+3.[E][ ] project meeting (from: 12 Dec 2025 12:00 to: 12 Dec 2025 14:00)
+4.[T][X] join sports club
+5.[T][ ] borrow book
+6.[D][ ] return book (by :19/09/2025 1700)
+7.[E][ ] project meeting (from: 09 Sept 2025 14:00 to: 09 Sept 2025 14:00)
+Description of a Todo Task cannot be empty!
+Description of a Deadline Task cannot be empty!
+Description of an Event Task cannot be empty!
+Description of a Todo Task cannot be empty!
+Deadline of a Deadline Task cannot be empty!
+Start time of a Event Task cannot be empty!
+End time of a Event Task cannot be empty!
+Start time of a Event Task cannot be empty!
+You must specify the task number to delete.
+Sorry, this task does not exist. Try the command "list" and delete an existing task on your list.
+Noted. I've removed this task:
+[T][X] read book
+Now you have 6 tasks in the list.
+Here are the tasks in your list:
+1.[D][ ] return book (by :11/11/2025 1100)
+2.[E][ ] project meeting (from: 12 Dec 2025 12:00 to: 12 Dec 2025 14:00)
+3.[T][X] join sports club
+4.[T][ ] borrow book
+5.[D][ ] return book (by :19/09/2025 1700)
+6.[E][ ] project meeting (from: 09 Sept 2025 14:00 to: 09 Sept 2025 14:00)
+Bye. Hope to see you again soon!
