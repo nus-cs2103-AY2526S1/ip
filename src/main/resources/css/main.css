@@ -1,0 +1,51 @@
+.root {
+    -fx-background-image: url("../images/background.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-color: rgba(0,0,0,0.7);
+    -fx-backgorund-blend-mode: overlay;
+
+}
+
+.text-field {
+    -fx-background-color: #d9ffe2;
+    -fx-font: 20px "Consolas";
+}
+
+.button {
+    -fx-background-color: #001278;
+    -fx-font: italic bold 16px "Consolas";
+}
+
+.button:hover {
+    -fx-background-color: #0080ff;
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color:orange;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #ff9cb4;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
