@@ -1,0 +1,19 @@
+todo
+todo read book
+deadline
+deadline finish report
+deadline finish report /by Monday
+event
+event party /from 5pm
+event party /from 5pm /to 7pm
+mark
+mark one
+mark 5
+mark 1
+unmark 1
+list
+delete
+delete one
+delete 1
+list
+bye
