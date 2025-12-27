@@ -1,0 +1,7 @@
+todo hw
+deadline assignment /by monday
+event meeting /from 5pm /to 7pm
+mark 1
+delete 2
+mark 2
+bye
