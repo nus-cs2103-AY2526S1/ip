@@ -1,30 +1,69 @@
-# Duke User Guide
+# User Guide to Tension
 
-// Update the title above to match the actual product name
+Tension is an app that allows you to store tasks categorised into todos, deadlines and events. You can perform actions such as add, mark, unmark, tag, delete and list to manage your tasks.
 
-// Product screenshot goes here
+# To start
 
-// Product intro goes here
+1. Ensure you have Java 17 or above installed in your Computer.
+   Mac users: Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+2. Download the latest .jar file from [here](https://github.com/porcupinezzz/ip/blob/master/tension.jar).
+3. Copy the file to the folder you want to use as the home folder for your AddressBook.
+4. Within the same folder, create a file named **data.txt**
+5. Open a command terminal of your choice and run `java -jar tension.jar`
+6. A GUI should pop up and you can start typing in commands of your choice.
 
-## Adding deadlines
+# Features
 
-// Describe the action and its outcome.
+**All commands should be typed in lower-case**
 
-// Give examples of usage
+## Listing all tasks `list`
 
-Example: `keyword (optional arguments)`
+Simply type `list` to retrieve all the tasks in your memory
 
-// A description of the expected outcome goes here
+## Adding a task
 
-```
-expected output
-```
+### Adding a todo `todo`
 
-## Feature ABC
+Adds a todo task to memory
 
-// Feature details
+Format: `todo DESCRIPTION`
 
+### Adding a deadline `deadline`
 
-## Feature XYZ
+Adds a deadline task to memory
 
-// Feature details
+Format: `deadline DESCRIPTION/by DATE(in YYYY-DD-MM)`
+
+### Adding an event `event`
+
+Adds an event task to memory
+
+Format: `event DESCRIPTION/from TIME_START/to TIME_END`
+
+## Deleting a task `delete`
+
+Deletes a task from memory
+
+Format: `delete LINENUMBER`
+
+## Marking/Unmarking a task `mark` `unmark`
+
+Marks a task as complete/unmarks a task as complete
+
+Format: `mark LINENUMBER` or `unmark LINENUMBER`
+
+## Finding a task `find`
+
+Finds a task that contains the word **PARAM**
+
+Format: `find PARAM`
+
+## Tag a task `tag`
+
+Tags a task with tag **PARAM**
+
+Format: `tag PARAM`
+
+## Say bye `bye`
+
+Greets bye to the bot, simply type `bye`

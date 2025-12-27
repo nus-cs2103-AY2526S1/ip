@@ -1,0 +1,6 @@
+todo homework
+deadline cs2103t ip tension.task/dueDate 6pm today
+event group meeting/from 5pm/to 7pm
+list
+delete 2
+bye

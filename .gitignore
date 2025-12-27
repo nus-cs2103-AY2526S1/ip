@@ -3,12 +3,12 @@
 /out/
 /*.iml
 
-# Gradle build files
+# Gradle tension.tension.build files
 /.gradle/
 /build/
 src/main/resources/docs/
 
-# MacOS custom attributes files created by Finder
+# MacOS custom attributes files created dueDate Finder
 .DS_Store
 *.iml
 bin/
