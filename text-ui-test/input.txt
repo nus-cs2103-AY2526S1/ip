@@ -1,0 +1,9 @@
+todo cook
+deadline clean /by today
+event return book /from now /to tmr
+list
+mark 2
+unmark 2
+list
+bye
+
