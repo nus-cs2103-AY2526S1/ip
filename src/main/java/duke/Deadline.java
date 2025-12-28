@@ -1,0 +1,62 @@
+package duke;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Locale;
+
+public class Deadline extends Task {
+    // Keep original input in case it isn't a valid date
+    protected String byRaw;
+    protected LocalDate date;          // if user typed yyyy-MM-dd
+    protected LocalDateTime dateTime;  // if user typed yyyy-MM-dd HHmm
+
+    private static final DateTimeFormatter IN_DATE = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter IN_DATE_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter OUT_DATE = DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH);
+    private static final DateTimeFormatter OUT_DATE_TIME = DateTimeFormatter.ofPattern("MMM d yyyy h:mma", Locale.ENGLISH);
+
+    public Deadline(String description, String by) {
+        super(description, TaskType.DEADLINE); // or remove TaskType if you're not using enums
+        this.byRaw = by == null ? "" : by.trim();
+        parseIntoFields(this.byRaw);
+    }
+
+    private void parseIntoFields(String s) {
+        if (s.isEmpty()) return;
+        // Try datetime first (yyyy-MM-dd HHmm)
+        try {
+            dateTime = LocalDateTime.parse(s, IN_DATE_TIME);
+            return;
+        } catch (DateTimeParseException ignore) { /* fall through */ }
+
+        // Then try date only (yyyy-MM-dd)
+        try {
+            date = LocalDate.parse(s, IN_DATE);
+        } catch (DateTimeParseException ignore) {
+            // leave both null;
+        }
+    }
+
+    // For Storage
+    public String storageBy() {
+        if (dateTime != null) return dateTime.format(IN_DATE_TIME); // yyyy-MM-dd HHmm
+        if (date != null) return date.format(IN_DATE);              // yyyy-MM-dd
+        return byRaw;                                               // fallback
+    }
+
+    @Override
+    public String toString() {
+        String pretty;
+        if (dateTime != null) {
+            pretty = dateTime.format(OUT_DATE_TIME); // "Oct 15 2019 6:00PM"
+        } else if (date != null) {
+            pretty = date.format(OUT_DATE); // "Oct 15 2019"
+        } else {
+            pretty = byRaw; // not a recognized date format -> show original (fallback)
+        }
+        return super.toString() + " (by: " + pretty + ")";
+    }
+}
+
