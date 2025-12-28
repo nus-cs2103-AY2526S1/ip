@@ -1,7 +1,50 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! I'm Yapper
+What can I do for you?
+InvalidCommandException: Sorry, please enter a  valid commmand (mark / unmark / todo / deadline / event / list)
+InvalidCommandException: Invalid task number. Current list size is 0
+Got it. I've added this task:
+[T][ ] hello
+Now you have 1 tasks in the list.
+Here are the tasks in your list:
+1. [T][ ] hello
+InvalidCommandException: Need /by parameter
+InvalidCommandException: Description of Deadline cannot be empty
+InvalidCommandException: /by of Deadline cannot be empty
+Got it. I've added this task:
+[D][ ] hi (by: Sun)
+Now you have 2 tasks in the list.
+InvalidCommandException: Need both /from and /to parameters
+InvalidCommandException: Need both /from and /to parameters
+InvalidCommandException: Need both /from and /to parameters
+InvalidCommandException: Description of Event cannot be empty
+Got it. I've added this task:
+[E][ ] hi1 (from: Mon to: Sun)
+Now you have 3 tasks in the list.
+Got it. I've added this task:
+[E][ ] hi2 (from: Mon to: Sun)
+Now you have 4 tasks in the list.
+Here are the tasks in your list:
+1. [T][ ] hello
+2. [D][ ] hi (by: Sun)
+3. [E][ ] hi1 (from: Mon to: Sun)
+4. [E][ ] hi2 (from: Mon to: Sun)
+InvalidCommandException: Invalid task number. Current list size is 4
+InvalidCommandException: Invalid task number. Current list size is 4
+Noted. I have removed this task:
+[E][ ] hi2 (from: Mon to: Sun)
+Now you have 3 tasks in the list.
+Here are the tasks in your list:
+1. [T][ ] hello
+2. [D][ ] hi (by: Sun)
+3. [E][ ] hi1 (from: Mon to: Sun)
+Noted. I have removed this task:
+[E][ ] hi1 (from: Mon to: Sun)
+Now you have 2 tasks in the list.
+Noted. I have removed this task:
+[D][ ] hi (by: Sun)
+Now you have 1 tasks in the list.
+Noted. I have removed this task:
+[T][ ] hello
+Now you have 0 tasks in the list.
+Here are the tasks in your list:
+Bye. Hope to see you again soon!
