@@ -1,6 +1,8 @@
 # IDEA files
 /.idea/
+src/.idea/
 /out/
+src/out/
 /*.iml
 
 # Gradle build files
@@ -15,3 +17,4 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+data/

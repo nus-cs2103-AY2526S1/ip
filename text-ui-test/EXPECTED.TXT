@@ -1,7 +1,86 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+***************************************
+Hmph! I'm Tsundere-chan.
+What do you want? If you ask nicely, I just MIGHT help you...
+***************************************
+***************************************
+What?? There's nothing to list, you idiot!
+***************************************
+***************************************
+W-well, I guess I can help you just this once. B-but don't expect this everytime, got it?!
+    [T][ ] read book
+Now you have 1 tasks in your list. Better get to work!
+***************************************
+***************************************
+1.[T][ ] read book
+***************************************
+***************************************
+W-well, I guess I can help you just this once. B-but don't expect this everytime, got it?!
+    [D][ ] homework (by: Monday)
+Now you have 2 tasks in your list. Better get to work!
+***************************************
+***************************************
+You gotta tell me the description of the event at least, or I can't help you, doofus!
+***************************************
+***************************************
+You need to include both /from and /to, IN THAT ORDER, dummy!
+***************************************
+***************************************
+W-well, I guess I can help you just this once. B-but don't expect this everytime, got it?!
+    [E][ ] CCA (from: monday 12pm to: 2pm)
+Now you have 3 tasks in your list. Better get to work!
+***************************************
+***************************************
+1.[T][ ] read book
+2.[D][ ] homework (by: Monday)
+3.[E][ ] CCA (from: monday 12pm to: 2pm)
+***************************************
+***************************************
+That's not a valid task, you iiiiidiot!
+***************************************
+***************************************
+W-well, it seems even you can get something done, I guess... N-not like I'm impressed or anything!
+    [T][X] read book
+***************************************
+***************************************
+1.[T][X] read book
+2.[D][ ] homework (by: Monday)
+3.[E][ ] CCA (from: monday 12pm to: 2pm)
+***************************************
+***************************************
+W-well, it seems even you can get something done, I guess... N-not like I'm impressed or anything!
+    [D][X] homework (by: Monday)
+***************************************
+***************************************
+W-well, it seems even you can get something done, I guess... N-not like I'm impressed or anything!
+    [E][X] CCA (from: monday 12pm to: 2pm)
+***************************************
+***************************************
+1.[T][X] read book
+2.[D][X] homework (by: Monday)
+3.[E][X] CCA (from: monday 12pm to: 2pm)
+***************************************
+***************************************
+And here I was, expecting something from you... Why do I feel disappointed?
+    [D][ ] homework (by: Monday)
+***************************************
+***************************************
+1.[T][X] read book
+2.[D][ ] homework (by: Monday)
+3.[E][X] CCA (from: monday 12pm to: 2pm)
+***************************************
+***************************************
+Hmph, fine. I'll remove this task, so you better be thankful.
+    [D][ ] homework (by: Monday)
+Now you only have 2 tasks in your list. U-um, it's not like I care or anything but, you can probably take a little break now, right?
+***************************************
+***************************************
+1.[T][X] read book
+2.[E][X] CCA (from: monday 12pm to: 2pm)
+***************************************
+***************************************
+That's not a valid task, you iiiiidiot!
+***************************************
+***************************************
+Hmph, done already? D-don't talk to me anymore, you idiot!
+It's not l-like I enjoyed talking to you or anything...
+***************************************
