@@ -1,26 +1,85 @@
-# Duke project template
+# ByteBuddy 🤖☕
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+ByteBuddy is a **Java chatbot** inspired by the Java mascot _Duke_.  
+It comes with a clean **JavaFX graphical interface (GUI)** for chatting with your personal task assistant.
 
-## Setting up in Intellij
+---
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## ✨ Features
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+- 🗂️ Manage your tasks (Todo, Deadline, Event)
+- ✅ Mark and unmark tasks as done
+- 🔍 Find tasks by keyword
+- 🆘 Built-in `help` command for guidance
+- 🎉 Loads with sample data on first run to get you started
+- 💻 Simple **JavaFX GUI** for smooth interaction
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+---
+
+## 📦 Prerequisites
+
+- **JDK 17**
+- **IntelliJ IDEA** (recommended)
+- **Gradle** (optional; IntelliJ can manage it automatically)
+
+---
+
+## 🚀 Getting Started
+
+### Open in IntelliJ
+1. Open IntelliJ.  
+   *(If you are not on the welcome screen, click `File` > `Close Project` to close any open project.)*
+2. Open the project:
+    - Click **Open**.
+    - Select the project root directory.
+    - Accept any prompts with default options.
+3. Configure **JDK 17**:
+    - `File > Project Structure > Project`
+    - Set **Project SDK** to JDK 17
+    - Set **Project language level** to `SDK Default`  
+      👉 [More details](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk)
+4. Run the app:
+    - **Option 1 (IntelliJ):** Right-click `Main.java` in `src/main/java/bytebuddy/gui/` → **Run 'Main.main()'**
+    - **Option 2 (Gradle):** Run in terminal:
+      ```bash
+      ./gradlew run
+      ```
+
+## 📖 Usage Guide
+
+Once ByteBuddy is running, you can interact with it through natural commands.  
+Here are all the commands you can use:
+
+1. **`list`** – Lists all tasks currently in your task list.
+2. **`todo <description>`** – Adds a Todo task.
+    - Example: `todo Buy groceries`
+3. **`deadline <description> /by <date (yyyy-mm-dd)>`** – Adds a Deadline task.
+    - Example: `deadline Submit report /by 2025-09-30`
+4. **`event <description> /from <date time (yyyy-mm-dd HHmm)> /to <date time (yyyy-mm-dd HHmm)>`** – Adds an Event task with a start and end time.
+    - Example: `event Hackathon /from 2025-09-20 0900 /to 2025-09-20 2100`
+5. **`mark <task number>`** – Marks a task as done.
+    - Example: `mark 2`
+6. **`unmark <task number>`** – Marks a task as not done.
+    - Example: `unmark 2`
+7. **`delete <task number>`** – Deletes a task.
+    - Example: `delete 3`
+8. **`find <keyword>`** – Finds tasks containing the keyword.
+    - Example: `find report`
+9. **`bye`** – Exits the application gracefully.
+
+💡 Tip: You can type `help` anytime in the app to bring up this command list again.
+
+---
+
+## 📸 Demo
+![ByteBuddyScreenshot.png](src/main/resources/images/ByteBuddyScreenshot.png)
+
+---
+## 🛠️ Development Notes
+
+- Keep `src/main/java` as the source root.
+- All interaction now happens via the **GUI** (CLI `run()` is deprecated).
+- A GitHub Actions workflow (`.github/workflows/ci.yml`) is included for **CI/CD** – it builds and tests the project on every commit/PR.
+- To package a runnable JAR with JavaFX included:
+  ```bash
+  ./gradlew shadowJar

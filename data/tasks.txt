@@ -1,0 +1,6 @@
+T | 1 | read book
+D | 0 | return book | Jun 2 2026
+E | 0 | project meeting | Aug 06 2019 14:00 to Aug 06 2019 18:00
+T | 0 | join sports club
+E | 0 | lecture | Jan 19 2020 12:00 to Jan 19 2020 14:00
+D | 0 | present | Mar 1 2025
