@@ -1,0 +1,34 @@
+list
+delete 9000
+list
+mark 435
+unmark 15
+unmark -1
+todo hi
+todo
+deadline apply internship
+deadline project anton /by 31/12/2002 19:43
+list
+event project meeting /from Tues /to 5am
+event project meeting /from 11/02/2022 /to 21/11/2125
+event project meeting /from 11/02/2022 18:00 /to 21/11/212 22:00
+event project meetup /from 21/08/2012 18:00 /to 31/12/2033 22:00
+list
+delete
+delete 4
+list
+mark 5
+list
+mark 1
+list
+mark 2
+list
+unmark 2
+list
+delete 5
+delete 2
+list
+delete 3
+list
+list
+bye
