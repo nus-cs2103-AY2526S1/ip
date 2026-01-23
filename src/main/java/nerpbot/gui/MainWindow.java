@@ -77,6 +77,11 @@ public class MainWindow extends AnchorPane {
             dialogContainer.getChildren().add(
                     DialogBox.getNerpBotErrorDialog(errorMessage, botImage)
             );
+        } else if (response.startsWith(NerpBot.CONFIRM_PREFIX)) {
+            String confirmMessage = response.substring(NerpBot.CONFIRM_PREFIX.length());
+            dialogContainer.getChildren().add(
+                    DialogBox.getNerpBotConfirmDialog(confirmMessage, botImage)
+            );
         } else {
             dialogContainer.getChildren().add(
                     DialogBox.getNerpBotDialog(response, botImage)

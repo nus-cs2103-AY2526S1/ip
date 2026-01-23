@@ -38,6 +38,20 @@ public class HelpWindow {
                 "unmark <task-number> - Mark a task as not done",
                 "delete <task-number> - Delete a task",
                 "find <keyword> - Find tasks containing the keyword");
+
+        addSection("🤖 Semantic Mode (Natural Language)",
+                "semantic on - Enable natural language interpretation",
+                "semantic off - Disable natural language interpretation",
+                "",
+                "When enabled, you can type naturally:",
+                "  \"I need to buy groceries\"",
+                "  \"finish homework by tomorrow\"",
+                "  \"meeting from 2pm to 4pm\"",
+                "  \"show me all my tasks\"",
+                "  \"task 1 is done\"",
+                "  \"remove task 2\"",
+                "",
+                "NerpBot will interpret your input and ask for confirmation before executing.");
     }
 
     /**

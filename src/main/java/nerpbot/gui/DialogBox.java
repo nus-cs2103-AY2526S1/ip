@@ -66,4 +66,20 @@ public class DialogBox extends HBox {
         db.dialog.setStyle("-fx-text-fill: #d32f2f; -fx-font-weight: bold;");
         return db;
     }
+
+    /**
+     * Creates a confirmation dialog box for semantic interpretation.
+     *
+     * @param text The text to display in the dialog.
+     * @param img The image to display alongside the dialog.
+     * @return A styled DialogBox for confirmation prompts.
+     */
+    public static DialogBox getNerpBotConfirmDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.flip();
+        // Add confirmation styling - blue/purple theme for questions
+        db.setStyle("-fx-background-color: #e8f4fd; -fx-border-color: #2196f3; -fx-border-width: 2px; -fx-border-radius: 5px;");
+        db.dialog.setStyle("-fx-text-fill: #1565c0;");
+        return db;
+    }
 }
