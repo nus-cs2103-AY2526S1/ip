@@ -8,8 +8,8 @@ NerpBot is a **desktop task management chatbot** built with Java and JavaFX. It 
 
 ## 📸 Screenshot
 
-<img src="docs/Ui.png" width="400" alt="NerpBot Screenshot">
-<img src="docs/Semantic.png" width="400" alt="Semantic Mode Screenshot">
+<img src="docs/Ui.png" width="260" alt="NerpBot Screenshot">
+<img src="docs/Semantic.png" width="260" alt="Semantic Mode Screenshot">
 
 ---
 
