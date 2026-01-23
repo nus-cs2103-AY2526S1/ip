@@ -5,4 +5,3 @@ T | 1 | sleep
 T | 1 | pee a lot
 T | 1 | cs2103T
 D | 0 | buy groceries | 2026-01-24
-T | 0 | delete the second task
