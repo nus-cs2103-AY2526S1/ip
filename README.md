@@ -6,10 +6,11 @@ NerpBot is a **desktop task management chatbot** built with Java and JavaFX. It 
 
 ---
 
-## 📸 Screenshot
+## 📸 Screenshots
 
-<img src="docs/Ui.png" width="260" alt="NerpBot Screenshot">
-<img src="docs/Semantic.png" width="260" alt="Semantic Mode Screenshot">
+| Main Interface | Semantic Mode |
+|:--------------:|:-------------:|
+| <img src="docs/Ui.png" width="260" alt="NerpBot Screenshot"> | <img src="docs/Semantic.png" width="260" alt="Semantic Mode Screenshot"> |
 
 ---
 
