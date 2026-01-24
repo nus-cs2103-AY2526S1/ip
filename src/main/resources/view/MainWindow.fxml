@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import noob.gui.element.SendButton?>
+<?import noob.gui.element.UserInput?>
+<?import noob.gui.layout.DialogContainer?>
+<?import noob.gui.layout.MainScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="noob.gui.controller.MainWindow">
+    <children>
+        <UserInput fx:id="userInput"/>
+        <SendButton fx:id="sendButton"/>
+        <MainScrollPane fx:id="mainScrollPane">
+            <content>
+                <DialogContainer fx:id="dialogContainer"/>
+            </content>
+        </MainScrollPane>
+    </children>
+</AnchorPane>

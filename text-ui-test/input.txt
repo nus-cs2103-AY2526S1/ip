@@ -1,0 +1,7 @@
+todo read book
+deadline finish project /by Friday
+list
+event open house /from Monday /to Friday
+mark 3
+list
+bye
