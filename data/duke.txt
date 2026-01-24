@@ -1,0 +1,5 @@
+T | 0 | read book
+T | 0 | listen music
+D | 1 | cs2103t ip submission | 2025-09-22T23:59
+E | 0 | forum | 2025-09-21T16:002025-09-21T18:00
+E | 0 | project meeting | 2025-09-22T18:002025-09-22T19:00

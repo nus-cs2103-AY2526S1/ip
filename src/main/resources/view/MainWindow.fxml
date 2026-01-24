@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Rectangle?>
+<AnchorPane prefHeight="600.0" prefWidth="400.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="chathyt.MainWindow"
+            style="-fx-background-image: url('/Images/chatHYT4.png');
+                   -fx-background-size: cover;
+                   -fx-background-position: center;
+                   -fx-background-repeat: no-repeat;">
+
+<children>
+        <!-- Chat display area -->
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.bottomAnchor="60.0"
+                    style="-fx-background: transparent;
+                           -fx-background-color: transparent;
+                           -fx-border-color: transparent;
+                           -fx-padding: 10;">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      spacing="10"
+                      style="-fx-padding: 10;"/>
+            </content>
+        </ScrollPane>
+
+        <!-- Input bar -->
+        <TextField fx:id="userInput"
+                   onAction="#handleUserInput"
+                   prefHeight="50"
+                   AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="80.0"
+                   style="-fx-background-radius: 25;
+                   -fx-background-color: rgba(255,255,255,0.9);
+                   -fx-border-color: #d0d0d0;
+                   -fx-border-radius: 25;
+                   -fx-padding: 12 15 12 15;
+                   -fx-font-size: 14px;
+                   -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 4, 0.3, 0, 2);" />
+
+        <!-- Send button -->
+        <Button fx:id="sendButton"
+                text="Send"
+                onAction="#handleUserInput"
+                prefHeight="50"
+                prefWidth="80"
+                AnchorPane.bottomAnchor="0.0"
+                AnchorPane.rightAnchor="0.0"
+                style="-fx-background-color: #f5f5dc;
+                       -fx-border-color: #a1887f;
+                       -fx-background-radius: 25;
+                       -fx-border-radius: 25;
+                       -fx-border-width: 2;
+                       -fx-font-weight: bold;
+                       -fx-font-size: 14px;
+                       -fx-font-color: #ffffff;
+                       -fx-text-fill: #ffffff;
+                       -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0.5, 0, 2);
+                       -fx-cursor: hand;" />
+    </children>
+</AnchorPane>
