@@ -1,26 +1,43 @@
-# Duke project template
+# Eve Chatbot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Eve is a small Java-based chatbot project (built with JavaFX) that helps you manage tasks in a fun and engaging way.  
+Unlike a plain to-do manager, Eve speaks with a **cute and lively personality** inspired by the character Eve from *Stellar Blade* ✨.
 
-## Setting up in Intellij
+---
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## ✨ Features
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+- **Task Management**
+  - Add tasks (`todo`, `deadline`, `event`, `period`)
+  - Mark tasks as done/undone
+  - Delete tasks
+  - Find tasks by keyword
+  - List all tasks
+  - and others to explore...
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+- **Personalized Responses**
+  - Eve replies with energetic, friendly messages
+  - Uses cute kaomoji and playful tones instead of plain system text
+  - Separate styles for CLI and GUI
+
+- **Dual Interface**
+  - **CLI Mode**: ASCII-styled, works directly in the terminal
+  - **GUI Mode**: JavaFX-based chat window with:
+    - Chat bubbles for user and Eve
+    - Distinct fonts and colors for better readability
+    - A **stylized text logo** replacing the old ASCII logo
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Java 17 or above
+- JavaFX SDK (if running locally outside Gradle/Maven)
+
+### Build & Run
+If you are using Gradle:
+
+```bash
+./gradlew clean build
+./gradlew run

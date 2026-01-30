@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_LEFT"
+         prefWidth="500.0"
+         spacing="8"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+
+  <children>
+    <!-- Avatar -->
+    <VBox alignment="TOP_CENTER">
+        <ImageView fx:id="displayPicture"
+                   fitHeight="40.0"
+                   fitWidth="40.0"
+                   pickOnBounds="true"
+                   preserveRatio="true"/>
+    </VBox>
+
+    <!-- Chat bubble -->
+    <Label fx:id="dialog"
+           text="Label"
+           wrapText="true"
+           maxWidth="350.0"
+           style="-fx-font-size: 13px;
+                  -fx-padding: 8 12 8 12;
+                  -fx-background-color: #f4f4f4;
+                  -fx-background-radius: 12;
+                  -fx-text-fill: #222;" />
+  </children>
+
+  <padding>
+    <Insets bottom="6.0" left="8.0" right="8.0" top="6.0"/>
+  </padding>
+</fx:root>

@@ -1,0 +1,99 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+repositories {
+    mavenCentral()
+}
+
+def javaFxVersion = '17.0.7'
+
+dependencies {
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.10.0"
+    testRuntimeOnly   "org.junit.jupiter:junit-jupiter-engine:5.10.0"
+
+    // JavaFX APIs + natives for all platforms (pulled in at compile/runtime)
+    implementation group: 'org.openjfx', name: 'javafx-base',     version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-base',     version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-base',     version: javaFxVersion, classifier: 'linux'
+
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+
+    implementation group: 'org.openjfx', name: 'javafx-fxml',     version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml',     version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-fxml',     version: javaFxVersion, classifier: 'linux'
+
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+    configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+    configProperties = [:]  // Empty properties for now
+    ignoreFailures = false
+}
+
+tasks.withType(Checkstyle).configureEach {
+    reports {
+        xml.required = false
+        html.required = true
+    }
+}
+
+tasks.named("distZip") {
+    dependsOn tasks.named("shadowJar")
+}
+tasks.named("distTar") {
+    dependsOn tasks.named("shadowJar")
+}
+tasks.named("startScripts") {
+    dependsOn tasks.named("shadowJar")
+}
+
+
+application {
+    mainClass = 'eve.gui.Launcher'
+}
+
+// Shadow JAR config
+tasks.named("jar") {
+    enabled = false
+}
+
+shadowJar {
+    archiveBaseName.set("eve")
+    archiveClassifier.set("") // ensures "eve.jar" without "-all"
+}
+
+run {
+    standardInput = System.in
+}
