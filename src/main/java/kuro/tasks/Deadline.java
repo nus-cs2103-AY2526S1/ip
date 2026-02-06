@@ -1,0 +1,39 @@
+package kuro.tasks;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+/**
+ * A class that inherit from Task that has additional deadline information.
+ */
+public class Deadline extends Task {
+    protected LocalDateTime by;
+
+    /**
+     * Constructor for Deadline class
+     */
+    public Deadline(String description, LocalDateTime by) {
+        super(description);
+        assert by != null : "Deadline date cannot be null";
+        this.by = by;
+    }
+
+    /**
+     * Constructor for Deadline class
+     */
+    public Deadline(String description, LocalDateTime by, boolean isCompleted) {
+        super(description, isCompleted);
+        assert by != null : "Deadline date cannot be null";
+        this.by = by;
+    }
+
+    @Override
+    public String toSaveFormat() {
+        return String.format("D | %d | %s | %s", isCompleted ? 1 : 0, description, by);
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + ")";
+    }
+}
