@@ -1,0 +1,40 @@
+t
+afefe
+aejaegeagajo feeaia aheugaj
+todo
+todo a
+deadline
+deadline ab
+deadline ab /by
+deadline ab /by 14
+deadline ab /by 14/2/2025 1600
+event
+event abc
+event abc /from
+event abc /from 12
+event abc /from 12/12/2020 0630
+event abc /from 12/12/2020 0630 /to
+event abc /from 12/12/2020 0630 /to 12/12/2020 1830
+list
+mark
+mark 1
+list
+mark 4
+mark -3
+mark 2
+unmark
+unmark 1
+list
+unmark -2
+unmark 1
+list
+delete
+delete 3
+list
+find
+find a
+find b
+find c
+find d
+clearall
+bye
