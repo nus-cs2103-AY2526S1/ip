@@ -39,6 +39,9 @@ public class HelpCommand extends Command {
                 9. unmark (um) {task number} - Unmark a task as not completed
                 10. delete (d) {task number} - Delete a task
                 11. find (fd) {keyword} - Find tasks containing the keyword
+                12. @ai {query} - Ask AI about app features (e.g., @ai is there a command to add priorities?)
+                13. @cmd {request} - Execute a command using natural language
+                    (e.g., @cmd add a task to buy groceries by tomorrow)
                 Note: You can use either the full command name or the shorthand in parentheses.
                 """;
     }

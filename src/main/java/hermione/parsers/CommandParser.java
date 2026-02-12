@@ -1,5 +1,7 @@
 package hermione.parsers;
 
+import hermione.commands.AiCommandCommand;
+import hermione.commands.AiQueryCommand;
 import hermione.commands.Command;
 import hermione.commands.DeadlineCommand;
 import hermione.commands.DeleteCommand;
@@ -45,6 +47,8 @@ public class CommandParser {
             case "find", "fd" -> new FindCommand(storage, argument);
             case "bye", "b" -> new ExitCommand(storage, argument);
             case "help", "h" -> new HelpCommand(storage, argument);
+            case "@ai" -> new AiQueryCommand(storage, argument);
+            case "@cmd" -> new AiCommandCommand(storage, argument);
             default -> throw new InvalidCommandException(command);
         };
     }
