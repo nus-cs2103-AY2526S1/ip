@@ -1,7 +1,109 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+_________________________________________________________
+Hello, this is
+         ____  _               _
+        / ___|| |__   __ _  __| | _____      __
+        \___ \| '_ \ / _` |/ _` |/ _ \ \ /\ / /
+         ___) | | | | (_| | (_| | (_) \ V  V /
+        |____/|_| |_|\__,_|\__,_|\___/ \_/\_/
 
+What's your demand today?
+_________________________________________________________
+> Added: [T][ ] Buy groceries
+_________________________________________________________
+> Added: [D][ ] Submit assignment (by: Sunday)
+_________________________________________________________
+> Added: [E][ ] Conference (from: Monday to: Wednesday)
+_________________________________________________________
+> _________________________________________________________
+> Added: [T][ ] Walk the dog
+_________________________________________________________
+> Added: [D][ ] Renew license (by: 30th Aug)
+_________________________________________________________
+> Added: [E][ ] Workshop (from: 9am to: 12pm)
+_________________________________________________________
+> _________________________________________________________
+> Usage: todo <taskName>
+_________________________________________________________
+> Usage: deadline <taskName> /by <by>
+_________________________________________________________
+> Usage: event <taskName> /from <from> /to <to>
+_________________________________________________________
+> _________________________________________________________
+> 1: [T][ ] Buy groceries
+2: [D][ ] Submit assignment (by: Sunday)
+3: [E][ ] Conference (from: Monday to: Wednesday)
+4: [T][ ] Walk the dog
+5: [D][ ] Renew license (by: 30th Aug)
+6: [E][ ] Workshop (from: 9am to: 12pm)
+_________________________________________________________
+> _________________________________________________________
+> Noted, the following task has been marked:
+[T][X] Buy groceries
+_________________________________________________________
+> Noted, the following task has been marked:
+[E][X] Conference (from: Monday to: Wednesday)
+_________________________________________________________
+> Noted, the following task has been marked:
+[E][X] Workshop (from: 9am to: 12pm)
+_________________________________________________________
+> You have inputted an invalid task number
+_________________________________________________________
+> _________________________________________________________
+> Noted, the following task has been unmarked:
+[E][ ] Conference (from: Monday to: Wednesday)
+_________________________________________________________
+> Noted, the following task has been unmarked:
+[E][ ] Workshop (from: 9am to: 12pm)
+_________________________________________________________
+> You have inputted an invalid task number
+_________________________________________________________
+> You have inputted an invalid task number
+_________________________________________________________
+> _________________________________________________________
+> Added: [T][ ] Finish book
+_________________________________________________________
+> Added: [D][ ] Pay bills (by: tomorrow)
+_________________________________________________________
+> Added: [E][ ] Gym class (from: 6pm to: 7pm)
+_________________________________________________________
+> _________________________________________________________
+> 1: [T][X] Buy groceries
+2: [D][ ] Submit assignment (by: Sunday)
+3: [E][ ] Conference (from: Monday to: Wednesday)
+4: [T][ ] Walk the dog
+5: [D][ ] Renew license (by: 30th Aug)
+6: [E][ ] Workshop (from: 9am to: 12pm)
+7: [T][ ] Finish book
+8: [D][ ] Pay bills (by: tomorrow)
+9: [E][ ] Gym class (from: 6pm to: 7pm)
+_________________________________________________________
+> _________________________________________________________
+> Unknown shadow.commands.Command
+_________________________________________________________
+> _________________________________________________________
+> Usage: event <taskName> /from <from> /to <to>
+_________________________________________________________
+> Added: [D][ ] Read paper (by: )
+_________________________________________________________
+> Usage: todo <taskName>
+_________________________________________________________
+> _________________________________________________________
+> Removed: [T][X] Buy groceries
+_________________________________________________________
+> Removed: [T][ ] Walk the dog
+_________________________________________________________
+> You have inputted an invalid task number
+_________________________________________________________
+> You have inputted an invalid task number
+_________________________________________________________
+> _________________________________________________________
+> 1: [D][ ] Submit assignment (by: Sunday)
+2: [E][ ] Conference (from: Monday to: Wednesday)
+3: [D][ ] Renew license (by: 30th Aug)
+4: [E][ ] Workshop (from: 9am to: 12pm)
+5: [T][ ] Finish book
+6: [D][ ] Pay bills (by: tomorrow)
+7: [E][ ] Gym class (from: 6pm to: 7pm)
+8: [D][ ] Read paper (by: )
+_________________________________________________________
+> Very well, contact me again when you have more demands.

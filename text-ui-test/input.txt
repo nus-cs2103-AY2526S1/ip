@@ -1,0 +1,43 @@
+todo Buy groceries
+deadline Submit assignment /by Sunday
+event Conference /from Monday /to Wednesday
+
+todo   Walk the dog
+deadline  Renew license /by  30th Aug
+event Workshop /from 9am /to 12pm
+
+todo
+deadline Fix bugs
+event Launch party /from Friday
+
+list
+
+mark 1
+mark 3
+mark 6
+mark 10
+
+unmark 3
+unmark 6
+unmark 0
+unmark -1
+
+todo Finish book
+deadline Pay bills /by tomorrow
+event Gym class /from 6pm /to 7pm
+
+list
+
+foobar something here
+
+event Concert /from 5pm
+deadline Read paper /by
+todo
+
+delete 1
+delete 3
+delete -1
+delete 200
+
+list
+bye
