@@ -3,10 +3,15 @@
 /out/
 /*.iml
 
+# Ignore runtime data
+data/
+
+
 # Gradle build files
 /.gradle/
 /build/
 src/main/resources/docs/
+*.class
 
 # MacOS custom attributes files created by Finder
 .DS_Store

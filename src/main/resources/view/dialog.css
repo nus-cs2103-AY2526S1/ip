@@ -1,0 +1,60 @@
+.user-bubble {
+    -fx-background-color: #E6FFE6;    /* faded green */
+    -fx-background-radius: 12 12 0 12; /* top-left, top-right, bottom-right, bottom-left */
+    -fx-padding: 6 10 6 10;
+    -fx-font-size: 12px;
+    -fx-text-fill: black;
+}
+
+.duke-bubble {
+    -fx-background-color: #F8F8F8;
+    -fx-background-radius: 12 12 12 0; /* top-left, top-right, bottom-right, bottom-left */
+    -fx-padding: 10 12 10 12;
+    -fx-font-size: 13px;
+    -fx-text-fill: #222;
+}
+
+#dialogContainer {
+    -fx-background-color: #BBDDBB;   /* light green */
+}
+
+.scroll-pane {
+    -fx-background: #EDEDED;
+    -fx-background-color: #EDEDED;
+}
+
+.text-field {
+    -fx-background-color: #E6FFE6;   /* lighter, faded green */
+    -fx-text-fill: black;
+    -fx-background-radius: 6;
+    -fx-padding: 4 6 4 6;
+}
+
+/* Send button */
+.button {
+    -fx-background-color: #66BB66;   /* medium green for contrast */
+    -fx-text-fill: white;            /* white text on green */
+    -fx-background-radius: 6;
+    -fx-padding: 6 12 6 12;
+}
+
+.error-bubble {
+    -fx-background-color: #FFE5E5;
+    -fx-background-radius: 12 12 12 0;
+    -fx-padding: 10;
+    -fx-font-size: 13px;
+    -fx-text-fill: #B00020;
+    -fx-font-weight: bold;
+}
+
+
+.scroll-pane {
+    -fx-padding: 0;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: #BBDDBB;
+}
+
+.image-view {
+    -fx-padding: 0 4 0 4;  /* top, right, bottom, left */
+}
