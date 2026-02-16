@@ -1,7 +1,135 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________________________________________________
+Hello! I'm Xenon
+What can I do for you?
 
+Here are the commands you can use:
+- todo <description>                                           - Add a todo task
+- deadline <description> /by <due date>                        - Add a deadline task
+- event <description> /from <start date> /to <end date>        - Add an event
+- list                                                         - Display created tasks
+- find <phrase>                                                - Find a task by searching for a phrase
+- mark <task number>                                           - Mark a task as done
+- unmark <task number>                                         - Mark a task as undone
+- delete <task number>                                         - Delete a task
+- help                                                         - Displays a list of available commands
+- bye                                                          - Exit chatbot
+
+
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: added [T][ ] read book
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: Task description cannot be empty
+If you are unsure of how to use me, type 'help' to see a list of available commands
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: Here are the commands you can use:
+- todo <description>                                           - Add a todo task
+- deadline <description> /by <due date>                        - Add a deadline task
+- event <description> /from <start date> /to <end date>        - Add an event
+- list                                                         - Display created tasks
+- find <phrase>                                                - Find a task by searching for a phrase
+- mark <task number>                                           - Mark a task as done
+- unmark <task number>                                         - Mark a task as undone
+- delete <task number>                                         - Delete a task
+- help                                                         - Displays a list of available commands
+- bye                                                          - Exit chatbot
+
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: added [T][ ] write essay
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: Invalid date input. Please specify a date with the following format: dd/MM/yyyy HH:mm E.g. 27/08/2025 09:30
+If you are unsure of how to use me, type 'help' to see a list of available commands
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: You must specify a due date for a deadline task
+If you are unsure of how to use me, type 'help' to see a list of available commands
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: added [D][ ] return book (by: 09:30, 28 Aug 2026)
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: Deadline cannot be before today.
+If you are unsure of how to use me, type 'help' to see a list of available commands
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: Invalid date input. Please specify a date with the following format: dd/MM/yyyy HH:mm E.g. 27/08/2025 09:30
+If you are unsure of how to use me, type 'help' to see a list of available commands
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: You must specify both the start and end date for an event
+If you are unsure of how to use me, type 'help' to see a list of available commands
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: added [E][ ] project meeting (from: 09:30, 28 Aug 2026 to: 09:30, 30 Aug 2026)
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: Start date must be after end date
+If you are unsure of how to use me, type 'help' to see a list of available commands
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: Include a word/phrase to search for
+If you are unsure of how to use me, type 'help' to see a list of available commands
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: Here are the matching tasks in your list
+	1. [T][ ] read book
+	2. [D][ ] return book (by: 09:30, 28 Aug 2026)
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: No matching tasks in your list
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: Please specify a task number.
+If you are unsure of how to use me, type 'help' to see a list of available commands
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: Nice! I've marked this task as done:
+	[T][X] write essay
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: Task 5 does not exist in your list
+If you are unsure of how to use me, type 'help' to see a list of available commands
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: Ok, I've marked this task as not done yet:
+	[T][ ] write essay
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: Task -1 does not exist in your list
+If you are unsure of how to use me, type 'help' to see a list of available commands
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: Noted. I've removed this task
+	[T][ ] write essay
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: Here are the tasks in your list
+	1. [T][ ] read book
+	2. [D][ ] return book (by: 09:30, 28 Aug 2026)
+	3. [E][ ] project meeting (from: 09:30, 28 Aug 2026 to: 09:30, 30 Aug 2026)
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: I'm sorry, I do not recognise your command: random command
+
+Here are the commands you can use:
+- todo <description>                                           - Add a todo task
+- deadline <description> /by <due date>                        - Add a deadline task
+- event <description> /from <start date> /to <end date>        - Add an event
+- list                                                         - Display created tasks
+- find <phrase>                                                - Find a task by searching for a phrase
+- mark <task number>                                           - Mark a task as done
+- unmark <task number>                                         - Mark a task as undone
+- delete <task number>                                         - Delete a task
+- help                                                         - Displays a list of available commands
+- bye                                                          - Exit chatbot
+
+If you are unsure of how to use me, type 'help' to see a list of available commands
+____________________________________________________________________________________________________
+					You: ____________________________________________________________________________________________________
+Xenon: Bye. Hope to see you again soon!
+
+____________________________________________________________________________________________________
