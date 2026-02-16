@@ -1,0 +1,9 @@
+D | 0 | 1hr of studying htb  | 19/9/2005 2359
+D | 0 | return book  | 2/12/2019 1800
+D | 1 | eat dinner  | 31/8/2025 1900
+D | 0 | ip  | 20/9/2025 1400
+T | 0 | borrow book
+T | 1 | cs2103 ip level 8
+T | 1 | read book
+T | 0 | read cs2107 lecture on encryption
+T | 0 | submit ip

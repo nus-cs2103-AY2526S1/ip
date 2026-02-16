@@ -1,0 +1,48 @@
+package peppa.command;
+
+import peppa.task.TaskList;
+import peppa.storage.Storage;
+
+/**
+ * Adds an event task.
+ * The input is expected in the form: "event <description> /at <time>".
+ */
+public class Event implements Command {
+    private final TaskList tasks;
+    private final Storage storage;
+    private final String input;
+
+    /**
+     * Constructs an Event command.
+     *
+     * @param tasks   task list to operate on.
+     * @param storage storage used to persist changes.
+     * @param input   raw user input string (will be parsed).
+     */
+    public Event(TaskList tasks, Storage storage, String input) {
+        this.tasks = tasks;
+        this.storage = storage;
+        this.input = input;
+    }
+
+    /**
+     * Parses the description and '/at' time and adds the event. Returns an
+     * error message if the input is malformed.
+     *
+     * @return result or error message for the user.
+     */
+    @Override
+    public String execute() {
+        try {
+            String[] parts = input.trim().split("\\s+", 2);
+            if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                return "Error: 'event' requires a description and '/at'. Usage: event <description> /at <time>";
+            }
+            String result = tasks.addTask(input);
+            storage.save(tasks);
+            return result;
+        } catch (Exception e) {
+            return "Error processing 'event' command: " + e.getMessage();
+        }
+    }
+}
