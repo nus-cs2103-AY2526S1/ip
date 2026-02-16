@@ -1,0 +1,116 @@
+package dk.storage;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import dk.tasks.Deadline;
+import dk.tasks.Event;
+import dk.tasks.Task;
+import dk.tasks.TaskList;
+import dk.tasks.Todo;
+
+
+/**
+ * Handles the loading of tasks from a file and saving them into the file.
+ */
+public class Storage {
+
+    private final TaskList allTasks;
+    private final Path fileName;
+
+    public Storage (String path, String name) {
+        Path filePath = Paths.get(path);
+        Path fileName = Paths.get(name);
+
+        if (Files.notExists(filePath)) {
+            try {
+                Files.createDirectory(filePath);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        if (Files.notExists(fileName)) {
+            try {
+                Files.createFile(fileName);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        this.fileName = fileName;
+        this.allTasks = loadTasks();
+    }
+
+    /**
+     * Returns a TaskList object that contains the current list of tasks.
+     * @return A TaskList object that contains the current list of tasks
+     */
+    public TaskList getAllTasks() {
+        return this.allTasks;
+    }
+
+    /**
+     * Loads the tasks from the file into the DK Chatbot.
+     * @return A TaskList object that contains the current list of tasks
+     */
+    public TaskList loadTasks() {
+        List<String> fromFile = new ArrayList<>();
+        List<Task> taskList = new ArrayList<>();
+        try {
+            fromFile = Files.readAllLines(this.fileName);
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+        for (String line : fromFile) {
+            try {
+                String[] splitted = line.split(",");
+                String category = splitted[0];
+                boolean isCompleted = splitted[1].equals("1");
+                switch (category) {
+                    case "T": {
+                        taskList.add(new Todo(splitted[2].trim(), isCompleted));
+                        break;
+                    }
+                    case "D": {
+                        LocalDate deadline = LocalDate.parse(splitted[3].trim());
+                        taskList.add(new Deadline(splitted[2].trim(), isCompleted, deadline));
+                        break;
+                    }
+                    case "E": {
+                        LocalDate startDate = LocalDate.parse(splitted[3].trim());
+                        LocalDate endDate = LocalDate.parse(splitted[4].trim());
+                        taskList.add(new Event(splitted[2].trim(), isCompleted, startDate, endDate));
+                        break;
+                    }
+                    default:
+                        System.out.println("Skipping line with invalid format: " + line);
+                        break;
+                }
+
+            } catch (Exception e) {
+                System.out.println("Skipping line with invalid format: " + line);
+            }
+        }
+        return new TaskList(taskList);
+    }
+
+    /**
+     * Saves the current list of tasks into a file in a specified format.
+     */
+    public void saveCurrentTasks() {
+        List<String> currentTasks = new ArrayList<>();
+        for (Task t : this.allTasks.getTasks()) {
+            currentTasks.add(t.convertToFileFormat());
+        }
+        try {
+            Files.write(fileName, currentTasks);
+        } catch (IOException e ) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+}
