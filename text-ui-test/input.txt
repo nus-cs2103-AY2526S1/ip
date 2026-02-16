@@ -1,0 +1,23 @@
+todo borrow book
+list
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+list
+mark 2
+list
+unmark 2
+delete 2
+list
+
+randomCommand
+mark 0
+mark one
+todo
+deadline submit assignment /by
+deadline submit assignment /by Sun /by Mon
+deadline /by
+deadline return book
+event project meeting /from /to
+event meeting /to 4pm /from 2pm
+event meeting /from Mon 2pm /to 3pm /to 4pm
+bye

@@ -1,0 +1,169 @@
+package john;
+
+import java.util.Scanner;
+
+import john.exceptions.JohnException;
+import john.parser.Parser;
+import john.storage.Storage;
+import john.tasks.Deadline;
+import john.tasks.Event;
+import john.tasks.Task;
+import john.tasks.TaskList;
+import john.tasks.Todo;
+import john.ui.JohnUi;
+
+/**
+ * Entry point and command loop for the John task manager application. REPLACED.
+ */
+public class JohnOld {
+
+    private Storage storage;
+    private TaskList tasklist;
+    private JohnUi ui;
+
+    enum Command {
+        LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND
+    }
+
+    /**
+     * Constructs a John application instance bound to a storage file path.
+     * It attempts to load tasks from storage, falling back to an empty list
+     * and showing a UI message if loading fails.
+     *
+     * @param filePath path to the persistence file used by {@link Storage}
+     */
+    public JohnOld(String filePath) {
+        ui = new JohnUi();
+        storage = new Storage(filePath);
+        try {
+            tasklist = new TaskList(storage.load());
+        } catch (JohnException e) {
+            ui.showLoadingError();
+            tasklist = new TaskList();
+        }
+    }
+
+    /**
+     * Starts the interactive command loop, processing user input until "bye".
+     * Commands are parsed by {@link Parser} and may modify the {@link TaskList}
+     * and underlying {@link Storage}.
+     */
+    public void run() {
+        Scanner sc = new Scanner(System.in);
+        ui.printLine();
+        System.out.println("Hello! I'm John. :)\nWhat can I do for you?");
+        ui.printLine();
+        System.out.println();
+
+        String input = sc.nextLine().trim();
+        while (!input.equals("bye")) {
+            ui.printLine();
+            try {
+                String[] pair = Parser.parse(input);
+                String command = pair[0];
+                String description = pair[1];
+                Command cmd = Command.valueOf(command.toUpperCase());
+                Task task;
+
+                switch (cmd) {
+                case LIST:
+                    System.out.println("Here are the tasks in your list:");
+                    tasklist.listTasks();
+                    break;
+                case FIND:
+                    if (description.isBlank()) {
+                        throw new JohnException("Find command must include a keyword.");
+                    }
+                    System.out.println("Here are the matching tasks in your list:");
+                    int count = 0;
+                    for (int i = 0; i < tasklist.getSize(); i++) {
+                        Task t = tasklist.getTask(i);
+                        if (t.getDescription().contains(description)) {
+                            System.out.println((count + 1) + ". " + t);
+                            count++;
+                        }
+                    }
+                    if (count == 0) {
+                        System.out.println("No matching tasks found.");
+                    }
+                    break;
+                case MARK:
+                    if (!description.matches("\\d+")) {
+                        throw new JohnException("Please input a valid task number.");
+                    }
+                    task = tasklist.getTask(Integer.parseInt(description) - 1);
+                    task.markDone();
+                    storage.save(tasklist);
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(task);
+                    break;
+                case UNMARK:
+                    if (!description.matches("\\d+")) {
+                        throw new JohnException("Please input a valid task number.");
+                    }
+                    task = tasklist.getTask(Integer.parseInt(description) - 1);
+                    task.markUndone();
+                    storage.save(tasklist);
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(task);
+                    break;
+                case DELETE:
+                    if (!description.matches("\\d+")) {
+                        throw new JohnException("Please input a valid task number.");
+                    }
+                    task = tasklist.getTask(Integer.parseInt(description) - 1);
+                    tasklist.deleteTask(Integer.parseInt(description) - 1);
+                    storage.save(tasklist);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(task);
+                    System.out.println("You now have " + tasklist.getSize() + " tasks in the list.");
+                    break;
+                case TODO:
+                    if (description.isBlank()) {
+                        throw new JohnException("Todo command must include a description.");
+                    }
+                    Todo todo = new Todo(description);
+                    tasklist.addTask(todo);
+                    storage.save(tasklist);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(todo);
+                    System.out.println("You now have " + tasklist.getSize() + " tasks in the list.");
+                    break;
+                case DEADLINE:
+                    Deadline deadline = Parser.getDeadline(description);
+                    tasklist.addTask(deadline);
+                    storage.save(tasklist);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(deadline);
+                    System.out.println("You now have " + tasklist.getSize() + " tasks in the list.");
+                    break;
+                case EVENT:
+                    Event event = Parser.getEvent(description);
+                    tasklist.addTask(event);
+                    storage.save(tasklist);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(event);
+                    System.out.println("You now have " + tasklist.getSize() + " tasks in the list.");
+                    break;
+                default:
+                    throw new JohnException("This line should not be reached.");
+                }
+            } catch (JohnException e) {
+                System.out.println("Error: " + e.getMessage());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: Please input a valid command.");
+            }
+            ui.printLine();
+            System.out.println();
+            input = sc.nextLine().trim();
+        }
+        ui.printLine();
+        System.out.println("Bye. Hope to see you again soon!");
+        ui.printLine();
+        sc.close();
+    }
+
+    public static void main(String[] args) {
+        new JohnOld("./data/john.txt").run();
+    }
+}
