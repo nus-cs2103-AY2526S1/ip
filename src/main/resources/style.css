@@ -1,0 +1,26 @@
+.user-bubble {
+    -fx-background-color: #FFF9C4;
+    -fx-background-radius: 12px;
+    -fx-padding: 8px;
+    -fx-effect: dropshadow( gaussian , rgba(255, 215, 0, 0.5) , 8, 0.2 , 2 , 2 );
+}
+
+.taro-bubble {
+    -fx-background-color: #EDE7F6;
+    -fx-background-radius: 12px;
+    -fx-padding: 8px;
+    -fx-effect: dropshadow( gaussian , rgba(186, 104, 200, 0.5) , 8, 0.2 , 2 , 2 );
+}
+
+.error-bubble {
+    -fx-background-color: #F8D7DA;
+    -fx-text-fill: #842029;
+    -fx-background-radius: 12px;
+    -fx-padding: 8px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( gaussian , rgba(220, 20, 60, 0.5) , 8, 0.2 , 2 , 2 );
+}
+
+.scroll-pane, .scroll-pane > .viewport, .scroll-pane > .content, .vbox {
+    -fx-background-color: transparent;
+}
