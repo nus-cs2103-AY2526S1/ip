@@ -1,0 +1,24 @@
+todo
+todo testT
+deadline
+deadline testD-1
+deadline testD-2 /by TIME
+event
+event testE-1
+event testE-2 /from TIME1
+event testE-3 /from TIME2 /to TIME3
+list
+mark a
+unmark a
+mark 0
+unmark 0
+mark 1
+mark 3
+list
+unmark 1
+list
+delete 2
+mark 1
+delete 1
+list
+bye

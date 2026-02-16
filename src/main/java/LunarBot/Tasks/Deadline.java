@@ -1,0 +1,34 @@
+package LunarBot.Tasks;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Deadline extends Task {
+    LocalDateTime by;
+
+    private static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mma");
+    private static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    // Deadlines
+    public Deadline(String name, Boolean isCompleted, LocalDateTime by) {
+        super(name, isCompleted);
+        this.by = by;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String print() {
+        return "[D] [" + (this.isCompleted ? "X" : " ") + "] " + this.name +
+                " (by: " + this.by.format(FORMAT) + ")";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getAsCsv() {
+        return "D," + this.isCompleted.toString() + "," + this.name + "," + this.by.format(SAVE_FORMAT);
+    }
+}

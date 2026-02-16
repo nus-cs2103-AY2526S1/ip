@@ -1,0 +1,40 @@
+package LunarBot;
+
+import LunarBot.Command.*;
+
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
+public class Parser {
+    public static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    /**
+     * Parse the given input and returns the respective command
+     *
+     * @param input user input to be parsed
+     * @return returns the Command to be executed based on the input
+     */
+    public static Command parse(String input) {
+        assert input != null : "input into parser should not be null";
+        String[] tmp = input.split(" ");
+        String command = tmp[0];
+        return switch (command) {
+        case "list" -> new ListCommand();
+        case "todo" -> new TodoCommand(input.substring(input.indexOf(" ") + 1));
+        case "deadline" -> new DeadlineCommand((input.substring(input.indexOf(" ") + 1, input.indexOf("/") - 1)),
+                LocalDateTime.parse(input.split("/by ")[1], SAVE_FORMAT));
+        case "event" -> {
+            String[] tmp2 = input.split("/from ")[1].split(" /to ");
+            yield new EventCommand(input.substring(input.indexOf(" ") + 1, input.indexOf("/") - 1),
+                    LocalDateTime.parse(tmp2[0], SAVE_FORMAT), LocalDateTime.parse(tmp2[1], SAVE_FORMAT));
+        }
+        case "mark" -> new MarkCommand(Integer.valueOf(tmp[1]) - 1);
+        case "unmark" -> new UnmarkCommand(Integer.valueOf(tmp[1]) - 1);
+        case "delete" -> new DeleteCommand(Integer.valueOf(tmp[1]) - 1);
+        case "bye" -> new ByeCommand();
+        case "find" -> new FindCommand(input.substring(input.indexOf(" ") + 1));
+        case "help" -> new HelpCommand();
+        default -> new AddCommand(input.substring(input.indexOf(" ") + 1));
+        };
+    }
+}
