@@ -1,0 +1,32 @@
+todo
+todofish
+todobuymilk
+deadline
+deadline /by 12/2/2025
+deadline tn /by 12/2/2025 9.00 am
+deadline tn/by 12022025
+event
+event /from /to
+event /from now /to tmr
+event tn /from 12022025 /to 12022025
+event tn/from now /to tmr
+event tn /from now/to tmr
+event tn /from now /totmr
+event tn /fromnow /to tmr
+todo buy milk
+mark 1
+list
+mark 1
+list
+unmark 1
+list
+unmark 1
+list
+delete 1
+delete 4
+delete
+delete ii
+delete1
+mark 99
+unmark 99
+bye
