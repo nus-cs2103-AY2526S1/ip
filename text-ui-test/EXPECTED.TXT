@@ -1,7 +1,72 @@
+___________________________________
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+ _  __  _  _      _  _ 
+| |/ / | || |    | || |
+| ' /  | || | __ | || |
+| . \  | || |/ _\| || |
+|_|\_\ |_|||_\__/|_||_|
 
+___________________________________
+What can I do for you? 
+
+___________________________________
+Your query: 
+___________________________________
+added: read book
+___________________________________
+Your query: 
+___________________________________
+added: return book
+___________________________________
+Your query: 
+___________________________________
+added: project meeting
+___________________________________
+Your query: 
+___________________________________
+added: join sports club
+___________________________________
+Your query: 
+___________________________________
+added: borrow book
+___________________________________
+Your query: 
+___________________________________
+1. [T][ ] read book
+2. [D][ ] return book (by: June 6th)
+3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+4. [T][ ] join sports club
+5. [T][ ] borrow book
+Tasks left to complete: 5
+___________________________________
+Your query: 
+___________________________________
+Alright. I've removed this task:
+  [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+Now you have 4 tasks in the list.
+___________________________________
+Your query: 
+___________________________________
+1. [T][ ] read book
+2. [D][ ] return book (by: June 6th)
+3. [T][ ] join sports club
+4. [T][ ] borrow book
+Tasks left to complete: 4
+___________________________________
+Your query: 
+___________________________________
+Alright. I've removed this task:
+  [T][ ] read book
+Now you have 3 tasks in the list.
+___________________________________
+Your query: 
+___________________________________
+1. [D][ ] return book (by: June 6th)
+2. [T][ ] join sports club
+3. [T][ ] borrow book
+Tasks left to complete: 3
+___________________________________
+Your query: 
+___________________________________
+Bye, see you again :)
+___________________________________

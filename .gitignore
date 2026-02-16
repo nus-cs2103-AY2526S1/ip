@@ -8,10 +8,13 @@
 /build/
 src/main/resources/docs/
 
+# JAR files (generated artifacts)
+*.jar
+
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
 bin/
-
+**.class
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

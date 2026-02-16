@@ -1,0 +1,36 @@
+package kiwi;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import kiwi.ui.MainWindow;
+
+import java.io.IOException;
+
+/**
+ * The GUI for Kiwi using FXML.
+ */
+public class Main extends Application {
+
+    private final Kiwi kiwi = new Kiwi("./data/kiwi.txt");
+
+    @Override
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            stage.setTitle("Kiwi Task Manager");
+            stage.setResizable(true);
+            stage.setMinWidth(500);
+            stage.setMinHeight(600);
+            fxmlLoader.<MainWindow>getController().setKiwi(kiwi);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
