@@ -1,0 +1,46 @@
+/* styles.css - A-BetterGui: basic dialog styling, error highlight, responsive bubbles */
+
+/* root font */
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica", Arial, sans-serif;
+    -fx-font-size: 13px;
+}
+
+/* HBox-level classes (applied to DialogBox HBox) */
+.dialog-user {
+    -fx-alignment: TOP_RIGHT;
+    -fx-padding: 6 10 6 40; /* push user's bubble left so avatar sits right */
+}
+
+.dialog-bot {
+    -fx-alignment: TOP_LEFT;
+    -fx-padding: 6 40 6 10; /* bot bubble has more right padding */
+}
+
+/* Text bubble background */
+.dialog-user .label {
+    -fx-background-color: linear-gradient(to right, #4da6ff, #1a75ff);
+    -fx-text-fill: white;
+    -fx-padding: 8;
+    -fx-background-radius: 10;
+}
+
+.dialog-bot .label {
+    -fx-background-color: #f4f4f4;
+    -fx-text-fill: #111;
+    -fx-padding: 8;
+    -fx-background-radius: 10;
+}
+
+/* Error style */
+.dialog-error .label {
+    -fx-background-color: #fff0f0;
+    -fx-border-color: #ff4d4d;
+    -fx-border-width: 1;
+    -fx-text-fill: #800000;
+}
+
+/* small avatar styling */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 1);
+}
