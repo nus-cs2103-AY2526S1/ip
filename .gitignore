@@ -13,5 +13,12 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Class Files
+*.class
+!src/main/java/duke/ListGPT.java
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Chatbot Files
+Listgpt.txt
