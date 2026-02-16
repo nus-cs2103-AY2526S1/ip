@@ -1,0 +1,5 @@
+todo buy food
+deadline return book /by 2025-01-03 2359
+event project meeting /from 2025-01-04 1800 /to 2025-01-04 2000
+list
+bye
