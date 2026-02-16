@@ -1,0 +1,92 @@
+/* Modern Yellow-themed Dialog Box Styles */
+
+/* User message bubble (right side) */
+.label {
+    -fx-background-color: #ffc0d6;
+    -fx-text-fill: #3f0909;
+    -fx-padding: 12px 24px 12px 16px;
+    -fx-font-size: 14px;
+    -fx-background-radius: 18px 18px 4px 18px;
+    -fx-border-radius: 18px 18px 4px 18px;
+    -fx-wrap-text: true;
+    -fx-max-width: 300px;
+}
+
+/* Usagi reply bubble (left side) */
+.reply-label {
+    -fx-background-color: #ffda62;
+    -fx-text-fill: #2e2e2e;
+    -fx-padding: 12px 24px 12px 16px;
+    -fx-font-size: 14px;
+    -fx-background-radius: 18px 18px 18px 4px;
+    -fx-border-radius: 18px 18px 18px 4px;
+    -fx-border-color: #fdd835;
+    -fx-border-width: 1px;
+    -fx-wrap-text: true;
+    -fx-max-width: 300px;
+}
+
+/* Avatar styling */
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 8, 0, 0, 3);
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-border-color: #fdd835;
+    -fx-border-width: 2px;
+}
+
+/* Hover effects for better interactivity */
+.label:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 8, 0, 0, 3);
+}
+
+.reply-label:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 6, 0, 0, 2);
+    -fx-border-color: #f9a825;
+    -fx-border-width: 2px;
+}
+
+/* Special styling for error messages */
+.error-label {
+    -fx-background-color: #ff0000 !important;
+    -fx-text-fill: #ffffff !important;
+    -fx-padding: 12px 24px 12px 16px !important;
+    -fx-font-size: 14px !important;
+    -fx-background-radius: 18px 18px 18px 4px !important;
+    -fx-border-radius: 18px 18px 18px 4px !important;
+    -fx-border-color: #cc0000 !important;
+    -fx-border-width: 3px !important;
+    -fx-wrap-text: true !important;
+    -fx-max-width: 300px !important;
+    -fx-font-weight: bold !important;
+}
+
+
+
+/* Special styling for success messages */
+.success-label {
+    -fx-background-color: linear-gradient(to bottom right, #e8f5e8, #c8e6c9);
+    -fx-text-fill: #2e7d32;
+    -fx-border-color: #81c784;
+    -fx-border-width: 1px;
+}
+
+/* Animation for new messages */
+@keyframes slideIn {
+    from {
+        -fx-translate-x: -20px;
+        -fx-opacity: 0;
+    }
+    to {
+        -fx-translate-x: 0px;
+        -fx-opacity: 1;
+    }
+}
+
+.label, .reply-label {
+    -fx-animation: slideIn 0.3s ease-out;
+}
+
