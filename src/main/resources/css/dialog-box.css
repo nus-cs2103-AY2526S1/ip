@@ -1,0 +1,52 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #ffd6e8, #ffb3d9, #ffa3cf);
+    -fx-border-color: #d6006a;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-font-family: monospace;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333
+}
+
+.reply-label {
+    -fx-background-color: linear-gradient(to bottom right, #add8e6, #87ceeb); /* soft blue gradient */
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.add-label {
+    -fx-background-color: linear-gradient(to bottom right, #fff176, #ffeb3b); /* soft yellow gradient */
+}
+
+.marked-label {
+    -fx-background-color: linear-gradient(to bottom right, #98fb98, #90ee90); /* pastel green gradient */
+}
+
+.unmarked-label {
+    -fx-background-color: linear-gradient(to bottom right, #e6e6fa, #d8bfd8); /* pastel lavender gradient */
+}
+
+.find-label {
+    -fx-background-color: linear-gradient(to bottom right, #7cfc00, #32cd32); /* lime green gradient */
+}
+
+.delete-label {
+    -fx-background-color: linear-gradient(to bottom right, #ff7f7f, #ff4c4c); /* stronger red/pink gradient */
+}
+
+.error-label {
+    -fx-background-color: linear-gradient(to bottom right, #f08080, #cd5c5c); /* red gradient */
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
