@@ -1,7 +1,53 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+    Hello! I'm Bong!
+    What can I do for you?
+------------------------------
+    Got it. I've added this task:
+        [T][ ] borrow book
+    Now you have 1 tasks in the list.
+------------------------------
+    Got it. I've added this task:
+        [D][ ] return book (by: Sunday)
+    Now you have 2 tasks in the list.
+------------------------------
+    Got it. I've added this task:
+        [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    Now you have 3 tasks in the list.
+------------------------------
+    Nice! I've marked this task as done:
+        [D][X] return book (by: Sunday)
+------------------------------
+    Here are the tasks in your list:
+    1. [T][ ] borrow book
+    2. [D][X] return book (by: Sunday)
+    3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+------------------------------
+    OK, I've marked this task as not done yet:
+        [D][ ] return book (by: Sunday)
+------------------------------
+    Here are the tasks in your list:
+    1. [T][ ] borrow book
+    2. [D][ ] return book (by: Sunday)
+    3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+------------------------------
+    Noted. I've removed this task:
+        [D][ ] return book (by: Sunday)
+    Now you have 2 tasks in the list.
+------------------------------
+    Here are the tasks in your list:
+    1. [T][ ] borrow book
+    2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+------------------------------
+You do not have this many tasks in your list!
+------------------------------
+You do not have this many tasks in your list!
+------------------------------
+    Hmm, I dont understand that command.
+    Please try 'todo', 'deadline', 'event', 'list', 'mark', 'unmark', 'delete' or 'bye'.
+------------------------------
+A todo needs a description!
+------------------------------
+Looks like your 'deadline' is missing details! Description or deadline cannot be empty.
+------------------------------
+Looks like your 'event' is missing details! Description, start time and end time cannot be empty.
+------------------------------
+    Bye. Hope to see you again soon!
