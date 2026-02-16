@@ -1,0 +1,147 @@
+package waz.ui;
+
+import waz.exception.WazException;
+import waz.task.Task;
+import waz.task.TaskList;
+
+/**
+ * The {@code Ui} class handles all interactions with the user.
+ * <p>
+ * It is responsible for displaying messages, prompts, and responses
+ * to the user in the console.
+ * </p>
+ *
+ * <p>Responsibilities include:</p>
+ * <ul>
+ *     <li>Displaying welcome, exit, and error messages</li>
+ *     <li>Showing task-related updates (e.g., add, delete, mark/unmark)</li>
+ *     <li>Displaying all tasksin the list</li>
+ * </ul>
+ *
+ * <p>
+ * </p>
+ */
+public class Ui {
+    private static final String HORIZONTAL_LINE = "----------------------------------------------\n";
+    private static final String GREETING = "Hello I'm Waz.\n" + "What can I do for you?";
+    private static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
+
+    /**
+     * Prints a goodbye message and a horizontal line.
+     * This method is called when the program is exiting.
+     *
+     * @return a formatted string
+     */
+    public String showExitMessage() {
+        return EXIT_MESSAGE;
+    }
+
+    /**
+     * Prints a greeting message and a horizontal line.
+     * This method is called when the program starts.
+     *
+     * @return a formatted string
+     */
+    public String showGreetMessage() {
+        return GREETING;
+    }
+
+    /**
+     * Prints a horizontal line used to format the chatbot output.
+     *
+     * @return a formatted string
+     */
+    public String showHorizontalLine() {
+        return HORIZONTAL_LINE;
+    }
+
+    /**
+     * Prints out error message
+     *
+     * @return a formatted string
+     */
+    public String showErrorMsg(WazException e) {
+        return "OOPS!!! " + e.getMessage();
+    }
+
+    /**
+     * Prints a confirmation message that a task has been added into the list
+     *
+     * @return a formatted string
+     */
+    public String showAddedTask(Task task, int size) {
+        assert task != null : "Task must not be null";
+        assert size >= 0 : "Size must not be non-negative";
+        return "Got it. I've added this task:\n" + task + "\nNow you have " + size + " tasks" + " in the list.";
+    }
+
+    /**
+     * Prints a confirmation message that a task has been deleted from the list
+     *
+     * @return a formatted string
+     */
+    public String showDeletedTask(Task task, int size) {
+        return "Noted. I've removed this task:\n" + task + "\nNow you have " + size + " tasks in the list.";
+    }
+
+    /**
+     * Displays all tasks currently in the task list. if task list is isMatch, display matching task message.
+     * Otherwise, default task message.
+     *
+     * @return a formatted string
+     */
+    public String showTaskList(TaskList taskList, boolean isMatch) {
+        StringBuilder sb = new StringBuilder();
+
+        if (isMatch) {
+            sb.append("Here are the matching tasks in your list:\n");
+        } else {
+            sb.append("Here are the tasks in your list:\n");
+        }
+
+        for (int i = 0; i < taskList.size(); i++) {
+            String taskLine = (i + 1) + ". " + taskList.getTask(i) + "\n";
+            sb.append(taskLine);
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Show confirmation message that task has been unmarked
+     *
+     * @return a formatted string
+     */
+    public String showUnmarkTask(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + task + "\n";
+    }
+
+    /**
+     * Show confirmation message that task has been marked
+     *
+     * @return a formatted string
+     */
+    public String showMarkTask(Task task) {
+        return "Nice! I've marked this task as done:\n" + task + "\n";
+    }
+
+    /**
+     * Show confirmation message that a tag has been added to the task
+     *
+     * @param taskIndex the index of the task in the task list
+     * @param tagName the name of the tag object
+     * @return a formatted string
+     */
+    public String showAddTag(int taskIndex, String tagName) {
+        return "Added tag #" + tagName + " to task: " + taskIndex;
+    }
+
+    /**
+     * Show confirmation message that a tag already exist in the task
+     *
+     * @param tagName the name of the tag object
+     * @return a formatted string
+     */
+    public String showTagExist(String tagName) {
+        return "Task already has tag #" + tagName;
+    }
+}
