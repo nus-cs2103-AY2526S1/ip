@@ -1,0 +1,40 @@
+.label {
+    -fx-background-color: #FAFFFF;
+    -fx-border-color: #D8BFD8;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: #555555;
+    -fx-padding: 10px;
+    -fx-wrap-text: true;
+}
+
+#dialog {
+    -fx-max-width: infinity;
+    -fx-wrap-text: true;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.add-label {
+    -fx-background-color: #C3F5B0;
+}
+
+.delete-label {
+    -fx-background-color: #FFD9E5;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
