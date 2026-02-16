@@ -1,0 +1,5 @@
+T | 1 | finish implementing gui
+T | 1 | finish lsm reading
+T | 0 | finish 2100 videos
+D | 0 | finsih ip project | /by 12/09/2025 1600
+T | 0 | finish 2100 tut
