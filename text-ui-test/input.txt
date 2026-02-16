@@ -1,0 +1,8 @@
+return book
+todo return book
+today is a nice day
+deadline finish assignment /by Friday 4pm
+event project meeting /from Tue 2pm /to 5pm
+mark 1
+unmark 1
+bye
