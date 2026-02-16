@@ -10,75 +10,48 @@
 	What can FlyingNugget do for LittleNuggy?
 	____________________________________________________________
 	____________________________________________________________
+	Ok~! Here are LittleNuggy's tasks!
+	____________________________________________________________
+	____________________________________________________________
 	Ok~! FlyingNugget will help LittleNuggy add this task!
-	  [T][ ] borrow pen
+	  [T][ ] eat dinner
 	Now LittleNuggy has 1 task on LittleNuggy's list!
 	____________________________________________________________
 	____________________________________________________________
 	Ok~! FlyingNugget will help LittleNuggy add this task!
-	  [D][ ] go home (by: Monday)
+	  [D][ ] buy groceries (by: Jan 1 2025)
 	Wow! LittleNuggy is getting busy!
 	Now LittleNuggy has 2 tasks on LittleNuggy's list!
 	____________________________________________________________
 	____________________________________________________________
 	Ok~! FlyingNugget will help LittleNuggy add this task!
-	  [E][ ] meet friend (from: Tue 1pm to: Wed 1pm)
+	  [E][ ] attend wedding (from: Feb 12 2025 to: Feb 13 2025)
 	Wow! LittleNuggy is getting busy!
 	Now LittleNuggy has 3 tasks on LittleNuggy's list!
 	____________________________________________________________
 	____________________________________________________________
 	Ok~! Here are LittleNuggy's tasks!
-	1.[T][ ] borrow pen
-	2.[D][ ] go home (by: Monday)
-	3.[E][ ] meet friend (from: Tue 1pm to: Wed 1pm)
+	1.[T][ ] eat dinner
+	2.[D][ ] buy groceries (by: Jan 1 2025)
+	3.[E][ ] attend wedding (from: Feb 12 2025 to: Feb 13 2025)
 	____________________________________________________________
 	____________________________________________________________
 	Sugoi desu! LittleNuggy finished LittleNuggy's task!
-	  [D][X] go home (by: Monday)
+	  [D][X] buy groceries (by: Jan 1 2025)
 	____________________________________________________________
 	____________________________________________________________
-	Sugoi desu! LittleNuggy finished LittleNuggy's task!
-	  [E][X] meet friend (from: Tue 1pm to: Wed 1pm)
-	____________________________________________________________
-	____________________________________________________________
-	Ok~! FlyingNugget will help LittleNuggy add this task!
-	  [T][ ] check bank account
-	Wow! LittleNuggy is getting busy!
-	Now LittleNuggy has 4 tasks on LittleNuggy's list!
+	Ok~! FlyingNugget will remove this task for LittleNuggy!
+	  [E][ ] attend wedding (from: Feb 12 2025 to: Feb 13 2025)
+	Now LittleNuggy has 2 tasks on LittleNuggy's list!
 	____________________________________________________________
 	____________________________________________________________
 	Nani? LittleNuggy lied to FlyingNugget?
-	  [D][ ] go home (by: Monday)
-	____________________________________________________________
-	____________________________________________________________
-	Ok~! FlyingNugget will remove this task for LittleNuggy!
-	  [T][ ] borrow pen
-	Now LittleNuggy has 3 tasks on LittleNuggy's list!
-	____________________________________________________________
-	____________________________________________________________
-	FlyingNugget does not see this task number in LittleNuggy's list!
-	(Type "list" to see all your current tasks and their numbers.)
-	____________________________________________________________
-	____________________________________________________________
-	Ok~! FlyingNugget will help LittleNuggy add this task!
-	  [E][ ] project outing (from: June 7th 10am to: 6pm)
-	Wow! LittleNuggy is getting busy!
-	Now LittleNuggy has 4 tasks on LittleNuggy's list!
-	____________________________________________________________
-	____________________________________________________________
-	Sugoi desu! LittleNuggy finished LittleNuggy's task!
-	  [D][X] go home (by: Monday)
-	____________________________________________________________
-	____________________________________________________________
-	Ok~! FlyingNugget will remove this task for LittleNuggy!
-	  [E][ ] project outing (from: June 7th 10am to: 6pm)
-	Now LittleNuggy has 3 tasks on LittleNuggy's list!
+	  [D][ ] buy groceries (by: Jan 1 2025)
 	____________________________________________________________
 	____________________________________________________________
 	Ok~! Here are LittleNuggy's tasks!
-	1.[D][X] go home (by: Monday)
-	2.[E][X] meet friend (from: Tue 1pm to: Wed 1pm)
-	3.[T][ ] check bank account
+	1.[T][ ] eat dinner
+	2.[D][ ] buy groceries (by: Jan 1 2025)
 	____________________________________________________________
 	____________________________________________________________
 	Bye! See LittleNuggy soon!
