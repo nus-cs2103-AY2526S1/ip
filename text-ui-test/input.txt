@@ -1,0 +1,17 @@
+blahblah
+list
+todo
+event idk
+deadline idk
+event project meeting /from Mon 2pm /to 4pm
+todo study for cs2100
+deadline cs2103T IP /by friday 4pm
+mark 1
+list
+unmark 1
+mark 999
+unmark 999
+delete 1
+delete 999
+list
+bye
