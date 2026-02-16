@@ -1,0 +1,6 @@
+T | Not Done | read book
+D | Not Done | return book | 2019-01-01 0000
+D | Not Done | homework | 2025-06-06 1800
+T | Not Done | buy groceries
+D | Not Done | finish assignment | 2025-09-19 2359
+E | Not Done | project meeting | 2025-09-19 1800 to 2025-09-19 2359
