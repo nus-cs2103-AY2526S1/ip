@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="alice.MainWindow"
+            prefWidth="400.0" prefHeight="600.0">
+
+    <children>
+        <!-- Scrollable area for chat -->
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="ALWAYS"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.bottomAnchor="50.0">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      prefHeight="552.0"
+                      prefWidth="388.0"
+                      spacing="8.0"
+                      styleClass="chat-background"/>
+            </content>
+        </ScrollPane>
+
+        <!-- Input bar -->
+        <HBox spacing="5.0"
+              AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0"
+              AnchorPane.bottomAnchor="0.0"
+              prefHeight="50.0"
+              style="-fx-background-color: #f0f0f0; -fx-padding: 5;">
+            <TextField fx:id="userInput"
+                       HBox.hgrow="ALWAYS"
+                       onAction="#handleUserInput"
+                       promptText="Type a message..." />
+            <Button fx:id="sendButton"
+                    text="Send"
+                    onAction="#handleUserInput"
+                    prefWidth="70.0"/>
+        </HBox>
+    </children>
+</AnchorPane>
