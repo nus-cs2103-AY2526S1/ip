@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0"
+         style="-fx-background-radius: 15;" type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity" maxWidth="280.0"
+               style="-fx-font-size: 14px; -fx-font-family: 'SF Pro Text', 'Helvetica Neue', Arial; -fx-text-fill: #2c3e50; -fx-background-color: #f0f0f0; -fx-background-radius: 15; -fx-padding: 10;">
+            <HBox.margin>
+                <Insets right="10.0" />
+            </HBox.margin>
+        </Label>
+        <ImageView fx:id="displayPicture" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
+    </children>
+    <padding>
+        <Insets bottom="8.0" left="15.0" right="15.0" top="8.0" />
+    </padding>
+</fx:root>

@@ -1,0 +1,17 @@
+list
+todo read
+todo sleep
+todo study
+deadline /by 2019-01-01
+deadline /by tomorrow
+event /from tomorrow to /tomorrow
+event /from 2019-01-01 /to 2019-01-02
+mark 1
+list
+mark 1
+list
+unmark 1
+list
+unmark 1
+delete 1
+list
