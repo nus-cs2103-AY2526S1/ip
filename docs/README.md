@@ -1,30 +1,198 @@
-# Duke User Guide
+# Siri User Guide
 
-// Update the title above to match the actual product name
+Meet **Siri**, your desktop task management chatbot designed to help you 
+to plan your tasks efficiently and effectively.
 
-// Product screenshot goes here
+![Siri Screenshot](Ui.png)
 
-// Product intro goes here
+Let's walk you through the setup process and the 
+features of **Siri**.
 
-## Adding deadlines
 
-// Describe the action and its outcome.
+## Getting started
+Get started by downloading the latest version of siri.jar 
+from [here](https://github.com/timothyleejin/ip/releases/). 
 
-// Give examples of usage
+Next, move siri.jar into an empty folder and open the terminal in your desktop. 
+In your terminal, navigate into the folder with `siri.jar` 
+and type in `java -jar siri.jar`. 
 
-Example: `keyword (optional arguments)`
+Just like that, **Siri** will appear and say hi to you!
 
-// A description of the expected outcome goes here
 
+## Features
+### Add To Do tasks
+
+Add tasks that have no time constraints to your task list.
+
+**Format:** `todo <task description>`
+
+**Example:**
+```declarative
+todo read a book
 ```
-expected output
+
+**Expected output:**
+```declarative
+Got it. I've added this task:
+[T][ ] read a book
+Now you have 1 task(s) in the list.
+```
+[T] represents a todo task.
+
+### Add Deadline tasks
+
+Add tasks that have deadlines to your task list.
+
+**Format:** `deadline <task description> /by <date and time in 
+yyyy-MM-dd HHmm format>`
+
+**Example:**
+```declarative
+deadline read a book /by 2026-12-29 1800
 ```
 
-## Feature ABC
+**Expected output:**
+```declarative
+Got it. I've added this task:
+[D][ ] read a book (by: Dec 29 2026 6:00pm)
+Now you have 2 task(s) in the list.
+```
+[D] represents a deadline task.
 
-// Feature details
+### Add Event tasks
 
+Add tasks that happen within a specific time period to your task list.
 
-## Feature XYZ
+**Format:** `event <task description> /from <date and time in 
+yyyy-MM-dd HHmm format> /to <date and time in 
+yyyy-MM-dd HHmm format>`
 
-// Feature details
+**Example:**
+```declarative
+event networking session /from 2026-12-29 1800 /to 2026-12-29 1900
+```
+
+**Expected output:**
+```declarative
+Got it. I've added this task:
+[E][ ] networking session (from: Dec 29 2026 6:00pm to: Dec 29 2026 7:00pm)
+Now you have 3 task(s) in the list.
+```
+[E] represents an event task.
+
+**Siri** automatically detects scheduling anomalies and will not allow you 
+to add events that have clashing time periods.
+
+### View your tasks
+Display all the tasks in your task list.
+
+**Format:** `list`
+
+**Example:**
+```declarative
+list
+```
+
+**Expected output:**
+```declarative
+Here are the tasks in your list:
+1.[T][ ] read a book
+2.[D][ ] read a book (by: Dec 29 2026 6:00pm)
+3.[E][ ] networking session (from: Dec 29 2026 6:00pm to: Dec 29 2026 7:00pm)
+```
+
+### Mark a task as complete
+
+Mark a task in your task list as done.
+
+**Format:** `mark <task number>`
+
+**Example:**
+```declarative
+mark 1
+```
+
+**Expected output:**
+```declarative
+Nice! I have marked this task as done:
+[T][X] read a book
+```
+
+[X] represents a completed task.
+
+### Mark a task as incomplete
+
+Unmark a task that was previously marked as done.
+
+**Format:** `unmark <task number>`
+
+**Example:**
+```declarative
+unmark 1
+```
+
+**Expected output:**
+```declarative
+Okay. I have marked this task as not done yet:
+[T][ ] read a book
+```
+[ ] represents an uncompleted task.
+
+### Find a task
+
+Search for a task in your task list by typing in a keyword.
+
+**Format:** `find <keyword>`
+
+**Example:**
+```declarative
+find read
+```
+
+**Expected output:**
+```declarative
+Here are the matching tasks in your list:
+1.[T][ ] read a book
+2.[D][ ] read a book (by: Dec 29 2026 6:00pm)
+```
+
+### Delete a task 
+
+Remove a task from the task list.
+
+**Format:** `delete <task number>`
+
+**Example:**
+```declarative
+delete 1
+```
+
+**Expected output:**
+```declarative
+Noted. I've removed this task:
+[T][ ] read a book
+Now you have 2 task(s) in the list.
+```
+
+### Close Siri
+
+Close the chatbot by saying goodbye.
+
+**Format:** `bye`
+
+**Example:**
+```declarative
+bye
+```
+
+**Expected output:**
+```declarative
+Bye. Hope to see you again soon!
+```
+
+The Graphical User Interface (GUI) will close a few seconds after the 
+expected output.
+
+**Siri** saves your task list automatically in your desktop. This means that 
+your task list will be restored whenever you reopen **Siri**.
