@@ -1,7 +1,47 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hi, I'm Mohammed Salah, The Egyptian King
+                       /^\
+                      /___\
+                     ( o o )
+                     /  ^  \
+              ____ _/|  |  |\_ ____
+                   / |  |  | \
+                  /  |  |  |  \
+                 /___|  |  |___\
+                      \  |  /
+                       \ | /
+                    ____\|/____
+                   /____/ \____\
+                       /_____\
+How may I assist you today?
+------------------------------------------------------------------------
+added: [T][ ] emergency
+The Egyptian King detects 1 tasks in your list!
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+added: [D][ ] return book (by: Sunday)
+The Egyptian King detects 2 tasks in your list!
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+added: [E][ ] project meeting (from: Monday 2pm to: Monday 4pm)
+The Egyptian King detects 3 tasks in your list!
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+The Egyptian King has these tasks for you to complete:
+1. [T][ ] emergency
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Monday 2pm to: Monday 4pm)
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+This task is marked as complete. Well done!
+[X] emergency
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+The Egyptian King has these tasks for you to complete:
+1. [T][X] emergency
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Monday 2pm to: Monday 4pm)
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+Hope you have a great day! Remember, you'll never walk alone :))
+------------------------------------------------------------------------
 

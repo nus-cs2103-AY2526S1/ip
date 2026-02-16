@@ -1,0 +1,6 @@
+D | 1 | pay electricity bill | 2025-09-12T00:00
+E | 1 | football match | 2025-09-14T20:00 | 2025-09-14T22:00
+T | 1 | finish exchange application
+E | 0 | Team Meeting | 2025-09-20T14:00 | 2025-09-20T16:00
+T | 1 | buy grocieries
+D | 0 | Submit report | 2025-09-21T23:59
