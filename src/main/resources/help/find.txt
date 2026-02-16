@@ -1,0 +1,4 @@
+find [optional: description]
+
+Filter task in task list with a description
+Find any "borrow" tasks: find borrow

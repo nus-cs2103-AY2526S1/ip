@@ -1,0 +1,4 @@
+unmark [Task position in list]
+
+Unmark task position in list as done
+Unmark task 1 in list as done: unmark 1

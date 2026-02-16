@@ -1,0 +1,4 @@
+To get info on individual commands:
+help [command name]
+Commands names:
+bye, list, mark, unmark, todo, deadline, event, delete, find

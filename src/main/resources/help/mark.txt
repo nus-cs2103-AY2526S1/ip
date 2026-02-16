@@ -1,0 +1,4 @@
+mark [Task position in list]
+
+Mark task position in list as done
+Mark task 1 in list as done: mark 1

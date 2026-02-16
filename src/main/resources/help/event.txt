@@ -1,0 +1,3 @@
+event [task description] /from [Day and/or time] /to [Day and/or time]
+
+Create a event task: event project meeting /from Mon 2pm /to 4pm

@@ -1,0 +1,4 @@
+deadline [task description] /by YYYY-MM-DD [time(optional)]
+
+Create a deadline task:
+deadline return book /by 01-11-2022 1pm

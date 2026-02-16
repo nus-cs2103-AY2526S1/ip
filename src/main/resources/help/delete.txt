@@ -1,0 +1,3 @@
+delete [Task position in list]
+
+Delete a task from task list: delete 1
