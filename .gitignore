@@ -13,5 +13,6 @@ src/main/resources/docs/
 *.iml
 bin/
 
+/src/main/java/July/data/savefile.txt
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
