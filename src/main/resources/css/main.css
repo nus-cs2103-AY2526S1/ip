@@ -1,0 +1,57 @@
+.root { -fx-background-color: -color-bg; }
+
+.header {
+    -fx-background-color: -color-surface;
+    -fx-border-color: transparent transparent #e5e7eb transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-text;
+}
+
+.dialog-container {
+    -fx-padding: 12 12 12 12;
+}
+
+.input-bar {
+    -fx-background-color: -color-surface;
+    -fx-border-color: #e5e7eb transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.text-area, .text-area .content {
+    -fx-background-color: -color-surface;
+}
+.text-area {
+    -fx-background-insets: 0;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #e5e7eb;
+}
+
+/* Explicit input styles that can be swapped via style class */
+.input-text {
+    -fx-background-color: -color-surface;
+    -fx-text-fill: -color-text;
+}
+.input-text-dark {
+    -fx-background-color: -color-surface;
+    -fx-text-fill: -color-text;
+}
+
+.button {
+    -fx-background-color: -color-accent;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-padding: 8 14 8 14;
+}
+.button:hover { -fx-background-color: #1d4ed8; }
+.button:pressed { -fx-background-color: #1e40af; }
+
+.scroll-pane, .scroll-pane .viewport { -fx-background-color: transparent; }
+.scroll-bar { -fx-background-color: transparent; }
+.scroll-bar .thumb { -fx-background-color: #cbd5e1; -fx-background-radius: 8; }
+.scroll-bar .increment-button, .scroll-bar .decrement-button { -fx-pref-height: 0; -fx-opacity: 0; }
