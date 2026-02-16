@@ -1,0 +1,18 @@
+buy milk
+todo
+submit assignment
+deadline
+tomorrow
+team meeting
+event
+monday
+friday
+list
+mark 2
+list
+unmark 2
+delete 1
+list
+mark abc
+delete 10
+bye
