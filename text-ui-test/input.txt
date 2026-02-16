@@ -1,0 +1,42 @@
+list
+todo borrow book
+list
+deadline return book /by Sunday
+deadline return book /by 2025-10-09 12:00
+deadline return book /by 2025-10-09
+event project meeting /from wrong-format /to wrong-format
+event project meeting /from 2025-10-09 12:00 /to 2025-11-09 12:00
+event project meeting /from 2025-10-09 /to 2025-11-09 12:00
+event project meeting /from 2025-10-09 12:00 /to 2025-11-09
+event project meeting /from 2025-10-09 /to 2025-11-09
+list
+delete 100
+list
+mark 1
+mark 2 hello world
+mark 100
+delete 8
+list
+unmark 1
+unmark 2
+delete 8
+delete 8
+delete 8
+delete 8
+delete 8
+delete 8
+check 2025-10-12
+check 2025-10-09
+check
+find c
+find does not exist
+find
+list
+blah
+event project meeting
+event project meeting /to Mon 2pm /from 4pm
+event project /from 2025-10-11 /to 2025-10-10
+event project /from 2025-10-11 23:00 /to 2025-10-10 11:00
+deadline return book
+list
+bye

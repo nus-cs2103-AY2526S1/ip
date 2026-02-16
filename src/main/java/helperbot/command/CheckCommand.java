@@ -1,0 +1,44 @@
+package helperbot.command;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+
+import helperbot.storage.Storage;
+import helperbot.task.TaskList;
+import helperbot.ui.Response;
+
+/**
+ * Represents a command that find all the <code>Task</code> which due on the date specified (if applicable).
+ */
+public class CheckCommand extends Command {
+
+    private final String[] splitMessages;
+
+    /**
+     * Generate a <code>CheckCommand</code>
+     * @param splitMessages the input from user
+     */
+    public CheckCommand(String[] splitMessages) {
+        ///  There should be at least one word in the splitMessages
+        assert splitMessages.length != 0 : "The splitMessages is empty";
+
+        this.splitMessages = splitMessages;
+    }
+
+    @Override
+    public String execute(TaskList tasks, Storage storage, Response response) {
+        try {
+            LocalDate[] dates = Arrays.stream(this.splitMessages)
+                    .skip(1)
+                    .map(LocalDate::parse)
+                    .toList()
+                    .toArray(new LocalDate[0]);
+            return response.getTaskListResponse(true, tasks.getTaskOnDate(dates).toString());
+        } catch (DateTimeParseException e) {
+            return response.getErrorMessage("Invalid Argument: Please enter the date in YYYY-MM-DD.");
+        } catch (IndexOutOfBoundsException e) {
+            return response.getErrorMessage("Invalid Argument: Date is missing.");
+        }
+    }
+}
