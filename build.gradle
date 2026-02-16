@@ -1,0 +1,94 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(17) }
+}
+
+repositories { mavenCentral() }
+
+
+ext {
+    javaFxVersion = '17.0.7'
+}
+
+
+def osClassifier() {
+    def os = org.gradle.internal.os.OperatingSystem.current()
+    if (os.isWindows()) return 'win'
+    if (os.isMacOsX())  return 'mac'
+    return 'linux'
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly   'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+
+    // JavaFX base modules
+    implementation "org.openjfx:javafx-base:${javaFxVersion}"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}"
+
+    // Add platform-specific natives for all OSes
+    runtimeOnly "org.openjfx:javafx-base:${javaFxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+
+    runtimeOnly "org.openjfx:javafx-base:${javaFxVersion}:mac"
+    runtimeOnly "org.openjfx:javafx-controls:${javaFxVersion}:mac"
+    runtimeOnly "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
+    runtimeOnly "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+
+    runtimeOnly "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    runtimeOnly "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    runtimeOnly "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+    runtimeOnly "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+}
+
+
+
+javafx {
+    version = javaFxVersion
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics']
+}
+
+application {
+    // Your launcher class
+    mainClass = 'csproject.gui.Launcher'
+}
+
+
+jar {
+    manifest { attributes 'Main-Class': application.mainClass }
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+
+shadowJar {
+    archiveBaseName = "Tommy"
+    archiveClassifier = null
+}
+
+run {
+    standardInput = System.in
+}
+
+checkstyle { toolVersion = '11.0.0' }
