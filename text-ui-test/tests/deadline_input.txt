@@ -1,0 +1,6 @@
+deadline complete CS1231S /by Monday
+deadline complete CS1101S /by Tuesday
+deadline complete ES2660 /by Wednesday
+deadline complete IS1108 /by Thursday
+list
+bye

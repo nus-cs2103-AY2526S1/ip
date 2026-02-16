@@ -1,0 +1,6 @@
+event breakfast /from Mon 7am /to 9am
+event lunch /from Mon 12pm /to 2pm
+event dinner /from Mon 6pm /to 8pm
+event supper /from Mon 12am /to 2am
+list
+bye
