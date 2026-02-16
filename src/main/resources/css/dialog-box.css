@@ -1,0 +1,49 @@
+/* Dialog label for messages */
+.label {
+    -fx-background-color: #1c1c1c; /* dark gray for general bubbles */
+    -fx-border-color: #ffffff; /* white border for contrast */
+    -fx-border-width: 1.5px;
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-padding: 8 12 8 12;
+    -fx-text-fill: #ffffff; /* white text */
+    -fx-font-size: 16px;
+    -fx-wrap-text: true;
+}
+
+.label.user {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-background-radius: 15px 15px 0 15px;
+    -fx-border-radius: 15px 15px 0 15px;
+    -fx-alignment: center-right;
+    -fx-max-width: 60%;
+    -fx-font-weight: bold;
+}
+
+.label.bot {
+    -fx-background-color: #1c1c1c;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 15px 15px 15px 0;
+    -fx-border-radius: 15px 15px 15px 0;
+    -fx-alignment: center-left;
+    -fx-max-width: 70%;
+}
+
+/* Display picture / avatar */
+#displayPicture {
+    -fx-fit-width: 32px;
+    -fx-fit-height: 32px;
+    -fx-background-radius: 50%;
+}
+
+.label.error {
+    -fx-background-color: #2a1c1c; /* slightly reddish dark gray */
+    -fx-text-fill: #ff6666; /* soft red text */
+    -fx-background-radius: 15px 15px 15px 0;
+    -fx-border-radius: 15px 15px 15px 0;
+    -fx-border-color: #ff6666; /* subtle red border */
+    -fx-border-width: 1px;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}

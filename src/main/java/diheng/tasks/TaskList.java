@@ -1,0 +1,216 @@
+package diheng.tasks;
+
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+
+import diheng.Storage;
+import diheng.enums.Command;
+import diheng.exceptions.DiHengException;
+import diheng.exceptions.InvalidDateException;
+
+/**
+ * Manages a list of tasks, providing functionalities to add, list, mark, unmark,
+ * delete, clear, and create tasks.
+ *
+ * @see Task
+ */
+public class TaskList {
+    /**
+     * The list of tasks.
+     */
+    private final List<Task> tasks;
+
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
+
+    /**
+     * Constructor for TaskList with a list of tasks.
+     *
+     * @param tasks the list of tasks
+     */
+    public TaskList(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    /**
+     * Lists all tasks in the task list according to their string representation.
+     *
+     * @return a string representation of the tasks
+     */
+    public String list() {
+        if (tasks.isEmpty()) {
+            return "\uD83D\uDE0E Looks like you have no tasks! Time to chill.";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("\uD83D\uDCDD Here's what's cooking in your task list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            sb.append(String.format("%d.%s\n", i + 1, task));
+        }
+        return sb.toString().trim();
+    }
+
+
+    /**
+     * Marks one or more tasks as completed.
+     *
+     * @param indexes the indexes of the tasks to be marked as completed (0-based)
+     * @return a string summarizing which tasks have been marked
+     * @throws IndexOutOfBoundsException if any index is invalid
+     */
+    public String markTasks(int... indexes) {
+        StringBuilder sb = new StringBuilder();
+        for (int index : indexes) {
+            Task task = this.tasks.get(index); // may throw IndexOutOfBoundsException
+            task.setCompleted(true);
+            sb.append("\u2705 Boom! Task completed:\n");
+            sb.append(String.format(" %d.%s\n", index + 1, task));
+        }
+        return sb.toString().trim();
+    }
+
+
+    /**
+     * Marks one or more tasks as not completed.
+     *
+     * @param indexes the indexes of the tasks to unmark (0-based)
+     * @return a message summarizing which tasks have been unmarked
+     * @throws IndexOutOfBoundsException if any index is invalid
+     */
+    public String unmarkTasks(int... indexes) {
+        StringBuilder sb = new StringBuilder();
+        for (int index : indexes) {
+            Task task = this.tasks.get(index);  // may throw IndexOutOfBoundsException
+            task.setCompleted(false);
+            sb.append("\uD83D\uDD34 Task is now marked as not done:\n");
+            sb.append(String.format(" %d.%s\n", index + 1, task));
+        }
+        sb.append("No worries, you got this! \uD83D\uDE0C");
+        return sb.toString().trim();
+    }
+
+    /**
+     * Deletes a task from the task list based on its index.
+     *
+     * @param index the index of the task to be deleted (0-based)
+     * @return a string to be printed by UI
+     */
+    public String delete(int index) {
+        Task task = this.tasks.get(index);
+        this.tasks.remove(index);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("\uD83D\uDDD1\uFE0F Oops! Removed this task:\\n");
+        sb.append(String.format(" %d.%s\n", index + 1, task));
+        sb.append(String.format("You now have %d tasks left. Stay sharp! \uD83D\uDC40", this.tasks.size()));
+        return sb.toString().trim();
+    }
+
+
+    /**
+     * Finds tasks in the task list whose descriptions contain the input string
+     * (case-insensitive) and returns a string representation of the matching tasks.
+     *
+     * @param input the string to search for in the task descriptions
+     * @return a string representation of the matching tasks, or "No tasks found." if no
+     * matching tasks are found
+     */
+    public String find(String input) {
+        if (input == null || input.isEmpty()) {
+            return "No tasks found.";
+        }
+        List<Task> tasks = this.tasks.stream()
+                .filter(task -> task.getDescription()
+                        .toLowerCase()
+                        .contains(input.toLowerCase()))
+                .toList();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            sb.append(String.format("%d.%s\n", i + 1, task));
+        }
+        return sb.toString().trim();
+    }
+
+    /**
+     * Clears all tasks from the task list.
+     *
+     * @return a string message indicating that all tasks have been cleared
+     */
+    public String clear() {
+        tasks.clear();
+        return "\uD83C\uDF89 All tasks cleared! Fresh start!\n";
+    }
+
+    /**
+     * Creates a new task based on the command type and arguments, adds it to the task list,
+     * and prints confirmation messages.
+     *
+     * @param type        the type of task to create (TODO, EVENT, DEADLINE)
+     * @param commandArgs the arguments for creating the task
+     * @return the created Task object
+     * @throws DiHengException if there are issues with the command arguments
+     */
+    public String add(Command type, String commandArgs) throws DiHengException {
+        if (commandArgs.isEmpty()) {
+            throw new DiHengException(
+                    "\u26A0 Missing task description",
+                    "Please tell me what to add. I can't read minds! \uD83D\uDE05"
+            );
+        }
+        Task currTask;
+        switch (type) {
+            case TODO -> currTask = new ToDo(commandArgs);
+
+            case EVENT -> {
+                String[] parts = commandArgs.split("/from|/to");
+                if (parts.length < 3) {
+                    throw new DiHengException("\u26A0 Missing event start and end times",
+                            "Specify start and end times using parameters /from and /to.");
+                }
+                String desc = parts[0].trim();
+                String start = parts[1].trim();
+                String end = parts[2].trim();
+                try {
+                    currTask = new Event(desc, start, end);
+                } catch (DateTimeParseException e) {
+                    throw new InvalidDateException(Event.DATE_TIME_FORMAT);
+                }
+            }
+
+            case DEADLINE -> {
+                String[] parts = commandArgs.split("/by");
+                if (parts.length < 2) {
+                    throw new DiHengException("\u26A0 Missing deadline time",
+                            "Specify deadline using parameter /by.");
+                }
+                String desc = parts[0].trim();
+                String by = parts[1].trim();
+                try {
+                    currTask = new Deadline(desc, by);
+                } catch (DateTimeParseException e) {
+                    throw new InvalidDateException(Deadline.DATE_TIME_FORMAT);
+                }
+            }
+
+            default -> throw new DiHengException(
+                    "\u26A0 Unknown command",
+                    "The supported commands are: list, mark, unmark, todo, event, deadline, bye"
+            );
+        }
+        tasks.add(currTask);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("\u2B50 Got it! Added this task:\n");
+        sb.append(String.format(" %s\n", currTask));
+        sb.append(String.format(" You now have %d tasks. Let's keep going! \uD83D\uDE80", tasks.size()));
+        return sb.toString().trim();
+    }
+
+    public void save(Storage storage) throws DiHengException {
+        storage.saveTasks(tasks);
+    }
+}
