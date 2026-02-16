@@ -1,7 +1,41 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Greetings, fair wanderer! I am hope, your humble companion
+How might I assist thee on this grand quest?
 
+Behold, this quest hath been entrusted!
+[T] [ ] dishes
+
+Lo! Thou art now bestowed with 1 noble quests upon thy parchment of duties.
+(You now have 1 tasks in the list)
+
+Behold, this quest hath been entrusted!
+[D] [ ] homework (by: today)
+
+Lo! Thou art now bestowed with 2 noble quests upon thy parchment of duties.
+(You now have 2 tasks in the list)
+
+Hark, I declare the #2 noble endeavor accomplished!
+[D] [X] homework (by: today)
+
+Hark! Behold the noble quests that grace thy scroll of undertakings!
+
+1. [T] [ ] dishes
+2. [D] [X] homework (by: today)
+
+Behold, this quest hath been entrusted!:
+[E] [ ] CCA (from: monday 2pm to: monday 4pm)
+
+Lo! Thou art now bestowed with 3 noble quests upon thy parchment of duties.
+(You now have 3 tasks in the to do list)
+
+Hark, I declare the #3 noble endeavor accomplished!
+[E] [X] CCA (from: monday 2pm to: monday 4pm)
+
+Lo! The noble quest, task #2 , doth still beckon thy valorous attention!
+[D] [ ] homework (by: today)
+
+Pardon me, noble companion, but what dost thou mean to convey?
+
+Thou hast overlooked the noble task of bestowing a worthy description upon this endeavor!
+(Empty input detected, please try again)
+
+Fare thee well, noble friend!
