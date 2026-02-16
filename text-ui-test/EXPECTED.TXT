@@ -1,7 +1,43 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+_______________________________________________________
+ ____               _ _ 
+|  _ \ _   _ _   _ (_|_)
+| |_) | | | | | | || | |
+|  _ <| |_| | |_| || | |
+|_| \_\\__, |\__,_|/ |_|
+       |___/     |__/   
+Welcome to ryuji.ryuji chat bot.
+How may I be of service today master?
+_______________________________________________________
+I've added
+[T][ ] read book
+ to your list master
+You now have 1 items in your list
+_______________________________________________________
+I've added
+[D][ ] submit report (by: 2025-08-30)
+ to your list master
+You now have 2 items in your list
+_______________________________________________________
+I've added
+[E][ ] meeting (at: 2025-08-25 10:00-11:00)
+ to your list master
+You now have 3 items in your list
+_______________________________________________________
+Here is your list master:
+1. [T][ ] read book
+2. [D][ ] submit report (by: 2025-08-30)
+3. [E][ ] meeting (at: 2025-08-25 10:00-11:00)
+_______________________________________________________
+I have marked this as completed master
+   [T][X] read book
+_______________________________________________________
+I have unmarked this from your list master
+   [T][ ] read book
+_______________________________________________________
+I've removed
+[D][ ] submit report (by: 2025-08-30)
+ to your list master
+You now have 2 items in your list
+_______________________________________________________
+This fox will always be here for you.
+_______________________________________________________

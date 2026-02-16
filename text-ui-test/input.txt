@@ -1,0 +1,8 @@
+todo read book
+deadline submit report /by 2025-08-30
+event meeting /at 2025-08-25 10:00-11:00
+list
+mark 1
+unmark 1
+delete 2
+bye
