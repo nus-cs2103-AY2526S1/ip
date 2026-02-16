@@ -1,0 +1,168 @@
+/* AI-created code: Modern Chat Interface Styling for ChatGPT/Claude-like GUI */
+
+/* AI-created code: Main window foundation */
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 14px;
+}
+
+/* AI-created code: Chat container layout */
+.chat-container {
+    -fx-background-color: #f7f7f8;
+    -fx-padding: 20px;
+}
+
+/* AI-created code: Scrollable chat area with custom styling */
+.chat-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.chat-scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.chat-scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+
+.chat-scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: #e0e0e0;
+    -fx-border-color: transparent;
+    -fx-background-radius: 4px;
+}
+
+.chat-scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #c0c0c0;
+    -fx-background-radius: 4px;
+}
+
+/* AI-created code: Modern input area styling */
+.input-container {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 16px;
+}
+
+.user-input {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 25px;
+    -fx-background-radius: 25px;
+    -fx-padding: 12px 20px;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #6c757d;
+}
+
+.user-input:focused {
+    -fx-border-color: #007bff;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 123, 255, 0.25), 0, 0, 0, 0);
+}
+
+.send-button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-border-radius: 25px;
+    -fx-background-radius: 25px;
+    -fx-padding: 12px 24px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 123, 255, 0.3), 4, 0, 0, 2);
+}
+
+.send-button:hover {
+    -fx-background-color: #0056b3;
+    -fx-effect: dropshadow(gaussian, rgba(0, 123, 255, 0.4), 6, 0, 0, 3);
+}
+
+.send-button:pressed {
+    -fx-background-color: #004085;
+    -fx-effect: dropshadow(gaussian, rgba(0, 123, 255, 0.2), 2, 0, 0, 1);
+}
+
+/* AI-created code: User message bubbles (blue, right side) */
+.user-message {
+    -fx-alignment: center-right;
+    -fx-padding: 8px 16px 8px 60px;
+}
+
+.user-bubble {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-background-radius: 18px 18px 4px 18px;
+    -fx-padding: 12px 16px;
+    -fx-max-width: 280px;
+    -fx-wrap-text: true;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 2, 0, 0, 1);
+}
+
+/* AI-created code: Assistant message bubbles (white, left side) */
+.assistant-message {
+    -fx-alignment: center-left;
+    -fx-padding: 8px 60px 8px 16px;
+}
+
+.assistant-bubble {
+    -fx-background-color: white;
+    -fx-text-fill: #212529;
+    -fx-background-radius: 18px 18px 18px 4px;
+    -fx-padding: 12px 16px;
+    -fx-max-width: 280px;
+    -fx-wrap-text: true;
+    -fx-font-size: 14px;
+    -fx-border-color: #e9ecef;
+    -fx-border-width: 1px;
+    -fx-border-radius: 18px 18px 18px 4px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 2, 0, 0, 1);
+}
+
+/* AI-created code: Avatar styling with rounded corners */
+.avatar {
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 2, 0, 0, 1);
+}
+
+/* AI-created code: Professional header section */
+.chat-header {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 16px;
+    -fx-alignment: center;
+}
+
+.header-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #212529;
+}
+
+.header-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6c757d;
+}
+
+/* AI-created code: Typing indicator for future enhancement */
+.typing-indicator {
+    -fx-padding: 8px 16px;
+    -fx-alignment: center-left;
+}
+
+.typing-bubble {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 18px;
+    -fx-padding: 12px 16px;
+    -fx-border-color: #e9ecef;
+    -fx-border-width: 1px;
+    -fx-border-radius: 18px;
+}
+
+/* AI-created code: Animation effects for future enhancements */
+.fade-in {
+    -fx-opacity: 0;
+}

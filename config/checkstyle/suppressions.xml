@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+    <!-- Suppress certain checks for test files -->
+    <suppress checks="MagicNumber" files=".*Test\.java"/>
+    <suppress checks="MethodLength" files=".*Test\.java"/>
+    <suppress checks="JavadocMethod" files=".*Test\.java"/>
+    <suppress checks="JavadocType" files=".*Test\.java"/>
+    <suppress checks="JavadocVariable" files=".*Test\.java"/>
+    
+    <!-- Suppress checks for main method -->
+    <suppress checks="HideUtilityClassConstructor" files=".*\.java" lines="1-999" id="main"/>
+    
+    <!-- Suppress FinalParameters for main method -->
+    <suppress checks="FinalParameters" files=".*\.java" message="Parameter args should be final."/>
+    
+    <!-- Suppress certain checks for generated files or resources -->
+    <suppress checks=".*" files=".*\.properties"/>
+    <suppress checks=".*" files=".*\.xml"/>
+    
+    <!-- Allow simple getter/setter methods without Javadoc in some cases -->
+    <suppress checks="JavadocMethod" files=".*\.java" message="Missing a Javadoc comment for '(get|set|is)[A-Z].*'"/>
+    
+    <!-- Suppress DesignForExtension for utility classes -->
+    <suppress checks="DesignForExtension" files=".*Util\.java"/>
+    
+    <!-- Allow comments in development -->
+    <suppress checks="TodoComment" files=".*\.java"/>
+</suppressions>
