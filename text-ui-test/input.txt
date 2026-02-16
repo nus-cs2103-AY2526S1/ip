@@ -1,0 +1,11 @@
+todo buy groceries
+deadline do homework /by Sunday, 8pm
+event party /from Monday, 12am /to Sunday, 12am
+list
+mark 1
+mark 2
+unmark 1
+mark 3
+list
+mark 1
+bye
