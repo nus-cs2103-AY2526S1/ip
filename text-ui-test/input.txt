@@ -1,0 +1,52 @@
+blah
+help
+help --details
+list
+todo read book
+deadline submit assignment /by 22/05/2025 16:00
+event CS lecture /from 22/05/2025 16:00 /to 22/05/2025 16:00
+list
+mark 1
+unmark 1
+mark 3
+delete 2
+list
+todo
+todo
+deadline project
+event party
+deadline pay bills /by
+event dinner /from 19:00
+event dinner /from 19:00 /to
+event  /from 10am /to 11am
+mark 99
+delete -1
+delete 0
+mark 0
+mark one
+list
+todo play football
+event hackathon /from 22/05/2025 16:00 /to 22/05/2025 16:00
+deadline finish report /by 22/05/2025 16:00
+list
+help me
+help --details
+list now
+bye now
+tasks.Todo buy milk
+deadline    lots of    spaces   /by    22/05/2025 16:00
+event Spaced tasks.Event   /from   22/05/2025 16:00   /to    22/05/2025 16:00
+list
+mark 2
+unmark 2
+delete 2
+list
+deadline  /by 22/05/2025 16:00
+event Meeting /from  /to 22/05/2025 16:00
+event Meeting2 /from 22/05/2025 16:00 /to
+list
+delete 1
+delete 1
+list
+help
+bye
