@@ -1,0 +1,53 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
+    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-padding: 6px;
+    -fx-border-insets: 0px 7px 0px 7px;
+    -fx-background-insets: 0px 7px 0px 7px;
+}
+
+.name-label {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-font-size: 10px;
+    -fx-text-fill: gray;
+}
+
+/* User dialog: light blue gradient */
+.user-dialog {
+    -fx-background-color: linear-gradient(to bottom right, #00bfff, #0099ff);
+    -fx-text-fill: black;
+}
+
+/* Lynx dialog: light green gradient */
+.lynx-dialog {
+    -fx-background-color: linear-gradient(to bottom right, #32cd32, #28a745);
+    -fx-text-fill: black;
+}
+
+/* Error dialog: red gradient */
+.error-dialog {
+    -fx-background-color: linear-gradient(to bottom right, #ff3b3f, #b30000);
+    -fx-text-fill: white;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 1em;
+    -fx-border-radius: 1em 1em 1em 1em;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}

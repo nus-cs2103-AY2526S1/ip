@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1"
+         alignment="TOP_RIGHT"
+         stylesheets="@../css/dialog-box.css"
+         prefWidth="400.0"
+         maxWidth="Infinity"
+         spacing="10"
+         fx:id="dialogBox">
+
+    <padding>
+        <Insets top="15.0" bottom="15.0" left="15.0" right="15.0"/>
+    </padding>
+
+    <children>
+        <!-- Message Bubble -->
+        <Label fx:id="dialog"
+               wrapText="true"
+               maxWidth="Infinity"
+               minHeight="-Infinity"
+               styleClass="dialog-bubble"
+               style="-fx-font-size: 16px; -fx-padding: 12px 18px 12px 18px;" />
+
+        <!-- Image and Name Label below it -->
+        <VBox alignment="CENTER" spacing="4">
+            <children>
+                <ImageView fx:id="displayPicture"
+                           fitWidth="99" fitHeight="99"
+                           preserveRatio="true" pickOnBounds="true" />
+                <Label fx:id="name"
+                       text="User"
+                       styleClass="name-label"
+                       style="-fx-font-size: 16px; -fx-text-fill: black;"
+                       alignment="CENTER"
+                       wrapText="true" />
+            </children>
+        </VBox>
+    </children>
+</fx:root>
