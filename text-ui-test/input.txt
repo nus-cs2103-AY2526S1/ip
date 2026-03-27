@@ -1,0 +1,40 @@
+hihi
+mark 1
+unmark 1
+todo borrow book
+todo
+mark
+mark 0
+mark 2
+mark 1
+list
+unmark 2
+unmark 1
+deadline
+deadline return book
+deadline /by
+deadline return book /by
+deadline return book /by sunday 2pm
+deadline return book /by 2025-12-5
+deadline return book /by 2025-13-05
+deadline return book /by 2025-12-05
+event
+event /to
+event /from
+event /from mon
+event /to /from
+event /from /to
+event project meeting /from /to
+event project meeting /to /from
+event project meeting /from mon 2pm /to
+event /from mon 2pm /to
+event /from mon 2pm /to 4pm
+event project meeting /from /to 4pm
+event project meeting /from Mon 2pm /to 4pm
+event project meeting /from 2025-12-05 /to 2025-12-06
+list
+delete
+delete 0
+delete 3
+delete 4
+list
