@@ -1,0 +1,30 @@
+.label {
+    -fx-background-color: #4C4C4C;
+
+    -fx-border-radius: 10px 10px 0 10px;
+    -fx-background-radius: 10px 10px 0 10px;
+
+    -fx-text-fill: white;
+    -fx-font-family: "Red Hat Mono";
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+
+     -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.2), 20, 0.5, 2, 1);
+}
+
+.reply-label {
+    -fx-border-radius: 10px 10px 10px 0;
+    -fx-background-radius: 10px 10px 10px 0;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.2), 20, 0.5, -2, 1);
+}
+
+#displayPicture {
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+

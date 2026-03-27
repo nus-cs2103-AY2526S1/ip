@@ -1,0 +1,52 @@
+.root {
+    accent: #A8FF92;       /* Create a looked-up color called "main-color" within root. */
+    -fx-background-color: rgba(0,0,0,0.5);
+    -fx-background-image: url("../images/background.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: cover;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: #1c1c1c;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: accent;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.navbar {
+    -fx-background-color: #1C1C1C;
+}
+
+.title {
+    -fx-font-family: "Red Hat Mono";
+    -fx-font-weight: bold;
+    -fx-font-size: 32px;
+    -fx-text-fill: accent;
+}
+
+.text-field {
+    -fx-font-family: "Red Hat Mono";
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-padding: 0px 10px;
+
+    -fx-background-color: #252525;
+    -fx-background-radius: 30px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
