@@ -1,0 +1,103 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+group = 'borat'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String javaFxVersion = '17.0.7'
+    
+    // JavaFX dependencies for all platforms
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion
+    
+    // Platform-specific JavaFX modules
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
+    
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+    
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+application {
+    mainClass = 'borat.gui.Launcher'
+}
+
+// Shadow plugin configuration for creating executable JAR
+shadowJar {
+    archiveFileName = 'borat.jar'
+    manifest {
+        attributes 'Main-Class': 'borat.gui.Launcher'
+    }
+    
+    // Merge all JavaFX modules and native libraries
+    mergeServiceFiles()
+    
+    // Exclude duplicate META-INF files
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+    exclude 'META-INF/MANIFEST.MF'
+    
+    // Transform all dependencies to include platform-specific modules
+    transform(com.github.jengelman.gradle.plugins.shadow.transformers.PropertiesFileTransformer) {
+        paths = ['META-INF/editors/java.util.Properties']
+        mergeStrategy = "append"
+    }
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'borat.gui.Launcher'
+    }
+}
+
+// Ensure the gradle wrapper is executable
+tasks.register('makeWrapperExecutable') {
+    doLast {
+        file('gradlew').setExecutable(true)
+    }
+}
+
+// Run this task after wrapper setup
+wrapper.finalizedBy makeWrapperExecutable

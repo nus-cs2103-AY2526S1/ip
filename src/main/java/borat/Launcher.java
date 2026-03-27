@@ -1,0 +1,14 @@
+package borat;
+
+import javafx.application.Application;
+import borat.gui.Main;
+
+/**
+ * A launcher class to workaround classpath issues.
+ */
+public class Launcher {
+    public static void main(String[] args) {
+        Application.launch(Main.class, args);
+    }
+}
+
