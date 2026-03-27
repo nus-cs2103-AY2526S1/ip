@@ -1,7 +1,64 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+____________________________________________________________
+Hello, I am pepe.Pepe!
+How may I help you today?
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this pepe.task:
+[T][ ]  borrow book
+Now you have 1 tasks in the list
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this pepe.task:
+[T][ ]  eat breakfast
+Now you have 2 tasks in the list
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this pepe.task:
+[D][ ] walk my dog (by: Monday 10am)
+Now you have 3 tasks in the list
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this pepe.task:
+[D][ ] watch lecture (by: Wednesday 4pm)
+Now you have 4 tasks in the list
+____________________________________________________________
+____________________________________________________________
+1. [T][ ]  borrow book
+2. [T][ ]  eat breakfast
+3. [D][ ] walk my dog (by: Monday 10am)
+4. [D][ ] watch lecture (by: Wednesday 4pm)
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this pepe.task:
+[E][ ] attend Swimming (from: 6pm to: 8pm)
+Now you have 5 tasks in the list
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this pepe.task as done:
+[T][X]  eat breakfast
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this pepe.task as done:
+[D][X] walk my dog (by: Monday 10am)
+____________________________________________________________
+____________________________________________________________
+Noted. I've removed this pepe.task:
+[T][ ]  borrow book
+Now you have 4 tasks in the list
+____________________________________________________________
+____________________________________________________________
+1. [T][X]  eat breakfast
+2. [D][X] walk my dog (by: Monday 10am)
+3. [D][ ] watch lecture (by: Wednesday 4pm)
+4. [E][ ] attend Swimming (from: 6pm to: 8pm)
+____________________________________________________________
+____________________________________________________________
+Noted. I've removed this pepe.task:
+[T][X] eat breakfast
+Now you have 3 tasks in the list
+____________________________________________________________
+____________________________________________________________
+1. [D][X] walk my dog (by: Monday 10am)
+2. [D][ ] watch lecture (by: Wednesday 4pm)
+3. [E][ ] attend Swimming (from: 6pm to: 8pm)
+____________________________________________________________

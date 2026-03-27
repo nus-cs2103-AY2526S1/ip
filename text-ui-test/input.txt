@@ -1,0 +1,12 @@
+todo borrow book
+todo eat breakfast
+deadline walk my dog /by Monday 10am
+deadline watch lecture /by Wednesday 4pm
+list
+event attend Swimming /from 6pm /to 8pm
+mark 2
+mark 3
+delete 1
+list
+delete 1
+list

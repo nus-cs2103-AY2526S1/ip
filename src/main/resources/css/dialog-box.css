@@ -1,0 +1,76 @@
+.label {
+    -fx-background-color: #FFD800;
+    -fx-text-fill: black;
+    -fx-padding: 8px 12px;
+    -fx-background-radius: 16px 16px 0 16px;
+    -fx-border-radius: 16px 16px 0 16px;
+    -fx-margin: 0 0 10 0px;
+    -fx-font-size: 12px;
+}
+
+.reply-label {
+    -fx-background-color: #64b5f6;
+    -fx-text-fill: black; /* Text color */
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-padding: 6px;
+    -fx-margin: 0 0 0 10px;
+    -fx-font-size: 12px;
+}
+
+.warning-label {
+    -fx-background-color: #8B0000; /* Dark red background */
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-padding: 6px;
+    -fx-margin: 0 0 0 10px;
+    -fx-font-size: 12px;
+}
+
+/* Delete command */
+.delete-label {
+    -fx-background-color: #FFA500; /* Orange-Red */
+    -fx-text-fill: black;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-padding: 6px;
+    -fx-margin: 0 0 0 10px;
+    -fx-font-size: 12px;
+}
+
+/* Mark/Unmark command */
+.mark-label {
+    -fx-background-color: #247f33; /* Lime green */
+    -fx-text-fill: white;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-padding: 6px;
+    -fx-margin: 0 0 0 10px;
+    -fx-font-size: 12px;
+}
+
+/* Add task command */
+.add-label {
+    -fx-background-color: #1E90FF; /* Dodger blue */
+    -fx-text-fill: white;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-padding: 6px;
+    -fx-margin: 0 0 0 10px;
+    -fx-font-size: 12px;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-background-radius: 50%;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+
