@@ -1,0 +1,81 @@
+package luke;
+
+/** Parses user input into command + args. */
+public class Parser {
+
+    public static ParsedCommand parse(String line) {
+        String[] firstSplit = line.trim().split("\\s+", 2);
+        String cmd = firstSplit[0].toLowerCase();
+        String args = firstSplit.length > 1 ? firstSplit[1] : "";
+
+        switch (cmd) {
+            case "bye": return new ParsedCommand(CommandType.BYE, "");
+            case "list": return new ParsedCommand(CommandType.LIST, "");
+            case "todo":
+                if (args.isBlank()) throw new LukeException("OOPS!!! The description of a todo cannot be empty.");
+                return new ParsedCommand(CommandType.TODO, args);
+            case "deadline":
+                if (args.isBlank()) throw new LukeException("OOPS!!! The description of a deadline cannot be empty.");
+                return new ParsedCommand(CommandType.DEADLINE, args);
+            case "event":
+                if (args.isBlank()) throw new LukeException("OOPS!!! The description of an event cannot be empty.");
+                return new ParsedCommand(CommandType.EVENT, args);
+            case "mark":
+                if (args.isBlank()) throw new LukeException("OOPS!!! Provide an index to mark.");
+                return new ParsedCommand(CommandType.MARK, args);
+            case "unmark":
+                if (args.isBlank()) throw new LukeException("OOPS!!! Provide an index to unmark.");
+                return new ParsedCommand(CommandType.UNMARK, args);
+            case "delete":
+                if (args.isBlank()) throw new LukeException("OOPS!!! Provide an index to delete.");
+                return new ParsedCommand(CommandType.DELETE, args);
+            case "find":
+                if (args.isBlank()) throw new LukeException("OOPS!!! Provide a keyword to find.");
+                return new ParsedCommand(CommandType.FIND, args);
+            case "help":
+                return new ParsedCommand(CommandType.HELP, args);
+            default:
+                // For Level-1 echo: treat unknown token as echo of the whole line.
+                // After Level-5 this path will throw instead (we do that in Luke switch).
+                return new ParsedCommand(CommandType.UNKNOWN, line);
+        }
+    }
+
+    /** Splits "desc /by when" once. Returns [desc, when]. */
+    public static String[] splitOnce(String src, String delimiter) {
+        int idx = src.indexOf(delimiter);
+        if (idx < 0) return new String[] { src, "" };
+        String left = src.substring(0, idx).trim();
+        String right = src.substring(idx + delimiter.length()).trim();
+        return new String[] { left, right };
+    }
+
+    /** Splits "desc /from a /to b". Returns [desc, a, b]. */
+    public static String[] splitTwo(String src, String d1, String d2) {
+        int i1 = src.indexOf(d1);
+        int i2 = src.indexOf(d2);
+        if (i1 < 0 || i2 < 0 || i2 <= i1) {
+            return new String[] { src, "", "" };
+        }
+        String desc = src.substring(0, i1).trim();
+        String from = src.substring(i1 + d1.length(), i2).trim();
+        String to = src.substring(i2 + d2.length()).trim();
+        return new String[] { desc, from, to };
+    }
+
+    /** Parses a 1-based index and bounds-checks against size. */
+    public static int requireIndex(String arg, int size) {
+        assert size >= 0 : "size must be non-negative";
+        String s = arg == null ? "" : arg.trim();
+        if (s.isEmpty()) throw new LukeException("OOPS!!! Please provide an index.");
+        int oneBased;
+        try { oneBased = Integer.parseInt(s); }
+        catch (NumberFormatException e) { throw new LukeException("OOPS!!! \"" + s + "\" is not a number."); }
+        if (oneBased < 1 || oneBased > size) {
+            throw new LukeException("OOPS!!! Index must be between 1 and " + size + ".");
+        }
+        int zero = oneBased - 1;
+        assert zero >= 0 && zero < size : "calculated index out of bounds";
+        return oneBased;
+    }
+}
