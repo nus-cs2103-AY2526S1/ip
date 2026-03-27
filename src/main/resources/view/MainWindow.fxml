@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainWindow">
+    <VBox AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="100.0" spacing="10.0" styleClass="header" maxWidth="Infinity">
+            <BorderPane.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </BorderPane.margin>
+            <padding>
+                <Insets bottom="6.0" left="10.0" right="10.0" top="6.0" />
+            </padding>
+            <ImageView fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                <Image url="@../images/Sunday.png" />
+            </ImageView>
+            <Label prefHeight="41.0" prefWidth="75.0" styleClass="title" text="Sunday" HBox.hgrow="ALWAYS">
+                <font>
+                    <Font size="24.0" />
+                </font>
+            </Label>
+            <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <Label prefHeight="37.0" prefWidth="60.0" styleClass="subtitle" text="v1.0" />
+        </HBox>
+        <ScrollPane id="chatScroll" fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS" maxWidth="Infinity">
+             <VBox fx:id="dialogContainer" spacing="10.0">
+                 <padding>
+                     <Insets top="12.0" right="12.0" bottom="12.0" left="12.0"/>
+                 </padding>
+             </VBox>
+        </ScrollPane>
+        <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="input-bar" maxWidth="Infinity">
+            <padding><Insets bottom="10.0" left="12.0" right="12.0" top="10.0" /></padding>
+            <children>
+                <TextField fx:id="userInput" onAction="#handleUserInput" promptText="Type something..." HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton" onAction="#handleUserInput" styleClass="send" text="Send" />
+            </children>
+        </HBox>
+    </VBox>
+</AnchorPane>

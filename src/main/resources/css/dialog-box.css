@@ -1,0 +1,62 @@
+/* Dialog container base */
+.dialog-box {
+    -fx-spacing: 10;
+    -fx-padding: 8 6;
+    -fx-background-color: transparent;
+}
+
+/* Avatar */
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.20), 10, 0.5, 5, 5);
+    /* optional: make avatars round
+       -fx-background-radius: 999;
+       -fx-border-radius: 999;
+    */
+}
+
+/* Shared bubble text style (applies only inside dialog boxes) */
+.dialog-box .label {
+    -fx-background-color: #B3EBF2;         /* your original bubble color */
+    -fx-text-fill: #0f172a;
+    -fx-padding: 8 12 8 12;
+    -fx-background-radius: 16 16 4 16;     /* tail on bottom-left */
+    -fx-border-radius: 16 16 4 16;
+    -fx-border-color: rgba(0,0,0,0.10);
+    -fx-border-width: 1;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0.25, 0, 1);
+    -fx-max-width: Infinity;
+}
+
+/* User vs Bot quick tweaks (optional hooks if you want different colors later) */
+.dialog-box.user .label {
+    /* e.g., slightly different tint for user; keep as-is for now */
+}
+
+.dialog-box.bot .reply-label {
+    /* You already add 'reply-label' to bot labels in code; use this to tweak if needed */
+}
+
+/* ERROR bubble: tinted background + left border for visibility */
+.dialog-box.error {
+    -fx-background-color: #FDECEC;         /* soft red tint behind the HBox */
+    -fx-background-radius: 12;
+    -fx-border-color: #E53935;
+    -fx-border-width: 0 0 0 4;              /* attention bar */
+    -fx-border-radius: 10;
+    -fx-padding: 10 12 10 8;                /* a bit more inset on error */
+}
+
+/* Make the label itself more legible on error */
+.dialog-box.error .label {
+    -fx-background-color: rgba(249, 128, 128, 0.18); /* subtle inner tint */
+    -fx-border-color: rgba(229, 57, 53, 0.35);
+}
+
+/* Error text accent */
+.error-text {
+    -fx-text-fill: #B71C1C;
+    -fx-font-weight: 700;
+}
+

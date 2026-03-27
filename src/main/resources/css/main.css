@@ -1,0 +1,63 @@
+.root {
+    /* Theme lookups (JavaFX ignores unknown props, so we prefix with -fx- for clarity) */
+    -fx-base-bg: rgb(246,250,248);
+    -fx-header-1: #0ea5e9;
+    -fx-header-2: #38bdf8;
+    -fx-accent:   #0ea5e9;
+    -fx-accent-2: #0284c7;
+
+    -fx-background-color: -fx-base-bg;
+}
+
+.header {
+    -fx-background-color: linear-gradient(to right, -fx-header-1, -fx-header-2);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 10, 0.3, 0, 2);
+}
+.header .title {
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+.header .subtitle {
+    -fx-text-fill: rgba(255,255,255,0.85);
+    -fx-font-size: 11px;
+}
+
+/* Chat area */
+#chatScroll, #chatScroll .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Scrollbar polish */
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-padding: 2;
+}
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(0,0,0,0.20);
+    -fx-background-radius: 8;
+}
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+/* Input */
+.text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-background-insets: 0;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #000000;
+    -fx-font-size: 13px;
+    -fx-padding: 10 12 10 12;
+}
+
+.button.send {
+    -fx-background-color: -fx-accent;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-font-weight: bold;
+    -fx-padding: 8 12 8 12;
+}
+.button.send:hover  { -fx-background-color: -fx-accent-2; }
+.button.send:pressed{ -fx-translate-y: 1; }
