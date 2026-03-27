@@ -1,0 +1,9 @@
+list
+todo study for exam
+mark 1
+unmark 1
+list
+event birthday
+event birthday /from 21/08 /to 21-08
+deadline assignment /by 22/08
+bye
