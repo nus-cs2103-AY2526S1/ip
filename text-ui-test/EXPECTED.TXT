@@ -1,7 +1,69 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________
+ Hello! I'm
+  __  __            _     _
+ |  \/  | ___   ___| |__ (_)
+ | |\/| |/ _ \ / __| '_ \| |
+ | |  | | (_) | (__| | | | |
+ |_|  |_|\___/ \___|_| |_|_|
 
+ What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+    [T][ ] plan timetable
+Now you have 1 tasks in  the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+    [E][ ] gym (from Wednesday 5pm to 6pm)
+Now you have 2 tasks in  the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+    [D][ ] watch lecture videos (by: tonight)
+Now you have 3 tasks in  the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+    [E][ ] lunch with besties (from 24/8/2025 11am to 1pm)
+Now you have 4 tasks in  the list.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+
+1.[T][ ] plan timetable
+2.[E][ ] gym (from Wednesday 5pm to 6pm)
+3.[D][ ] watch lecture videos (by: tonight)
+4.[E][ ] lunch with besties (from 24/8/2025 11am to 1pm)
+____________________________________________________________
+____________________________________________________________
+ Nice! I've marked this task as done:
+   [X] plan timetable
+____________________________________________________________
+____________________________________________________________
+ Nice! I've marked this task as done:
+   [X] lunch with besties
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+
+1.[T][x] plan timetable
+2.[E][ ] gym (from Wednesday 5pm to 6pm)
+3.[D][ ] watch lecture videos (by: tonight)
+4.[E][x] lunch with besties (from 24/8/2025 11am to 1pm)
+____________________________________________________________
+____________________________________________________________
+ OK, I've marked this task as not done yet:
+   [ ] lunch with besties
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+
+1.[T][x] plan timetable
+2.[E][ ] gym (from Wednesday 5pm to 6pm)
+3.[D][ ] watch lecture videos (by: tonight)
+4.[E][ ] lunch with besties (from 24/8/2025 11am to 1pm)
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________

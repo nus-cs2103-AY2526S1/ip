@@ -1,0 +1,11 @@
+todo plan timetable
+event gym /from Wednesday 5pm /to 6pm
+deadline watch lecture videos /by tonight
+event lunch with besties /from 24/8/2025 11am /to 1pm
+list
+mark 1
+mark 4
+list
+unmark 4
+list
+bye
