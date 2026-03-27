@@ -1,7 +1,15 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Greetings from __><(((º>
+return book has been added
+[D][ ] return book (by: Sunday) has been added
+[E][ ] project meeting (from: Mon 2pm, to: 4pm) has been added
+[T][ ] borrow book has been added
+1. [D][ ] return book (by: Sunday)
+2. [E][ ] project meeting (from: Mon 2pm, to: 4pm)
+3. [T][ ] borrow book
+Felicitation on [T][X] borrow book
+Ok task undone lo [T][ ] borrow book
+Felicitation on [E][X] project meeting (from: Mon 2pm, to: 4pm)
+1. [D][ ] return book (by: Sunday)
+2. [E][X] project meeting (from: Mon 2pm, to: 4pm)
+3. [T][ ] borrow book
+Goodbye Au Revoir~
