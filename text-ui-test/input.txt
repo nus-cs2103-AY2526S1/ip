@@ -1,0 +1,8 @@
+todo Cook Breakfast
+deadline Finish Homework /by 7pm
+event Play football /from 5pm /to 9pm
+mark 4
+mark 2
+delete 2
+list
+bye

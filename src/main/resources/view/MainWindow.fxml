@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="600.0" prefWidth="400.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="MainWindow">
+
+    <!-- Reminder label at the top -->
+    <Label fx:id="reminderLabel"
+           layoutX="10.0"
+           layoutY="10.0"
+           prefWidth="380.0"
+           text="No upcoming tasks 🎉" />
+
+    <!-- Scrollable dialog container -->
+    <ScrollPane fx:id="scrollPane"
+                layoutX="0.0"
+                layoutY="40.0"
+                prefWidth="400.0"
+                prefHeight="500.0"
+                hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED">
+        <content>
+            <VBox fx:id="dialogContainer"
+                  spacing="5.0"
+                  prefWidth="388.0"
+                  prefHeight="500.0" />
+        </content>
+    </ScrollPane>
+
+    <!-- Text input field -->
+    <TextField fx:id="userInput"
+               layoutX="0.0"
+               layoutY="550.0"
+               prefWidth="320.0"
+               prefHeight="41.0"
+               onAction="#handleUserInput"
+               AnchorPane.leftAnchor="0.0"
+               AnchorPane.bottomAnchor="0.0" />
+
+    <!-- Send button -->
+    <Button fx:id="sendButton"
+            layoutX="320.0"
+            layoutY="550.0"
+            prefWidth="80.0"
+            prefHeight="41.0"
+            text="Send"
+            onAction="#handleUserInput"
+            AnchorPane.rightAnchor="0.0"
+            AnchorPane.bottomAnchor="0.0" />
+
+</AnchorPane>

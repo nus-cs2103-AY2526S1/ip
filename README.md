@@ -1,26 +1,131 @@
-# Duke project template
+# Joe User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Joe is a simple **JavaFX chatbot** that helps you manage your tasks in a conversational way.  
+You can add todos, deadlines, and events, mark them as done, delete them, and list them — all using natural commands.
 
-## Setting up in Intellij
+---
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Adding todos
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Adds a basic task without any date or time attached.
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+
+**Format:**  
+
+    todo Make notes
+
+**Output:**  
+
+Got it. I've added this task: 
+
+[T][0] Make notes
+
+Now you have 4 tasks in the list.
+
+## Adding deadlines
+
+Adds a task that has a dealine attached to it.
+
+**Format:**  
+
+    deadline Finish homework /by 10pm
+
+**Output:**  
+
+Got it. I've added this task:
+
+[D][0] Finish homework (by: 10pm)
+
+Now you have 4 tasks in the list.
+
+## Adding events
+
+Adds a task that has a start and end date. The start and end date is expected to be in the YYYY-MM-DD format.
+
+**Format:**  
+
+    event Japan trip /from 2025-06-01 /to 2025-06-14
+
+**Output:**  
+
+Got it. I've added this task:
+
+[E][0] Japan trip (from: Jun 01 2025 to: Jun 14 2025)
+
+Now you have 1 tasks in the list.
+
+
+## Mark tasks 
+
+Marks task as done and undone depending on its completion status. This completion status is represented by the 0 and 1 next to the task type. 0 means that the task has yet to be completed, while 1 means the task is done.
+
+**Format:**  
+
+    mark 1
+    unmark 1
+
+**Output:**
+
+Ok, I've marked the task as done:
+
+[E][1] Japan trip (from: Jun 01 2025 to: Jun 14 2025)
+
+and
+
+Ok, I've marked the task as not done:
+
+[E][0] Japan trip (from: Jun 01 2025 to: Jun 14 2025)
+
+## Listing tasks
+
+Lists all the tasks that are currently in the list.
+
+**Format:**  
+
+    list
+
+**Output:**
+
+Your To-Do List:
+1. [E][0] Japan trip (from: Jun 01 2025 to: Jun 14 2025)
+
+## Deleting tasks
+
+Deletes the selected task from the list.
+
+**Format:**  
+
+    delete 1
+
+**Output:**
+
+Got it. I've removed this task from your list:
+
+[E][0] Japan trip (from: Jun 01 2025 to: Jun 14 2025)
+
+Now you have 0 tasks in the list.
+
+## Finding tasks
+
+Finds all tasks that contains the same word as the word queried.
+
+**Format:**  
+
+    find Japan
+
+**Output:**
+
+Here are the matching tasks in your list:
+1. [E][0] Japan trip (from: Jun 01 2025 to: Jun 14 2025)
+
+## Bye (Exiting the chat)
+
+Closes the program and ends the chat.
+
+**Format:**  
+
+    bye
+
+**Output:**
+
+Goodbye!
