@@ -1,0 +1,24 @@
+T | 0 | make bed
+D | 1 | submit homework | 2025-01-01 01:00
+E | 0 | nus homecoming | 2025-10-10 09:00 | 2025-12-12 05:00
+T | 1 | Buy groceries
+T | 1 | Finish CS2030S lab
+T | 0 | Call mum
+D | 0 | Submit assignment | 2025-10-01 23:59
+D | 0 | Return library book | 2025-09-30 17:00
+E | 0 | CS2030S lecture | 2025-09-20 14:00 | 2025-09-20 16:00
+E | 1 | Project meeting | 2025-09-22 10:00 | 2025-09-22 12:00
+E | 0 | Hackathon | 2025-12-01 09:00 | 2025-12-02 21:00
+T | 0 | Prepare slides for machine learning presentation
+D | 0 | Apply for internship | 2025-11-15 23:59
+E | 0 | Birthday Party | 2025-12-02 09:00 | 2025-12-02 21:00
+D | 0 | go for a workout! | 2020-04-05 10:00
+T | 1 | Buy onions
+D | 0 | Return book | 2025-12-31 23:59
+E | 0 | Team meeting | 2025-12-05 14:00 | 2025-12-05 16:00
+T | 0 | clean table
+D | 0 | go for class | 2025-05-05 05:05
+T | 0 | work
+D | 0 | submission | 2025-04-04 04:04
+D | 0 | go for an outing w family | 2025-10-12 10:00
+E | 0 | nus graduation | 2025-10-10 09:00 | 2025-12-12 05:00

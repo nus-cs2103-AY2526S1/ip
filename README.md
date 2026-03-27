@@ -1,26 +1,61 @@
-# Duke project template
+# Shrek: Your Friendly Ogre Task Manager
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+> "It's all about o-gre now." – Shrek, probably.
 
-## Setting up in Intellij
+Shrek is here to free your mind from the burdens of remembering tasks, so you can focus on more important things, like enjoying layers (of an onion) or rescuing princesses. It's a **fast**, **text-based** task manager that lives in your command line, powered by Java.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## 🧅 Why Use Shrek?
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Shrek is:
+*   **Text-based** and easy to use.
+*   **Super FAST** at managing your tasks.
+*   **Easy to learn** with a simple command set.
+*   **Absolutely FREE!**
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## 🚀 Quick Start
+
+Getting started is a breeze:
+
+1.  Download the latest `shrek.jar` from the [releases page](https://github.com/jj55j7/ip/releases/tag/A-Release).
+2.  Double-click the JAR file to launch the application.
+3.  Start adding your tasks!
+4.  Let Shrek manage your tasks for you 😉
+
+## ✨ Features
+
+- [x] **Add, List, Delete Tasks**
+- [x] **Three Task Types:**
+    - `Todo`: For simple tasks.
+    - `Deadline`: For tasks with a by-date.
+    - `Event`: For tasks with a start and end time.
+- [x] **Mark Tasks as Done/Not Done**
+- [x] **Data Persistence**: Your tasks are automatically saved to `./data/shrek.txt`.
+- [x] **Search Functionality** 
+- [x] **GUI** 
+
+## 💻 For the Java Enthusiasts
+
+Shrek is built with Java and follows OOP principles. Here's a peek at the chatbot entry point:
+
+```java
+public class Shrek {
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
+
+    public Shrek(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        tasks = new TaskList(storage.load());
+    }
+
+    public String getResponse(String input) {
+        // Process user input and return response
+        try {
+            Instruction instruction = Parser.parse(input);
+            return instruction.execute(tasks, ui, storage);
+        } catch (ShrekException e) {
+            return ui.showError(e.getMessage());
+        }
+    }
+}

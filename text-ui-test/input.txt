@@ -1,0 +1,82 @@
+list
+test item
+read book
+return book
+list
+mark 2
+unmark 2
+
+todo borrow book
+list
+
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+deadline do homework /by no idea :-p
+
+todo            test    task
+list
+mark             4
+list
+
+todo
+deadline
+event
+deadline /by 2025-03-04
+event abc /from 2025-01-02 /to 2040-09-09
+todo read book
+deadline return
+deadline return book /by Sunday
+event meeting /from Mon 2pm
+event meeting /from Mon 2pm /to 4pm
+list
+
+deadline     return      blocks      /by   Sunday
+mark me
+mark 100
+mark 1
+unmark me
+unmark 100
+unmark 1
+blahblah
+
+todo really really long description to test wrapping
+mark 4
+list
+
+delete 2
+delete 1
+delete 100
+
+todo 1
+todo 2
+todo 3
+mark 2
+mark 3
+list
+delete 2
+list
+
+hello world!
+todo Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+mark 1 2 3
+
+event go school /from 2025-12-12 14:00 /to 2025-12-12 16:00
+deadline submit assignment /by 2025-12-event go school /from 2025-12-12 14:00 /to 2025-12-25 16:00
+
+ondate 2025-12-12
+ondate 2025-12-13
+
+event go school /from 2025-12-12 14:00 /to 2025-12-2116:00
+event go school /from 2025-12-12 14:00 /to 2025-12-21 16:00
+
+ondate 2025-12-20
+
+todo eat
+todo jelly bean eat food
+todo Eat
+todo eAt
+todo yummy tummy eat tummy eat food eat
+
+find eat
+
+bye
