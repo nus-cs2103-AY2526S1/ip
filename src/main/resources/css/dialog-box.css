@@ -1,0 +1,66 @@
+.label {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 13px;
+    -fx-padding: 8px 12px;
+    -fx-wrap-text: true;
+    -fx-max-width: 320px;
+}
+
+.user-label {
+    -fx-background-color: #0078D7;
+    -fx-text-fill: white;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-alignment: center-left;
+}
+
+.bot-label {
+    -fx-background-color: #f2f2f2;
+    -fx-text-fill: #222;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-alignment: center-right;
+}
+
+.add-label {
+    -fx-background-color: #fff3cd;
+    -fx-text-fill: #856404;
+}
+
+.marked-label {
+    -fx-background-color: #d4edda;
+    -fx-text-fill: #155724;
+}
+
+.delete-label {
+    -fx-background-color: #f8d7da;
+    -fx-text-fill: #721c24;
+}
+
+.list-label {
+    -fx-background-color: #d1ecf1;
+    -fx-text-fill: #0c5460;
+}
+
+.exit-label {
+    -fx-background-color: #ffe5b4;
+    -fx-text-fill: #8a4b08;
+}
+
+.error-label {
+    -fx-background-color: #d9534f;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: #b52b27;
+    -fx-border-width: 1;
+    -fx-background-radius: 1em;
+    -fx-border-radius: 1em;
+}
+
+#displayPicture {
+    -fx-fit-width: 36px;
+    -fx-fit-height: 36px;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.4, 2, 2);
+}

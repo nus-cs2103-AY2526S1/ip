@@ -1,0 +1,59 @@
+.root {
+    -fx-background-color: #f9f9f9; /* clean neutral background */
+    -fx-padding: 8px;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-background-image: url("../images/background.jpg");
+    -fx-background-size: cover;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-font-size: 15px;
+    -fx-padding: 6px 10px;
+}
+
+.button {
+    -fx-background-color: #0078D7; /* modern blue */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+    -fx-padding: 6px 12px;
+}
+
+.button:hover {
+    -fx-background-color: #005a9e;
+}
+
+.button:pressed {
+    -fx-background-color: #004578;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 4px;
+    -fx-fit-to-width: true;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #cfcfcf;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
