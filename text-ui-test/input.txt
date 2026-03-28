@@ -1,0 +1,23 @@
+list
+todo
+mark a
+delete b
+mark 1
+delete 1
+todo read book
+deadline return book /by 10-08-2025 1030
+event cs2103 group meeting @ library /from 10-08-2025 1330 /to 10-08-2025 1350
+list
+deadline submit hw /by
+event dinner with friends /from 10-08-2025 1640 /to 10-08-2025 1440
+mark 1
+mark 1
+list
+mark 3
+list
+unmark 1
+list
+delete 1
+list
+cat
+bye
