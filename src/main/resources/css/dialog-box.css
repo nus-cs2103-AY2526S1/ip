@@ -1,0 +1,95 @@
+.profile-pic {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 4, 0.2, 0, 1);
+    -fx-border-color: #4A90E2;
+    -fx-border-width: 2px;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-padding: 2px;
+    -fx-background-color: white;
+    -fx-opacity: 1;
+    -fx-background-inset: 0;
+
+    -fx-pref-width: 65px;
+    -fx-pref-height: 65px;
+    -fx-min-width: 65px;
+    -fx-min-height: 65px;
+    -fx-max-width: 65px;
+    -fx-max-height: 65px;
+}
+
+.label {
+    -fx-background-color: "#f0e98b";
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 1em 1em;
+    -fx-border-radius: 1em 1em 1em 1em;
+    -fx-font-color: white;
+}
+
+.dialog-box {
+    -fx-padding: 8 12 8 12;
+    -fx-background-radius: 16;
+    -fx-max-width: 400px;
+    -fx-spacing: 8;
+}
+
+.user-label {
+    -fx-background-color: "#bbdbed";
+    -fx-text-fill: #222;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 15px;
+    -fx-padding: 10 16 10 16;
+    -fx-background-radius: 16 16 16 16;
+    -fx-alignment: CENTER_RIGHT;
+}
+
+.bot-label {
+    -fx-background-color: #083061;
+    -fx-text-fill: #222;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 15px;
+    -fx-padding: 10 16 10 16;
+    -fx-background-radius: 16 16 16 16;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.error-label {
+    -fx-background-color: #f29999;
+    -fx-text-fill: #b00020;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-padding: 10 16 10 16;
+    -fx-background-radius: 16;
+    -fx-border-color: #b00020;
+    -fx-border-width: 2px;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 1em;
+    -fx-border-radius: 1em 1em 1em 1em;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+
+.add-label {
+    -fx-background-color: #d1ffd6;
+}
+.marked-label {
+    -fx-background-color: #ffe4b2;
+}
+.delete-label {
+    -fx-background-color: #ffd6d6;
+}
+.list-label {
+    -fx-background-color: #d6eaff;
+}
