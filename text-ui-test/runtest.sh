@@ -1,38 +1,44 @@
 #!/usr/bin/env bash
+# Text UI test harness for Yuri (package: yuri)
+# Run from repo root:  bash text-ui-test/runtest.sh
 
-# create bin directory if it doesn't exist
-if [ ! -d "../bin" ]
-then
-    mkdir ../bin
-fi
+set -e
 
-# delete output from previous run
-if [ -e "./ACTUAL.TXT" ]
-then
-    rm ACTUAL.TXT
-fi
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+SRC_DIR="$ROOT_DIR/src/main/java"
+BIN_DIR="$ROOT_DIR/bin"
 
-# compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
-then
-    echo "********** BUILD FAILURE **********"
-    exit 1
-fi
+INPUT="$SCRIPT_DIR/input.txt"
+EXPECTED="$SCRIPT_DIR/EXPECTED.TXT"
+ACTUAL="$SCRIPT_DIR/ACTUAL.TXT"
 
-# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+# 1) Clean bin
+rm -rf "$BIN_DIR"
+mkdir -p "$BIN_DIR"
 
-# convert to UNIX format
-cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
+# 2) Compile all Java sources
+find "$SRC_DIR" -name "*.java" > "$SCRIPT_DIR/sources.list"
+echo "********** COMPILING **********"
+javac -encoding UTF-8 -Xlint:unchecked -d "$BIN_DIR" @"$SCRIPT_DIR/sources.list"
 
-# compare the output to the expected output
-diff ACTUAL.TXT EXPECTED-UNIX.TXT
-if [ $? -eq 0 ]
-then
-    echo "Test result: PASSED"
-    exit 0
+# 2.5) Reset save file so tests start clean
+SAVE_FILE="$ROOT_DIR/data/duke.txt"
+rm -f "$SAVE_FILE"
+mkdir -p "$(dirname "$SAVE_FILE")"
+: > "$SAVE_FILE"
+
+# 3) Run the program
+echo "********** RUNNING **********"
+java -classpath "$BIN_DIR" yuri.Yuri < "$INPUT" > "$ACTUAL"
+
+
+# 4) Compare ACTUAL vs EXPECTED
+echo "********** DIFF **********"
+if diff -u "$EXPECTED" "$ACTUAL"; then
+  echo "********** TEST RESULT: PASSED **********"
+  exit 0
 else
-    echo "Test result: FAILED"
-    exit 1
+  echo "********** TEST RESULT: FAILED **********"
+  exit 1
 fi
