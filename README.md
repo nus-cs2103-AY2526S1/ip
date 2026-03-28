@@ -1,26 +1,36 @@
-# Duke project template
+# Dukey Introduction
+```
+ ____        _        
+|  _ \ _   _| | _______  __
+| | | | | | | |/ / _ \ \/ /
+| |_| | |_| |   <  __/\  /
+|____/ \__,_|_|\_\___|/_/
+```
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+My CLI chatbot is named Dukey. Dukey is a quick and efficient way to help you to keep track of tasks
+and deadlines. Dukey will store your tasks in a .txt file and update it automatically. A new file, 
+Dukey.txt will be automatically created for you upon starting the program for the first time.
+Given below are instructions on how to use it.
 
-## Setting up in Intellij
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Setup Guide
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+1. Open ip folder in an IDE. 
+2. Use gradle to and perform the task : run.
+3. Enter commands into the textbox.
+4. For subsequent use, enter the filepath of the newly created Dukey.txt file into Main.java. 
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+
+# Commands
+
+- **todo TASK NAME** Adds a task to list
+- **deadline TASK NAME /by DATE_TIME** Adds a task with deadline. 
+- **event TASK NAME /from DATE_TIME /to DATE_TIME** Adds a task with a start and end time.
+- **mark TASK_NUMBER**, Marks 1st task as completed.
+- **unmark TASK_NUMBER** Unmarks 1st task as completed.
+- **find WORD** Returns list of tasks containing the word "book".
+- **bye** Exits program.
+
+*DATE_TIME is in the format dd/mm/yyyy hhmm, where hhmm follows 24 hour convention.
+
+
