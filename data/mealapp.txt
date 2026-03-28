@@ -1,0 +1,2 @@
+T | 0 | take a shower
+E | 0 | finals | 2025-10-21 | 2025-10-28
