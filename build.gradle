@@ -1,0 +1,63 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+repositories {
+    mavenCentral()
+}
+
+def javaFxVersion = '17.0.7'
+def fxModules = ['base', 'controls', 'fxml', 'graphics']
+// NOTE: OpenJFX 17.0.7 has NO win-aarch64. Do NOT include it.
+def fxPlatforms = [
+        'win', 'mac', 'linux',            // x64
+        'mac-aarch64', 'linux-aarch64'    // ARM variants available on 17.0.7
+]
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly  'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+
+    fxModules.each { m ->
+        fxPlatforms.each { p ->
+            implementation "org.openjfx:javafx-${m}:${javaFxVersion}:${p}"
+        }
+    }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17) // match JavaFX 17
+    }
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'com.ip.arshelle.app.Launcher' // <- your launcher
+}
+
+tasks.withType(JavaExec).configureEach {
+    standardInput = System.in
+}
+
+shadowJar {
+    archiveBaseName.set("duke")
+    archiveClassifier.set(null)
+    mergeServiceFiles()
+    manifest {
+        attributes 'Main-Class': application.mainClass.get()
+    }
+}
