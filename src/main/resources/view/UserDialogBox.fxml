@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1"
+         spacing="10"
+         style="-fx-background-color: transparent;"
+         prefWidth="Infinity">
+    <children>
+        <ImageView fx:id="displayPicture"
+                   fitHeight="50.0"
+                   fitWidth="50.0"
+                   pickOnBounds="true"
+                   preserveRatio="true"
+                   style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.5, 0, 1);" />
+
+        <VBox fx:id="textContainer"
+              alignment="CENTER_LEFT"
+              style="-fx-background-color: #DAE1F0; -fx-background-radius: 10; -fx-padding: 10;">
+            <children>
+                <Label fx:id="dialog"
+                       wrapText="true"
+                       style="-fx-font-size: 14px; -fx-text-fill: #333333;"/>
+            </children>
+        </VBox>
+
+        <!-- Spacer to push user dialog to the right when flipped -->
+        <Region fx:id="spacer" HBox.hgrow="ALWAYS" />
+    </children>
+
+    <padding>
+        <Insets top="10" bottom="10" left="10" right="10"/>
+    </padding>
+</fx:root>
