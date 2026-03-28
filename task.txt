@@ -1,0 +1,4 @@
+T | 1 | swim
+T | 1 | eat swim
+E | 0 | drink | 8pm | 2pm
+E | 0 | drink | 9pm | 10pm
