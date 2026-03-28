@@ -1,0 +1,55 @@
+import javafx.fxml.FXML;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import waguri.Waguri;
+
+public class MainWindow extends AnchorPane {
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private VBox dialogContainer;
+    @FXML
+    private TextField userInput;
+
+    private Waguri waguri;
+
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Luffy.png"));
+    private Image waguriImage = new Image(this.getClass().getResourceAsStream("/images/Zoro.png"));
+
+    @FXML
+    public void initialize() {
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+
+        dialogContainer.setFillWidth(true);
+
+        userInput.setMaxWidth(Double.MAX_VALUE);
+
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.setStyle("-fx-background-color: #f7fafc;");
+        scrollPane.setStyle("-fx-background: #f7fafc; -fx-border-color: #f7fafc;");
+
+        String welcomeMessage = "👋 Hello! I'm Waguri, your task management assistant!\n"
+                + "✨ Type 'help' to see what I can do for you!";
+        dialogContainer.getChildren().add(DialogBox.getWaguriDialog(welcomeMessage, waguriImage));
+
+    }
+
+    public void setWaguri(Waguri d) {
+        waguri = d;
+    }
+
+    @FXML
+    private void handleUserInput() {
+        String input = userInput.getText();
+        String response = waguri.getResponse(input);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getWaguriDialog(response, waguriImage)
+        );
+        userInput.clear();
+    }
+}
