@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- Used ChatGPT for auto-resizing -->
+<AnchorPane prefHeight="600.0" prefWidth="500.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="daco.MainWindow">
+
+    <children>
+        <!-- Input field stretches across bottom except where the Send button sits -->
+        <TextField fx:id="userInput"
+                   onAction="#handleUserInput"
+                   prefHeight="41.0"
+                   AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="76.0"
+                   AnchorPane.bottomAnchor="0.0"/>
+
+        <!-- Send button pinned to bottom-right corner -->
+        <Button fx:id="sendButton"
+                text="Send"
+                onAction="#handleUserInput"
+                prefHeight="41.0"
+                prefWidth="76.0"
+                AnchorPane.rightAnchor="0.0"
+                AnchorPane.bottomAnchor="0.0"/>
+
+        <!-- ScrollPane fills all remaining space above input area -->
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.bottomAnchor="41.0">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      fillWidth="true"
+                spacing="8.0"/>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>
+
