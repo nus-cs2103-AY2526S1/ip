@@ -1,0 +1,66 @@
+package megatrongriffin;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+/**
+ * Controller for the main GUI.
+ */
+public class MainWindow extends AnchorPane {
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private VBox dialogContainer;
+    @FXML
+    private TextField userInput;
+    @FXML
+    private Button sendButton;
+
+    private MegatronGriffin meg;
+
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/stewie.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/meg.png"));
+
+    /**
+     * Initializes the controller by binding scroll pane properties.
+     */
+    @FXML
+    public void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+    }
+
+    /** Injects the Duke instance */
+    public void setMeg(MegatronGriffin m) {
+        meg = m;
+    }
+
+    /**
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    @FXML
+    private void handleUserInput() throws InputException {
+        String input = userInput.getText();
+        String response = meg.getResponse(input);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getMegDialog(response, dukeImage)
+        );
+
+        if (input.trim().toLowerCase().equals("bye")) {
+            // You can add a small delay to show the goodbye message
+            javafx.application.Platform.runLater(() -> {
+                try {
+                    Thread.sleep(1000); // 1 second delay to show goodbye message
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+                javafx.application.Platform.exit();
+            });
+        }
+        userInput.clear();
+    }
+}
