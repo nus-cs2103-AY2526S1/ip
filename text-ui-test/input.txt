@@ -1,0 +1,7 @@
+todo eat lunch
+deadline eat dinner /by 22 Aug
+event meeting /from 23 Aug 2pm /to 25 Aug 10pm
+list
+mark 2
+unmark 2
+bye
