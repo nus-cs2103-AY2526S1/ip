@@ -1,0 +1,76 @@
+package sengernest.tasks;
+
+/**
+ * Represents a generic task.
+ */
+public class Task {
+    /**
+     * The description of the task.
+     */
+    private final String tasking;
+
+    /**
+     * Whether the task is finished.
+     */
+    private boolean isFinished;
+
+    /**
+     * Constructs a Task with the given description.
+     *
+     * @param tasking The description of the task.
+     */
+    public Task(String tasking) {
+        this.tasking = tasking;
+        this.isFinished = false;
+    }
+
+    /**
+     * Checks if the task description is empty.
+     */
+    public boolean isEmpty() {
+        return this.tasking.isEmpty();
+    }
+
+    /**
+     * Checks if the task has been marked as finished.
+     */
+    public boolean isFinished() {
+        return this.isFinished;
+    }
+
+    /**
+     * Marks the task as finished.
+     */
+    public void finish() {
+        this.isFinished = true;
+    }
+
+    /**
+     * Marks the task as not finished.
+     */
+    public void unfinish() {
+        this.isFinished = false;
+    }
+
+    /**
+     * Returns the task description with a finished status prefix.
+     */
+    public String getTasking() {
+        String status = this.isFinished ? "[X]" : "[ ]";
+        return status + " " + this.tasking;
+    }
+
+    /**
+     * Returns the raw task description without any status prefix.
+     */
+    public String getTaskDescription() {
+        return this.tasking;
+    }
+
+    /**
+     * Returns a string representing the task for saving to a file.
+     */
+    public String toFileFormat() {
+        return "| " + (this.isFinished ? "1" : "0") + " | " + this.tasking;
+    }
+}

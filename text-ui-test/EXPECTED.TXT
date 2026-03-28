@@ -1,7 +1,139 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm sengernest
+What can I do for you?: 
+UnknownCommandException: Invalid command! Valid commands: list, todo, Deadline, Event, mark, unmark, delete, bye.
 
+Enter next command: 
+EmptyTaskListException: Your list is empty!
+
+Enter next command: 
+EmptyTaskListException: Your list is empty!
+
+Enter next command: 
+EmptyTaskListException: Your list is empty!
+
+Enter next command: 
+EmptyTaskDescriptionException: The description of a todo cannot be empty!
+
+Enter next command: 
+added to list: read a book
+Your List:
+1. [T][ ] read a book
+
+Enter next command: 
+EmptyTaskDescriptionException: The description of a Deadline cannot be empty!
+
+Enter next command: 
+MissingDateException: Deadline must have a /by date in format yyyy-MM-dd HHmm!
+
+Enter next command: 
+added to list: submit homework by 2025-08-25 2359
+Your List:
+1. [T][ ] read a book
+2. [D][ ] submit homework (by: Aug 25 2025 2359)
+
+Enter next command: 
+EmptyTaskDescriptionException: The description of an Event cannot be empty!
+
+Enter next command: 
+MissingDateException: Event must have a /from start date!
+
+Enter next command: 
+MissingDateException: Event must have a /to end date!
+
+Enter next command: 
+added to list: gym session with friend from 2025-08-25 1200 to 2025-08-25 1400
+Your List:
+1. [T][ ] read a book
+2. [D][ ] submit homework (by: Aug 25 2025 2359)
+3. [E][ ] gym session with friend (from: Aug 25 2025 1200 to: Aug 25 2025 1400)
+
+Enter next command: 
+Your List:
+1. [T][ ] read a book
+2. [D][ ] submit homework (by: Aug 25 2025 2359)
+3. [E][ ] gym session with friend (from: Aug 25 2025 1200 to: Aug 25 2025 1400)
+
+Enter next command: 
+MissingTaskNumberException: Please specify the Task number to mark.
+
+Enter next command: 
+MissingTaskNumberException: Please specify the Task number to unmark.
+
+Enter next command: Enter a valid number after 'mark'.
+
+Enter next command: Enter a valid number after 'unmark'.
+
+Enter next command: 
+InvalidTaskNumberException: Invalid Task number! Only choose valid Task numbers in the list.
+
+Enter next command: 
+InvalidTaskNumberException: Invalid Task number! Only choose valid Task numbers in the list.
+
+Enter next command: 
+UnmarkUnfinishedTaskException: Task already unmarked!
+
+Enter next command: 
+Your List:
+1. [T][X] read a book
+2. [D][ ] submit homework (by: Aug 25 2025 2359)
+3. [E][ ] gym session with friend (from: Aug 25 2025 1200 to: Aug 25 2025 1400)
+
+Enter next command: 
+MarkFinishedTaskException: Task already marked!
+
+Enter next command: 
+Your List:
+1. [T][X] read a book
+2. [D][X] submit homework (by: Aug 25 2025 2359)
+3. [E][ ] gym session with friend (from: Aug 25 2025 1200 to: Aug 25 2025 1400)
+
+Enter next command: 
+Your List:
+1. [T][X] read a book
+2. [D][X] submit homework (by: Aug 25 2025 2359)
+3. [E][X] gym session with friend (from: Aug 25 2025 1200 to: Aug 25 2025 1400)
+
+Enter next command: 
+Your List:
+1. [T][ ] read a book
+2. [D][X] submit homework (by: Aug 25 2025 2359)
+3. [E][X] gym session with friend (from: Aug 25 2025 1200 to: Aug 25 2025 1400)
+
+Enter next command: 
+Your List:
+1. [T][ ] read a book
+2. [D][ ] submit homework (by: Aug 25 2025 2359)
+3. [E][X] gym session with friend (from: Aug 25 2025 1200 to: Aug 25 2025 1400)
+
+Enter next command: 
+Your List:
+1. [T][ ] read a book
+2. [D][ ] submit homework (by: Aug 25 2025 2359)
+3. [E][ ] gym session with friend (from: Aug 25 2025 1200 to: Aug 25 2025 1400)
+
+Enter next command: Enter a valid number after 'delete'.
+
+Enter next command: 
+InvalidTaskNumberException: Invalid Task number! Only choose valid Task numbers in the list.
+
+Enter next command: 
+deleted from list: read a book
+
+Your List:
+1. [D][ ] submit homework (by: Aug 25 2025 2359)
+2. [E][ ] gym session with friend (from: Aug 25 2025 1200 to: Aug 25 2025 1400)
+
+Enter next command: 
+deleted from list: submit homework (by: Aug 25 2025 2359)
+
+Your List:
+1. [E][ ] gym session with friend (from: Aug 25 2025 1200 to: Aug 25 2025 1400)
+
+Enter next command: 
+deleted from list: gym session with friend (from: Aug 25 2025 1200 to: Aug 25 2025 1400)
+
+Your List:
+Nothing added yet!
+
+Enter next command: 
+Goodbye, hope to see you again soon!
