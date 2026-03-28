@@ -1,0 +1,32 @@
+.user-dialog {
+    -fx-background-color: rgba(203, 163, 255, 0.2);
+    -fx-text-fill: #00796b;
+    -fx-padding: 10px 14px;
+    -fx-wrap-text: true;
+    -fx-background-radius: 20;
+}
+
+.bot-dialog {
+    -fx-font-family: "Comic Sans MS";
+    -fx-background-color: rgba(250, 218, 221, 0.4);
+    -fx-text-fill: #333333;
+    -fx-padding: 10px 14px;
+    -fx-wrap-text: true;
+    -fx-background-radius: 20;
+}
+
+.error-dialog {
+    -fx-background-color: rgba(255, 0, 0, 0.2);
+    -fx-text-fill: #8B0000;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 12px;
+    -fx-background-radius: 8;
+    -fx-border-color: #d32f2f;
+    -fx-border-width: 1px;
+    -fx-font-size: 18px
+}
+
+#dialogContainer {
+    -fx-spacing: 12;   /* space between messages */
+    -fx-padding: 12;   /* padding from edges */
+}
