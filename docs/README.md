@@ -1,30 +1,32 @@
-# Duke User Guide
+# Dadbot
 
-// Update the title above to match the actual product name
+Welcome to the user guide for the Duke-inspired chatbot Dad, for CS2103T iP.
 
-// Product screenshot goes here
+### Quick Start
 
-// Product intro goes here
+- Ensure you have Java 17 or above
+- Download the latest jar from the [Releases](https://github.com/JordanLow/ip/releases) tab
+- Simply execute the jar
 
-## Adding deadlines
+## Features
 
-// Describe the action and its outcome.
+### Tasks: Todo, Deadline, Event
 
-// Give examples of usage
+- `todo [task]` to add a Todo task
+- `deadline [task] /by YYYY-MM-DD` to add a Deadline task
+- `event [task] /from YYYY-MM-DD /to YYYY-MM-DD` to add an Event task
 
-Example: `keyword (optional arguments)`
+### List and Find
 
-// A description of the expected outcome goes here
+- `list` to list all tasks
+- `find [keywords]` to list all tasks matching your search term
 
-```
-expected output
-```
+### Mark and Unmark
 
-## Feature ABC
+- `mark [index]` to mark a task at the given index as complete
+- `unmark [index]` to unmark a previously marked task at the given index
 
-// Feature details
+### Delete and Undo
 
-
-## Feature XYZ
-
-// Feature details
+- `delete [index]` to remove a task at the given index
+- `undo` to undo the previous command
