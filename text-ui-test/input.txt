@@ -1,0 +1,21 @@
+todo
+todo read book
+deadline return book /by Sunday
+deadline return book /by 30/08/2025 1800
+event meeting /from Mon 2pm to 4pm
+event meeting /from 30/08/2025 1900 /to 30/08/2025 2000
+list
+mark
+mark 4
+mark 1
+list
+mark 2
+list
+unmark 2
+mark 3
+list
+delete
+delete 1
+list
+bye
+
