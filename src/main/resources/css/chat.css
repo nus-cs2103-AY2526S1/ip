@@ -1,0 +1,58 @@
+/* src/main/resources/css/chat.css */
+
+.root {
+    -fx-font-family: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-background-color: linear-gradient(to bottom, #eaf6ff, #f7fbff);
+}
+
+.text-field {
+    -fx-background-radius: 14;
+    -fx-padding: 10;
+    -fx-background-color: white;
+    -fx-prompt-text-fill: #7a8aa0;
+}
+
+.dialog {
+    -fx-padding: 4 2 4 2;
+}
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 6, 0.3, 0, 1);
+    -fx-background-radius: 50%;
+    -fx-clip-shape: "circle";
+}
+
+/* Bubbles */
+.bubble {
+    -fx-padding: 10 12 10 12;
+    -fx-background-radius: 14;
+    -fx-text-fill: #0c213a;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 6, 0.25, 0, 1);
+}
+
+/* You (left) — ice-white */
+.bubble-user {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d9e6f2;
+    -fx-border-radius: 14;
+}
+
+/* Penguin (right) — arctic blue */
+.bubble-penguin {
+    -fx-background-color: linear-gradient(to bottom, #a7d4ff, #7ec3ff);
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+}
+
+/* Errors (right, reddish accent) */
+.bubble-error {
+    -fx-background-color: linear-gradient(to bottom, #ffd0d0, #ffb3b3);
+    -fx-text-fill: #6e0a0a;
+}
+
+/* Divider line (subtle) */
+.divider {
+    -fx-border-color: transparent transparent rgba(27, 62, 96, 0.10) transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 4 0 4 0;
+}

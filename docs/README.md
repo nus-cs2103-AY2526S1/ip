@@ -1,30 +1,71 @@
-# Duke User Guide
+## Penguin – Task Chatbot User Guide
 
-// Update the title above to match the actual product name
+Penguin is a friendly task-list chatbot you can run in the terminal or as a JavaFX app. It supports adding todos, deadlines and events, listing, marking, deleting, saving to disk, and a powerful BetterSearch to find items quickly.
 
-// Product screenshot goes here
+### Quick start
+- Prerequisites: JDK 17+
+- Terminal (text UI):
+  - Build and run tests: `./gradlew clean test`
+  - Run: `./gradlew run`
+- GUI (JavaFX): launches automatically with `./gradlew run`.
 
-// Product intro goes here
+Data file location: `data/penguin.txt` (created on first run).
 
-## Adding deadlines
+### Core features
 
-// Describe the action and its outcome.
+1) Add tasks
+- Todo
+  - Command: `todo <description>`
+  - Example: `todo read book`
+- Deadline
+  - Command: `deadline <description> /<yyyy-MM-dd>`
+  - Example: `deadline submit iP /2025-12-03`
+  - Stored as: `D | <0/1> | <description> | <yyyy-MM-dd>`
+- Event
+  - Command: `event <description> /<start> /<end>`
+  - Format: ISO local date-time `yyyy-MM-dd'T'HH:mm`
+  - Example: `event project meeting /2025-12-30T16:30 /2025-12-30T18:30`
+  - Stored as: `E | <0/1> | <description> | <start> | <end>`
 
-// Give examples of usage
+2) List tasks
+- Command: `list`
+- Shows all tasks with 1-based numbering.
 
-Example: `keyword (optional arguments)`
+3) Mark and unmark
+- Mark done: `mark <index>`
+- Mark undone: `unmark <index>`
+- Example: `mark 2`
 
-// A description of the expected outcome goes here
+4) Delete tasks
+- Command: `delete <index>`
+- Example: `delete 3`
 
-```
-expected output
-```
+5) BetterSearch (find)
+- Command: `find <query>`
+- Matching rules (case-insensitive):
+  - All terms must match somewhere in the task text
+  - Partial word matches for terms ≥ 3 chars (e.g., `book` matches `booking`)
+  - Quoted phrase matches exact text (e.g., `"team meeting"`)
+  - Small-typo tolerance for terms ≥ 4 chars (edit distance ≤ 1)
+- Examples:
+  - `find book`
+  - `find project Aug`
+  - `find "team meeting"`
+  - `find bokk` (matches `book`)
 
-## Feature ABC
+6) Save and exit
+- Exit: `bye` (GUI: close the window)
+- Tasks are saved to `data/penguin.txt` automatically when exiting.
 
-// Feature details
+### Tips
+- Indexes shown by `list` are 1-based; use those numbers with `mark`, `unmark`, and `delete`.
+- Deadline uses date format `yyyy-MM-dd`.
+- Event uses date-time format `yyyy-MM-dd'T'HH:mm`.
 
+### Troubleshooting
+- If the app doesn’t start, ensure Java 17 is selected (Gradle wrapper manages the rest).
+- If the data file path is missing, it will be created on first save.
 
-## Feature XYZ
-
-// Feature details
+### Development
+- Build and run tests: `./gradlew clean test`
+- Run the app: `./gradlew run`

@@ -1,7 +1,15 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+          .--.
+         |o_o |   PENGUIN v0.1
+         |:_/ |   chill. simple. smooth.
+        //   \\ \\
+       (|     | )   🥤  [Oreo Shake Inside]
+      /'\\_   _/`\\
+      \\___)=(___/
 
+-------------------------------
+Let's start!
+-------------------------------
+--------------------------------
+Damn busy bro! One more task has been added	[T] [] this
+Now you have 1 tasks in your list
+--------------------------------
