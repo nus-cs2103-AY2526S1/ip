@@ -1,0 +1,398 @@
+package mael.parser;
+
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import mael.MaelException;
+import mael.commands.AddCommand;
+import mael.commands.CheckCommand;
+import mael.commands.Command;
+import mael.commands.DeleteCommand;
+import mael.commands.ExitCommand;
+import mael.commands.FindCommand;
+import mael.commands.ListCommand;
+import mael.commands.MarkCommand;
+import mael.commands.UndoCommand;
+import mael.commands.UnmarkCommand;
+
+public class Parser {
+
+    public static final DateTimeFormatter USER_FORMAT = DateTimeFormatter.ofPattern("ddMMyyyy HHmm");
+    public static final DateTimeFormatter PRINT_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy HHmm");
+
+    /**
+     * Parses inputs from the user in the format required
+     *
+     * @param text User input
+     * @return {@code Command} based on user request
+     * @throws MaelException If user input is not in required format
+     */
+    public static Command parseInput(String text) throws MaelException {
+        String[] sections = text.split(" /");
+        assert sections.length > 0;
+        String[] commandSections = sections[0].split(" ", 2);
+        assert commandSections.length > 0;
+        switch (commandSections[0]) {
+        case "event":
+            return handleEventInput(sections, commandSections);
+        
+        case "deadline":
+            return handleDeadlineInput(sections, commandSections);
+        
+        case "todo":
+            return handleTodoInput(sections, commandSections);
+        
+        case "list", "ls":
+            return handleListInput(commandSections);
+        
+        case "mark", "m":
+            return handleMarkInput(commandSections);
+        
+        case "unmark", "um":
+            return handleUnmarkInput(commandSections);
+        
+        case "delete", "del":
+            return handleDeleteInput(commandSections);
+        
+        case "check", "ch":
+            return handleCheckInput(text, commandSections);
+        
+        case "find", "f":
+            return handleFindInput(commandSections);
+        
+        case "undo":
+            return handleUndoInput(commandSections);
+        
+        case "bye":
+            return handleExitInput(text);
+        
+        default:
+            throw new MaelException("Unknown Mission");
+        }
+    }
+
+    private static Command handleEventInput(String[] sections, String[] commandSections) throws MaelException {
+        if (commandSections.length == 1) {
+            throw new MaelException("Event activity unspecified");
+        } else if (sections.length != 3) {
+            throw new MaelException("Event details unclear");
+        } else if (!sections[1].substring(0, 4).equals("from")
+                || !sections[2].substring(0, 2).equals("to")
+                || sections[1].substring(5).length() != 13
+                || sections[2].substring(3).length() != 13) {
+            throw new MaelException("Event boundaries unclear");
+        }
+        return new AddCommand(commandSections[1], sections[1].substring(5), sections[2].substring(3), false, true);
+    }
+
+    private static Command handleDeadlineInput(String[] sections, String[] commandSections) throws MaelException {
+        if (commandSections.length == 1) {
+            throw new MaelException("Deadline activity unspecified");
+        } else if (sections.length != 2) {
+            throw new MaelException("Deadline details unclear");
+        } else if (!sections[1].substring(0, 2).equals("by")
+                || sections[1].substring(3).length() != 13) {
+            throw new MaelException("Deadline unclear");
+        }
+        return new AddCommand(commandSections[1], sections[1].substring(3), false, true);
+    }
+
+    private static Command handleTodoInput(String[] sections, String[] commandSections) throws MaelException {
+        if (commandSections.length == 1) {
+            throw new MaelException("ToDo activity unspecified");
+        } else if (sections.length != 1) {
+            throw new MaelException("ToDo details unclear");
+        }
+        return new AddCommand(commandSections[1], false, true);
+    }
+
+    private static Command handleListInput(String[] commandSections) throws MaelException {
+        if (commandSections.length == 1) {
+            return new ListCommand();
+        } else {
+            throw new MaelException("Unknown command for list");
+        }
+    }
+
+    private static Command handleMarkInput(String[] commandSections) throws MaelException {
+        if (commandSections.length == 2) {
+            try {
+                return new MarkCommand(Integer.parseInt(commandSections[1]));
+            } catch (NumberFormatException e) {
+                throw new MaelException("Mark details unclear");
+            } catch (IndexOutOfBoundsException e) {
+                throw new MaelException("Mission unspecified");
+            }
+        } else {
+            throw new MaelException("Unknown command for mark");
+        }
+    }
+
+    private static Command handleUnmarkInput(String[] commandSections) throws MaelException {
+        if (commandSections.length == 2) {
+            try {
+                return new UnmarkCommand(Integer.parseInt(commandSections[1]));
+            } catch (NumberFormatException e) {
+                throw new MaelException("Unmark details unclear");
+            } catch (IndexOutOfBoundsException e) {
+                throw new MaelException("Mission unspecified");
+            }
+        } else {
+            throw new MaelException("Unknown command for unmark");
+        }
+    }
+
+    private static Command handleDeleteInput(String[] commandSections) throws MaelException {
+        if (commandSections.length == 2) {
+            try {
+                return new DeleteCommand(Integer.parseInt(commandSections[1]));
+            } catch (NumberFormatException e) {
+                throw new MaelException("Termination details unclear");
+            } catch (IndexOutOfBoundsException e) {
+                throw new MaelException("Mission unspecified");
+            }
+        } else {
+            throw new MaelException("Unknown command for delete");
+        }
+    }
+
+    private static Command handleCheckInput(String text, String[] commandSections) throws MaelException {
+        if (text.split(" ").length == 3) {
+            try {
+                return new CheckCommand(commandSections[1]);
+            } catch (DateTimeException e) {
+                throw new MaelException("Date invalid");
+            }
+        } else {
+            throw new MaelException("Unknown command for check");
+        }
+    }
+
+    private static Command handleFindInput(String[] commandSections) throws MaelException {
+        if (commandSections.length == 2) {
+            return new FindCommand(commandSections[1]);
+        } else {
+            throw new MaelException("Unknown command for find");
+        }
+    }
+
+    private static Command handleUndoInput(String[] commandSections) throws MaelException {
+        if (commandSections.length == 1) {
+            return new UndoCommand();
+        } else {
+            throw new MaelException("Unknown command for undo");
+        }
+    }
+
+    private static Command handleExitInput(String text) throws MaelException {
+        if (text.split(" ").length == 1) {
+            return new ExitCommand();
+        } else {
+            throw new MaelException("Unknown command for bye");
+        }
+    }
+
+    /**
+     * Returns LocalDateTime from a string of the date and time
+     *
+     * @param dateTime String in ddMMyyyy HHmm format
+     * @return LocalDateTime format of string
+     * @throws DateTimeException If string cannot be parsed in the format
+     */
+    public static LocalDateTime parseDate(String dateTime) throws DateTimeException {
+        return LocalDateTime.parse(dateTime, USER_FORMAT);
+    }
+
+    /**
+     * Parses commands stored in storage
+     *
+     * @param text Stored command
+     * @return {@code Command} based on stored task
+     * @throws MaelException If task in storage was corrupted
+     */
+    public static Command parseCommandStorage(String text) throws MaelException {
+        String[] sections = text.split(" \\| ");
+        assert sections.length > 0;
+        try {
+            switch (sections[0]) {
+            case "Add":
+                return handleAddCommandFromStorage(sections);
+            case "Check":
+                return handleCheckCommandFromStorage(sections);
+            case "Delete":
+                return handleDeleteCommandFromStorage(text, sections);
+            case "Exit":
+                return handleExitCommandFromStorage(sections);
+            case "Find":
+                return handleFindCommandFromStorage(sections);
+            case "List":
+                return handleListCommandFromStorage(sections);
+            case "Mark":
+                return handleMarkCommandFromStorage(sections);
+            case "Unmark":
+                return handleUnmarkCommandFromStorage(sections);
+            default:
+                throw new MaelException("Unable to load unknown Command");
+            }
+        } catch (DateTimeException e) {
+            throw new MaelException("Date corrupted");
+        }
+    }
+
+    private static AddCommand handleAddCommandFromStorage(String[] sections) throws MaelException {
+        AddCommand c;
+        try {
+            switch (sections.length) {
+            case 4:
+                c = new AddCommand(sections[1], Boolean.parseBoolean(sections[2]), false);
+                c.setTaskNumber(Integer.parseInt(sections[3]));
+                return c;
+            case 5:
+                c = new AddCommand(sections[1], sections[2], Boolean.parseBoolean(sections[3]), false);
+                c.setTaskNumber(Integer.parseInt(sections[4]));
+                return c;
+            case 6:
+                c = new AddCommand(sections[1], sections[2], sections[3], Boolean.parseBoolean(sections[4]), false);
+                c.setTaskNumber(Integer.parseInt(sections[5]));
+                return c;
+            default:
+                throw new MaelException("Corrupted Add Command");
+            }
+        } catch (NumberFormatException e) {
+            throw new MaelException("Corrupted Add Command Task Number");
+        }
+    }
+
+    private static CheckCommand handleCheckCommandFromStorage(String[] sections) throws MaelException {
+        if (sections.length == 2) {
+            try {
+                return new CheckCommand(sections[1]);
+            } catch (DateTimeException e) {
+                throw new MaelException("Corrupted Check Command Date");
+            }
+            
+        } else {
+            throw new MaelException("Corrupted Check Command");
+        }
+    }
+
+    private static DeleteCommand handleDeleteCommandFromStorage(String text, String[] sections) 
+            throws MaelException {
+        if (sections.length > 2) {
+            try {
+                DeleteCommand c = new DeleteCommand(Integer.parseInt(sections[1]));
+                c.setTaskName(text.split(" \\| ", 3)[2]);
+                return c;
+            } catch (NumberFormatException e) {
+                throw new MaelException("Corrupted Delete Command Number");
+            }
+        } else {
+            throw new MaelException("Corrupted Delete Command");
+        }
+    }
+
+    private static ExitCommand handleExitCommandFromStorage(String[] sections) throws MaelException {
+        if (sections.length == 1) {
+            return new ExitCommand();
+        } else {
+            throw new MaelException("Corrupted Exit Command");
+        }
+    }
+
+    private static FindCommand handleFindCommandFromStorage(String[] sections) throws MaelException {
+        if (sections.length == 2) {
+            return new FindCommand(sections[1]);
+        } else {
+            throw new MaelException("Corrupted Find Command");
+        }
+    }
+
+    private static ListCommand handleListCommandFromStorage(String[] sections) throws MaelException {
+        if (sections.length == 1) {
+            return new ListCommand();
+        } else {
+            throw new MaelException("Corrupted List Command");
+        }
+    }
+
+    private static MarkCommand handleMarkCommandFromStorage(String[] sections) throws MaelException {
+        if (sections.length == 2) {
+            try {
+                return new MarkCommand(Integer.parseInt(sections[1]));
+            } catch (NumberFormatException e) {
+                throw new MaelException("Corrupted Mark Command Number");
+            }
+        } else {
+            throw new MaelException("Corrupted Mark Command");
+        }
+    }
+
+    private static UnmarkCommand handleUnmarkCommandFromStorage(String[] sections) throws MaelException {
+        if (sections.length == 2) {
+            try {
+                return new UnmarkCommand(Integer.parseInt(sections[1]));
+            } catch (NumberFormatException e) {
+                throw new MaelException("Corrupted Unmark Command Number");
+            }
+        } else {
+            throw new MaelException("Corrupted Unmark Command");
+        }
+    }
+
+    /**
+     * Parses tasks stored in storage
+     *
+     * @param text Stored task
+     * @return {@code AddCommand} based on stored task
+     * @throws MaelException If task in storage was corrupted
+     */
+    public static AddCommand parseTaskStorage(String text) throws MaelException {
+        String[] sections = text.split(" \\| ");
+        assert sections.length > 0;
+        try {
+            switch (sections[0]) {
+            case "T":
+                return handleTodoFromStorage(sections);
+            case "D":
+                return handleDeadlineFromStorage(sections);
+            case "E":
+                return handleEventFromStorage(sections);
+            default:
+                throw new MaelException("Unable to load unknown task");
+            }
+        } catch (DateTimeException e) {
+            throw new MaelException("Date corrupted");
+        }
+    }
+
+    private static AddCommand handleTodoFromStorage(String[] sections) throws MaelException {
+        if (sections.length == 3) {
+            return new AddCommand(sections[2],
+                    sections[1].equals("X"), false);
+        } else {
+            throw new MaelException("Corrupted ToDo");
+        }
+    }
+
+    private static AddCommand handleDeadlineFromStorage(String[] sections) throws MaelException {
+        if (sections.length == 4) {
+            return new AddCommand(sections[2],
+                    sections[3],
+                    sections[1].equals("X"), false);
+        } else {
+            throw new MaelException("Corrupted Deadline");
+        }
+    }
+
+    private static AddCommand handleEventFromStorage(String[] sections) throws MaelException {
+        if (sections.length == 5) {
+            return new AddCommand(sections[2],
+                    sections[3],
+                    sections[4],
+                    sections[1].equals("X"), false);
+        } else {
+            throw new MaelException("Corrupted Event");
+        }
+    }
+}

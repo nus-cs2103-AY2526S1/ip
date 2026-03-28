@@ -1,0 +1,37 @@
+todo buy bananas
+deadline project milestone 1 /by August 22nd
+mark 1
+list
+todo go home
+event Splashdown /from 27 Aug 5:30pm /to 9pm
+mark 3
+ls
+unmark 1
+mark 2
+ls
+mark 4
+todo
+todo gym
+um 5
+m 5
+m 5
+event
+event holiday /
+event holiday /f monday /t friday
+event holiday /from monday /to friday
+bad input
+deadline <>
+deadline <> /b 1pm
+deadline <> /by 1pm
+m 8
+list
+del
+del x
+del 8
+delete 7
+del 6
+ls
+m 3 we
+um 4 nis
+del 2 time
+bye

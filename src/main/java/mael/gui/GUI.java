@@ -1,0 +1,44 @@
+package mael.gui;
+
+import java.io.IOException;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import mael.Mael;
+
+/**
+ * A GUI for Mael using FXML.
+ */
+public class GUI extends Application {
+
+    private Mael mael = new Mael(this);
+    private Stage stage;
+
+    @Override
+    public void start(Stage stage) {
+        this.stage = stage;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap, 500, 800);
+            stage.setScene(scene);
+            stage.setTitle("Mael");
+            stage.setResizable(true);
+            fxmlLoader.<MainWindow>getController().setMael(mael);  // inject the Mael instance
+            stage.show();
+            fxmlLoader.<MainWindow>getController().addMaelDialogBox(mael.getWelcomeMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Closes the GUI application
+     */
+    public void close() {
+        stage.close();
+    }
+}
