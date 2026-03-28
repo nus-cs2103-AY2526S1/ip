@@ -1,0 +1,34 @@
+todo t
+todo
+todo
+todo t /by 12
+deadline t /by 12 Sep
+deadline
+deadline t
+deadline /by
+deadline /by
+event t /from 12 Aug /to 18 Aug
+event
+event t
+event t /from
+event t /frommmmm
+event t /from /to
+event t /from 12 /to
+event t /from /to 12
+event t /to 12 /from 12
+mark 1
+mark
+mark 3 1
+mark k
+mark 2
+unmark 1
+unmark
+unmark 3 1
+unmark k
+list
+blah
+delete 1
+delete
+delete k
+delete 1 2
+bye

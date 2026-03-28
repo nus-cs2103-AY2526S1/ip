@@ -1,7 +1,124 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+----------------------------------------
+Hello dear, I am Clare!
+So happy to see you today.
+What can I help?
+----------------------------------------
+----------------------------------------
+Error clare.storage format String conversion clare.exception: error processing string Error deadline format: 12 Sep Please follow this format YYYY-MM-DD HH:MM
+----------------------------------------
+----------------------------------------
+added todo: [T][ ] t
+Now you have 1 tasks.
+----------------------------------------
+----------------------------------------
+Please add a description.
+----------------------------------------
+----------------------------------------
+Please add a description.
+----------------------------------------
+----------------------------------------
+added todo: [T][ ] t /by 12
+Now you have 2 tasks.
+----------------------------------------
+----------------------------------------
+String conversion clare.exception: error processing string Error deadline format: 12 Sep Please follow this format YYYY-MM-DD HH:MM
+----------------------------------------
+----------------------------------------
+Please add a deadline according to this format: deadline ... /by ....
+----------------------------------------
+----------------------------------------
+Please add a deadline according to this format: deadline ... /by ....
+----------------------------------------
+----------------------------------------
+Wrong format!!
+Please input according to this format: deadline ... /by ...
+----------------------------------------
+----------------------------------------
+Wrong format!!
+Please input according to this format: deadline ... /by ...
+----------------------------------------
+----------------------------------------
+String conversion clare.exception: error processing string Error deadline format: 18 Aug Please follow this format YYYY-MM-DD HH:MM
+----------------------------------------
+----------------------------------------
+Please add a deadline and start time according to this format: event ... /from ... /to ....
+----------------------------------------
+----------------------------------------
+Please add a deadline and start time according to this format: event ... /from ... /to ....
+----------------------------------------
+----------------------------------------
+Please add a deadline and start time according to this format: event ... /from ... /to ....
+----------------------------------------
+----------------------------------------
+Please add a deadline and start time according to this format: event ... /from ... /to ....
+----------------------------------------
+----------------------------------------
+Wrong format!!
+Please input according to this format: event ... /from ... /to ...
+----------------------------------------
+----------------------------------------
+Wrong format!!
+Please input according to this format: event ... /from ... /to ...
+----------------------------------------
+----------------------------------------
+Wrong format!!
+Please input according to this format: event ... /from ... /to ...
+----------------------------------------
+----------------------------------------
+Wrong format!!
+Please input according to this format: event ... /from ... /to ...
+----------------------------------------
+----------------------------------------
+I have marked this task done:
+  1. [T][X] t
+----------------------------------------
+----------------------------------------
+Please provide a number!
+----------------------------------------
+----------------------------------------
+Invalid format: String conversion clare.exception: error processing string There is no such task
+----------------------------------------
+----------------------------------------
+This is not a number!!
+----------------------------------------
+----------------------------------------
+I have marked this task done:
+  2. [T][X] t /by 12
+----------------------------------------
+----------------------------------------
+I have marked this task undone:
+  1. [T][X] t
+----------------------------------------
+----------------------------------------
+Please provide a number!
+----------------------------------------
+----------------------------------------
+Invalid format: String conversion clare.exception: error processing string There is no such task
+----------------------------------------
+----------------------------------------
+This is not a number!!
+----------------------------------------
+----------------------------------------
+[T][X] t
+[T][X] t /by 12
+----------------------------------------
+----------------------------------------
+I don't understand this clare.parser :(
+----------------------------------------
+----------------------------------------
+deleted event: [T][X] t
+Now you have 1 tasks.
+----------------------------------------
+----------------------------------------
+Please provide a number!
+----------------------------------------
+----------------------------------------
+This is not a number!!
+----------------------------------------
+----------------------------------------
+deleted event: [T][X] t /by 12
+Now you have 0 tasks.
+----------------------------------------
+----------------------------------------
+Bye dear. I will miss you!
+----------------------------------------

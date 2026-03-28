@@ -1,0 +1,63 @@
+/* Overall chat window background */
+.root {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #BFEAF5, #E8F6EF);
+}
+
+/* Scroll pane for the chat messages */
+.chat-scroll-pane {
+    -fx-background-color: transparent; /* Makes the background transparent to show the root's background */
+    -fx-border-color: transparent;
+}
+
+/* Chat message container */
+.dialog-container {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #BFEAF5, #E8F6EF);
+}
+
+/* User input text field */
+.chat-input {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 20;
+    -fx-border-color: #8FD8D2;
+    -fx-border-radius: 20;
+    -fx-border-width: 2px;
+    -fx-font-family: "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+}
+
+/* Send button */
+.send-button {
+    -fx-background-color: #8FD8D2;
+    -fx-background-radius: 20;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Arial", sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.send-button:hover {
+    -fx-background-color: #6DC2B8;
+}
+
+.send-button:pressed {
+    -fx-background-color: #55A8A0;
+}
+
+/* Chat message bubbles */
+.chat-bubble {
+    -fx-background-color: #E8F6EF;
+    -fx-background-radius: 15px;
+    -fx-padding: 10px;
+    -fx-text-fill: #333333;
+    -fx-font-family: "Arial", sans-serif;
+    -fx-font-size: 13px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.5, 0, 1);
+}
+
+/* Profile picture */
+.profile-picture {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.5, 0, 1);
+    -fx-background-color: #E8F6EF; /* Fallback for a cleaner look if images aren't round */
+    -fx-background-radius: 50%;
+}
