@@ -1,21 +1,38 @@
 @ECHO OFF
+SETLOCAL
 
-REM create bin directory if it doesn't exist
-if not exist ..\bin mkdir ..\bin
+chcp 65001 >NUL
 
-REM delete output from previous run
-if exist ACTUAL.TXT del ACTUAL.TXT
+set SRC=..\src\main\java
+set BIN=..\bin
+set MAIN=Hachi
 
-REM compile the code into the bin folder
-javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\*.java
+IF NOT EXIST "%BIN%" MKDIR "%BIN%"
+DEL /Q ACTUAL.TXT 2>NUL
+
+DIR /S /B "%SRC%\*.java" > sources.txt
+javac -encoding UTF-8 -Xlint:none -d "%BIN%" @sources.txt
 IF ERRORLEVEL 1 (
-    echo ********** BUILD FAILURE **********
-    exit /b 1
+    ECHO ********** BUILD FAILURE **********
+    EXIT /B 1
 )
-REM no error here, errorlevel == 0
 
-REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin Duke < input.txt > ACTUAL.TXT
+java -Dfile.encoding=UTF-8 -cp "%BIN%" %MAIN% < input.txt > ACTUAL.TXT
+IF ERRORLEVEL 1 (
+    ECHO ********** RUNTIME FAILURE **********
+    EXIT /B 1
+)
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT
+FC ACTUAL.TXT EXPECTED.TXT >NUL
+IF ERRORLEVEL 1 (
+    ECHO ********** TEST FAILURE **********
+    EXIT /B 1
+) ELSE (
+    ECHO ********** TEST SUCCESS **********
+)
+
+
+ENDLOCAL
+

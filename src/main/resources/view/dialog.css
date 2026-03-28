@@ -1,0 +1,33 @@
+/* Container HBox for each dialog */
+.dialog {
+    -fx-spacing: 10;
+}
+
+/* Shared bubble style */
+.bubble {
+    -fx-background-radius: 14;
+    -fx-padding: 10 12 10 12;
+    -fx-text-fill: #111827;
+    -fx-font-size: 13px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 8, 0.2, 0, 2);
+}
+
+/* User bubble (right side) */
+.bubble-user {
+    -fx-background-color: linear-gradient(to bottom, #dbeafe, #bfdbfe);
+}
+
+/* Bot bubble (left side) */
+.bubble-bot {
+    -fx-background-color: #e5e7eb;
+}
+
+/* Wrapping */
+.label-wrap {
+    -fx-max-width: 280px;
+}
+
+/* Avatar images */
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 6, 0.2, 0, 1);
+}
