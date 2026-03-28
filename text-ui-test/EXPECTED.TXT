@@ -1,7 +1,103 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+    -----------------------------------
+    Hello I'm nacho
+    What can I do for you?
+    -----------------------------------
+    -----------------------------------
+    Got it. I've added this task:
+        [T][ ] borrow book
+    
+    Now you have 1 tasks in the list.
+    -----------------------------------
+    -----------------------------------
+    Missing Todo item title!
+    Tell me what you want to do x_x don't leave it blank
+    -----------------------------------
+    -----------------------------------
+    Nice! I've marked this task as done:
+        [T][X] borrow book
+    
+    -----------------------------------
+    -----------------------------------
+    Targeted Task Number not in list
+    -----------------------------------
+    -----------------------------------
+    Targeted Task Number not in list
+    -----------------------------------
+    -----------------------------------
+    Here are your tasks in your list:
+    1. [T][X] borrow book
+    
+    -----------------------------------
+    -----------------------------------
+    Got it. I've added this task:
+        [D][ ] return book (by: Sunday)
+    
+    Now you have 2 tasks in the list.
+    -----------------------------------
+    -----------------------------------
+    Missing Event Title
+    Send 'help' for example
+    -----------------------------------
+    -----------------------------------
+    Missing Deadline Date.
+    Send 'help' for example
+    -----------------------------------
+    -----------------------------------
+    Here are your tasks in your list:
+    1. [T][X] borrow book
+    2. [D][ ] return book (by: Sunday)
+    
+    -----------------------------------
+    -----------------------------------
+    OK, I've marked this task as not done yet:
+        [T][ ] borrow book
+    
+    -----------------------------------
+    -----------------------------------
+    Targeted Task Number not in list
+    -----------------------------------
+    -----------------------------------
+    Targeted Task Number not in list
+    -----------------------------------
+    -----------------------------------
+    Here are your tasks in your list:
+    1. [T][ ] borrow book
+    2. [D][ ] return book (by: Sunday)
+    
+    -----------------------------------
+    -----------------------------------
+    Got it. I've added this task:
+        [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    
+    Now you have 3 tasks in the list.
+    -----------------------------------
+    -----------------------------------
+    Missing Event Title!!!
+    -----------------------------------
+    -----------------------------------
+    Missing Event Start Timing
+    -----------------------------------
+    -----------------------------------
+    Missing Event End Timing!
+    -----------------------------------
+    -----------------------------------
+    Missing arguments!
+    See 'help' for more info
+    -----------------------------------
+    -----------------------------------
+    Targeted Task Number not in list
+    -----------------------------------
+    -----------------------------------
+    Noted. I removed this task:
+        [T][ ] borrow book
+    
+    -----------------------------------
+    -----------------------------------
+    Here are your tasks in your list:
+    1. [D][ ] return book (by: Sunday)
+    2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    
+    -----------------------------------
+    -----------------------------------
+    Bye. Hope to see you soon!
+    -----------------------------------

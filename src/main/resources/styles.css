@@ -1,0 +1,41 @@
+.my-scrollPane > .viewport{
+    -fx-background-image: url("images/tele_background.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: repeat;
+    -fx-background-position: center;
+
+}
+
+.my-dialogContainer {
+    -fx-padding: 30;
+}
+
+.button {
+    -fx-font-size: 1;
+}
+
+.dialog_text.userDB {
+    -fx-background-color: #2b7888;
+    -fx-text-background-color: #cae8ed;
+}
+
+.dialog_text.nachoDB {
+    -fx-background-color: #1f3239;
+    -fx-text-background-color: #d8e1e3;
+    -fx-font-family: "Courier New";
+}
+
+.dialog_text.nachoDB.errorDB {
+    -fx-text-fill: white;
+    -fx-border-color: #b94a48;
+    -fx-background-color: #da4f49;
+}
+
+.dialog_text {
+    -fx-padding: 10;
+    -fx-font-weight: bold;
+    -fx-font-size: 12;
+}
+
+.dialog_picture {
+}
