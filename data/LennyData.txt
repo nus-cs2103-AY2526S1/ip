@@ -1,0 +1,8 @@
+T | 1 | CS2100 Tutorial | 1
+D | 0 | project | 8pm | 3
+T | 0 | go home | 3
+T | 0 | go lib | 3
+T | 0 | go market | 2
+T | 0 | borrow book | 3
+T | 0 | project meeting | 3
+T | 0 | add flour | 3

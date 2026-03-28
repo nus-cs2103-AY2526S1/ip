@@ -1,0 +1,11 @@
+C:\Users\mizza\Downloads\NUS\CS2103T\ip\src\main\java\lenny\Lenny.java
+C:\Users\mizza\Downloads\NUS\CS2103T\ip\src\main\java\lenny\exception\LennyExceptions.java
+C:\Users\mizza\Downloads\NUS\CS2103T\ip\src\main\java\lenny\parser\Parser.java
+C:\Users\mizza\Downloads\NUS\CS2103T\ip\src\main\java\lenny\storage\Storage.java
+C:\Users\mizza\Downloads\NUS\CS2103T\ip\src\main\java\lenny\task\Deadline.java
+C:\Users\mizza\Downloads\NUS\CS2103T\ip\src\main\java\lenny\task\Event.java
+C:\Users\mizza\Downloads\NUS\CS2103T\ip\src\main\java\lenny\task\Task.java
+C:\Users\mizza\Downloads\NUS\CS2103T\ip\src\main\java\lenny\task\TaskList.java
+C:\Users\mizza\Downloads\NUS\CS2103T\ip\src\main\java\lenny\task\Todo.java
+C:\Users\mizza\Downloads\NUS\CS2103T\ip\src\main\java\lenny\ui\Ui.java
+C:\Users\mizza\Downloads\NUS\CS2103T\ip\src\main\java\lenny\util\DateFormatter.java

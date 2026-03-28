@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="HBox" xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1" spacing="8.0" alignment="TOP_LEFT">
+    <children>
+        <ImageView fx:id="displayPicture" fitWidth="40" fitHeight="40" preserveRatio="true"/>
+        <Label fx:id="dialog" wrapText="true" maxWidth="320"/>
+    </children>
+</fx:root>
