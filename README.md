@@ -1,26 +1,138 @@
-# Duke project template
+# Timmy User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Welcome to **Timmy** – your personal assistant that helps you record and manage your tasks through a simple command-line interfac.  
 
-## Setting up in Intellij
+This guide will walk you through the main features and usage so you can start right away.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+---
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Getting Started
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+1. **Run Timmy**  
+   Make sure you have Java 17 or above installed.
+   
+   Then, download the latest .jar file.
+
+   Open a command terminal, `cd` into the folder you put the jar file in, and enter `java -jar Timmy.jar` to run the application.
+
+
+
+2. **First interaction**
+   Once started, the chatbot will greet you and wait for your input. Type a command and press **Enter**.
+
+---
+
+## Features
+
+### 1. Add Tasks
+
+You can add different types of tasks to the chatbot:
+
+* **Todo**:
+
+  ```text
+  todo Read Book
+  ```
+* **Deadline** (with `by`):
+
+  ```text
+  deadline Submit Assignment /by 30/10/2025
+  ```
+* **Event** (with `at`):
+
+  ```text
+  event Sports Festival /from 01/10/2025 /to 09/10/2025
+  ```
+
+### 2. List Tasks
+
+View all tasks currently stored:
+
+```text
+list
+```
+
+### 3. Mark/Unmark as Done
+
+Mark or unmark a task as completed by its index number:
+
+```text
+mark 2
+unmark 2
+```
+
+### 4. Delete Tasks
+
+Remove a task permanently:
+
+```text
+delete 3
+```
+
+### 5. Clear all Tasks
+
+Remove all tasks permanently:
+
+```text
+clear
+```
+
+### 6. Find Tasks
+
+Search for tasks by keyword:
+
+```text
+find book
+```
+
+### 7. Save & Load
+
+All tasks are automatically saved to a file (`data/storage.txt`) and reloaded the next time you start the program. You don’t have to worry about losing your progress.
+
+### 8. Archive Tasks
+
+Archive tasks into a file (`data/archive-{}.txt`):
+
+```text
+archive
+```
+
+Tasks are removed from Timmy's memory once archived. To restore an archive, replace the contents of `data/storage.txt` with the archive file.
+
+---
+
+## Command Summary
+
+| Command Example                       | What it does                    |
+|---------------------------------------| ------------------------------- |
+| `todo read book`                      | Adds a todo task                |
+| `deadline return book /by 30/9/2025`  | Adds a deadline task            |
+| `event project meeting /at 1/10/2025` | Adds an event task              |
+| `list`                                | Lists all tasks                 |
+| `mark 2`                              | Marks task #2 as done           |
+| `unmark 2`                            | Unmarks task #2 as done         |
+| `delete 3`                            | Deletes task #3                 |
+| `clear`                               | Deletes all tasks               |
+| `find book`                           | Finds tasks with "book" in them |
+| `archive`                             | Archives existing tasks         |
+| `bye`                                 | Exits the chatbot               |
+
+---
+
+## Exiting the Program
+
+To quit, simply type:
+
+```text
+bye
+```
+
+Your tasks will be saved automatically.
+
+---
+
+## Support
+
+If you encounter issues, please check:
+
+* That you are running on Java 17 or later.
