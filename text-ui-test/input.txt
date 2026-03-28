@@ -1,0 +1,33 @@
+test
+delete 4
+todo
+todo borrow book
+deadline
+deadline return book
+deadline return book /by 2019-12-01
+event
+event project meeting
+event project meeting /from 2019-12-01
+event project meeting /from 2019-12-01 /to 2019-12-15
+list
+mark
+mark 0
+mark 5
+mark 6
+mark 7
+unmark 7
+unmark 6
+list
+delete
+delete 6
+delete 5
+delete 4
+mark 1
+unmark 1
+delete 3
+event Test3 /from 2025-08-27 /to 2025-09-01
+find
+find 2
+find test
+find Test
+bye
