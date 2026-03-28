@@ -1,0 +1,9 @@
+event babysit baby cousin /from 9am /to 10pm
+deadline feed baby /by 6pm tonight
+todo read books to baby
+todo bathe baby
+mark 4
+list
+unmark 4
+list
+bye
