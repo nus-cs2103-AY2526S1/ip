@@ -1,7 +1,70 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+              , ,
+             /| |\
+            / | | \
+            | | | |     Neeaah, Whats up Doc !?!
+            \ | | /
+             \|w|/    /
+             /_ _\   /      ,
+  /\       _:()_():_       /]
+  ||_     : ._=Y=_  :     / /
+ [)(_\,   ',__\W/ _,'    /  \
+ [) \_/\    _/'='\      /-/\)
+  [_| \ \  ///  \ '._  / /
+  :;   \ \///   / |  '` /
+  ;::   \ `|:   : |',_.'
+  """    \_|:   : |
+           |:   : |'".
+           /`._.'  \/
+          /  /|   /
+         |  \ /  /
+          '. '. /
+            '. '
+            / \ \
+           / / \'=,
+     .----' /   \ (\__
+snd (((____/     \ \  )
+                  '.\_)
 
+You can chat with me using the following commands:
+ help: Show this guide. Syntax: help
+ list: List all the tasks you have created so far. Syntax: list
+ mark: Mark a task as completed. Syntax: mark <task index>
+ unmark: Mark a task as not completed. Syntax: unmark <task index>
+ delete: Delete a task. Syntax: delete <task index>
+ todo: Create a todo task. Syntax: todo <task name>
+ deadline: Create a deadline task. Syntax: deadline <task name> /by <yyyy-mm-dd hhmm>
+ event: Create an event task. Syntax: event <task name> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm>
+ due: Shows the tasks that are due by this date and time. Syntax: due <yyyy-mm-dd hhmm>
+ bye: Exit the chat
+________________________________________________________________
+________________________________________________________________
+Neeah, there's a problem Doc:
+ I don't understand this command: test
+You can type 'help' for the list of available commands
+________________________________________________________________
+________________________________________________________________
+OK Doc, I've added this task:
+ [T][ ] read book
+Now you have 1 tasks in the list.
+________________________________________________________________
+________________________________________________________________
+Neeah, there's a problem Doc:
+ Unrecognized date time format: return book /by Mon
+Accepted date time example: 2025-08-30 1300
+________________________________________________________________
+________________________________________________________________
+Neeah, there's a problem Doc:
+ Unrecognized date time format: Aug 30 2025 1200
+Accepted date time example: 2025-08-30 1300
+________________________________________________________________
+________________________________________________________________
+OK Doc, I've marked this task as done:
+ [T][X] read book
+________________________________________________________________
+________________________________________________________________
+Here are the tasks in your list:
+ 1. [T][X] read book
+________________________________________________________________
+________________________________________________________________
+So long, Doc!
+________________________________________________________________
