@@ -1,7 +1,37 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Aurora: Hello! I'm Aurora. What can I do for you?
+Aurora: Invalid todo format.
+Please enter "todo <description>"
+Aurora: Added Go to the gym as a task into your list.
+Aurora: Invalid deadline format.
+Please enter "deadline <description> /by: <deadline>"
+Aurora: Added CourseReg as a task into your list.
+Aurora: Nice! I've marked this task as completed.
+[D][X] CourseReg (by: 25th Dec)
+Aurora: Nice! I've marked this task as completed.
+[T][X] Go to the gym
+Aurora: Invalid list command.
+enter "list" to see your added tasks.
+Aurora: Here are the tasks in your list:
+1. [T][X] Go to the gym
+2. [D][X] CourseReg (by: 25th Dec)
 
+Aurora: Invalid help command.
+enter "help" to see all existing commands.
+Aurora: To add a todo, enter "todo <description>"
+To add a deadline, enter "deadline <description> /by: <deadline>"
+To add an event, enter "event <description> /from: <start> /to: <end>"
+To see a list of all added tasks, enter "list"
+To mark a task as complete, enter "mark <task number>"
+To remove a task in the list, enter "delete <task number>"
+To exit Aurora, enter "bye"
+To see list of existing commands, enter "help"
+
+Aurora: Added Date night as a task into your list.
+Aurora: Invalid event format.
+Please enter "event <description> /from: <start> /to: <end>"
+Aurora: Invalid task input. enter "help" to see command format.
+Aurora: There is no task numbered 5.
+Aurora: Noted. I've removed this task:
+[T][X] Go to the gym
+Now you have 2 tasks in your list.
+Aurora: Bye. Hope to see you again soon!
