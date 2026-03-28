@@ -1,0 +1,46 @@
+/* styles.css - Main GUI styling */
+
+.root {
+    -fx-font-family: "Comic Sans MS", "Comic Sans", 'Arial', sans-serif;
+    -fx-background-color: #ffbfe9;
+}
+
+.chat-area {
+    -fx-background-color: transparent;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    /* Removed border color and width to prevent gray border */
+}
+
+.chat-area .viewport {
+    -fx-background-color: transparent;
+}
+
+.text-field {
+    -fx-font-size: 15px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-padding: 6px 10px;
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.send-button {
+    -fx-font-size: 15px;
+    -fx-background-color: #fff700;
+    -fx-text-fill: #ff33a0;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-padding: 6px 18px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, #dbeafe, 2, 0.2, 0, 1);
+}
+.send-button:hover {
+    -fx-background-color: #9c62e3;
+    -fx-text-fill: #b3deff;
+}
