@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono');
+
+.reply-label-right {
+    -fx-background-radius: 2em 2em 2em 2em;
+    -fx-font: 13px "JetBrains Mono";
+    -fx-background-color: #24283b;
+    -fx-text-fill: #a9b1d6;
+    -fx-max-width: 400px;
+    -fx-padding: 12px 20px;
+}

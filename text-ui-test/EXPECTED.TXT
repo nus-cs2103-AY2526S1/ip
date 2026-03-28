@@ -1,7 +1,52 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Create new file data/cattis.txt
+⚠ OOPS! Cannot find file data/cattis.txt
+Hello! I'm CATTIS 🐱.
+What can I do for you?
+Here are the tasks in your list:
+<empty>
+----
+Got it. I've added this task:
+[T][ ] task 1
+Now you have 1 tasks in the list.
+----
+⚠ OOPS! Fields must not be left empty.
+----
+⚠ OOPS! Failed to parse time for format yyyy-MM-dd
+----
+Got it. I've added this task:
+[D][ ] task 2 (by: Oct 10 2020)
+Now you have 2 tasks in the list.
+----
+⚠ OOPS! Invalid format.
+Correct format: event [task] /from [Start] /to [End]
+----
+Got it. I've added this task:
+[E][ ] task 3 (from: Oct 10 2020 to: Oct 11 2020)
+Now you have 3 tasks in the list.
+----
+Nice! I've marked this task as done:
+[T][X] task 1
+----
+Nice! I've marked this task as done:
+[D][X] task 2 (by: Oct 10 2020)
+----
+OK, I've marked this task as not done yet:
+[D][ ] task 2 (by: Oct 10 2020)
+----
+⚠ OOPS! Tasks out of bounded
+----
+Noted. I've removed this task:
+[D][ ] task 2 (by: Oct 10 2020)
+Now you have 2 tasks in the list.
+----
+⚠ OOPS! Tasks out of bounded
+----
+Nice! I've marked this task as done:
+[E][X] task 3 (from: Oct 10 2020 to: Oct 11 2020)
+----
+Here are the tasks in your list:
+1. [T][X] task 1
+2. [E][X] task 3 (from: Oct 10 2020 to: Oct 11 2020)
+----
+----
+Bye. Hope to see you again soon!

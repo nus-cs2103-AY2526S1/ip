@@ -1,0 +1,16 @@
+list
+todo task 1
+deadline task 2 /by
+deadline task 2 /by Sunday
+deadline task 2 /by 2020-10-10
+event task 3 /from 2020-10-10
+event task 3 /from 2020-10-10 /to 2020-10-11
+mark 1
+mark 2
+unmark 2
+mark 4
+delete 2
+mark 3
+mark 2
+list
+bye

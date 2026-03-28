@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:controller="cattis.component.CalendarController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="427.0" prefWidth="565.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane layoutX="1.0" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="427.0" prefWidth="565.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <HBox prefHeight="55.0" prefWidth="566.0" style="-fx-background-color: #24283b;" styleClass="root" stylesheets="@../css/main.css" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="header"  prefHeight="55.0" prefWidth="275.0" styleClass="text-field" stylesheets="@../css/main.css" textFill="WHITE">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+         </top>
+         <bottom>
+            <HBox prefHeight="38.0" prefWidth="566.0" style="-fx-background-color: #24283B;" BorderPane.alignment="CENTER">
+               <children>
+                  <Button onMouseClicked="#changeMonthPrevious"  mnemonicParsing="false" prefHeight="70.0" prefWidth="50.0" style="-fx-background-color: #24283B;" text="&lt;" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button onMouseClicked="#changeMonthNext" mnemonicParsing="false" prefHeight="23.0" prefWidth="51.0" style="-fx-background-color: #24283B;" text="&gt;" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </bottom>
+         <center>
+            <GridPane fx:id="calendarGrid" gridLinesVisible="false" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="59.0" prefWidth="82.0" style="-fx-background-color: #dcd9d9;" styleClass="root" stylesheets="@../css/main.css" text="Mon" textAlignment="CENTER" textFill="#696464" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="59.0" prefWidth="82.0" style="-fx-background-color: #dcd9d9;" styleClass="root" stylesheets="@../css/main.css" text="Tue" textAlignment="CENTER" textFill="#696464" GridPane.columnIndex="2">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="59.0" prefWidth="82.0" style="-fx-background-color: #dcd9d9;" styleClass="root" stylesheets="@../css/main.css" text="Wed" textAlignment="CENTER" textFill="#696464" GridPane.columnIndex="3">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="59.0" prefWidth="82.0" style="-fx-background-color: #dcd9d9;" styleClass="root" stylesheets="@../css/main.css" text="Thu" textAlignment="CENTER" textFill="#696464" GridPane.columnIndex="4">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="59.0" prefWidth="82.0" style="-fx-background-color: #dcd9d9;" styleClass="root" stylesheets="@../css/main.css" text="Fri" textAlignment="CENTER" textFill="#696464" GridPane.columnIndex="5">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="59.0" prefWidth="82.0" style="-fx-background-color: #dcd9d9;" styleClass="root" stylesheets="@../css/main.css" text="Sat" textAlignment="CENTER" textFill="#696464" GridPane.columnIndex="6">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="59.0" prefWidth="82.0" style="-fx-background-color: #dcd9d9;" styleClass="root" stylesheets="@../css/main.css" text="Sun" textAlignment="CENTER" textFill="#696464">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </GridPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
