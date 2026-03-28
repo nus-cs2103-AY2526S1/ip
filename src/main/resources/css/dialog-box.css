@@ -1,0 +1,42 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
+    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+/*AI generated background colours*/
+.error{
+    -fx-background-color: linear-gradient(to bottom right, #ffcccc, #ff9999);  /* Light red gradient */
+}
+
+.info {
+     -fx-background-color: linear-gradient(to bottom right, #a9e5ff, #00caff);  /* Light blue gradient */
+}
+
+.warning {
+    -fx-background-color: linear-gradient(to bottom right, #fff3cd, #fbc02d);  /* Light yellow gradient */
+}
+
+.success {
+    -fx-background-color: linear-gradient(to bottom right, #95ff95, #26ea25);  /* Light green gradient */
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+

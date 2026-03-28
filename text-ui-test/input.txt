@@ -1,0 +1,27 @@
+list
+hello
+mark 1
+unmark 1
+todo read book
+deadline return book /by Sunday
+event go to school /from 9am /to 5pm
+list
+mark 1
+mark 3
+list
+unmark 1
+list
+todo
+deadline
+event
+deadline test
+deadline /by test
+event abc
+event /from test /to test
+event test /from /to test
+event test /from test /to
+delete 2
+list
+delete
+delete 100
+bye
