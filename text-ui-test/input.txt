@@ -1,0 +1,13 @@
+todo buy groceries
+deadline finish homework by Friday
+event team outing from Sat 1pm to 6pm
+todo      clean room
+event project meeting from   Mon 3pm  to 5pm
+list
+mark 2
+list
+unmark 2
+list
+hello
+remove 1
+bye

@@ -1,7 +1,66 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+___________________________________________________
+Hello, nice to meet you! I'm jerry.Jerry the mouse!
+What can I do for you today?
+___________________________________________________
+___________________________________________________
+Great! New jerry.task added: [TODO][ ] buy groceries
+Now you have 1 in your list :)
+___________________________________________________
+___________________________________________________
+Nice! This jerry.task has been added to the list:
+[DUE][ ] finish homework (by: Friday)
+Now you have 2 in your list :)
+___________________________________________________
+___________________________________________________
+Okay! I've added this to your jerry.task list:
+[EVENT][ ] team outing(from: Sat 1pm to: 6pm)
+Now you have 3 in your list :)
+___________________________________________________
+___________________________________________________
+Great! New jerry.task added: [TODO][ ] clean room
+Now you have 4 in your list :)
+___________________________________________________
+___________________________________________________
+Okay! I've added this to your jerry.task list:
+[EVENT][ ] project meeting(from: Mon 3pm to: 5pm)
+Now you have 5 in your list :)
+___________________________________________________
+___________________________________________________
+Your jerry.task list:
+1. [TODO][ ] buy groceries
+2. [DUE][ ] finish homework (by: Friday)
+3. [EVENT][ ] team outing(from: Sat 1pm to: 6pm)
+4. [TODO][ ] clean room
+5. [EVENT][ ] project meeting(from: Mon 3pm to: 5pm)
+___________________________________________________
+___________________________________________________
+Yay! One jerry.task down: [DUE][X] finish homework (by: Friday)
+___________________________________________________
+___________________________________________________
+Your jerry.task list:
+1. [TODO][ ] buy groceries
+2. [DUE][X] finish homework (by: Friday)
+3. [EVENT][ ] team outing(from: Sat 1pm to: 6pm)
+4. [TODO][ ] clean room
+5. [EVENT][ ] project meeting(from: Mon 3pm to: 5pm)
+___________________________________________________
+___________________________________________________
+Noted! I've marked this jerry.task as undone: [DUE][ ] finish homework (by: Friday)
+___________________________________________________
+___________________________________________________
+Your jerry.task list:
+1. [TODO][ ] buy groceries
+2. [DUE][ ] finish homework (by: Friday)
+3. [EVENT][ ] team outing(from: Sat 1pm to: 6pm)
+4. [TODO][ ] clean room
+5. [EVENT][ ] project meeting(from: Mon 3pm to: 5pm)
+___________________________________________________
+___________________________________________________
+Sorry! I don't understand what you mean by: hello
+Use these commands at the start of your sentence instead: bye/list/todo/deadline/event/mark/unmark
+___________________________________________________
+Sorry! I don't understand what you mean by: remove 1
+Use these commands at the start of your sentence instead: bye/list/todo/deadline/event/mark/unmark
+___________________________________________________
+Bye! See you next time :)
+___________________________________________________
