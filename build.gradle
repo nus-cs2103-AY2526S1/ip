@@ -1,0 +1,83 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+repositories {
+    mavenCentral()
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+    configDirectory = file("$rootDir/config/checkstyle")
+    configProperties = ['suppressionFile': file("$rootDir/config/checkstyle/suppressions.xml").absolutePath]
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly  'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+
+    // JavaFX (bundle all OS variants so classmates on Win/Mac/Linux can run the same fat jar)
+    String javaFxVersion = '21.0.2'
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+application {
+    // ← ensure this is your actual entry point (fully qualified)
+    mainClass.set("denz.ui.Launcher")
+}
+
+/**
+ * Thin JAR (not used for release); Shadow will make the fat jar.
+ */
+tasks.jar {
+    archiveBaseName = 'Denz'
+    archiveVersion = ''
+    manifest { attributes('Main-Class': application.mainClass.get()) }
+}
+
+/**
+ * Fat JAR for release.
+ * Produces: build/libs/Denz.jar
+ */
+tasks.named('shadowJar') {
+    archiveBaseName.set('Denz')
+    archiveVersion.set('')
+    archiveClassifier.set('')  // no "-all" suffix
+    manifest { attributes 'Main-Class': application.mainClass.get() }
+    mergeServiceFiles()
+    // Optional: reduce duplicate warnings from shaded JavaFX natives
+    // duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+run {
+    standardInput = System.in
+    // If you ever hit the JavaFX QuantumRenderer issue on some machines,
+    // uncomment the next line to force software rendering during 'gradlew run':
+    // jvmArgs '-Dprism.order=sw'
+}

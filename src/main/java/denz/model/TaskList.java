@@ -1,0 +1,194 @@
+package denz.model;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
+
+import denz.exception.DeleteException;
+import denz.exception.DenzException;
+import denz.exception.MarkException;
+import denz.exception.RemindException;
+
+/**
+ * Represents a list of {@link Task} objects.
+ * Provides methods to add, retrieve, delete, mark, unmark, and render tasks.
+ */
+public class TaskList {
+    private ArrayList<Task> tasks;
+
+    /**
+     * Creates an empty {@code TaskList}.
+     */
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
+
+    /**
+     * Creates a {@code TaskList} initialized with a given list of tasks.
+     *
+     * @param tasks List of tasks to initialize this {@code TaskList} with.
+     */
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = new ArrayList<>(tasks);
+    }
+
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return Number of tasks.
+     */
+    public int size() {
+        return tasks.size();
+    }
+
+    /**
+     * Retrieves the task at the given one-based index.
+     *
+     * @param taskNumber One-based index of the task to retrieve.
+     * @return The {@link Task} at the specified index.
+     * @throws DenzException If the index is out of range.
+     */
+    public Task get(int taskNumber) throws DenzException {
+        if (taskNumber <= 0 || taskNumber > tasks.size()) {
+            throw new DenzException("Invalid number, unable to get task!");
+        }
+        return tasks.get(taskNumber - 1);
+    }
+
+    /**
+     * Returns the underlying list of tasks.
+     *
+     * @return List of tasks.
+     */
+    public ArrayList<Task> getList() {
+        return this.tasks;
+    }
+
+    /**
+     * Adds a new task to the list.
+     *
+     * @param t The task to add.
+     */
+    public void add(Task t) {
+        tasks.add(t);
+    }
+
+    /**
+     * Deletes and returns the task at the given one-based index.
+     *
+     * @param taskNumber One-based index of the task to delete.
+     * @return The removed {@link Task}.
+     * @throws DeleteException If the index is invalid.
+     */
+    public Task delete(int taskNumber) throws DeleteException {
+        int idx = taskNumber - 1;
+        if (idx < 0 || idx >= tasks.size()) {
+            throw new DeleteException("invalid task number!!");
+        }
+        return tasks.remove(idx);
+    }
+
+    /**
+     * Marks the task at the given one-based index as done.
+     *
+     * @param taskNumber One-based index of the task to mark.
+     * @throws MarkException If the index is invalid or the task is already marked as done.
+     */
+    public void mark(int taskNumber) throws MarkException {
+        int idx = taskNumber - 1;
+        if (idx < 0 || idx >= tasks.size()) {
+            throw new MarkException("invalid task number!!");
+        }
+        Task t = tasks.get(idx);
+        if (t.isDone()) {
+            throw new MarkException("the task is already completed!");
+        }
+        t.mark();
+    }
+
+    /**
+     * Unmarks the task at the given one-based index (sets it to not done).
+     *
+     * @param taskNumber One-based index of the task to unmark.
+     * @throws MarkException If the index is invalid or the task is not marked.
+     */
+    public void unmark(int taskNumber) throws MarkException {
+        int idx = taskNumber - 1;
+        if (idx < 0 || idx >= tasks.size()) {
+            throw new MarkException("Invalid task number!!");
+        }
+        Task t = tasks.get(idx);
+        if (!t.isDone()) {
+            throw new MarkException("the task is not even completed!");
+        }
+        t.unmark();
+    }
+
+    /**
+     * Renders the task list as a formatted string, showing task numbers and descriptions.
+     *
+     * @return A string representation of all tasks in the list.
+     */
+    public String displayList() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append("\n").append(i + 1).append(". ").append(tasks.get(i));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Renders a numbered list for found tasks.
+     *
+     * @param matches Tasklist to be represented
+     * @return String representation of tasklist provided
+     */
+    public String displayList(List<Task> matches) {
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:");
+        for (int i = 0; i < matches.size(); i++) {
+            sb.append("\n").append(i + 1).append(". ").append(matches.get(i));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Finds a list of task based on a given keyword.
+     *
+     * @param keywords Keywords to find task by
+     * @return A list of task with that given keyword
+     */
+    public List<Task> find(String ... keywords) {
+        return Stream.of(keywords).map(word -> word.toLowerCase()) //convert each keyword into lowercase
+                .flatMap(word -> tasks.stream() //for each word, we return a stream of tasks
+                        .filter(t -> t.getDescription() //filtered by description
+                                .toLowerCase()
+                                .contains(word)))
+                .distinct().toList();
+    }
+
+    /**
+     * Returns a list of tasks that have deadlines or start dates
+     * within the given number of days from now.
+     *
+     * <p>AI-assisted enhancement:
+     * Suggested by ChatGPT to use streams for cleaner filtering
+     * and avoid duplicate calls to current.plusDays(limit).
+     *
+     * @param limit number of days ahead to check
+     * @return list of upcoming tasks
+     */
+    public List<Task> remind(int limit) throws RemindException {
+        if (limit < 0) {
+            throw new RemindException("How can i remind you for negative days???");
+        }
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime threshold = now.plusDays(limit);
+        return tasks.stream()
+                .filter(t -> (t instanceof Deadline
+                        && ((Deadline) t).getDueDate().isBefore(threshold))
+                        || (t instanceof Event
+                        && ((Event) t).getStartDate().isBefore(threshold)))
+                .toList();
+    }
+}
