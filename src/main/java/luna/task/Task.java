@@ -1,0 +1,52 @@
+package luna.task;
+/**
+ * Task with a description and completion status.
+ */
+
+public abstract class Task {
+    protected String description;
+    protected boolean isDone;
+
+    /**
+     * Creates a task with the specified description and sets its status to not done.
+     */
+    public Task(String description) {
+        assert description != null : "Task description should not be null";
+        // Note: Allow empty descriptions to reach business logic for proper exception handling
+
+        this.description = description;
+        this.isDone = false;
+
+        assert this.description.equals(description) : "Description should be set correctly";
+        assert !this.isDone : "New task should be marked as not done";
+    }
+
+    /**
+     * Marks the task as done or not done
+     */
+    public void markDone(boolean status) {
+        this.isDone = status;
+        assert this.isDone == status : "Task status should be set correctly";
+    }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    public String getStatusIcon() {
+        String icon = (isDone ? "X" : " ");
+        assert icon != null : "Status icon should never be null";
+        assert icon.equals("X") || icon.equals(" ") : "Status icon should be either 'X' or ' '";
+        return icon;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", this.getStatusIcon(), description);
+    }
+
+    /**
+     * Creates a copy of this task with the same properties
+     */
+    public abstract Task copy();
+}

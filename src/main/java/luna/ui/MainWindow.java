@@ -1,0 +1,71 @@
+package luna.ui;
+
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import luna.Luna;
+/**
+ * Controller for the main GUI.
+ */
+public class MainWindow extends AnchorPane {
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private VBox dialogContainer;
+    @FXML
+    private TextField userInput;
+    @FXML
+    private Button sendButton;
+
+    private Luna luna;
+
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image lunaImage = new Image(this.getClass().getResourceAsStream("/images/DaLuna.png"));
+
+    @FXML
+    public void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+    }
+
+    /** Injects the Luna instance */
+    public void setLuna(Luna d) {
+        luna = d;
+        // Show welcome message when Luna is set
+        showWelcomeMessage();
+    }
+
+    /**
+     * Shows the welcome message when the application starts
+     */
+    private void showWelcomeMessage() {
+        String welcomeMessage = "Hello, nice to meet you! I'm Luna\nWhat can I do for you?";
+        dialogContainer.getChildren().add(
+                DialogBox.getLunaDialog(welcomeMessage, lunaImage)
+        );
+    }
+
+    /**
+     * Creates two dialog boxes, one echoing user input and the other containing Luna's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    @FXML
+    private void handleUserInput() {
+        String input = userInput.getText();
+        String response = luna.getResponse(input);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getLunaDialog(response, lunaImage)
+        );
+        userInput.clear();
+
+        // Check if the application should exit after processing the command
+        if (luna.shouldExit()) {
+            Platform.exit(); // Close the JavaFX application
+        }
+    }
+}

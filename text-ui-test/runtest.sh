@@ -13,26 +13,42 @@ then
 fi
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
+if ! javac --release 17 -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/luna/**/*.java ../src/main/java/luna/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+java -classpath ../bin luna.Luna < input.txt > ACTUAL.TXT
+
+# clean up data folder created during test
+if [ -d "./data" ]
+then
+    rm -rf ./data
+fi
 
 # convert to UNIX format
-cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
+# cp EXPECTED.TXT EXPECTED-UNIX.TXT
+# dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
 
 # compare the output to the expected output
-diff ACTUAL.TXT EXPECTED-UNIX.TXT
+diff ACTUAL.TXT EXPECTED.TXT
 if [ $? -eq 0 ]
 then
     echo "Test result: PASSED"
+    # clean up data folder from parent directory as well
+    if [ -d "../data" ]
+    then
+        rm -rf ../data
+    fi
     exit 0
 else
     echo "Test result: FAILED"
+    # clean up data folder from parent directory as well
+    if [ -d "../data" ]
+    then
+        rm -rf ../data
+    fi
     exit 1
 fi
