@@ -1,0 +1,26 @@
+todo read book
+deadline return book /by 2023-12-31
+event project meeting /from Mon 2pm /to 4pm
+list
+mark 1
+mark 3
+list
+unmark 1
+list
+todo buy groceries
+list
+deadline invalid task /by Sunday
+hello
+todo
+deadline
+deadline submitreport
+deadline submitreport /by
+event
+event party
+event party /from
+event party /from tomorrow
+event party /from tomorrow /to
+mark
+mark 0
+delete 2
+bye

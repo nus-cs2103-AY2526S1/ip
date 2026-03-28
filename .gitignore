@@ -2,8 +2,9 @@
 /.idea/
 /out/
 /*.iml
-
-# Gradle build files
+*.class
+*.jar
+# Gradle build files added
 /.gradle/
 /build/
 src/main/resources/docs/
