@@ -1,0 +1,22 @@
+package yapper.commands;
+
+import yapper.Storage;
+import yapper.tasks.TaskList;
+
+/**
+ * Base Command Interface for all Commands to implement.
+ */
+public interface Command {
+    /**
+     * Executes the command
+     * @param tasks
+     * @param storage
+     */
+    public String execute(TaskList tasks, Storage storage);
+
+    /**
+     * Returns if the command is the exit command
+     * @return
+     */
+    public boolean isExit();
+}
