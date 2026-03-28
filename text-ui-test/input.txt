@@ -1,0 +1,22 @@
+todo
+deadline
+event
+delete
+on
+mark abc
+unmark abc
+todo read book
+deadline return book /by Sunday
+deadline return book /by 2/12/2025
+deadline return book /by 2/12/2025 1800
+event project meeting /from Mon 2pm /to 4pm
+event project meeting /from 2/12/2025 1800 /to 2025-12-02 2000
+list
+mark 2
+list
+unmark 2
+list
+delete 2
+list
+asdfghjkl
+bye

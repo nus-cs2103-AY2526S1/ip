@@ -1,7 +1,128 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________
+   _____ _
+  / ___/(_)___ ___  ____  ____
+  \__ \/ / __ `__ \/ __ \/ __ \
+ ___/ / / / / / / / /_/ / / / /
+/____/_/_/ /_/ /_/\____/_/ /_/
 
+ Hello! I'm Simon
+ What can I do for you?
+____________________________________________________________
+
+____________________________________________________________
+ The description of a todo cannot be empty. Follow the format: todo <description>.
+____________________________________________________________
+____________________________________________________________
+ The description and deadline of a deadline task cannot be empty. Follow the format: deadline <description> /by <due date>.
+ Dates can follow the formats:
+ d/M/yyyy HHmm,
+ d/M/yyyy,
+ yyyy-MM-dd HHmm,
+ yyyy-MM-dd
+
+____________________________________________________________
+____________________________________________________________
+ The description, start, and end of an event cannot be empty. Follow the format: event <description> /from <start date> /to <end date>.
+ Dates can follow the formats:
+ d/M/yyyy HHmm,
+ d/M/yyyy,
+ yyyy-MM-dd HHmm,
+ yyyy-MM-dd
+
+____________________________________________________________
+____________________________________________________________
+ The index of the task to delete cannot be empty. Follow the format: delete <task index>.
+____________________________________________________________
+____________________________________________________________
+ Invalid date for on command. Follow the format: on <yyyy-MM-dd>.
+____________________________________________________________
+____________________________________________________________
+ Invalid mark command. Enter an integer after "mark ".
+____________________________________________________________
+____________________________________________________________
+ Invalid unmark command. Enter an integer after "unmark ".
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] read book
+ Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [D][ ] return book (by: Sunday)
+ Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [D][ ] return book (by: Dec 2 2025, 12:00am)
+ Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [D][ ] return book (by: Dec 2 2025, 6:00pm)
+ Now you have 4 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [E][ ] project meeting (from: Mon 2pm to: 4pm)
+ Now you have 5 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [E][ ] project meeting (from: Dec 2 2025, 6:00pm to: Dec 2 2025, 8:00pm)
+ Now you have 6 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Here are the tasks in your list:
+ 1. [T][ ] read book
+ 2. [D][ ] return book (by: Sunday)
+ 3. [D][ ] return book (by: Dec 2 2025, 12:00am)
+ 4. [D][ ] return book (by: Dec 2 2025, 6:00pm)
+ 5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+ 6. [E][ ] project meeting (from: Dec 2 2025, 6:00pm to: Dec 2 2025, 8:00pm)
+____________________________________________________________
+____________________________________________________________
+ Nice! I've marked this task as done:
+   [D][X] return book (by: Sunday)
+____________________________________________________________
+____________________________________________________________
+ Here are the tasks in your list:
+ 1. [T][ ] read book
+ 2. [D][X] return book (by: Sunday)
+ 3. [D][ ] return book (by: Dec 2 2025, 12:00am)
+ 4. [D][ ] return book (by: Dec 2 2025, 6:00pm)
+ 5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+ 6. [E][ ] project meeting (from: Dec 2 2025, 6:00pm to: Dec 2 2025, 8:00pm)
+____________________________________________________________
+____________________________________________________________
+ OK, I've marked this task as not done yet:
+   [D][ ] return book (by: Sunday)
+____________________________________________________________
+____________________________________________________________
+ Here are the tasks in your list:
+ 1. [T][ ] read book
+ 2. [D][ ] return book (by: Sunday)
+ 3. [D][ ] return book (by: Dec 2 2025, 12:00am)
+ 4. [D][ ] return book (by: Dec 2 2025, 6:00pm)
+ 5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+ 6. [E][ ] project meeting (from: Dec 2 2025, 6:00pm to: Dec 2 2025, 8:00pm)
+____________________________________________________________
+____________________________________________________________
+ Noted. I've removed this task:
+   [D][ ] return book (by: Sunday)
+ Now you have 5 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Here are the tasks in your list:
+ 1. [T][ ] read book
+ 2. [D][ ] return book (by: Dec 2 2025, 12:00am)
+ 3. [D][ ] return book (by: Dec 2 2025, 6:00pm)
+ 4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+ 5. [E][ ] project meeting (from: Dec 2 2025, 6:00pm to: Dec 2 2025, 8:00pm)
+____________________________________________________________
+____________________________________________________________
+ Sorry, not trained for that. Use 'todo <description>', 'deadline <description> /by <due date>', and 'event <description> /from <start date> /to <end date>' to add a task :)
+____________________________________________________________
+____________________________________________________________
+ Bye. Hope to see you again soon!
+____________________________________________________________
