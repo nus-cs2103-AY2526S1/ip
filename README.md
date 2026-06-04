@@ -1,26 +1,121 @@
-# Duke project template
+# Sora User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Sora Chatbot
 
-## Setting up in Intellij
+Sora is a simple task management chatbot that helps you keep track of your todos, deadlines, afters and events through a friendly CLI or GUI interface.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+---
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+## 🚀 Getting Started
+
+### Prerequisites
+- Java 17 or above installed on your machine.
+
+### Running Duke
+1. Clone this repository.
+2. Compile the code:
+   ```bash
+   javac -classpath src -d bin src/**/*.java
    ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+3. Run the chatbot:
+   ```bash
+   java -classpath bin Sora
    ```
+4. A GUI window will open, and you can start typing commands.
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+---
+
+## ✨ Features
+
+### 1. Add a Todo
+```text
+todo TASK_DESCRIPTION
+```
+Example:
+```text
+todo read book
+```
+
+### 2. Add a Deadline
+```text
+deadline TASK_DESCRIPTION /by dd/mm/yyyy HHmm
+```
+Example:
+```text
+deadline return book /by 15/10/2025 2359
+```
+
+### 3. Add an After
+```text
+after TASK_DESCRIPTION /required dd/mm/yyyy HHmm
+```
+Example:
+```text
+after return book /required 15/10/2025 2359
+```
+
+### 4. Add an Event
+```text
+event TASK_DESCRIPTION /from dd/mm/yyyy HHmm /to dd/mm/yyyy HHmm
+```
+Example:
+```text
+event project meeting /from 15/10/2025 1400 /to 15/10/2025 1600
+```
+
+### 5. List All Tasks
+```text
+list
+```
+
+### 6. Mark/Unmark a Task
+```text
+mark INDEX
+unmark INDEX
+```
+Example:
+```text
+mark 2
+```
+
+### 7. Delete a Task
+```text
+delete INDEX
+```
+Example:
+```text
+delete 1
+```
+
+### 8. Find Tasks by Keyword
+```text
+find KEYWORD
+```
+Example:
+```text
+find book
+```
+
+---
+
+## 📝 Example Session
+
+```text
+Hello! I'm Sora
+What can I do for you today?
+todo read book
+Got it. I've added this task:
+  [T][ ] read book
+Now you have 1 task in the list.
+list
+Here are the tasks in your list:
+1. [T][ ] read book
+bye
+Bye. Hope to see you again soon!
+```
+
+---
+
+## 📸 Screenshot
+
+![UI](./Ui.png)
