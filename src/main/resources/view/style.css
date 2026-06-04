@@ -1,0 +1,13 @@
+.dialog-label {
+    -fx-padding: 10;
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 10;
+    -fx-font-size: 14px;
+}
+
+.error-label {
+    -fx-background-color: #ffcccc;
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+}
