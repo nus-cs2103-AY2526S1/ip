@@ -118,4 +118,4 @@ Bye. Hope to see you again soon!
 
 ## 📸 Screenshot
 
-![UI](./Ui.png)
+![UI](./docs/Ui.png)
